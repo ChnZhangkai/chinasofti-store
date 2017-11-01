@@ -15,8 +15,14 @@
 	<div class="zk-header"
 		data-options="region:'north',border:false,split:true">
 		<div class="zk-header-left">
-			<h1 style="color: black;">华腾商城</h1>
+			<div class="header-1" style="float: left;margin-top: 10px">
+				<img src="/images/zrgj.png">
+			</div>
+			<div class="header-2" style="float: right;">
+				<h1 style="color: black;">中软华腾商城</h1>
 		</div>
+		</div>
+		
 		<div class="zk-header-right">
 			<button href="javascript:void(0)" id="mb" class="easyui-menubutton"
    	 			data-options="menu:'#mm',iconCls:'icon-personal'" style="background-color: white;">admin</button>
@@ -41,41 +47,55 @@
 
 		<div class="easyui-accordion" data-options="border:false,fit:true">
 			<!--选项卡1-->
-			<div title="用户权限" data-options="iconCls:'icon-application-cascade'" style="padding: 5px;">
+			<div title="商品管理" data-options="iconCls:'icon-cart'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/goods/index" iframe="0">内管用户管理</a></li>
-                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="temp/layout-3.html" iframe="0">分组管理</a></li>
-                    <li iconCls="icon-user-group"><a href="javascript:void(0)" data-icon="icon-user-group" data-link="temp/layout-3.html" iframe="0">角色管理</a></li>
-                    <li iconCls="icon-book"><a href="javascript:void(0)" data-icon="icon-book" data-link="temp/layout-3.html" iframe="0">系统管理</a></li>
-                    <li iconCls="icon-cog"><a href="javascript:void(0)" data-icon="icon-cog" data-link="temp/layout-3.html" iframe="0">功能管理</a></li>
-                    <li iconCls="icon-application-osx-error"><a href="javascript:void(0)" data-icon="icon-application-osx-error" data-link="temp/layout-3.html" iframe="0">商户用户管理</a></li>
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/goods/index" iframe="0">商品分类管理</a></li>
+                    <li iconCls="icon-check-error"><a href="javascript:void(0)" data-icon="icon-users" data-link="temp/layout-3.html" iframe="0">商品审核管理</a></li>
+                    <li iconCls="icon-chart-line"><a href="javascript:void(0)" data-icon="icon-user-group" data-link="temp/layout-3.html" iframe="0">商品在线管理</a></li>
                 </ul>
 			</div>
-			<!--选项卡1-->
-			<div title="系统维护" data-options="iconCls:'icon-application-cascade'" style="padding: 5px;">
+			<!--选项卡2-->
+			<div title="订单管理" data-options="iconCls:'icon-application-view-tile'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">清算文件</a></li>
-                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="temp/layout-3.html" iframe="0">订单文件</a></li>
-                    <li iconCls="icon-user-group"><a href="javascript:void(0)" data-icon="icon-user-group" data-link="temp/layout-3.html" iframe="0">关注信息</a></li>
-                    <li iconCls="icon-book"><a href="javascript:void(0)" data-icon="icon-book" data-link="temp/layout-3.html" iframe="0">系统日志</a></li>
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">订单在线管理</a></li>
+                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="temp/layout-3.html" iframe="0">批量发货管理</a></li>
+                    <li iconCls="icon-user-group"><a href="javascript:void(0)" data-icon="icon-user-group" data-link="temp/layout-3.html" iframe="0">退换订单管理</a></li>
                 </ul>
 			</div>
-			<!--选项卡1-->
-			<div title="部门管理" data-options="iconCls:'icon-application-cascade'" style="padding: 5px;">
+			<!--选项卡3-->
+			<div title="用户管理" data-options="iconCls:'icon-group'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">部门管理</a></li>
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">用户管理</a></li>
                 </ul>
 			</div>
-			<!--选项卡1-->
-			<div title="参数配置" data-options="iconCls:'icon-application-cascade'" style="padding: 5px;">
+			<!--选项卡4-->
+			<div title="商户管理" data-options="iconCls:'icon-tux'" style="padding: 5px;">
+				<ul class="easyui-tree zk-side-tree">
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">商户管理</a></li>
+                </ul>
+			</div>
+			<!--选项卡5-->
+			<div title="角色管理" data-options="iconCls:'icon-user-edit'" style="padding: 5px;">
+				<ul class="easyui-tree zk-side-tree">
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></li>
+                </ul>
+			</div>
+			<!--选项卡6-->
+			<div title="权限管理" data-options="iconCls:'icon-vcard-key'" style="padding: 5px;">
+				<ul class="easyui-tree zk-side-tree">
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">权限管理</a></li>
+                </ul>
+			</div>
+			<!--选项卡7-->
+			<div title="广告管理" data-options="iconCls:'icon-org32'" style="padding: 5px;">
+				<ul class="easyui-tree zk-side-tree">
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/goods/index" iframe="0">广告管理</a></li>
+                </ul>
+			</div>
+			<!--选项卡8-->
+			<div title="参数管理" data-options="iconCls:'icon-node-tree32'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">参数管理</a></li>
-                </ul>
-			</div>
-			<!--选项卡1-->
-			<div title="外系统管理" data-options="iconCls:'icon-application-cascade'" style="padding: 5px;">
-				<ul class="easyui-tree zk-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">后台批量管理</a></li>
                 </ul>
 			</div>
 		</div>
@@ -151,7 +171,7 @@
 		/**
 		* Name 选项卡初始化
 		*/
-		$('#zk-tabs').tabs({
+		/* $('#zk-tabs').tabs({
 			tools:[{
 				iconCls:'icon-reload',
 				border:false,
@@ -159,7 +179,7 @@
 					$('#wu-datagrid').datagrid('reload');
 				}
 			}]
-		});
+		}); */
 			
 		/**
 		* Name 移除菜单选项

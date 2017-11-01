@@ -38,9 +38,9 @@ input[type="checkbox"] { cursor: pointer;}
 .wu-text { height:18px; line-height:14px; }
 
 .zk-header { height:55px; position:relative; z-index:0; overflow:hidden; border-bottom:1px #95b8e7 solid; background:url(/images/bg_header.jpg) bottom repeat-x;}
-.zk-header-left { position:absolute; z-index:1; left:15px; top:0;}
+.zk-header-left { position:absolute; z-index:1; left:30px; top:0;}
 .zk-header-left h1 { font:20px/20px Verdana; color:#fff;}
-.zk-header-right { position:absolute; z-index:1; right:5px; top:15px; color:#fff; text-align:right;}
+.zk-header-right { position:absolute; z-index:1; right:15px; top:15px; color:#fff; text-align:right;}
 
 .zk-sidebar { width:160px;}
 .zk-side-tree .tree-node { padding:3px 0px; }
