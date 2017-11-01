@@ -20,4 +20,5 @@ public interface IBaseService<T> {
 	public int deleteById(String id);
 	
 	public int update(T t);
+	
 }

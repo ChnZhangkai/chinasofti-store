@@ -7,19 +7,19 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
+import com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs;
 import com.chinasofti.mall.common.service.IBaseService;
 import com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper;
 
 @Service
-public class GoodsorderService implements IBaseService<PyMainGoodsorder>{
+public class MainGoodsorderService implements IBaseService<PyMainGoodsorder>{
 	
 	@Autowired
 	PyMainGoodsorderMapper pyMainGoodsorderMapper;
 
 	@Override
 	public PyMainGoodsorder save(PyMainGoodsorder goodsorder) {
-		// TODO Auto-generated method stub
-		return null;
+		return goodsorder;
 	}
 
 	@Override
@@ -29,20 +29,25 @@ public class GoodsorderService implements IBaseService<PyMainGoodsorder>{
 
 	@Override
 	public PyMainGoodsorder findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return pyMainGoodsorderMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
 	public int deleteById(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return pyMainGoodsorderMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	public int update(PyMainGoodsorder goodsorder) {
-		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public int updateByPrimaryKeySelective(PyMainGoodsorderWithBLOBs goodsorderWithBLOBs) {
+		return pyMainGoodsorderMapper.updateByPrimaryKeySelective(goodsorderWithBLOBs);
+	}
+	
+	public int saveWithBLOBs(PyMainGoodsorderWithBLOBs goodsorderWithBLOBs) {
+		return pyMainGoodsorderMapper.insertSelective(goodsorderWithBLOBs);
 	}
 
 }
