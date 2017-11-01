@@ -19,13 +19,13 @@
 		</div>
 		<div class="zk-header-right">
 			<button href="javascript:void(0)" id="mb" class="easyui-menubutton"
-   	 			data-options="menu:'#mm',iconCls:'icon-edit'" style="background-color: white;">admin</button>
+   	 			data-options="menu:'#mm',iconCls:'icon-personal'" style="background-color: white;">admin</button>
 			<div id="mm" style="width:150px;">
 			    <div data-options="iconCls:'icon-undo'">密码设置</div>
 			    <div data-options="iconCls:'icon-redo'">退出系统</div>
 			</div>
 			<button href="javascript:void(0)" id="mb" class="easyui-menubutton"
-   	 			data-options="menu:'#mm2',iconCls:'icon-edit'" style="background-color: white;">系统切换</button>
+   	 			data-options="menu:'#mm2',iconCls:'icon-settings32'" style="background-color: white;">系统切换</button>
 			<div id="mm2" style="width:150px;">
 			    <div data-options="iconCls:'icon-undo'">基础平台</div>
 			    <div data-options="iconCls:'icon-redo'">运营中心</div>
