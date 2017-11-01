@@ -13,6 +13,7 @@
   	<module>chinasofti-mall-app</module>
   	<module>chinasofti-mall-goodsorder</module>
   	<module>chinasofti-mall-goodscategory</module>
+  	<module>chinasofti-mall-zuul</module>
   </modules>
   
   <properties>

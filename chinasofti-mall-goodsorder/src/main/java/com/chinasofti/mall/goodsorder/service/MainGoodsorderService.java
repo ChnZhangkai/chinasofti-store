@@ -18,8 +18,8 @@ public class MainGoodsorderService implements IBaseService<PyMainGoodsorder>{
 	PyMainGoodsorderMapper pyMainGoodsorderMapper;
 
 	@Override
-	public PyMainGoodsorder save(PyMainGoodsorder goodsorder) {
-		return goodsorder;
+	public int save(PyMainGoodsorder goodsorder) {
+		return 0;
 	}
 
 	@Override
