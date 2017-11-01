@@ -6,7 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/goods")
-public class GoodsController {
+public class GoodsCategoryController {
 	
 	@RequestMapping("/index")
 	public ModelAndView toIndex(){
