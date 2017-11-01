@@ -1,0 +1,21 @@
+spring:
+  resources:
+    static-locations:
+    - /static/
+  freemarker:
+    template-loader-path: classpath:/templates/
+  application:
+    name: chinasofti-web-entrance
+server:
+  port: 7902
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://admin:admin@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+   hystrix:
+      enabled: false   
