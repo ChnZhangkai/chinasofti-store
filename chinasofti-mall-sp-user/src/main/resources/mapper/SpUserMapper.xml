@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.sp.user.mapper.SpUserMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.SpUser" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="OPENID" property="openid" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="CHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+    <result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="REGISTERDATE" property="registerdate" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATORDATE" property="operatordate" jdbcType="VARCHAR" />
+    <result column="HEADIMGURL" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="COUNTRY" property="country" jdbcType="VARCHAR" />
+    <result column="GROUP_IDS" property="groupIds" jdbcType="VARCHAR" />
+    <result column="URLTOKEN" property="urltoken" jdbcType="VARCHAR" />
+    <result column="APPID" property="appid" jdbcType="VARCHAR" />
+    <result column="CHANGZHUDI" property="changzhudi" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, NAME, MOBILE, NICKNAME, OPENID, SEX, PASSWORD, EMAIL, REMARK1, REMARK2, STATUS, 
+    REGISTERDATE, OPERATOR, OPERATORDATE, HEADIMGURL, PROVINCE, CITY, COUNTRY, GROUP_IDS, 
+    URLTOKEN, APPID, CHANGZHUDI, BIRTHDAY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.SpUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_user
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+   <select id="selectByAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_user
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sp_user
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.SpUserExample" >
+    delete from sp_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.SpUser" >
+    insert into sp_user (IDS, NAME, MOBILE, 
+      NICKNAME, OPENID, SEX, 
+      PASSWORD, EMAIL, REMARK1, 
+      REMARK2, STATUS, REGISTERDATE, 
+      OPERATOR, OPERATORDATE, HEADIMGURL, 
+      PROVINCE, CITY, COUNTRY, 
+      GROUP_IDS, URLTOKEN, APPID, 
+      CHANGZHUDI, BIRTHDAY)
+    values (#{ids,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
+      #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{registerdate,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{operatordate,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
+      #{groupIds,jdbcType=VARCHAR}, #{urltoken,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
+      #{changzhudi,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.SpUser" >
+    insert into sp_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="nickname != null" >
+        NICKNAME,
+      </if>
+      <if test="openid != null" >
+        OPENID,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="remark1 != null" >
+        REMARK1,
+      </if>
+      <if test="remark2 != null" >
+        REMARK2,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="registerdate != null" >
+        REGISTERDATE,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="operatordate != null" >
+        OPERATORDATE,
+      </if>
+      <if test="headimgurl != null" >
+        HEADIMGURL,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="country != null" >
+        COUNTRY,
+      </if>
+      <if test="groupIds != null" >
+        GROUP_IDS,
+      </if>
+      <if test="urltoken != null" >
+        URLTOKEN,
+      </if>
+      <if test="appid != null" >
+        APPID,
+      </if>
+      <if test="changzhudi != null" >
+        CHANGZHUDI,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null" >
+        #{registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatordate != null" >
+        #{operatordate,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="groupIds != null" >
+        #{groupIds,jdbcType=VARCHAR},
+      </if>
+      <if test="urltoken != null" >
+        #{urltoken,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="changzhudi != null" >
+        #{changzhudi,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.SpUserExample" resultType="java.lang.Integer" >
+    select count(*) from sp_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_user
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null" >
+        OPENID = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        SEX = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.password != null" >
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        REMARK1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        REMARK2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerdate != null" >
+        REGISTERDATE = #{record.registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null" >
+        OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatordate != null" >
+        OPERATORDATE = #{record.operatordate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimgurl != null" >
+        HEADIMGURL = #{record.headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        PROVINCE = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        CITY = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        COUNTRY = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupIds != null" >
+        GROUP_IDS = #{record.groupIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urltoken != null" >
+        URLTOKEN = #{record.urltoken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appid != null" >
+        APPID = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changzhudi != null" >
+        CHANGZHUDI = #{record.changzhudi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        BIRTHDAY = #{record.birthday,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_user
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+      OPENID = #{record.openid,jdbcType=VARCHAR},
+      SEX = #{record.sex,jdbcType=CHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      REMARK1 = #{record.remark1,jdbcType=VARCHAR},
+      REMARK2 = #{record.remark2,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      REGISTERDATE = #{record.registerdate,jdbcType=VARCHAR},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      OPERATORDATE = #{record.operatordate,jdbcType=VARCHAR},
+      HEADIMGURL = #{record.headimgurl,jdbcType=VARCHAR},
+      PROVINCE = #{record.province,jdbcType=VARCHAR},
+      CITY = #{record.city,jdbcType=VARCHAR},
+      COUNTRY = #{record.country,jdbcType=VARCHAR},
+      GROUP_IDS = #{record.groupIds,jdbcType=VARCHAR},
+      URLTOKEN = #{record.urltoken,jdbcType=VARCHAR},
+      APPID = #{record.appid,jdbcType=VARCHAR},
+      CHANGZHUDI = #{record.changzhudi,jdbcType=VARCHAR},
+      BIRTHDAY = #{record.birthday,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.SpUser" >
+    update sp_user
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        NICKNAME = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        OPENID = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        REMARK1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        REMARK2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null" >
+        REGISTERDATE = #{registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatordate != null" >
+        OPERATORDATE = #{operatordate,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        HEADIMGURL = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        COUNTRY = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="groupIds != null" >
+        GROUP_IDS = #{groupIds,jdbcType=VARCHAR},
+      </if>
+      <if test="urltoken != null" >
+        URLTOKEN = #{urltoken,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        APPID = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="changzhudi != null" >
+        CHANGZHUDI = #{changzhudi,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.SpUser" >
+    update sp_user
+    set NAME = #{name,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      NICKNAME = #{nickname,jdbcType=VARCHAR},
+      OPENID = #{openid,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=CHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      REGISTERDATE = #{registerdate,jdbcType=VARCHAR},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      OPERATORDATE = #{operatordate,jdbcType=VARCHAR},
+      HEADIMGURL = #{headimgurl,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      COUNTRY = #{country,jdbcType=VARCHAR},
+      GROUP_IDS = #{groupIds,jdbcType=VARCHAR},
+      URLTOKEN = #{urltoken,jdbcType=VARCHAR},
+      APPID = #{appid,jdbcType=VARCHAR},
+      CHANGZHUDI = #{changzhudi,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>
