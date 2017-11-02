@@ -15,7 +15,14 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
 	
 	@Autowired
 	private GoodscategoryMapper goodscategoryMapper;
-
+	
+	@Override
+	public List<Goodscategory> selectByExample(Goodscategory goodscategory) {
+		
+		return goodscategoryMapper.selectByExample(new GoodscategoryExample());
+		
+	}
+	
 	@Override
 	public int save(Goodscategory t) {
 		// TODO Auto-generated method stub
@@ -45,13 +52,6 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public List<Goodscategory> selectByExample(GoodscategoryExample example) {
-		// TODO Auto-generated method stub
-		return goodscategoryMapper.selectByExample(example);
-	}
-	
 
 
 }
