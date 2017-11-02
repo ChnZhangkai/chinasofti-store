@@ -3,103 +3,106 @@ package com.chinasofti.mall.common.entity;
 import java.math.BigDecimal;
 
 public class PyMainGoodsorder {
-    private String ids;
+	
+    private String ids;				
 
-    private String bigorderId;
+    private String bigorderId;		//大订单流水
 
-    private String vendorIds;
+    private String vendorIds;		//商户号
 
-    private String userIds;
+    private String userIds;			//用户ids
 
-    private String contPostcode;
+    private String contPostcode;	//邮编
 
-    private String contAddress;
+    private String contAddress;		//地址
 
-    private String contMobile;
+    private String contMobile;		//座机
 
-    private String contPhone;
+    private String contPhone;		//手机
 
-    private String contProvince;
+    private String contProvince;	//省份
 
-    private String contCity;
+    private String contCity;		//市
 
-    private String contDistrict;
+    private String contDistrict;	//区
 
-    private String contStreet;
+    private String contStreet;		//街道
 
-    private String deliveryTime;
+    private String deliveryTime;	//配送时间 格式如 9:00-18:00
 
-    private String deliveryDate;
+    private String deliveryDate;	//配送日期 格式如20151022-20151022
 
-    private String deliveryWay;
+    private String deliveryWay;		//配送方式 1 快递 2 自提
 
-    private String orderTime;
+    private String orderTime;		//订单时间
 
-    private String settleTime;
+    private String settleTime;		//清算时间
 
-    private String isevaluate;
+    private String isevaluate;		//0 未评价 1 已评价
 
-    private BigDecimal discount;
+    private BigDecimal discount;	//折扣
 
-    private BigDecimal orderTotalAmt;
+    private BigDecimal orderTotalAmt;	//订单总额
 
-    private BigDecimal orderAmt;
+    private BigDecimal orderAmt;		//实付金额
 
-    private BigDecimal settleAmt;
+    private BigDecimal settleAmt;		//清算金额
 
-    private String settleStatues;
+    private String settleStatues;		//清算状态,0:未清算,1:清算成功,2:清算失败,3:清算中,4:手续到中间户进行中,
+    									//5:手续到中间户完成,6:手续到中间户失败,NN:无需清算
 
-    private String payStatus;
+    private String payStatus;			//0 未支付 1 已支付  2 取消
 
-    private String status;
+    private String status;				//0 已删除  1 未发货 2 已发货 3 已收货 
 
-    private String payway;
+    private String payway;				//支付方式 1 微信
 
-    private String transactionid;
+    private String transactionid;		//流水号
 
-    private String contName;
+    private String contName;			//联系人
 
-    private String settleBatchNo;
+    private String settleBatchNo;		//清算批次
 
-    private BigDecimal wxFee;
+    private BigDecimal wxFee;			//微信手续费
 
-    private String settleStatusFee;
+    private String settleStatusFee;		//手续续清算状态,0:未清算,1:清算成功,2:清算失败,3:清算中,
+    									//4:手续到中间户进行中,5:手续到中间户完成,6:手续到中间户失败,NN:无需清算
 
-    private String settleTimeFee;
+    private String settleTimeFee;		//手续费清算时间
 
-    private String settleBatchNoFee;
+    private String settleBatchNoFee;	//手续费清算批次
 
-    private String payTime;
+    private String payTime;				//支付时间
 
-    private String isTicket;
+    private String isTicket;			//是否使用优惠券
 
-    private String expressCompanyId;
+    private String expressCompanyId;	//快递公司编号
 
-    private String expressName;
+    private String expressName;			//快递公司名称
 
-    private String expressId;
+    private String expressId;			//快递单号
 
-    private String sendouttime;
+    private String sendouttime;			//发货时间
 
-    private String updatetime;
+    private String updatetime;			//操作更新时间
 
-    private String sLatitude;
+    private String sLatitude;			//提交订单纬度
 
-    private String sLongitude;
+    private String sLongitude;			//提交订单经度
 
-    private String pLatitude;
+    private String pLatitude;			//支付订单纬度
 
-    private String pLongitude;
+    private String pLongitude;			//支付订单经度
 
-    private BigDecimal freightOld;
+    private BigDecimal freightOld;		//原运费(即下单时计算出的运费)
 
-    private String contProvinceCode;
+    private String contProvinceCode;	//省编码
 
-    private String contCityCode;
+    private String contCityCode;		//市编码
 
-    private String contDistrictCode;
+    private String contDistrictCode;	//区编码
 
-    private BigDecimal freight;
+    private BigDecimal freight;			//运费
 
     public String getIds() {
         return ids;

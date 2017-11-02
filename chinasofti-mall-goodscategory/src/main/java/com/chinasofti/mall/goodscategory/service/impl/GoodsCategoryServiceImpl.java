@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.chinasofti.mall.common.entity.Goodscategory;
 import com.chinasofti.mall.common.entity.GoodscategoryExample;
 import com.chinasofti.mall.common.entity.GoodscategoryExample.Criteria;
