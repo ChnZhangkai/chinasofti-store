@@ -20,4 +20,16 @@ public class GoodsCategoryFeignClientHystrix implements GoodsCategoryFeignClient
 		return jsonObject.toString();
 	}
 
+	@Override
+	public int deleteGoodsCategory(Integer ids) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Goodscategory selectById(Integer ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

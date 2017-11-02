@@ -7,4 +7,7 @@ public interface GoodsCategoryService extends IBaseService<Goodscategory>{
 	
 	String selectByExample(Goodscategory goodscategory);
 	
+	int deleteById(Integer ids);
+	
+	Goodscategory selectById(Integer ids);
 }
