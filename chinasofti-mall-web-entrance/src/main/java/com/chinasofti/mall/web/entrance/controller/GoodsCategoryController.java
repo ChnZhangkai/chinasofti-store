@@ -40,13 +40,28 @@ public class GoodsCategoryController {
 		
 		String jsonlist = goodsCategoryFeignClient.selectByGoodsCategory(goodscategory);
 		return jsonlist;
-		
 	}
 	
+	/**
+	 * 根据ID查询
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping("/select/{ids}")
 	public Goodscategory selectByGoodsCategoryId(@PathVariable Integer ids){
 		Goodscategory goodscategory = goodsCategoryFeignClient.selectById(ids);
 		return goodscategory;
+	}
+	
+	/**
+	 * 修改
+	 * @param goodscategory
+	 * @return
+	 */
+	@RequestMapping("/update")
+	public int updateGoodsCategoryById(Goodscategory goodscategory){
+		int updateGoodsCategoryById = goodsCategoryFeignClient.updateGoodsCategoryById(goodscategory);
+		return updateGoodsCategoryById;
 	}
 	
 	/**
@@ -60,5 +75,14 @@ public class GoodsCategoryController {
 		return delById;
 	}
 	
-	
+	/**
+	 * 增加
+	 * @param goodscategory
+	 * @return
+	 */
+	@RequestMapping("/save")
+	public int saveGoodsCategory(Goodscategory goodscategory){
+		int saveGoodsCategory = goodsCategoryFeignClient.saveGoodsCategory(goodscategory);
+		return saveGoodsCategory;
+	}
 }

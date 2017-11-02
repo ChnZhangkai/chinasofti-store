@@ -14,8 +14,8 @@
 				plain="true">打印</a>
 		</div>
 		<div class="wu-toolbar-search">
-			<label>分类ID：</label> <input type="text" id="categoryids" name="categoryids" />
-			<label>分类名称：</label> <input type="text" id="categoryname" name="categoryname" />
+			<label>商户ID：</label> <input type="text" id="categoryids" name="categoryids" />
+			<label>用户名：</label> <input type="text" id="categoryname" name="categoryname" />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
 		</div>
@@ -27,10 +27,10 @@
 		<tr>
 			<th field="ids" width="25%" align="center">分类ID</th>
 			<th field="name" width="25%" align="center">分类名称</th>
-			<th field="url" width="25%" align="center" data-options="formatter:imgFormatter">分类图片</th>
+			<th field="url" width="25%" align="center">图片地址</th>
 			<th field="title" width="25%" align="center">分类详情</th>
 		</tr>
-		</thead>
+	</thead>
 	</table>
 	<!-- 分页工具条 -->
 	<div id="pagination" style="background:#efefef;border:1px solid #ccc;"></div>
@@ -57,36 +57,9 @@
 				<td><input type="text" id="title" name="title"
 					class="wu-text" /></td>
 			</tr>
-
-		</table>
-	</form>
-</div>
-
-<!-- 修改表格 -->
-<div id="wu-dialog-3" class="easyui-dialog"
-	data-options="closed:true,iconCls:'icon-save'"
-	style="width: 400px; padding: 10px;">
-	<form id="wu-form-3" method="post">
-		<table id="update">
-			<tr>
-				<td width="60" align="right">分类ID:</td>
-				<td><input type="text" id="cgids" name="cgids" class="wu-text" /></td>
-			</tr>
-			<tr>
-				<td width="60" align="right">分类名称:</td>
-				<td><input type="text" id="cgname" name="cgname"
-					class="wu-text" /></td>
-			</tr>
 			<tr>
 				<td align="right">分类图片:</td>
-				<td><input type="text" id="url" name="url"/>
-				<td><input type="text" id="cgurl" name="cgurl"
-					class="wu-text" />
-				</td>
-			</tr>
-			<tr>
-				<td align="right">分类详情:</td>
-				<td><input type="text" id="cgtitle" name="cgtitle"
+				<td><input type="text" id="url" name="url"
 					class="wu-text" /></td>
 			</tr>
 		</table>
@@ -108,33 +81,13 @@ $(function(){
 	
 	tdload(tableID, pageId, url);
 });
-
-function imgFormatter(value,row){
-	//alert(123)
-	var str = "";
-	if(value != "" || value != null){
-		str = "<img style=\"height: 80px;width: 150px;\" src=\""+value+"\"/>";
-        return str;
-	}
-}
-
-function imgUpdateFormatter(){
-	alert(123)
-	//var str = "";
-	//if(value != "" || value != null){
-		//str = "<img style=\"height: 10px;width: 20px;\" src=\""+value+"\"/>";
-        //return str;
-	//}
-}
-
-
 	/**
 	* Name 添加记录
 	*/
 	function add(){
 		
 		$('#wu-form-2').form('submit', {
-			url:'/goods/save',
+			url:'/goods/add',
 			type:'POST',
 			success:function(data){
 				if(data){
@@ -181,8 +134,7 @@ function imgUpdateFormatter(){
 					success:function(data){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
-							//$('#tt-goodsinfo').datagrid('reload')
-							$('#pagination').pagination('select');
+							$('#tt-goodsinfo').datagrid('reload')
 						}
 						else
 						{
@@ -235,24 +187,16 @@ function imgUpdateFormatter(){
 			url:'/goods/select/' + ids,
 			type:'POST',
 			success:function(data){
-				//alert(JSON.stringify(data));
+				
 				if(data){
-
 					var obj = eval('(' + data + ')');
 					$('#ids').val(obj.ids);
 					$('#goodsType').val(obj.goodsType);
 					$('#goodsCode').val(obj.goodsCode);
 					$('#vendorids').val(obj.vendorids);
 					$('#title').val(obj.title);
-
-					var obj = data;
-					$('#cgids').val(obj.ids);
-					$('#cgname').val(obj.name);
-					$('#cgurl').val(obj.url);
-					$('#cgtitle').val(obj.title);
 					
-					/*id只读*/
-					$('#cgids').attr('readonly','readonly');
+					$('#ids').attr('readonly','readonly');
 					
 					/*打开界面*/
 					$('#wu-dialog-2').dialog({
@@ -281,12 +225,8 @@ function imgUpdateFormatter(){
 				                text: '取消',
 				                iconCls: 'icon-cancel',
 				                handler: function () {
-
 				                    $('#wu-dialog-2').dialog('close');
 				                    $('#ids').attr('readonly',false);
-=======
-				                    $('#wu-dialog-3').dialog('close');
-				                    /* $('#ids').attr('readonly',false); */
 				                }
 							          }]
 				        });

@@ -8,7 +8,7 @@ import com.chinasofti.mall.common.service.IBaseService;
 
 /**
 * @ClassName: 	MainGoodsorderService
-* @Description: 订单Service接口
+* @Description: 主订单Service接口
 *
 * @author 		tanjl
 * @Version 		V1.0
