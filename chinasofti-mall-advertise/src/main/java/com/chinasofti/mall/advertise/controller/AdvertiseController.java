@@ -3,11 +3,12 @@ package com.chinasofti.mall.advertise.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.chinasofti.mall.advertise.service.IAdvertiseService;
 import com.chinasofti.mall.common.controller.BaseController;
 import com.chinasofti.mall.common.entity.CmsAdContentsWithBLOBs;
-import com.chinasofti.mall.common.service.IBaseService;
 
 /**
  * 
@@ -22,36 +23,36 @@ import com.chinasofti.mall.common.service.IBaseService;
 public class AdvertiseController implements BaseController<CmsAdContentsWithBLOBs>{
 	
 	@Autowired
-	IBaseService<CmsAdContentsWithBLOBs> advertiseService;
+	IAdvertiseService advertiseService;
 
 	@Override
+	@RequestMapping("findAll")
 	public List<CmsAdContentsWithBLOBs> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return advertiseService.findAll();
+	}
+	
+	@Override
+	@RequestMapping("findById/{id}")
+	public CmsAdContentsWithBLOBs findById(@PathVariable String id) {
+		return advertiseService.findById(id);
 	}
 
 	@Override
-	public CmsAdContentsWithBLOBs findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping("deleteById/{id}")
+	public int deleteById(@PathVariable String id) {
+		return advertiseService.deleteById(id);
 	}
 
 	@Override
-	public int deleteById(String id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
+	@RequestMapping("update")
 	public int update(CmsAdContentsWithBLOBs t) {
-		// TODO Auto-generated method stub
-		return 0;
+		return advertiseService.update(t);
 	}
 
 	@Override
+	@RequestMapping("add")
 	public int add(CmsAdContentsWithBLOBs t) {
-		// TODO Auto-generated method stub
-		return 0;
+		return advertiseService.save(t);
 	}
 	
 	
