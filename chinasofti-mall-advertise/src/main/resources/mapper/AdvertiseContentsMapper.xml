@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.advertise.mapper.AdvertiseContentsMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.AdvertiseContents" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="CONTENS" property="contens" jdbcType="VARCHAR" />
+    <result column="IMAGEURL" property="imageurl" jdbcType="VARCHAR" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="POSITION_NAME" property="positionName" jdbcType="VARCHAR" />
+    <result column="STATES" property="states" jdbcType="CHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
+    <result column="BEGIN_TIME" property="beginTime" jdbcType="VARCHAR" />
+    <result column="END_TIME" property="endTime" jdbcType="VARCHAR" />
+    <result column="POSITION_ID" property="positionId" jdbcType="VARCHAR" />
+    <result column="DESCS" property="descs" jdbcType="DECIMAL" />
+    <result column="IS_OUTURL" property="isOuturl" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, TITLE, URL, CONTENS, IMAGEURL, CATEGORY_NAME, POSITION_NAME, STATES, CREATE_BY, 
+    CREATE_TIME, UPDATE_BY, UPDATE_TIME, BEGIN_TIME, END_TIME, POSITION_ID, DESCS, IS_OUTURL
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.AdvertiseContentsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from advertise_contents
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from advertise_contents
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from advertise_contents
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.AdvertiseContentsExample" >
+    delete from advertise_contents
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.AdvertiseContents" >
+    insert into advertise_contents (IDS, TITLE, URL, 
+      CONTENS, IMAGEURL, CATEGORY_NAME, 
+      POSITION_NAME, STATES, CREATE_BY, 
+      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+      BEGIN_TIME, END_TIME, POSITION_ID, 
+      DESCS, IS_OUTURL)
+    values (#{ids,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{contens,jdbcType=VARCHAR}, #{imageurl,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, 
+      #{positionName,jdbcType=VARCHAR}, #{states,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{positionId,jdbcType=VARCHAR}, 
+      #{descs,jdbcType=DECIMAL}, #{isOuturl,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.AdvertiseContents" >
+    insert into advertise_contents
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="contens != null" >
+        CONTENS,
+      </if>
+      <if test="imageurl != null" >
+        IMAGEURL,
+      </if>
+      <if test="categoryName != null" >
+        CATEGORY_NAME,
+      </if>
+      <if test="positionName != null" >
+        POSITION_NAME,
+      </if>
+      <if test="states != null" >
+        STATES,
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="beginTime != null" >
+        BEGIN_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="positionId != null" >
+        POSITION_ID,
+      </if>
+      <if test="descs != null" >
+        DESCS,
+      </if>
+      <if test="isOuturl != null" >
+        IS_OUTURL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="contens != null" >
+        #{contens,jdbcType=VARCHAR},
+      </if>
+      <if test="imageurl != null" >
+        #{imageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="positionName != null" >
+        #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null" >
+        #{states,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="positionId != null" >
+        #{positionId,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null" >
+        #{descs,jdbcType=DECIMAL},
+      </if>
+      <if test="isOuturl != null" >
+        #{isOuturl,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.AdvertiseContentsExample" resultType="java.lang.Integer" >
+    select count(*) from advertise_contents
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update advertise_contents
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contens != null" >
+        CONTENS = #{record.contens,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageurl != null" >
+        IMAGEURL = #{record.imageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryName != null" >
+        CATEGORY_NAME = #{record.categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionName != null" >
+        POSITION_NAME = #{record.positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.states != null" >
+        STATES = #{record.states,jdbcType=CHAR},
+      </if>
+      <if test="record.createBy != null" >
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateBy != null" >
+        UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginTime != null" >
+        BEGIN_TIME = #{record.beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null" >
+        END_TIME = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionId != null" >
+        POSITION_ID = #{record.positionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descs != null" >
+        DESCS = #{record.descs,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isOuturl != null" >
+        IS_OUTURL = #{record.isOuturl,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update advertise_contents
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      CONTENS = #{record.contens,jdbcType=VARCHAR},
+      IMAGEURL = #{record.imageurl,jdbcType=VARCHAR},
+      CATEGORY_NAME = #{record.categoryName,jdbcType=VARCHAR},
+      POSITION_NAME = #{record.positionName,jdbcType=VARCHAR},
+      STATES = #{record.states,jdbcType=CHAR},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=VARCHAR},
+      BEGIN_TIME = #{record.beginTime,jdbcType=VARCHAR},
+      END_TIME = #{record.endTime,jdbcType=VARCHAR},
+      POSITION_ID = #{record.positionId,jdbcType=VARCHAR},
+      DESCS = #{record.descs,jdbcType=DECIMAL},
+      IS_OUTURL = #{record.isOuturl,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.AdvertiseContents" >
+    update advertise_contents
+    <set >
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="contens != null" >
+        CONTENS = #{contens,jdbcType=VARCHAR},
+      </if>
+      <if test="imageurl != null" >
+        IMAGEURL = #{imageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="positionName != null" >
+        POSITION_NAME = #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null" >
+        STATES = #{states,jdbcType=CHAR},
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        BEGIN_TIME = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="positionId != null" >
+        POSITION_ID = #{positionId,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null" >
+        DESCS = #{descs,jdbcType=DECIMAL},
+      </if>
+      <if test="isOuturl != null" >
+        IS_OUTURL = #{isOuturl,jdbcType=CHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.AdvertiseContents" >
+    update advertise_contents
+    set TITLE = #{title,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      CONTENS = #{contens,jdbcType=VARCHAR},
+      IMAGEURL = #{imageurl,jdbcType=VARCHAR},
+      CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
+      POSITION_NAME = #{positionName,jdbcType=VARCHAR},
+      STATES = #{states,jdbcType=CHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      BEGIN_TIME = #{beginTime,jdbcType=VARCHAR},
+      END_TIME = #{endTime,jdbcType=VARCHAR},
+      POSITION_ID = #{positionId,jdbcType=VARCHAR},
+      DESCS = #{descs,jdbcType=DECIMAL},
+      IS_OUTURL = #{isOuturl,jdbcType=CHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>

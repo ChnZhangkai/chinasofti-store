@@ -6,7 +6,7 @@ import java.util.List;
  * 
  * @ClassName: IBaseService
  * @Description: 公共service
- * @author kanmeng
+ * @author KanM
  * @date 2017年11月1日 下午12:25:28
  * @param <T>
  */

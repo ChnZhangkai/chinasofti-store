@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chinasofti.mall.common.entity.CmsAdContentsWithBLOBs;
+import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
 
 @RestController
@@ -25,7 +25,7 @@ public class AdvertiseController {
 	}
 	
 	@RequestMapping("findAll")
-	public List<CmsAdContentsWithBLOBs> findAll() {
+	public List<AdvertiseContents> findAll() {
 		return advertiseFeignClient.findAll();	
 	}
 	
