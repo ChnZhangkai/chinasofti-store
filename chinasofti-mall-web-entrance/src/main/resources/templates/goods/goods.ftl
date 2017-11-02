@@ -14,8 +14,8 @@
 				plain="true">打印</a>
 		</div>
 		<div class="wu-toolbar-search">
-			<label>分类ID：</label> <input type="text" id="categoryids" name="categoryids" />
 			<label>分类名称：</label> <input type="text" id="categoryname" name="categoryname" />
+			<label>分类详情：</label> <input type="text" id="categorytitle" name="categorytitle" />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
 		</div>
@@ -41,7 +41,7 @@
 <div id="wu-dialog-2" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-save'"
 	style="width: 400px; padding: 10px;">
-	<form id="wu-form-2" method="post" action="/goods/add">
+	<form id="wu-form-2" method="post" enctype="multipart/form-data">
 		<table id="add">
 			<tr>
 				<td width="60" align="right">分类ID:</td>
@@ -53,11 +53,14 @@
 					class="wu-text" /></td>
 			</tr>
 			<tr>
+				<td align="right">分类图片:</td>
+				<td><input type="file" id="url" name="url"/></td>
+			</tr>
+			<tr>
 				<td align="right">分类详情:</td>
 				<td><input type="text" id="title" name="title"
 					class="wu-text" /></td>
 			</tr>
-
 		</table>
 	</form>
 </div>
@@ -70,23 +73,22 @@
 		<table id="update">
 			<tr>
 				<td width="60" align="right">分类ID:</td>
-				<td><input type="text" id="cgids" name="cgids" class="wu-text" /></td>
+				<td><input type="text" id="ids" name="ids" class="wu-text" readonly="true"/></td>
 			</tr>
 			<tr>
 				<td width="60" align="right">分类名称:</td>
-				<td><input type="text" id="cgname" name="cgname"
+				<td><input type="text" id="name" name="name"
 					class="wu-text" /></td>
 			</tr>
 			<tr>
 				<td align="right">分类图片:</td>
-				<td><input type="text" id="url" name="url"/>
-				<td><input type="text" id="cgurl" name="cgurl"
-					class="wu-text" />
+				<td><input type="text" id="url" name="url"
+					class="wu-text" readonly="true"/>
 				</td>
 			</tr>
 			<tr>
 				<td align="right">分类详情:</td>
-				<td><input type="text" id="cgtitle" name="cgtitle"
+				<td><input type="text" id="title" name="title"
 					class="wu-text" /></td>
 			</tr>
 		</table>
@@ -118,14 +120,6 @@ function imgFormatter(value,row){
 	}
 }
 
-function imgUpdateFormatter(){
-	alert(123)
-	//var str = "";
-	//if(value != "" || value != null){
-		//str = "<img style=\"height: 10px;width: 20px;\" src=\""+value+"\"/>";
-        //return str;
-	//}
-}
 
 
 	/**
@@ -137,10 +131,10 @@ function imgUpdateFormatter(){
 			url:'/goods/save',
 			type:'POST',
 			success:function(data){
-				if(data){
-					$.messager.alert('信息提示','提交成功！','info');
+				if(data > 0){
+					$('#pagination').pagination('select');
 					$('#wu-dialog-2').dialog('close');
-					$('#tt-goodsinfo').datagrid('reload')
+					$.messager.alert('信息提示','提交成功！','info');
 				}
 				else
 				{
@@ -165,7 +159,7 @@ function imgUpdateFormatter(){
 		
 		
 		if(items.length < 1){
-			$.messager.alert('信息提示','请选中要删的数据');
+			$.messager.alert('温馨提醒','请选中要删的数据');
 			return ;
 		}
 	
@@ -217,87 +211,55 @@ function imgUpdateFormatter(){
         });
 	}
 	
+
 	/**
-	* Name 查询数据并打开修改窗口
+	* Name 打开修改窗口
 	*/
 	function openEdit(){
-
-		var items = $('#tt-goodsinfo').datagrid('getSelections');
-		var ids = [];
-		
-		$(items).each(function(){
-			ids.push(this.ids);
-		});
-		if(ids.length < 1){
-			$.messager.alert('温馨提醒','请选择一条数据');
+		var row = $("#tt-goodsinfo").datagrid('getSelected');
+		if (row) {
+			//alert(JSON.stringify(row));
+			$('#wu-dialog-3').dialog('open').dialog({
+				closed: false,
+				modal:true,
+	            title: "修改订单信息",
+	            buttons: [{
+	                text: '确定',
+	                iconCls: 'icon-ok',
+	                handler: edit
+	            }, {
+	                text: '取消',
+	                iconCls: 'icon-cancel',
+	                handler: function () {
+	                    $('#wu-dialog-3').dialog('close');                    
+	                }
+	            }]
+	        });
+			$('#wu-form-3').form('load',row);
+		} else {
+			$.messager.alert('信息提示','请选中要修改的数据');
 		}
-		$.ajax({
-			url:'/goods/select/' + ids,
-			type:'POST',
-			success:function(data){
-				//alert(JSON.stringify(data));
-				if(data){
-
-					var obj = eval('(' + data + ')');
-					$('#ids').val(obj.ids);
-					$('#goodsType').val(obj.goodsType);
-					$('#goodsCode').val(obj.goodsCode);
-					$('#vendorids').val(obj.vendorids);
-					$('#title').val(obj.title);
-
-					var obj = data;
-					$('#cgids').val(obj.ids);
-					$('#cgname').val(obj.name);
-					$('#cgurl').val(obj.url);
-					$('#cgtitle').val(obj.title);
-					
-					/*id只读*/
-					$('#cgids').attr('readonly','readonly');
-					
-					/*打开界面*/
-					$('#wu-dialog-2').dialog({
-							closable:false,
-							closed: false,
-							modal:true,
-				            title: "修改信息",
-				            buttons: [{
-				                text: '确定',
-				                iconCls: 'icon-ok',
-				                handler: function(){
-				                	$('#wu-form-2').form('submit', {
-				            			url:'/goods/update',
-				                		type:'POST',
-				                		success:function(data){
-				                			if(data){
-				                				$.messager.alert('信息提示','提交成功！','info');
-				                				$('#wu-dialog-2').dialog('close');
-				                				$('#ids').attr('readonly',false);
-				                				$('#tt-goodsinfo').datagrid('reload')
-				                			}
-				                		}
-				                	});
-				                }
-				            }, {
-				                text: '取消',
-				                iconCls: 'icon-cancel',
-				                handler: function () {
-
-				                    $('#wu-dialog-2').dialog('close');
-				                    $('#ids').attr('readonly',false);
-=======
-				                    $('#wu-dialog-3').dialog('close');
-				                    /* $('#ids').attr('readonly',false); */
-				                }
-							          }]
-				        });
-						
-					}
-				
-			}	
-		});
-		
 	}
 	
+	/*
+	*修改
+	*/
+	function edit(){
+		$('#wu-form-3').form('submit', {
+			url:'/goods/update',
+    		type:'POST',
+    		data:$('#wu-form-3').serialize(),
+    		success:function(data){
+    			if(data > 0){
+    				$.messager.alert('信息提示','提交成功！','info');
+    				$('#wu-dialog-3').dialog('close');
+    				$('#pagination').pagination('select');
+    			}else{
+    				$.messager.alert('信息提示','提交失败！','info');
+    			}
+    		}
+    	});
+	}
 	
 	/* 
 	*查询
@@ -306,7 +268,7 @@ function imgUpdateFormatter(){
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
-	          data: {'ids':$('#categoryids').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
+	          data: {'title':$('#categorytitle').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
 	              alert(textStatus); 
 	          }, 
@@ -324,8 +286,78 @@ function imgUpdateFormatter(){
 	*清除搜索框内容
 	*/
 	function doClear(){
-		document.getElementById("goodsTypeSearch").value="";
+		document.getElementById("categorytitle").value="";
+		document.getElementById("categoryname").value="";
 	}
- 
+ 	
+	/**
+	* Name 查询数据并打开修改窗口
+	*/
+	/*function openEdit(){
+
+		var items = $('#tt-goodsinfo').datagrid('getSelections');
+		var ids = [];
+		
+		$(items).each(function(){
+			ids.push(this.ids);
+		});
+		if(ids.length < 1){
+			$.messager.alert('温馨提醒','请选择一条数据');
+		}
+		$.ajax({
+			url:'/goods/select/' + ids,
+			type:'POST',
+			success:function(data){
+				//alert(JSON.stringify(data));
+				if(data){
+					var obj = data;
+					$('#ids').val(obj.ids);
+					$('#name').val(obj.name);
+					$('#url').val(obj.url);
+					$('#title').val(obj.title);
+					
+					$('#ids').attr('readonly','readonly');
+					
+					$('#wu-dialog-2').dialog({
+							closable:false,
+							closed: false,
+							modal:true,
+				            title: "修改信息",
+				            buttons: [{
+				                text: '确定',
+				                iconCls: 'icon-ok',
+				                handler: function(){
+				                	$('#wu-form-2').form('submit', {
+				            			url:'/goods/update',
+				                		type:'POST',
+				                		data:$('#wu-form-2').serialize(),
+				                		success:function(data){
+				                			alert(data)
+				                			if(data > 0){
+				                				$.messager.alert('信息提示','提交成功！','info');
+				                				$('#wu-dialog-2').dialog('close');
+				                				$('#ids').attr('readonly',false);
+				                				$('#tt-goodsinfo').datagrid('reload')
+				                			}else{
+				                				$.messager.alert('信息提示','提交失败！','info');
+				                			}
+				                		}
+				                	});
+				                }
+				            }, {
+				                text: '取消',
+				                iconCls: 'icon-cancel',
+				                handler: function () {
+				                    $('#wu-dialog-2').dialog('close');
+				                    $('#ids').attr('readonly',false);
+				                }
+							          }]
+				        });
+						
+					}
+				
+			}	
+		});
+	}*/
 		
 </script>

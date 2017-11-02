@@ -1,9 +1,14 @@
 package com.chinasofti.mall.web.entrance.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.Goodscategory;
@@ -81,7 +86,32 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping("/save")
-	public int saveGoodsCategory(Goodscategory goodscategory){
+	public int saveGoodsCategory(MultipartHttpServletRequest multipartHttpServletRequest){
+		
+//		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		
+		String basePath = System.getProperty("user.dir");
+		String ImagePath = basePath  + "\\src\\main\\resources\\static\\images\\goods";
+		
+		MultipartFile multipartFile = multipartHttpServletRequest.getFile("url");
+		String imageName = multipartFile.getOriginalFilename();
+		
+		String fileName = ImagePath + File.separator + imageName;
+		File file = new File(fileName);
+		try {
+			multipartFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		Goodscategory goodscategory = new Goodscategory();
+		goodscategory.setIds(Integer.valueOf(multipartHttpServletRequest.getParameter("ids")));
+		goodscategory.setName(multipartHttpServletRequest.getParameter("name"));
+		goodscategory.setUrl("/images/goods/" + imageName);
+		goodscategory.setTitle(multipartHttpServletRequest.getParameter("title"));
+		
 		int saveGoodsCategory = goodsCategoryFeignClient.saveGoodsCategory(goodscategory);
 		return saveGoodsCategory;
 	}

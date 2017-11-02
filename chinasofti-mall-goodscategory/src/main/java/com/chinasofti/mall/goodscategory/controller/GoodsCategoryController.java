@@ -64,7 +64,7 @@ public class GoodsCategoryController {
 	 * @param goodscategory
 	 * @return
 	 */
-	@RequestMapping("/save")
+	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	public int saveGoodsCategory(@RequestBody(required = false) Goodscategory goodscategory){
 		return goodsCategoryService.save(goodscategory);
 	}

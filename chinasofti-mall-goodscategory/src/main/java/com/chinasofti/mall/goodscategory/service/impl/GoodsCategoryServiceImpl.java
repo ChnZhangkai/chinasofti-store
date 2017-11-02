@@ -52,9 +52,8 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
 	}
 	
 	@Override
-	public int save(Goodscategory t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int save(Goodscategory goodscategory) {
+		return goodscategoryMapper.insert(goodscategory);
 	}
 
 	@Override
@@ -76,7 +75,6 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
 
 	@Override
 	public int update(Goodscategory goodscategory) {
-		
 		return goodscategoryMapper.updateByPrimaryKey(goodscategory);
 	}
 
@@ -88,7 +86,6 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
 
 	@Override
 	public Goodscategory selectById(Integer ids) {
-		
 		return goodscategoryMapper.selectByPrimaryKey(ids);
 	}
 
