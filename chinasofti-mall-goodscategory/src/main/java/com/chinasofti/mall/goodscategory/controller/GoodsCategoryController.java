@@ -1,7 +1,5 @@
 package com.chinasofti.mall.goodscategory.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +17,7 @@ public class GoodsCategoryController {
 	private GoodsCategoryServiceImpl goodsCategoryService;
 	
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
-	public List<Goodscategory> selectByGoodsCategory(@RequestBody(required = false)Goodscategory goodscategory){
+	public String selectByGoodsCategory(@RequestBody(required = false)Goodscategory goodscategory){
 		
 		return goodsCategoryService.selectByExample(goodscategory);
 		

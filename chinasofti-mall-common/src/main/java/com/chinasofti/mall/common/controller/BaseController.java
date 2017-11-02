@@ -1,10 +1,7 @@
 package com.chinasofti.mall.common.controller;
 
 import java.util.List;
-
 import org.springframework.web.bind.annotation.PathVariable;
-
-
 
 /**
  * 

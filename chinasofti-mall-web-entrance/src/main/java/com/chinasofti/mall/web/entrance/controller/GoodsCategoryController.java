@@ -1,7 +1,5 @@
 package com.chinasofti.mall.web.entrance.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +21,11 @@ public class GoodsCategoryController {
 	}
 	
 	@RequestMapping("/list")
-	public List<Goodscategory> selectByGoodsCategory(Goodscategory goodscategory){
-		return goodsCategoryFeignClient.selectByGoodsCategory(goodscategory);
+	public String selectByGoodsCategory(Goodscategory goodscategory){
+		
+		String jsonlist = goodsCategoryFeignClient.selectByGoodsCategory(goodscategory);
+		return jsonlist;
+		
 	}
 	
 }
