@@ -65,27 +65,30 @@
 	</form>
 </div>
 
+<!-- 修改表格 -->
 <div id="wu-dialog-3" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-save'"
 	style="width: 400px; padding: 10px;">
-	<form id="wu-form-3" method="post" action="/goods/add">
-		<table id="add">
+	<form id="wu-form-3" method="post">
+		<table id="update">
 			<tr>
 				<td width="60" align="right">分类ID:</td>
-				<td><input type="text" id="ids" name="ids" class="wu-text" /></td>
+				<td><input type="text" id="cgids" name="cgids" class="wu-text" /></td>
 			</tr>
 			<tr>
 				<td width="60" align="right">分类名称:</td>
-				<td><input type="text" id="name" name="name"
+				<td><input type="text" id="cgname" name="cgname"
 					class="wu-text" /></td>
 			</tr>
 			<tr>
 				<td align="right">分类图片:</td>
-				<td><input id="url" name="url" data-options="formatter:imgFormatter"/></td>
+				<td><input type="text" id="cgurl" name="cgurl"
+					class="wu-text" />
+				</td>
 			</tr>
 			<tr>
 				<td align="right">分类详情:</td>
-				<td><input type="text" id="title" name="title"
+				<td><input type="text" id="cgtitle" name="cgtitle"
 					class="wu-text" /></td>
 			</tr>
 		</table>
@@ -115,6 +118,15 @@ function imgFormatter(value,row){
 		str = "<img style=\"height: 80px;width: 150px;\" src=\""+value+"\"/>";
         return str;
 	}
+}
+
+function imgUpdateFormatter(){
+	alert(123)
+	//var str = "";
+	//if(value != "" || value != null){
+		//str = "<img style=\"height: 10px;width: 20px;\" src=\""+value+"\"/>";
+        //return str;
+	//}
 }
 
 
@@ -171,7 +183,8 @@ function imgFormatter(value,row){
 					success:function(data){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
-							$('#tt-goodsinfo').datagrid('reload')
+							//$('#tt-goodsinfo').datagrid('reload')
+							$('#pagination').pagination('select');
 						}
 						else
 						{
@@ -224,15 +237,16 @@ function imgFormatter(value,row){
 			url:'/goods/select/' + ids,
 			type:'POST',
 			success:function(data){
-				
+				//alert(JSON.stringify(data));
 				if(data){
-					var obj = eval('(' + data + ')');
-					$('#ids').val(obj.ids);
-					$('#name').val(obj.name);
-					$('#url').val(obj.url);
-					$('#title').val(obj.title);
+					var obj = data;
+					$('#cgids').val(obj.ids);
+					$('#cgname').val(obj.name);
+					$('#cgurl').val(obj.url);
+					$('#cgtitle').val(obj.title);
 					
-					$('#ids').attr('readonly','readonly');
+					/*id只读*/
+					$('#cgids').attr('readonly','readonly');
 					
 					/*打开界面*/
 					$('#wu-dialog-3').dialog({
@@ -262,7 +276,7 @@ function imgFormatter(value,row){
 				                iconCls: 'icon-cancel',
 				                handler: function () {
 				                    $('#wu-dialog-3').dialog('close');
-				                    $('#ids').attr('readonly',false);
+				                    /* $('#ids').attr('readonly',false); */
 				                }
 							          }]
 				        });

@@ -28,7 +28,13 @@ public interface GoodsCategoryFeignClient {
 	@RequestMapping(value = "/goods/delete/{ids}" , method =RequestMethod.POST)
 	public int deleteGoodsCategory(@PathVariable("ids") Integer ids);
 	
-	@RequestMapping(value = "/select/{ids}" , method = RequestMethod.POST)
-	public Goodscategory selectById(Integer ids);
+	@RequestMapping(value = "/goods/select/{ids}" , method = RequestMethod.POST)
+	public Goodscategory selectById(@PathVariable("ids") Integer ids);
+	
+	@RequestMapping(value = "/goods/update" , method = RequestMethod.POST)
+	public int updateGoodsCategoryById(@RequestBody(required = false) Goodscategory goodscategory);
+	
+	@RequestMapping(value = "/goods/save" , method = RequestMethod.POST)
+	public int saveGoodsCategoryById(@RequestBody(required = false) Goodscategory goodscategory);
 	
 }

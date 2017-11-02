@@ -32,4 +32,16 @@ public class GoodsCategoryFeignClientHystrix implements GoodsCategoryFeignClient
 		return null;
 	}
 
+	@Override
+	public int updateGoodsCategoryById(Goodscategory goodscategory) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int saveGoodsCategoryById(Goodscategory goodscategory) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

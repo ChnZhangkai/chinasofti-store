@@ -34,11 +34,17 @@ public class GoodsCategoryController {
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping(value = "/select/{ids}")
+	@RequestMapping(value = "/select/{ids}" , method = RequestMethod.POST)
 	public Goodscategory selectGoodsCategory(@PathVariable Integer ids){
 		
 		return goodsCategoryService.selectById(ids);
 		
+	}
+	
+	@RequestMapping(value = "/update" , method = RequestMethod.POST)
+	public int updateGoodsCategoryById(@RequestBody(required = false) Goodscategory goodscategory){
+		
+		return goodsCategoryService.update(goodscategory);
 	}
 	
 	/**

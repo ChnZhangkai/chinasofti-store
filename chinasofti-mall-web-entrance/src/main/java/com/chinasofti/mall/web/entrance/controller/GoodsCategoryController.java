@@ -43,6 +43,11 @@ public class GoodsCategoryController {
 		
 	}
 	
+	/**
+	 * 根据ID查询
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping("/select/{ids}")
 	public Goodscategory selectByGoodsCategoryId(@PathVariable Integer ids){
 		Goodscategory goodscategory = goodsCategoryFeignClient.selectById(ids);

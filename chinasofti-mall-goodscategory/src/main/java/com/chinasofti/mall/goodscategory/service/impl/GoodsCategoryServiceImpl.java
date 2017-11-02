@@ -76,9 +76,9 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
 	}
 
 	@Override
-	public int update(Goodscategory t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Goodscategory goodscategory) {
+		
+		return goodscategoryMapper.updateByPrimaryKey(goodscategory);
 	}
 
 	@Override
