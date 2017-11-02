@@ -1,21 +1,21 @@
-package com.chinasofti.mall.advertise.service;
+package com.chinasofti.mall.advertise.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.chinasofti.mall.advertise.mapper.CmsAdContentsMapper;
+import com.chinasofti.mall.advertise.service.IAdvertiseService;
 import com.chinasofti.mall.common.entity.CmsAdContentsExample;
 import com.chinasofti.mall.common.entity.CmsAdContentsWithBLOBs;
-import com.chinasofti.mall.common.service.IBaseService;
 /**
 * @ClassName: AdvertiseService
-* @Description: TODO(这里用一句话描述这个类的作用)
+* @Description: IAdvertiseService实现类
 * @author kanmeng
 * @date 2017年11月1日 下午10:27:58 
 * @version 1.0
  */
 @Service
-public class AdvertiseService implements IBaseService<CmsAdContentsWithBLOBs> {
+public class AdvertiseServiceImpl implements IAdvertiseService{
 
 	@Autowired
 	CmsAdContentsMapper advertiseMapper;
