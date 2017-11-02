@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.controller.BaseController;
@@ -15,17 +14,21 @@ import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
 import com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 
+/**
+* @ClassName: 	MainGoodsorderController
+* @Description: 主订单Controller
+*
+* @author 		tanjl
+* @Version 		V1.0
+* @date 		2017年11月2日 下午2:18:35 
+*
+*/
 @RestController
-@RequestMapping("/mainorder")
+@RequestMapping("mainorder")
 public class MainGoodsorderController implements BaseController<PyMainGoodsorderWithBLOBs> {
 	
 	@Autowired
 	private MainGoodsorderService mainGoodsorderService;
-	
-//	@RequestMapping(value = "hello" ,method = RequestMethod.POST)
-//	public String hello(){
-//		return "hello";
-//	}
 	
 	@Override
 	public List<PyMainGoodsorderWithBLOBs> findAll() {
@@ -42,26 +45,26 @@ public class MainGoodsorderController implements BaseController<PyMainGoodsorder
 	@Override
 	@RequestMapping("delete/{ids}")
 	public String deleteById(@PathVariable("ids") String id) {
-		
+		mainGoodsorderService.deleteById(id);
 		return "delete";
 	}
 
 	@Override
 	@RequestMapping(value="update" , method = RequestMethod.POST)
-	public String update(@RequestBody PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
-		
+	public String update(@RequestBody(required=false) PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
+		mainGoodsorderService.update(mainGoodsorderWithBLOBs);
 		return "update";
 	}
 
 	@Override
 	@RequestMapping(value="add" , method = RequestMethod.POST)
-	public String add(@RequestBody PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
-		
+	public String add(@RequestBody(required=false) PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
+		mainGoodsorderService.save(mainGoodsorderWithBLOBs);
 		return "add";
 	}
 	
-	@RequestMapping(value="/list" , method = RequestMethod.POST)
-	public List<PyMainGoodsorderWithBLOBs> selectByExample(@RequestBody PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs){
+	@RequestMapping(value="list" , method = RequestMethod.POST)
+	public List<PyMainGoodsorderWithBLOBs> selectByExample(@RequestBody(required=false) PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs){
 		
 		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
 		
