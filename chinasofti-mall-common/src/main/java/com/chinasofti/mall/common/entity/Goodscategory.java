@@ -1,6 +1,8 @@
 package com.chinasofti.mall.common.entity;
 
-public class Goodscategory {
+import com.chinasofti.mall.common.utils.PageBean;
+
+public class Goodscategory extends PageBean{
     private Integer ids;
 
     private String name;
