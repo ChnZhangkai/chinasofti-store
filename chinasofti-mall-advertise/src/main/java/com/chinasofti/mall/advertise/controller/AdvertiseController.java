@@ -36,7 +36,7 @@ public class AdvertiseController implements BaseController<CmsAdContentsWithBLOB
 	public CmsAdContentsWithBLOBs findById(@PathVariable String id) {
 		return advertiseService.findById(id);
 	}
-
+	
 	@Override
 	@RequestMapping("deleteById/{id}")
 	public String deleteById(@PathVariable String id) {
