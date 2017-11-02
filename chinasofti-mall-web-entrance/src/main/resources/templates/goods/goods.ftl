@@ -27,10 +27,10 @@
 		<tr>
 			<th field="ids" width="25%" align="center">分类ID</th>
 			<th field="name" width="25%" align="center">分类名称</th>
-			<th field="url" width="25%" align="center">图片地址</th>
+			<th field="url" width="25%" align="center" data-options="formatter:imgFormatter">分类图片</th>
 			<th field="title" width="25%" align="center">分类详情</th>
 		</tr>
-	</thead>
+		</thead>
 	</table>
 	<!-- 分页工具条 -->
 	<div id="pagination" style="background:#efefef;border:1px solid #ccc;"></div>
@@ -81,6 +81,17 @@ $(function(){
 	
 	tdload(tableID, pageId, url);
 });
+
+function imgFormatter(value,row){
+	//alert(123)
+	var str = "";
+	if(value != "" || value != null){
+		str = "<img style=\"height: 80px;width: 150px;\" src=\""+value+"\"/>";
+        return str;
+	}
+}
+
+
 	/**
 	* Name 添加记录
 	*/
