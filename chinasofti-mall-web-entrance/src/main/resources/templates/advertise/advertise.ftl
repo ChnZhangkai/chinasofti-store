@@ -37,5 +37,18 @@
 	</table>
 	<!-- 分页工具条 -->
 	<div id="pagination" style="background:#efefef;border:1px solid #ccc;"></div>
-
 </div>
+<script type="text/javascript">
+$(function(){
+	//获取表格datagrid的ID属性
+	var tableID = $("table.easyui-datagrid").attr("id");
+	//alert(tableID);
+	//获取分页工具条元素
+	var pageId = $('#pagination');
+
+	//此处设置自己的url地址
+	var url = '/goods/list';
+	
+	tdload(tableID, pageId, url);
+});
+</script>

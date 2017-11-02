@@ -21,9 +21,9 @@ public interface BaseController<T> {
 	
 	public T findById(@PathVariable String id);
 	
-	public int deleteById(@PathVariable String id);
+	public String deleteById(@PathVariable String id);
 	
-	public int update(T t);
+	public String update(T t);
 	
-	public int add(T t);
+	public String add(T t);
 }
