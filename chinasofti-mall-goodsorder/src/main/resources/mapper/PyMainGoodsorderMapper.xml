@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.PyMainGoodsorder" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="BIGORDER_ID" property="bigorderId" jdbcType="VARCHAR" />
+    <result column="VENDOR_IDS" property="vendorIds" jdbcType="VARCHAR" />
+    <result column="USER_IDS" property="userIds" jdbcType="VARCHAR" />
+    <result column="CONT_POSTCODE" property="contPostcode" jdbcType="VARCHAR" />
+    <result column="CONT_ADDRESS" property="contAddress" jdbcType="VARCHAR" />
+    <result column="CONT_MOBILE" property="contMobile" jdbcType="VARCHAR" />
+    <result column="CONT_PHONE" property="contPhone" jdbcType="VARCHAR" />
+    <result column="CONT_PROVINCE" property="contProvince" jdbcType="VARCHAR" />
+    <result column="CONT_CITY" property="contCity" jdbcType="VARCHAR" />
+    <result column="CONT_DISTRICT" property="contDistrict" jdbcType="VARCHAR" />
+    <result column="CONT_STREET" property="contStreet" jdbcType="VARCHAR" />
+    <result column="DELIVERY_TIME" property="deliveryTime" jdbcType="VARCHAR" />
+    <result column="DELIVERY_DATE" property="deliveryDate" jdbcType="VARCHAR" />
+    <result column="DELIVERY_WAY" property="deliveryWay" jdbcType="VARCHAR" />
+    <result column="ORDER_TIME" property="orderTime" jdbcType="VARCHAR" />
+    <result column="SETTLE_TIME" property="settleTime" jdbcType="VARCHAR" />
+    <result column="ISEVALUATE" property="isevaluate" jdbcType="VARCHAR" />
+    <result column="DISCOUNT" property="discount" jdbcType="DECIMAL" />
+    <result column="ORDER_TOTAL_AMT" property="orderTotalAmt" jdbcType="DECIMAL" />
+    <result column="ORDER_AMT" property="orderAmt" jdbcType="DECIMAL" />
+    <result column="SETTLE_AMT" property="settleAmt" jdbcType="DECIMAL" />
+    <result column="SETTLE_STATUES" property="settleStatues" jdbcType="VARCHAR" />
+    <result column="PAY_STATUS" property="payStatus" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="PAYWAY" property="payway" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONID" property="transactionid" jdbcType="VARCHAR" />
+    <result column="CONT_NAME" property="contName" jdbcType="VARCHAR" />
+    <result column="SETTLE_BATCH_NO" property="settleBatchNo" jdbcType="VARCHAR" />
+    <result column="WX_FEE" property="wxFee" jdbcType="DECIMAL" />
+    <result column="SETTLE_STATUS_FEE" property="settleStatusFee" jdbcType="VARCHAR" />
+    <result column="SETTLE_TIME_FEE" property="settleTimeFee" jdbcType="VARCHAR" />
+    <result column="SETTLE_BATCH_NO_FEE" property="settleBatchNoFee" jdbcType="VARCHAR" />
+    <result column="PAY_TIME" property="payTime" jdbcType="VARCHAR" />
+    <result column="IS_TICKET" property="isTicket" jdbcType="VARCHAR" />
+    <result column="EXPRESS_COMPANY_ID" property="expressCompanyId" jdbcType="VARCHAR" />
+    <result column="EXPRESS_NAME" property="expressName" jdbcType="VARCHAR" />
+    <result column="EXPRESS_ID" property="expressId" jdbcType="VARCHAR" />
+    <result column="SENDOUTTIME" property="sendouttime" jdbcType="VARCHAR" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="VARCHAR" />
+    <result column="S_LATITUDE" property="sLatitude" jdbcType="VARCHAR" />
+    <result column="S_LONGITUDE" property="sLongitude" jdbcType="VARCHAR" />
+    <result column="P_LATITUDE" property="pLatitude" jdbcType="VARCHAR" />
+    <result column="P_LONGITUDE" property="pLongitude" jdbcType="VARCHAR" />
+    <result column="FREIGHT_OLD" property="freightOld" jdbcType="DECIMAL" />
+    <result column="CONT_PROVINCE_CODE" property="contProvinceCode" jdbcType="VARCHAR" />
+    <result column="CONT_CITY_CODE" property="contCityCode" jdbcType="VARCHAR" />
+    <result column="CONT_DISTRICT_CODE" property="contDistrictCode" jdbcType="VARCHAR" />
+    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs" extends="BaseResultMap" >
+    <result column="BUYERS_MESSAGE" property="buyersMessage" jdbcType="LONGVARCHAR" />
+    <result column="SENDDESC" property="senddesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, BIGORDER_ID, VENDOR_IDS, USER_IDS, CONT_POSTCODE, CONT_ADDRESS, CONT_MOBILE, 
+    CONT_PHONE, CONT_PROVINCE, CONT_CITY, CONT_DISTRICT, CONT_STREET, DELIVERY_TIME, 
+    DELIVERY_DATE, DELIVERY_WAY, ORDER_TIME, SETTLE_TIME, ISEVALUATE, DISCOUNT, ORDER_TOTAL_AMT, 
+    ORDER_AMT, SETTLE_AMT, SETTLE_STATUES, PAY_STATUS, STATUS, PAYWAY, TRANSACTIONID, 
+    CONT_NAME, SETTLE_BATCH_NO, WX_FEE, SETTLE_STATUS_FEE, SETTLE_TIME_FEE, SETTLE_BATCH_NO_FEE, 
+    PAY_TIME, IS_TICKET, EXPRESS_COMPANY_ID, EXPRESS_NAME, EXPRESS_ID, SENDOUTTIME, UPDATETIME, 
+    S_LATITUDE, S_LONGITUDE, P_LATITUDE, P_LONGITUDE, FREIGHT_OLD, CONT_PROVINCE_CODE, 
+    CONT_CITY_CODE, CONT_DISTRICT_CODE, FREIGHT
+  </sql>
+  <sql id="Blob_Column_List" >
+    BUYERS_MESSAGE, SENDDESC
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from py_main_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from py_main_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from py_main_goodsorder
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from py_main_goodsorder
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderExample" >
+    delete from py_main_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs" >
+    insert into py_main_goodsorder (IDS, BIGORDER_ID, VENDOR_IDS, 
+      USER_IDS, CONT_POSTCODE, CONT_ADDRESS, 
+      CONT_MOBILE, CONT_PHONE, CONT_PROVINCE, 
+      CONT_CITY, CONT_DISTRICT, CONT_STREET, 
+      DELIVERY_TIME, DELIVERY_DATE, DELIVERY_WAY, 
+      ORDER_TIME, SETTLE_TIME, ISEVALUATE, 
+      DISCOUNT, ORDER_TOTAL_AMT, ORDER_AMT, 
+      SETTLE_AMT, SETTLE_STATUES, PAY_STATUS, 
+      STATUS, PAYWAY, TRANSACTIONID, 
+      CONT_NAME, SETTLE_BATCH_NO, WX_FEE, 
+      SETTLE_STATUS_FEE, SETTLE_TIME_FEE, SETTLE_BATCH_NO_FEE, 
+      PAY_TIME, IS_TICKET, EXPRESS_COMPANY_ID, 
+      EXPRESS_NAME, EXPRESS_ID, SENDOUTTIME, 
+      UPDATETIME, S_LATITUDE, S_LONGITUDE, 
+      P_LATITUDE, P_LONGITUDE, FREIGHT_OLD, 
+      CONT_PROVINCE_CODE, CONT_CITY_CODE, CONT_DISTRICT_CODE, 
+      FREIGHT, BUYERS_MESSAGE, SENDDESC
+      )
+    values (#{ids,jdbcType=VARCHAR}, #{bigorderId,jdbcType=VARCHAR}, #{vendorIds,jdbcType=VARCHAR}, 
+      #{userIds,jdbcType=VARCHAR}, #{contPostcode,jdbcType=VARCHAR}, #{contAddress,jdbcType=VARCHAR}, 
+      #{contMobile,jdbcType=VARCHAR}, #{contPhone,jdbcType=VARCHAR}, #{contProvince,jdbcType=VARCHAR}, 
+      #{contCity,jdbcType=VARCHAR}, #{contDistrict,jdbcType=VARCHAR}, #{contStreet,jdbcType=VARCHAR}, 
+      #{deliveryTime,jdbcType=VARCHAR}, #{deliveryDate,jdbcType=VARCHAR}, #{deliveryWay,jdbcType=VARCHAR}, 
+      #{orderTime,jdbcType=VARCHAR}, #{settleTime,jdbcType=VARCHAR}, #{isevaluate,jdbcType=VARCHAR}, 
+      #{discount,jdbcType=DECIMAL}, #{orderTotalAmt,jdbcType=DECIMAL}, #{orderAmt,jdbcType=DECIMAL}, 
+      #{settleAmt,jdbcType=DECIMAL}, #{settleStatues,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{payway,jdbcType=VARCHAR}, #{transactionid,jdbcType=VARCHAR}, 
+      #{contName,jdbcType=VARCHAR}, #{settleBatchNo,jdbcType=VARCHAR}, #{wxFee,jdbcType=DECIMAL}, 
+      #{settleStatusFee,jdbcType=VARCHAR}, #{settleTimeFee,jdbcType=VARCHAR}, #{settleBatchNoFee,jdbcType=VARCHAR}, 
+      #{payTime,jdbcType=VARCHAR}, #{isTicket,jdbcType=VARCHAR}, #{expressCompanyId,jdbcType=VARCHAR}, 
+      #{expressName,jdbcType=VARCHAR}, #{expressId,jdbcType=VARCHAR}, #{sendouttime,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{sLatitude,jdbcType=VARCHAR}, #{sLongitude,jdbcType=VARCHAR}, 
+      #{pLatitude,jdbcType=VARCHAR}, #{pLongitude,jdbcType=VARCHAR}, #{freightOld,jdbcType=DECIMAL}, 
+      #{contProvinceCode,jdbcType=VARCHAR}, #{contCityCode,jdbcType=VARCHAR}, #{contDistrictCode,jdbcType=VARCHAR}, 
+      #{freight,jdbcType=DECIMAL}, #{buyersMessage,jdbcType=LONGVARCHAR}, #{senddesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs" >
+    insert into py_main_goodsorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="bigorderId != null" >
+        BIGORDER_ID,
+      </if>
+      <if test="vendorIds != null" >
+        VENDOR_IDS,
+      </if>
+      <if test="userIds != null" >
+        USER_IDS,
+      </if>
+      <if test="contPostcode != null" >
+        CONT_POSTCODE,
+      </if>
+      <if test="contAddress != null" >
+        CONT_ADDRESS,
+      </if>
+      <if test="contMobile != null" >
+        CONT_MOBILE,
+      </if>
+      <if test="contPhone != null" >
+        CONT_PHONE,
+      </if>
+      <if test="contProvince != null" >
+        CONT_PROVINCE,
+      </if>
+      <if test="contCity != null" >
+        CONT_CITY,
+      </if>
+      <if test="contDistrict != null" >
+        CONT_DISTRICT,
+      </if>
+      <if test="contStreet != null" >
+        CONT_STREET,
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME,
+      </if>
+      <if test="deliveryDate != null" >
+        DELIVERY_DATE,
+      </if>
+      <if test="deliveryWay != null" >
+        DELIVERY_WAY,
+      </if>
+      <if test="orderTime != null" >
+        ORDER_TIME,
+      </if>
+      <if test="settleTime != null" >
+        SETTLE_TIME,
+      </if>
+      <if test="isevaluate != null" >
+        ISEVALUATE,
+      </if>
+      <if test="discount != null" >
+        DISCOUNT,
+      </if>
+      <if test="orderTotalAmt != null" >
+        ORDER_TOTAL_AMT,
+      </if>
+      <if test="orderAmt != null" >
+        ORDER_AMT,
+      </if>
+      <if test="settleAmt != null" >
+        SETTLE_AMT,
+      </if>
+      <if test="settleStatues != null" >
+        SETTLE_STATUES,
+      </if>
+      <if test="payStatus != null" >
+        PAY_STATUS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="payway != null" >
+        PAYWAY,
+      </if>
+      <if test="transactionid != null" >
+        TRANSACTIONID,
+      </if>
+      <if test="contName != null" >
+        CONT_NAME,
+      </if>
+      <if test="settleBatchNo != null" >
+        SETTLE_BATCH_NO,
+      </if>
+      <if test="wxFee != null" >
+        WX_FEE,
+      </if>
+      <if test="settleStatusFee != null" >
+        SETTLE_STATUS_FEE,
+      </if>
+      <if test="settleTimeFee != null" >
+        SETTLE_TIME_FEE,
+      </if>
+      <if test="settleBatchNoFee != null" >
+        SETTLE_BATCH_NO_FEE,
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME,
+      </if>
+      <if test="isTicket != null" >
+        IS_TICKET,
+      </if>
+      <if test="expressCompanyId != null" >
+        EXPRESS_COMPANY_ID,
+      </if>
+      <if test="expressName != null" >
+        EXPRESS_NAME,
+      </if>
+      <if test="expressId != null" >
+        EXPRESS_ID,
+      </if>
+      <if test="sendouttime != null" >
+        SENDOUTTIME,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+      <if test="sLatitude != null" >
+        S_LATITUDE,
+      </if>
+      <if test="sLongitude != null" >
+        S_LONGITUDE,
+      </if>
+      <if test="pLatitude != null" >
+        P_LATITUDE,
+      </if>
+      <if test="pLongitude != null" >
+        P_LONGITUDE,
+      </if>
+      <if test="freightOld != null" >
+        FREIGHT_OLD,
+      </if>
+      <if test="contProvinceCode != null" >
+        CONT_PROVINCE_CODE,
+      </if>
+      <if test="contCityCode != null" >
+        CONT_CITY_CODE,
+      </if>
+      <if test="contDistrictCode != null" >
+        CONT_DISTRICT_CODE,
+      </if>
+      <if test="freight != null" >
+        FREIGHT,
+      </if>
+      <if test="buyersMessage != null" >
+        BUYERS_MESSAGE,
+      </if>
+      <if test="senddesc != null" >
+        SENDDESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="bigorderId != null" >
+        #{bigorderId,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorIds != null" >
+        #{vendorIds,jdbcType=VARCHAR},
+      </if>
+      <if test="userIds != null" >
+        #{userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="contPostcode != null" >
+        #{contPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="contAddress != null" >
+        #{contAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contMobile != null" >
+        #{contMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contPhone != null" >
+        #{contPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contProvince != null" >
+        #{contProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="contCity != null" >
+        #{contCity,jdbcType=VARCHAR},
+      </if>
+      <if test="contDistrict != null" >
+        #{contDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="contStreet != null" >
+        #{contStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDate != null" >
+        #{deliveryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryWay != null" >
+        #{deliveryWay,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="settleTime != null" >
+        #{settleTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isevaluate != null" >
+        #{isevaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalAmt != null" >
+        #{orderTotalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmt != null" >
+        #{orderAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="settleAmt != null" >
+        #{settleAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="settleStatues != null" >
+        #{settleStatues,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        #{payway,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionid != null" >
+        #{transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="contName != null" >
+        #{contName,jdbcType=VARCHAR},
+      </if>
+      <if test="settleBatchNo != null" >
+        #{settleBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wxFee != null" >
+        #{wxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="settleStatusFee != null" >
+        #{settleStatusFee,jdbcType=VARCHAR},
+      </if>
+      <if test="settleTimeFee != null" >
+        #{settleTimeFee,jdbcType=VARCHAR},
+      </if>
+      <if test="settleBatchNoFee != null" >
+        #{settleBatchNoFee,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isTicket != null" >
+        #{isTicket,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompanyId != null" >
+        #{expressCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="expressName != null" >
+        #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null" >
+        #{expressId,jdbcType=VARCHAR},
+      </if>
+      <if test="sendouttime != null" >
+        #{sendouttime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="sLatitude != null" >
+        #{sLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="sLongitude != null" >
+        #{sLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="pLatitude != null" >
+        #{pLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="pLongitude != null" >
+        #{pLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="freightOld != null" >
+        #{freightOld,jdbcType=DECIMAL},
+      </if>
+      <if test="contProvinceCode != null" >
+        #{contProvinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contCityCode != null" >
+        #{contCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contDistrictCode != null" >
+        #{contDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="buyersMessage != null" >
+        #{buyersMessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="senddesc != null" >
+        #{senddesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderExample" resultType="java.lang.Integer" >
+    select count(*) from py_main_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update py_main_goodsorder
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigorderId != null" >
+        BIGORDER_ID = #{record.bigorderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vendorIds != null" >
+        VENDOR_IDS = #{record.vendorIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userIds != null" >
+        USER_IDS = #{record.userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contPostcode != null" >
+        CONT_POSTCODE = #{record.contPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contAddress != null" >
+        CONT_ADDRESS = #{record.contAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contMobile != null" >
+        CONT_MOBILE = #{record.contMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contPhone != null" >
+        CONT_PHONE = #{record.contPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contProvince != null" >
+        CONT_PROVINCE = #{record.contProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contCity != null" >
+        CONT_CITY = #{record.contCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contDistrict != null" >
+        CONT_DISTRICT = #{record.contDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contStreet != null" >
+        CONT_STREET = #{record.contStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryTime != null" >
+        DELIVERY_TIME = #{record.deliveryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryDate != null" >
+        DELIVERY_DATE = #{record.deliveryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryWay != null" >
+        DELIVERY_WAY = #{record.deliveryWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTime != null" >
+        ORDER_TIME = #{record.orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleTime != null" >
+        SETTLE_TIME = #{record.settleTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isevaluate != null" >
+        ISEVALUATE = #{record.isevaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discount != null" >
+        DISCOUNT = #{record.discount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderTotalAmt != null" >
+        ORDER_TOTAL_AMT = #{record.orderTotalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderAmt != null" >
+        ORDER_AMT = #{record.orderAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.settleAmt != null" >
+        SETTLE_AMT = #{record.settleAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.settleStatues != null" >
+        SETTLE_STATUES = #{record.settleStatues,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payStatus != null" >
+        PAY_STATUS = #{record.payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payway != null" >
+        PAYWAY = #{record.payway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionid != null" >
+        TRANSACTIONID = #{record.transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contName != null" >
+        CONT_NAME = #{record.contName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleBatchNo != null" >
+        SETTLE_BATCH_NO = #{record.settleBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxFee != null" >
+        WX_FEE = #{record.wxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.settleStatusFee != null" >
+        SETTLE_STATUS_FEE = #{record.settleStatusFee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleTimeFee != null" >
+        SETTLE_TIME_FEE = #{record.settleTimeFee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settleBatchNoFee != null" >
+        SETTLE_BATCH_NO_FEE = #{record.settleBatchNoFee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payTime != null" >
+        PAY_TIME = #{record.payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isTicket != null" >
+        IS_TICKET = #{record.isTicket,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expressCompanyId != null" >
+        EXPRESS_COMPANY_ID = #{record.expressCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expressName != null" >
+        EXPRESS_NAME = #{record.expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expressId != null" >
+        EXPRESS_ID = #{record.expressId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendouttime != null" >
+        SENDOUTTIME = #{record.sendouttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        UPDATETIME = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sLatitude != null" >
+        S_LATITUDE = #{record.sLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sLongitude != null" >
+        S_LONGITUDE = #{record.sLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pLatitude != null" >
+        P_LATITUDE = #{record.pLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pLongitude != null" >
+        P_LONGITUDE = #{record.pLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freightOld != null" >
+        FREIGHT_OLD = #{record.freightOld,jdbcType=DECIMAL},
+      </if>
+      <if test="record.contProvinceCode != null" >
+        CONT_PROVINCE_CODE = #{record.contProvinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contCityCode != null" >
+        CONT_CITY_CODE = #{record.contCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contDistrictCode != null" >
+        CONT_DISTRICT_CODE = #{record.contDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freight != null" >
+        FREIGHT = #{record.freight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.buyersMessage != null" >
+        BUYERS_MESSAGE = #{record.buyersMessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.senddesc != null" >
+        SENDDESC = #{record.senddesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update py_main_goodsorder
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      BIGORDER_ID = #{record.bigorderId,jdbcType=VARCHAR},
+      VENDOR_IDS = #{record.vendorIds,jdbcType=VARCHAR},
+      USER_IDS = #{record.userIds,jdbcType=VARCHAR},
+      CONT_POSTCODE = #{record.contPostcode,jdbcType=VARCHAR},
+      CONT_ADDRESS = #{record.contAddress,jdbcType=VARCHAR},
+      CONT_MOBILE = #{record.contMobile,jdbcType=VARCHAR},
+      CONT_PHONE = #{record.contPhone,jdbcType=VARCHAR},
+      CONT_PROVINCE = #{record.contProvince,jdbcType=VARCHAR},
+      CONT_CITY = #{record.contCity,jdbcType=VARCHAR},
+      CONT_DISTRICT = #{record.contDistrict,jdbcType=VARCHAR},
+      CONT_STREET = #{record.contStreet,jdbcType=VARCHAR},
+      DELIVERY_TIME = #{record.deliveryTime,jdbcType=VARCHAR},
+      DELIVERY_DATE = #{record.deliveryDate,jdbcType=VARCHAR},
+      DELIVERY_WAY = #{record.deliveryWay,jdbcType=VARCHAR},
+      ORDER_TIME = #{record.orderTime,jdbcType=VARCHAR},
+      SETTLE_TIME = #{record.settleTime,jdbcType=VARCHAR},
+      ISEVALUATE = #{record.isevaluate,jdbcType=VARCHAR},
+      DISCOUNT = #{record.discount,jdbcType=DECIMAL},
+      ORDER_TOTAL_AMT = #{record.orderTotalAmt,jdbcType=DECIMAL},
+      ORDER_AMT = #{record.orderAmt,jdbcType=DECIMAL},
+      SETTLE_AMT = #{record.settleAmt,jdbcType=DECIMAL},
+      SETTLE_STATUES = #{record.settleStatues,jdbcType=VARCHAR},
+      PAY_STATUS = #{record.payStatus,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      PAYWAY = #{record.payway,jdbcType=VARCHAR},
+      TRANSACTIONID = #{record.transactionid,jdbcType=VARCHAR},
+      CONT_NAME = #{record.contName,jdbcType=VARCHAR},
+      SETTLE_BATCH_NO = #{record.settleBatchNo,jdbcType=VARCHAR},
+      WX_FEE = #{record.wxFee,jdbcType=DECIMAL},
+      SETTLE_STATUS_FEE = #{record.settleStatusFee,jdbcType=VARCHAR},
+      SETTLE_TIME_FEE = #{record.settleTimeFee,jdbcType=VARCHAR},
+      SETTLE_BATCH_NO_FEE = #{record.settleBatchNoFee,jdbcType=VARCHAR},
+      PAY_TIME = #{record.payTime,jdbcType=VARCHAR},
+      IS_TICKET = #{record.isTicket,jdbcType=VARCHAR},
+      EXPRESS_COMPANY_ID = #{record.expressCompanyId,jdbcType=VARCHAR},
+      EXPRESS_NAME = #{record.expressName,jdbcType=VARCHAR},
+      EXPRESS_ID = #{record.expressId,jdbcType=VARCHAR},
+      SENDOUTTIME = #{record.sendouttime,jdbcType=VARCHAR},
+      UPDATETIME = #{record.updatetime,jdbcType=VARCHAR},
+      S_LATITUDE = #{record.sLatitude,jdbcType=VARCHAR},
+      S_LONGITUDE = #{record.sLongitude,jdbcType=VARCHAR},
+      P_LATITUDE = #{record.pLatitude,jdbcType=VARCHAR},
+      P_LONGITUDE = #{record.pLongitude,jdbcType=VARCHAR},
+      FREIGHT_OLD = #{record.freightOld,jdbcType=DECIMAL},
+      CONT_PROVINCE_CODE = #{record.contProvinceCode,jdbcType=VARCHAR},
+      CONT_CITY_CODE = #{record.contCityCode,jdbcType=VARCHAR},
+      CONT_DISTRICT_CODE = #{record.contDistrictCode,jdbcType=VARCHAR},
+      FREIGHT = #{record.freight,jdbcType=DECIMAL},
+      BUYERS_MESSAGE = #{record.buyersMessage,jdbcType=LONGVARCHAR},
+      SENDDESC = #{record.senddesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update py_main_goodsorder
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      BIGORDER_ID = #{record.bigorderId,jdbcType=VARCHAR},
+      VENDOR_IDS = #{record.vendorIds,jdbcType=VARCHAR},
+      USER_IDS = #{record.userIds,jdbcType=VARCHAR},
+      CONT_POSTCODE = #{record.contPostcode,jdbcType=VARCHAR},
+      CONT_ADDRESS = #{record.contAddress,jdbcType=VARCHAR},
+      CONT_MOBILE = #{record.contMobile,jdbcType=VARCHAR},
+      CONT_PHONE = #{record.contPhone,jdbcType=VARCHAR},
+      CONT_PROVINCE = #{record.contProvince,jdbcType=VARCHAR},
+      CONT_CITY = #{record.contCity,jdbcType=VARCHAR},
+      CONT_DISTRICT = #{record.contDistrict,jdbcType=VARCHAR},
+      CONT_STREET = #{record.contStreet,jdbcType=VARCHAR},
+      DELIVERY_TIME = #{record.deliveryTime,jdbcType=VARCHAR},
+      DELIVERY_DATE = #{record.deliveryDate,jdbcType=VARCHAR},
+      DELIVERY_WAY = #{record.deliveryWay,jdbcType=VARCHAR},
+      ORDER_TIME = #{record.orderTime,jdbcType=VARCHAR},
+      SETTLE_TIME = #{record.settleTime,jdbcType=VARCHAR},
+      ISEVALUATE = #{record.isevaluate,jdbcType=VARCHAR},
+      DISCOUNT = #{record.discount,jdbcType=DECIMAL},
+      ORDER_TOTAL_AMT = #{record.orderTotalAmt,jdbcType=DECIMAL},
+      ORDER_AMT = #{record.orderAmt,jdbcType=DECIMAL},
+      SETTLE_AMT = #{record.settleAmt,jdbcType=DECIMAL},
+      SETTLE_STATUES = #{record.settleStatues,jdbcType=VARCHAR},
+      PAY_STATUS = #{record.payStatus,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      PAYWAY = #{record.payway,jdbcType=VARCHAR},
+      TRANSACTIONID = #{record.transactionid,jdbcType=VARCHAR},
+      CONT_NAME = #{record.contName,jdbcType=VARCHAR},
+      SETTLE_BATCH_NO = #{record.settleBatchNo,jdbcType=VARCHAR},
+      WX_FEE = #{record.wxFee,jdbcType=DECIMAL},
+      SETTLE_STATUS_FEE = #{record.settleStatusFee,jdbcType=VARCHAR},
+      SETTLE_TIME_FEE = #{record.settleTimeFee,jdbcType=VARCHAR},
+      SETTLE_BATCH_NO_FEE = #{record.settleBatchNoFee,jdbcType=VARCHAR},
+      PAY_TIME = #{record.payTime,jdbcType=VARCHAR},
+      IS_TICKET = #{record.isTicket,jdbcType=VARCHAR},
+      EXPRESS_COMPANY_ID = #{record.expressCompanyId,jdbcType=VARCHAR},
+      EXPRESS_NAME = #{record.expressName,jdbcType=VARCHAR},
+      EXPRESS_ID = #{record.expressId,jdbcType=VARCHAR},
+      SENDOUTTIME = #{record.sendouttime,jdbcType=VARCHAR},
+      UPDATETIME = #{record.updatetime,jdbcType=VARCHAR},
+      S_LATITUDE = #{record.sLatitude,jdbcType=VARCHAR},
+      S_LONGITUDE = #{record.sLongitude,jdbcType=VARCHAR},
+      P_LATITUDE = #{record.pLatitude,jdbcType=VARCHAR},
+      P_LONGITUDE = #{record.pLongitude,jdbcType=VARCHAR},
+      FREIGHT_OLD = #{record.freightOld,jdbcType=DECIMAL},
+      CONT_PROVINCE_CODE = #{record.contProvinceCode,jdbcType=VARCHAR},
+      CONT_CITY_CODE = #{record.contCityCode,jdbcType=VARCHAR},
+      CONT_DISTRICT_CODE = #{record.contDistrictCode,jdbcType=VARCHAR},
+      FREIGHT = #{record.freight,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs" >
+    update py_main_goodsorder
+    <set >
+      <if test="bigorderId != null" >
+        BIGORDER_ID = #{bigorderId,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorIds != null" >
+        VENDOR_IDS = #{vendorIds,jdbcType=VARCHAR},
+      </if>
+      <if test="userIds != null" >
+        USER_IDS = #{userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="contPostcode != null" >
+        CONT_POSTCODE = #{contPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="contAddress != null" >
+        CONT_ADDRESS = #{contAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contMobile != null" >
+        CONT_MOBILE = #{contMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contPhone != null" >
+        CONT_PHONE = #{contPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contProvince != null" >
+        CONT_PROVINCE = #{contProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="contCity != null" >
+        CONT_CITY = #{contCity,jdbcType=VARCHAR},
+      </if>
+      <if test="contDistrict != null" >
+        CONT_DISTRICT = #{contDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="contStreet != null" >
+        CONT_STREET = #{contStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME = #{deliveryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDate != null" >
+        DELIVERY_DATE = #{deliveryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryWay != null" >
+        DELIVERY_WAY = #{deliveryWay,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        ORDER_TIME = #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="settleTime != null" >
+        SETTLE_TIME = #{settleTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isevaluate != null" >
+        ISEVALUATE = #{isevaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        DISCOUNT = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalAmt != null" >
+        ORDER_TOTAL_AMT = #{orderTotalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="orderAmt != null" >
+        ORDER_AMT = #{orderAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="settleAmt != null" >
+        SETTLE_AMT = #{settleAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="settleStatues != null" >
+        SETTLE_STATUES = #{settleStatues,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        PAYWAY = #{payway,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionid != null" >
+        TRANSACTIONID = #{transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="contName != null" >
+        CONT_NAME = #{contName,jdbcType=VARCHAR},
+      </if>
+      <if test="settleBatchNo != null" >
+        SETTLE_BATCH_NO = #{settleBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wxFee != null" >
+        WX_FEE = #{wxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="settleStatusFee != null" >
+        SETTLE_STATUS_FEE = #{settleStatusFee,jdbcType=VARCHAR},
+      </if>
+      <if test="settleTimeFee != null" >
+        SETTLE_TIME_FEE = #{settleTimeFee,jdbcType=VARCHAR},
+      </if>
+      <if test="settleBatchNoFee != null" >
+        SETTLE_BATCH_NO_FEE = #{settleBatchNoFee,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME = #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isTicket != null" >
+        IS_TICKET = #{isTicket,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompanyId != null" >
+        EXPRESS_COMPANY_ID = #{expressCompanyId,jdbcType=VARCHAR},
+      </if>
+      <if test="expressName != null" >
+        EXPRESS_NAME = #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null" >
+        EXPRESS_ID = #{expressId,jdbcType=VARCHAR},
+      </if>
+      <if test="sendouttime != null" >
+        SENDOUTTIME = #{sendouttime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="sLatitude != null" >
+        S_LATITUDE = #{sLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="sLongitude != null" >
+        S_LONGITUDE = #{sLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="pLatitude != null" >
+        P_LATITUDE = #{pLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="pLongitude != null" >
+        P_LONGITUDE = #{pLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="freightOld != null" >
+        FREIGHT_OLD = #{freightOld,jdbcType=DECIMAL},
+      </if>
+      <if test="contProvinceCode != null" >
+        CONT_PROVINCE_CODE = #{contProvinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contCityCode != null" >
+        CONT_CITY_CODE = #{contCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contDistrictCode != null" >
+        CONT_DISTRICT_CODE = #{contDistrictCode,jdbcType=VARCHAR},
+      </if>
+      <if test="freight != null" >
+        FREIGHT = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="buyersMessage != null" >
+        BUYERS_MESSAGE = #{buyersMessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="senddesc != null" >
+        SENDDESC = #{senddesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs" >
+    update py_main_goodsorder
+    set BIGORDER_ID = #{bigorderId,jdbcType=VARCHAR},
+      VENDOR_IDS = #{vendorIds,jdbcType=VARCHAR},
+      USER_IDS = #{userIds,jdbcType=VARCHAR},
+      CONT_POSTCODE = #{contPostcode,jdbcType=VARCHAR},
+      CONT_ADDRESS = #{contAddress,jdbcType=VARCHAR},
+      CONT_MOBILE = #{contMobile,jdbcType=VARCHAR},
+      CONT_PHONE = #{contPhone,jdbcType=VARCHAR},
+      CONT_PROVINCE = #{contProvince,jdbcType=VARCHAR},
+      CONT_CITY = #{contCity,jdbcType=VARCHAR},
+      CONT_DISTRICT = #{contDistrict,jdbcType=VARCHAR},
+      CONT_STREET = #{contStreet,jdbcType=VARCHAR},
+      DELIVERY_TIME = #{deliveryTime,jdbcType=VARCHAR},
+      DELIVERY_DATE = #{deliveryDate,jdbcType=VARCHAR},
+      DELIVERY_WAY = #{deliveryWay,jdbcType=VARCHAR},
+      ORDER_TIME = #{orderTime,jdbcType=VARCHAR},
+      SETTLE_TIME = #{settleTime,jdbcType=VARCHAR},
+      ISEVALUATE = #{isevaluate,jdbcType=VARCHAR},
+      DISCOUNT = #{discount,jdbcType=DECIMAL},
+      ORDER_TOTAL_AMT = #{orderTotalAmt,jdbcType=DECIMAL},
+      ORDER_AMT = #{orderAmt,jdbcType=DECIMAL},
+      SETTLE_AMT = #{settleAmt,jdbcType=DECIMAL},
+      SETTLE_STATUES = #{settleStatues,jdbcType=VARCHAR},
+      PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      PAYWAY = #{payway,jdbcType=VARCHAR},
+      TRANSACTIONID = #{transactionid,jdbcType=VARCHAR},
+      CONT_NAME = #{contName,jdbcType=VARCHAR},
+      SETTLE_BATCH_NO = #{settleBatchNo,jdbcType=VARCHAR},
+      WX_FEE = #{wxFee,jdbcType=DECIMAL},
+      SETTLE_STATUS_FEE = #{settleStatusFee,jdbcType=VARCHAR},
+      SETTLE_TIME_FEE = #{settleTimeFee,jdbcType=VARCHAR},
+      SETTLE_BATCH_NO_FEE = #{settleBatchNoFee,jdbcType=VARCHAR},
+      PAY_TIME = #{payTime,jdbcType=VARCHAR},
+      IS_TICKET = #{isTicket,jdbcType=VARCHAR},
+      EXPRESS_COMPANY_ID = #{expressCompanyId,jdbcType=VARCHAR},
+      EXPRESS_NAME = #{expressName,jdbcType=VARCHAR},
+      EXPRESS_ID = #{expressId,jdbcType=VARCHAR},
+      SENDOUTTIME = #{sendouttime,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      S_LATITUDE = #{sLatitude,jdbcType=VARCHAR},
+      S_LONGITUDE = #{sLongitude,jdbcType=VARCHAR},
+      P_LATITUDE = #{pLatitude,jdbcType=VARCHAR},
+      P_LONGITUDE = #{pLongitude,jdbcType=VARCHAR},
+      FREIGHT_OLD = #{freightOld,jdbcType=DECIMAL},
+      CONT_PROVINCE_CODE = #{contProvinceCode,jdbcType=VARCHAR},
+      CONT_CITY_CODE = #{contCityCode,jdbcType=VARCHAR},
+      CONT_DISTRICT_CODE = #{contDistrictCode,jdbcType=VARCHAR},
+      FREIGHT = #{freight,jdbcType=DECIMAL},
+      BUYERS_MESSAGE = #{buyersMessage,jdbcType=LONGVARCHAR},
+      SENDDESC = #{senddesc,jdbcType=LONGVARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorder" >
+    update py_main_goodsorder
+    set BIGORDER_ID = #{bigorderId,jdbcType=VARCHAR},
+      VENDOR_IDS = #{vendorIds,jdbcType=VARCHAR},
+      USER_IDS = #{userIds,jdbcType=VARCHAR},
+      CONT_POSTCODE = #{contPostcode,jdbcType=VARCHAR},
+      CONT_ADDRESS = #{contAddress,jdbcType=VARCHAR},
+      CONT_MOBILE = #{contMobile,jdbcType=VARCHAR},
+      CONT_PHONE = #{contPhone,jdbcType=VARCHAR},
+      CONT_PROVINCE = #{contProvince,jdbcType=VARCHAR},
+      CONT_CITY = #{contCity,jdbcType=VARCHAR},
+      CONT_DISTRICT = #{contDistrict,jdbcType=VARCHAR},
+      CONT_STREET = #{contStreet,jdbcType=VARCHAR},
+      DELIVERY_TIME = #{deliveryTime,jdbcType=VARCHAR},
+      DELIVERY_DATE = #{deliveryDate,jdbcType=VARCHAR},
+      DELIVERY_WAY = #{deliveryWay,jdbcType=VARCHAR},
+      ORDER_TIME = #{orderTime,jdbcType=VARCHAR},
+      SETTLE_TIME = #{settleTime,jdbcType=VARCHAR},
+      ISEVALUATE = #{isevaluate,jdbcType=VARCHAR},
+      DISCOUNT = #{discount,jdbcType=DECIMAL},
+      ORDER_TOTAL_AMT = #{orderTotalAmt,jdbcType=DECIMAL},
+      ORDER_AMT = #{orderAmt,jdbcType=DECIMAL},
+      SETTLE_AMT = #{settleAmt,jdbcType=DECIMAL},
+      SETTLE_STATUES = #{settleStatues,jdbcType=VARCHAR},
+      PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      PAYWAY = #{payway,jdbcType=VARCHAR},
+      TRANSACTIONID = #{transactionid,jdbcType=VARCHAR},
+      CONT_NAME = #{contName,jdbcType=VARCHAR},
+      SETTLE_BATCH_NO = #{settleBatchNo,jdbcType=VARCHAR},
+      WX_FEE = #{wxFee,jdbcType=DECIMAL},
+      SETTLE_STATUS_FEE = #{settleStatusFee,jdbcType=VARCHAR},
+      SETTLE_TIME_FEE = #{settleTimeFee,jdbcType=VARCHAR},
+      SETTLE_BATCH_NO_FEE = #{settleBatchNoFee,jdbcType=VARCHAR},
+      PAY_TIME = #{payTime,jdbcType=VARCHAR},
+      IS_TICKET = #{isTicket,jdbcType=VARCHAR},
+      EXPRESS_COMPANY_ID = #{expressCompanyId,jdbcType=VARCHAR},
+      EXPRESS_NAME = #{expressName,jdbcType=VARCHAR},
+      EXPRESS_ID = #{expressId,jdbcType=VARCHAR},
+      SENDOUTTIME = #{sendouttime,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      S_LATITUDE = #{sLatitude,jdbcType=VARCHAR},
+      S_LONGITUDE = #{sLongitude,jdbcType=VARCHAR},
+      P_LATITUDE = #{pLatitude,jdbcType=VARCHAR},
+      P_LONGITUDE = #{pLongitude,jdbcType=VARCHAR},
+      FREIGHT_OLD = #{freightOld,jdbcType=DECIMAL},
+      CONT_PROVINCE_CODE = #{contProvinceCode,jdbcType=VARCHAR},
+      CONT_CITY_CODE = #{contCityCode,jdbcType=VARCHAR},
+      CONT_DISTRICT_CODE = #{contDistrictCode,jdbcType=VARCHAR},
+      FREIGHT = #{freight,jdbcType=DECIMAL}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>

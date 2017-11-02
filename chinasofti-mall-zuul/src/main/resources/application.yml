@@ -1,0 +1,14 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://damin:admin@localhost:8761/eureka/
+server:
+  port: 8888
+spring:
+  application:
+    name: service-zuul
+zuul:
+  routes:
+    consumer:
+      path: /background/**
+      service-id: chinasofti-web-entrance
