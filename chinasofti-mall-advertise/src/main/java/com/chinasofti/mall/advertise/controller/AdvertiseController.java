@@ -39,20 +39,23 @@ public class AdvertiseController implements BaseController<CmsAdContentsWithBLOB
 
 	@Override
 	@RequestMapping("deleteById/{id}")
-	public int deleteById(@PathVariable String id) {
-		return advertiseService.deleteById(id);
+	public String deleteById(@PathVariable String id) {
+		advertiseService.deleteById(id);
+		return "";
 	}
 
 	@Override
 	@RequestMapping("update")
-	public int update(CmsAdContentsWithBLOBs t) {
-		return advertiseService.update(t);
+	public String update(CmsAdContentsWithBLOBs t) {
+		 advertiseService.update(t);
+		return "";
 	}
 
 	@Override
 	@RequestMapping("add")
-	public int add(CmsAdContentsWithBLOBs t) {
-		return advertiseService.save(t);
+	public String add(CmsAdContentsWithBLOBs t) {
+		advertiseService.save(t);
+		return "";
 	}
 	
 	
