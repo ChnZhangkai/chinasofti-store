@@ -1,8 +1,6 @@
 package com.chinasofti.mall.common.controller;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.PathVariable;
-
 /**
  * 
 * @ClassName: BaseController
@@ -19,9 +17,9 @@ public interface BaseController<T> {
 	
 	public List<T> findAll( );
 	
-	public T findById(@PathVariable String id);
+	public T findById(String id);
 	
-	public String deleteById(@PathVariable String id);
+	public String deleteById(String id);
 	
 	public String update(T t);
 	
