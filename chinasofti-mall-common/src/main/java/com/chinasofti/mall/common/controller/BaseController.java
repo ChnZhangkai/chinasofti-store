@@ -3,7 +3,6 @@ package com.chinasofti.mall.common.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
@@ -25,9 +24,9 @@ public interface BaseController<T> {
 	
 	public T findById(@PathVariable String id);
 	
-	public int deleteById(@PathVariable String id);
+	public String deleteById(@PathVariable String id);
 	
-	public int update(T t);
+	public String update(T t);
 	
-	public int add(T t);
+	public String add(T t);
 }
