@@ -9,6 +9,10 @@ import com.chinasofti.mall.common.entity.Goodscategory;
 import com.chinasofti.mall.common.entity.GoodscategoryExample;
 import com.chinasofti.mall.goodscategory.mapper.GoodscategoryMapper;
 import com.chinasofti.mall.goodscategory.service.GoodsCategoryService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+
+import net.sf.json.JSONObject;
 
 @Service
 public class GoodsCategoryServiceImpl implements GoodsCategoryService{
@@ -16,11 +20,19 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
 	@Autowired
 	private GoodscategoryMapper goodscategoryMapper;
 	
+	@SuppressWarnings("rawtypes")
 	@Override
-	public List<Goodscategory> selectByExample(Goodscategory goodscategory) {
+	public String selectByExample(Goodscategory goodscategory) {
 		
-		return goodscategoryMapper.selectByExample(new GoodscategoryExample());
+		JSONObject js = new JSONObject();
 		
+		PageHelper.startPage(goodscategory.getPageNumber(),goodscategory.getPageSize());
+		List<Goodscategory> list = goodscategoryMapper.selectByExample(new GoodscategoryExample());
+		
+		js.put("rows", list);
+		js.put("total", ((Page)list).getTotal());
+		
+		return js.toString();
 	}
 	
 	@Override

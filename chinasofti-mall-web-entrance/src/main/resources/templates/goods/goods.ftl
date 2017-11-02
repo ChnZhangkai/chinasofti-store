@@ -1,7 +1,7 @@
 <script type="text/javascript" src="js/common.js"></script>
 <div class="easyui-layout" data-options="fit:true">
 	<!-- Begin of toolbar -->
-	<div id="wu-toolbar-2">
+	<div id="wu-toolbar-2" style="height: 12%">
 		<div class="wu-toolbar-button">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add"
 				onclick="openAdd()" plain="true">添加</a> <a href="#"
@@ -14,59 +14,53 @@
 				plain="true">打印</a>
 		</div>
 		<div class="wu-toolbar-search">
-			<label>商品类型：</label> <input type="text" id="goodsTypeSearch"
-				name="goodstype" /> <a href="#" class="easyui-linkbutton"
-				iconCls="icon-search" onclick="doSearch()">开始检索</a> <a href="#"
-				class="easyui-linkbutton" iconCls="icon-edit-clear"
-				onclick="doClear()">清除</a>
+			<label>分类ID：</label> <input type="text" id="categoryids" name="categoryids" />
+			<label>分类名称：</label> <input type="text" id="categoryname" name="categoryname" />
+			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
 		</div>
 	</div>
 	
 	<!-- 数据显示datagrid -->
-	<table id="tt-goodsinfo" class="easyui-datagrid" toolbar="#wu-toolbar-2">
+	<table id="tt-goodsinfo" class="easyui-datagrid" toolbar="#wu-toolbar-2" style="height: 95%">
 		<thead>
 		<tr>
-			<th field="ids" width="20%" align="center">商品ID</th>
-			<th field="goodsType" width="20%" align="center">商品类型</th>
-			<th field="goodsCode" width="20%" align="center">商品编号</th>
-			<th field="vendorids" width="20%" align="center">供应商ID</th>
-			<th field="title" width="20%" align="center">标题</th>
+			<th field="ids" width="25%" align="center">分类ID</th>
+			<th field="name" width="25%" align="center">分类名称</th>
+			<th field="url" width="25%" align="center" data-options="formatter:imgFormatter">分类图片</th>
+			<th field="title" width="25%" align="center">分类详情</th>
 		</tr>
-	</thead>
+		</thead>
 	</table>
 	<!-- 分页工具条 -->
 	<div id="pagination" style="background:#efefef;border:1px solid #ccc;"></div>
 
 </div>
 
-<!-- 添加表格 -->
+<!-- 分类添加表格 -->
 <div id="wu-dialog-2" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-save'"
 	style="width: 400px; padding: 10px;">
 	<form id="wu-form-2" method="post" action="/goods/add">
 		<table id="add">
 			<tr>
-				<td width="60" align="right">商品ID:</td>
+				<td width="60" align="right">分类ID:</td>
 				<td><input type="text" id="ids" name="ids" class="wu-text" /></td>
 			</tr>
 			<tr>
-				<td width="60" align="right">商品类型:</td>
-				<td><input type="text" id="goodsType" name="goodsType"
+				<td width="60" align="right">分类名称:</td>
+				<td><input type="text" id="name" name="name"
 					class="wu-text" /></td>
 			</tr>
 			<tr>
-				<td align="right">商品编号:</td>
-				<td><input type="text" id="goodsCode" name="goodsCode"
+				<td align="right">分类详情:</td>
+				<td><input type="text" id="title" name="title"
 					class="wu-text" /></td>
 			</tr>
 			<tr>
-				<td align="right">供应商id:</td>
-				<td><input type="text" id="vendorids" name="vendorids"
+				<td align="right">分类图片:</td>
+				<td><input type="text" id="url" name="url"
 					class="wu-text" /></td>
-			</tr>
-			<tr>
-				<td valign="top" align="right">标题:</td>
-				<td><input type="text" id="title" name="title" class="wu-text" /></td>
 			</tr>
 		</table>
 	</form>
@@ -87,6 +81,17 @@ $(function(){
 	
 	tdload(tableID, pageId, url);
 });
+
+function imgFormatter(value,row){
+	//alert(123)
+	var str = "";
+	if(value != "" || value != null){
+		str = "<img style=\"height: 80px;width: 150px;\" src=\""+value+"\"/>";
+        return str;
+	}
+}
+
+
 	/**
 	* Name 添加记录
 	*/
@@ -252,7 +257,7 @@ $(function(){
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
-	          data: {'goodsType':$('#goodsTypeSearch').val(),'pageNumber':1,'pageSize':10}, 
+	          data: {'ids':$('#categoryids').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
 	              alert(textStatus); 
 	          }, 

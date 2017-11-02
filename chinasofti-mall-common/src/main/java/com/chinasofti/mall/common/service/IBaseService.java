@@ -11,18 +11,53 @@ import java.util.List;
  * @param <T>
  */
 public interface IBaseService<T> {
-	// 增加
+	
+	/**
+	* @Title: save
+	* @Description: 增加
+	* @param @param t	实体对象
+	* @param @return    参数
+	* @return int    返回类型
+	* @throws
+	*/
 	public int save(T t);
 
-	// 查詢全部
+	/**
+	* @Title: findAll
+	* @Description: 查询所有
+	* @param @return    参数
+	* @return List<T>    返回类型
+	* @throws
+	*/
 	public List<T> findAll();
 
-	// 根据id查询
+	/**
+	* @Title: findById
+	* @Description: 通过id查询
+	* @param @param id
+	* @param @return    参数
+	* @return T    返回类型
+	* @throws
+	*/
 	public T findById(String id);
 
-	// 根据id删除
+	/**
+	* @Title: deleteById
+	* @Description: 通过id删除
+	* @param @param id
+	* @param @return    参数
+	* @return int    返回类型
+	* @throws
+	*/
 	public int deleteById(String id);
 
-	// 更新
+	/**
+	* @Title: update
+	* @Description: 更新
+	* @param @param t 实体对象
+	* @param @return    参数
+	* @return int    返回类型
+	* @throws
+	*/
 	public int update(T t);
 }
