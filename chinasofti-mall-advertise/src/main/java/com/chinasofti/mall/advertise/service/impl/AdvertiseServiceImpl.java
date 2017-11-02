@@ -29,6 +29,7 @@ public class AdvertiseServiceImpl implements IAdvertiseService{
 	public List<CmsAdContentsWithBLOBs> findAll() {
 		CmsAdContentsExample cmsAdContentsExample = new CmsAdContentsExample();
 		cmsAdContentsExample.createCriteria().andStatesEqualTo("1");
+		
 		return advertiseMapper.selectByExampleWithBLOBs(cmsAdContentsExample);
 	}
 
