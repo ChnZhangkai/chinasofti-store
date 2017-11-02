@@ -18,7 +18,7 @@ function tdload(tableID, pageId, url){
 function getData(pageNumber, pageSize, tableID, pageId, url) {
 	$.ajax({
 		type : 'POST',
-		url : 'url', // 用户请求数据的URL
+		url : url, // 用户请求数据的URL
 		data : "pageNumber=" + pageNumber + "&pageSize=" + pageSize ,
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			alert(textStatus);

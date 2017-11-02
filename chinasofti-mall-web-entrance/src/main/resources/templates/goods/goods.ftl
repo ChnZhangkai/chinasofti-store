@@ -14,8 +14,8 @@
 				plain="true">打印</a>
 		</div>
 		<div class="wu-toolbar-search">
-			<label>分类ID：</label> <input type="text" id="categoryids" name="categoryids" />
 			<label>分类名称：</label> <input type="text" id="categoryname" name="categoryname" />
+			<label>分类详情：</label> <input type="text" id="categorytitle" name="categorytitle" />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
 		</div>
@@ -53,13 +53,39 @@
 					class="wu-text" /></td>
 			</tr>
 			<tr>
+				<td align="right">分类图片:</td>
+				<td><input type="file" id="url" name="url"/></td>
+			</tr>
+			<tr>
 				<td align="right">分类详情:</td>
 				<td><input type="text" id="title" name="title"
 					class="wu-text" /></td>
 			</tr>
+		</table>
+	</form>
+</div>
+
+<div id="wu-dialog-3" class="easyui-dialog"
+	data-options="closed:true,iconCls:'icon-save'"
+	style="width: 400px; padding: 10px;">
+	<form id="wu-form-3" method="post" action="/goods/add">
+		<table id="add">
+			<tr>
+				<td width="60" align="right">分类ID:</td>
+				<td><input type="text" id="ids" name="ids" class="wu-text" /></td>
+			</tr>
+			<tr>
+				<td width="60" align="right">分类名称:</td>
+				<td><input type="text" id="name" name="name"
+					class="wu-text" /></td>
+			</tr>
 			<tr>
 				<td align="right">分类图片:</td>
-				<td><input type="text" id="url" name="url"
+				<td><input id="url" name="url" data-options="formatter:imgFormatter"/></td>
+			</tr>
+			<tr>
+				<td align="right">分类详情:</td>
+				<td><input type="text" id="title" name="title"
 					class="wu-text" /></td>
 			</tr>
 		</table>
@@ -129,7 +155,7 @@ function imgFormatter(value,row){
 		
 		
 		if(items.length < 1){
-			$.messager.alert('信息提示','请选中要删的数据');
+			$.messager.alert('温馨提醒','请选中要删的数据');
 			return ;
 		}
 	
@@ -202,15 +228,14 @@ function imgFormatter(value,row){
 				if(data){
 					var obj = eval('(' + data + ')');
 					$('#ids').val(obj.ids);
-					$('#goodsType').val(obj.goodsType);
-					$('#goodsCode').val(obj.goodsCode);
-					$('#vendorids').val(obj.vendorids);
+					$('#name').val(obj.name);
+					$('#url').val(obj.url);
 					$('#title').val(obj.title);
 					
 					$('#ids').attr('readonly','readonly');
 					
 					/*打开界面*/
-					$('#wu-dialog-2').dialog({
+					$('#wu-dialog-3').dialog({
 							closable:false,
 							closed: false,
 							modal:true,
@@ -219,13 +244,13 @@ function imgFormatter(value,row){
 				                text: '确定',
 				                iconCls: 'icon-ok',
 				                handler: function(){
-				                	$('#wu-form-2').form('submit', {
+				                	$('#wu-form-3').form('submit', {
 				            			url:'/goods/update',
 				                		type:'POST',
 				                		success:function(data){
 				                			if(data){
 				                				$.messager.alert('信息提示','提交成功！','info');
-				                				$('#wu-dialog-2').dialog('close');
+				                				$('#wu-dialog-3').dialog('close');
 				                				$('#ids').attr('readonly',false);
 				                				$('#tt-goodsinfo').datagrid('reload')
 				                			}
@@ -236,7 +261,7 @@ function imgFormatter(value,row){
 				                text: '取消',
 				                iconCls: 'icon-cancel',
 				                handler: function () {
-				                    $('#wu-dialog-2').dialog('close');
+				                    $('#wu-dialog-3').dialog('close');
 				                    $('#ids').attr('readonly',false);
 				                }
 							          }]
@@ -248,7 +273,34 @@ function imgFormatter(value,row){
 		});
 		
 	}
-	
+	/**
+	* Name 打开修改窗口
+	*/
+	/*function openEdit(){
+		var row = $("#tt-goodsinfo").datagrid('getSelected');
+		if (row) {
+			alert(JSON.stringify(row));
+			$('#wu-dialog-3').dialog('open').dialog({
+				closed: false,
+				modal:true,
+	            title: "修改订单信息",
+	            buttons: [{
+	                text: '确定',
+	                iconCls: 'icon-ok',
+	                handler: edit
+	            }, {
+	                text: '取消',
+	                iconCls: 'icon-cancel',
+	                handler: function () {
+	                    $('#wu-dialog-3').dialog('close');                    
+	                }
+	            }]
+	        });
+			$('#wu-form-3').form('load',row);
+		} else {
+			$.messager.alert('信息提示','请选中要修改的数据');
+		}
+	}*/
 	
 	/* 
 	*查询
@@ -257,7 +309,7 @@ function imgFormatter(value,row){
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
-	          data: {'ids':$('#categoryids').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
+	          data: {'title':$('#categorytitle').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
 	              alert(textStatus); 
 	          }, 
@@ -275,7 +327,8 @@ function imgFormatter(value,row){
 	*清除搜索框内容
 	*/
 	function doClear(){
-		document.getElementById("goodsTypeSearch").value="";
+		document.getElementById("categorytitle").value="";
+		document.getElementById("categoryname").value="";
 	}
  
 		

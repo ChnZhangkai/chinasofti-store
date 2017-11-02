@@ -65,7 +65,7 @@
 			<!--选项卡3-->
 			<div title="用户管理" data-options="iconCls:'icon-group'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">用户管理</a></li>
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="user/user" iframe="0">用户管理</a></li>
                 </ul>
 			</div>
 			<!--选项卡4-->
