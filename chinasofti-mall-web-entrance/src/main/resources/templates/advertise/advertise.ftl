@@ -27,7 +27,7 @@
 		<thead>
 		<tr>
 			<th field="ids" width="10%" align="center">标题</th>
-			<th field="goodsType" width="10%" align="center">链接URL</th>
+			<th field="url" width="10%" align="center">链接URL</th>
 			<th field="goodsCode" width="10%" align="center">广告类型</th>
 			<th field="vendorids" width="10%" align="center">前台状态</th>
 			<th field="title" width="10%" align="center">广告位名称</th>
@@ -47,7 +47,7 @@ $(function(){
 	var pageId = $('#pagination');
 
 	//此处设置自己的url地址
-	var url = '/goods/list';
+	var url = '/advertise/findByPage';
 	
 	tdload(tableID, pageId, url);
 });

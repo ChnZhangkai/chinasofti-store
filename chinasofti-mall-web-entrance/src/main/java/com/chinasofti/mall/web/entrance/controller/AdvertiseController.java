@@ -1,9 +1,11 @@
 package com.chinasofti.mall.web.entrance.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,4 +28,10 @@ public class AdvertiseController {
 	public List<CmsAdContentsWithBLOBs> findAll() {
 		return advertiseFeignClient.findAll();	
 	}
+	
+	@RequestMapping("findByPage")
+	public String findByPage(@RequestParam Map<String,Object> map) {
+		return advertiseFeignClient.findByPage(map);	
+	}
+	
 }
