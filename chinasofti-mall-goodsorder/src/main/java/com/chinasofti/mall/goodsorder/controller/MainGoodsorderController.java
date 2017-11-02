@@ -63,6 +63,13 @@ public class MainGoodsorderController implements BaseController<PyMainGoodsorder
 		return "add";
 	}
 	
+	/**
+	* @Title: selectByExample
+	* @Description: 条件查询
+	* @param mainGoodsorderWithBLOBs
+	* @return List<PyMainGoodsorderWithBLOBs>
+	* @throws
+	*/
 	@RequestMapping(value="list" , method = RequestMethod.POST)
 	public List<PyMainGoodsorderWithBLOBs> selectByExample(@RequestBody(required=false) PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs){
 		
