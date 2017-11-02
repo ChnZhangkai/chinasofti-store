@@ -10,8 +10,10 @@
   	<module>chinasofti-mall-web-entrance</module>
   	<module>chinasofti-mall-common</module>
   	<module>chinasofti-mall-advertise</module>
+  	<module>chinasofti-mall-app</module>
   	<module>chinasofti-mall-goodsorder</module>
   	<module>chinasofti-mall-goodscategory</module>
+  	<module>chinasofti-mall-zuul</module>
   </modules>
   
   <properties>
@@ -39,10 +41,10 @@
 	 <dependencies>
 	 
 	 <!-- 热部署自动重启 -->
-		<!-- <dependency>
+		 <dependency>
 			<groupId>org.springframework.boot</groupId>
    		 	<artifactId>spring-boot-devtools</artifactId>
-		</dependency> -->
+		</dependency> 
 	</dependencies>
 	<build>
 		<plugins>

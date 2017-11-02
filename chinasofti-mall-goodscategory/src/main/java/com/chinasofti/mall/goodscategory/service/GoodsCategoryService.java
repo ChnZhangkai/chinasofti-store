@@ -17,9 +17,9 @@ public class GoodsCategoryService implements IBaseService<Goodscategory>{
 	private GoodscategoryMapper goodsCategoryMapper;
 	
 	@Override
-	public Goodscategory save(Goodscategory t) {
+	public int save(Goodscategory t) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override

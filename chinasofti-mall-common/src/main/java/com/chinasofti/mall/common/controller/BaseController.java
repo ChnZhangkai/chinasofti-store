@@ -28,8 +28,8 @@ public abstract class BaseController<T> {
 	}
 	
 
-	@RequestMapping("findById")
-	public T findById(String id) {
+	@RequestMapping("findById/{id}")
+	public T findById(@PathVariable String id) {
 		return getService().findById(id);
 	}
 	
@@ -43,5 +43,10 @@ public abstract class BaseController<T> {
 	@RequestMapping("update")
 	public int update(T t){
 		return getService().update(t);
+	}
+	
+	@RequestMapping("add")
+	public int add(T t){
+		return getService().save(t);
 	}
 }
