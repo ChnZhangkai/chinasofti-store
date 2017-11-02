@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.Goodscategory;
-import com.chinasofti.mall.common.entity.GoodscategoryExample;
 import com.chinasofti.mall.goodscategory.service.impl.GoodsCategoryServiceImpl;
 
 @RestController
@@ -22,7 +21,7 @@ public class GoodsCategoryController {
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
 	public List<Goodscategory> selectByGoodsCategory(@RequestBody(required = false)Goodscategory goodscategory){
 		
-		return goodsCategoryService.selectByExample(new GoodscategoryExample());
+		return goodsCategoryService.selectByExample(goodscategory);
 		
 	}
 
