@@ -9,7 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 @MapperScan("com.chinasofti.mall.goodsorder.mapper")
 public class MainGoodsOrderApplication {
-	
+	 
 	public static void main(String[] args) {
 		
 		SpringApplication.run(MainGoodsOrderApplication.class, args);
