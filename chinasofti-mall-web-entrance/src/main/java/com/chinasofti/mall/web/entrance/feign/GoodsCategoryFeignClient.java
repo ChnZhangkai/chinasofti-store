@@ -25,16 +25,36 @@ public interface GoodsCategoryFeignClient {
 	@RequestMapping(value = "/goods/select" , method = RequestMethod.POST)
 	public String selectByGoodsCategory(@RequestBody(required = false) Goodscategory goodscategory);
 	
+	/**
+	 * 根据ID删除
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping(value = "/goods/delete/{ids}" , method =RequestMethod.POST)
 	public int deleteGoodsCategory(@PathVariable("ids") Integer ids);
 	
+	/**
+	 * 根据ID查找
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping(value = "/goods/select/{ids}" , method = RequestMethod.POST)
 	public Goodscategory selectById(@PathVariable("ids") Integer ids);
 	
+	/**
+	 * 根据ID修改
+	 * @param goodscategory
+	 * @return
+	 */
 	@RequestMapping(value = "/goods/update" , method = RequestMethod.POST)
 	public int updateGoodsCategoryById(@RequestBody(required = false) Goodscategory goodscategory);
 	
+	/**
+	 * 增加
+	 * @param goodscategory
+	 * @return
+	 */
 	@RequestMapping(value = "/goods/save" , method = RequestMethod.POST)
-	public int saveGoodsCategoryById(@RequestBody(required = false) Goodscategory goodscategory);
+	public int saveGoodsCategory(@RequestBody(required = false) Goodscategory goodscategory);
 	
 }

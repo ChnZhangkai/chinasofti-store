@@ -39,7 +39,7 @@ public class GoodsCategoryFeignClientHystrix implements GoodsCategoryFeignClient
 	}
 
 	@Override
-	public int saveGoodsCategoryById(Goodscategory goodscategory) {
+	public int saveGoodsCategory(Goodscategory goodscategory) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -136,7 +136,7 @@ function imgUpdateFormatter(){
 	function add(){
 		
 		$('#wu-form-2').form('submit', {
-			url:'/goods/add',
+			url:'/goods/save',
 			type:'POST',
 			success:function(data){
 				if(data){

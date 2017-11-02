@@ -24,7 +24,6 @@ public class GoodsCategoryController {
 	 */
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
 	public String selectByGoodsCategory(@RequestBody(required = false)Goodscategory goodscategory){
-		
 		return goodsCategoryService.selectByExample(goodscategory);
 		
 	}
@@ -36,14 +35,17 @@ public class GoodsCategoryController {
 	 */
 	@RequestMapping(value = "/select/{ids}" , method = RequestMethod.POST)
 	public Goodscategory selectGoodsCategory(@PathVariable Integer ids){
-		
 		return goodsCategoryService.selectById(ids);
 		
 	}
 	
+	/**
+	 * 修改
+	 * @param goodscategory
+	 * @return
+	 */
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
 	public int updateGoodsCategoryById(@RequestBody(required = false) Goodscategory goodscategory){
-		
 		return goodsCategoryService.update(goodscategory);
 	}
 	
@@ -56,4 +58,15 @@ public class GoodsCategoryController {
 	public int deleteGoodsCategoryById(@PathVariable Integer ids){
 		return goodsCategoryService.deleteById(ids);
 	}
+	
+	/**
+	 * 添加
+	 * @param goodscategory
+	 * @return
+	 */
+	@RequestMapping("/save")
+	public int saveGoodsCategory(@RequestBody(required = false) Goodscategory goodscategory){
+		return goodsCategoryService.save(goodscategory);
+	}
+	
 }
