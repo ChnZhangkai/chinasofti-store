@@ -1,5 +1,7 @@
 package com.chinasofti.mall.advertise.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,14 +19,41 @@ import com.chinasofti.mall.common.service.IBaseService;
  */
 @RestController
 @RequestMapping("advertise")
-public class AdvertiseController extends BaseController<CmsAdContentsWithBLOBs>{
+public class AdvertiseController implements BaseController<CmsAdContentsWithBLOBs>{
 	
 	@Autowired
 	IBaseService<CmsAdContentsWithBLOBs> advertiseService;
-	
+
 	@Override
-	public IBaseService<CmsAdContentsWithBLOBs> getService() {
-		return advertiseService;
+	public List<CmsAdContentsWithBLOBs> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	public CmsAdContentsWithBLOBs findById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int deleteById(String id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(CmsAdContentsWithBLOBs t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int add(CmsAdContentsWithBLOBs t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 	
 }

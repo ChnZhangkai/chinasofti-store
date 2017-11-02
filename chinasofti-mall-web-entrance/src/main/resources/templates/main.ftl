@@ -89,7 +89,7 @@
 			<!--选项卡7-->
 			<div title="广告管理" data-options="iconCls:'icon-org32'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/goods/index" iframe="0">广告管理</a></li>
+                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/advertise/index" iframe="0">广告管理</a></li>
                 </ul>
 			</div>
 			<!--选项卡8-->
