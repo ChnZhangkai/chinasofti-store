@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.mall.common.entity.SpGoodsClass;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.goodsclass.service.impl.SpGoodsClassServiceImpl;
 
 @RestController
@@ -23,8 +23,8 @@ public class SpGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
-	public String selectByGoodsClass(@RequestBody(required = false)SpGoodsClass spGoodsClass){
-		return spGoodsClassService.selectByExample(spGoodsClass);
+	public String selectByGoodsClass(@RequestBody(required = false)ChnGoodsClass chnGoodsClass){
+		return spGoodsClassService.selectByExample(chnGoodsClass);
 		
 	}
 	
@@ -34,8 +34,8 @@ public class SpGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select/{ids}" , method = RequestMethod.POST)
-	public SpGoodsClass selectGoodsClassById(@PathVariable String ids){
-		return spGoodsClassService.selectById(ids);
+	public ChnGoodsClass selectGoodsClassById(@PathVariable String ids){
+		return spGoodsClassService.findById(ids);
 		
 	}
 	
@@ -45,8 +45,8 @@ public class SpGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
-	public int updateGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass){
-		return spGoodsClassService.update(spGoodsClass);
+	public int updateGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
+		return spGoodsClassService.update(chnGoodsClass);
 	}
 	
 	/**
@@ -65,8 +65,8 @@ public class SpGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
-	public int saveGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass){
-		return spGoodsClassService.save(spGoodsClass);
+	public int saveGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
+		return spGoodsClassService.save(chnGoodsClass);
 	}
 	
 }

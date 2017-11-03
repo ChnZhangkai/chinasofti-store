@@ -5,14 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.mall.common.entity.SpGoodsClass;
-import com.chinasofti.mall.common.entity.SpGoodsClassExample;
-import com.chinasofti.mall.goodsclass.mapper.SpGoodsClassMapper;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.ChnGoodsClassExample;
+import com.chinasofti.mall.goodsclass.mapper.ChnGoodsClassMapper;
 import com.chinasofti.mall.goodsclass.service.SpGoodsClassService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-
-import net.sf.json.JSONObject;
+import com.google.gson.Gson;
 
 /**
  * 分类Service层
@@ -23,19 +20,18 @@ import net.sf.json.JSONObject;
 public class SpGoodsClassServiceImpl implements SpGoodsClassService{
 	
 	@Autowired
-	private SpGoodsClassMapper spGoodsClassMapper;
+	private ChnGoodsClassMapper chnGoodsClassMapper;
 	
 	/* 
 	 * 列表及提交查询
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
-	public String selectByExample(SpGoodsClass spGoodsClass) {
+	public String selectByExample(ChnGoodsClass chnGoodsClass) {
 		
 //		String compare = "";
 		
-		JSONObject js = new JSONObject();
-		SpGoodsClassExample example = new SpGoodsClassExample();
+//		JSONObject js = new JSONObject();
+		ChnGoodsClassExample example = new ChnGoodsClassExample();
 //		Criteria criteria = example.createCriteria();
 				
 //		if ((goodscategory.getName()) != null && !(goodscategory.getName()).equals(compare)) {
@@ -45,37 +41,31 @@ public class SpGoodsClassServiceImpl implements SpGoodsClassService{
 //				criteria.andTitleLike("%" + goodscategory.getTitle() + "%");
 //		}
 
-		PageHelper.startPage(spGoodsClass.getPageNumber(),spGoodsClass.getPageSize());
-		List<SpGoodsClass> list = spGoodsClassMapper.selectByExample(example);
+//		PageHelper.startPage(spGoodsClass.getPageNumber(),spGoodsClass.getPageSize());
+		List<ChnGoodsClass> list = chnGoodsClassMapper.selectByExample(example);
+		Gson gson = new Gson();
+		String json = gson.toJson(list);
+//		js.put("rows", list);
+//		js.put("total", ((Page)list).getTotal());
 		
-		js.put("rows", list);
-		js.put("total", ((Page)list).getTotal());
-		
-		return js.toString();
+		return json;
+//		return js.toString();
 	}
 
 	/* 
 	 * 保存添加
 	 */
 	@Override
-	public int save(SpGoodsClass spGoodsClass) {
-		return spGoodsClassMapper.insertSelective(spGoodsClass);
-	}
-	
-	/* 
-	 * 根据ID查询
-	 */
-	@Override
-	public SpGoodsClass selectById(String ids) {
-		return spGoodsClassMapper.selectByPrimaryKey(ids);
+	public int save(ChnGoodsClass chnGoodsClass) {
+		return chnGoodsClassMapper.insertSelective(chnGoodsClass);
 	}
 
 	/* 
 	 * 修改
 	 */
 	@Override
-	public int updateByExample(SpGoodsClass spGoodsClass) {
-		return spGoodsClassMapper.updateByPrimaryKeySelective(spGoodsClass);
+	public int update(ChnGoodsClass chnGoodsClass) {
+		return chnGoodsClassMapper.updateByPrimaryKeySelective(chnGoodsClass);
 	}
 
 	/* 
@@ -83,25 +73,17 @@ public class SpGoodsClassServiceImpl implements SpGoodsClassService{
 	 */
 	@Override
 	public int deleteById(String ids) {
-		return spGoodsClassMapper.deleteByPrimaryKey(ids);
+		return chnGoodsClassMapper.deleteByPrimaryKey(ids);
 	}
 
 	@Override
-	public List<SpGoodsClass> findAll() {
+	public ChnGoodsClass findById(String ids) {
+		return chnGoodsClassMapper.selectByPrimaryKey(ids);
+	}
+
+	@Override
+	public List<ChnGoodsClass> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public SpGoodsClass findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int update(SpGoodsClass t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

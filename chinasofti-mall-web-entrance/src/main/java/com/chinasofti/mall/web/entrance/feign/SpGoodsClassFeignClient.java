@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.chinasofti.mall.common.entity.SpGoodsClass;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.web.entrance.hystrix.SpGoodsClassFeignClientHystrix;
 
 /**
@@ -14,7 +14,7 @@ import com.chinasofti.mall.web.entrance.hystrix.SpGoodsClassFeignClientHystrix;
  * @author Administrator
  *
  */
-@FeignClient(name = "SpGoodsClassService" , fallback = SpGoodsClassFeignClientHystrix.class)
+@FeignClient(name = "ChnGoodsClassService" , fallback = SpGoodsClassFeignClientHystrix.class)
 public interface SpGoodsClassFeignClient {
 	
 	/**
@@ -23,7 +23,7 @@ public interface SpGoodsClassFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/select" , method = RequestMethod.POST)
-	public String selectByGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass);
+	public String selectByGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass);
 	
 	/**
 	 * 根据ID删除
@@ -39,7 +39,7 @@ public interface SpGoodsClassFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/select/{ids}" , method = RequestMethod.POST)
-	public SpGoodsClass selectGoodsClassById(@PathVariable("ids") String ids);
+	public ChnGoodsClass selectGoodsClassById(@PathVariable("ids") String ids);
 	
 	/**
 	 * 根据ID修改
@@ -47,7 +47,7 @@ public interface SpGoodsClassFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/update" , method = RequestMethod.POST)
-	public int updateGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass);
+	public int updateGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass);
 	
 	/**
 	 * 增加
@@ -55,6 +55,6 @@ public interface SpGoodsClassFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/save" , method = RequestMethod.POST)
-	public int saveGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass);
+	public int saveGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass);
 	
 }

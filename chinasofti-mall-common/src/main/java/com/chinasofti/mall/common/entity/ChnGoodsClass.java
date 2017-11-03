@@ -1,8 +1,6 @@
 package com.chinasofti.mall.common.entity;
 
-import com.chinasofti.mall.common.utils.PageBean;
-
-public class SpGoodsClass extends PageBean{
+public class ChnGoodsClass {
     private String ids;
 
     private String pids;
@@ -12,8 +10,6 @@ public class SpGoodsClass extends PageBean{
     private String name;
 
     private String descs;
-
-    private String commons;
 
     private String createBy;
 
@@ -31,15 +27,7 @@ public class SpGoodsClass extends PageBean{
 
     private String img;
 
-    private String xhClassids;
-
-    private String xhClassName;
-
-    private String gbGoodsCode;
-
-    private String invoiceProperty;
-
-    private String deleteStatus;
+    private String commons;
 
     public String getIds() {
         return ids;
@@ -79,14 +67,6 @@ public class SpGoodsClass extends PageBean{
 
     public void setDescs(String descs) {
         this.descs = descs == null ? null : descs.trim();
-    }
-
-    public String getCommons() {
-        return commons;
-    }
-
-    public void setCommons(String commons) {
-        this.commons = commons == null ? null : commons.trim();
     }
 
     public String getCreateBy() {
@@ -153,43 +133,11 @@ public class SpGoodsClass extends PageBean{
         this.img = img == null ? null : img.trim();
     }
 
-    public String getXhClassids() {
-        return xhClassids;
+    public String getCommons() {
+        return commons;
     }
 
-    public void setXhClassids(String xhClassids) {
-        this.xhClassids = xhClassids == null ? null : xhClassids.trim();
-    }
-
-    public String getXhClassName() {
-        return xhClassName;
-    }
-
-    public void setXhClassName(String xhClassName) {
-        this.xhClassName = xhClassName == null ? null : xhClassName.trim();
-    }
-
-    public String getGbGoodsCode() {
-        return gbGoodsCode;
-    }
-
-    public void setGbGoodsCode(String gbGoodsCode) {
-        this.gbGoodsCode = gbGoodsCode == null ? null : gbGoodsCode.trim();
-    }
-
-    public String getInvoiceProperty() {
-        return invoiceProperty;
-    }
-
-    public void setInvoiceProperty(String invoiceProperty) {
-        this.invoiceProperty = invoiceProperty == null ? null : invoiceProperty.trim();
-    }
-
-    public String getDeleteStatus() {
-        return deleteStatus;
-    }
-
-    public void setDeleteStatus(String deleteStatus) {
-        this.deleteStatus = deleteStatus == null ? null : deleteStatus.trim();
+    public void setCommons(String commons) {
+        this.commons = commons == null ? null : commons.trim();
     }
 }

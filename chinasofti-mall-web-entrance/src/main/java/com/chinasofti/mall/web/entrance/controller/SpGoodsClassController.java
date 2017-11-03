@@ -3,8 +3,6 @@ package com.chinasofti.mall.web.entrance.controller;
 import java.io.File;
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chinasofti.mall.common.entity.SpGoodsClass;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.web.entrance.feign.SpGoodsClassFeignClient;
 
 /**
@@ -43,8 +41,8 @@ public class SpGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping("/list")
-	public String selectByGoodsClass(SpGoodsClass spGoodsClass,HttpServletRequest req){
-		String jsonlist = spGoodsClassFeignClient.selectByGoodsClass(spGoodsClass);
+	public String selectByGoodsClass(ChnGoodsClass chnGoodsClass){
+		String jsonlist = spGoodsClassFeignClient.selectByGoodsClass(chnGoodsClass);
 		return jsonlist;
 	}
 	
@@ -54,9 +52,9 @@ public class SpGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping("/select/{ids}")
-	public SpGoodsClass selectByGoodsClassById(@PathVariable String ids){
-		SpGoodsClass spGoodsClass = spGoodsClassFeignClient.selectGoodsClassById(ids);
-		return spGoodsClass;
+	public ChnGoodsClass selectByGoodsClassById(@PathVariable String ids){
+		ChnGoodsClass chnGoodsClass = spGoodsClassFeignClient.selectGoodsClassById(ids);
+		return chnGoodsClass;
 	}
 	
 	/**
@@ -65,8 +63,8 @@ public class SpGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public int updateGoodsClassById(SpGoodsClass spGoodsClass){
-		int updateGoodsClass = spGoodsClassFeignClient.updateGoodsClass(spGoodsClass);
+	public int updateGoodsClassById(ChnGoodsClass chnGoodsClass){
+		int updateGoodsClass = spGoodsClassFeignClient.updateGoodsClass(chnGoodsClass);
 		return updateGoodsClass;
 	}
 	

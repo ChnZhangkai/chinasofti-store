@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import com.chinasofti.mall.common.entity.SpGoodsClass;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.web.entrance.feign.SpGoodsClassFeignClient;
 
 import net.sf.json.JSONObject;
@@ -13,7 +13,7 @@ import net.sf.json.JSONObject;
 public class SpGoodsClassFeignClientHystrix implements SpGoodsClassFeignClient{
 
 	@Override
-	public String selectByGoodsClass(SpGoodsClass spGoodsClass) {
+	public String selectByGoodsClass(ChnGoodsClass chnGoodsClass) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("total", 0);
 		jsonObject.put("rows", new ArrayList<>());
@@ -27,19 +27,19 @@ public class SpGoodsClassFeignClientHystrix implements SpGoodsClassFeignClient{
 	}
 
 	@Override
-	public SpGoodsClass selectGoodsClassById(String ids) {
+	public ChnGoodsClass selectGoodsClassById(String ids) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int updateGoodsClass(SpGoodsClass spGoodsClass) {
+	public int updateGoodsClass(ChnGoodsClass chnGoodsClass) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int saveGoodsClass(SpGoodsClass spGoodsClass) {
+	public int saveGoodsClass(ChnGoodsClass chnGoodsClass) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

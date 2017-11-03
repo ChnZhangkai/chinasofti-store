@@ -1,15 +1,11 @@
 package com.chinasofti.mall.goodsclass.service;
 
-import com.chinasofti.mall.common.entity.SpGoodsClass;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.common.service.IBaseService;
 
-public interface SpGoodsClassService extends IBaseService<SpGoodsClass>{
+public interface SpGoodsClassService extends IBaseService<ChnGoodsClass>{
 	
-	String selectByExample(SpGoodsClass spGoodsClass);
-	
-	SpGoodsClass selectById(String ids);
-	
-	int updateByExample(SpGoodsClass spGoodsClass);
+	String selectByExample(ChnGoodsClass chnGoodsClass);
 	
 	int deleteById(String ids);
 	
