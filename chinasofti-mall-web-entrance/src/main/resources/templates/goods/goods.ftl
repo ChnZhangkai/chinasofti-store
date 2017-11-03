@@ -15,7 +15,7 @@
 		</div>
 		<div class="wu-toolbar-search">
 			<label>分类名称：</label> <input type="text" id="categoryname" name="categoryname" />
-			<label>分类详情：</label> <input type="text" id="categorytitle" name="categorytitle" />
+			<label>分类描述：</label> <input type="text" id="categorycommons" name="categorycommons" />
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
 		</div>
@@ -25,10 +25,14 @@
 	<table id="tt-goodsinfo" class="easyui-datagrid" toolbar="#wu-toolbar-2" style="height: 95%">
 		<thead>
 		<tr>
-			<th field="ids" width="25%" align="center">分类ID</th>
-			<th field="name" width="25%" align="center">分类名称</th>
-			<th field="url" width="25%" align="center" data-options="formatter:imgFormatter">分类图片</th>
-			<th field="title" width="25%" align="center">分类详情</th>
+			<th field="ids" width="20%" align="center">分类ID</th>
+			<th field="name" width="20%" align="center">分类名称</th>
+			<th field="states" width="20%" align="center" data-options="formatter:statesFormatter">状态</th>
+			<th field="img" width="20%" align="center" data-options="formatter:imgFormatter">分类图片</th>
+			<th field="commons" width="20%" align="center">分类描述</th>
+			<th field="commons" width="20%" align="center">分类描述</th>
+			<th field="updateby" width="20%" align="center">修该员工</th>
+			<th field="updatetime" width="20%" align="center">修改时间</th>
 		</tr>
 		</thead>
 	</table>
@@ -120,6 +124,13 @@ function imgFormatter(value,row){
 	}
 }
 
+function statesFormatter(value){
+	if(value = "0"){
+		return "禁用";
+	}else{
+		return "启用";
+	}
+}
 
 
 	/**
@@ -268,7 +279,7 @@ function imgFormatter(value,row){
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
-	          data: {'title':$('#categorytitle').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
+	          data: {'commons':$('#categorycommons').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
 	              alert(textStatus); 
 	          }, 
@@ -286,7 +297,7 @@ function imgFormatter(value,row){
 	*清除搜索框内容
 	*/
 	function doClear(){
-		document.getElementById("categorytitle").value="";
+		document.getElementById("categorycommons").value="";
 		document.getElementById("categoryname").value="";
 	}
  	

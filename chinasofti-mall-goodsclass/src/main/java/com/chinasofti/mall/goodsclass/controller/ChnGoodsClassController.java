@@ -1,5 +1,7 @@
 package com.chinasofti.mall.goodsclass.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.goodsclass.service.impl.ChnGoodsClassServiceImpl;
+
+import net.sf.json.JSONObject;
 
 @RestController
 @RequestMapping("/goods")
@@ -23,7 +27,7 @@ public class ChnGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
-	public String selectByGoodsClass(@RequestBody(required = false)ChnGoodsClass chnGoodsClass){
+	public JSONObject selectByGoodsClass(@RequestBody(required = false)ChnGoodsClass chnGoodsClass){
 		return spGoodsClassService.selectByExample(chnGoodsClass);
 		
 	}

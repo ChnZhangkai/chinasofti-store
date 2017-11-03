@@ -16,21 +16,15 @@ public interface ChnGoodsClassMapper {
 
     int insertSelective(ChnGoodsClass record);
 
-    List<ChnGoodsClass> selectByExampleWithBLOBs(ChnGoodsClassExample example);
-
     List<ChnGoodsClass> selectByExample(ChnGoodsClassExample example);
 
     ChnGoodsClass selectByPrimaryKey(String ids);
 
     int updateByExampleSelective(@Param("record") ChnGoodsClass record, @Param("example") ChnGoodsClassExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") ChnGoodsClass record, @Param("example") ChnGoodsClassExample example);
-
     int updateByExample(@Param("record") ChnGoodsClass record, @Param("example") ChnGoodsClassExample example);
 
     int updateByPrimaryKeySelective(ChnGoodsClass record);
-
-    int updateByPrimaryKeyWithBLOBs(ChnGoodsClass record);
 
     int updateByPrimaryKey(ChnGoodsClass record);
 }

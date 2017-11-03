@@ -13,11 +13,11 @@ import net.sf.json.JSONObject;
 public class SpGoodsClassFeignClientHystrix implements SpGoodsClassFeignClient{
 
 	@Override
-	public String selectByGoodsClass(ChnGoodsClass chnGoodsClass) {
+	public JSONObject selectByGoodsClass(ChnGoodsClass chnGoodsClass) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("total", 0);
 		jsonObject.put("rows", new ArrayList<>());
-		return jsonObject.toString();
+		return jsonObject;
 	}
 
 	@Override

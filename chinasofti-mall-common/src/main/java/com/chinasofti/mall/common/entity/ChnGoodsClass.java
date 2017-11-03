@@ -1,6 +1,8 @@
 package com.chinasofti.mall.common.entity;
 
-public class ChnGoodsClass {
+import com.chinasofti.mall.common.utils.PageBean;
+
+public class ChnGoodsClass extends PageBean{
     private String ids;
 
     private String pids;
@@ -10,6 +12,8 @@ public class ChnGoodsClass {
     private String name;
 
     private String descs;
+
+    private String commons;
 
     private String createBy;
 
@@ -26,8 +30,6 @@ public class ChnGoodsClass {
     private String showIndex;
 
     private String img;
-
-    private String commons;
 
     public String getIds() {
         return ids;
@@ -67,6 +69,14 @@ public class ChnGoodsClass {
 
     public void setDescs(String descs) {
         this.descs = descs == null ? null : descs.trim();
+    }
+
+    public String getCommons() {
+        return commons;
+    }
+
+    public void setCommons(String commons) {
+        this.commons = commons == null ? null : commons.trim();
     }
 
     public String getCreateBy() {
@@ -131,13 +141,5 @@ public class ChnGoodsClass {
 
     public void setImg(String img) {
         this.img = img == null ? null : img.trim();
-    }
-
-    public String getCommons() {
-        return commons;
-    }
-
-    public void setCommons(String commons) {
-        this.commons = commons == null ? null : commons.trim();
     }
 }
