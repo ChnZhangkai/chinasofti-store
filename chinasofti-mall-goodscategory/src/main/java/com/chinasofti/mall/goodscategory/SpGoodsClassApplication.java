@@ -8,10 +8,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.chinasofti.mall.goodscategory.mapper")
-public class GoodsCategoryApplication {
+public class SpGoodsClassApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(GoodsCategoryApplication.class, args);
+		SpringApplication.run(SpGoodsClassApplication.class, args);
 	}
 	
 }
