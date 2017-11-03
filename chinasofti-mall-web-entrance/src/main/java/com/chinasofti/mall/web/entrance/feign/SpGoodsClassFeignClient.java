@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.chinasofti.mall.common.entity.Goodscategory;
-import com.chinasofti.mall.web.entrance.hystrix.GoodsCategoryFeignClientHystrix;
+import com.chinasofti.mall.common.entity.SpGoodsClass;
+import com.chinasofti.mall.web.entrance.hystrix.SpGoodsClassFeignClientHystrix;
 
 /**
  * Feign服务调用+负载均衡
  * @author Administrator
  *
  */
-@FeignClient(name = "goodscategoryService" , fallback = GoodsCategoryFeignClientHystrix.class)
-public interface GoodsCategoryFeignClient {
+@FeignClient(name = "SpGoodsClassService" , fallback = SpGoodsClassFeignClientHystrix.class)
+public interface SpGoodsClassFeignClient {
 	
 	/**
 	 * 列表及条件查询
@@ -23,7 +23,7 @@ public interface GoodsCategoryFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/select" , method = RequestMethod.POST)
-	public String selectByGoodsCategory(@RequestBody(required = false) Goodscategory goodscategory);
+	public String selectByGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass);
 	
 	/**
 	 * 根据ID删除
@@ -31,7 +31,7 @@ public interface GoodsCategoryFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/delete/{ids}" , method =RequestMethod.POST)
-	public int deleteGoodsCategory(@PathVariable("ids") Integer ids);
+	public int deleteGoodsClassById(@PathVariable("ids") String ids);
 	
 	/**
 	 * 根据ID查找
@@ -39,7 +39,7 @@ public interface GoodsCategoryFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/select/{ids}" , method = RequestMethod.POST)
-	public Goodscategory selectById(@PathVariable("ids") Integer ids);
+	public SpGoodsClass selectGoodsClassById(@PathVariable("ids") String ids);
 	
 	/**
 	 * 根据ID修改
@@ -47,7 +47,7 @@ public interface GoodsCategoryFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/update" , method = RequestMethod.POST)
-	public int updateGoodsCategoryById(@RequestBody(required = false) Goodscategory goodscategory);
+	public int updateGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass);
 	
 	/**
 	 * 增加
@@ -55,6 +55,6 @@ public interface GoodsCategoryFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/save" , method = RequestMethod.POST)
-	public int saveGoodsCategory(@RequestBody(required = false) Goodscategory goodscategory);
+	public int saveGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass);
 	
 }

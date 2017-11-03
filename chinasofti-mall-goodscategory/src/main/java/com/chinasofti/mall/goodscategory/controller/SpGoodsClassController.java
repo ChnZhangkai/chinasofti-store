@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.mall.common.entity.Goodscategory;
-import com.chinasofti.mall.goodscategory.service.impl.GoodsCategoryServiceImpl;
+import com.chinasofti.mall.common.entity.SpGoodsClass;
+import com.chinasofti.mall.goodscategory.service.impl.SpGoodsClassServiceImpl;
 
 @RestController
 @RequestMapping("/goods")
-public class GoodsCategoryController {
+public class SpGoodsClassController {
 	
 	@Autowired
-	private GoodsCategoryServiceImpl goodsCategoryService;
+	private SpGoodsClassServiceImpl spGoodsClassService;
 	
 	/**
 	 * 列表及条件查询
@@ -23,8 +23,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
-	public String selectByGoodsCategory(@RequestBody(required = false)Goodscategory goodscategory){
-		return goodsCategoryService.selectByExample(goodscategory);
+	public String selectByGoodsClass(@RequestBody(required = false)SpGoodsClass spGoodsClass){
+		return spGoodsClassService.selectByExample(spGoodsClass);
 		
 	}
 	
@@ -34,8 +34,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select/{ids}" , method = RequestMethod.POST)
-	public Goodscategory selectGoodsCategory(@PathVariable Integer ids){
-		return goodsCategoryService.selectById(ids);
+	public SpGoodsClass selectGoodsClassById(@PathVariable String ids){
+		return spGoodsClassService.selectById(ids);
 		
 	}
 	
@@ -45,8 +45,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
-	public int updateGoodsCategoryById(@RequestBody(required = false) Goodscategory goodscategory){
-		return goodsCategoryService.update(goodscategory);
+	public int updateGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass){
+		return spGoodsClassService.update(spGoodsClass);
 	}
 	
 	/**
@@ -55,8 +55,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete/{ids}" ,method = RequestMethod.POST)
-	public int deleteGoodsCategoryById(@PathVariable Integer ids){
-		return goodsCategoryService.deleteById(ids);
+	public int deleteGoodsClassById(@PathVariable String ids){
+		return spGoodsClassService.deleteById(ids);
 	}
 	
 	/**
@@ -65,8 +65,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
-	public int saveGoodsCategory(@RequestBody(required = false) Goodscategory goodscategory){
-		return goodsCategoryService.save(goodscategory);
+	public int saveGoodsClass(@RequestBody(required = false) SpGoodsClass spGoodsClass){
+		return spGoodsClassService.save(spGoodsClass);
 	}
 	
 }

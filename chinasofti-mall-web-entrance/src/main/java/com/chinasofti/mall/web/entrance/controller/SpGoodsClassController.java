@@ -3,6 +3,8 @@ package com.chinasofti.mall.web.entrance.controller;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chinasofti.mall.common.entity.Goodscategory;
-import com.chinasofti.mall.web.entrance.feign.GoodsCategoryFeignClient;
+import com.chinasofti.mall.common.entity.SpGoodsClass;
+import com.chinasofti.mall.web.entrance.feign.SpGoodsClassFeignClient;
 
 /**
  * 商品分类服务消费
@@ -21,10 +23,10 @@ import com.chinasofti.mall.web.entrance.feign.GoodsCategoryFeignClient;
  */
 @RestController
 @RequestMapping("/goods")
-public class GoodsCategoryController {
+public class SpGoodsClassController {
 	
 	@Autowired
-	private GoodsCategoryFeignClient goodsCategoryFeignClient;
+	private SpGoodsClassFeignClient spGoodsClassFeignClient;
 	
 	/**
 	 * 返回主界面
@@ -37,13 +39,12 @@ public class GoodsCategoryController {
 	
 	/**
 	 * 列表及条件查询
-	 * @param goodscategory
+	 * @param spGoodsClass
 	 * @return
 	 */
 	@RequestMapping("/list")
-	public String selectByGoodsCategory(Goodscategory goodscategory){
-		
-		String jsonlist = goodsCategoryFeignClient.selectByGoodsCategory(goodscategory);
+	public String selectByGoodsClass(SpGoodsClass spGoodsClass,HttpServletRequest req){
+		String jsonlist = spGoodsClassFeignClient.selectByGoodsClass(spGoodsClass);
 		return jsonlist;
 	}
 	
@@ -53,20 +54,20 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping("/select/{ids}")
-	public Goodscategory selectByGoodsCategoryId(@PathVariable Integer ids){
-		Goodscategory goodscategory = goodsCategoryFeignClient.selectById(ids);
-		return goodscategory;
+	public SpGoodsClass selectByGoodsClassById(@PathVariable String ids){
+		SpGoodsClass spGoodsClass = spGoodsClassFeignClient.selectGoodsClassById(ids);
+		return spGoodsClass;
 	}
 	
 	/**
 	 * 修改
-	 * @param goodscategory
+	 * @param spGoodsClass
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public int updateGoodsCategoryById(Goodscategory goodscategory){
-		int updateGoodsCategoryById = goodsCategoryFeignClient.updateGoodsCategoryById(goodscategory);
-		return updateGoodsCategoryById;
+	public int updateGoodsClassById(SpGoodsClass spGoodsClass){
+		int updateGoodsClass = spGoodsClassFeignClient.updateGoodsClass(spGoodsClass);
+		return updateGoodsClass;
 	}
 	
 	/**
@@ -75,24 +76,23 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping("/delete/{ids}")
-	public int deleteGoodsCategoryById(@PathVariable Integer ids){
-		int delById = goodsCategoryFeignClient.deleteGoodsCategory(ids);
+	public int deleteGoodsClassById(@PathVariable String ids){
+		int delById = spGoodsClassFeignClient.deleteGoodsClassById(ids);
 		return delById;
 	}
 	
 	/**
 	 * 增加
-	 * @param goodscategory
+	 * @param spGoodsClass
 	 * @return
 	 */
 	@RequestMapping("/save")
-	public int saveGoodsCategory(MultipartHttpServletRequest multipartHttpServletRequest){
+	public int saveGoodsClass(MultipartHttpServletRequest multipartHttpServletRequest){
 		
 //		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		
 		String basePath = System.getProperty("user.dir");
 		String ImagePath = basePath  + "\\src\\main\\resources\\static\\images\\goods";
-		
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("url");
 		String imageName = multipartFile.getOriginalFilename();
 		
@@ -106,13 +106,13 @@ public class GoodsCategoryController {
 			e.printStackTrace();
 		}
 		
-		Goodscategory goodscategory = new Goodscategory();
-		goodscategory.setIds(Integer.valueOf(multipartHttpServletRequest.getParameter("ids")));
-		goodscategory.setName(multipartHttpServletRequest.getParameter("name"));
-		goodscategory.setUrl("/images/goods/" + imageName);
-		goodscategory.setTitle(multipartHttpServletRequest.getParameter("title"));
+//		SpGoodsClass spGoodsClass = new SpGoodsClass();
+//		goodscategory.setIds(Integer.valueOf(multipartHttpServletRequest.getParameter("ids")));
+//		goodscategory.setName(multipartHttpServletRequest.getParameter("name"));
+//		goodscategory.setUrl("/images/goods/" + imageName);
+//		goodscategory.setTitle(multipartHttpServletRequest.getParameter("title"));
 		
-		int saveGoodsCategory = goodsCategoryFeignClient.saveGoodsCategory(goodscategory);
-		return saveGoodsCategory;
+//		int saveGoodsCategory = spGoodsClassFeignClient.saveGoodsClass(goodscategory);
+		return 0;
 	}
 }
