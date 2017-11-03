@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs;
+import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.web.entrance.feign.MainGoodsorderFeign;
 
 /**
@@ -46,7 +46,7 @@ public class MainGoodsorderController {
 	* @throws
 	*/
 	@RequestMapping("select/{ids}")
-	public PyMainGoodsorderWithBLOBs selectByPrimaryKey(@PathVariable String ids){
+	public PyMainGoodsorder selectByPrimaryKey(@PathVariable String ids){
 		
 		return mainGoodsorderFeign.findById(ids);
 		
@@ -60,9 +60,9 @@ public class MainGoodsorderController {
 	* @throws
 	*/
 	@RequestMapping(value="list", method = RequestMethod.POST)
-	public List<PyMainGoodsorderWithBLOBs> selectAll(PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs){
+	public List<PyMainGoodsorder> selectAll(PyMainGoodsorder mainGoodsorder){
 		
-		return mainGoodsorderFeign.selectByExample(mainGoodsorderWithBLOBs);
+		return mainGoodsorderFeign.selectByExample(mainGoodsorder);
 	}
 	
 	
@@ -74,8 +74,8 @@ public class MainGoodsorderController {
 	* @throws
 	*/
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String orderAdd(PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
-		mainGoodsorderFeign.add(mainGoodsorderWithBLOBs);
+	public String orderAdd(PyMainGoodsorder mainGoodsorder) {
+		mainGoodsorderFeign.add(mainGoodsorder);
 		return "add";
 	}
 
@@ -102,9 +102,9 @@ public class MainGoodsorderController {
 	* @throws
 	*/
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String orderUpdate(PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
+	public String orderUpdate(PyMainGoodsorder mainGoodsorder) {
 
-		return mainGoodsorderFeign.update(mainGoodsorderWithBLOBs);
+		return mainGoodsorderFeign.update(mainGoodsorder);
 
 	}
 
