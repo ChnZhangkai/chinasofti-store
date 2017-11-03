@@ -5,15 +5,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs;
+import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.web.entrance.feign.MainGoodsorderFeign;
 
 @Component
 public class MainGoodsorderFeignClientHystrix implements MainGoodsorderFeign {
 
 	@Override
-	public PyMainGoodsorderWithBLOBs findById(String id) {
-		return new PyMainGoodsorderWithBLOBs();
+	public PyMainGoodsorder findById(String id) {
+		return new PyMainGoodsorder();
 	}
 
 	@Override
@@ -22,17 +22,17 @@ public class MainGoodsorderFeignClientHystrix implements MainGoodsorderFeign {
 	}
 
 	@Override
-	public String update(PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
+	public String update(PyMainGoodsorder mainGoodsorder) {
 		return null;
 	}
 
 	@Override
-	public String add(PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
+	public String add(PyMainGoodsorder mainGoodsorder) {
 		return null;
 	}
 
 	@Override
-	public List<PyMainGoodsorderWithBLOBs> selectByExample(PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
+	public List<PyMainGoodsorder> selectByExample(PyMainGoodsorder mainGoodsorder) {
 		return new ArrayList<>();
 	}
 

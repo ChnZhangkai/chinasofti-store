@@ -2,7 +2,6 @@ package com.chinasofti.mall.goodsorder.mapper;
 
 import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
-import com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,25 +12,19 @@ public interface PyMainGoodsorderMapper {
 
     int deleteByPrimaryKey(String ids);
 
-    int insert(PyMainGoodsorderWithBLOBs record);
+    int insert(PyMainGoodsorder record);
 
-    int insertSelective(PyMainGoodsorderWithBLOBs record);
-
-    List<PyMainGoodsorderWithBLOBs> selectByExampleWithBLOBs(PyMainGoodsorderExample example);
+    int insertSelective(PyMainGoodsorder record);
 
     List<PyMainGoodsorder> selectByExample(PyMainGoodsorderExample example);
 
-    PyMainGoodsorderWithBLOBs selectByPrimaryKey(String ids);
+    PyMainGoodsorder selectByPrimaryKey(String ids);
 
-    int updateByExampleSelective(@Param("record") PyMainGoodsorderWithBLOBs record, @Param("example") PyMainGoodsorderExample example);
-
-    int updateByExampleWithBLOBs(@Param("record") PyMainGoodsorderWithBLOBs record, @Param("example") PyMainGoodsorderExample example);
+    int updateByExampleSelective(@Param("record") PyMainGoodsorder record, @Param("example") PyMainGoodsorderExample example);
 
     int updateByExample(@Param("record") PyMainGoodsorder record, @Param("example") PyMainGoodsorderExample example);
 
-    int updateByPrimaryKeySelective(PyMainGoodsorderWithBLOBs record);
-
-    int updateByPrimaryKeyWithBLOBs(PyMainGoodsorderWithBLOBs record);
+    int updateByPrimaryKeySelective(PyMainGoodsorder record);
 
     int updateByPrimaryKey(PyMainGoodsorder record);
 }

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.controller.BaseController;
+import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
-import com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 
 /**
@@ -25,19 +25,19 @@ import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 */
 @RestController
 @RequestMapping("mainorder")
-public class MainGoodsorderController implements BaseController<PyMainGoodsorderWithBLOBs> {
+public class MainGoodsorderController implements BaseController<PyMainGoodsorder> {
 	
 	@Autowired
 	private MainGoodsorderService mainGoodsorderService;
 	
 	@Override
-	public List<PyMainGoodsorderWithBLOBs> findAll() {
+	public List<PyMainGoodsorder> findAll() {
 		return null;
 	}
 
 	@Override
 	@RequestMapping("select/{ids}")
-	public PyMainGoodsorderWithBLOBs findById(@PathVariable("ids") String id) {
+	public PyMainGoodsorder findById(@PathVariable("ids") String id) {
 		
 		return mainGoodsorderService.findById(id);
 	}
@@ -51,15 +51,15 @@ public class MainGoodsorderController implements BaseController<PyMainGoodsorder
 
 	@Override
 	@RequestMapping(value="update" , method = RequestMethod.POST)
-	public String update(@RequestBody(required=false) PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
-		mainGoodsorderService.update(mainGoodsorderWithBLOBs);
+	public String update(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder) {
+		mainGoodsorderService.update(mainGoodsorder);
 		return "update";
 	}
 
 	@Override
 	@RequestMapping(value="add" , method = RequestMethod.POST)
-	public String add(@RequestBody(required=false) PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
-		mainGoodsorderService.save(mainGoodsorderWithBLOBs);
+	public String add(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder) {
+		mainGoodsorderService.save(mainGoodsorder);
 		return "add";
 	}
 	
@@ -71,7 +71,7 @@ public class MainGoodsorderController implements BaseController<PyMainGoodsorder
 	* @throws
 	*/
 	@RequestMapping(value="list" , method = RequestMethod.POST)
-	public List<PyMainGoodsorderWithBLOBs> selectByExample(@RequestBody(required=false) PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs){
+	public List<PyMainGoodsorder> selectByExample(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder){
 		
 		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
 		
