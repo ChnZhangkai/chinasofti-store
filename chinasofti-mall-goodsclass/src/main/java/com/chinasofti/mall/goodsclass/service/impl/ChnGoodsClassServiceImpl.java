@@ -47,6 +47,9 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 		if ((chnGoodsClass.getUpdateBy() != null) && !(chnGoodsClass.getUpdateBy().equals(compare))) {
 			criteria.andUpdateByLike("%" + chnGoodsClass.getUpdateBy() + "%");
 		}
+		if ((chnGoodsClass.getStates()) != null && !(chnGoodsClass.getStates()).equals(compare)) {
+			criteria.andStatesEqualTo(chnGoodsClass.getStates());
+		}
 
 		PageHelper.startPage(chnGoodsClass.getPageNumber(),chnGoodsClass.getPageSize());
 		List<ChnGoodsClass> list = chnGoodsClassMapper.selectByExample(example);

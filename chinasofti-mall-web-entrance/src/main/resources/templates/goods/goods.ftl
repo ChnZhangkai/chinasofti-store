@@ -17,7 +17,8 @@
 			<label>分类名称：</label> <input type="text" id="categoryname" name="categoryname" />
 			<label>分类描述：</label> <input type="text" id="categorycommons" name="categorycommons" />
 			<label>修改员工：</label> <input type="text" id="updatename" name="updatename" />
-			<label>状态：</label> <select class="easyui-combobox" id="classstates" name="classstates" style="width: 80px">
+			<label>状态：</label> <select class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="classstates" name="classstates" style="width: 75px">
+									<option value="">请选择</option>
 									<option value="0">禁用</option>
 									<option value="1">启用</option>
 								</select>
@@ -119,15 +120,7 @@ $(function(){
 	tdload(tableID, pageId, url);
 });
 
-/* function timeFormatter(value){
-	if(value != null || value != ""){
-//		var date = new Date(value);
-		//alert(value);
-	}
-} */
-
 function imgFormatter(value,row){
-	//alert(123)
 	var str = "";
 	if(value != "" || value != null){
 		str = "<img style=\"height: 80px;width: 150px;\" src=\""+value+"\"/>";
@@ -136,10 +129,10 @@ function imgFormatter(value,row){
 }
 
 function statesFormatter(value){
-	if(value = "0"){
-		return "禁用";
+	if(value == "0"){
+		return '<span style="color:red">禁用</span>';
 	}else{
-		return "启用";
+		return '<span style="color:green">启用</span>';
 	}
 }
 
@@ -290,7 +283,11 @@ function statesFormatter(value){
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
-	          data: {'commons':$('#categorycommons').val(),'updateBy':$('#updatename').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
+	          data: {'commons':$('#categorycommons').val(),
+	        	     'updateBy':$('#updatename').val(),
+	        	  	 'name':$('#categoryname').val(),
+	        	  	 'states':$('#classstates').val(),
+	        	  	 'pageNumber':1,'pageSize':10}, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
 	              alert(textStatus); 
 	          }, 
@@ -311,6 +308,7 @@ function statesFormatter(value){
 		document.getElementById("categorycommons").value="";
 		document.getElementById("categoryname").value="";
 		document.getElementById("updatename").value="";
+		document.getElementById("classstates").value="";
 	}
  	
 	/**

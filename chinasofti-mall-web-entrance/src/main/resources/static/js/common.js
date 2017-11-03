@@ -21,7 +21,7 @@ function getData(pageNumber, pageSize, tableID, pageId, url) {
 		url : url, // 用户请求数据的URL
 		data : "pageNumber=" + pageNumber + "&pageSize=" + pageSize ,
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			alert(textStatus);
+			alert("数据加载失败,请重试");
 		},
 		success : function(data) {
 			data = eval("(" + data + ")");
