@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.ChnGoodsClass;
-import com.chinasofti.mall.goodsclass.service.impl.SpGoodsClassServiceImpl;
+import com.chinasofti.mall.goodsclass.service.impl.ChnGoodsClassServiceImpl;
 
 @RestController
 @RequestMapping("/goods")
-public class SpGoodsClassController {
+public class ChnGoodsClassController {
 	
 	@Autowired
-	private SpGoodsClassServiceImpl spGoodsClassService;
+	private ChnGoodsClassServiceImpl spGoodsClassService;
 	
 	/**
 	 * 列表及条件查询

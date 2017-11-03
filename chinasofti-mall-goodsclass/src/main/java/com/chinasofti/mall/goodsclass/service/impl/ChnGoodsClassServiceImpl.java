@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.ChnGoodsClassExample;
 import com.chinasofti.mall.goodsclass.mapper.ChnGoodsClassMapper;
-import com.chinasofti.mall.goodsclass.service.SpGoodsClassService;
+import com.chinasofti.mall.goodsclass.service.ChnGoodsClassService;
 import com.google.gson.Gson;
 
 /**
@@ -17,7 +17,7 @@ import com.google.gson.Gson;
  *
  */
 @Service
-public class SpGoodsClassServiceImpl implements SpGoodsClassService{
+public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 	
 	@Autowired
 	private ChnGoodsClassMapper chnGoodsClassMapper;
