@@ -2,8 +2,8 @@ package com.chinasofti.mall.goodsorder.service;
 
 import java.util.List;
 
+import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
-import com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs;
 import com.chinasofti.mall.common.service.IBaseService;
 
 /**
@@ -15,7 +15,7 @@ import com.chinasofti.mall.common.service.IBaseService;
 * @date 		2017年11月2日 上午10:20:50 
 *
 */
-public interface MainGoodsorderService extends IBaseService<PyMainGoodsorderWithBLOBs> {
+public interface MainGoodsorderService extends IBaseService<PyMainGoodsorder> {
 	
 	/**
 	* @Title: selectByExample
@@ -25,6 +25,6 @@ public interface MainGoodsorderService extends IBaseService<PyMainGoodsorderWith
 	* @return List<PyMainGoodsorderWithBLOBs>    返回类型
 	* @throws
 	*/
-	public List<PyMainGoodsorderWithBLOBs> selectByExample(PyMainGoodsorderExample example);
+	public List<PyMainGoodsorder> selectByExample(PyMainGoodsorderExample example);
 
 }

@@ -1155,6 +1155,76 @@ public class PyMainGoodsorderExample {
             return (Criteria) this;
         }
 
+        public Criteria andBuyersMessageIsNull() {
+            addCriterion("BUYERS_MESSAGE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageIsNotNull() {
+            addCriterion("BUYERS_MESSAGE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageEqualTo(String value) {
+            addCriterion("BUYERS_MESSAGE =", value, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageNotEqualTo(String value) {
+            addCriterion("BUYERS_MESSAGE <>", value, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageGreaterThan(String value) {
+            addCriterion("BUYERS_MESSAGE >", value, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageGreaterThanOrEqualTo(String value) {
+            addCriterion("BUYERS_MESSAGE >=", value, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageLessThan(String value) {
+            addCriterion("BUYERS_MESSAGE <", value, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageLessThanOrEqualTo(String value) {
+            addCriterion("BUYERS_MESSAGE <=", value, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageLike(String value) {
+            addCriterion("BUYERS_MESSAGE like", value, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageNotLike(String value) {
+            addCriterion("BUYERS_MESSAGE not like", value, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageIn(List<String> values) {
+            addCriterion("BUYERS_MESSAGE in", values, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageNotIn(List<String> values) {
+            addCriterion("BUYERS_MESSAGE not in", values, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageBetween(String value1, String value2) {
+            addCriterion("BUYERS_MESSAGE between", value1, value2, "buyersMessage");
+            return (Criteria) this;
+        }
+
+        public Criteria andBuyersMessageNotBetween(String value1, String value2) {
+            addCriterion("BUYERS_MESSAGE not between", value1, value2, "buyersMessage");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderTimeIsNull() {
             addCriterion("ORDER_TIME is null");
             return (Criteria) this;
@@ -3132,6 +3202,76 @@ public class PyMainGoodsorderExample {
 
         public Criteria andPLongitudeNotBetween(String value1, String value2) {
             addCriterion("P_LONGITUDE not between", value1, value2, "pLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescIsNull() {
+            addCriterion("SENDDESC is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescIsNotNull() {
+            addCriterion("SENDDESC is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescEqualTo(String value) {
+            addCriterion("SENDDESC =", value, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescNotEqualTo(String value) {
+            addCriterion("SENDDESC <>", value, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescGreaterThan(String value) {
+            addCriterion("SENDDESC >", value, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescGreaterThanOrEqualTo(String value) {
+            addCriterion("SENDDESC >=", value, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescLessThan(String value) {
+            addCriterion("SENDDESC <", value, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescLessThanOrEqualTo(String value) {
+            addCriterion("SENDDESC <=", value, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescLike(String value) {
+            addCriterion("SENDDESC like", value, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescNotLike(String value) {
+            addCriterion("SENDDESC not like", value, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescIn(List<String> values) {
+            addCriterion("SENDDESC in", values, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescNotIn(List<String> values) {
+            addCriterion("SENDDESC not in", values, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescBetween(String value1, String value2) {
+            addCriterion("SENDDESC between", value1, value2, "senddesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andSenddescNotBetween(String value1, String value2) {
+            addCriterion("SENDDESC not between", value1, value2, "senddesc");
             return (Criteria) this;
         }
 

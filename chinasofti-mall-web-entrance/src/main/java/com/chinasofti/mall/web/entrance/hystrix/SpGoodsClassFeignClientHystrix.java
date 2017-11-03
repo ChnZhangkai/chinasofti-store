@@ -4,42 +4,42 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import com.chinasofti.mall.common.entity.Goodscategory;
-import com.chinasofti.mall.web.entrance.feign.GoodsCategoryFeignClient;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
+import com.chinasofti.mall.web.entrance.feign.SpGoodsClassFeignClient;
 
 import net.sf.json.JSONObject;
 
 @Component
-public class GoodsCategoryFeignClientHystrix implements GoodsCategoryFeignClient{
+public class SpGoodsClassFeignClientHystrix implements SpGoodsClassFeignClient{
 
 	@Override
-	public String selectByGoodsCategory(Goodscategory goodscategory) {
+	public JSONObject selectByGoodsClass(ChnGoodsClass chnGoodsClass) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("total", 0);
 		jsonObject.put("rows", new ArrayList<>());
-		return jsonObject.toString();
+		return jsonObject;
 	}
 
 	@Override
-	public int deleteGoodsCategory(Integer ids) {
+	public int deleteGoodsClassById(String ids) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public Goodscategory selectById(Integer ids) {
+	public ChnGoodsClass selectGoodsClassById(String ids) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int updateGoodsCategoryById(Goodscategory goodscategory) {
+	public int updateGoodsClass(ChnGoodsClass chnGoodsClass) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int saveGoodsCategory(Goodscategory goodscategory) {
+	public int saveGoodsClass(ChnGoodsClass chnGoodsClass) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

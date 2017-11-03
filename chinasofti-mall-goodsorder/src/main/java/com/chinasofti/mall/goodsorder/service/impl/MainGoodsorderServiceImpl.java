@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
-import com.chinasofti.mall.common.entity.PyMainGoodsorderWithBLOBs;
 import com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 
@@ -26,18 +26,18 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
 
 	@Override
-	public int save(PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
+	public int save(PyMainGoodsorder mainGoodsorder) {
 		
-		return mainGoodsorderMapper.insertSelective(mainGoodsorderWithBLOBs);
+		return mainGoodsorderMapper.insertSelective(mainGoodsorder);
 	}
 
 	@Override
-	public List<PyMainGoodsorderWithBLOBs> findAll() {
+	public List<PyMainGoodsorder> findAll() {
 		return null;
 	}
 
 	@Override
-	public PyMainGoodsorderWithBLOBs findById(String id) {
+	public PyMainGoodsorder findById(String id) {
 		
 		return mainGoodsorderMapper.selectByPrimaryKey(id);
 	}
@@ -49,15 +49,15 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	}
 
 	@Override
-	public int update(PyMainGoodsorderWithBLOBs mainGoodsorderWithBLOBs) {
+	public int update(PyMainGoodsorder mainGoodsorder) {
 		
-		return mainGoodsorderMapper.updateByPrimaryKeySelective(mainGoodsorderWithBLOBs);
+		return mainGoodsorderMapper.updateByPrimaryKeySelective(mainGoodsorder);
 	}
 	
 	@Override
-	public List<PyMainGoodsorderWithBLOBs> selectByExample(PyMainGoodsorderExample example){
+	public List<PyMainGoodsorder> selectByExample(PyMainGoodsorderExample example){
 		
-		return mainGoodsorderMapper.selectByExampleWithBLOBs(example);
+		return mainGoodsorderMapper.selectByExample(example);
 	}
 
 }

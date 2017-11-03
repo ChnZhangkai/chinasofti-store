@@ -1,4 +1,6 @@
-package com.chinasofti.mall.goodscategory.controller;
+package com.chinasofti.mall.goodsclass.controller;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,15 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.mall.common.entity.Goodscategory;
-import com.chinasofti.mall.goodscategory.service.impl.GoodsCategoryServiceImpl;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
+import com.chinasofti.mall.goodsclass.service.impl.ChnGoodsClassServiceImpl;
+
+import net.sf.json.JSONObject;
 
 @RestController
 @RequestMapping("/goods")
-public class GoodsCategoryController {
+public class ChnGoodsClassController {
 	
 	@Autowired
-	private GoodsCategoryServiceImpl goodsCategoryService;
+	private ChnGoodsClassServiceImpl spGoodsClassService;
 	
 	/**
 	 * 列表及条件查询
@@ -23,8 +27,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
-	public String selectByGoodsCategory(@RequestBody(required = false)Goodscategory goodscategory){
-		return goodsCategoryService.selectByExample(goodscategory);
+	public JSONObject selectByGoodsClass(@RequestBody(required = false)ChnGoodsClass chnGoodsClass){
+		return spGoodsClassService.selectByExample(chnGoodsClass);
 		
 	}
 	
@@ -34,8 +38,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select/{ids}" , method = RequestMethod.POST)
-	public Goodscategory selectGoodsCategory(@PathVariable Integer ids){
-		return goodsCategoryService.selectById(ids);
+	public ChnGoodsClass selectGoodsClassById(@PathVariable String ids){
+		return spGoodsClassService.findById(ids);
 		
 	}
 	
@@ -45,8 +49,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
-	public int updateGoodsCategoryById(@RequestBody(required = false) Goodscategory goodscategory){
-		return goodsCategoryService.update(goodscategory);
+	public int updateGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
+		return spGoodsClassService.update(chnGoodsClass);
 	}
 	
 	/**
@@ -55,8 +59,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete/{ids}" ,method = RequestMethod.POST)
-	public int deleteGoodsCategoryById(@PathVariable Integer ids){
-		return goodsCategoryService.deleteById(ids);
+	public int deleteGoodsClassById(@PathVariable String ids){
+		return spGoodsClassService.deleteById(ids);
 	}
 	
 	/**
@@ -65,8 +69,8 @@ public class GoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
-	public int saveGoodsCategory(@RequestBody(required = false) Goodscategory goodscategory){
-		return goodsCategoryService.save(goodscategory);
+	public int saveGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
+		return spGoodsClassService.save(chnGoodsClass);
 	}
 	
 }
