@@ -12,8 +12,6 @@ import com.chinasofti.mall.goodsclass.mapper.ChnGoodsClassMapper;
 import com.chinasofti.mall.goodsclass.service.ChnGoodsClassService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.google.gson.Gson;
 
 import net.sf.json.JSONObject;
 
@@ -46,16 +44,16 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 		if ((chnGoodsClass.getCommons()) != null && !(chnGoodsClass.getCommons().equals(compare))) {
 				criteria.andCommonsLike("%" + chnGoodsClass.getCommons() + "%");
 		}
+		if ((chnGoodsClass.getUpdateBy() != null) && !(chnGoodsClass.getUpdateBy().equals(compare))) {
+			criteria.andUpdateByLike("%" + chnGoodsClass.getUpdateBy() + "%");
+		}
 
 		PageHelper.startPage(chnGoodsClass.getPageNumber(),chnGoodsClass.getPageSize());
 		List<ChnGoodsClass> list = chnGoodsClassMapper.selectByExample(example);
-		Gson gson = new Gson();
-		
-		String json = gson.toJson(list);
+
 		js.put("rows", list);
-		js.put("total", ((Page)list).getTotal());
+		js.put("total", ((Page<ChnGoodsClass>)list).getTotal());
 		
-//		return list;
 		return js;
 	}
 
