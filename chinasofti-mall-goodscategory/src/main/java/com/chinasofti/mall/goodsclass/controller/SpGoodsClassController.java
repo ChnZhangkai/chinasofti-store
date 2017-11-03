@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goodscategory.controller;
+package com.chinasofti.mall.goodsclass.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.SpGoodsClass;
-import com.chinasofti.mall.goodscategory.service.impl.SpGoodsClassServiceImpl;
+import com.chinasofti.mall.goodsclass.service.impl.SpGoodsClassServiceImpl;
 
 @RestController
 @RequestMapping("/goods")

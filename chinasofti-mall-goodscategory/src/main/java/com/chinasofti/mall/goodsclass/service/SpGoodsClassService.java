@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goodscategory.service;
+package com.chinasofti.mall.goodsclass.service;
 
 import com.chinasofti.mall.common.entity.SpGoodsClass;
 import com.chinasofti.mall.common.service.IBaseService;

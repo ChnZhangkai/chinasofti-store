@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goodscategory.service.impl;
+package com.chinasofti.mall.goodsclass.service.impl;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.SpGoodsClass;
 import com.chinasofti.mall.common.entity.SpGoodsClassExample;
-import com.chinasofti.mall.goodscategory.mapper.SpGoodsClassMapper;
-import com.chinasofti.mall.goodscategory.service.SpGoodsClassService;
+import com.chinasofti.mall.goodsclass.mapper.SpGoodsClassMapper;
+import com.chinasofti.mall.goodsclass.service.SpGoodsClassService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
