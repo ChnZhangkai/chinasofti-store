@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.goodsorder.mapper.PyBigGoodsorderMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.PyBigGoodsorder" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONID" property="transactionid" jdbcType="VARCHAR" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR" />
+    <result column="ORDER_REAL_AMT" property="orderRealAmt" jdbcType="DECIMAL" />
+    <result column="DISCOUNT" property="discount" jdbcType="DECIMAL" />
+    <result column="ORDER_TOTAL_AMT" property="orderTotalAmt" jdbcType="DECIMAL" />
+    <result column="GOODS_TOTAL_AMT" property="goodsTotalAmt" jdbcType="DECIMAL" />
+    <result column="USER_IDS" property="userIds" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="PAYWAY" property="payway" jdbcType="VARCHAR" />
+    <result column="PAY_STATUS" property="payStatus" jdbcType="VARCHAR" />
+    <result column="CHECKING_STATUS" property="checkingStatus" jdbcType="VARCHAR" />
+    <result column="CHECK_DATE" property="checkDate" jdbcType="VARCHAR" />
+    <result column="CHECK_BATCH_NO" property="checkBatchNo" jdbcType="VARCHAR" />
+    <result column="WX_FEE" property="wxFee" jdbcType="DECIMAL" />
+    <result column="PAY_TIME" property="payTime" jdbcType="VARCHAR" />
+    <result column="IS_TICKET" property="isTicket" jdbcType="VARCHAR" />
+    <result column="INVOICE_TYPE" property="invoiceType" jdbcType="VARCHAR" />
+    <result column="INVOICE_TITLE" property="invoiceTitle" jdbcType="VARCHAR" />
+    <result column="INVOICE_ADDRESS" property="invoiceAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, TRANSACTIONID, ORDER_DATE, ORDER_REAL_AMT, DISCOUNT, ORDER_TOTAL_AMT, GOODS_TOTAL_AMT, 
+    USER_IDS, STATUS, PAYWAY, PAY_STATUS, CHECKING_STATUS, CHECK_DATE, CHECK_BATCH_NO, 
+    WX_FEE, PAY_TIME, IS_TICKET, INVOICE_TYPE, INVOICE_TITLE, INVOICE_ADDRESS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PyBigGoodsorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from py_big_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from py_big_goodsorder
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from py_big_goodsorder
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.PyBigGoodsorderExample" >
+    delete from py_big_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PyBigGoodsorder" >
+    insert into py_big_goodsorder (IDS, TRANSACTIONID, ORDER_DATE, 
+      ORDER_REAL_AMT, DISCOUNT, ORDER_TOTAL_AMT, 
+      GOODS_TOTAL_AMT, USER_IDS, STATUS, 
+      PAYWAY, PAY_STATUS, CHECKING_STATUS, 
+      CHECK_DATE, CHECK_BATCH_NO, WX_FEE, 
+      PAY_TIME, IS_TICKET, INVOICE_TYPE, 
+      INVOICE_TITLE, INVOICE_ADDRESS)
+    values (#{ids,jdbcType=VARCHAR}, #{transactionid,jdbcType=VARCHAR}, #{orderDate,jdbcType=VARCHAR}, 
+      #{orderRealAmt,jdbcType=DECIMAL}, #{discount,jdbcType=DECIMAL}, #{orderTotalAmt,jdbcType=DECIMAL}, 
+      #{goodsTotalAmt,jdbcType=DECIMAL}, #{userIds,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{payway,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR}, #{checkingStatus,jdbcType=VARCHAR}, 
+      #{checkDate,jdbcType=VARCHAR}, #{checkBatchNo,jdbcType=VARCHAR}, #{wxFee,jdbcType=DECIMAL}, 
+      #{payTime,jdbcType=VARCHAR}, #{isTicket,jdbcType=VARCHAR}, #{invoiceType,jdbcType=VARCHAR}, 
+      #{invoiceTitle,jdbcType=VARCHAR}, #{invoiceAddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PyBigGoodsorder" >
+    insert into py_big_goodsorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="transactionid != null" >
+        TRANSACTIONID,
+      </if>
+      <if test="orderDate != null" >
+        ORDER_DATE,
+      </if>
+      <if test="orderRealAmt != null" >
+        ORDER_REAL_AMT,
+      </if>
+      <if test="discount != null" >
+        DISCOUNT,
+      </if>
+      <if test="orderTotalAmt != null" >
+        ORDER_TOTAL_AMT,
+      </if>
+      <if test="goodsTotalAmt != null" >
+        GOODS_TOTAL_AMT,
+      </if>
+      <if test="userIds != null" >
+        USER_IDS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="payway != null" >
+        PAYWAY,
+      </if>
+      <if test="payStatus != null" >
+        PAY_STATUS,
+      </if>
+      <if test="checkingStatus != null" >
+        CHECKING_STATUS,
+      </if>
+      <if test="checkDate != null" >
+        CHECK_DATE,
+      </if>
+      <if test="checkBatchNo != null" >
+        CHECK_BATCH_NO,
+      </if>
+      <if test="wxFee != null" >
+        WX_FEE,
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME,
+      </if>
+      <if test="isTicket != null" >
+        IS_TICKET,
+      </if>
+      <if test="invoiceType != null" >
+        INVOICE_TYPE,
+      </if>
+      <if test="invoiceTitle != null" >
+        INVOICE_TITLE,
+      </if>
+      <if test="invoiceAddress != null" >
+        INVOICE_ADDRESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionid != null" >
+        #{transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRealAmt != null" >
+        #{orderRealAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalAmt != null" >
+        #{orderTotalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsTotalAmt != null" >
+        #{goodsTotalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="userIds != null" >
+        #{userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        #{payway,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkingStatus != null" >
+        #{checkingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        #{checkDate,jdbcType=VARCHAR},
+      </if>
+      <if test="checkBatchNo != null" >
+        #{checkBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wxFee != null" >
+        #{wxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isTicket != null" >
+        #{isTicket,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null" >
+        #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTitle != null" >
+        #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceAddress != null" >
+        #{invoiceAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.PyBigGoodsorderExample" resultType="java.lang.Integer" >
+    select count(*) from py_big_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update py_big_goodsorder
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionid != null" >
+        TRANSACTIONID = #{record.transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderDate != null" >
+        ORDER_DATE = #{record.orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderRealAmt != null" >
+        ORDER_REAL_AMT = #{record.orderRealAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discount != null" >
+        DISCOUNT = #{record.discount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderTotalAmt != null" >
+        ORDER_TOTAL_AMT = #{record.orderTotalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsTotalAmt != null" >
+        GOODS_TOTAL_AMT = #{record.goodsTotalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userIds != null" >
+        USER_IDS = #{record.userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payway != null" >
+        PAYWAY = #{record.payway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payStatus != null" >
+        PAY_STATUS = #{record.payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkingStatus != null" >
+        CHECKING_STATUS = #{record.checkingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkDate != null" >
+        CHECK_DATE = #{record.checkDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkBatchNo != null" >
+        CHECK_BATCH_NO = #{record.checkBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxFee != null" >
+        WX_FEE = #{record.wxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payTime != null" >
+        PAY_TIME = #{record.payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isTicket != null" >
+        IS_TICKET = #{record.isTicket,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoiceType != null" >
+        INVOICE_TYPE = #{record.invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoiceTitle != null" >
+        INVOICE_TITLE = #{record.invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoiceAddress != null" >
+        INVOICE_ADDRESS = #{record.invoiceAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update py_big_goodsorder
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      TRANSACTIONID = #{record.transactionid,jdbcType=VARCHAR},
+      ORDER_DATE = #{record.orderDate,jdbcType=VARCHAR},
+      ORDER_REAL_AMT = #{record.orderRealAmt,jdbcType=DECIMAL},
+      DISCOUNT = #{record.discount,jdbcType=DECIMAL},
+      ORDER_TOTAL_AMT = #{record.orderTotalAmt,jdbcType=DECIMAL},
+      GOODS_TOTAL_AMT = #{record.goodsTotalAmt,jdbcType=DECIMAL},
+      USER_IDS = #{record.userIds,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      PAYWAY = #{record.payway,jdbcType=VARCHAR},
+      PAY_STATUS = #{record.payStatus,jdbcType=VARCHAR},
+      CHECKING_STATUS = #{record.checkingStatus,jdbcType=VARCHAR},
+      CHECK_DATE = #{record.checkDate,jdbcType=VARCHAR},
+      CHECK_BATCH_NO = #{record.checkBatchNo,jdbcType=VARCHAR},
+      WX_FEE = #{record.wxFee,jdbcType=DECIMAL},
+      PAY_TIME = #{record.payTime,jdbcType=VARCHAR},
+      IS_TICKET = #{record.isTicket,jdbcType=VARCHAR},
+      INVOICE_TYPE = #{record.invoiceType,jdbcType=VARCHAR},
+      INVOICE_TITLE = #{record.invoiceTitle,jdbcType=VARCHAR},
+      INVOICE_ADDRESS = #{record.invoiceAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.PyBigGoodsorder" >
+    update py_big_goodsorder
+    <set >
+      <if test="transactionid != null" >
+        TRANSACTIONID = #{transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        ORDER_DATE = #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRealAmt != null" >
+        ORDER_REAL_AMT = #{orderRealAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        DISCOUNT = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderTotalAmt != null" >
+        ORDER_TOTAL_AMT = #{orderTotalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsTotalAmt != null" >
+        GOODS_TOTAL_AMT = #{goodsTotalAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="userIds != null" >
+        USER_IDS = #{userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="payway != null" >
+        PAYWAY = #{payway,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkingStatus != null" >
+        CHECKING_STATUS = #{checkingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        CHECK_DATE = #{checkDate,jdbcType=VARCHAR},
+      </if>
+      <if test="checkBatchNo != null" >
+        CHECK_BATCH_NO = #{checkBatchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wxFee != null" >
+        WX_FEE = #{wxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME = #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isTicket != null" >
+        IS_TICKET = #{isTicket,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null" >
+        INVOICE_TYPE = #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTitle != null" >
+        INVOICE_TITLE = #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceAddress != null" >
+        INVOICE_ADDRESS = #{invoiceAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.PyBigGoodsorder" >
+    update py_big_goodsorder
+    set TRANSACTIONID = #{transactionid,jdbcType=VARCHAR},
+      ORDER_DATE = #{orderDate,jdbcType=VARCHAR},
+      ORDER_REAL_AMT = #{orderRealAmt,jdbcType=DECIMAL},
+      DISCOUNT = #{discount,jdbcType=DECIMAL},
+      ORDER_TOTAL_AMT = #{orderTotalAmt,jdbcType=DECIMAL},
+      GOODS_TOTAL_AMT = #{goodsTotalAmt,jdbcType=DECIMAL},
+      USER_IDS = #{userIds,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      PAYWAY = #{payway,jdbcType=VARCHAR},
+      PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
+      CHECKING_STATUS = #{checkingStatus,jdbcType=VARCHAR},
+      CHECK_DATE = #{checkDate,jdbcType=VARCHAR},
+      CHECK_BATCH_NO = #{checkBatchNo,jdbcType=VARCHAR},
+      WX_FEE = #{wxFee,jdbcType=DECIMAL},
+      PAY_TIME = #{payTime,jdbcType=VARCHAR},
+      IS_TICKET = #{isTicket,jdbcType=VARCHAR},
+      INVOICE_TYPE = #{invoiceType,jdbcType=VARCHAR},
+      INVOICE_TITLE = #{invoiceTitle,jdbcType=VARCHAR},
+      INVOICE_ADDRESS = #{invoiceAddress,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>
