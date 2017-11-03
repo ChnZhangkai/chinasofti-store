@@ -35,14 +35,14 @@ public class MainGoodsorderController {
 	*/
 	@RequestMapping("/index")
 	public ModelAndView getView() {
-		return  new ModelAndView("/order/goodsorder");
+		return  new ModelAndView("/order/mainorder");
 	}
 	
 	/**
 	* @Title: selectByPrimaryKey
 	* @Description: 通过主键查询
 	* @param ids
-	* @return PyMainGoodsorderWithBLOBs
+	* @return PyMainGoodsorder
 	* @throws
 	*/
 	@RequestMapping("select/{ids}")
@@ -55,8 +55,8 @@ public class MainGoodsorderController {
 	/**
 	* @Title: selectAll
 	* @Description: 条件查询
-	* @param mainGoodsorderWithBLOBs
-	* @return List<PyMainGoodsorderWithBLOBs>
+	* @param mainGoodsorder
+	* @return List<PyMainGoodsorder>
 	* @throws
 	*/
 	@RequestMapping(value="list", method = RequestMethod.POST)
@@ -69,7 +69,7 @@ public class MainGoodsorderController {
 	/**
 	* @Title: orderAdd
 	* @Description: 添加主订单
-	* @param mainGoodsorderWithBLOBs
+	* @param mainGoodsorder
 	* @return  String
 	* @throws
 	*/
@@ -97,7 +97,7 @@ public class MainGoodsorderController {
 	/**
 	* @Title: orderUpdate
 	* @Description: 更改
-	* @param mainGoodsorderWithBLOBs
+	* @param mainGoodsorder
 	* @return String
 	* @throws
 	*/

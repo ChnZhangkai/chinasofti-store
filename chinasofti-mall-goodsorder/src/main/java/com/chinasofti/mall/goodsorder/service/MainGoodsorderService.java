@@ -22,7 +22,7 @@ public interface MainGoodsorderService extends IBaseService<PyMainGoodsorder> {
 	* @Description: 条件查询
 	* @param @param example
 	* @param @return    参数
-	* @return List<PyMainGoodsorderWithBLOBs>    返回类型
+	* @return List<PyMainGoodsorder>    返回类型
 	* @throws
 	*/
 	public List<PyMainGoodsorder> selectByExample(PyMainGoodsorderExample example);

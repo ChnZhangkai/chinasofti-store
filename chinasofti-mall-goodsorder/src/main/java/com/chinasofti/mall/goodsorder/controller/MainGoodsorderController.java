@@ -20,7 +20,7 @@ import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 *
 * @author 		tanjl
 * @Version 		V1.0
-* @date 		2017年11月2日 下午2:18:35 
+* @date 		2017年11月2日 下午2:18:35
 *
 */
 @RestController
@@ -66,8 +66,8 @@ public class MainGoodsorderController implements BaseController<PyMainGoodsorder
 	/**
 	* @Title: selectByExample
 	* @Description: 条件查询
-	* @param mainGoodsorderWithBLOBs
-	* @return List<PyMainGoodsorderWithBLOBs>
+	* @param mainGoodsorder
+	* @return List<PyMainGoodsorder>
 	* @throws
 	*/
 	@RequestMapping(value="list" , method = RequestMethod.POST)
