@@ -65,15 +65,20 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	public String findByPage(Map<String, Object> paramMap) {
 		JSONObject js = new JSONObject();
 		AdvertiseContentsExample advertiseContentsExample = new AdvertiseContentsExample();
+		//条件判断
+		if(paramMap.containsKey("title")) {
+			advertiseContentsExample.createCriteria().andTitleLike("%"+paramMap.get("title").toString()+"%");
+		};
 		//cmsAdContentsExample.createCriteria().andStatesEqualTo("1");
+		//排序
 		advertiseContentsExample.setOrderByClause("ids ASC");
+		//执行分页查询
 		PageHelper.startPage(Integer.parseInt(paramMap.get("pageNumber").toString()),
 							Integer.parseInt(paramMap.get("pageSize").toString()));
 		List<AdvertiseContents> list = advertiseMapper.selectByExample(advertiseContentsExample);
 		js.put("rows", list);
 		js.put("total", ((Page) list).getTotal());
 		return js.toString();
-
 	}
 
 }
