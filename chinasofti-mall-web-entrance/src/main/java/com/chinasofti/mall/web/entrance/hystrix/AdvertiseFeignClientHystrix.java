@@ -3,7 +3,6 @@ package com.chinasofti.mall.web.entrance.hystrix;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
 /**
@@ -18,32 +17,27 @@ public class AdvertiseFeignClientHystrix implements AdvertiseFeignClient{
 
 	@Override
 	public List<AdvertiseContents> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override
 	public String findByPage(Map<String, Object> paramMap) {
-		// TODO Auto-generated method stub
-		return null;
+		return "服务已断开";
 	}
 
 	@Override
 	public String deleteById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return "服务已断开";
 	}
 
 	@Override
 	public String add(AdvertiseContents cmsAdContentsWithBLOBs) {
-		// TODO Auto-generated method stub
-		return null;
+		return "服务已断开";
 	}
 
 	@Override
 	public String update(AdvertiseContents cmsAdContentsWithBLOBs) {
-		// TODO Auto-generated method stub
-		return null;
+		return "服务已断开";
 	}
 
 	

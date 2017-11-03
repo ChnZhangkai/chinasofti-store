@@ -5,9 +5,7 @@
     <artifactId>chinasofti-mall</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>chinasofti-mall-goodscategory</artifactId>
-  <name>商品分类</name>
-  
+  <artifactId>chinasofti-mall-goodsclass</artifactId>
   <dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -146,5 +144,4 @@
 			</plugin>
 		</plugins>
 	</build>
-  
 </project>
