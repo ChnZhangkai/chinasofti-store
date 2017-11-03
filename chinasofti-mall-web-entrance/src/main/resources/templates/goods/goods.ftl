@@ -16,6 +16,11 @@
 		<div class="wu-toolbar-search">
 			<label>分类名称：</label> <input type="text" id="categoryname" name="categoryname" />
 			<label>分类描述：</label> <input type="text" id="categorycommons" name="categorycommons" />
+			<label>修改员工：</label> <input type="text" id="updatename" name="updatename" />
+			<label>状态：</label> <select class="easyui-combobox" id="classstates" name="classstates" style="width: 80px">
+									<option value="0">禁用</option>
+									<option value="1">启用</option>
+								</select>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
 		</div>
@@ -30,8 +35,8 @@
 			<th field="states" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
 			<th field="commons" width="25%" align="center">分类描述</th>
 			<th field="img" width="15%" align="center" data-options="formatter:imgFormatter">分类图片</th>
-			<th field="updateBy" width="10%" align="center">修该员工</th>
-			<th field="updateTime" width="15%" align="center">修改时间</th>
+			<th field="updateBy" width="10%" align="center">修改员工</th>
+			<th field="updateTime" width="15%" align="center" >修改时间</th>
 		</tr>
 		</thead>
 	</table>
@@ -113,6 +118,13 @@ $(function(){
 	
 	tdload(tableID, pageId, url);
 });
+
+/* function timeFormatter(value){
+	if(value != null || value != ""){
+//		var date = new Date(value);
+		//alert(value);
+	}
+} */
 
 function imgFormatter(value,row){
 	//alert(123)
@@ -278,7 +290,7 @@ function statesFormatter(value){
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
-	          data: {'commons':$('#categorycommons').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
+	          data: {'commons':$('#categorycommons').val(),'updateBy':$('#updatename').val(),'name':$('#categoryname').val(),'pageNumber':1,'pageSize':10}, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
 	              alert(textStatus); 
 	          }, 
@@ -298,6 +310,7 @@ function statesFormatter(value){
 	function doClear(){
 		document.getElementById("categorycommons").value="";
 		document.getElementById("categoryname").value="";
+		document.getElementById("updatename").value="";
 	}
  	
 	/**
