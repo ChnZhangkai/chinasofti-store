@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.web.entrance.feign.SpGoodsClassFeignClient;
 
+import net.sf.json.JSONObject;
+
 /**
  * 商品分类服务消费
  * @author Administrator
@@ -42,8 +44,8 @@ public class SpGoodsClassController {
 	 */
 	@RequestMapping("/list")
 	public String selectByGoodsClass(ChnGoodsClass chnGoodsClass){
-		String jsonlist = spGoodsClassFeignClient.selectByGoodsClass(chnGoodsClass);
-		return jsonlist;
+		JSONObject jsonlist = spGoodsClassFeignClient.selectByGoodsClass(chnGoodsClass);
+		return jsonlist.toString();
 	}
 	
 	/**

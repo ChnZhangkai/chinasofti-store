@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.web.entrance.hystrix.SpGoodsClassFeignClientHystrix;
 
+import net.sf.json.JSONObject;
+
 /**
  * Feign服务调用+负载均衡
  * @author Administrator
@@ -23,7 +25,7 @@ public interface SpGoodsClassFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goods/select" , method = RequestMethod.POST)
-	public String selectByGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass);
+	public JSONObject selectByGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass);
 	
 	/**
 	 * 根据ID删除

@@ -454,6 +454,76 @@ public class ChnGoodsClassExample {
             return (Criteria) this;
         }
 
+        public Criteria andCommonsIsNull() {
+            addCriterion("COMMONS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsIsNotNull() {
+            addCriterion("COMMONS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsEqualTo(String value) {
+            addCriterion("COMMONS =", value, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsNotEqualTo(String value) {
+            addCriterion("COMMONS <>", value, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsGreaterThan(String value) {
+            addCriterion("COMMONS >", value, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsGreaterThanOrEqualTo(String value) {
+            addCriterion("COMMONS >=", value, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsLessThan(String value) {
+            addCriterion("COMMONS <", value, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsLessThanOrEqualTo(String value) {
+            addCriterion("COMMONS <=", value, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsLike(String value) {
+            addCriterion("COMMONS like", value, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsNotLike(String value) {
+            addCriterion("COMMONS not like", value, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsIn(List<String> values) {
+            addCriterion("COMMONS in", values, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsNotIn(List<String> values) {
+            addCriterion("COMMONS not in", values, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsBetween(String value1, String value2) {
+            addCriterion("COMMONS between", value1, value2, "commons");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommonsNotBetween(String value1, String value2) {
+            addCriterion("COMMONS not between", value1, value2, "commons");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateByIsNull() {
             addCriterion("CREATE_BY is null");
             return (Criteria) this;
