@@ -9,7 +9,7 @@
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
 </head>
 
-<body class="easyui-layout">
+<body class="easyui-layout" id="mainPanel">
 
 	<!--上-->
 	<div class="zk-header"
@@ -45,7 +45,7 @@
 		data-options="region:'west',split:true,title:'菜单'"
 		style="width: 150px; padding: 10px;">
 
-		<div class="easyui-accordion" data-options="border:false,fit:true">
+		<div class="easyui-accordion" data-options="border:false,fit:true" id="acc">
 			<!--选项卡1-->
 			<div title="商品管理" data-options="iconCls:'icon-cart'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
@@ -120,7 +120,36 @@
 
 
 	<script type="text/javascript">
+	
+	/*function switchWX(){
+		deletePanel();
+	}
+	
+	function deletePanel(){
+	     $("#mainPanel").layout('remove','west');
+	}
+	
+	function switchOperate(){
+		$("#mainPanel").layout('add',{
+			region:'west',
+			title:'菜单123',
+			id:'add',
+			width:150,
+			split:true,
+		});
 		
+	}
+	
+	function add(){
+		var pnlCenter = $("#mainPanel").layout('panel', 'west');
+		var id = pnlCenter.panel('options').id;
+		alert(id)
+		$("#"+acc).accordion('add',{
+			title:'title',
+			selected:false
+		}) 
+	}*/
+	
 	<!--获取标题，url,图标，内联标签-->
 		$(function() {
 			$('.zk-side-tree a').bind("click", function() {
