@@ -14,16 +14,18 @@
 				plain="true">打印</a>
 		</div>
 		<div class="wu-toolbar-search">
-			<label>分类名称：</label> <input type="text" id="categoryname" name="categoryname" />
-			<label>分类描述：</label> <input type="text" id="categorycommons" name="categorycommons" />
-			<label>修改员工：</label> <input type="text" id="updatename" name="updatename" />
-			<label>状态：</label> <select class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="classstates" name="classstates" style="width: 75px">
+		<form id="searchForm">
+			<label>分类名称：</label> <input type="text" id="categoryname" name="name" />
+			<label>分类描述：</label> <input type="text" id="categorycommons" name="commons" />
+			<label>修改员工：</label> <input type="text" id="updatebyname" name="updateBy" />
+			<label>状态：</label> <select class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
 									<option value="">请选择</option>
 									<option value="0">禁用</option>
 									<option value="1">启用</option>
 								</select>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
+		</form>	
 		</div>
 	</div>
 	
@@ -108,6 +110,10 @@
 <!-- End of easyui-dialog -->
 <script type="text/javascript">
 $(function(){
+	$.messager.show({
+		title:'提示',
+		msg:'马化腾:Q币充值成功!'
+	});
 	//获取表格datagrid的ID属性
 	var tableID = $("table.easyui-datagrid").attr("id");
 	//alert(tableID);
@@ -117,7 +123,9 @@ $(function(){
 	//此处设置自己的url地址
 	var url = '/goods/list';
 	
+	var pstates = $('#classstates').val();
 	tdload(tableID, pageId, url);
+	
 });
 
 function imgFormatter(value,row){
@@ -283,11 +291,7 @@ function statesFormatter(value){
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
-	          data: {'commons':$('#categorycommons').val(),
-	        	     'updateBy':$('#updatename').val(),
-	        	  	 'name':$('#categoryname').val(),
-	        	  	 'states':$('#classstates').val(),
-	        	  	 'pageNumber':1,'pageSize':10}, 
+	          data: $('#searchForm').serialize(), 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
 	              alert(textStatus); 
 	          }, 
@@ -307,10 +311,8 @@ function statesFormatter(value){
 	function doClear(){
 		document.getElementById("categorycommons").value="";
 		document.getElementById("categoryname").value="";
-		document.getElementById("updatename").value="";
-		document.getElementById("classstates").value="";
-	}
- 	
+		document.getElementById("updatebyname").value="";
+	} 	
 	/**
 	* Name 查询数据并打开修改窗口
 	*/
