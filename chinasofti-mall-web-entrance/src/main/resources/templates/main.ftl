@@ -50,8 +50,8 @@
 			<div title="商品管理" data-options="iconCls:'icon-cart'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/goods/index" iframe="0">商品分类管理</a></li>
-                    <li iconCls="icon-check-error"><a href="javascript:void(0)" data-icon="icon-users" data-link="temp/layout-3.html" iframe="0">商品审核管理</a></li>
-                    <li iconCls="icon-chart-line"><a href="javascript:void(0)" data-icon="icon-user-group" data-link="temp/layout-3.html" iframe="0">商品在线管理</a></li>
+                    <li iconCls="icon-check-error"><a href="javascript:void(0)" data-icon="icon-users" data-link="/goodscheck/index" iframe="0">商品审核管理</a></li>
+                    <li iconCls="icon-chart-line"><a href="javascript:void(0)" data-icon="icon-user-group" data-link="/goodsonline/index" iframe="0">商品在线管理</a></li>
                 </ul>
 			</div>
 			<!--选项卡2-->

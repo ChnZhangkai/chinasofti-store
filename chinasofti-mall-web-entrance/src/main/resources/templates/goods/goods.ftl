@@ -134,7 +134,6 @@ $(function(){
 	
 	var pstates = $('#classstates').val();
 	tdload(tableID, pageId, url);
-	$.messager.progress();
 	
 });
 
