@@ -133,20 +133,27 @@
 		$("#mainPanel").layout('add',{
 			region:'west',
 			title:'菜单123',
-			id:'add',
+			id:'zhang',
 			width:150,
 			split:true,
+			tools: [{    
+		        iconCls:'icon-add',    
+		        handler:function(){alert('add')}    
+		    },{    
+		        iconCls:'icon-remove',    
+		        handler:function(){alert('remove')}    
+		    }] ,
 		});
+			add()
 		
 	}
 	
 	function add(){
-		var pnlCenter = $("#mainPanel").layout('panel', 'west');
-		var id = pnlCenter.panel('options').id;
-		alert(id)
-		$("#"+acc).accordion('add',{
+		$("#zhang").accordion('add',{
 			title:'title',
-			selected:false
+			id:"abc",
+			content: '<ul class="easyui-tree zk-side-tree"><li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></li></ul>',
+			selected:false,
 		}) 
 	}*/
 	
