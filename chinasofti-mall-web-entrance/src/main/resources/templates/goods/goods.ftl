@@ -61,16 +61,25 @@
 			<tr>
 				<td width="60" align="right">分类名称:</td>
 				<td><input type="text" id="name" name="name"
+					class="easyui-validatebox wu-text" required="true" missingMessage="请输入分类名称"/></td>
+			</tr>
+			<tr>
+				<td align="right">分类描述:</td>
+				<td><input type="text" id="commons" name="commons"
 					class="wu-text" /></td>
+			</tr>
+			<tr>
+				<td align="right">分类状态:</td>
+				<td>
+					<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择分类状态" data-options="editable:false,panelHeight:'auto'" id="states" name="states" style="width: 75px">
+							<option value="0">禁用</option>
+							<option value="1">启用</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td align="right">分类图片:</td>
 				<td><input type="file" id="url" name="url"/></td>
-			</tr>
-			<tr>
-				<td align="right">分类详情:</td>
-				<td><input type="text" id="title" name="title"
-					class="wu-text" /></td>
 			</tr>
 		</table>
 	</form>
@@ -112,7 +121,7 @@
 $(function(){
 	$.messager.show({
 		title:'提示',
-		msg:'马化腾:Q币充值成功!'
+		msg:'欢迎登录!'
 	});
 	//获取表格datagrid的ID属性
 	var tableID = $("table.easyui-datagrid").attr("id");
@@ -125,6 +134,7 @@ $(function(){
 	
 	var pstates = $('#classstates').val();
 	tdload(tableID, pageId, url);
+	$.messager.progress();
 	
 });
 

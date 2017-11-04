@@ -21,9 +21,10 @@ function getData(pageNumber, pageSize, tableID, pageId, url) {
 		url : url, // 用户请求数据的URL
 		data : "pageNumber=" + pageNumber + "&pageSize=" + pageSize ,
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("数据加载失败,请重试");
+			alert("数据加载失败,请刷新页面");
 		},
 		success : function(data) {
+			$.messager.progress('close');
 			data = eval("(" + data + ")");
 			$('#' + tableID).datagrid('loadData', data.rows);
 			$(pageId).pagination({
