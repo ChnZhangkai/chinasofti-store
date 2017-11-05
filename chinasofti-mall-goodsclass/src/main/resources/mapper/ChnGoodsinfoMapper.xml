@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasofti.mall.goodsclass.mapper.ChnGoodsinfoMapper">
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+    <id column="IDS" jdbcType="VARCHAR" property="ids" />
+    <result column="VENDORIDS" jdbcType="VARCHAR" property="vendorids" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="MOUTH_TRADE" jdbcType="DECIMAL" property="mouthTrade" />
+    <result column="SUBTITLE" jdbcType="VARCHAR" property="subtitle" />
+    <result column="COMMON" jdbcType="VARCHAR" property="common" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="DIS_PRICE" jdbcType="DECIMAL" property="disPrice" />
+    <result column="GOODS_CLASS_IDS" jdbcType="VARCHAR" property="goodsClassIds" />
+    <result column="STANDARD" jdbcType="VARCHAR" property="standard" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="STORE_NUM" jdbcType="DECIMAL" property="storeNum" />
+    <result column="REVIEW_DESC" jdbcType="VARCHAR" property="reviewDesc" />
+    <result column="REVIEW_STATUES" jdbcType="CHAR" property="reviewStatues" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="COLL_NUM" jdbcType="DECIMAL" property="collNum" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="START_TIME" jdbcType="VARCHAR" property="startTime" />
+    <result column="END_TIME" jdbcType="VARCHAR" property="endTime" />
+    <result column="ONLINE_TIME" jdbcType="VARCHAR" property="onlineTime" />
+    <result column="LEAVE_TIME" jdbcType="VARCHAR" property="leaveTime" />
+    <result column="BRAND_IDS" jdbcType="VARCHAR" property="brandIds" />
+    <result column="WEIGHT" jdbcType="DECIMAL" property="weight" />
+    <result column="DELIVE_WAY" jdbcType="VARCHAR" property="deliveWay" />
+    <result column="IS_DIS_VERDORNAME" jdbcType="VARCHAR" property="isDisVerdorname" />
+    <result column="IS_DIS_STANDARD" jdbcType="VARCHAR" property="isDisStandard" />
+    <result column="IS_DIS_STORE" jdbcType="VARCHAR" property="isDisStore" />
+    <result column="LIMIT_ORDER_NUM" jdbcType="DECIMAL" property="limitOrderNum" />
+    <result column="REVIEW_BY" jdbcType="VARCHAR" property="reviewBy" />
+    <result column="REVIEW_TIME" jdbcType="VARCHAR" property="reviewTime" />
+    <result column="TOTAL_TRADE" jdbcType="DECIMAL" property="totalTrade" />
+    <result column="LIMIT_USER_NUM" jdbcType="DECIMAL" property="limitUserNum" />
+    <result column="ORG_PRICE" jdbcType="DECIMAL" property="orgPrice" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="ISSHOW" jdbcType="VARCHAR" property="isshow" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    IDS, VENDORIDS, TITLE, MOUTH_TRADE, SUBTITLE, COMMON, PRICE, DIS_PRICE, GOODS_CLASS_IDS, 
+    STANDARD, CODE, CONTENT, STORE_NUM, REVIEW_DESC, REVIEW_STATUES, UPDATE_BY, UPDATE_TIME, 
+    CREATE_BY, CREATE_TIME, COLL_NUM, STATUS, START_TIME, END_TIME, ONLINE_TIME, LEAVE_TIME, 
+    BRAND_IDS, WEIGHT, DELIVE_WAY, IS_DIS_VERDORNAME, IS_DIS_STANDARD, IS_DIS_STORE, 
+    LIMIT_ORDER_NUM, REVIEW_BY, REVIEW_TIME, TOTAL_TRADE, LIMIT_USER_NUM, ORG_PRICE, 
+    TYPE, ISSHOW
+  </sql>
+  <select id="selectByExample" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from chn_goodsinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chn_goodsinfo
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from chn_goodsinfo
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfoExample">
+    delete from chn_goodsinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+    insert into chn_goodsinfo (IDS, VENDORIDS, TITLE, 
+      MOUTH_TRADE, SUBTITLE, COMMON, 
+      PRICE, DIS_PRICE, GOODS_CLASS_IDS, 
+      STANDARD, CODE, CONTENT, 
+      STORE_NUM, REVIEW_DESC, REVIEW_STATUES, 
+      UPDATE_BY, UPDATE_TIME, CREATE_BY, 
+      CREATE_TIME, COLL_NUM, STATUS, 
+      START_TIME, END_TIME, ONLINE_TIME, 
+      LEAVE_TIME, BRAND_IDS, WEIGHT, 
+      DELIVE_WAY, IS_DIS_VERDORNAME, IS_DIS_STANDARD, 
+      IS_DIS_STORE, LIMIT_ORDER_NUM, REVIEW_BY, 
+      REVIEW_TIME, TOTAL_TRADE, LIMIT_USER_NUM, 
+      ORG_PRICE, TYPE, ISSHOW
+      )
+    values (#{ids,jdbcType=VARCHAR}, #{vendorids,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{mouthTrade,jdbcType=DECIMAL}, #{subtitle,jdbcType=VARCHAR}, #{common,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{disPrice,jdbcType=DECIMAL}, #{goodsClassIds,jdbcType=VARCHAR}, 
+      #{standard,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{storeNum,jdbcType=DECIMAL}, #{reviewDesc,jdbcType=VARCHAR}, #{reviewStatues,jdbcType=CHAR}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{collNum,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{onlineTime,jdbcType=VARCHAR}, 
+      #{leaveTime,jdbcType=VARCHAR}, #{brandIds,jdbcType=VARCHAR}, #{weight,jdbcType=DECIMAL}, 
+      #{deliveWay,jdbcType=VARCHAR}, #{isDisVerdorname,jdbcType=VARCHAR}, #{isDisStandard,jdbcType=VARCHAR}, 
+      #{isDisStore,jdbcType=VARCHAR}, #{limitOrderNum,jdbcType=DECIMAL}, #{reviewBy,jdbcType=VARCHAR}, 
+      #{reviewTime,jdbcType=VARCHAR}, #{totalTrade,jdbcType=DECIMAL}, #{limitUserNum,jdbcType=DECIMAL}, 
+      #{orgPrice,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR}, #{isshow,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+    insert into chn_goodsinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ids != null">
+        IDS,
+      </if>
+      <if test="vendorids != null">
+        VENDORIDS,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="mouthTrade != null">
+        MOUTH_TRADE,
+      </if>
+      <if test="subtitle != null">
+        SUBTITLE,
+      </if>
+      <if test="common != null">
+        COMMON,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="disPrice != null">
+        DIS_PRICE,
+      </if>
+      <if test="goodsClassIds != null">
+        GOODS_CLASS_IDS,
+      </if>
+      <if test="standard != null">
+        STANDARD,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="storeNum != null">
+        STORE_NUM,
+      </if>
+      <if test="reviewDesc != null">
+        REVIEW_DESC,
+      </if>
+      <if test="reviewStatues != null">
+        REVIEW_STATUES,
+      </if>
+      <if test="updateBy != null">
+        UPDATE_BY,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="collNum != null">
+        COLL_NUM,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="onlineTime != null">
+        ONLINE_TIME,
+      </if>
+      <if test="leaveTime != null">
+        LEAVE_TIME,
+      </if>
+      <if test="brandIds != null">
+        BRAND_IDS,
+      </if>
+      <if test="weight != null">
+        WEIGHT,
+      </if>
+      <if test="deliveWay != null">
+        DELIVE_WAY,
+      </if>
+      <if test="isDisVerdorname != null">
+        IS_DIS_VERDORNAME,
+      </if>
+      <if test="isDisStandard != null">
+        IS_DIS_STANDARD,
+      </if>
+      <if test="isDisStore != null">
+        IS_DIS_STORE,
+      </if>
+      <if test="limitOrderNum != null">
+        LIMIT_ORDER_NUM,
+      </if>
+      <if test="reviewBy != null">
+        REVIEW_BY,
+      </if>
+      <if test="reviewTime != null">
+        REVIEW_TIME,
+      </if>
+      <if test="totalTrade != null">
+        TOTAL_TRADE,
+      </if>
+      <if test="limitUserNum != null">
+        LIMIT_USER_NUM,
+      </if>
+      <if test="orgPrice != null">
+        ORG_PRICE,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="isshow != null">
+        ISSHOW,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ids != null">
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorids != null">
+        #{vendorids,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="mouthTrade != null">
+        #{mouthTrade,jdbcType=DECIMAL},
+      </if>
+      <if test="subtitle != null">
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="common != null">
+        #{common,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="disPrice != null">
+        #{disPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsClassIds != null">
+        #{goodsClassIds,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null">
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNum != null">
+        #{storeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewDesc != null">
+        #{reviewDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewStatues != null">
+        #{reviewStatues,jdbcType=CHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="collNum != null">
+        #{collNum,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null">
+        #{onlineTime,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTime != null">
+        #{leaveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="brandIds != null">
+        #{brandIds,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveWay != null">
+        #{deliveWay,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisVerdorname != null">
+        #{isDisVerdorname,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisStandard != null">
+        #{isDisStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisStore != null">
+        #{isDisStore,jdbcType=VARCHAR},
+      </if>
+      <if test="limitOrderNum != null">
+        #{limitOrderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewBy != null">
+        #{reviewBy,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewTime != null">
+        #{reviewTime,jdbcType=VARCHAR},
+      </if>
+      <if test="totalTrade != null">
+        #{totalTrade,jdbcType=DECIMAL},
+      </if>
+      <if test="limitUserNum != null">
+        #{limitUserNum,jdbcType=DECIMAL},
+      </if>
+      <if test="orgPrice != null">
+        #{orgPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null">
+        #{isshow,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfoExample" resultType="java.lang.Integer">
+    select count(*) from chn_goodsinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update chn_goodsinfo
+    <set>
+      <if test="record.ids != null">
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vendorids != null">
+        VENDORIDS = #{record.vendorids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mouthTrade != null">
+        MOUTH_TRADE = #{record.mouthTrade,jdbcType=DECIMAL},
+      </if>
+      <if test="record.subtitle != null">
+        SUBTITLE = #{record.subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.common != null">
+        COMMON = #{record.common,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        PRICE = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.disPrice != null">
+        DIS_PRICE = #{record.disPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsClassIds != null">
+        GOODS_CLASS_IDS = #{record.goodsClassIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standard != null">
+        STANDARD = #{record.standard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        CONTENT = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeNum != null">
+        STORE_NUM = #{record.storeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reviewDesc != null">
+        REVIEW_DESC = #{record.reviewDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewStatues != null">
+        REVIEW_STATUES = #{record.reviewStatues,jdbcType=CHAR},
+      </if>
+      <if test="record.updateBy != null">
+        UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collNum != null">
+        COLL_NUM = #{record.collNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        START_TIME = #{record.startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null">
+        END_TIME = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlineTime != null">
+        ONLINE_TIME = #{record.onlineTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaveTime != null">
+        LEAVE_TIME = #{record.leaveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandIds != null">
+        BRAND_IDS = #{record.brandIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        WEIGHT = #{record.weight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deliveWay != null">
+        DELIVE_WAY = #{record.deliveWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDisVerdorname != null">
+        IS_DIS_VERDORNAME = #{record.isDisVerdorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDisStandard != null">
+        IS_DIS_STANDARD = #{record.isDisStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDisStore != null">
+        IS_DIS_STORE = #{record.isDisStore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limitOrderNum != null">
+        LIMIT_ORDER_NUM = #{record.limitOrderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reviewBy != null">
+        REVIEW_BY = #{record.reviewBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewTime != null">
+        REVIEW_TIME = #{record.reviewTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalTrade != null">
+        TOTAL_TRADE = #{record.totalTrade,jdbcType=DECIMAL},
+      </if>
+      <if test="record.limitUserNum != null">
+        LIMIT_USER_NUM = #{record.limitUserNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orgPrice != null">
+        ORG_PRICE = #{record.orgPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isshow != null">
+        ISSHOW = #{record.isshow,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update chn_goodsinfo
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      VENDORIDS = #{record.vendorids,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      MOUTH_TRADE = #{record.mouthTrade,jdbcType=DECIMAL},
+      SUBTITLE = #{record.subtitle,jdbcType=VARCHAR},
+      COMMON = #{record.common,jdbcType=VARCHAR},
+      PRICE = #{record.price,jdbcType=DECIMAL},
+      DIS_PRICE = #{record.disPrice,jdbcType=DECIMAL},
+      GOODS_CLASS_IDS = #{record.goodsClassIds,jdbcType=VARCHAR},
+      STANDARD = #{record.standard,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=VARCHAR},
+      STORE_NUM = #{record.storeNum,jdbcType=DECIMAL},
+      REVIEW_DESC = #{record.reviewDesc,jdbcType=VARCHAR},
+      REVIEW_STATUES = #{record.reviewStatues,jdbcType=CHAR},
+      UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=VARCHAR},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      COLL_NUM = #{record.collNum,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      START_TIME = #{record.startTime,jdbcType=VARCHAR},
+      END_TIME = #{record.endTime,jdbcType=VARCHAR},
+      ONLINE_TIME = #{record.onlineTime,jdbcType=VARCHAR},
+      LEAVE_TIME = #{record.leaveTime,jdbcType=VARCHAR},
+      BRAND_IDS = #{record.brandIds,jdbcType=VARCHAR},
+      WEIGHT = #{record.weight,jdbcType=DECIMAL},
+      DELIVE_WAY = #{record.deliveWay,jdbcType=VARCHAR},
+      IS_DIS_VERDORNAME = #{record.isDisVerdorname,jdbcType=VARCHAR},
+      IS_DIS_STANDARD = #{record.isDisStandard,jdbcType=VARCHAR},
+      IS_DIS_STORE = #{record.isDisStore,jdbcType=VARCHAR},
+      LIMIT_ORDER_NUM = #{record.limitOrderNum,jdbcType=DECIMAL},
+      REVIEW_BY = #{record.reviewBy,jdbcType=VARCHAR},
+      REVIEW_TIME = #{record.reviewTime,jdbcType=VARCHAR},
+      TOTAL_TRADE = #{record.totalTrade,jdbcType=DECIMAL},
+      LIMIT_USER_NUM = #{record.limitUserNum,jdbcType=DECIMAL},
+      ORG_PRICE = #{record.orgPrice,jdbcType=DECIMAL},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      ISSHOW = #{record.isshow,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+    update chn_goodsinfo
+    <set>
+      <if test="vendorids != null">
+        VENDORIDS = #{vendorids,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="mouthTrade != null">
+        MOUTH_TRADE = #{mouthTrade,jdbcType=DECIMAL},
+      </if>
+      <if test="subtitle != null">
+        SUBTITLE = #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="common != null">
+        COMMON = #{common,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="disPrice != null">
+        DIS_PRICE = #{disPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsClassIds != null">
+        GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null">
+        STANDARD = #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNum != null">
+        STORE_NUM = #{storeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewDesc != null">
+        REVIEW_DESC = #{reviewDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewStatues != null">
+        REVIEW_STATUES = #{reviewStatues,jdbcType=CHAR},
+      </if>
+      <if test="updateBy != null">
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="collNum != null">
+        COLL_NUM = #{collNum,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null">
+        ONLINE_TIME = #{onlineTime,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTime != null">
+        LEAVE_TIME = #{leaveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="brandIds != null">
+        BRAND_IDS = #{brandIds,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        WEIGHT = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveWay != null">
+        DELIVE_WAY = #{deliveWay,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisVerdorname != null">
+        IS_DIS_VERDORNAME = #{isDisVerdorname,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisStandard != null">
+        IS_DIS_STANDARD = #{isDisStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisStore != null">
+        IS_DIS_STORE = #{isDisStore,jdbcType=VARCHAR},
+      </if>
+      <if test="limitOrderNum != null">
+        LIMIT_ORDER_NUM = #{limitOrderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewBy != null">
+        REVIEW_BY = #{reviewBy,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewTime != null">
+        REVIEW_TIME = #{reviewTime,jdbcType=VARCHAR},
+      </if>
+      <if test="totalTrade != null">
+        TOTAL_TRADE = #{totalTrade,jdbcType=DECIMAL},
+      </if>
+      <if test="limitUserNum != null">
+        LIMIT_USER_NUM = #{limitUserNum,jdbcType=DECIMAL},
+      </if>
+      <if test="orgPrice != null">
+        ORG_PRICE = #{orgPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null">
+        ISSHOW = #{isshow,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+    update chn_goodsinfo
+    set VENDORIDS = #{vendorids,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      MOUTH_TRADE = #{mouthTrade,jdbcType=DECIMAL},
+      SUBTITLE = #{subtitle,jdbcType=VARCHAR},
+      COMMON = #{common,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=DECIMAL},
+      DIS_PRICE = #{disPrice,jdbcType=DECIMAL},
+      GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR},
+      STANDARD = #{standard,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      STORE_NUM = #{storeNum,jdbcType=DECIMAL},
+      REVIEW_DESC = #{reviewDesc,jdbcType=VARCHAR},
+      REVIEW_STATUES = #{reviewStatues,jdbcType=CHAR},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      COLL_NUM = #{collNum,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=VARCHAR},
+      END_TIME = #{endTime,jdbcType=VARCHAR},
+      ONLINE_TIME = #{onlineTime,jdbcType=VARCHAR},
+      LEAVE_TIME = #{leaveTime,jdbcType=VARCHAR},
+      BRAND_IDS = #{brandIds,jdbcType=VARCHAR},
+      WEIGHT = #{weight,jdbcType=DECIMAL},
+      DELIVE_WAY = #{deliveWay,jdbcType=VARCHAR},
+      IS_DIS_VERDORNAME = #{isDisVerdorname,jdbcType=VARCHAR},
+      IS_DIS_STANDARD = #{isDisStandard,jdbcType=VARCHAR},
+      IS_DIS_STORE = #{isDisStore,jdbcType=VARCHAR},
+      LIMIT_ORDER_NUM = #{limitOrderNum,jdbcType=DECIMAL},
+      REVIEW_BY = #{reviewBy,jdbcType=VARCHAR},
+      REVIEW_TIME = #{reviewTime,jdbcType=VARCHAR},
+      TOTAL_TRADE = #{totalTrade,jdbcType=DECIMAL},
+      LIMIT_USER_NUM = #{limitUserNum,jdbcType=DECIMAL},
+      ORG_PRICE = #{orgPrice,jdbcType=DECIMAL},
+      TYPE = #{type,jdbcType=VARCHAR},
+      ISSHOW = #{isshow,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>
