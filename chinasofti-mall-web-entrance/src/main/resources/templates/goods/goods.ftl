@@ -30,7 +30,7 @@
 	</div>
 	
 	<!-- 数据显示datagrid -->
-	<table id="tt-goodsinfo" class="easyui-datagrid" toolbar="#wu-toolbar-2" style="height: 95%">
+	<table id="goodsinfo" class="easyui-datagrid" toolbar="#wu-toolbar-2" style="height: 95%">
 		<thead>
 		<tr>
 			<th field="ids" width="20%" align="center">分类ID</th>
@@ -44,7 +44,7 @@
 		</thead>
 	</table>
 	<!-- 分页工具条 -->
-	<div id="pagination" style="background:#efefef;border:1px solid #ccc;"></div>
+	<div id="goodsPagination" style="background:#efefef;border:1px solid #ccc;"></div>
 
 </div>
 
@@ -54,10 +54,6 @@
 	style="width: 400px; padding: 10px;">
 	<form id="wu-form-2" method="post" enctype="multipart/form-data">
 		<table id="add">
-			<tr>
-				<td width="60" align="right">分类ID:</td>
-				<td><input type="text" id="ids" name="ids" class="wu-text" /></td>
-			</tr>
 			<tr>
 				<td width="60" align="right">分类名称:</td>
 				<td><input type="text" id="name" name="name"
@@ -121,13 +117,13 @@
 $(function(){
 	$.messager.show({
 		title:'提示',
-		msg:'欢迎登录!'
+		msg:'该充值智商了!'
 	});
 	//获取表格datagrid的ID属性
-	var tableID = $("table.easyui-datagrid").attr("id");
+	var tableID = "goodsinfo";
 	//alert(tableID);
 	//获取分页工具条元素
-	var pageId = $('#pagination');
+	var pageId = $('#goodsPagination');
 
 	//此处设置自己的url地址
 	var url = '/goods/list';
@@ -187,7 +183,7 @@ function statesFormatter(value){
 	*/
 	function remove(){
 	
-		var items = $('#tt-goodsinfo').datagrid('getSelections');
+		var items = $('#goodsinfo').datagrid('getSelections');
 		var ids = [];
 		
 		/*alert(JSON.stringify(items));*/
@@ -210,7 +206,7 @@ function statesFormatter(value){
 					success:function(data){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
-							//$('#tt-goodsinfo').datagrid('reload')
+							//$('#goodsinfo').datagrid('reload')
 							$('#pagination').pagination('select');
 						}
 						else
@@ -251,7 +247,7 @@ function statesFormatter(value){
 	* Name 打开修改窗口
 	*/
 	function openEdit(){
-		var row = $("#tt-goodsinfo").datagrid('getSelected');
+		var row = $("#goodsinfo").datagrid('getSelected');
 		if (row) {
 			//alert(JSON.stringify(row));
 			$('#wu-dialog-3').dialog('open').dialog({
@@ -309,7 +305,7 @@ function statesFormatter(value){
 	          }, 
 	          success: function (data) { 
 	        	  data =eval("("+data+")");
-	              $('#tt-goodsinfo').datagrid('loadData', data.rows);
+	              $('#goodsinfo').datagrid('loadData', data.rows);
 	               $('#pagination').pagination({ 
 			    	  total:data.total
 			    	  });
@@ -330,7 +326,7 @@ function statesFormatter(value){
 	*/
 	/*function openEdit(){
 
-		var items = $('#tt-goodsinfo').datagrid('getSelections');
+		var items = $('#goodsinfo').datagrid('getSelections');
 		var ids = [];
 		
 		$(items).each(function(){
@@ -372,7 +368,7 @@ function statesFormatter(value){
 				                				$.messager.alert('信息提示','提交成功！','info');
 				                				$('#wu-dialog-2').dialog('close');
 				                				$('#ids').attr('readonly',false);
-				                				$('#tt-goodsinfo').datagrid('reload')
+				                				$('#goodsinfo').datagrid('reload')
 				                			}else{
 				                				$.messager.alert('信息提示','提交失败！','info');
 				                			}
