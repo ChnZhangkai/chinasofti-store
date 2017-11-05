@@ -4,9 +4,11 @@
 <link rel="stylesheet" type="text/css" href="/css/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/css/zk.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="/css/themes/myicon.css" />
 <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
 </head>
 
 <body class="easyui-layout" id="mainPanel">
@@ -33,9 +35,9 @@
 			<button href="javascript:void(0)" id="mb" class="easyui-menubutton"
    	 			data-options="menu:'#mm2',iconCls:'icon-settings32'" style="background-color: white;">系统切换</button>
 			<div id="mm2" style="width:150px;">
-			    <div data-options="iconCls:'icon-undo'">基础平台</div>
-			    <div data-options="iconCls:'icon-redo'">运营中心</div>
-			    <div data-options="iconCls:'icon-redo'">微信平台</div>
+			    <div data-options="iconCls:'icon-house'" onclick="switchMain()">基础平台</div>
+			    <div data-options="iconCls:'icon-color-swatch'" onclick="swicthOperationCenter()">运营中心</div>
+			    <div data-options="iconCls:'icon-wechat'" onclick="swicthWechatCenter()">微信平台</div>
 			</div>
 		</div>
 	</div>
@@ -46,54 +48,33 @@
 		style="width: 150px; padding: 10px;">
 
 		<div class="easyui-accordion" data-options="border:false,fit:true" id="acc">
-			<!--选项卡1-->
-			<div title="商品管理" data-options="iconCls:'icon-cart'" style="padding: 5px;">
-				<ul class="easyui-tree zk-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/goods/index" iframe="0">商品分类管理</a></li>
-                    <li iconCls="icon-check-error"><a href="javascript:void(0)" data-icon="icon-users" data-link="/goodscheck/index" iframe="0">商品审核管理</a></li>
-                    <li iconCls="icon-chart-line"><a href="javascript:void(0)" data-icon="icon-user-group" data-link="/goodsonline/index" iframe="0">商品在线管理</a></li>
-                </ul>
-			</div>
-			<!--选项卡2-->
-			<div title="订单管理" data-options="iconCls:'icon-application-view-tile'" style="padding: 5px;">
-				<ul class="easyui-tree zk-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/mainorder/index" iframe="0">订单在线管理</a></li>
-                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="temp/layout-3.html" iframe="0">批量发货管理</a></li>
-                    <li iconCls="icon-user-group"><a href="javascript:void(0)" data-icon="icon-user-group" data-link="temp/layout-3.html" iframe="0">退换订单管理</a></li>
-                </ul>
-			</div>
+	
 			<!--选项卡3-->
-			<div title="用户管理" data-options="iconCls:'icon-group'" style="padding: 5px;">
+			<div id="user" title="用户管理" data-options="iconCls:'icon-group'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="user/user" iframe="0">用户管理</a></li>
                 </ul>
 			</div>
 			<!--选项卡4-->
-			<div title="商户管理" data-options="iconCls:'icon-tux'" style="padding: 5px;">
+			<div id="merchant" title="商户管理" data-options="iconCls:'icon-tux'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">商户管理</a></li>
                 </ul>
 			</div>
 			<!--选项卡5-->
-			<div title="角色管理" data-options="iconCls:'icon-user-edit'" style="padding: 5px;">
+			<div id="role" title="角色管理" data-options="iconCls:'icon-user-edit'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></li>
                 </ul>
 			</div>
 			<!--选项卡6-->
-			<div title="权限管理" data-options="iconCls:'icon-vcard-key'" style="padding: 5px;">
+			<div id="permission" title="权限管理" data-options="iconCls:'icon-vcard-key'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">权限管理</a></li>
                 </ul>
 			</div>
-			<!--选项卡7-->
-			<div title="广告管理" data-options="iconCls:'icon-org32'" style="padding: 5px;">
-				<ul class="easyui-tree zk-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/advertise/index" iframe="0">广告管理</a></li>
-                </ul>
-			</div>
 			<!--选项卡8-->
-			<div title="参数管理" data-options="iconCls:'icon-node-tree32'" style="padding: 5px;">
+			<div id="parameter" title="参数管理" data-options="iconCls:'icon-node-tree32'" style="padding: 5px;">
 				<ul class="easyui-tree zk-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">参数管理</a></li>
                 </ul>

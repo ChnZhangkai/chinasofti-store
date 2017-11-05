@@ -12,9 +12,7 @@ function tdload(tableID, pageId, url){
 		//fit:true,
 	})
 	getData(1,10,tableID,pageId,url)
-	$.messager.progress({
-		text:'数据正在加载中'
-	});
+	
 };
 
 //调用方法

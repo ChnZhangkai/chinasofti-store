@@ -134,6 +134,9 @@ $(function(){
 	
 	var pstates = $('#classstates').val();
 	tdload(tableID, pageId, url);
+	$.messager.progress({
+		text:'数据正在加载中'
+	});
 	
 });
 
