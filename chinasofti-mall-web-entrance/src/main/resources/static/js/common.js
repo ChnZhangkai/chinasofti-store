@@ -22,7 +22,12 @@ function getData(pageNumber, pageSize, tableID, pageId, url) {
 		url : url, // 用户请求数据的URL
 		data : "pageNumber=" + pageNumber + "&pageSize=" + pageSize ,
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("数据加载失败,请刷新页面");
+			$.messager.confirm('温馨提醒', '数据加载异常,点击确定刷新页面.', function(r){
+				if (r){
+				    // 退出操作
+					window.document.location.reload();
+				}
+			});
 		},
 		success : function(data) {
 			$.messager.progress('close');

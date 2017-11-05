@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinasofti.mall.goodsclass.mapper.ChnGoodsinfoMapper">
-  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo">
     <id column="IDS" jdbcType="VARCHAR" property="ids" />
     <result column="VENDORIDS" jdbcType="VARCHAR" property="vendorids" />
     <result column="TITLE" jdbcType="VARCHAR" property="title" />
@@ -108,7 +108,7 @@
     LIMIT_ORDER_NUM, REVIEW_BY, REVIEW_TIME, TOTAL_TRADE, LIMIT_USER_NUM, ORG_PRICE, 
     TYPE, ISSHOW
   </sql>
-  <select id="selectByExample" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -132,13 +132,13 @@
     delete from chn_goodsinfo
     where IDS = #{ids,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfoExample">
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfoExample">
     delete from chn_goodsinfo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo">
     insert into chn_goodsinfo (IDS, VENDORIDS, TITLE, 
       MOUTH_TRADE, SUBTITLE, COMMON, 
       PRICE, DIS_PRICE, GOODS_CLASS_IDS, 
@@ -168,7 +168,7 @@
       #{orgPrice,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR}, #{isshow,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo">
     insert into chn_goodsinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="ids != null">
@@ -409,7 +409,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfoExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfoExample" resultType="java.lang.Integer">
     select count(*) from chn_goodsinfo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -585,7 +585,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo">
     update chn_goodsinfo
     <set>
       <if test="vendorids != null">
@@ -705,7 +705,7 @@
     </set>
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.ChnGoodsinfo">
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo">
     update chn_goodsinfo
     set VENDORIDS = #{vendorids,jdbcType=VARCHAR},
       TITLE = #{title,jdbcType=VARCHAR},
