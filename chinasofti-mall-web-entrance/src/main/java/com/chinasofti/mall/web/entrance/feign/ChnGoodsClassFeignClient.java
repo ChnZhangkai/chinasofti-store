@@ -17,7 +17,7 @@ import net.sf.json.JSONObject;
  *
  */
 @FeignClient(name = "ChnGoodsClassService" , fallback = SpGoodsClassFeignClientHystrix.class)
-public interface SpGoodsClassFeignClient {
+public interface ChnGoodsClassFeignClient {
 	
 	/**
 	 * 列表及条件查询

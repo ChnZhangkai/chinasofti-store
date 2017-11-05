@@ -16,7 +16,7 @@
 
 <body class="easyui-layout" id="mainPanel">
 
-	<!--上-->
+	<!--上部展示位置-->
 	<div class="zk-header"
 		data-options="region:'north',border:false,split:true">
 		<div class="zk-header-left">
@@ -66,7 +66,7 @@
 		</div>
 	</div>
 
-	<!--下-->
+	<!--下方版权标识-->
 	<div class="zk-footer"
 		data-options="region:'south',border:true,split:true">© 2017
 		后台测试界面, 粤ICP备14024044号-2, All Rights Reserved.</div>

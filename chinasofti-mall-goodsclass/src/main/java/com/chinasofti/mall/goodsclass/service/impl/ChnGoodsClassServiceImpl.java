@@ -44,8 +44,8 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 		if ((chnGoodsClass.getCommons()) != null && !(chnGoodsClass.getCommons().equals(compare))) {
 				criteria.andCommonsLike("%" + chnGoodsClass.getCommons() + "%");
 		}
-		if ((chnGoodsClass.getUpdateBy() != null) && !(chnGoodsClass.getUpdateBy().equals(compare))) {
-			criteria.andUpdateByLike("%" + chnGoodsClass.getUpdateBy() + "%");
+		if ((chnGoodsClass.getCreateBy() != null) && !(chnGoodsClass.getCreateBy().equals(compare))) {
+			criteria.andCreateByLike("%" + chnGoodsClass.getCreateBy() + "%");
 		}
 		if ((chnGoodsClass.getStates()) != null && !(chnGoodsClass.getStates()).equals(compare)) {
 			criteria.andStatesEqualTo(chnGoodsClass.getStates());

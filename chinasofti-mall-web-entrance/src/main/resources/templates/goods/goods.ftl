@@ -17,7 +17,7 @@
 		<form id="searchForm">
 			<label>分类名称：</label> <input type="text" id="categoryname" name="name" />
 			<label>分类描述：</label> <input type="text" id="categorycommons" name="commons" />
-			<label>修改员工：</label> <input type="text" id="updatebyname" name="updateBy" />
+			<label>创建员工：</label> <input type="text" id="createbyname" name="createBy" />
 			<label>状态：</label> <select class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
 									<option value="">请选择</option>
 									<option value="0">禁用</option>
@@ -38,8 +38,8 @@
 			<th field="states" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
 			<th field="commons" width="25%" align="center">分类描述</th>
 			<th field="img" width="10%" align="center" data-options="formatter:imgFormatter">分类图片</th>
-			<th field="updateBy" width="15%" align="center">修改员工</th>
-			<th field="updateTime" width="15%" align="center" >修改时间</th>
+			<th field="createBy" width="15%" align="center">创建员工</th>
+			<th field="createTime" width="15%" align="center" >创建时间</th>
 		</tr>
 		</thead>
 	</table>
@@ -75,7 +75,13 @@
 			</tr>
 			<tr>
 				<td align="right">分类图片:</td>
-				<td><input type="file" id="url" name="url"/></td>
+				<td><input type="file" id="url" name="url" onchange="readPicture()"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<div id="showpic"></div>
+				</td>
 			</tr>
 		</table>
 	</form>
@@ -114,6 +120,10 @@
 
 <!-- End of easyui-dialog -->
 <script type="text/javascript">
+
+/*
+ * 全局加载数据
+ */
 $(function(){
 	$.messager.show({
 		title:'提示',
@@ -136,6 +146,9 @@ $(function(){
 	
 });
 
+/*
+ * 读取路径显示图片
+ */
 function imgFormatter(value,row){
 	var str = "";
 	if(value != "" || value != null){
@@ -144,6 +157,29 @@ function imgFormatter(value,row){
 	}
 }
 
+/*
+ * 上传图片回显
+ */
+ function readPicture() {
+		// 检查是否为图像类型
+		var simpleFile = document.getElementById("url").files[0];
+		if (!/image\/\w+/.test(simpleFile.type)) {
+			alert("请确保文件类型为图像类型");
+			return false;
+		}
+		var reader = new FileReader();
+		// 将文件以二进制文件读入页面中
+		reader.readAsBinaryString(simpleFile);
+		reader.onload = function(f) {
+			var result = document.getElementById("showpic");
+			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
+			result.innerHTML = '<img style="height: 80px;width: 150px;" src ="' + src + '"/>';
+		}
+	}
+
+/*
+ * 分类状态
+ */
 function statesFormatter(value){
 	if(value == "0"){
 		return '<span style="color:red">禁用</span>';
@@ -296,10 +332,11 @@ function statesFormatter(value){
 	*查询
 	*/
 	function doSearch(){
+		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchForm').serialize();
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
-	          data: $('#searchForm').serialize(), 
+	          data: param, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
 	              alert(textStatus); 
 	          }, 
@@ -319,7 +356,7 @@ function statesFormatter(value){
 	function doClear(){
 		document.getElementById("categorycommons").value="";
 		document.getElementById("categoryname").value="";
-		document.getElementById("updatebyname").value="";
+		document.getElementById("createbyname").value="";
 	} 	
 	/**
 	* Name 查询数据并打开修改窗口

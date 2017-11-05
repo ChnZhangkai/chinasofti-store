@@ -2,7 +2,11 @@ package com.chinasofti.mall.web.entrance.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
+import org.apache.bcel.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.ChnGoodsClass;
-import com.chinasofti.mall.web.entrance.feign.SpGoodsClassFeignClient;
+import com.chinasofti.mall.web.entrance.feign.ChnGoodsClassFeignClient;
 
 import net.sf.json.JSONObject;
 
@@ -26,7 +30,7 @@ import net.sf.json.JSONObject;
 public class SpGoodsClassController {
 	
 	@Autowired
-	private SpGoodsClassFeignClient spGoodsClassFeignClient;
+	private ChnGoodsClassFeignClient chnGoodsClassFeignClient;
 	
 	/**
 	 * 返回主界面
@@ -44,7 +48,7 @@ public class SpGoodsClassController {
 	 */
 	@RequestMapping("/list")
 	public String selectByGoodsClass(ChnGoodsClass chnGoodsClass){
-		JSONObject jsonlist = spGoodsClassFeignClient.selectByGoodsClass(chnGoodsClass);
+		JSONObject jsonlist = chnGoodsClassFeignClient.selectByGoodsClass(chnGoodsClass);
 		return jsonlist.toString();
 	}
 	
@@ -55,7 +59,7 @@ public class SpGoodsClassController {
 	 */
 	@RequestMapping("/select/{ids}")
 	public ChnGoodsClass selectByGoodsClassById(@PathVariable String ids){
-		ChnGoodsClass chnGoodsClass = spGoodsClassFeignClient.selectGoodsClassById(ids);
+		ChnGoodsClass chnGoodsClass = chnGoodsClassFeignClient.selectGoodsClassById(ids);
 		return chnGoodsClass;
 	}
 	
@@ -66,7 +70,7 @@ public class SpGoodsClassController {
 	 */
 	@RequestMapping("/update")
 	public int updateGoodsClassById(ChnGoodsClass chnGoodsClass){
-		int updateGoodsClass = spGoodsClassFeignClient.updateGoodsClass(chnGoodsClass);
+		int updateGoodsClass = chnGoodsClassFeignClient.updateGoodsClass(chnGoodsClass);
 		return updateGoodsClass;
 	}
 	
@@ -77,7 +81,7 @@ public class SpGoodsClassController {
 	 */
 	@RequestMapping("/delete/{ids}")
 	public int deleteGoodsClassById(@PathVariable String ids){
-		int delById = spGoodsClassFeignClient.deleteGoodsClassById(ids);
+		int delById = chnGoodsClassFeignClient.deleteGoodsClassById(ids);
 		return delById;
 	}
 	
@@ -92,7 +96,7 @@ public class SpGoodsClassController {
 //		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		
 		String basePath = System.getProperty("user.dir");
-		String ImagePath = basePath  + "\\src\\main\\resources\\static\\images\\goods";
+		String ImagePath = basePath  + "\\src\\main\\resources\\static\\data\\goods";
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("url");
 		String imageName = multipartFile.getOriginalFilename();
 		
@@ -106,13 +110,16 @@ public class SpGoodsClassController {
 			e.printStackTrace();
 		}
 		
-//		SpGoodsClass spGoodsClass = new SpGoodsClass();
-//		goodscategory.setIds(Integer.valueOf(multipartHttpServletRequest.getParameter("ids")));
-//		goodscategory.setName(multipartHttpServletRequest.getParameter("name"));
-//		goodscategory.setUrl("/images/goods/" + imageName);
-//		goodscategory.setTitle(multipartHttpServletRequest.getParameter("title"));
-		
-//		int saveGoodsCategory = spGoodsClassFeignClient.saveGoodsClass(goodscategory);
-		return 0;
+		ChnGoodsClass chnGoodsClass = new ChnGoodsClass();
+		chnGoodsClass.setIds(UUID.randomUUID().toString().replace("-", ""));;
+		chnGoodsClass.setName(multipartHttpServletRequest.getParameter("name"));
+		chnGoodsClass.setCommons(multipartHttpServletRequest.getParameter("commons"));
+		chnGoodsClass.setStates(multipartHttpServletRequest.getParameter("states"));
+		chnGoodsClass.setImg("/data/goods/" + imageName);
+		chnGoodsClass.setCreateBy("Mrzhang");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		chnGoodsClass.setCreateTime(df.format(new Date()));
+		int chngoodsClass = chnGoodsClassFeignClient.saveGoodsClass(chnGoodsClass);
+		return chngoodsClass;
 	}
 }

@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
 import com.chinasofti.mall.common.entity.ChnGoodsClass;
-import com.chinasofti.mall.web.entrance.feign.SpGoodsClassFeignClient;
+import com.chinasofti.mall.web.entrance.feign.ChnGoodsClassFeignClient;
 
 import net.sf.json.JSONObject;
 
 @Component
-public class SpGoodsClassFeignClientHystrix implements SpGoodsClassFeignClient{
+public class SpGoodsClassFeignClientHystrix implements ChnGoodsClassFeignClient{
 
 	@Override
 	public JSONObject selectByGoodsClass(ChnGoodsClass chnGoodsClass) {
