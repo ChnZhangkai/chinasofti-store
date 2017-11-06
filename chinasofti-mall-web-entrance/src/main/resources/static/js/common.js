@@ -1,5 +1,5 @@
 //搜索条件formid
-var seachId = ";
+var seachId = "";
 //加载方法
 function tdload(tableID, pageId, url){
 	$('#' + tableID).datagrid({
