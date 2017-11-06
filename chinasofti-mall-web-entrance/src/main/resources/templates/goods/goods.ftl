@@ -18,8 +18,8 @@
 			<label>分类名称：</label> <input type="text" id="categoryname" name="name" />
 			<label>分类描述：</label> <input type="text" id="categorycommons" name="commons" />
 			<label>创建员工：</label> <input type="text" id="createbyname" name="createBy" />
-			<label>状态：</label> <select class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
-									<option value="">请选择</option>
+			<label>状态：</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
+									<option selected="selected" value="">请选择</option>
 									<option value="0">禁用</option>
 									<option value="1">启用</option>
 								</select>
@@ -137,8 +137,8 @@ $(function(){
 
 	//此处设置自己的url地址
 	var url = '/goods/list';
+	seachId = '#searchForm';
 	
-	var pstates = $('#classstates').val();
 	tdload(tableID, pageId, url);
 	$.messager.progress({
 		text:'数据正在加载中'
@@ -199,7 +199,7 @@ function statesFormatter(value){
 			type:'POST',
 			success:function(data){
 				if(data > 0){
-					$('#pagination').pagination('select');
+					$('#goodsPagination').pagination('select');
 					$('#wu-dialog-2').dialog('close');
 					$.messager.alert('信息提示','提交成功！','info');
 				}
@@ -243,7 +243,7 @@ function statesFormatter(value){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
 							//$('#goodsinfo').datagrid('reload')
-							$('#pagination').pagination('select');
+							$('#goodsPagination').pagination('select');
 						}
 						else
 						{
@@ -320,7 +320,7 @@ function statesFormatter(value){
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
     				$('#wu-dialog-3').dialog('close');
-    				$('#pagination').pagination('select');
+    				$('#goodsPagination').pagination('select');
     			}else{
     				$.messager.alert('信息提示','提交失败！','info');
     			}
@@ -333,17 +333,24 @@ function statesFormatter(value){
 	*/
 	function doSearch(){
 		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchForm').serialize();
+		//console.info(param)
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
 	          data: param, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
-	              alert(textStatus); 
+	              alert("没有查询到数据"); 
 	          }, 
 	          success: function (data) { 
+	        	  
 	        	  data =eval("("+data+")");
+	        	  
+	        	  if(data.total == 0){
+	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
+	        	  }
+	        	  
 	              $('#goodsinfo').datagrid('loadData', data.rows);
-	               $('#pagination').pagination({ 
+	               $('#goodsPagination').pagination({ 
 			    	  total:data.total
 			    	  });
 	          }
@@ -354,9 +361,7 @@ function statesFormatter(value){
 	*清除搜索框内容
 	*/
 	function doClear(){
-		document.getElementById("categorycommons").value="";
-		document.getElementById("categoryname").value="";
-		document.getElementById("createbyname").value="";
+		$("#searchForm").form("reset");
 	} 	
 	/**
 	* Name 查询数据并打开修改窗口
