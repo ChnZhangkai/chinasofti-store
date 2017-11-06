@@ -1,7 +1,5 @@
 <script type="text/javascript">
 		
-	});
-
 	/**
 	*  添加订单记录
 	*/
@@ -133,9 +131,10 @@
 	*条件查询
 	*/
 	function doSearch(){
-		alert("111");
 		$('#mainorderDataGrid').datagrid('load',{
-			'transactionid':$('#transactionid').val()
+			transactionid:$('#mainorder-transactionid').val(),
+			bigorderId:$('#mainorder-bigorderId').val(),
+			payStatus:$('#mainorder-payStatus').val()
 		});
 		
 	}
@@ -144,8 +143,8 @@
 	* 清空搜索条件
 	*/
 	function clearAll(){
-		$("#bigorderId").textbox('setValue');
-		$("#vendorIds").textbox('setValue');
+		$("#mainorder-transactionid").textbox('setValue','');
+		$("#mainorder-payStatus").textbox('setValue','请选择');
 		$('#mainorderDataGrid').datagrid("load", {});
 	}
 	
@@ -155,46 +154,34 @@
     <!-- Begin of toolbar -->
     <div id="mainorderToolbar">
         <div class="mainorderoolbarButton">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">主订单添加</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">主订单修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">主订单删除</a>
         </div>
         
 		<form id="mainorderSearchForm" method="post">
-			<div align="center">
-			<table class="dialog-table" style="width:95%">
+			<div align="left">
+			<table class="" style="width:95%">
 				<tr>
-					<th>主订单号</th>
-					<td><input class="easyui-textbox" id="transactionid" name="transactionid" data-options="height:24,width:160"/></td>
-					<th>大订单号</th>
-					<td><input class="easyui-textbox" name="bigorderId" data-options="height:24,width:160"/></td>
+					<td>主订单号：<input class="easyui-textbox" id="mainorder-transactionid" name="transactionid" data-options="height:20,width:160"/></td>
+					<td>大订单号：<input class="easyui-textbox" id="mainorder-bigorderId" name="bigorderId" data-options="height:20,width:160"/></td>
+					<td>支付开始时间：<input class="easyui-datetimebox" id="mainorder-minPayTime" name="minPayTime" data-options="height:20,width:160,editable:false"/></td>
+					<td>支付结束时间：<input class="easyui-datetimebox" id="mainorder-maxPayTime" name="maxPayTime" data-options="height:20,width:160,editable:false"/></td>
 				</tr>
 				<tr>
-					<th>支付开始时间</th>
 					<td>
-						<input class="easyui-datetimebox" name="minCreateDateTime" data-options="height:24,width:160,editable:false"/>
-					</td>
-					<th>支付结束时间</th>
-					<td>
-						<input class="easyui-datetimebox" name="maxCreateDateTime" data-options="height:24,width:160,editable:false"/>
-					</td>
-				</tr>
-				<tr>
-					<th>支付状态</th>
-					<td>
-						<select class="easyui-combobox" data-options="height:24,width:160"  name="gender">
+					支付状态：<select id="mainorder-payStatus" class="easyui-combobox" data-options="height:20,width:160"  name="payStatus">
 						    <option value="">请选择</option>
 						    <option value="0">未支付</option>   
 						    <option value="1">已支付</option>
 						    <option value="2">已取消</option>  
 						</select>
 					</td>
-					<th>最后修改间</th>
-					<td><input class="easyui-textbox" name="name" data-options="height:24,width:160"/></td>
+					<td>联系人：<input class="easyui-textbox" id="mainorder-contName" name="contName" data-options="height:20,width:160"/></td>
 				</tr>
 				<tr>
-					<td colspan="4" align="center">
-						<a class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="doSearch()">查询</a>&nbsp;
+					<td align="center">
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="doSearch()">查询</a>&nbsp;&nbsp;
 						<a class="easyui-linkbutton" iconCls="icon-edit-clear" plain="true" onclick="clearAll()">清空</a> 
 					</td>
 				</tr>
@@ -205,13 +192,16 @@
 
     <table id="mainorderDataGrid" class="easyui-datagrid" singleSelect="true"
     	data-options="url:'mainorder/list',
+    				 fitColumns:true,
+       				 pagination:true,
        				 sortName:'ids',
        				 sortOrder:'asc',
        				 toolbar:'#mainorderToolbar',
        				 title:'主订单列表',
        				 iconCls:'icon-man',
        				 striped:true,
-       				 fit:true">
+       				 collapsible:true,
+       				 height:400">
 		<thead>
 			<tr>
 				<th field="transactionid" width="20%" align="center">主订单号</th>
