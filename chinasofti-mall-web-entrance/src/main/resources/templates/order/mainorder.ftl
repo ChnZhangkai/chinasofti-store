@@ -1,5 +1,5 @@
 <script type="text/javascript">
-		
+
 	/**
 	*  添加订单记录
 	*/
@@ -134,7 +134,10 @@
 		$('#mainorderDataGrid').datagrid('load',{
 			transactionid:$('#mainorder-transactionid').val(),
 			bigorderId:$('#mainorder-bigorderId').val(),
-			payStatus:$('#mainorder-payStatus').val()
+			payStatus:$('#mainorder-payStatus').val(),
+			minPayTime:$('#mainorder-minPayTime').val(),
+			maxPayTime:$('#mainorder-maxPayTime').val(),
+			contName:$('#mainorder-contName').val()
 		});
 		
 	}
@@ -143,9 +146,74 @@
 	* 清空搜索条件
 	*/
 	function clearAll(){
-		$("#mainorder-transactionid").textbox('setValue','');
-		$("#mainorder-payStatus").textbox('setValue','请选择');
+		//$("#mainorder-transactionid").textbox('setValue','');
+		//$("#mainorder-payStatus").textbox('setValue','请选择');
+		$("#mainorderSearchForm").form("reset");
 		$('#mainorderDataGrid').datagrid("load", {});
+	}
+	
+	/**
+	* 支付状态
+	*/
+	function payStatusFormatter(value,row,index){
+		if(value == "0"){
+			return '<span style="color:red">未支付</span>';
+		}else if(value == "1"){
+			return '<span>已支付</span>';
+		}else {
+			return '<span>已取消</span>';
+		}
+	}
+	
+	/**
+	* 订单类型
+	*/
+	function paywayFormatter(value,row,index){
+		if(value == "1"){
+			return '<span style="color:#61C5FD">微信订单</span>';
+		}else if(value == "2"){
+			return '<span>支付宝订单</span>';
+		}else {
+			return '<span style="color:#E0ECFF">银联订单</span>';
+		}
+	}
+	
+	/**
+	* 订单状态
+	*/
+	function statusFormatter(value,row,index){
+		if(value == "0"){
+			return '<span style="color:#E8343B">已删除</span>';
+		}else if(value == "1"){
+			return '<span style="color:#FF7E00">未发货</span>';
+		}else if(value == "2"){
+			return '<span>已发货</span>';
+		}else {
+			return '<span style="color:#0ADA85">已收货</span>';
+		}
+	}
+	
+	/**
+	* 清算状态
+	*/
+	function settleStatuesFormatter(value,row,index){
+		if(value == "0"){
+			return '<span style="color:#E8343B">未清算</span>';
+		}else if(value == "1"){
+			return '<span>清算成功</span>';
+		}else if(value == "2"){
+			return '<span style="color:#EB4E48">清算失败</span>';
+		}else if(value == "3"){
+			return '<span style="color:#B984E1">清算中</span>';
+		}else if(value == "4"){
+			return '<span style="color:#B984E1">手续到中间户进行中</span>';
+		}else if(value == "5"){
+			return '<span style="color:#B984E1">手续到中间户完成</span>';
+		}else if(value == "6"){
+			return '<span style="color:#EB4E48">手续到中间户失败</span>';
+		}else {
+			return '<span style="color:#A5C4EA">无需清算</span>';
+		}
 	}
 	
 </script>
@@ -206,13 +274,12 @@
 			<tr>
 				<th field="transactionid" width="20%" align="center">主订单号</th>
 				<th field="bigorderId" width="20%" align="center">大订单号</th>
-				<th field="orderType" width="8%" align="center">订单类型</th>
+				<th field="payway" width="8%" align="center" data-options="formatter:paywayFormatter">订单类型</th>
 				<th field="vendorIds" width="10%" align="center">商户ID</th>
 				<th field="orderTotalAmt" width="8%" align="center">订单总额</th>
-				<th field="payStatus" width="5%" align="center">支付状态</th>
-				<th field="status" width="5%" align="center">物流状态</th>
-				<th field="settleStatues" width="8%" align="center">核销状态</th>
-				<th field="orderStatues" width="8%" align="center">订单状态</th>
+				<th field="payStatus" width="5%" align="center" data-options="formatter:payStatusFormatter">支付状态</th>
+				<th field="status" width="5%" align="center" data-options="formatter:statusFormatter">订单状态</th>
+				<th field="settleStatues" width="8%" align="center" data-options="formatter:settleStatuesFormatter">清算状态</th>
 			</tr>
 		</thead>
 	</table>

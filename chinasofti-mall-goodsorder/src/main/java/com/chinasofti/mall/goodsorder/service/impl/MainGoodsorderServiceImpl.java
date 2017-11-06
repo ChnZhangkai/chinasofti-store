@@ -71,6 +71,18 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		if ((mainGoodsorder.getTransactionid()) != null && !(mainGoodsorder.getTransactionid()).equals(compare)) {
 				criteria.andTransactionidLike("%" + mainGoodsorder.getTransactionid() + "%");
 			}
+		
+		if ((mainGoodsorder.getBigorderId()) != null && !(mainGoodsorder.getBigorderId()).equals(compare)) {
+			criteria.andBigorderIdLike("%" + mainGoodsorder.getBigorderId() + "%");
+		}
+		
+		if ((mainGoodsorder.getPayStatus()) != null && !(mainGoodsorder.getPayStatus()).equals(compare)) {
+			criteria.andPayStatusLike("%" + mainGoodsorder.getPayStatus() + "%");
+		}
+		
+		if ((mainGoodsorder.getContName()) != null && !(mainGoodsorder.getContName()).equals(compare)) {
+			criteria.andContNameLike("%" + mainGoodsorder.getContName() + "%");
+		}
 
 		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
