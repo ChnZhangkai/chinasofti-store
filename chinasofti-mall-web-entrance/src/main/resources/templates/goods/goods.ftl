@@ -91,7 +91,7 @@
 <div id="wu-dialog-3" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-save'"
 	style="width: 400px; padding: 10px;">
-	<form id="updateForm" method="post">
+	<form id="updateForm" method="post" enctype="multipart/form-data">
 		<table id="update">
 			<tr>
 				<td width="60" align="right">分类ID:</td>
@@ -119,13 +119,14 @@
 			</tr>
 			<tr>
 				<td align="center">分类图片:</td>
-				<td><input type="file" id="upImg" name="upImg" onchange="readPicture()"/></td>
+				<td><input type="file" id="uimg" name="uimg" onchange="updatePicture()"/></td>
 			</tr>
 			<tr>
 				<td></td>
 				<td><input type="hidden" id="img" name="img"
 					class="wu-text" readonly="true"/>
-					<img alt="" src="" id="showImg" style="height: 80px;width: 117px">
+					<div id="showupic"></div>
+					<!-- <img alt="" src="" id="showImg" style="height: 80px;width: 117px"> -->
 				</td>
 			</tr>
 		</table>
@@ -172,13 +173,13 @@ function imgFormatter(value,row){
 	}
 }
 
-/*
- * 上传图片回显
- */
- function readPicture() {
+	/*
+	 * 上传图片回显
+	 */
+ 	function readPicture() {
 		// 检查是否为图像类型
 		var simpleFile = document.getElementById("img").files[0];
-		console.info(simpleFile)
+		//console.info(simpleFile)
 		if (!/image\/\w+/.test(simpleFile.type)) {
 			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
 			return false;
@@ -188,6 +189,25 @@ function imgFormatter(value,row){
 		reader.readAsBinaryString(simpleFile);
 		reader.onload = function(f) {
 			var result = document.getElementById("showpic");
+			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
+			result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
+		}
+		//document.getElementById("showpic").style.display="";
+	}
+	
+ 	function updatePicture() {
+		// 检查是否为图像类型
+		var simpleFile = document.getElementById("uimg").files[0];
+		//console.info(simpleFile)
+		if (!/image\/\w+/.test(simpleFile.type)) {
+			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
+			return false;
+		}
+		var reader = new FileReader();
+		// 将文件以二进制文件读入页面中
+		reader.readAsBinaryString(simpleFile);
+		reader.onload = function(f) {
+			var result = document.getElementById("showupic");
 			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
 			result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
 		}
@@ -295,11 +315,13 @@ function imgFormatter(value,row){
 	* Name 打开修改窗口
 	*/
 	function openEdit(){
+		$('#updateForm').form('clear');
 		var row = $("#goodsinfo").datagrid('getSelected');
 		if (row) {
 			$('#wu-dialog-3').dialog('open').dialog({
 				closed: false,
 				modal:true,
+				closable:false,
 	            title: "修改分类",
 	            buttons: [{
 	                text: '确定',
@@ -309,11 +331,12 @@ function imgFormatter(value,row){
 	                text: '取消',
 	                iconCls: 'icon-cancel',
 	                handler: function () {
-	                    $('#wu-dialog-3').dialog('close');                    
+	                    $('#wu-dialog-3').dialog('close');
+	                    document.getElementById("showupic").innerHTML = "";
 	                }
 	            }]
 	        });
-			$('#showImg').attr("src",row.img);
+			/* $('#showImg').attr("src",row.img); */
 			$('#updateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
@@ -324,6 +347,7 @@ function imgFormatter(value,row){
 	*修改
 	*/
 	function edit(){
+		console.info($('#updateForm').serialize());
 		$('#updateForm').form('submit', {
 			url:'/goods/update',
     		type:'POST',
@@ -375,74 +399,6 @@ function imgFormatter(value,row){
 	function doClear(){
 		$("#searchForm").form("reset");
 	} 	
-	/**
-	* Name 查询数据并打开修改窗口
-	*/
-	/*function openEdit(){
 
-		var items = $('#goodsinfo').datagrid('getSelections');
-		var ids = [];
-		
-		$(items).each(function(){
-			ids.push(this.ids);
-		});
-		if(ids.length < 1){
-			$.messager.alert('温馨提醒','请选择一条数据');
-		}
-		$.ajax({
-			url:'/goods/select/' + ids,
-			type:'POST',
-			success:function(data){
-				//alert(JSON.stringify(data));
-				if(data){
-					var obj = data;
-					$('#ids').val(obj.ids);
-					$('#name').val(obj.name);
-					$('#url').val(obj.url);
-					$('#title').val(obj.title);
-					
-					$('#ids').attr('readonly','readonly');
-					
-					$('#wu-dialog-2').dialog({
-							closable:false,
-							closed: false,
-							modal:true,
-				            title: "修改信息",
-				            buttons: [{
-				                text: '确定',
-				                iconCls: 'icon-ok',
-				                handler: function(){
-				                	$('#addForm').form('submit', {
-				            			url:'/goods/update',
-				                		type:'POST',
-				                		data:$('#addForm').serialize(),
-				                		success:function(data){
-				                			alert(data)
-				                			if(data > 0){
-				                				$.messager.alert('信息提示','提交成功！','info');
-				                				$('#wu-dialog-2').dialog('close');
-				                				$('#ids').attr('readonly',false);
-				                				$('#goodsinfo').datagrid('reload')
-				                			}else{
-				                				$.messager.alert('信息提示','提交失败！','info');
-				                			}
-				                		}
-				                	});
-				                }
-				            }, {
-				                text: '取消',
-				                iconCls: 'icon-cancel',
-				                handler: function () {
-				                    $('#wu-dialog-2').dialog('close');
-				                    $('#ids').attr('readonly',false);
-				                }
-							          }]
-				        });
-						
-					}
-				
-			}	
-		});
-	}*/
 		
 </script>

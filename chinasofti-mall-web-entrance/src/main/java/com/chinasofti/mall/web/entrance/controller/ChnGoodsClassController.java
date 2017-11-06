@@ -70,7 +70,29 @@ public class ChnGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public int updateGoodsClassById(ChnGoodsClass chnGoodsClass){
+	public int updateGoodsClassById(ChnGoodsClass chnGoodsClass,MultipartHttpServletRequest multipartHttpServletRequest){
+		
+		String delImg = chnGoodsClass.getImg();
+		String delImgname = delImg.substring(delImg.lastIndexOf("/")+1);
+		String delImgUrl = beforePath + File.separator + delImgname;
+		File file = new File(delImgUrl);
+		if (file.exists()) {
+			file.delete();
+		}
+		
+		MultipartFile multipartFile = multipartHttpServletRequest.getFile("uimg");
+		String imageName = multipartFile.getOriginalFilename();
+		String fileName = beforePath + File.separator + imageName;
+		File fileSave = new File(fileName);
+		try {
+			multipartFile.transferTo(fileSave);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		chnGoodsClass.setImg("/data/goods/" + imageName);
 		int updateGoodsClass = chnGoodsClassFeignClient.updateGoodsClass(chnGoodsClass);
 		return updateGoodsClass;
 	}
