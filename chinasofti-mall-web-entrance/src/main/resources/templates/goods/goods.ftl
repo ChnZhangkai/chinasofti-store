@@ -118,10 +118,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">分类图片:</td>
+				<td align="center">分类图片:</td>
+				<td><input type="file" id="upImg" name="upImg" onchange="readPicture()"/></td>
+			</tr>
+			<tr>
+				<td></td>
 				<td><input type="hidden" id="img" name="img"
 					class="wu-text" readonly="true"/>
-					<img alt="" src="" id="showImg" style="height: 80px;width: 150px">
+					<img alt="" src="" id="showImg" style="height: 80px;width: 117px">
 				</td>
 			</tr>
 		</table>
@@ -185,9 +189,9 @@ function imgFormatter(value,row){
 		reader.onload = function(f) {
 			var result = document.getElementById("showpic");
 			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
-			result.innerHTML = '<img id="readPic" style="height: 80px;width: 150px;" src ="' + src + '"/>';
+			result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
 		}
-		document.getElementById("showpic").style.display="";
+		//document.getElementById("showpic").style.display="";
 	}
 
 	/*
@@ -258,7 +262,8 @@ function imgFormatter(value,row){
                 handler: function () {
                     $('#wu-dialog-2').dialog('close');
                     $('#addForm').form('clear');
-                    document.getElementById("showpic").style.display="none";
+                    //document.getElementById("showpic").style.display="none";
+                    document.getElementById("showpic").innerHTML = "";
                 }
             }]
         });
