@@ -119,8 +119,9 @@
 			</tr>
 			<tr>
 				<td align="right">分类图片:</td>
-				<td><input type="text" id="img" name="img"
+				<td><input type="hidden" id="img" name="img"
 					class="wu-text" readonly="true"/>
+					<img alt="" src="" id="showImg" style="height: 80px;width: 150px">
 				</td>
 			</tr>
 		</table>
@@ -173,6 +174,7 @@ function imgFormatter(value,row){
  function readPicture() {
 		// 检查是否为图像类型
 		var simpleFile = document.getElementById("img").files[0];
+		console.info(simpleFile)
 		if (!/image\/\w+/.test(simpleFile.type)) {
 			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
 			return false;
@@ -306,6 +308,7 @@ function imgFormatter(value,row){
 	                }
 	            }]
 	        });
+			$('#showImg').attr("src",row.img);
 			$('#updateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');

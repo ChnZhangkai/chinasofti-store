@@ -28,6 +28,8 @@ import net.sf.json.JSONObject;
 @RequestMapping("/goods")
 public class ChnGoodsClassController {
 	
+	private static final String beforePath = System.getProperty("user.dir")  + "\\src\\main\\resources\\static\\data\\goods";
+	
 	@Autowired
 	private ChnGoodsClassFeignClient chnGoodsClassFeignClient;
 	
@@ -81,7 +83,6 @@ public class ChnGoodsClassController {
 	@RequestMapping("/delete/{ids}")
 	public int deleteGoodsClassById(@PathVariable String ids){
 		ChnGoodsClass delImg = chnGoodsClassFeignClient.selectGoodsClassById(ids);
-		String beforePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\data\\goods";
 		String relWay = delImg.getImg();
 		String imageName = relWay.substring(relWay.lastIndexOf("/")+1);
 		String imgUrl = beforePath + File.separator + imageName;
@@ -101,14 +102,10 @@ public class ChnGoodsClassController {
 	@RequestMapping("/save")
 	public int saveGoodsClass(MultipartHttpServletRequest multipartHttpServletRequest){
 		
-//		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-		
-		String basePath = System.getProperty("user.dir");
-		String ImagePath = basePath  + "\\src\\main\\resources\\static\\data\\goods";
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("url");
 		String imageName = multipartFile.getOriginalFilename();
 		
-		String fileName = ImagePath + File.separator + imageName;
+		String fileName = beforePath + File.separator + imageName;
 		File file = new File(fileName);
 		try {
 			multipartFile.transferTo(file);
