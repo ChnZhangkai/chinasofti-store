@@ -6,7 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>chinasofti-mall-goodsorder</artifactId>
-  
+  <packaging>jar</packaging>
   <dependencies>
   	<dependency>
   		<groupId>com.chinasofti.mall</groupId>
@@ -14,7 +14,6 @@
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   	
-  	<!-- Mybatis -->
 	<dependency>
 		<groupId>org.mybatis.spring.boot</groupId>
 		<artifactId>mybatis-spring-boot-starter</artifactId>
