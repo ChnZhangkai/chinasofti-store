@@ -26,7 +26,7 @@ import net.sf.json.JSONObject;
  */
 @RestController
 @RequestMapping("/goods")
-public class SpGoodsClassController {
+public class ChnGoodsClassController {
 	
 	@Autowired
 	private ChnGoodsClassFeignClient chnGoodsClassFeignClient;
