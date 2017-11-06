@@ -11,7 +11,14 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+/**
+ * 
+* @ClassName: ShiroConfiguration
+* @Description: shiro的配置类
+* @author xiaokunxiong
+* @date 2017年11月6日 上午9:40:30 
+*
+ */
 @Configuration
 public class ShiroConfiguration {
     

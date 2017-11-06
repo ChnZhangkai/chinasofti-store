@@ -5,11 +5,13 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 
-/** 
- * @Description 这个类进行秘密的校验 
- * @ClassName   CredentialsMatcher 
- * @Date        2017年8月30日 下午9:17:29 
- * @Author      动脑学院-jack
+/**
+ * 
+* @ClassName: CredentialsMatcher
+* @Description: 密码校验
+* @author xiaokunxiong
+* @date 2017年11月6日 上午9:39:49 
+*
  */
 public class CredentialsMatcher extends SimpleCredentialsMatcher {
     
