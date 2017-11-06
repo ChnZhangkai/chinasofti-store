@@ -1,6 +1,5 @@
 package com.chinasofti.mall.web.entrance.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.web.entrance.feign.MainGoodsorderFeign;
+
+import net.sf.json.JSONObject;
 
 /**
 * @ClassName: 	MainGoodsorderController
@@ -60,9 +61,9 @@ public class MainGoodsorderController {
 	* @throws
 	*/
 	@RequestMapping(value="list", method = RequestMethod.POST)
-	public List<PyMainGoodsorder> selectAll(PyMainGoodsorder mainGoodsorder){
-		
-		return mainGoodsorderFeign.selectByExample(mainGoodsorder);
+	public String selectAll(PyMainGoodsorder mainGoodsorder){
+		JSONObject jsonlist = mainGoodsorderFeign.selectByMainorderClass(mainGoodsorder);
+		return jsonlist.toString();
 	}
 	
 	

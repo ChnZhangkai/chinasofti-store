@@ -1,7 +1,5 @@
 package com.chinasofti.mall.web.entrance.feign;
 
-import java.util.List;
-
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.web.entrance.hystrix.MainGoodsorderFeignClientHystrix;
+
+import net.sf.json.JSONObject;
 
 @FeignClient(name="main-goodsorder-service" , fallback=MainGoodsorderFeignClientHystrix.class)
 public interface MainGoodsorderFeign {
@@ -28,6 +28,6 @@ public interface MainGoodsorderFeign {
 	public String add(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder) ;
 	
 	@RequestMapping(value="mainorder/list" , method = RequestMethod.POST)
-	public List<PyMainGoodsorder> selectByExample(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder);
+	public JSONObject selectByMainorderClass(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder);
 
 }
