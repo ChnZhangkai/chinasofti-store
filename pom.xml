@@ -16,6 +16,11 @@
   	<module>chinasofti-mall-goodscategory</module>
   	<module>chinasofti-mall-zuul</module>
     <module>chinasofti-mall-shiro</module>
+  	<module>chinasofti-mall-goodsorder</module>
+  	<module>chinasofti-mall-zuul</module>
+	<module>chinasofti-mall-user</module>
+	<module>chinasofti-mall-sp-user</module>
+	<module>chinasofti-mall-goodsclass</module>
   </modules>
   
   <properties>
@@ -42,7 +47,7 @@
 	</dependencyManagement>
 	 <dependencies>
 	 
-	 <!-- 热部署自动重�?-->
+	 <!-- 热部署自动重启 -->
 		 <dependency>
 			<groupId>org.springframework.boot</groupId>
    		 	<artifactId>spring-boot-devtools</artifactId>
@@ -50,9 +55,28 @@
 	</dependencies>
 	<build>
 		<plugins>
+			<!-- springboot插件 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- 资源文件拷贝插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- java编译插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

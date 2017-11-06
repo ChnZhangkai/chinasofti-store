@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.goodsorder.mapper.PyPayorderMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.PyPayorder" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="ORDERIDS" property="orderids" jdbcType="VARCHAR" />
+    <result column="PAYPRICE" property="payprice" jdbcType="DECIMAL" />
+    <result column="PAYTIME" property="paytime" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="PAYSTATUS" property="paystatus" jdbcType="VARCHAR" />
+    <result column="PAYCHANNEL" property="paychannel" jdbcType="VARCHAR" />
+    <result column="PAYFINISHTIME" property="payfinishtime" jdbcType="VARCHAR" />
+    <result column="CHANNELORDERID" property="channelorderid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, ORDERIDS, PAYPRICE, PAYTIME, USERID, PAYSTATUS, PAYCHANNEL, PAYFINISHTIME, CHANNELORDERID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PyPayorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from py_payorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from py_payorder
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from py_payorder
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.PyPayorderExample" >
+    delete from py_payorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PyPayorder" >
+    insert into py_payorder (IDS, ORDERIDS, PAYPRICE, 
+      PAYTIME, USERID, PAYSTATUS, 
+      PAYCHANNEL, PAYFINISHTIME, CHANNELORDERID
+      )
+    values (#{ids,jdbcType=VARCHAR}, #{orderids,jdbcType=VARCHAR}, #{payprice,jdbcType=DECIMAL}, 
+      #{paytime,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{paystatus,jdbcType=VARCHAR}, 
+      #{paychannel,jdbcType=VARCHAR}, #{payfinishtime,jdbcType=VARCHAR}, #{channelorderid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PyPayorder" >
+    insert into py_payorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="orderids != null" >
+        ORDERIDS,
+      </if>
+      <if test="payprice != null" >
+        PAYPRICE,
+      </if>
+      <if test="paytime != null" >
+        PAYTIME,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="paystatus != null" >
+        PAYSTATUS,
+      </if>
+      <if test="paychannel != null" >
+        PAYCHANNEL,
+      </if>
+      <if test="payfinishtime != null" >
+        PAYFINISHTIME,
+      </if>
+      <if test="channelorderid != null" >
+        CHANNELORDERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="orderids != null" >
+        #{orderids,jdbcType=VARCHAR},
+      </if>
+      <if test="payprice != null" >
+        #{payprice,jdbcType=DECIMAL},
+      </if>
+      <if test="paytime != null" >
+        #{paytime,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null" >
+        #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paychannel != null" >
+        #{paychannel,jdbcType=VARCHAR},
+      </if>
+      <if test="payfinishtime != null" >
+        #{payfinishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="channelorderid != null" >
+        #{channelorderid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.PyPayorderExample" resultType="java.lang.Integer" >
+    select count(*) from py_payorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update py_payorder
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderids != null" >
+        ORDERIDS = #{record.orderids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payprice != null" >
+        PAYPRICE = #{record.payprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paytime != null" >
+        PAYTIME = #{record.paytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paystatus != null" >
+        PAYSTATUS = #{record.paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paychannel != null" >
+        PAYCHANNEL = #{record.paychannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payfinishtime != null" >
+        PAYFINISHTIME = #{record.payfinishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channelorderid != null" >
+        CHANNELORDERID = #{record.channelorderid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update py_payorder
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      ORDERIDS = #{record.orderids,jdbcType=VARCHAR},
+      PAYPRICE = #{record.payprice,jdbcType=DECIMAL},
+      PAYTIME = #{record.paytime,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      PAYSTATUS = #{record.paystatus,jdbcType=VARCHAR},
+      PAYCHANNEL = #{record.paychannel,jdbcType=VARCHAR},
+      PAYFINISHTIME = #{record.payfinishtime,jdbcType=VARCHAR},
+      CHANNELORDERID = #{record.channelorderid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.PyPayorder" >
+    update py_payorder
+    <set >
+      <if test="orderids != null" >
+        ORDERIDS = #{orderids,jdbcType=VARCHAR},
+      </if>
+      <if test="payprice != null" >
+        PAYPRICE = #{payprice,jdbcType=DECIMAL},
+      </if>
+      <if test="paytime != null" >
+        PAYTIME = #{paytime,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null" >
+        PAYSTATUS = #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paychannel != null" >
+        PAYCHANNEL = #{paychannel,jdbcType=VARCHAR},
+      </if>
+      <if test="payfinishtime != null" >
+        PAYFINISHTIME = #{payfinishtime,jdbcType=VARCHAR},
+      </if>
+      <if test="channelorderid != null" >
+        CHANNELORDERID = #{channelorderid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.PyPayorder" >
+    update py_payorder
+    set ORDERIDS = #{orderids,jdbcType=VARCHAR},
+      PAYPRICE = #{payprice,jdbcType=DECIMAL},
+      PAYTIME = #{paytime,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      PAYSTATUS = #{paystatus,jdbcType=VARCHAR},
+      PAYCHANNEL = #{paychannel,jdbcType=VARCHAR},
+      PAYFINISHTIME = #{payfinishtime,jdbcType=VARCHAR},
+      CHANNELORDERID = #{channelorderid,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>

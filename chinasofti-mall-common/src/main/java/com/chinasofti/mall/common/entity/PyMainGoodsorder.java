@@ -33,6 +33,8 @@ public class PyMainGoodsorder {
 
     private String deliveryWay;
 
+    private String buyersMessage;
+
     private String orderTime;
 
     private String settleTime;
@@ -90,6 +92,8 @@ public class PyMainGoodsorder {
     private String pLatitude;
 
     private String pLongitude;
+
+    private String senddesc;
 
     private BigDecimal freightOld;
 
@@ -219,6 +223,14 @@ public class PyMainGoodsorder {
 
     public void setDeliveryWay(String deliveryWay) {
         this.deliveryWay = deliveryWay == null ? null : deliveryWay.trim();
+    }
+
+    public String getBuyersMessage() {
+        return buyersMessage;
+    }
+
+    public void setBuyersMessage(String buyersMessage) {
+        this.buyersMessage = buyersMessage == null ? null : buyersMessage.trim();
     }
 
     public String getOrderTime() {
@@ -451,6 +463,14 @@ public class PyMainGoodsorder {
 
     public void setpLongitude(String pLongitude) {
         this.pLongitude = pLongitude == null ? null : pLongitude.trim();
+    }
+
+    public String getSenddesc() {
+        return senddesc;
+    }
+
+    public void setSenddesc(String senddesc) {
+        this.senddesc = senddesc == null ? null : senddesc.trim();
     }
 
     public BigDecimal getFreightOld() {

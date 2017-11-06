@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.goodsorder.mapper.PyChildGoodsorderMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="MAINORDER_IDS" property="mainorderIds" jdbcType="VARCHAR" />
+    <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />
+    <result column="CUST_IDS" property="custIds" jdbcType="VARCHAR" />
+    <result column="ORDER_STATUS" property="orderStatus" jdbcType="CHAR" />
+    <result column="GOODS_NUM" property="goodsNum" jdbcType="DECIMAL" />
+    <result column="GOODS_PRICE" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="DISCOUNT" property="discount" jdbcType="DECIMAL" />
+    <result column="ORDER_REAL_AMT" property="orderRealAmt" jdbcType="DECIMAL" />
+    <result column="ISEVALUATE" property="isevaluate" jdbcType="CHAR" />
+    <result column="ORDER_REVOKE" property="orderRevoke" jdbcType="VARCHAR" />
+    <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+    <result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+    <result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+    <result column="TRANSACTIONID" property="transactionid" jdbcType="VARCHAR" />
+    <result column="ORDER_AMT" property="orderAmt" jdbcType="DECIMAL" />
+    <result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR" />
+    <result column="VENDER_REMARK" property="venderRemark" jdbcType="VARCHAR" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
+    <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
+    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, MAINORDER_IDS, GOODSIDS, CUST_IDS, ORDER_STATUS, GOODS_NUM, GOODS_PRICE, DISCOUNT, 
+    ORDER_REAL_AMT, ISEVALUATE, ORDER_REVOKE, REMARK1, REMARK2, REMARK3, TRANSACTIONID, 
+    ORDER_AMT, ORDER_DATE, VENDER_REMARK, ORDER_TYPE, ORDER_REAL_AMT_OLD, FREIGHT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from py_child_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from py_child_goodsorder
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from py_child_goodsorder
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorderExample" >
+    delete from py_child_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+    insert into py_child_goodsorder (IDS, MAINORDER_IDS, GOODSIDS, 
+      CUST_IDS, ORDER_STATUS, GOODS_NUM, 
+      GOODS_PRICE, DISCOUNT, ORDER_REAL_AMT, 
+      ISEVALUATE, ORDER_REVOKE, REMARK1, 
+      REMARK2, REMARK3, TRANSACTIONID, 
+      ORDER_AMT, ORDER_DATE, VENDER_REMARK, 
+      ORDER_TYPE, ORDER_REAL_AMT_OLD, FREIGHT
+      )
+    values (#{ids,jdbcType=VARCHAR}, #{mainorderIds,jdbcType=VARCHAR}, #{goodsids,jdbcType=VARCHAR}, 
+      #{custIds,jdbcType=VARCHAR}, #{orderStatus,jdbcType=CHAR}, #{goodsNum,jdbcType=DECIMAL}, 
+      #{goodsPrice,jdbcType=DECIMAL}, #{discount,jdbcType=DECIMAL}, #{orderRealAmt,jdbcType=DECIMAL}, 
+      #{isevaluate,jdbcType=CHAR}, #{orderRevoke,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{transactionid,jdbcType=VARCHAR}, 
+      #{orderAmt,jdbcType=DECIMAL}, #{orderDate,jdbcType=VARCHAR}, #{venderRemark,jdbcType=VARCHAR}, 
+      #{orderType,jdbcType=VARCHAR}, #{orderRealAmtOld,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+    insert into py_child_goodsorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="mainorderIds != null" >
+        MAINORDER_IDS,
+      </if>
+      <if test="goodsids != null" >
+        GOODSIDS,
+      </if>
+      <if test="custIds != null" >
+        CUST_IDS,
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS,
+      </if>
+      <if test="goodsNum != null" >
+        GOODS_NUM,
+      </if>
+      <if test="goodsPrice != null" >
+        GOODS_PRICE,
+      </if>
+      <if test="discount != null" >
+        DISCOUNT,
+      </if>
+      <if test="orderRealAmt != null" >
+        ORDER_REAL_AMT,
+      </if>
+      <if test="isevaluate != null" >
+        ISEVALUATE,
+      </if>
+      <if test="orderRevoke != null" >
+        ORDER_REVOKE,
+      </if>
+      <if test="remark1 != null" >
+        REMARK1,
+      </if>
+      <if test="remark2 != null" >
+        REMARK2,
+      </if>
+      <if test="remark3 != null" >
+        REMARK3,
+      </if>
+      <if test="transactionid != null" >
+        TRANSACTIONID,
+      </if>
+      <if test="orderAmt != null" >
+        ORDER_AMT,
+      </if>
+      <if test="orderDate != null" >
+        ORDER_DATE,
+      </if>
+      <if test="venderRemark != null" >
+        VENDER_REMARK,
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE,
+      </if>
+      <if test="orderRealAmtOld != null" >
+        ORDER_REAL_AMT_OLD,
+      </if>
+      <if test="freight != null" >
+        FREIGHT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="mainorderIds != null" >
+        #{mainorderIds,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsids != null" >
+        #{goodsids,jdbcType=VARCHAR},
+      </if>
+      <if test="custIds != null" >
+        #{custIds,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="goodsNum != null" >
+        #{goodsNum,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderRealAmt != null" >
+        #{orderRealAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="isevaluate != null" >
+        #{isevaluate,jdbcType=CHAR},
+      </if>
+      <if test="orderRevoke != null" >
+        #{orderRevoke,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionid != null" >
+        #{transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmt != null" >
+        #{orderAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="venderRemark != null" >
+        #{venderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRealAmtOld != null" >
+        #{orderRealAmtOld,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorderExample" resultType="java.lang.Integer" >
+    select count(*) from py_child_goodsorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update py_child_goodsorder
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainorderIds != null" >
+        MAINORDER_IDS = #{record.mainorderIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsids != null" >
+        GOODSIDS = #{record.goodsids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custIds != null" >
+        CUST_IDS = #{record.custIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null" >
+        ORDER_STATUS = #{record.orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.goodsNum != null" >
+        GOODS_NUM = #{record.goodsNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsPrice != null" >
+        GOODS_PRICE = #{record.goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discount != null" >
+        DISCOUNT = #{record.discount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderRealAmt != null" >
+        ORDER_REAL_AMT = #{record.orderRealAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isevaluate != null" >
+        ISEVALUATE = #{record.isevaluate,jdbcType=CHAR},
+      </if>
+      <if test="record.orderRevoke != null" >
+        ORDER_REVOKE = #{record.orderRevoke,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        REMARK1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        REMARK2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        REMARK3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionid != null" >
+        TRANSACTIONID = #{record.transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderAmt != null" >
+        ORDER_AMT = #{record.orderAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderDate != null" >
+        ORDER_DATE = #{record.orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.venderRemark != null" >
+        VENDER_REMARK = #{record.venderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderType != null" >
+        ORDER_TYPE = #{record.orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderRealAmtOld != null" >
+        ORDER_REAL_AMT_OLD = #{record.orderRealAmtOld,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freight != null" >
+        FREIGHT = #{record.freight,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update py_child_goodsorder
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      MAINORDER_IDS = #{record.mainorderIds,jdbcType=VARCHAR},
+      GOODSIDS = #{record.goodsids,jdbcType=VARCHAR},
+      CUST_IDS = #{record.custIds,jdbcType=VARCHAR},
+      ORDER_STATUS = #{record.orderStatus,jdbcType=CHAR},
+      GOODS_NUM = #{record.goodsNum,jdbcType=DECIMAL},
+      GOODS_PRICE = #{record.goodsPrice,jdbcType=DECIMAL},
+      DISCOUNT = #{record.discount,jdbcType=DECIMAL},
+      ORDER_REAL_AMT = #{record.orderRealAmt,jdbcType=DECIMAL},
+      ISEVALUATE = #{record.isevaluate,jdbcType=CHAR},
+      ORDER_REVOKE = #{record.orderRevoke,jdbcType=VARCHAR},
+      REMARK1 = #{record.remark1,jdbcType=VARCHAR},
+      REMARK2 = #{record.remark2,jdbcType=VARCHAR},
+      REMARK3 = #{record.remark3,jdbcType=VARCHAR},
+      TRANSACTIONID = #{record.transactionid,jdbcType=VARCHAR},
+      ORDER_AMT = #{record.orderAmt,jdbcType=DECIMAL},
+      ORDER_DATE = #{record.orderDate,jdbcType=VARCHAR},
+      VENDER_REMARK = #{record.venderRemark,jdbcType=VARCHAR},
+      ORDER_TYPE = #{record.orderType,jdbcType=VARCHAR},
+      ORDER_REAL_AMT_OLD = #{record.orderRealAmtOld,jdbcType=DECIMAL},
+      FREIGHT = #{record.freight,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+    update py_child_goodsorder
+    <set >
+      <if test="mainorderIds != null" >
+        MAINORDER_IDS = #{mainorderIds,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsids != null" >
+        GOODSIDS = #{goodsids,jdbcType=VARCHAR},
+      </if>
+      <if test="custIds != null" >
+        CUST_IDS = #{custIds,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS = #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="goodsNum != null" >
+        GOODS_NUM = #{goodsNum,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPrice != null" >
+        GOODS_PRICE = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        DISCOUNT = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderRealAmt != null" >
+        ORDER_REAL_AMT = #{orderRealAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="isevaluate != null" >
+        ISEVALUATE = #{isevaluate,jdbcType=CHAR},
+      </if>
+      <if test="orderRevoke != null" >
+        ORDER_REVOKE = #{orderRevoke,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        REMARK1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        REMARK2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        REMARK3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionid != null" >
+        TRANSACTIONID = #{transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmt != null" >
+        ORDER_AMT = #{orderAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="orderDate != null" >
+        ORDER_DATE = #{orderDate,jdbcType=VARCHAR},
+      </if>
+      <if test="venderRemark != null" >
+        VENDER_REMARK = #{venderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderRealAmtOld != null" >
+        ORDER_REAL_AMT_OLD = #{orderRealAmtOld,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null" >
+        FREIGHT = #{freight,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+    update py_child_goodsorder
+    set MAINORDER_IDS = #{mainorderIds,jdbcType=VARCHAR},
+      GOODSIDS = #{goodsids,jdbcType=VARCHAR},
+      CUST_IDS = #{custIds,jdbcType=VARCHAR},
+      ORDER_STATUS = #{orderStatus,jdbcType=CHAR},
+      GOODS_NUM = #{goodsNum,jdbcType=DECIMAL},
+      GOODS_PRICE = #{goodsPrice,jdbcType=DECIMAL},
+      DISCOUNT = #{discount,jdbcType=DECIMAL},
+      ORDER_REAL_AMT = #{orderRealAmt,jdbcType=DECIMAL},
+      ISEVALUATE = #{isevaluate,jdbcType=CHAR},
+      ORDER_REVOKE = #{orderRevoke,jdbcType=VARCHAR},
+      REMARK1 = #{remark1,jdbcType=VARCHAR},
+      REMARK2 = #{remark2,jdbcType=VARCHAR},
+      REMARK3 = #{remark3,jdbcType=VARCHAR},
+      TRANSACTIONID = #{transactionid,jdbcType=VARCHAR},
+      ORDER_AMT = #{orderAmt,jdbcType=DECIMAL},
+      ORDER_DATE = #{orderDate,jdbcType=VARCHAR},
+      VENDER_REMARK = #{venderRemark,jdbcType=VARCHAR},
+      ORDER_TYPE = #{orderType,jdbcType=VARCHAR},
+      ORDER_REAL_AMT_OLD = #{orderRealAmtOld,jdbcType=DECIMAL},
+      FREIGHT = #{freight,jdbcType=DECIMAL}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>
