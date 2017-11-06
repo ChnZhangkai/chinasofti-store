@@ -72,7 +72,7 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 				criteria.andTransactionidLike("%" + mainGoodsorder.getTransactionid() + "%");
 			}
 
-		PageHelper.startPage(mainGoodsorder.getPageNumber(),mainGoodsorder.getPageSize());
+		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
 
 		js.put("rows", list);
