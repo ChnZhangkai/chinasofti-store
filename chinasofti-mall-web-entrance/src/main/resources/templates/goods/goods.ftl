@@ -18,8 +18,8 @@
 			<label>分类名称：</label> <input type="text" id="categoryname" name="name" />
 			<label>分类描述：</label> <input type="text" id="categorycommons" name="commons" />
 			<label>创建员工：</label> <input type="text" id="createbyname" name="createBy" />
-			<label>状态：</label> <select class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
-									<option value="">请选择</option>
+			<label>状态：</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
+									<option selected="selected" value="">请选择</option>
 									<option value="0">禁用</option>
 									<option value="1">启用</option>
 								</select>
@@ -137,8 +137,8 @@ $(function(){
 
 	//此处设置自己的url地址
 	var url = '/goods/list';
+	seachId = '#searchForm';
 	
-	var pstates = $('#classstates').val();
 	tdload(tableID, pageId, url);
 	$.messager.progress({
 		text:'数据正在加载中'
@@ -333,6 +333,7 @@ function statesFormatter(value){
 	*/
 	function doSearch(){
 		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchForm').serialize();
+		console.info(param)
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
@@ -354,9 +355,7 @@ function statesFormatter(value){
 	*清除搜索框内容
 	*/
 	function doClear(){
-		document.getElementById("categorycommons").value="";
-		document.getElementById("categoryname").value="";
-		document.getElementById("createbyname").value="";
+		$("#searchForm").form("reset");
 	} 	
 	/**
 	* Name 查询数据并打开修改窗口

@@ -2,6 +2,7 @@ package com.chinasofti.mall.goodsclass.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,22 +33,24 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 	@Override
 	public JSONObject selectByExample(ChnGoodsClass chnGoodsClass) {
 		
-		String compare = "";
+		//String compare = "";
 		
 		JSONObject js = new JSONObject();
 		ChnGoodsClassExample example = new ChnGoodsClassExample();
 		Criteria criteria = example.createCriteria();
-				
-		if ((chnGoodsClass.getName()) != null && !(chnGoodsClass.getName()).equals(compare)) {
+		
+		
+		
+		if (!StringUtils.isEmpty(chnGoodsClass.getName())) {
 				criteria.andNameLike("%" + chnGoodsClass.getName() + "%");
 			}
-		if ((chnGoodsClass.getCommons()) != null && !(chnGoodsClass.getCommons().equals(compare))) {
+		if (!StringUtils.isEmpty(chnGoodsClass.getCommons())) {
 				criteria.andCommonsLike("%" + chnGoodsClass.getCommons() + "%");
 		}
-		if ((chnGoodsClass.getCreateBy() != null) && !(chnGoodsClass.getCreateBy().equals(compare))) {
+		if (!StringUtils.isEmpty(chnGoodsClass.getCreateBy())) {
 			criteria.andCreateByLike("%" + chnGoodsClass.getCreateBy() + "%");
 		}
-		if ((chnGoodsClass.getStates()) != null && !(chnGoodsClass.getStates()).equals(compare)) {
+		if (!StringUtils.isEmpty(chnGoodsClass.getStates())) {
 			criteria.andStatesEqualTo(chnGoodsClass.getStates());
 		}
 
