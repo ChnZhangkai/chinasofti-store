@@ -46,7 +46,7 @@ public class LoginController {
             subject.login(usernamePasswordToken); //完成登录
             User user = (User)subject.getPrincipal();
             session.setAttribute("user", user);
-            return "index";
+            return "main";
         }
         catch (Exception e) {
             return "login";//返回登录页面
