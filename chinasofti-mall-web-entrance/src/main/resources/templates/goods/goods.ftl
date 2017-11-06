@@ -199,7 +199,7 @@ function statesFormatter(value){
 			type:'POST',
 			success:function(data){
 				if(data > 0){
-					$('#pagination').pagination('select');
+					$('#goodsPagination').pagination('select');
 					$('#wu-dialog-2').dialog('close');
 					$.messager.alert('信息提示','提交成功！','info');
 				}
@@ -243,7 +243,7 @@ function statesFormatter(value){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
 							//$('#goodsinfo').datagrid('reload')
-							$('#pagination').pagination('select');
+							$('#goodsPagination').pagination('select');
 						}
 						else
 						{
@@ -320,7 +320,7 @@ function statesFormatter(value){
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
     				$('#wu-dialog-3').dialog('close');
-    				$('#pagination').pagination('select');
+    				$('#goodsPagination').pagination('select');
     			}else{
     				$.messager.alert('信息提示','提交失败！','info');
     			}
@@ -333,18 +333,24 @@ function statesFormatter(value){
 	*/
 	function doSearch(){
 		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchForm').serialize();
-		console.info(param)
+		//console.info(param)
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
 	          data: param, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
-	              alert(textStatus); 
+	              alert("没有查询到数据"); 
 	          }, 
 	          success: function (data) { 
+	        	  
 	        	  data =eval("("+data+")");
+	        	  
+	        	  if(data.total == 0){
+	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
+	        	  }
+	        	  
 	              $('#goodsinfo').datagrid('loadData', data.rows);
-	               $('#pagination').pagination({ 
+	               $('#goodsPagination').pagination({ 
 			    	  total:data.total
 			    	  });
 	          }
