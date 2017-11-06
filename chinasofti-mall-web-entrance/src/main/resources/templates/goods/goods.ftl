@@ -290,7 +290,6 @@ function imgFormatter(value,row){
 	function openEdit(){
 		var row = $("#goodsinfo").datagrid('getSelected');
 		if (row) {
-			//alert(JSON.stringify(row));
 			$('#wu-dialog-3').dialog('open').dialog({
 				closed: false,
 				modal:true,
@@ -307,7 +306,6 @@ function imgFormatter(value,row){
 	                }
 	            }]
 	        });
-			alert(JSON.stringify(row));
 			$('#updateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
