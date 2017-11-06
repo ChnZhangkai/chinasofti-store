@@ -74,18 +74,27 @@ public class ChnGoodsClassController {
 	}
 	
 	/**
-	 * 根据ID删除
+	 * 根据ID删除分类,并删除图片
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping("/delete/{ids}")
 	public int deleteGoodsClassById(@PathVariable String ids){
+		ChnGoodsClass delImg = chnGoodsClassFeignClient.selectGoodsClassById(ids);
+		String beforePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\data\\goods";
+		String relWay = delImg.getImg();
+		String imageName = relWay.substring(relWay.lastIndexOf("/")+1);
+		String imgUrl = beforePath + File.separator + imageName;
+		File file = new File(imgUrl);
+		if (file.exists()) {
+			file.delete();
+		}
 		int delById = chnGoodsClassFeignClient.deleteGoodsClassById(ids);
 		return delById;
 	}
 	
 	/**
-	 * 增加
+	 * 增加分类,并保存图片到项目文件中
 	 * @param spGoodsClass
 	 * @return
 	 */

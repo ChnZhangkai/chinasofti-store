@@ -183,7 +183,7 @@ function imgFormatter(value,row){
 		reader.onload = function(f) {
 			var result = document.getElementById("showpic");
 			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
-			result.innerHTML = '<img style="height: 80px;width: 150px;" src ="' + src + '"/>';
+			result.innerHTML = '<img id="readPic" style="height: 80px;width: 150px;" src ="' + src + '"/>';
 		}
 		document.getElementById("showpic").style.display="";
 	}
@@ -243,8 +243,9 @@ function imgFormatter(value,row){
 		$('#addForm').form('clear');
 		$('#wu-dialog-2').dialog({
 			closed: false,
+			closable:false,
 			modal:true,
-            title: "添加信息",
+            title: "添加分类",
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
@@ -293,7 +294,7 @@ function imgFormatter(value,row){
 			$('#wu-dialog-3').dialog('open').dialog({
 				closed: false,
 				modal:true,
-	            title: "修改订单信息",
+	            title: "修改分类",
 	            buttons: [{
 	                text: '确定',
 	                iconCls: 'icon-ok',
