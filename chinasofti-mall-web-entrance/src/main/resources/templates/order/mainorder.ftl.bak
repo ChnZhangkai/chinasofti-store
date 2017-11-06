@@ -1,4 +1,7 @@
 <script type="text/javascript">
+		
+	});
+
 	/**
 	*  添加订单记录
 	*/
@@ -130,9 +133,9 @@
 	*条件查询
 	*/
 	function doSearch(){
+		alert("111");
 		$('#mainorderDataGrid').datagrid('load',{
-			'bigorderId':$('#bigorderId').val(),
-			'vendorIds':$('#vendorIds').val()
+			'transactionid':$('#transactionid').val()
 		});
 		
 	}
@@ -157,14 +160,14 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
         </div>
         
-		<form id="mainorderEditForm" method="post">
+		<form id="mainorderSearchForm" method="post">
 			<div align="center">
 			<table class="dialog-table" style="width:95%">
 				<tr>
 					<th>主订单号</th>
-					<td><input class="easyui-textbox" name="name" data-options="height:24,width:160"/></td>
+					<td><input class="easyui-textbox" id="transactionid" name="transactionid" data-options="height:24,width:160"/></td>
 					<th>大订单号</th>
-					<td><input class="easyui-textbox" name="name" data-options="height:24,width:160"/></td>
+					<td><input class="easyui-textbox" name="bigorderId" data-options="height:24,width:160"/></td>
 				</tr>
 				<tr>
 					<th>支付开始时间</th>
@@ -190,9 +193,9 @@
 					<td><input class="easyui-textbox" name="name" data-options="height:24,width:160"/></td>
 				</tr>
 				<tr>
-					<td colspan="4" align="left">
+					<td colspan="4" align="center">
 						<a class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="doSearch()">查询</a>&nbsp;
-						<a class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="clearAll()">清空</a> 
+						<a class="easyui-linkbutton" iconCls="icon-edit-clear" plain="true" onclick="clearAll()">清空</a> 
 					</td>
 				</tr>
 			</table>
@@ -200,8 +203,15 @@
 		</form>
     </div>
 
-    <table id="mainorderDataGrid" class="easyui-datagrid" url="/mainorder/list"
-		rownumbers="true" pagination="true" singleSelect="false">
+    <table id="mainorderDataGrid" class="easyui-datagrid" singleSelect="true"
+    	data-options="url:'mainorder/list',
+       				 sortName:'ids',
+       				 sortOrder:'asc',
+       				 toolbar:'#mainorderToolbar',
+       				 title:'主订单列表',
+       				 iconCls:'icon-man',
+       				 striped:true,
+       				 fit:true">
 		<thead>
 			<tr>
 				<th field="transactionid" width="20%" align="center">主订单号</th>
@@ -216,6 +226,7 @@
 			</tr>
 		</thead>
 	</table>
+	
 </div>
 
 <!-- 添加表格 -->

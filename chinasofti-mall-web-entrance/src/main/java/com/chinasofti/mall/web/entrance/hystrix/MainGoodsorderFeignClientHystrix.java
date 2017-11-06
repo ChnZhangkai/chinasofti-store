@@ -1,12 +1,13 @@
 package com.chinasofti.mall.web.entrance.hystrix;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.web.entrance.feign.MainGoodsorderFeign;
+
+import net.sf.json.JSONObject;
 
 @Component
 public class MainGoodsorderFeignClientHystrix implements MainGoodsorderFeign {
@@ -32,8 +33,11 @@ public class MainGoodsorderFeignClientHystrix implements MainGoodsorderFeign {
 	}
 
 	@Override
-	public List<PyMainGoodsorder> selectByExample(PyMainGoodsorder mainGoodsorder) {
-		return new ArrayList<>();
+	public JSONObject selectByMainorderClass(PyMainGoodsorder mainGoodsorder) {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("total", 0);
+		jsonObject.put("rows", new ArrayList<>());
+		return jsonObject;
 	}
 
 }

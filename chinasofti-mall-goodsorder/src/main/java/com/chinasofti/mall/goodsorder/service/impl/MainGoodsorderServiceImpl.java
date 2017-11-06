@@ -7,8 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
+import com.chinasofti.mall.common.entity.PyMainGoodsorderExample.Criteria;
 import com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+
+import net.sf.json.JSONObject;
 
 /**
 * @ClassName: 	MainGoodsorderServiceImpl
@@ -55,9 +60,25 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	}
 	
 	@Override
-	public List<PyMainGoodsorder> selectByExample(PyMainGoodsorderExample example){
+	public JSONObject selectByExample(PyMainGoodsorder mainGoodsorder){
 		
-		return mainGoodsorderMapper.selectByExample(example);
+		String compare = "";
+		
+		JSONObject js = new JSONObject();
+		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
+		Criteria criteria = example.createCriteria();
+				
+		if ((mainGoodsorder.getTransactionid()) != null && !(mainGoodsorder.getTransactionid()).equals(compare)) {
+				criteria.andTransactionidLike("%" + mainGoodsorder.getTransactionid() + "%");
+			}
+
+		PageHelper.startPage(mainGoodsorder.getPageNumber(),mainGoodsorder.getPageSize());
+		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
+
+		js.put("rows", list);
+		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());
+		
+		return js;
 	}
 
 }

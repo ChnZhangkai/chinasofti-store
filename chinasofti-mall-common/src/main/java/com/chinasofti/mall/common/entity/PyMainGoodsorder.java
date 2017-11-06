@@ -2,7 +2,9 @@ package com.chinasofti.mall.common.entity;
 
 import java.math.BigDecimal;
 
-public class PyMainGoodsorder {
+import com.chinasofti.mall.common.utils.PageBean;
+
+public class PyMainGoodsorder extends PageBean{
     private String ids;
 
     private String bigorderId;

@@ -1,10 +1,11 @@
 package com.chinasofti.mall.goodsorder.service;
 
-import java.util.List;
 
 import com.chinasofti.mall.common.entity.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
 import com.chinasofti.mall.common.service.IBaseService;
+
+import net.sf.json.JSONObject;
 
 /**
 * @ClassName: 	MainGoodsorderService
@@ -25,6 +26,6 @@ public interface MainGoodsorderService extends IBaseService<PyMainGoodsorder> {
 	* @return List<PyMainGoodsorder>    返回类型
 	* @throws
 	*/
-	public List<PyMainGoodsorder> selectByExample(PyMainGoodsorderExample example);
+	public JSONObject selectByExample(PyMainGoodsorder mainGoodsorder);
 
 }
