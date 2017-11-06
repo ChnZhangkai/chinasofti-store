@@ -174,47 +174,6 @@ function imgFormatter(value,row){
 }
 
 	/*
-	 * 上传图片回显
-	 */
- 	function readPicture() {
-		// 检查是否为图像类型
-		var simpleFile = document.getElementById("img").files[0];
-		//console.info(simpleFile)
-		if (!/image\/\w+/.test(simpleFile.type)) {
-			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
-			return false;
-		}
-		var reader = new FileReader();
-		// 将文件以二进制文件读入页面中
-		reader.readAsBinaryString(simpleFile);
-		reader.onload = function(f) {
-			var result = document.getElementById("showpic");
-			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
-			result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
-		}
-		//document.getElementById("showpic").style.display="";
-	}
-	
- 	function updatePicture() {
-		// 检查是否为图像类型
-		var simpleFile = document.getElementById("uimg").files[0];
-		//console.info(simpleFile)
-		if (!/image\/\w+/.test(simpleFile.type)) {
-			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
-			return false;
-		}
-		var reader = new FileReader();
-		// 将文件以二进制文件读入页面中
-		reader.readAsBinaryString(simpleFile);
-		reader.onload = function(f) {
-			var result = document.getElementById("showupic");
-			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
-			result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
-		}
-		//document.getElementById("showpic").style.display="";
-	}
-
-	/*
 	 * 分类状态
 	 */
 	function statesFormatter(value){
@@ -347,7 +306,6 @@ function imgFormatter(value,row){
 	*修改
 	*/
 	function edit(){
-		console.info($('#updateForm').serialize());
 		$('#updateForm').form('submit', {
 			url:'/goods/update',
     		type:'POST',
@@ -399,6 +357,46 @@ function imgFormatter(value,row){
 	function doClear(){
 		$("#searchForm").form("reset");
 	} 	
-
+	
+	/*
+	 * 上传图片回显
+	 */
+ 	function readPicture() {
+		// 检查是否为图像类型
+		var simpleFile = document.getElementById("img").files[0];
+		//console.info(simpleFile)
+		if (!/image\/\w+/.test(simpleFile.type)) {
+			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
+			return false;
+		}
+		var reader = new FileReader();
+		// 将文件以二进制文件读入页面中
+		reader.readAsBinaryString(simpleFile);
+		reader.onload = function(f) {
+			var result = document.getElementById("showpic");
+			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
+			result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
+		}
+		//document.getElementById("showpic").style.display="";
+	}
+	
+ 	function updatePicture() {
+		// 检查是否为图像类型
+		var simpleFile = document.getElementById("uimg").files[0];
+		//console.info(simpleFile)
+		if (!/image\/\w+/.test(simpleFile.type)) {
+			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
+			return false;
+		}
+		var reader = new FileReader();
+		// 将文件以二进制文件读入页面中
+		reader.readAsBinaryString(simpleFile);
+		reader.onload = function(f) {
+			var result = document.getElementById("showupic");
+			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
+			result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
+		}
+		//document.getElementById("showpic").style.display="";
+	}
 		
 </script>
