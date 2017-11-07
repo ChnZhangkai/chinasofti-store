@@ -52,7 +52,7 @@
 <div id="wu-dialog-2" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-save'"
 	style="width: 400px; padding: 10px;">
-	<form id="wu-form-2" method="post" enctype="multipart/form-data">
+	<form id="addForm" method="post" enctype="multipart/form-data">
 		<table id="add">
 			<tr>
 				<td width="60" align="right">分类名称:</td>
@@ -75,7 +75,7 @@
 			</tr>
 			<tr>
 				<td align="right">分类图片:</td>
-				<td><input type="file" id="url" name="url" onchange="readPicture()"/></td>
+				<td><input type="file" id="img" name="img" onchange="readPicture()"/></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -91,11 +91,12 @@
 <div id="wu-dialog-3" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-save'"
 	style="width: 400px; padding: 10px;">
-	<form id="wu-form-3" method="post">
+	<form id="updateForm" method="post" enctype="multipart/form-data">
 		<table id="update">
 			<tr>
 				<td width="60" align="right">分类ID:</td>
-				<td><input type="text" id="ids" name="ids" class="wu-text" readonly="true"/></td>
+				<td><input type="text" id="ids" name="ids" 
+				class="wu-text easyui-tooltip" title="分类ID不可修改" style="background-color: #F4F4F4" readonly="true"/></td>
 			</tr>
 			<tr>
 				<td width="60" align="right">分类名称:</td>
@@ -103,22 +104,40 @@
 					class="wu-text" /></td>
 			</tr>
 			<tr>
-				<td align="right">分类图片:</td>
-				<td><input type="text" id="url" name="url"
-					class="wu-text" readonly="true"/>
+				<td align="right">分类描述:</td>
+				<td><input type="text" id="commons" name="commons"
+					class="wu-text" /></td>
+			</tr>
+			<tr>
+				<td align="right">分类状态:</td>
+				<td>
+					<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择分类状态" data-options="editable:false,panelHeight:'auto'" id="states" name="states" style="width: 75px">
+							<option value="0">禁用</option>
+							<option value="1">启用</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
-				<td align="right">分类详情:</td>
-				<td><input type="text" id="title" name="title"
-					class="wu-text" /></td>
+				<td align="center">原图地址:</td>
+				<td><input type="text" id="img" name="img"
+					class="wu-text" readonly="true"/></td>
+			</tr>
+			<tr>
+				<td align="center">分类图片:</td>
+				<td><input type="file" id="uimg" name="uimg" onchange="updatePicture()"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<div id="showupic"></div>
+					<!-- <img alt="" src="" id="showImg" style="height: 80px;width: 117px"> -->
+				</td>
 			</tr>
 		</table>
 	</form>
 </div>
 
 
-<!-- End of easyui-dialog -->
 <script type="text/javascript">
 
 /*
@@ -129,17 +148,18 @@ $(function(){
 		title:'提示',
 		msg:'该充值智商了!'
 	});
-	//获取表格datagrid的ID属性
+	
+	//获取表格datagrid的ID属性,
 	var tableID = "goodsinfo";
-	//alert(tableID);
 	//获取分页工具条元素
 	var pageId = $('#goodsPagination');
-
 	//此处设置自己的url地址
 	var url = '/goods/list';
+	//分页查询时传递查询条件
 	seachId = '#searchForm';
-	
+	//调用初始化方法	
 	tdload(tableID, pageId, url);
+	
 	$.messager.progress({
 		text:'数据正在加载中'
 	});
@@ -152,67 +172,21 @@ $(function(){
 function imgFormatter(value,row){
 	var str = "";
 	if(value != "" || value != null){
-		str = "<img style=\"height: 80px;width: 150px;\" src=\""+value+"\"/>";
+		str = "<img style=\"height: 80px;width: 117px;\" src=\""+value+"\"/>";
         return str;
 	}
 }
 
-/*
- * 上传图片回显
- */
- function readPicture() {
-		// 检查是否为图像类型
-		var simpleFile = document.getElementById("url").files[0];
-		if (!/image\/\w+/.test(simpleFile.type)) {
-			alert("请确保文件类型为图像类型");
-			return false;
-		}
-		var reader = new FileReader();
-		// 将文件以二进制文件读入页面中
-		reader.readAsBinaryString(simpleFile);
-		reader.onload = function(f) {
-			var result = document.getElementById("showpic");
-			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
-			result.innerHTML = '<img style="height: 80px;width: 150px;" src ="' + src + '"/>';
+	/*
+	 * 分类状态
+	 */
+	function statesFormatter(value){
+		if(value == "0"){
+			return '<span style="color:red">禁用</span>';
+		}else{
+			return '<span style="color:green">启用</span>';
 		}
 	}
-
-/*
- * 分类状态
- */
-function statesFormatter(value){
-	if(value == "0"){
-		return '<span style="color:red">禁用</span>';
-	}else{
-		return '<span style="color:green">启用</span>';
-	}
-}
-
-
-	/**
-	* Name 添加记录
-	*/
-	function add(){
-		
-		$('#wu-form-2').form('submit', {
-			url:'/goods/save',
-			type:'POST',
-			success:function(data){
-				if(data > 0){
-					$('#pagination').pagination('select');
-					$('#wu-dialog-2').dialog('close');
-					$.messager.alert('信息提示','提交成功！','info');
-				}
-				else
-				{
-					$.messager.alert('信息提示','提交失败！','info');
-				}
-			}
-		});
-	
-		
-	}
-	
 	
 	/**
 	* Name 删除记录
@@ -221,9 +195,6 @@ function statesFormatter(value){
 	
 		var items = $('#goodsinfo').datagrid('getSelections');
 		var ids = [];
-		
-		/*alert(JSON.stringify(items));*/
-		
 		
 		if(items.length < 1){
 			$.messager.alert('温馨提醒','请选中要删的数据');
@@ -235,7 +206,6 @@ function statesFormatter(value){
 				$(items).each(function(){
 					ids.push(this.ids);	
 				});
-				/*alert(ids);*/
 				$.ajax({
 					url:'/goods/delete/' + ids,
 					type:'POST',
@@ -243,7 +213,7 @@ function statesFormatter(value){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
 							//$('#goodsinfo').datagrid('reload')
-							$('#pagination').pagination('select');
+							$('#goodsPagination').pagination('select');
 						}
 						else
 						{
@@ -259,11 +229,12 @@ function statesFormatter(value){
 	* Name 打开添加窗口
 	*/
 	function openAdd(){
-		$('#wu-form-2').form('clear');
+		$('#addForm').form('clear');
 		$('#wu-dialog-2').dialog({
 			closed: false,
+			closable:false,
 			modal:true,
-            title: "添加信息",
+            title: "添加分类",
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
@@ -272,24 +243,49 @@ function statesFormatter(value){
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#wu-dialog-2').dialog('close');                    
+                    $('#wu-dialog-2').dialog('close');
+                    $('#addForm').form('clear');
+                    //document.getElementById("showpic").style.display="none";
+                    document.getElementById("showpic").innerHTML = "";
                 }
             }]
         });
 	}
 	
+	/**
+	* Name 添加记录
+	*/
+	function add(){
+		
+		$('#addForm').form('submit', {
+			url:'/goods/save',
+			type:'POST',
+			success:function(data){
+				if(data > 0){
+					$('#goodsPagination').pagination('select');
+					$('#wu-dialog-2').dialog('close');
+					$.messager.alert('信息提示','提交成功！','info');
+				}
+				else
+				{
+					$.messager.alert('信息提示','提交失败！','info');
+				}
+			}
+		});
+	}
 
 	/**
 	* Name 打开修改窗口
 	*/
 	function openEdit(){
+		$('#updateForm').form('clear');
 		var row = $("#goodsinfo").datagrid('getSelected');
 		if (row) {
-			//alert(JSON.stringify(row));
 			$('#wu-dialog-3').dialog('open').dialog({
 				closed: false,
 				modal:true,
-	            title: "修改订单信息",
+				closable:false,
+	            title: "修改分类",
 	            buttons: [{
 	                text: '确定',
 	                iconCls: 'icon-ok',
@@ -298,11 +294,13 @@ function statesFormatter(value){
 	                text: '取消',
 	                iconCls: 'icon-cancel',
 	                handler: function () {
-	                    $('#wu-dialog-3').dialog('close');                    
+	                    $('#wu-dialog-3').dialog('close');
+	                    document.getElementById("showupic").innerHTML = "";
 	                }
 	            }]
 	        });
-			$('#wu-form-3').form('load',row);
+			/* $('#showImg').attr("src",row.img); */
+			$('#updateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
@@ -312,15 +310,15 @@ function statesFormatter(value){
 	*修改
 	*/
 	function edit(){
-		$('#wu-form-3').form('submit', {
+		$('#updateForm').form('submit', {
 			url:'/goods/update',
     		type:'POST',
-    		data:$('#wu-form-3').serialize(),
+    		data:$('#updateForm').serialize(),
     		success:function(data){
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
     				$('#wu-dialog-3').dialog('close');
-    				$('#pagination').pagination('select');
+    				$('#goodsPagination').pagination('select');
     			}else{
     				$.messager.alert('信息提示','提交失败！','info');
     			}
@@ -333,18 +331,24 @@ function statesFormatter(value){
 	*/
 	function doSearch(){
 		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchForm').serialize();
-		console.info(param)
+		//console.info(param)
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goods/list', //用户请求数据的URL
 	          data: param, 
 	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
-	              alert(textStatus); 
+	              alert("没有查询到数据"); 
 	          }, 
 	          success: function (data) { 
+	        	  
 	        	  data =eval("("+data+")");
+	        	  
+	        	  if(data.total == 0){
+	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
+	        	  }
+	        	  
 	              $('#goodsinfo').datagrid('loadData', data.rows);
-	               $('#pagination').pagination({ 
+	               $('#goodsPagination').pagination({ 
 			    	  total:data.total
 			    	  });
 	          }
@@ -357,74 +361,46 @@ function statesFormatter(value){
 	function doClear(){
 		$("#searchForm").form("reset");
 	} 	
-	/**
-	* Name 查询数据并打开修改窗口
-	*/
-	/*function openEdit(){
-
-		var items = $('#goodsinfo').datagrid('getSelections');
-		var ids = [];
-		
-		$(items).each(function(){
-			ids.push(this.ids);
-		});
-		if(ids.length < 1){
-			$.messager.alert('温馨提醒','请选择一条数据');
+	
+	/*
+	 * 上传图片回显
+	 */
+ 	function readPicture() {
+		// 检查是否为图像类型
+		var simpleFile = document.getElementById("img").files[0];
+		//console.info(simpleFile)
+		if (!/image\/\w+/.test(simpleFile.type)) {
+			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
+			return false;
 		}
-		$.ajax({
-			url:'/goods/select/' + ids,
-			type:'POST',
-			success:function(data){
-				//alert(JSON.stringify(data));
-				if(data){
-					var obj = data;
-					$('#ids').val(obj.ids);
-					$('#name').val(obj.name);
-					$('#url').val(obj.url);
-					$('#title').val(obj.title);
-					
-					$('#ids').attr('readonly','readonly');
-					
-					$('#wu-dialog-2').dialog({
-							closable:false,
-							closed: false,
-							modal:true,
-				            title: "修改信息",
-				            buttons: [{
-				                text: '确定',
-				                iconCls: 'icon-ok',
-				                handler: function(){
-				                	$('#wu-form-2').form('submit', {
-				            			url:'/goods/update',
-				                		type:'POST',
-				                		data:$('#wu-form-2').serialize(),
-				                		success:function(data){
-				                			alert(data)
-				                			if(data > 0){
-				                				$.messager.alert('信息提示','提交成功！','info');
-				                				$('#wu-dialog-2').dialog('close');
-				                				$('#ids').attr('readonly',false);
-				                				$('#goodsinfo').datagrid('reload')
-				                			}else{
-				                				$.messager.alert('信息提示','提交失败！','info');
-				                			}
-				                		}
-				                	});
-				                }
-				            }, {
-				                text: '取消',
-				                iconCls: 'icon-cancel',
-				                handler: function () {
-				                    $('#wu-dialog-2').dialog('close');
-				                    $('#ids').attr('readonly',false);
-				                }
-							          }]
-				        });
-						
-					}
-				
-			}	
-		});
-	}*/
+		var reader = new FileReader();
+		// 将文件以二进制文件读入页面中
+		reader.readAsBinaryString(simpleFile);
+		reader.onload = function(f) {
+			var result = document.getElementById("showpic");
+			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
+			result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
+		}
+		//document.getElementById("showpic").style.display="";
+	}
+	
+ 	function updatePicture() {
+		// 检查是否为图像类型
+		var simpleFile = document.getElementById("uimg").files[0];
+		//console.info(simpleFile)
+		if (!/image\/\w+/.test(simpleFile.type)) {
+			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
+			return false;
+		}
+		var reader = new FileReader();
+		// 将文件以二进制文件读入页面中
+		reader.readAsBinaryString(simpleFile);
+		reader.onload = function(f) {
+			var result = document.getElementById("showupic");
+			var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
+			result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
+		}
+		//document.getElementById("showpic").style.display="";
+	}
 		
 </script>

@@ -26,7 +26,9 @@ import net.sf.json.JSONObject;
  */
 @RestController
 @RequestMapping("/goods")
-public class SpGoodsClassController {
+public class ChnGoodsClassController {
+	
+	private static final String beforePath = System.getProperty("user.dir")  + "\\src\\main\\resources\\static\\data\\goods";
 	
 	@Autowired
 	private ChnGoodsClassFeignClient chnGoodsClassFeignClient;
@@ -68,38 +70,64 @@ public class SpGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public int updateGoodsClassById(ChnGoodsClass chnGoodsClass){
+	public int updateGoodsClassById(ChnGoodsClass chnGoodsClass,MultipartHttpServletRequest multipartHttpServletRequest){
+		
+		String delImg = chnGoodsClass.getImg();
+		String delImgname = delImg.substring(delImg.lastIndexOf("/")+1);
+		String delImgUrl = beforePath + File.separator + delImgname;
+		File file = new File(delImgUrl);
+		if (file.exists()) {
+			file.delete();
+		}
+		
+		MultipartFile multipartFile = multipartHttpServletRequest.getFile("uimg");
+		String imageName = multipartFile.getOriginalFilename();
+		String fileName = beforePath + File.separator + imageName;
+		File fileSave = new File(fileName);
+		try {
+			multipartFile.transferTo(fileSave);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		chnGoodsClass.setImg("/data/goods/" + imageName);
 		int updateGoodsClass = chnGoodsClassFeignClient.updateGoodsClass(chnGoodsClass);
 		return updateGoodsClass;
 	}
 	
 	/**
-	 * 根据ID删除
+	 * 根据ID删除分类,并删除图片
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping("/delete/{ids}")
 	public int deleteGoodsClassById(@PathVariable String ids){
+		ChnGoodsClass delImg = chnGoodsClassFeignClient.selectGoodsClassById(ids);
+		String relWay = delImg.getImg();
+		String imageName = relWay.substring(relWay.lastIndexOf("/")+1);
+		String imgUrl = beforePath + File.separator + imageName;
+		File file = new File(imgUrl);
+		if (file.exists()) {
+			file.delete();
+		}
 		int delById = chnGoodsClassFeignClient.deleteGoodsClassById(ids);
 		return delById;
 	}
 	
 	/**
-	 * 增加
+	 * 增加分类,并保存图片到项目文件中
 	 * @param spGoodsClass
 	 * @return
 	 */
 	@RequestMapping("/save")
 	public int saveGoodsClass(MultipartHttpServletRequest multipartHttpServletRequest){
 		
-//		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-		
-		String basePath = System.getProperty("user.dir");
-		String ImagePath = basePath  + "\\src\\main\\resources\\static\\data\\goods";
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("url");
 		String imageName = multipartFile.getOriginalFilename();
 		
-		String fileName = ImagePath + File.separator + imageName;
+		String fileName = beforePath + File.separator + imageName;
 		File file = new File(fileName);
 		try {
 			multipartFile.transferTo(file);

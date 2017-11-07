@@ -3,23 +3,23 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.chinasofti.mall</groupId>
   <artifactId>chinasofti-mall</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>pom</packaging>
+	<url>http://maven.apache.org</url>
   <modules>
+ 	<module>chinasofti-mall-common</module>
   	<module>chinasofti-mall-eureka-center</module>
   	<module>chinasofti-mall-configuration-center</module>
   	<module>chinasofti-mall-web-entrance</module>
-  	<module>chinasofti-mall-common</module>
   	<module>chinasofti-mall-advertise</module>
   	<module>chinasofti-mall-app</module>
   	<module>chinasofti-mall-goodsorder</module>
+  	<module>chinasofti-mall-goodsclass</module>
   	<module>chinasofti-mall-zuul</module>
     <module>chinasofti-mall-shiro</module>
-  	<module>chinasofti-mall-goodsorder</module>
-  	<module>chinasofti-mall-zuul</module>
 	<module>chinasofti-mall-user</module>
 	<module>chinasofti-mall-sp-user</module>
-	<module>chinasofti-mall-goodsclass</module>
+
   </modules>
   
   <properties>
@@ -58,6 +58,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.5.4.RELEASE</version>  
 			</plugin>
 			<!-- 资源文件拷贝插件 -->
 			<plugin>

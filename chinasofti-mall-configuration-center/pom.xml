@@ -4,10 +4,10 @@
 	<parent>
 		<groupId>com.chinasofti.mall</groupId>
 		<artifactId>chinasofti-mall</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.1</version>
 	</parent>
 	<artifactId>chinasofti-mall-configuration-center</artifactId>
-	<name>配置中心</name>
+	<packaging>jar</packaging>
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>

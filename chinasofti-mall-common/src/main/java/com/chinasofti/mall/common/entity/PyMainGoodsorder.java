@@ -2,107 +2,264 @@ package com.chinasofti.mall.common.entity;
 
 import java.math.BigDecimal;
 
-public class PyMainGoodsorder {
+import com.chinasofti.mall.common.utils.PageBean;
+
+public class PyMainGoodsorder extends PageBean{
+    /**
+    * @Fields ids : 主键
+    */
     private String ids;
 
+    /**
+    * @Fields bigorderId : 大订单号
+    */
     private String bigorderId;
 
+    /**
+    * @Fields vendorIds : 商户号
+    */
     private String vendorIds;
 
+    /**
+    * @Fields userIds : 用户id
+    */
     private String userIds;
 
+    /**
+    * @Fields contPostcode : 邮编
+    */
     private String contPostcode;
 
+    /**
+    * @Fields contAddress : 详细地址
+    */
     private String contAddress;
 
+    /**
+    * @Fields contMobile : 座机
+    */
     private String contMobile;
 
+    /**
+    * @Fields contPhone : 手机
+    */
     private String contPhone;
 
+    /**
+    * @Fields contProvince : 身份
+    */
     private String contProvince;
 
+    /**
+    * @Fields contCity : 市
+    */
     private String contCity;
 
+    /**
+    * @Fields contDistrict : 区
+    */
     private String contDistrict;
 
+    /**
+    * @Fields contStreet : 街道
+    */
     private String contStreet;
 
+    /**
+    * @Fields deliveryTime : 配送时间 格式如 9:00-18:00
+    */
     private String deliveryTime;
 
+    /**
+    * @Fields deliveryDate : 配送日期 格式如20151022-20151022
+    */
     private String deliveryDate;
 
+    /**
+    * @Fields deliveryWay : 配送方式 1 快递 2 自提
+    */
     private String deliveryWay;
 
+    /**
+    * @Fields buyersMessage : 顾客留言
+    */
     private String buyersMessage;
 
+    /**
+    * @Fields orderTime : 订单时间
+    */
     private String orderTime;
 
+    /**
+    * @Fields settleTime : 清算时间
+    */
     private String settleTime;
 
+    /**
+    * @Fields isevaluate : 评价状态：0 未评价 1 已评价
+    */
     private String isevaluate;
 
+    /**
+    * @Fields discount : 折扣
+    */
     private BigDecimal discount;
 
+    /**
+    * @Fields orderTotalAmt : 订单总额
+    */
     private BigDecimal orderTotalAmt;
 
+    /**
+    * @Fields orderAmt : 实付金额
+    */
     private BigDecimal orderAmt;
 
+    /**
+    * @Fields settleAmt : 清算金额
+    */
     private BigDecimal settleAmt;
 
+    /**
+    * @Fields settleStatues : 清算状态,0:未清算,1:清算成功,2:清算失败,3:清算中,4:手续到中间户进行中,
+    * 								5:手续到中间户完成,6:手续到中间户失败,NN:无需清算
+    */
     private String settleStatues;
 
+    /**
+    * @Fields payStatus : 支付状态：0 未支付 1 已支付  2 取消
+    */
     private String payStatus;
 
+    /**
+    * @Fields status : 订单状态: 0 已删除  1 未发货 2 已发货 3 已收货
+    */
     private String status;
 
+    /**
+    * @Fields payway : 支付方式 : 1 微信  2 支付宝 3 银联
+    */
     private String payway;
 
+    /**
+    * @Fields transactionid : 流水号: 主订单编号
+    */
     private String transactionid;
 
+    /**
+    * @Fields contName : 联系人
+    */
     private String contName;
 
+    /**
+    * @Fields settleBatchNo : 清算批次
+    */
     private String settleBatchNo;
 
+    /**
+    * @Fields wxFee : 微信手续费
+    */
     private BigDecimal wxFee;
 
+    /**
+    * @Fields settleStatusFee : 手续续清算状态,0:未清算,1:清算成功,2:清算失败,3:清算中,4:手续到中间户进行中,
+    * 										5:手续到中间户完成,6:手续到中间户失败,NN:无需清算
+    */
     private String settleStatusFee;
 
+    /**
+    * @Fields settleTimeFee : 手续费清算时间
+    */
     private String settleTimeFee;
 
+    /**
+    * @Fields settleBatchNoFee : 手续费清算批次
+    */
     private String settleBatchNoFee;
 
+    /**
+    * @Fields payTime : 支付时间
+    */
     private String payTime;
 
+    /**
+    * @Fields isTicket : 是否使用优惠券
+    */
     private String isTicket;
 
+    /**
+    * @Fields expressCompanyId : 快递公司编号
+    */
     private String expressCompanyId;
 
+    /**
+    * @Fields expressName : 快递公司名称
+    */
     private String expressName;
 
+    /**
+    * @Fields expressId : 快递单号
+    */
     private String expressId;
 
+    /**
+    * @Fields sendouttime : 发货时间
+    */
     private String sendouttime;
 
+    /**
+    * @Fields updatetime : 操作更新时间
+    */
     private String updatetime;
 
+    /**
+    * @Fields sLatitude : 提交订单纬度
+    */
     private String sLatitude;
 
+    /**
+    * @Fields sLongitude : 提交订单经度
+    */
     private String sLongitude;
 
+    /**
+    * @Fields pLatitude : 支付订单纬度
+    */
     private String pLatitude;
 
+    /**
+    * @Fields pLongitude : 支付订单经度
+    */
     private String pLongitude;
 
+    /**
+    * @Fields senddesc : 发货备注
+    */
     private String senddesc;
 
+    /**
+    * @Fields freightOld : 原运费(即下单时计算出的运费)
+    */
     private BigDecimal freightOld;
 
+    /**
+    * @Fields contProvinceCode : 省编码
+    */
     private String contProvinceCode;
 
+    /**
+    * @Fields contCityCode : 市编码
+    */
     private String contCityCode;
 
+    /**
+    * @Fields contDistrictCode : 区编码
+    */
     private String contDistrictCode;
 
+    /**
+    * @Fields freight : 运费
+    */
     private BigDecimal freight;
 
     public String getIds() {

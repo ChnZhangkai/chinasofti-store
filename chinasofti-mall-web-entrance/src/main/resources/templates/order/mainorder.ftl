@@ -1,4 +1,5 @@
 <script type="text/javascript">
+
 	/**
 	*  添加订单记录
 	*/
@@ -131,8 +132,12 @@
 	*/
 	function doSearch(){
 		$('#mainorderDataGrid').datagrid('load',{
-			'bigorderId':$('#bigorderId').val(),
-			'vendorIds':$('#vendorIds').val()
+			transactionid:$('#mainorder-transactionid').val(),
+			bigorderId:$('#mainorder-bigorderId').val(),
+			payStatus:$('#mainorder-payStatus').val(),
+			minPayTime:$('#mainorder-minPayTime').val(),
+			maxPayTime:$('#mainorder-maxPayTime').val(),
+			contName:$('#mainorder-contName').val()
 		});
 		
 	}
@@ -141,9 +146,74 @@
 	* 清空搜索条件
 	*/
 	function clearAll(){
-		$("#bigorderId").textbox('setValue');
-		$("#vendorIds").textbox('setValue');
+		//$("#mainorder-transactionid").textbox('setValue','');
+		//$("#mainorder-payStatus").textbox('setValue','请选择');
+		$("#mainorderSearchForm").form("reset");
 		$('#mainorderDataGrid').datagrid("load", {});
+	}
+	
+	/**
+	* 支付状态
+	*/
+	function payStatusFormatter(value,row,index){
+		if(value == "0"){
+			return '<span style="color:red">未支付</span>';
+		}else if(value == "1"){
+			return '<span>已支付</span>';
+		}else {
+			return '<span>已取消</span>';
+		}
+	}
+	
+	/**
+	* 订单类型
+	*/
+	function paywayFormatter(value,row,index){
+		if(value == "1"){
+			return '<span style="color:#61C5FD">微信订单</span>';
+		}else if(value == "2"){
+			return '<span>支付宝订单</span>';
+		}else {
+			return '<span style="color:#E0ECFF">银联订单</span>';
+		}
+	}
+	
+	/**
+	* 订单状态
+	*/
+	function statusFormatter(value,row,index){
+		if(value == "0"){
+			return '<span style="color:#E8343B">已删除</span>';
+		}else if(value == "1"){
+			return '<span style="color:#FF7E00">未发货</span>';
+		}else if(value == "2"){
+			return '<span>已发货</span>';
+		}else {
+			return '<span style="color:#0ADA85">已收货</span>';
+		}
+	}
+	
+	/**
+	* 清算状态
+	*/
+	function settleStatuesFormatter(value,row,index){
+		if(value == "0"){
+			return '<span style="color:#E8343B">未清算</span>';
+		}else if(value == "1"){
+			return '<span>清算成功</span>';
+		}else if(value == "2"){
+			return '<span style="color:#EB4E48">清算失败</span>';
+		}else if(value == "3"){
+			return '<span style="color:#B984E1">清算中</span>';
+		}else if(value == "4"){
+			return '<span style="color:#B984E1">手续到中间户进行中</span>';
+		}else if(value == "5"){
+			return '<span style="color:#B984E1">手续到中间户完成</span>';
+		}else if(value == "6"){
+			return '<span style="color:#EB4E48">手续到中间户失败</span>';
+		}else {
+			return '<span style="color:#A5C4EA">无需清算</span>';
+		}
 	}
 	
 </script>
@@ -152,47 +222,35 @@
     <!-- Begin of toolbar -->
     <div id="mainorderToolbar">
         <div class="mainorderoolbarButton">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">主订单添加</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">主订单修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">主订单删除</a>
         </div>
         
-		<form id="mainorderEditForm" method="post">
-			<div align="center">
-			<table class="dialog-table" style="width:95%">
+		<form id="mainorderSearchForm" method="post">
+			<div align="left">
+			<table class="" style="width:95%">
 				<tr>
-					<th>主订单号</th>
-					<td><input class="easyui-textbox" name="name" data-options="height:24,width:160"/></td>
-					<th>大订单号</th>
-					<td><input class="easyui-textbox" name="name" data-options="height:24,width:160"/></td>
+					<td>主订单号：<input class="easyui-textbox" id="mainorder-transactionid" name="transactionid" data-options="height:20,width:160"/></td>
+					<td>大订单号：<input class="easyui-textbox" id="mainorder-bigorderId" name="bigorderId" data-options="height:20,width:160"/></td>
+					<td>支付开始时间：<input class="easyui-datetimebox" id="mainorder-minPayTime" name="minPayTime" data-options="height:20,width:160,editable:false"/></td>
+					<td>支付结束时间：<input class="easyui-datetimebox" id="mainorder-maxPayTime" name="maxPayTime" data-options="height:20,width:160,editable:false"/></td>
 				</tr>
 				<tr>
-					<th>支付开始时间</th>
 					<td>
-						<input class="easyui-datetimebox" name="minCreateDateTime" data-options="height:24,width:160,editable:false"/>
-					</td>
-					<th>支付结束时间</th>
-					<td>
-						<input class="easyui-datetimebox" name="maxCreateDateTime" data-options="height:24,width:160,editable:false"/>
-					</td>
-				</tr>
-				<tr>
-					<th>支付状态</th>
-					<td>
-						<select class="easyui-combobox" data-options="height:24,width:160"  name="gender">
+					支付状态：<select id="mainorder-payStatus" class="easyui-combobox" data-options="height:20,width:160"  name="payStatus">
 						    <option value="">请选择</option>
 						    <option value="0">未支付</option>   
 						    <option value="1">已支付</option>
 						    <option value="2">已取消</option>  
 						</select>
 					</td>
-					<th>最后修改间</th>
-					<td><input class="easyui-textbox" name="name" data-options="height:24,width:160"/></td>
+					<td>联系人：<input class="easyui-textbox" id="mainorder-contName" name="contName" data-options="height:20,width:160"/></td>
 				</tr>
 				<tr>
-					<td colspan="4" align="left">
-						<a class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="doSearch()">查询</a>&nbsp;
-						<a class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="clearAll()">清空</a> 
+					<td align="center">
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="doSearch()">查询</a>&nbsp;&nbsp;
+						<a class="easyui-linkbutton" iconCls="icon-edit-clear" plain="true" onclick="clearAll()">清空</a> 
 					</td>
 				</tr>
 			</table>
@@ -200,22 +258,32 @@
 		</form>
     </div>
 
-    <table id="mainorderDataGrid" class="easyui-datagrid" url="/mainorder/list"
-		rownumbers="true" pagination="true" singleSelect="false">
+    <table id="mainorderDataGrid" class="easyui-datagrid" singleSelect="true"
+    	data-options="url:'mainorder/list',
+    				 fitColumns:true,
+       				 pagination:true,
+       				 sortName:'ids',
+       				 sortOrder:'asc',
+       				 toolbar:'#mainorderToolbar',
+       				 title:'主订单列表',
+       				 iconCls:'icon-man',
+       				 striped:true,
+       				 collapsible:true,
+       				 height:400">
 		<thead>
 			<tr>
 				<th field="transactionid" width="20%" align="center">主订单号</th>
 				<th field="bigorderId" width="20%" align="center">大订单号</th>
-				<th field="orderType" width="8%" align="center">订单类型</th>
+				<th field="payway" width="8%" align="center" data-options="formatter:paywayFormatter">订单类型</th>
 				<th field="vendorIds" width="10%" align="center">商户ID</th>
 				<th field="orderTotalAmt" width="8%" align="center">订单总额</th>
-				<th field="payStatus" width="5%" align="center">支付状态</th>
-				<th field="status" width="5%" align="center">物流状态</th>
-				<th field="settleStatues" width="8%" align="center">核销状态</th>
-				<th field="orderStatues" width="8%" align="center">订单状态</th>
+				<th field="payStatus" width="5%" align="center" data-options="formatter:payStatusFormatter">支付状态</th>
+				<th field="status" width="5%" align="center" data-options="formatter:statusFormatter">订单状态</th>
+				<th field="settleStatues" width="8%" align="center" data-options="formatter:settleStatuesFormatter">清算状态</th>
 			</tr>
 		</thead>
 	</table>
+	
 </div>
 
 <!-- 添加表格 -->

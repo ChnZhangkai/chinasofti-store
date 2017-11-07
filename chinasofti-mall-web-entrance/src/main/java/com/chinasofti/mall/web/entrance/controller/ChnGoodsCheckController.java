@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping("/goodsonline")
-public class SpGoodsOnlineController {
+@RequestMapping("/goodscheck")
+public class ChnGoodsCheckController {
 	
 	/**
 	 * 返回主界面
@@ -14,7 +14,7 @@ public class SpGoodsOnlineController {
 	 */
 	@RequestMapping("/index")
 	public ModelAndView toIndex(){
-		return new ModelAndView("/goods/goodsonline");
+		return new ModelAndView("/goods/goodscheck");
 	}
 	
 }

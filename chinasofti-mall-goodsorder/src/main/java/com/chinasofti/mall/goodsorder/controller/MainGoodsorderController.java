@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.controller.BaseController;
 import com.chinasofti.mall.common.entity.PyMainGoodsorder;
-import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
+
+import net.sf.json.JSONObject;
 
 /**
 * @ClassName: 	MainGoodsorderController
@@ -71,11 +72,9 @@ public class MainGoodsorderController implements BaseController<PyMainGoodsorder
 	* @throws
 	*/
 	@RequestMapping(value="list" , method = RequestMethod.POST)
-	public List<PyMainGoodsorder> selectByExample(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder){
+	public JSONObject selectByExample(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder){
 		
-		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
-		
-		return mainGoodsorderService.selectByExample(example);
+		return mainGoodsorderService.selectByExample(mainGoodsorder);
 	}
 
 }
