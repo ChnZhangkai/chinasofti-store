@@ -1,14 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.chinasofti.mall</groupId>
-    <artifactId>chinasofti-mall</artifactId>
-    <version>0.0.1</version>
-  </parent>
-  <artifactId>chinasofti-mall-user</artifactId>
- <packaging>jar</packaging>
-  
-  <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>user</name>
+	<parent>
+		<groupId>com.chinasofti.mall</groupId>
+		<artifactId>chinasofti-mall</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>chinasofti-mall-user</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -50,7 +52,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -64,45 +66,32 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-		
-		<!-- <dependency>
-        <groupId>com.github.pagehelper</groupId>
-        <artifactId>pagehelper</artifactId>
-        <version>4.1.6</version>
-		</dependency> -->
-		
+
+		<!-- <dependency> <groupId>com.github.pagehelper</groupId> <artifactId>pagehelper</artifactId> 
+			<version>4.1.6</version> </dependency> -->
+
 		<!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
 		<dependency>
-		    <groupId>com.github.pagehelper</groupId>
-		    <artifactId>pagehelper-spring-boot-starter</artifactId>
-		    <version>1.2.3</version>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.3</version>
 		</dependency>
-		
-		
+
+
 		<!--配置jsp jstl的支持 -->
-		<!-- <dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
-		</dependency>
-		对jsp的支持
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>jstl</groupId> <artifactId>jstl</artifactId> 
+			<version>1.2</version> </dependency> <dependency> <groupId>taglibs</groupId> 
+			<artifactId>standard</artifactId> <version>1.1.2</version> </dependency> 
+			对jsp的支持 <dependency> <groupId>org.apache.tomcat.embed</groupId> <artifactId>tomcat-embed-jasper</artifactId> 
+			</dependency> -->
 
 		<dependency>
 			<groupId>com.chinasofti.mall</groupId>
 			<artifactId>chinasofti-mall-common</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-  	</dependencies>
-	
+	</dependencies>
+
 	<build>
 		<plugins>
 			<!-- springboot插件 -->
@@ -130,5 +119,5 @@
 			</plugin>
 		</plugins>
 	</build>
-  
+
 </project>

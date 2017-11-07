@@ -118,13 +118,17 @@
 				</td>
 			</tr>
 			<tr>
+				<td align="center">原图地址:</td>
+				<td><input type="text" id="img" name="img"
+					class="wu-text" readonly="true"/></td>
+			</tr>
+			<tr>
 				<td align="center">分类图片:</td>
 				<td><input type="file" id="uimg" name="uimg" onchange="updatePicture()"/></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="hidden" id="img" name="img"
-					class="wu-text" readonly="true"/>
+				<td>
 					<div id="showupic"></div>
 					<!-- <img alt="" src="" id="showImg" style="height: 80px;width: 117px"> -->
 				</td>

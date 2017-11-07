@@ -29,16 +29,18 @@ $(function(){
 			id:'merchant',
 			title:'商户管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">商户管理</a></ul>',
-			selected:false
+	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="spUser/index" iframe="0">商户管理</a></li></ul>',
+			selected:true
 		})
 	}
+	
+	
 	if($('#role').length<=0){
 		$("#acc").accordion('add',{
 			id:'role',
 			title:'角色管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></ul>',
+	    			'<li iconCls="icon-chart-organisation">8<a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></ul>',
 			selected:false
 		})
 	}
@@ -90,21 +92,23 @@ function switchMain(){
 			selected:true
 		})
 	}
+	
 	if($('#merchant').length<=0){
 		$("#acc").accordion('add',{
 			id:'merchant',
 			title:'商户管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">商户管理</a></ul>',
-			selected:false
+	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="spUser/index" iframe="0">商户管理</a></li></ul>',
+			selected:true
 		})
 	}
+
 	if($('#role').length<=0){
 		$("#acc").accordion('add',{
 			id:'role',
 			title:'角色管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></ul>',
+	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="" iframe="0">角色管理</a></ul>',
 			selected:false
 		})
 	}
@@ -175,6 +179,7 @@ function swicthOperationCenter(){
 			selected:false
 		})
 	}
+
 	if($('#advertise').length<=0){
 		$("#acc").accordion('add',{
 			id:'advertise',
