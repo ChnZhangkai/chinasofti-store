@@ -15,10 +15,10 @@
 		</div>
 		<div class="wu-toolbar-search">
 		<form id="searchForm">
-			<label>分类名称：</label> <input type="text" id="categoryname" name="name" />
-			<label>分类描述：</label> <input type="text" id="categorycommons" name="commons" />
-			<label>创建员工：</label> <input type="text" id="createbyname" name="createBy" />
-			<label>状态：</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
+			<label>分类名称</label> <input type="text" id="categoryname" name="name" class="easyui-textbox"/>
+			<label>分类描述</label> <input type="text" id="categorycommons" name="commons" class="easyui-textbox"/>
+			<label>创建员工</label> <input type="text" id="createbyname" name="createBy" class="easyui-textbox"/>
+			<label>状态</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="states" style="width: 125px">
 									<option selected="selected" value="">请选择</option>
 									<option value="0">禁用</option>
 									<option value="1">启用</option>
@@ -75,7 +75,7 @@
 			</tr>
 			<tr>
 				<td align="right">分类图片:</td>
-				<td><input type="file" id="img" name="img" onchange="readPicture()"/></td>
+				<td><input type="file" id="img" name="img"  class="img" onchange="readPicture()"/></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -366,9 +366,13 @@ $(function(){
 	 * 上传图片回显
 	 */
  	function readPicture() {
+		
+ 		var a = document.getElementsByClassName("img");
+ 		console.info(a);
+		
 		// 检查是否为图像类型
 		var simpleFile = document.getElementById("img").files[0];
-		//console.info(simpleFile)
+		console.info(simpleFile)
 		if (!/image\/\w+/.test(simpleFile.type)) {
 			$.messager.alert('信息提示','请确保文件类型为图像类型','info')
 			return false;
