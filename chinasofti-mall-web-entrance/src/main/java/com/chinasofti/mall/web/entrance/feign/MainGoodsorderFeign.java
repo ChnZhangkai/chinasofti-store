@@ -11,7 +11,7 @@ import com.chinasofti.mall.web.entrance.hystrix.MainGoodsorderFeignClientHystrix
 
 import net.sf.json.JSONObject;
 
-@FeignClient(name="main-goodsorder-service" , fallback=MainGoodsorderFeignClientHystrix.class)
+@FeignClient(name="goodsorder-service" , fallback=MainGoodsorderFeignClientHystrix.class)
 public interface MainGoodsorderFeign {
 	
 	@RequestMapping("mainorder/select/{ids}")

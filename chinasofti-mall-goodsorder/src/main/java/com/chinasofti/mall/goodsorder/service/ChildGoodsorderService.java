@@ -1,10 +1,10 @@
 package com.chinasofti.mall.goodsorder.service;
 
-import java.util.List;
 
 import com.chinasofti.mall.common.entity.PyChildGoodsorder;
-import com.chinasofti.mall.common.entity.PyChildGoodsorderExample;
 import com.chinasofti.mall.common.service.IBaseService;
+
+import net.sf.json.JSONObject;
 
 /**
 * @ClassName: 	ChildGoodsorderService
@@ -15,14 +15,14 @@ import com.chinasofti.mall.common.service.IBaseService;
 */
 public interface ChildGoodsorderService extends IBaseService<PyChildGoodsorder> {
 	
+	
 	/**
-	* @Title: selectByExample
+	* @Title: selectByChildorderClass
 	* @Description: 条件查询
-	* @param @param example
-	* @param @return    参数
-	* @return List<PyChildGoodsorder>    返回类型
+	* @param childGoodsorder
+	* @return JSONObject
 	* @throws
 	*/
-	public List<PyChildGoodsorder> selectByExample(PyChildGoodsorderExample example);
+	public JSONObject selectByChildorderClass(PyChildGoodsorder childGoodsorder);
 
 }
