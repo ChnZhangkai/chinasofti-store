@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.controller.BaseController;
 import com.chinasofti.mall.common.entity.PyChildGoodsorder;
-import com.chinasofti.mall.common.entity.PyChildGoodsorderExample;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
+
+import net.sf.json.JSONObject;
 
 
 /**
@@ -70,11 +71,9 @@ public class ChildGoodsorderController implements BaseController<PyChildGoodsord
 	* @throws
 	*/
 	@RequestMapping(value="list" , method = RequestMethod.POST)
-	public List<PyChildGoodsorder> selectByExample(@RequestBody(required=false) PyChildGoodsorder childGoodsorder){
+	public JSONObject selectByExample(@RequestBody(required=false) PyChildGoodsorder childGoodsorder){
 		
-		PyChildGoodsorderExample example = new PyChildGoodsorderExample();
-		
-		return childGoodsorderService.selectByExample(example);
+		return childGoodsorderService.selectByChildorderClass(childGoodsorder);
 	}
 
 }

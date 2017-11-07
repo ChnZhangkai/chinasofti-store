@@ -2,47 +2,119 @@ package com.chinasofti.mall.common.entity;
 
 import java.math.BigDecimal;
 
-public class PyChildGoodsorder {
+import com.chinasofti.mall.common.utils.PageBean;
+
+/**
+* @ClassName: 	PyChildGoodsorder
+* @Description: 子订单实体类
+* @author 		tanjl
+* @Version 		V1.0
+* @date 		2017年11月7日 下午1:00:04 
+*/
+public class PyChildGoodsorder extends PageBean{
+    /**
+    * @Fields ids : 主键
+    */
     private String ids;
 
+    /**
+    * @Fields mainorderIds : 主订单号
+    */
     private String mainorderIds;
 
+    /**
+    * @Fields goodsids : 商品编号
+    */
     private String goodsids;
 
+    /**
+    * @Fields custIds : 用户id
+    */
     private String custIds;
 
+    /**
+    * @Fields orderStatus :状态\r\n\r\n部分退货\r\n 
+    */
     private String orderStatus;
 
+    /**
+    * @Fields goodsNum : 商品数量
+    */
     private BigDecimal goodsNum;
 
+    /**
+    * @Fields goodsPrice : 商品单价
+    */
     private BigDecimal goodsPrice;
 
+    /**
+    * @Fields discount : 折扣
+    */
     private BigDecimal discount;
 
+    /**
+    * @Fields orderRealAmt : 实付金额
+    */
     private BigDecimal orderRealAmt;
 
+    /**
+    * @Fields isevaluate : 评价状态 ： 0 未评价 1 已评价
+    */
     private String isevaluate;
 
+    /**
+    * @Fields orderRevoke : 订单撤销时间
+    */
     private String orderRevoke;
 
+    /**
+    * @Fields remark1 : 备注1
+    */
     private String remark1;
 
+    /**
+    * @Fields remark2 : 备注2
+    */
     private String remark2;
 
+    /**
+    * @Fields remark3 : 备注3
+    */
     private String remark3;
 
+    /**
+    * @Fields transactionid : 子订单编号：订单流水
+    */
     private String transactionid;
 
+    /**
+    * @Fields orderAmt : 订单金额
+    */
     private BigDecimal orderAmt;
 
+    /**
+    * @Fields orderDate : 订单时间
+    */
     private String orderDate;
 
+    /**
+    * @Fields venderRemark : 商家备注
+    */
     private String venderRemark;
 
+    /**
+    * @Fields orderType : 订单类型 1:普通订单 2:优惠券订单 3:实物众筹
+    */
     private String orderType;
 
+    /**
+    * @Fields orderRealAmtOld : 原实付金额(即下单时计算出的实付金额)
+    */
     private BigDecimal orderRealAmtOld;
 
+    /**
+    * @Fields freight : 运费
+    */
     private BigDecimal freight;
 
     public String getIds() {
