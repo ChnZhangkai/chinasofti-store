@@ -7,14 +7,7 @@ function openMainorderCheck() {
 		$('#mainorderEditDialog').dialog('open').dialog({
 			closed : false,
 			modal : true,
-			title : "主订单订单信息",
-			buttons : [{
-				text : '取消',
-				iconCls : 'icon-cancel',
-				handler : function() {
-					$('#mainorderEditDialog').dialog('close');
-				}
-			} ]
+			title : "主订单订单信息"
 		});
 		$('#mainorderEditForm').form('load', row);
 	} else {
