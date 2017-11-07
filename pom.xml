@@ -9,7 +9,6 @@
   <modules>
  	<module>chinasofti-mall-common</module>
   	<module>chinasofti-mall-eureka-center</module>
-  	<module>chinasofti-mall-configuration-center</module>
   	<module>chinasofti-mall-web-entrance</module>
   	<module>chinasofti-mall-advertise</module>
   	<module>chinasofti-mall-app</module>
