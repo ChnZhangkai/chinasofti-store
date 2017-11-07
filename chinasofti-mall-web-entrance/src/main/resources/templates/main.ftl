@@ -12,6 +12,7 @@
 <script type="text/javascript"
 	src="/js/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/js/menu.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
 </head>
 
 <body class="easyui-layout" id="mainPanel">
