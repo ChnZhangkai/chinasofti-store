@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.sp.user.mapper.SpMerchantUserMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.spuser.SpMerchantUser" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="USER_IDS" property="userIds" jdbcType="VARCHAR" />
+    <result column="VENDOR_ID" property="vendorId" jdbcType="VARCHAR" />
+    <result column="RIGHT_CODE" property="rightCode" jdbcType="VARCHAR" />
+    <result column="VENDOR_FNM" property="vendorFnm" jdbcType="VARCHAR" />
+    <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR" />
+    <result column="CHARGEMAN" property="chargeman" jdbcType="VARCHAR" />
+    <result column="LINKMAN" property="linkman" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="ACCBANK" property="accbank" jdbcType="VARCHAR" />
+    <result column="ACCNO" property="accno" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="BANK_NBR" property="bankNbr" jdbcType="VARCHAR" />
+    <result column="VENDOR_DESC" property="vendorDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_OPER" property="createOper" jdbcType="VARCHAR" />
+    <result column="MODIFY_OPER" property="modifyOper" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="MODIFY_DATE" property="modifyDate" jdbcType="VARCHAR" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="VARCHAR" />
+    <result column="FEE_ACCT" property="feeAcct" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="TIPS" property="tips" jdbcType="DECIMAL" />
+    <result column="TIPS_RANGE" property="tipsRange" jdbcType="VARCHAR" />
+    <result column="IS_DELIVERY" property="isDelivery" jdbcType="VARCHAR" />
+    <result column="IS_DELIVERY_FREE" property="isDeliveryFree" jdbcType="VARCHAR" />
+    <result column="FEE_RANGE" property="feeRange" jdbcType="VARCHAR" />
+    <result column="FEE_MODEL" property="feeModel" jdbcType="VARCHAR" />
+    <result column="VENDOR_MODEL" property="vendorModel" jdbcType="VARCHAR" />
+    <result column="DELIVERY_INIT_PRICE" property="deliveryInitPrice" jdbcType="DECIMAL" />
+    <result column="DELIVERY_PER_PRICE" property="deliveryPerPrice" jdbcType="DECIMAL" />
+    <result column="DELIVERY_FREE_PRICE" property="deliveryFreePrice" jdbcType="DECIMAL" />
+    <result column="UPD_AFTER_SALE" property="updAfterSale" jdbcType="VARCHAR" />
+    <result column="PLEDGE_TYPE" property="pledgeType" jdbcType="VARCHAR" />
+    <result column="VENDOR_REMARK" property="vendorRemark" jdbcType="VARCHAR" />
+    <result column="SALE_PAGE" property="salePage" jdbcType="VARCHAR" />
+    <result column="IS_SETTLE" property="isSettle" jdbcType="VARCHAR" />
+    <result column="ACC_TYPE" property="accType" jdbcType="VARCHAR" />
+    <result column="ACC_NAME" property="accName" jdbcType="VARCHAR" />
+    <result column="PAY_TYPE" property="payType" jdbcType="VARCHAR" />
+    <result column="BELONG_SITE_NO" property="belongSiteNo" jdbcType="VARCHAR" />
+    <result column="BELONG_SITE_NAME" property="belongSiteName" jdbcType="VARCHAR" />
+    <result column="FREZEN_INTERVAL" property="frezenInterval" jdbcType="VARCHAR" />
+    <result column="SERVICE_PHONE" property="servicePhone" jdbcType="VARCHAR" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="VARCHAR" />
+    <result column="UPDATEBY" property="updateby" jdbcType="VARCHAR" />
+    <result column="VENDER_INTRO" property="venderIntro" jdbcType="LONGVARCHAR" />
+    <result column="VENDER_EXPLAIN" property="venderExplain" jdbcType="LONGVARCHAR" />
+  </resultMap>
+    <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    IDS, USER_IDS, VENDOR_ID, RIGHT_CODE, VENDOR_FNM, VENDOR_SNM, CHARGEMAN, LINKMAN, 
+    PHONE, MOBILE, ADDRESS, ACCBANK, ACCNO, EMAIL, BANK_NBR, VENDOR_DESC, CREATE_OPER, 
+    MODIFY_OPER, CREATE_DATE, CREATE_TIME, MODIFY_DATE, MODIFY_TIME, FEE_ACCT, STATUS, 
+    TIPS, TIPS_RANGE, IS_DELIVERY, IS_DELIVERY_FREE, FEE_RANGE, FEE_MODEL, VENDOR_MODEL, 
+    DELIVERY_INIT_PRICE, DELIVERY_PER_PRICE, DELIVERY_FREE_PRICE, UPD_AFTER_SALE, PLEDGE_TYPE, 
+    VENDOR_REMARK, SALE_PAGE, IS_SETTLE, ACC_TYPE, ACC_NAME, PAY_TYPE, BELONG_SITE_NO, 
+    BELONG_SITE_NAME, FREZEN_INTERVAL, SERVICE_PHONE, UPDATETIME, UPDATEBY,
+    VENDER_INTRO, VENDER_EXPLAIN
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_merchant_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_merchant_user
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample" >
+    delete from sp_merchant_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sp_merchant_user
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUser" >
+    insert into sp_merchant_user (IDS, USER_IDS, VENDOR_ID, 
+      RIGHT_CODE, VENDOR_FNM, VENDOR_SNM, 
+      CHARGEMAN, LINKMAN, PHONE, 
+      MOBILE, ADDRESS, ACCBANK, 
+      ACCNO, EMAIL, BANK_NBR, 
+      VENDOR_DESC, CREATE_OPER, MODIFY_OPER, 
+      CREATE_DATE, CREATE_TIME, MODIFY_DATE, 
+      MODIFY_TIME, FEE_ACCT, STATUS, 
+      TIPS, TIPS_RANGE, IS_DELIVERY, 
+      IS_DELIVERY_FREE, FEE_RANGE, FEE_MODEL, 
+      VENDOR_MODEL, DELIVERY_INIT_PRICE, DELIVERY_PER_PRICE, 
+      DELIVERY_FREE_PRICE, UPD_AFTER_SALE, PLEDGE_TYPE, 
+      VENDOR_REMARK, SALE_PAGE, IS_SETTLE, 
+      ACC_TYPE, ACC_NAME, PAY_TYPE, 
+      BELONG_SITE_NO, BELONG_SITE_NAME, FREZEN_INTERVAL, 
+      SERVICE_PHONE, UPDATETIME, UPDATEBY, 
+      VENDER_INTRO, VENDER_EXPLAIN)
+    values (#{ids,jdbcType=VARCHAR}, #{userIds,jdbcType=VARCHAR}, #{vendorId,jdbcType=VARCHAR}, 
+      #{rightCode,jdbcType=VARCHAR}, #{vendorFnm,jdbcType=VARCHAR}, #{vendorSnm,jdbcType=VARCHAR}, 
+      #{chargeman,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{accbank,jdbcType=VARCHAR}, 
+      #{accno,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{bankNbr,jdbcType=VARCHAR}, 
+      #{vendorDesc,jdbcType=VARCHAR}, #{createOper,jdbcType=VARCHAR}, #{modifyOper,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{modifyDate,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=VARCHAR}, #{feeAcct,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{tips,jdbcType=DECIMAL}, #{tipsRange,jdbcType=VARCHAR}, #{isDelivery,jdbcType=VARCHAR}, 
+      #{isDeliveryFree,jdbcType=VARCHAR}, #{feeRange,jdbcType=VARCHAR}, #{feeModel,jdbcType=VARCHAR}, 
+      #{vendorModel,jdbcType=VARCHAR}, #{deliveryInitPrice,jdbcType=DECIMAL}, #{deliveryPerPrice,jdbcType=DECIMAL}, 
+      #{deliveryFreePrice,jdbcType=DECIMAL}, #{updAfterSale,jdbcType=VARCHAR}, #{pledgeType,jdbcType=VARCHAR}, 
+      #{vendorRemark,jdbcType=VARCHAR}, #{salePage,jdbcType=VARCHAR}, #{isSettle,jdbcType=VARCHAR}, 
+      #{accType,jdbcType=VARCHAR}, #{accName,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, 
+      #{belongSiteNo,jdbcType=VARCHAR}, #{belongSiteName,jdbcType=VARCHAR}, #{frezenInterval,jdbcType=VARCHAR}, 
+      #{servicePhone,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{updateby,jdbcType=VARCHAR}, 
+      #{venderIntro,jdbcType=LONGVARCHAR}, #{venderExplain,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUser" >
+    insert into sp_merchant_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="userIds != null" >
+        USER_IDS,
+      </if>
+      <if test="vendorId != null" >
+        VENDOR_ID,
+      </if>
+      <if test="rightCode != null" >
+        RIGHT_CODE,
+      </if>
+      <if test="vendorFnm != null" >
+        VENDOR_FNM,
+      </if>
+      <if test="vendorSnm != null" >
+        VENDOR_SNM,
+      </if>
+      <if test="chargeman != null" >
+        CHARGEMAN,
+      </if>
+      <if test="linkman != null" >
+        LINKMAN,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="accbank != null" >
+        ACCBANK,
+      </if>
+      <if test="accno != null" >
+        ACCNO,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="bankNbr != null" >
+        BANK_NBR,
+      </if>
+      <if test="vendorDesc != null" >
+        VENDOR_DESC,
+      </if>
+      <if test="createOper != null" >
+        CREATE_OPER,
+      </if>
+      <if test="modifyOper != null" >
+        MODIFY_OPER,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="modifyDate != null" >
+        MODIFY_DATE,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+      <if test="feeAcct != null" >
+        FEE_ACCT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="tips != null" >
+        TIPS,
+      </if>
+      <if test="tipsRange != null" >
+        TIPS_RANGE,
+      </if>
+      <if test="isDelivery != null" >
+        IS_DELIVERY,
+      </if>
+      <if test="isDeliveryFree != null" >
+        IS_DELIVERY_FREE,
+      </if>
+      <if test="feeRange != null" >
+        FEE_RANGE,
+      </if>
+      <if test="feeModel != null" >
+        FEE_MODEL,
+      </if>
+      <if test="vendorModel != null" >
+        VENDOR_MODEL,
+      </if>
+      <if test="deliveryInitPrice != null" >
+        DELIVERY_INIT_PRICE,
+      </if>
+      <if test="deliveryPerPrice != null" >
+        DELIVERY_PER_PRICE,
+      </if>
+      <if test="deliveryFreePrice != null" >
+        DELIVERY_FREE_PRICE,
+      </if>
+      <if test="updAfterSale != null" >
+        UPD_AFTER_SALE,
+      </if>
+      <if test="pledgeType != null" >
+        PLEDGE_TYPE,
+      </if>
+      <if test="vendorRemark != null" >
+        VENDOR_REMARK,
+      </if>
+      <if test="salePage != null" >
+        SALE_PAGE,
+      </if>
+      <if test="isSettle != null" >
+        IS_SETTLE,
+      </if>
+      <if test="accType != null" >
+        ACC_TYPE,
+      </if>
+      <if test="accName != null" >
+        ACC_NAME,
+      </if>
+      <if test="payType != null" >
+        PAY_TYPE,
+      </if>
+      <if test="belongSiteNo != null" >
+        BELONG_SITE_NO,
+      </if>
+      <if test="belongSiteName != null" >
+        BELONG_SITE_NAME,
+      </if>
+      <if test="frezenInterval != null" >
+        FREZEN_INTERVAL,
+      </if>
+      <if test="servicePhone != null" >
+        SERVICE_PHONE,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY,
+      </if>
+      <if test="venderIntro != null" >
+        VENDER_INTRO,
+      </if>
+      <if test="venderExplain != null" >
+        VENDER_EXPLAIN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="userIds != null" >
+        #{userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorId != null" >
+        #{vendorId,jdbcType=VARCHAR},
+      </if>
+      <if test="rightCode != null" >
+        #{rightCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorFnm != null" >
+        #{vendorFnm,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorSnm != null" >
+        #{vendorSnm,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeman != null" >
+        #{chargeman,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="accbank != null" >
+        #{accbank,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNbr != null" >
+        #{bankNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorDesc != null" >
+        #{vendorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createOper != null" >
+        #{createOper,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyOper != null" >
+        #{modifyOper,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="feeAcct != null" >
+        #{feeAcct,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null" >
+        #{tips,jdbcType=DECIMAL},
+      </if>
+      <if test="tipsRange != null" >
+        #{tipsRange,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelivery != null" >
+        #{isDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeliveryFree != null" >
+        #{isDeliveryFree,jdbcType=VARCHAR},
+      </if>
+      <if test="feeRange != null" >
+        #{feeRange,jdbcType=VARCHAR},
+      </if>
+      <if test="feeModel != null" >
+        #{feeModel,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorModel != null" >
+        #{vendorModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryInitPrice != null" >
+        #{deliveryInitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryPerPrice != null" >
+        #{deliveryPerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryFreePrice != null" >
+        #{deliveryFreePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="updAfterSale != null" >
+        #{updAfterSale,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgeType != null" >
+        #{pledgeType,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorRemark != null" >
+        #{vendorRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="salePage != null" >
+        #{salePage,jdbcType=VARCHAR},
+      </if>
+      <if test="isSettle != null" >
+        #{isSettle,jdbcType=VARCHAR},
+      </if>
+      <if test="accType != null" >
+        #{accType,jdbcType=VARCHAR},
+      </if>
+      <if test="accName != null" >
+        #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongSiteNo != null" >
+        #{belongSiteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="belongSiteName != null" >
+        #{belongSiteName,jdbcType=VARCHAR},
+      </if>
+      <if test="frezenInterval != null" >
+        #{frezenInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePhone != null" >
+        #{servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=VARCHAR},
+      </if>
+      <if test="venderIntro != null" >
+        #{venderIntro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="venderExplain != null" >
+        #{venderExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+   <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample" resultType="java.lang.Integer" >
+    select count(*) from sp_merchant_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_merchant_user
+    <set >
+      <if test="userIds != null" >
+        USER_IDS = #{userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorId != null" >
+        VENDOR_ID = #{vendorId,jdbcType=VARCHAR},
+      </if>
+      <if test="rightCode != null" >
+        RIGHT_CODE = #{rightCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorFnm != null" >
+        VENDOR_FNM = #{vendorFnm,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorSnm != null" >
+        VENDOR_SNM = #{vendorSnm,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeman != null" >
+        CHARGEMAN = #{chargeman,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        LINKMAN = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="accbank != null" >
+        ACCBANK = #{accbank,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        ACCNO = #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNbr != null" >
+        BANK_NBR = #{bankNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorDesc != null" >
+        VENDOR_DESC = #{vendorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createOper != null" >
+        CREATE_OPER = #{createOper,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyOper != null" >
+        MODIFY_OPER = #{modifyOper,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        MODIFY_DATE = #{modifyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="feeAcct != null" >
+        FEE_ACCT = #{feeAcct,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null" >
+        TIPS = #{tips,jdbcType=DECIMAL},
+      </if>
+      <if test="tipsRange != null" >
+        TIPS_RANGE = #{tipsRange,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelivery != null" >
+        IS_DELIVERY = #{isDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeliveryFree != null" >
+        IS_DELIVERY_FREE = #{isDeliveryFree,jdbcType=VARCHAR},
+      </if>
+      <if test="feeRange != null" >
+        FEE_RANGE = #{feeRange,jdbcType=VARCHAR},
+      </if>
+      <if test="feeModel != null" >
+        FEE_MODEL = #{feeModel,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorModel != null" >
+        VENDOR_MODEL = #{vendorModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryInitPrice != null" >
+        DELIVERY_INIT_PRICE = #{deliveryInitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryPerPrice != null" >
+        DELIVERY_PER_PRICE = #{deliveryPerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryFreePrice != null" >
+        DELIVERY_FREE_PRICE = #{deliveryFreePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="updAfterSale != null" >
+        UPD_AFTER_SALE = #{updAfterSale,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgeType != null" >
+        PLEDGE_TYPE = #{pledgeType,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorRemark != null" >
+        VENDOR_REMARK = #{vendorRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="salePage != null" >
+        SALE_PAGE = #{salePage,jdbcType=VARCHAR},
+      </if>
+      <if test="isSettle != null" >
+        IS_SETTLE = #{isSettle,jdbcType=VARCHAR},
+      </if>
+      <if test="accType != null" >
+        ACC_TYPE = #{accType,jdbcType=VARCHAR},
+      </if>
+      <if test="accName != null" >
+        ACC_NAME = #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongSiteNo != null" >
+        BELONG_SITE_NO = #{belongSiteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="belongSiteName != null" >
+        BELONG_SITE_NAME = #{belongSiteName,jdbcType=VARCHAR},
+      </if>
+      <if test="frezenInterval != null" >
+        FREZEN_INTERVAL = #{frezenInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePhone != null" >
+        SERVICE_PHONE = #{servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      </if>
+      <if test="venderIntro != null" >
+        VENDER_INTRO = #{venderIntro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="venderExplain != null" >
+        VENDER_EXPLAIN = #{venderExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+   <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUser" >
+    update sp_merchant_user
+    <set >
+      <if test="userIds != null" >
+        USER_IDS = #{userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorId != null" >
+        VENDOR_ID = #{vendorId,jdbcType=VARCHAR},
+      </if>
+      <if test="rightCode != null" >
+        RIGHT_CODE = #{rightCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorFnm != null" >
+        VENDOR_FNM = #{vendorFnm,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorSnm != null" >
+        VENDOR_SNM = #{vendorSnm,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeman != null" >
+        CHARGEMAN = #{chargeman,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        LINKMAN = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="accbank != null" >
+        ACCBANK = #{accbank,jdbcType=VARCHAR},
+      </if>
+      <if test="accno != null" >
+        ACCNO = #{accno,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNbr != null" >
+        BANK_NBR = #{bankNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorDesc != null" >
+        VENDOR_DESC = #{vendorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createOper != null" >
+        CREATE_OPER = #{createOper,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyOper != null" >
+        MODIFY_OPER = #{modifyOper,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        MODIFY_DATE = #{modifyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="feeAcct != null" >
+        FEE_ACCT = #{feeAcct,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null" >
+        TIPS = #{tips,jdbcType=DECIMAL},
+      </if>
+      <if test="tipsRange != null" >
+        TIPS_RANGE = #{tipsRange,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelivery != null" >
+        IS_DELIVERY = #{isDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeliveryFree != null" >
+        IS_DELIVERY_FREE = #{isDeliveryFree,jdbcType=VARCHAR},
+      </if>
+      <if test="feeRange != null" >
+        FEE_RANGE = #{feeRange,jdbcType=VARCHAR},
+      </if>
+      <if test="feeModel != null" >
+        FEE_MODEL = #{feeModel,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorModel != null" >
+        VENDOR_MODEL = #{vendorModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryInitPrice != null" >
+        DELIVERY_INIT_PRICE = #{deliveryInitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryPerPrice != null" >
+        DELIVERY_PER_PRICE = #{deliveryPerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryFreePrice != null" >
+        DELIVERY_FREE_PRICE = #{deliveryFreePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="updAfterSale != null" >
+        UPD_AFTER_SALE = #{updAfterSale,jdbcType=VARCHAR},
+      </if>
+      <if test="pledgeType != null" >
+        PLEDGE_TYPE = #{pledgeType,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorRemark != null" >
+        VENDOR_REMARK = #{vendorRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="salePage != null" >
+        SALE_PAGE = #{salePage,jdbcType=VARCHAR},
+      </if>
+      <if test="isSettle != null" >
+        IS_SETTLE = #{isSettle,jdbcType=VARCHAR},
+      </if>
+      <if test="accType != null" >
+        ACC_TYPE = #{accType,jdbcType=VARCHAR},
+      </if>
+      <if test="accName != null" >
+        ACC_NAME = #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongSiteNo != null" >
+        BELONG_SITE_NO = #{belongSiteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="belongSiteName != null" >
+        BELONG_SITE_NAME = #{belongSiteName,jdbcType=VARCHAR},
+      </if>
+      <if test="frezenInterval != null" >
+        FREZEN_INTERVAL = #{frezenInterval,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePhone != null" >
+        SERVICE_PHONE = #{servicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      </if>
+      <if test="venderIntro != null" >
+        VENDER_INTRO = #{venderIntro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="venderExplain != null" >
+        VENDER_EXPLAIN = #{venderExplain,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_merchant_user
+    set USER_IDS = #{userIds,jdbcType=VARCHAR},
+      VENDOR_ID = #{vendorId,jdbcType=VARCHAR},
+      RIGHT_CODE = #{rightCode,jdbcType=VARCHAR},
+      VENDOR_FNM = #{vendorFnm,jdbcType=VARCHAR},
+      VENDOR_SNM = #{vendorSnm,jdbcType=VARCHAR},
+      CHARGEMAN = #{chargeman,jdbcType=VARCHAR},
+      LINKMAN = #{linkman,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      ACCBANK = #{accbank,jdbcType=VARCHAR},
+      ACCNO = #{accno,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      BANK_NBR = #{bankNbr,jdbcType=VARCHAR},
+      VENDOR_DESC = #{vendorDesc,jdbcType=VARCHAR},
+      CREATE_OPER = #{createOper,jdbcType=VARCHAR},
+      MODIFY_OPER = #{modifyOper,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      MODIFY_DATE = #{modifyDate,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=VARCHAR},
+      FEE_ACCT = #{feeAcct,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      TIPS = #{tips,jdbcType=DECIMAL},
+      TIPS_RANGE = #{tipsRange,jdbcType=VARCHAR},
+      IS_DELIVERY = #{isDelivery,jdbcType=VARCHAR},
+      IS_DELIVERY_FREE = #{isDeliveryFree,jdbcType=VARCHAR},
+      FEE_RANGE = #{feeRange,jdbcType=VARCHAR},
+      FEE_MODEL = #{feeModel,jdbcType=VARCHAR},
+      VENDOR_MODEL = #{vendorModel,jdbcType=VARCHAR},
+      DELIVERY_INIT_PRICE = #{deliveryInitPrice,jdbcType=DECIMAL},
+      DELIVERY_PER_PRICE = #{deliveryPerPrice,jdbcType=DECIMAL},
+      DELIVERY_FREE_PRICE = #{deliveryFreePrice,jdbcType=DECIMAL},
+      UPD_AFTER_SALE = #{updAfterSale,jdbcType=VARCHAR},
+      PLEDGE_TYPE = #{pledgeType,jdbcType=VARCHAR},
+      VENDOR_REMARK = #{vendorRemark,jdbcType=VARCHAR},
+      SALE_PAGE = #{salePage,jdbcType=VARCHAR},
+      IS_SETTLE = #{isSettle,jdbcType=VARCHAR},
+      ACC_TYPE = #{accType,jdbcType=VARCHAR},
+      ACC_NAME = #{accName,jdbcType=VARCHAR},
+      PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      BELONG_SITE_NO = #{belongSiteNo,jdbcType=VARCHAR},
+      BELONG_SITE_NAME = #{belongSiteName,jdbcType=VARCHAR},
+      FREZEN_INTERVAL = #{frezenInterval,jdbcType=VARCHAR},
+      SERVICE_PHONE = #{servicePhone,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      VENDER_INTRO = #{venderIntro,jdbcType=LONGVARCHAR},
+      VENDER_EXPLAIN = #{venderExplain,jdbcType=LONGVARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+	 <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUser" >
+    update sp_merchant_user
+    set USER_IDS = #{userIds,jdbcType=VARCHAR},
+      VENDOR_ID = #{vendorId,jdbcType=VARCHAR},
+      RIGHT_CODE = #{rightCode,jdbcType=VARCHAR},
+      VENDOR_FNM = #{vendorFnm,jdbcType=VARCHAR},
+      VENDOR_SNM = #{vendorSnm,jdbcType=VARCHAR},
+      CHARGEMAN = #{chargeman,jdbcType=VARCHAR},
+      LINKMAN = #{linkman,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      ACCBANK = #{accbank,jdbcType=VARCHAR},
+      ACCNO = #{accno,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      BANK_NBR = #{bankNbr,jdbcType=VARCHAR},
+      VENDOR_DESC = #{vendorDesc,jdbcType=VARCHAR},
+      CREATE_OPER = #{createOper,jdbcType=VARCHAR},
+      MODIFY_OPER = #{modifyOper,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      MODIFY_DATE = #{modifyDate,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=VARCHAR},
+      FEE_ACCT = #{feeAcct,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      TIPS = #{tips,jdbcType=DECIMAL},
+      TIPS_RANGE = #{tipsRange,jdbcType=VARCHAR},
+      IS_DELIVERY = #{isDelivery,jdbcType=VARCHAR},
+      IS_DELIVERY_FREE = #{isDeliveryFree,jdbcType=VARCHAR},
+      FEE_RANGE = #{feeRange,jdbcType=VARCHAR},
+      FEE_MODEL = #{feeModel,jdbcType=VARCHAR},
+      VENDOR_MODEL = #{vendorModel,jdbcType=VARCHAR},
+      DELIVERY_INIT_PRICE = #{deliveryInitPrice,jdbcType=DECIMAL},
+      DELIVERY_PER_PRICE = #{deliveryPerPrice,jdbcType=DECIMAL},
+      DELIVERY_FREE_PRICE = #{deliveryFreePrice,jdbcType=DECIMAL},
+      UPD_AFTER_SALE = #{updAfterSale,jdbcType=VARCHAR},
+      PLEDGE_TYPE = #{pledgeType,jdbcType=VARCHAR},
+      VENDOR_REMARK = #{vendorRemark,jdbcType=VARCHAR},
+      SALE_PAGE = #{salePage,jdbcType=VARCHAR},
+      IS_SETTLE = #{isSettle,jdbcType=VARCHAR},
+      ACC_TYPE = #{accType,jdbcType=VARCHAR},
+      ACC_NAME = #{accName,jdbcType=VARCHAR},
+      PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      BELONG_SITE_NO = #{belongSiteNo,jdbcType=VARCHAR},
+      BELONG_SITE_NAME = #{belongSiteName,jdbcType=VARCHAR},
+      FREZEN_INTERVAL = #{frezenInterval,jdbcType=VARCHAR},
+      SERVICE_PHONE = #{servicePhone,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      UPDATEBY = #{updateby,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>
