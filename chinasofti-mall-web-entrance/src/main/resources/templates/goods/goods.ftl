@@ -33,7 +33,7 @@
 	<table id="goodsinfo" class="easyui-datagrid" toolbar="#wu-toolbar-2" style="height: 95%">
 		<thead>
 		<tr>
-			<th field="ids" width="20%" align="center">分类ID</th>
+			<th field="ids" width="20%" align="center">分类编号</th>
 			<th field="name" width="10%" align="center">分类名称</th>
 			<th field="states" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
 			<th field="commons" width="25%" align="center">分类描述</th>
@@ -94,7 +94,7 @@
 	<form id="updateForm" method="post" enctype="multipart/form-data">
 		<table id="update">
 			<tr>
-				<td width="60" align="right">分类ID:</td>
+				<td width="60" align="right">分类编号:</td>
 				<td><input type="text" id="ids" name="ids" 
 				class="wu-text easyui-tooltip" title="分类ID不可修改" style="background-color: #F4F4F4" readonly="true"/></td>
 			</tr>
@@ -166,16 +166,16 @@ $(function(){
 	
 });
 
-/*
- * 读取路径显示图片
- */
-function imgFormatter(value,row){
-	var str = "";
-	if(value != "" || value != null){
-		str = "<img style=\"height: 80px;width: 117px;\" src=\""+value+"\"/>";
-        return str;
+	/*
+	 * 读取路径显示图片
+	 */
+	function imgFormatter(value,row){
+		var str = "";
+		if(value != "" || value != null){
+			str = "<img style=\"height: 80px;width: 117px;\" src=\""+value+"\"/>";
+	        return str;
+		}
 	}
-}
 
 	/*
 	 * 分类状态
