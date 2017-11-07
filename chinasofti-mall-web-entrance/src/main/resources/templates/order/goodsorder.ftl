@@ -16,18 +16,15 @@
 			<div align="left">
 				<table class="" style="width: 95%">
 					<tr>
-						<td>
-							主订单号：
-							<input class="easyui-textbox" id="mainorder-transactionid" name="transactionid" data-options="" />
+						<td>主订单号： <input class="easyui-textbox"
+							id="mainorder-transactionid" name="transactionid" data-options="" />
 						</td>
-						<td>
-							大订单号：
-							<input class="easyui-textbox" id="mainorder-bigorderId" name="bigorderId" data-options="" />
+						<td>大订单号： <input class="easyui-textbox"
+							id="mainorder-bigorderId" name="bigorderId" data-options="" />
 						</td>
-						<td>
-							支付开始时间：
-							<input class="easyui-datetimebox"id="mainorder-minPayTime" 
-								name="minPayTime"data-options="editable:false" />
+						<td>支付开始时间： <input class="easyui-datetimebox"
+							id="mainorder-minPayTime" name="minPayTime"
+							data-options="editable:false" />
 						</td>
 						<td>支付结束时间：<input class="easyui-datetimebox"
 							id="mainorder-maxPayTime" name="maxPayTime"
@@ -167,135 +164,309 @@
 		</thead>
 	</table>
 	<!-- 子订单模块结束 -->
-	
+
+	<!-- 主订单详细信息显示开始 -->
 	<div id="mainorderEditDialog" class="easyui-dialog"
-	data-options="closed:true,modal:true,resizable:true,inline:true" style="width:100%;height:100%">
-		<div id="" class="easyui-panel" title="测试1"     
-	        data-options="collapsible:true" style="width:100%">
-			<table>
-				<tr>
-					<td>ID:</td>
-					<td><input name="ids" class="easyui-textbox"
-						readonly="readonly" /></td>
-				</tr>
-				<tr>
-					<td>大订单编号:</td>
-					<td><input name="bigorderId" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>商户编号:</td>
-					<td><input name="vendorIds" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>用户编号:</td>
-					<td><input name="userIds" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>收件人证件号:</td>
-					<td><input name="contIdentityno" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>邮编:</td>
-					<td><input name="contPostcode" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>详细地址:</td>
-					<td><input name="contAddress" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>支付状态:</td>
-					<td><input name="payStatus" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>订单状态:</td>
-					<td><input name="status" class="easyui-textbox" /></td>
-				</tr>
-			</table>
-		</div>
-		<div id="" class="easyui-panel" title="测试2"     
-	        data-options="collapsible:true" style="width:100%">
-			<table>
-				<tr>
-					<td>ID:</td>
-					<td><input name="ids" class="easyui-textbox"
-						readonly="readonly" /></td>
-				</tr>
-				<tr>
-					<td>大订单编号:</td>
-					<td><input name="bigorderId" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>商户编号:</td>
-					<td><input name="vendorIds" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>用户编号:</td>
-					<td><input name="userIds" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>收件人证件号:</td>
-					<td><input name="contIdentityno" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>邮编:</td>
-					<td><input name="contPostcode" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>详细地址:</td>
-					<td><input name="contAddress" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>支付状态:</td>
-					<td><input name="payStatus" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>订单状态:</td>
-					<td><input name="status" class="easyui-textbox" /></td>
-				</tr>
-			</table>
-		</div>
-		<div id="" class="easyui-panel" title="测试2"     
-	        data-options="collapsible:true" style="width:100%">
-			<table>
-				<tr>
-					<td>ID:</td>
-					<td><input name="ids" class="easyui-textbox"
-						readonly="readonly" /></td>
-				</tr>
-				<tr>
-					<td>大订单编号:</td>
-					<td><input name="bigorderId" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>商户编号:</td>
-					<td><input name="vendorIds" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>用户编号:</td>
-					<td><input name="userIds" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>收件人证件号:</td>
-					<td><input name="contIdentityno" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>邮编:</td>
-					<td><input name="contPostcode" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>详细地址:</td>
-					<td><input name="contAddress" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>支付状态:</td>
-					<td><input name="payStatus" class="easyui-textbox" /></td>
-				</tr>
-				<tr>
-					<td>订单状态:</td>
-					<td><input name="status" class="easyui-textbox" /></td>
-				</tr>
-			</table>
-		</div>
+		data-options="closed:true,draggable:false,inline:true"
+		style="width: 100%; height: 100%">
+		<form id="mainorderEditForm" action="">
+			<div id="" class="easyui-panel" title="基本信息"
+				data-options="collapsible:true,iconCls:'icon-edit'" style="width: 100%">
+				<table style="width:100%">
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">主订单号</td>
+						<td style="width:40%" align="left">
+							<input name="transactionid" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">大订单号</td>
+						<td style="width:40%" align="left">
+							<input name="bigorderId" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">商户名称</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">订单类型</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">订单销售渠道</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">运费</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">商品总积分</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">实付金额</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">积分总价值</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">订单总额</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">是否已申请退换货</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">抽奖码</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="" class="easyui-panel" title="订货信息"
+				data-options="collapsible:true,iconCls:'icon-edit'" style="width: 100%">
+				<table style="width:100%">
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">订货人</td>
+						<td style="width:40%" align="left">
+							<input name="transactionid" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">用户OpenId</td>
+						<td style="width:40%" align="left">
+							<input name="bigorderId" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">订货人手机号</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">下单时间</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">是否行内人员</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">客户IP</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="" class="easyui-panel" title="收货人信息"
+				data-options="collapsible:true,iconCls:'icon-edit'" style="width: 100%">
+				<table style="width:100%">
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">配送方式</td>
+						<td style="width:40%" align="left">
+							<input name="transactionid" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">收货人</td>
+						<td style="width:40%" align="left">
+							<input name="bigorderId" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">收货人手机号</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">收货人地址</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">客户订单备注</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">推荐人</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="" class="easyui-panel" title="支付信息"
+				data-options="collapsible:true,iconCls:'icon-edit'" style="width: 100%">
+				<table style="width:100%">
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">现金支付状态</td>
+						<td style="width:40%" align="left">
+							<input name="transactionid" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">现金支付时间</td>
+						<td style="width:40%" align="left">
+							<input name="bigorderId" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">支付渠道</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">支付方式</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="" class="easyui-panel" title="发货信息"
+				data-options="collapsible:true,iconCls:'icon-edit'" style="width: 100%">
+				<table style="width:100%">
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">物流状态</td>
+						<td style="width:40%" align="left">
+							<input name="transactionid" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">物流公司名称</td>
+						<td style="width:40%" align="left">
+							<input name="bigorderId" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">快递单号</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">发货说明</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="" class="easyui-panel" title="物流信息"
+				data-options="collapsible:true,iconCls:'icon-edit'" style="width: 100%">
+				<table style="width:100%">
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">发货人</td>
+						<td style="width:40%" align="left">
+							<input name="transactionid" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">发货时间</td>
+						<td style="width:40%" align="left">
+							<input name="bigorderId" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">签收类型</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">签收人</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">签收时间</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="" class="easyui-panel" title="优惠券信息"
+				data-options="collapsible:true,iconCls:'icon-edit'" style="width: 100%">
+				<table style="width:100%">
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">优惠券类型</td>
+						<td style="width:40%" align="left">
+							<input name="transactionid" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">优惠券代码</td>
+						<td style="width:40%" align="left">
+							<input name="bigorderId" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">券编号</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">券名称</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">券面额</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">券实际抵扣金额</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="" class="easyui-panel" title="发票信息"
+				data-options="collapsible:true,iconCls:'icon-edit'" style="width: 100%">
+				<table style="width:100%">
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">发票类型</td>
+						<td style="width:40%" align="left">
+							<input name="transactionid" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right"></td>
+						<td style="width:40%" align="left"></td>
+					</tr>
+				</table>
+			</div>
+			<div id="" class="easyui-panel" title="对账清算信息"
+				data-options="collapsible:true,iconCls:'icon-edit'" style="width: 100%">
+				<table style="width:100%">
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">对账状态</td>
+						<td style="width:40%" align="left">
+							<input name="transactionid" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">对账时间</td>
+						<td style="width:40%" align="left">
+							<input name="bigorderId" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">清算状态</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">清算时间</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:10%;padding:0 15px 0 0;" align="right">清算检查状态</td>
+						<td style="width:40%" align="left">
+							<input name="" class="easyui-textbox" style="width:260px;height:30px;" readonly="readonly" />
+						</td>
+					</tr>
+				</table>
+			</div>
+		</form>
 	</div>
+	<!-- 主订单详细信息显示结束 -->
 </div>
 <!-- End of easyui-dialog -->
