@@ -5,6 +5,7 @@
     <artifactId>chinasofti-mall</artifactId>
     <version>0.0.1</version>
   </parent>
+  <name>goodsclass</name>
   <artifactId>chinasofti-mall-goodsclass</artifactId>
   <packaging>jar</packaging>
   <dependencies>

@@ -5,6 +5,7 @@
     <artifactId>chinasofti-mall</artifactId>
     <version>0.0.1</version>
   </parent>
+  <name>user</name>
   <artifactId>chinasofti-mall-user</artifactId>
  <packaging>jar</packaging>
   
