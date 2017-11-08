@@ -2,7 +2,6 @@ package com.chinasofti.mall.common.entity;
 
 import java.math.BigDecimal;
 
-
 public class AdvertiseContents{
     private String ids;
 

@@ -6,14 +6,13 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="print()" plain="true">查看详情</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印</a>
         </div>
        	<div class="spUser-toolbar-search">
 		<form id="searchForm">
-			<label>商户编号：</label> <input type="text" id="spUserVendorId" name="vendorId"/></br>
-			<label>商户名称：</label> <input type="text" id="spUserVendorFnm" name="vendorFnm"/>
+			<label>商户编号：</label> <input type="text" id="vendorId" name="vendorId"/></br>
+			<label>商户名称：</label> <input type="text" id="vendorSnm" name="vendorSnm"/>
 			<label>拓展网站：</label> <input type="text" id="belongSiteName" name="belongSiteName"/>
 			<label>状态：</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
 									<option selected="selected" value="">请选择</option>
@@ -28,16 +27,15 @@
     
 	<!-- 数据显示datagrid -->
 	<table id="spuserinfo" class="easyui-datagrid" title="商户用户列表" 
-			data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+			data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'" style="height: 80%">
 		<thead>
 		<tr>
-			<th field="ids" width="15%" align="center">ID</th>
 			<th field="vendorId" width="15%" align="center">商户编号</th>
 			<th field="vendorFnm" width="20%" align="center">商户全称</th>
 			<th field="vendorSnm" width="15%" align="center">商户简称</th>
 			<th field="states" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
-			<th field="charGeman" width="10%" align="center">商户负责人</th>	
-			<th field="linkMan" width="15%" align="center">商户方联系人</th>	
+			<th field="chargeman" width="10%" align="center">商户负责人</th>	
+			<th field="linkman" width="15%" align="center">商户方联系人</th>	
 			<th field="phone" width="10%" align="center">联系电话</th>
 			<th field="mobile" width="10%" align="center">联系手机号</th>
 			<th field="address" width="20%" align="center">通讯地址</th>
@@ -67,7 +65,7 @@
                 
                 <td align="right">状态:</td>
 				<td>
-					<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="states" name="states" style="width: 75px">
+					<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 75px">
 							<option value="0">未开启</option>
 							<option value="1">已启用</option>
 					</select>
@@ -76,10 +74,10 @@
           
 			<tr>
                 <td align="right">商户负责人:</td>
-                <td><input id="charGeman" name="charGeman" class="wu-text" /></td>
+                <td><input id="chargeman" name="chargeman" class="wu-text" /></td>
            
                 <td align="right">商户联系人:</td>
-                <td><input id="linkMan" name="linkMan" class="wu-text" /></td>
+                <td><input id="linkman" name="linkman" class="wu-text" /></td>
             </tr>
             <tr>
                 <td align="right">联系电话:</td>
@@ -110,6 +108,9 @@
                 <td><input id="servicePhone" name="servicePhone" class="wu-text" /></td>
             </tr>
             <tr>
+            	<td align="right">商户介绍:</td>
+                <td><textarea id="venderIntro" name="venderIntro" class="wu-textarea" /></textarea></td>
+                
                 <td align="right">售后说明:</td>
                 <td><textarea id="venderExplain" name="venderExplain" class="wu-textarea" /></textarea></td>
                 
@@ -128,7 +129,7 @@
 		<table id="update">
 			<tr>
 				<td  align="right">商户编号:</td>
-				<td><input type="text" id="vendorId" name="vendorId" readonly="true"/></td>
+				<td><input class="wu-text" id="vendorId" name="vendorId"/></td>
 				
 				<td align="right">商户全称:</td>
                 <td><input id="vendorFnm" name="vendorFnm" class="wu-text" /></td>
@@ -139,7 +140,7 @@
                 
                 <td align="right">状态:</td>
 				<td>
-					<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="states" name="states" style="width: 75px">
+					<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 75px">
 							<option value="0">未开启</option>
 							<option value="1">已启用</option>
 					</select>
@@ -147,10 +148,10 @@
 			</tr>
 			<tr>
 				<td align="right">商户负责人:</td>
-                <td><input id="charGeman" name="charGeman" class="wu-text" /></td>
+                <td><input id="chargeman" name="chargeman" class="wu-text" /></td>
            
                 <td align="right">商户联系人:</td>
-                <td><input id="linkMan" name="linkMan" class="wu-text" /></td>
+                <td><input id="linkman" name="linkman" class="wu-text" /></td>
 			</tr>
 			
 			<tr>
@@ -178,12 +179,30 @@
                 <td align="right">拓展网点名称:</td>
                 <td><input id="belongSiteName" name="belongSiteName" class="wu-text" /></td>
                 
+                <td align="right">创建日期:</td>
+                <td><input id="createDate" name="createDate" class="wu-text" /></td>
+            </tr>
+             <tr>
+                <td align="right">创建时间:</td>
+                <td><input id="createTime" name="createTime" class="wu-text" /></td>
+                
+                <td align="right">更新时间:</td>
+                <td><input id="updatetime" name="updatetime" class="wu-text" /></td>
+            </tr>
+               <tr>
+                <td align="right">更新人:</td>
+                <td><input id="updateby" name="updateby" class="wu-text" /></td>
+                
                 <td align="right">售后服务电话:</td>
                 <td><input id="servicePhone" name="servicePhone" class="wu-text" /></td>
             </tr>
+            
             <tr>
                 <td align="right">售后说明:</td>
                 <td><textarea id="venderExplain" name="venderExplain" class="wu-textarea" /></textarea></td>
+                
+                <td align="right">商户介绍:</td>
+                <td><textarea id="venderIntro" name="venderIntro" class="wu-textarea" /></textarea></td>
                 
             </tr>
 			
@@ -200,7 +219,7 @@
 $(function(){
 	$.messager.show({
 		title:'提示',
-		msg:'该充值智商了!'
+		msg:'飘过'
 	});
 	
 	//获取表格datagrid的ID属性,
@@ -278,7 +297,7 @@ $(function(){
 			closed: false,
 			closable:false,
 			modal:true,
-            title: "添加分类",
+            title: "添加商户用户",
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
@@ -303,7 +322,7 @@ $(function(){
 	function add(){
 		
 		$('#spUserAdd').form('submit', {
-			url:'/spUser/save',
+			url:'/spUser/add',
 			type:'POST',
 			success:function(data){
 				if(data > 0){
@@ -319,18 +338,19 @@ $(function(){
 		});
 	}
 
-	/**
+		/**
 	* Name 打开修改窗口
 	*/
 	function openEdit(){
 		$('#spUserUpdate').form('clear');
 		var row = $("#spuserinfo").datagrid('getSelected');
 		if (row) {
+	
 			$('#spUserUpdateDialog').dialog('open').dialog({
 				closed: false,
 				modal:true,
 				closable:false,
-	            title: "修改分类",
+	            title: "修改商户用户",
 	            buttons: [{
 	                text: '确定',
 	                iconCls: 'icon-ok',
@@ -340,12 +360,10 @@ $(function(){
 	                iconCls: 'icon-cancel',
 	                handler: function () {
 	                    $('#spUserUpdateDialog').dialog('close');
-	                    document.getElementById("showupic").innerHTML = "";
 	                }
 	            }]
 	        });
-			/* $('#showImg').attr("src",row.img); */
-			$('#updateForm').form('load',row);
+			$('#spUserUpdate').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
@@ -360,6 +378,7 @@ $(function(){
     		type:'POST',
     		data:$('#spUserUpdate').serialize(),
     		success:function(data){
+    		alert(data);
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
     				$('#spUserUpdateDialog').dialog('close');

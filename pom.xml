@@ -18,7 +18,6 @@
   	<module>chinasofti-mall-zuul</module>
     <module>chinasofti-mall-shiro</module>
 	<module>chinasofti-mall-user</module>
-	<module>chinasofti-mall-sp-user</module>
 
   </modules>
   

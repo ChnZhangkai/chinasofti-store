@@ -17,6 +17,7 @@ import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
 import net.sf.json.JSONObject;
 
+
 @RestController
 @RequestMapping("advertise")
 public class AdvertiseController {

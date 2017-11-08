@@ -3,9 +3,7 @@ package com.chinasofti.mall.web.entrance.hystrix;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Component;
-
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
 /**

@@ -30,4 +30,30 @@ public class SpMerchantUserFeignClientHystrix implements SpMerchantUserFeignClie
 		return jsonObject;
 	}
 
+	
+	@Override
+	public SpMerchantUser selectSpUserById(String ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	@Override
+	public String deleteById(String ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int spUserAdd(SpMerchantUser spMerchantUser) {
+		return 0;
+		
+	}
+
+	@Override
+	public int spUserUpdate(SpMerchantUser spMerchantUser) {
+		return 0;
+	}
+
 }
