@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import com.chinasofti.mall.common.entity.SpUser;
-import com.chinasofti.mall.web.entrance.feign.SpUserFeignClient;
+import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
+import com.chinasofti.mall.web.entrance.feign.SpMerchantUserFeignClient;
 
 import net.sf.json.JSONObject;
 
@@ -20,14 +20,14 @@ import net.sf.json.JSONObject;
  * @parma <T>
  */
 @Component
-public class SpUserFeignClientHystrix implements SpUserFeignClient{
+public class SpMerchantUserFeignClientHystrix implements SpMerchantUserFeignClient{
 
 	@Override
-	public String selectBySpUser(SpUser spUser) {
+	public JSONObject selectBySpUser(SpMerchantUser spMerchantUser) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("total", 0);
 		jsonObject.put("rows", new ArrayList<>());
-		return jsonObject.toString();
+		return jsonObject;
 	}
 
 }

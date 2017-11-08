@@ -29,16 +29,18 @@ $(function(){
 			id:'merchant',
 			title:'商户管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">商户管理</a></ul>',
-			selected:false
+	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="spUser/index" iframe="0">商户管理</a></li></ul>',
+			selected:true
 		})
 	}
+	
+	
 	if($('#role').length<=0){
 		$("#acc").accordion('add',{
 			id:'role',
 			title:'角色管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></ul>',
+	    			'<li iconCls="icon-chart-organisation">8<a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></ul>',
 			selected:false
 		})
 	}
@@ -90,21 +92,23 @@ function switchMain(){
 			selected:true
 		})
 	}
+	
 	if($('#merchant').length<=0){
 		$("#acc").accordion('add',{
 			id:'merchant',
 			title:'商户管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">商户管理</a></ul>',
-			selected:false
+	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="spUser/index" iframe="0">商户管理</a></li></ul>',
+			selected:true
 		})
 	}
+
 	if($('#role').length<=0){
 		$("#acc").accordion('add',{
 			id:'role',
 			title:'角色管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></ul>',
+	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="" iframe="0">角色管理</a></ul>',
 			selected:false
 		})
 	}
@@ -159,8 +163,8 @@ function swicthOperationCenter(){
 			title:'商品管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
 			    	'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" class="easyui-tree zk-side-tree" data-icon="icon-chart-organisation" data-link="/goods/index" iframe="0">商品分类管理</a></li>'+
-			        '<li iconCls="icon-check-error"><a href="javascript:void(0)" class="easyui-tree zk-side-tree" data-icon="icon-users" data-link="/goodscheck/index" iframe="0">商品审核管理</a></li>'+
-			        '<li iconCls="icon-chart-line"><a href="javascript:void(0)" class="easyui-tree zk-side-tree" data-icon="icon-save" data-link="/goodsonline/index" iframe="0">商品在线管理</a></li></ul>',
+			        '<li iconCls="icon-check-error"><a href="javascript:void(0)" class="easyui-tree zk-side-tree" data-icon="icon-check-error" data-link="/goodscheck/index" iframe="0">商品审核管理</a></li>'+
+			        '<li iconCls="icon-chart-line"><a href="javascript:void(0)" class="easyui-tree zk-side-tree" data-icon="icon-chart-line" data-link="/goodsonline/index" iframe="0">商品在线管理</a></li></ul>',
 			selected:true
 		})
 	}
@@ -175,6 +179,7 @@ function swicthOperationCenter(){
 			selected:false
 		})
 	}
+
 	if($('#advertise').length<=0){
 		$("#acc").accordion('add',{
 			id:'advertise',

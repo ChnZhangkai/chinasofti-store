@@ -2,7 +2,6 @@ package com.chinasofti.mall.goodsorder.service;
 
 
 import com.chinasofti.mall.common.entity.PyMainGoodsorder;
-import com.chinasofti.mall.common.entity.PyMainGoodsorderExample;
 import com.chinasofti.mall.common.service.IBaseService;
 
 import net.sf.json.JSONObject;

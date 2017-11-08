@@ -7,8 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.PyChildGoodsorderExample;
+import com.chinasofti.mall.common.entity.PyChildGoodsorderExample.Criteria;
 import com.chinasofti.mall.goodsorder.mapper.PyChildGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+
+import net.sf.json.JSONObject;
 
 
 /**
@@ -52,11 +57,34 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 		
 		return childGoodsorderMapper.updateByPrimaryKeySelective(childGoodsorder);
 	}
-	
+
 	@Override
-	public List<PyChildGoodsorder> selectByExample(PyChildGoodsorderExample example){
+	public JSONObject selectByChildorderClass(PyChildGoodsorder childGoodsorder) {
+		String compare = "";
 		
-		return childGoodsorderMapper.selectByExample(example);
+		JSONObject js = new JSONObject();
+		PyChildGoodsorderExample example = new PyChildGoodsorderExample();
+		Criteria criteria = example.createCriteria();
+				
+		if ((childGoodsorder.getTransactionid()) != null && !(childGoodsorder.getTransactionid()).equals(compare)) {
+				criteria.andTransactionidLike("%" + childGoodsorder.getTransactionid() + "%");
+			}
+		if ((childGoodsorder.getMainorderIds()) != null && !(childGoodsorder.getMainorderIds()).equals(compare)) {
+			criteria.andMainorderIdsLike("%" + childGoodsorder.getMainorderIds() + "%");
+		}
+		if ((childGoodsorder.getOrderType()) != null && !(childGoodsorder.getOrderType()).equals(compare)) {
+			criteria.andOrderTypeLike("%" + childGoodsorder.getOrderType() + "%");
+		}
+		
+		PageHelper.startPage(childGoodsorder.getPage(),childGoodsorder.getRows());
+		List<PyChildGoodsorder> list = childGoodsorderMapper.selectByExample(example);
+
+		js.put("rows", list);
+		js.put("total", ((Page<PyChildGoodsorder>)list).getTotal());
+		
+		return js;
 	}
+	
+	
 
 }

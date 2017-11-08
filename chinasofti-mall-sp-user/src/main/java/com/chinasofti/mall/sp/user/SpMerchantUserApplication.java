@@ -7,11 +7,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication//入口
 @EnableDiscoveryClient//向服务中心注册
 @MapperScan("com.chinasofti.mall.sp.user.mapper")
-public class SpUserApplication {
+public class SpMerchantUserApplication {
 	
 	public static void main(String[] args) {
 		
-		SpringApplication.run(SpUserApplication.class, args);
+		SpringApplication.run(SpMerchantUserApplication.class, args);
 	}
 
 }
