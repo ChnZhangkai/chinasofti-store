@@ -2,7 +2,7 @@ package com.chinasofti.mall.common.entity;
 
 import java.math.BigDecimal;
 
-public class AdvertiseContents {
+public class AdvertiseContents{
     private String ids;
 
     private String title;
@@ -18,6 +18,8 @@ public class AdvertiseContents {
     private String positionName;
 
     private String states;
+
+    private String type;
 
     private String createBy;
 
@@ -36,6 +38,7 @@ public class AdvertiseContents {
     private BigDecimal descs;
 
     private String isOuturl;
+   
 
     public String getIds() {
         return ids;
@@ -99,6 +102,14 @@ public class AdvertiseContents {
 
     public void setStates(String states) {
         this.states = states == null ? null : states.trim();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
     public String getCreateBy() {
@@ -172,4 +183,15 @@ public class AdvertiseContents {
     public void setIsOuturl(String isOuturl) {
         this.isOuturl = isOuturl == null ? null : isOuturl.trim();
     }
+
+	@Override
+	public String toString() {
+		return "AdvertiseContents [ids=" + ids + ", title=" + title + ", url=" + url + ", contens=" + contens
+				+ ", imageurl=" + imageurl + ", categoryName=" + categoryName + ", positionName=" + positionName
+				+ ", states=" + states + ", type=" + type + ", createBy=" + createBy + ", createTime=" + createTime
+				+ ", updateBy=" + updateBy + ", updateTime=" + updateTime + ", beginTime=" + beginTime + ", endTime="
+				+ endTime + ", positionId=" + positionId + ", descs=" + descs + ", isOuturl=" + isOuturl + "]";
+	}
+    
+    
 }

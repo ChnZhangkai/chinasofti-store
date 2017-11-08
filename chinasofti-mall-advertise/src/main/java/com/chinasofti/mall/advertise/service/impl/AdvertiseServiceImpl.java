@@ -2,6 +2,8 @@ package com.chinasofti.mall.advertise.service.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +29,9 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	AdvertiseContentsMapper advertiseMapper;
 
 	@Override
-	public int save(AdvertiseContents t) {
-		return advertiseMapper.insertSelective(t);
+	public int save(AdvertiseContents advertiseContents) {
+		advertiseContents.setIds(UUID.randomUUID().toString().replaceAll("-", ""));
+		return advertiseMapper.insertSelective(advertiseContents);
 	}
 
 	@Override
@@ -51,13 +54,12 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 
 	@Override
 	public int deleteById(String id) {
-		//return advertiseMapper.fackDelete(id);
-		return 0;
+		return advertiseMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	public int update(AdvertiseContents t) {
-		return advertiseMapper.updateByExample(t, new AdvertiseContentsExample());
+		return advertiseMapper.updateByPrimaryKeySelective(t);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -67,14 +69,30 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		AdvertiseContentsExample advertiseContentsExample = new AdvertiseContentsExample();
 		//条件判断
 		if(paramMap.containsKey("title")) {
-			advertiseContentsExample.createCriteria().andTitleLike("%"+paramMap.get("title").toString()+"%");
+			if(null != paramMap.get("title") && !"".equals(paramMap.get("title"))){
+				advertiseContentsExample.createCriteria().andTitleLike("%"+paramMap.get("title").toString()+"%");
+			}
 		};
-		//cmsAdContentsExample.createCriteria().andStatesEqualTo("1");
+		if(paramMap.containsKey("type")) {
+			if(null != paramMap.get("type") && !"".equals(paramMap.get("type"))){
+				advertiseContentsExample.createCriteria().andTypeEqualTo(paramMap.get("type").toString());
+			}
+			
+		};
+		if(paramMap.containsKey("positionId")) {
+			if(null != paramMap.get("positionId") && !"".equals(paramMap.get("positionId"))){
+				advertiseContentsExample.createCriteria().andPositionIdEqualTo(paramMap.get("positionId").toString());
+			}	
+		};
 		//排序
-		advertiseContentsExample.setOrderByClause("ids ASC");
+		if(paramMap.containsKey("sort") && (paramMap.containsKey("order"))) {
+			if(null != paramMap.get("sort") && !"".equals(paramMap.get("sort")) && null != paramMap.get("order") && !"".equals(paramMap.get("order"))){
+				advertiseContentsExample.setOrderByClause(paramMap.get("sort")+" "+paramMap.get("order"));
+			}		
+		}
 		//执行分页查询
-		PageHelper.startPage(Integer.parseInt(paramMap.get("pageNumber").toString()),
-							Integer.parseInt(paramMap.get("pageSize").toString()));
+		PageHelper.startPage(Integer.parseInt(paramMap.get("page").toString()),
+							Integer.parseInt(paramMap.get("rows").toString()));
 		List<AdvertiseContents> list = advertiseMapper.selectByExample(advertiseContentsExample);
 		js.put("rows", list);
 		js.put("total", ((Page) list).getTotal());
