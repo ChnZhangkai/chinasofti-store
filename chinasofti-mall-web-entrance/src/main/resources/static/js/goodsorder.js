@@ -11,7 +11,7 @@ function openMainorderCheck() {
 		});
 		$('#mainorderEditForm').form('load', row);
 	} else {
-		$.messager.alert('信息提示', '请选中要修改的数据');
+		$.messager.alert('信息提示', '请选中要查看的订单');
 	}
 }
 
@@ -25,7 +25,8 @@ function mainorderDoSearch() {
 		payStatus : $('#mainorder-payStatus').val(),
 		minPayTime : $('#mainorder-minPayTime').val(),
 		maxPayTime : $('#mainorder-maxPayTime').val(),
-		contName : $('#mainorder-contName').val()
+		contName : $('#mainorder-contName').val(),
+		payway:$('#mainorder-payway').val()
 	});
 
 }
@@ -80,7 +81,7 @@ function paywayFormatter(value, row, index) {
 	} else if (value == "2") {
 		return '<span>支付宝支付</span>';
 	} else {
-		return '<span>其他支付</span>';
+		return '<span></span>';
 	}
 }
 
@@ -134,5 +135,22 @@ function orderTypeFormatter(value, row, index) {
 		return '<span>实物众筹</span>';
 	} else {
 		return '<span></span>';
+	}
+}
+
+/**
+ * 子订单信息查看
+ */
+function openChildorderCheck() {
+	var row = $("#childorderDataGrid").datagrid('getSelected');
+	if (row) {
+		$('#childorderEditDialog').dialog('open').dialog({
+			closed : false,
+			modal : true,
+			title : "订单详细信息"
+		});
+		$('#childorderEditForm').form('load', row);
+	} else {
+		$.messager.alert('信息提示', '请选择要查看的订单');
 	}
 }
