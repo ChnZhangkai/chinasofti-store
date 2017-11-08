@@ -137,7 +137,7 @@ public class PyMainGoodsorder extends PageBean{
     private String status;
 
     /**
-    * @Fields payway : 支付方式 : 1 微信  2 支付宝 3 银联
+    * @Fields payway : 支付渠道 : 1 微信  2 支付宝 3 银联
     */
     private String payway;
 
