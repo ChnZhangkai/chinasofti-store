@@ -1,4 +1,4 @@
-package com.chinasofti.mall.advertise.service.impl;
+package com.chinasofti.mall.goods.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -7,10 +7,11 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.mall.advertise.mapper.AdvertiseContentsMapper;
-import com.chinasofti.mall.advertise.service.IAdvertiseService;
+
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertiseContentsExample;
+import com.chinasofti.mall.goods.mapper.advertise.AdvertiseContentsMapper;
+import com.chinasofti.mall.goods.service.IAdvertiseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import net.sf.json.JSONObject;

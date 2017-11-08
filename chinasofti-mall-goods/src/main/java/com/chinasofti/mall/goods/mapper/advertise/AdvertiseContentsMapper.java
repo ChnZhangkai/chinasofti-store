@@ -1,4 +1,4 @@
-package com.chinasofti.mall.advertise.mapper;
+package com.chinasofti.mall.goods.mapper.advertise;
 
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertiseContentsExample;

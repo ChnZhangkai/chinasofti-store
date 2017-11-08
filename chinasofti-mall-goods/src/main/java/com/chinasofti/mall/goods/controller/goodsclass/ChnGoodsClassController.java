@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goodsclass.controller;
+package com.chinasofti.mall.goods.controller.goodsclass;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.goodsclass.service.impl.ChnGoodsClassServiceImpl;
+import com.chinasofti.mall.goods.service.impl.ChnGoodsClassServiceImpl;
 
 import net.sf.json.JSONObject;
 

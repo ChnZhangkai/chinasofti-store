@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goodsclass.mapper;
+package com.chinasofti.mall.goods.mapper;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoExample;

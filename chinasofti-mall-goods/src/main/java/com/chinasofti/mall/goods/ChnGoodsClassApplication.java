@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goodsclass;
+package com.chinasofti.mall.goods;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

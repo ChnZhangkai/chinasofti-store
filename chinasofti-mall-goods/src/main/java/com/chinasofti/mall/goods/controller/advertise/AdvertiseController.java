@@ -1,4 +1,4 @@
-package com.chinasofti.mall.advertise.controller;
+package com.chinasofti.mall.goods.controller.advertise;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.chinasofti.mall.advertise.service.IAdvertiseService;
 import com.chinasofti.mall.common.controller.BaseController;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.goods.service.IAdvertiseService;
+
 import net.sf.json.JSONObject;
 
 /**

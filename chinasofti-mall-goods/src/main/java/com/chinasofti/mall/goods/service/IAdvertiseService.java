@@ -1,4 +1,4 @@
-package com.chinasofti.mall.advertise.service;
+package com.chinasofti.mall.goods.service;
 
 import java.util.Map;
 

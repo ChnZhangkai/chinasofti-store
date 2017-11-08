@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goodsclass.mapper;
+package com.chinasofti.mall.goods.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
