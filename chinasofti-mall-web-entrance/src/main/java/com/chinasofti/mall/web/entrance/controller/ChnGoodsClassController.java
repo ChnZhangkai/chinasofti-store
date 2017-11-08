@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chinasofti.mall.common.entity.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsClassFeignClient;
 
 import net.sf.json.JSONObject;

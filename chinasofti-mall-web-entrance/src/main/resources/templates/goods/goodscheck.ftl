@@ -67,77 +67,27 @@
 		style="background: #efefef; border: 1px solid #ccc;"></div>
 
 	<!-- 商品添加表格 -->
-	<div id="wu-dialog-3" class="easyui-dialog"
-		data-options="closed:true,iconCls:'icon-save'"
-		style="width: 800px; height: 600px; padding: 10px;">
-		<form id="addGoodsForm" method="post" enctype="multipart/form-data">
-			<table id="addGoods">
-				<tr>
-					<td width="60" align="right">分类名称:</td>
-					<td><input type="text" id="name" name="name"
-						class="easyui-validatebox wu-text" required="true"
-						missingMessage="请输入分类名称" /></td>
-				</tr>
-				<tr>
-					<td align="right">分类描述:</td>
-					<td><input type="text" id="commons" name="commons"
-						class="wu-text" /></td>
-				</tr>
-				<tr>
-					<td align="right">分类状态:</td>
-					<td><select class="easyui-combobox easyui-validatebox"
-						required="true" missingMessage="请选择分类状态"
-						data-options="editable:false,panelHeight:'auto'" id="states"
-						name="states" style="width: 75px">
-							<option value="0">禁用</option>
-							<option value="1">启用</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td align="right">分类图片:</td>
-					<td><input type="file" id="img" name="img"
-						onchange="readPicture()" /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td>
-						<div id="showpic"></div>
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
-
-	<!-- 商品添加表格 -->
 	<div id="addDl" class="easyui-dialog"
-		data-options="closed:true,iconCls:'icon-save',inline:true"
+		data-options="closed:true,iconCls:'icon-add',inline:true"
 		style="width: 100%; height: 100%; padding: 10px;">
 		<form id="addGoodsForm">
 			<table>
 				<tr>
-					<th align="right">商户名称</th>
+					<th align="right">商品名称</th>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" /> <span><font
+						class="easyui-textbox easyui-validatebox" name="title" data-options="required:true"/> <span><font
 							style="color: #CCCCCC; font-size: 10px;">1-100位中文</font></span></td>
-					<th align="right">分类名称</th>
-					<td><select style="width: 180px;" class="easyui-combobox">
-							<option>1</option>
-							<option>1</option>
-							<option>1</option>
-					</select></td>
+					<th align="right">商品分类</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="codeids" name="code"></select></td>
 				</tr>
 				<tr>
 					<th align="right">商品类型</th>
-					<td><select style="width: 180px;" class="easyui-combobox">
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'">
 							<option value="0">普通商品</option>
 							<option value="1">活动商品</option>
 					</select></td>
 					<th align="right">商户名称</th>
-					<td><select style="width: 180px;" class="easyui-combobox">
-							<option>1</option>
-							<option>1</option>
-							<option>1</option>
-					</select></td>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="vendorids" name="vendor"></select></td>
 				</tr>
 				<tr>
 					<th align="right">开始日期</th>
@@ -161,7 +111,7 @@
 					<td><input type="text" style="width: 180px;"
 						class="easyui-textbox" /></td>
 					<th align="right">运费模板</th>
-					<td><select style="width: 180px;" class="easyui-combobox">
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'">
 							<option>1</option>
 							<option>1</option>
 							<option>1</option>
@@ -173,18 +123,8 @@
 						class="easyui-textbox" /> <span><font
 							style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
 					<th align="right">每笔订单限购数量</th>
-					<td><select style="width: 180px;" class="easyui-combobox">
-							<option>1</option>
-							<option>1</option>
-							<option>1</option>
-					</select></td>
-				</tr>
-				<tr>
-					<th align="right" style="padding-bottom: 0px">商品详情</th>
-					<td>
-						<div id="content" class="easyui-textbox"
-							data-options="multiline:true" style="width: 300px; height: 100px"></div>
-					</td>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" /></td>
 				</tr>
 				<tr>
 					<th align="right">商品图片:</th>
@@ -199,6 +139,13 @@
 						<div id="showpic"></div>
 					</td>
 				</tr>
+				<tr>
+					<th align="right" style="padding-bottom: 0px">商品详情</th>
+					<td colspan="3">
+						<div id="content" class="easyui-textbox"
+							data-options="multiline:true" style="width: 600px; height: 90px"></div>
+					</td>
+				</tr>
 			</table>
 		</form>
 	</div>
@@ -210,9 +157,10 @@
 	function openGoodsAdd() {
 		$('#addGoodsForm').form('clear');
 		$('#addDl').dialog({
+			draggable : false,			
 			closed : false,
 			modal : true,
-			title : "添加分类",
+			title : "添加商品",
 			buttons : [ {
 				text : '确定',
 				iconCls : 'icon-ok',
@@ -229,9 +177,36 @@
 				}
 			} ]
 		});
-
+		
+		$.ajax({
+			url:'/goodscheck/reqGoodsClassName',
+			type:"GET",
+			success: function(data){
+				data = eval("("+data+")");
+				$('#codeids').combobox({
+					valueField:'ids',
+					textField:'name',
+					data:data.rows,
+				})	
+			}
+		});
+		
+		$.ajax({
+			url:'/goodscheck/reqSpUserName',
+			type:"GET",
+			success: function(data){
+				data = eval("("+data+")");
+				$('#vendorids').combobox({
+					valueField:'ids',
+					textField:'name',
+					data:data.rows,
+				})	
+			}
+		});
+		
 	}
-
+	
+	
 	/*
 	 * 全局加载数据
 	 */
@@ -264,7 +239,7 @@
 	function imgFormatter(value, row) {
 		var str = "";
 		if (value != "" || value != null) {
-			str = "<img style=\"height: 80px;width: 117px;\" src=\""+value+"\"/>";
+			str = "<img style=\"height: 75px;width: 110px;\" src=\""+value+"\"/>";
 			return str;
 		}
 	}
@@ -274,9 +249,15 @@
 	 */
 	function statesFormatter(value) {
 		if (value == "0") {
-			return '<span style="color:red">禁用</span>';
-		} else {
-			return '<span style="color:green">启用</span>';
+			return '<span style="color:black">待提交审核</span>';
+		} 
+		if (value == "1"){
+			return '<span style="color:green">审核通过</span>';
+		} 
+		if (value == '2'){
+			return '<span style="color:red">审核拒绝</span>';
+		}else{
+			return '<span style="color:yellow">已提交审核</span>';
 		}
 	}
 	
