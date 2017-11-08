@@ -88,9 +88,7 @@
 </div>
 
 <!-- 修改表格 -->
-<div id="wu-dialog-3" class="easyui-dialog"
-	data-options="closed:true,iconCls:'icon-save'"
-	style="width: 400px; padding: 10px;">
+<div id="wu-dialog-3" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width: 400px; padding: 10px;">
 	<form id="updateForm" method="post" enctype="multipart/form-data">
 		<table id="update">
 			<tr>

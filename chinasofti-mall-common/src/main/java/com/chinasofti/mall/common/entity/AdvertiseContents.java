@@ -2,7 +2,8 @@ package com.chinasofti.mall.common.entity;
 
 import java.math.BigDecimal;
 
-public class AdvertiseContents {
+
+public class AdvertiseContents{
     private String ids;
 
     private String title;
@@ -38,6 +39,7 @@ public class AdvertiseContents {
     private BigDecimal descs;
 
     private String isOuturl;
+   
 
     public String getIds() {
         return ids;

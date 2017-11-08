@@ -3,6 +3,9 @@ package com.chinasofti.mall.web.entrance.hystrix;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
 /**
@@ -13,6 +16,7 @@ import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
 * @date 2017年11月2日 下午5:54:08 
 * @version
  */
+@Component
 public class AdvertiseFeignClientHystrix implements AdvertiseFeignClient{
 
 	@Override

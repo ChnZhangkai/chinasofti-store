@@ -69,7 +69,9 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		AdvertiseContentsExample advertiseContentsExample = new AdvertiseContentsExample();
 		//条件判断
 		if(paramMap.containsKey("title")) {
-			advertiseContentsExample.createCriteria().andTitleLike("%"+paramMap.get("title").toString()+"%");
+			if(null != paramMap.get("title") && !"".equals(paramMap.get("title"))){
+				advertiseContentsExample.createCriteria().andTitleLike("%"+paramMap.get("title").toString()+"%");
+			}
 		};
 		if(paramMap.containsKey("type")) {
 			if(null != paramMap.get("type") && !"".equals(paramMap.get("type"))){
@@ -83,10 +85,14 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 			}	
 		};
 		//排序
-		advertiseContentsExample.setOrderByClause("ids ASC");
+		if(paramMap.containsKey("sort") && (paramMap.containsKey("order"))) {
+			if(null != paramMap.get("sort") && !"".equals(paramMap.get("sort")) && null != paramMap.get("order") && !"".equals(paramMap.get("order"))){
+				advertiseContentsExample.setOrderByClause(paramMap.get("sort")+" "+paramMap.get("order"));
+			}		
+		}
 		//执行分页查询
-		PageHelper.startPage(Integer.parseInt(paramMap.get("pageNumber").toString()),
-							Integer.parseInt(paramMap.get("pageSize").toString()));
+		PageHelper.startPage(Integer.parseInt(paramMap.get("page").toString()),
+							Integer.parseInt(paramMap.get("rows").toString()));
 		List<AdvertiseContents> list = advertiseMapper.selectByExample(advertiseContentsExample);
 		js.put("rows", list);
 		js.put("total", ((Page) list).getTotal());
