@@ -28,7 +28,7 @@ public interface SpMerchantUserFeignClient {
 	 * @param spUser
 	 * @return
 	 */
-	@RequestMapping(value = "/spUser/select" , method = RequestMethod.POST)
+	@RequestMapping(value = "/spUser/list" , method = RequestMethod.POST)
 	JSONObject selectBySpUser(@RequestBody(required = false) SpMerchantUser spMerchantUser);
 
 	/**
@@ -44,5 +44,19 @@ public interface SpMerchantUserFeignClient {
 	 */
 	@RequestMapping("/spUser/delete/{ids}")
 	String deleteById(@PathVariable("ids") String id) ;
+
+	/**
+	 * @param spMerchantUser
+	 * @return 
+	 */
+	@RequestMapping("/spUser/add")
+	int spUserAdd(SpMerchantUser spMerchantUser);
+
+	/**
+	 * @param spMerchantUser
+	 * @return
+	 */
+	@RequestMapping("/spUser/update")
+	int spUserUpdate(SpMerchantUser spMerchantUser);
 
 }

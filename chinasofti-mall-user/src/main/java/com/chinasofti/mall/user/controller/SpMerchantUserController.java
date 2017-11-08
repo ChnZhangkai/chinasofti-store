@@ -1,6 +1,5 @@
 package com.chinasofti.mall.user.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +31,7 @@ public class SpMerchantUserController {
 	 * @param spUser
 	 * @return
 	 */
-	@RequestMapping(value = "/select" , method = RequestMethod.POST)
+	@RequestMapping(value = "/list" , method = RequestMethod.POST)
 	public JSONObject selectByGoodsClass(@RequestBody(required = false)SpMerchantUser spMerchantUser){
 		return spUserService.selectByExample(spMerchantUser);
 		
@@ -52,14 +51,16 @@ public class SpMerchantUserController {
 	}
 
 	@RequestMapping(value="update" , method = RequestMethod.POST)
-	public String update(@RequestBody(required=false) SpMerchantUser spMerchantUser) {
-		spUserService.update(spMerchantUser);
-		return "update";
+	public int update(@RequestBody(required=false) SpMerchantUser spMerchantUser) {
+		int test = spUserService.update(spMerchantUser);
+		System.out.println("test:"+test);
+		return test;
+		
 	}
 
 	@RequestMapping(value="add" , method = RequestMethod.POST)
-	public String add(@RequestBody(required=false) SpMerchantUser spMerchantUser) {
-		spUserService.save(spMerchantUser);
-		return "add";
+	public int add(@RequestBody(required=false) SpMerchantUser spMerchantUser) {
+		return spUserService.save(spMerchantUser);
+		
 	}
 }
