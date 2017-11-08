@@ -10,6 +10,7 @@
     <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
     <result column="POSITION_NAME" property="positionName" jdbcType="VARCHAR" />
     <result column="STATES" property="states" jdbcType="CHAR" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
     <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
     <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
     <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
@@ -79,7 +80,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    IDS, TITLE, URL, CONTENS, IMAGEURL, CATEGORY_NAME, POSITION_NAME, STATES, CREATE_BY, 
+    IDS, TITLE, URL, CONTENS, IMAGEURL, CATEGORY_NAME, POSITION_NAME, STATES, TYPE, CREATE_BY, 
     CREATE_TIME, UPDATE_BY, UPDATE_TIME, BEGIN_TIME, END_TIME, POSITION_ID, DESCS, IS_OUTURL
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.AdvertiseContentsExample" >
@@ -115,16 +116,18 @@
   <insert id="insert" parameterType="com.chinasofti.mall.common.entity.AdvertiseContents" >
     insert into advertise_contents (IDS, TITLE, URL, 
       CONTENS, IMAGEURL, CATEGORY_NAME, 
-      POSITION_NAME, STATES, CREATE_BY, 
-      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
-      BEGIN_TIME, END_TIME, POSITION_ID, 
-      DESCS, IS_OUTURL)
+      POSITION_NAME, STATES, TYPE, 
+      CREATE_BY, CREATE_TIME, UPDATE_BY, 
+      UPDATE_TIME, BEGIN_TIME, END_TIME, 
+      POSITION_ID, DESCS, IS_OUTURL
+      )
     values (#{ids,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{contens,jdbcType=VARCHAR}, #{imageurl,jdbcType=VARCHAR}, #{categoryName,jdbcType=VARCHAR}, 
-      #{positionName,jdbcType=VARCHAR}, #{states,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
-      #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{positionId,jdbcType=VARCHAR}, 
-      #{descs,jdbcType=DECIMAL}, #{isOuturl,jdbcType=CHAR})
+      #{positionName,jdbcType=VARCHAR}, #{states,jdbcType=CHAR}, #{type,jdbcType=CHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=VARCHAR}, #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{positionId,jdbcType=VARCHAR}, #{descs,jdbcType=DECIMAL}, #{isOuturl,jdbcType=CHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.AdvertiseContents" >
     insert into advertise_contents
@@ -152,6 +155,9 @@
       </if>
       <if test="states != null" >
         STATES,
+      </if>
+      <if test="type != null" >
+        TYPE,
       </if>
       <if test="createBy != null" >
         CREATE_BY,
@@ -205,6 +211,9 @@
       </if>
       <if test="states != null" >
         #{states,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
       </if>
       <if test="createBy != null" >
         #{createBy,jdbcType=VARCHAR},
@@ -268,6 +277,9 @@
       <if test="record.states != null" >
         STATES = #{record.states,jdbcType=CHAR},
       </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=CHAR},
+      </if>
       <if test="record.createBy != null" >
         CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
       </if>
@@ -310,6 +322,7 @@
       CATEGORY_NAME = #{record.categoryName,jdbcType=VARCHAR},
       POSITION_NAME = #{record.positionName,jdbcType=VARCHAR},
       STATES = #{record.states,jdbcType=CHAR},
+      TYPE = #{record.type,jdbcType=CHAR},
       CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
       CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
       UPDATE_BY = #{record.updateBy,jdbcType=VARCHAR},
@@ -346,6 +359,9 @@
       </if>
       <if test="states != null" >
         STATES = #{states,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
       </if>
       <if test="createBy != null" >
         CREATE_BY = #{createBy,jdbcType=VARCHAR},
@@ -386,6 +402,7 @@
       CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
       POSITION_NAME = #{positionName,jdbcType=VARCHAR},
       STATES = #{states,jdbcType=CHAR},
+      TYPE = #{type,jdbcType=CHAR},
       CREATE_BY = #{createBy,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=VARCHAR},
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},

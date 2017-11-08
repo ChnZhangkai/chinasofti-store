@@ -52,7 +52,7 @@ public interface AdvertiseFeignClient {
 	* @throws:
 	*/
 	@RequestMapping(value = "/advertise/add")
-	public String add(@RequestBody(required = false) AdvertiseContents cmsAdContentsWithBLOBs);
+	public String add(@RequestBody(required = false) AdvertiseContents advertiseContents);
 	
 	/**
 	* @Title: update
@@ -62,7 +62,7 @@ public interface AdvertiseFeignClient {
 	* @throws:
 	*/
 	@RequestMapping(value = "/advertise/update")
-	public String update(@RequestBody(required = false) AdvertiseContents cmsAdContentsWithBLOBs);
+	public String update(@RequestBody(required = false) AdvertiseContents advertiseContents);
 	
 	
 	

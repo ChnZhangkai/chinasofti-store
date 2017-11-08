@@ -19,6 +19,8 @@ public class AdvertiseContents {
 
     private String states;
 
+    private String type;
+
     private String createBy;
 
     private String createTime;
@@ -101,6 +103,14 @@ public class AdvertiseContents {
         this.states = states == null ? null : states.trim();
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
     public String getCreateBy() {
         return createBy;
     }
@@ -172,4 +182,15 @@ public class AdvertiseContents {
     public void setIsOuturl(String isOuturl) {
         this.isOuturl = isOuturl == null ? null : isOuturl.trim();
     }
+
+	@Override
+	public String toString() {
+		return "AdvertiseContents [ids=" + ids + ", title=" + title + ", url=" + url + ", contens=" + contens
+				+ ", imageurl=" + imageurl + ", categoryName=" + categoryName + ", positionName=" + positionName
+				+ ", states=" + states + ", type=" + type + ", createBy=" + createBy + ", createTime=" + createTime
+				+ ", updateBy=" + updateBy + ", updateTime=" + updateTime + ", beginTime=" + beginTime + ", endTime="
+				+ endTime + ", positionId=" + positionId + ", descs=" + descs + ", isOuturl=" + isOuturl + "]";
+	}
+    
+    
 }

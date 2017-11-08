@@ -3,15 +3,19 @@ package com.chinasofti.mall.advertise.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.chinasofti.mall.advertise.service.IAdvertiseService;
 import com.chinasofti.mall.common.controller.BaseController;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
-import com.chinasofti.mall.common.entity.Message;
+import net.sf.json.JSONObject;
 
 /**
  * 
@@ -27,6 +31,9 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 
 	@Autowired
 	IAdvertiseService advertiseService;
+	
+	
+	private static final Logger logger = LoggerFactory.getLogger(AdvertiseController.class);
 
 	@Override
 	@RequestMapping("findAll")
@@ -41,24 +48,40 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 	}
 
 	@Override
-	@RequestMapping("deleteById/{id}")
-	public String deleteById(@PathVariable String id) {
-		advertiseService.deleteById(id);
-		return "";
+	@RequestMapping("deleteById")
+	public String deleteById(@RequestParam("id") String id) {
+		JSONObject jsonObject = new JSONObject();
+		int row = advertiseService.deleteById(id);
+		if(row <= 0) {
+			jsonObject.put("errorMsg", "删除失败！");			
+		}else {
+			jsonObject.put("success", "删除成功！");
+		}
+		return jsonObject.toString();
 	}
 
 	@Override
 	@RequestMapping("update")
-	public String update(AdvertiseContents t) {
-		advertiseService.update(t);
-		return "";
+	public String update(@RequestBody(required=false) AdvertiseContents advertiseContents) {
+		logger.info(">>>>>>>>>>>>>>>>>>>advertiseContents:"+advertiseContents);
+		JSONObject jsonObject = new JSONObject();
+		int row = advertiseService.update(advertiseContents);
+		if(row <= 0) {
+			jsonObject.put("errorMsg", "更新失败");			
+		}
+		return jsonObject.toString();
 	}
 
 	@Override
 	@RequestMapping("add")
-	public String add(AdvertiseContents t) {
-		advertiseService.save(t);
-		return "";
+	public String add(@RequestBody(required=false) AdvertiseContents advertiseContents) {
+		logger.info(">>>>>>>>>>>>>>>>>>>advertiseContents:"+advertiseContents);
+		JSONObject jsonObject = new JSONObject();
+		int row = advertiseService.save(advertiseContents);
+		if(row <= 0) {
+			jsonObject.put("errorMsg", "添加失败");			
+		}
+		return jsonObject.toString();
 	}
 
 	/**
@@ -74,22 +97,7 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 		return advertiseService.findByPage(map);
 	}
 
-	// 判断更新或者添加
-	@RequestMapping("addOrUpdate")
-	public Message addOrUpdate(AdvertiseContents advertiseContents) {
-		Message message = new Message();
-		if (null != advertiseContents.getIds() && !advertiseContents.getIds().isEmpty()) {
-			if (advertiseService.update(advertiseContents) <= 0) {
-				message.setErrorMsg("更新失败");
-			}
-
-		} else {
-			if (advertiseService.save(advertiseContents) <= 0) {
-				message.setErrorMsg("添加失败");
-			}
-		}
-		return message;
-	}
+	
 
 	@RequestMapping("batchAdd")
 	public void batchAdd() {
