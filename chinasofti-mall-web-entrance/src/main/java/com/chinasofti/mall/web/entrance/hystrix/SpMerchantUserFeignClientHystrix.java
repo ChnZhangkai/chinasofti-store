@@ -44,4 +44,16 @@ public class SpMerchantUserFeignClientHystrix implements SpMerchantUserFeignClie
 		return null;
 	}
 
+
+	@Override
+	public int spUserAdd(SpMerchantUser spMerchantUser) {
+		return 0;
+		
+	}
+
+	@Override
+	public int spUserUpdate(SpMerchantUser spMerchantUser) {
+		return 0;
+	}
+
 }

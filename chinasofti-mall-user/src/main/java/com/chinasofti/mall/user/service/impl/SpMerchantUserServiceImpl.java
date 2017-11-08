@@ -55,6 +55,7 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 	
 	@Override
 	public int update(SpMerchantUser spMerchantUser) {
+		System.out.println("商户负责人："+spMerchantUser.getLinkman());
 		return spUserMapper.updateByPrimaryKeySelective(spMerchantUser);
 	}
 
