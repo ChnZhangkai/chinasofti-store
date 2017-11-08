@@ -14,7 +14,7 @@
   	<module>chinasofti-mall-advertise</module>
   	<module>chinasofti-mall-app</module>
   	<module>chinasofti-mall-goodsorder</module>
-  	<module>chinasofti-mall-goodsclass</module>
+  	<module>chinasofti-mall-goods</module>
   	<module>chinasofti-mall-zuul</module>
     <module>chinasofti-mall-shiro</module>
 	<module>chinasofti-mall-user</module>
