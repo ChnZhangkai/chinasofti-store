@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan("com.chinasofti.mall.goodsclass.mapper")
+@MapperScan("com.chinasofti.mall.goods.mapper")
 public class ChnGoodsClassApplication {
 	
 	public static void main(String[] args) {
