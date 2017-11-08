@@ -1,4 +1,4 @@
-package com.chinasofti.mall.sp.user.service.impl;
+package com.chinasofti.mall.user.service.impl;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample.Criteria;
-import com.chinasofti.mall.sp.user.mapper.SpMerchantUserMapper;
-import com.chinasofti.mall.sp.user.service.SpMerchantUserService;
+import com.chinasofti.mall.user.mapper.SpMerchantUserMapper;
+import com.chinasofti.mall.user.service.SpMerchantUserService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 

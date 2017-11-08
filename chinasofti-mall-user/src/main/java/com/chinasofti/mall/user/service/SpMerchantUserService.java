@@ -1,4 +1,4 @@
-package com.chinasofti.mall.sp.user.service;
+package com.chinasofti.mall.user.service;
 
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.common.service.IBaseService;

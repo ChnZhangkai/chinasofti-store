@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.mall.common.entity.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.goodsclass.service.impl.ChnGoodsClassServiceImpl;
 
 import net.sf.json.JSONObject;

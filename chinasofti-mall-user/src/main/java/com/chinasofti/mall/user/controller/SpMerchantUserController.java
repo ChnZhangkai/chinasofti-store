@@ -1,4 +1,4 @@
-package com.chinasofti.mall.sp.user.controller;
+package com.chinasofti.mall.user.controller;
 
 import java.util.List;
 
@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
-import com.chinasofti.mall.sp.user.service.SpMerchantUserService;
+import com.chinasofti.mall.user.service.SpMerchantUserService;
 
 import net.sf.json.JSONObject;
 

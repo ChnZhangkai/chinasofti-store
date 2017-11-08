@@ -4,6 +4,7 @@
 package com.chinasofti.mall.web.entrance.feign;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,7 @@ import net.sf.json.JSONObject;
  * @Date: 2017年11月2日 下午4:53:01
  * @parma <T>
  */
-@FeignClient(name = "sp-userService" , fallback = SpMerchantUserFeignClientHystrix.class)
+@FeignClient(name = "userService" , fallback = SpMerchantUserFeignClientHystrix.class)
 public interface SpMerchantUserFeignClient {
 
 	/**
@@ -29,5 +30,19 @@ public interface SpMerchantUserFeignClient {
 	 */
 	@RequestMapping(value = "/spUser/select" , method = RequestMethod.POST)
 	JSONObject selectBySpUser(@RequestBody(required = false) SpMerchantUser spMerchantUser);
+
+	/**
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/spUser/select/{ids}")
+	public SpMerchantUser selectSpUserById(@PathVariable("ids") String id);
+
+	/**
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/spUser/delete/{ids}")
+	String deleteById(@PathVariable("ids") String id) ;
 
 }

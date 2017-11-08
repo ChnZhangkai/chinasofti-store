@@ -1,4 +1,4 @@
-package com.chinasofti.mall.sp.user.mapper;
+package com.chinasofti.mall.user.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
