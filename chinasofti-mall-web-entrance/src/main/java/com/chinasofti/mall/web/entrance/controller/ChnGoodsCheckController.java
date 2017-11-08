@@ -45,6 +45,10 @@ public class ChnGoodsCheckController {
 		
 	}
 	
+	/**
+	 * 商品添加页查询商户名称
+	 * @return
+	 */
 	@RequestMapping("/reqSpUserName")
 	public String reqSpUserName(){
 		
@@ -54,6 +58,28 @@ public class ChnGoodsCheckController {
 		return spUser.toString();
 	}
 	
+	/**
+	 * 富文本编辑器多图保存
+	 * @return 
+	 */
+	@RequestMapping("/saveMoreImages")
+	public String saveMoreImages(){
+		
+//		String htmlText = new ActionEnter( getRequest(), PathKit.getWebRootPath() + File.separator ).exec();
+//		renderHtml(htmlText);
+		
+		return "";
+		
+	}
 	
 	
 }
+
+
+
+
+
+
+
+
+
