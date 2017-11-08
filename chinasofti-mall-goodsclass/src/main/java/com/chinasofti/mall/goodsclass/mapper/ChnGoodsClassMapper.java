@@ -1,9 +1,10 @@
 package com.chinasofti.mall.goodsclass.mapper;
 
-import com.chinasofti.mall.common.entity.ChnGoodsClass;
-import com.chinasofti.mall.common.entity.ChnGoodsClassExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample;
 
 public interface ChnGoodsClassMapper {
     int countByExample(ChnGoodsClassExample example);
