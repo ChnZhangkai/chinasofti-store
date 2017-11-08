@@ -69,7 +69,7 @@
 	<!-- 商品添加表格 -->
 	<div id="addDl" class="easyui-dialog"
 		data-options="closed:true,iconCls:'icon-add',inline:true"
-		style="width: 100%; height: 100%; padding: 10px;">
+		style="width: 100%; height: 100%; padding: 10px;background-image: url(images/goodsdiv.jpg)">
 		<form id="addGoodsForm">
 			<table>
 				<tr>
@@ -110,40 +110,31 @@
 					<th align="right">首次录入库存</th>
 					<td><input type="text" style="width: 180px;"
 						class="easyui-textbox" /></td>
-					<th align="right">运费模板</th>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'">
-							<option>1</option>
-							<option>1</option>
-							<option>1</option>
-					</select></td>
-				</tr>
-				<tr>
 					<th align="right">每个用户限购数量</th>
 					<td><input type="text" style="width: 180px;"
 						class="easyui-textbox" /> <span><font
 							style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
-					<th align="right">每笔订单限购数量</th>
-					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" /></td>
 				</tr>
 				<tr>
 					<th align="right">商品图片:</th>
 					<td><input id="img" name="img" class="easyui-filebox"
 						style="width: 180px;"
 						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
+					<th align="right">每笔订单限购数量</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" /></td>
 				</tr>
 				<tr>
-
 					<td></td>
 					<td>
-						<div id="showpic"></div>
+						<div id="showGoodsPic"></div>
 					</td>
 				</tr>
+				
 				<tr>
 					<th align="right" style="padding-bottom: 0px">商品详情</th>
 					<td colspan="3">
-						<div id="content" class="easyui-textbox"
-							data-options="multiline:true" style="width: 600px; height: 90px"></div>
+						<script id="container" name="content" type="text/plain"></script>
 					</td>
 				</tr>
 			</table>
@@ -154,6 +145,12 @@
 
 
 <script type="text/javascript">
+	
+	var ue = UE.getEditor('container',{
+		initialFrameWidth:1000,  //初始化编辑器宽度,默认1000  
+        initialFrameHeight:140  //初始化编辑器高度,默认320
+	});
+
 	function openGoodsAdd() {
 		$('#addGoodsForm').form('clear');
 		$('#addDl').dialog({
@@ -173,7 +170,8 @@
 				handler : function() {
 					$('#addDl').dialog('close');
 					$('#addGoodsForm').form('reset');
-					document.getElementById("readPic").innerHTML = "";
+					ue.setContent('');
+					document.getElementById("showGoodsPic").innerHTML = "";
 				}
 			} ]
 		});
@@ -202,7 +200,7 @@
 					data:data.rows,
 				})	
 			}
-		});
+		}); 
 		
 	}
 	
@@ -286,10 +284,10 @@
 		// 将文件以二进制文件读入页面中
 		reader.readAsBinaryString(simpleFile);
 		reader.onload = function(f) {
-			var result = document.getElementById("showpic");
+			var result = document.getElementById("showGoodsPic");
 			var src = "data:" + simpleFile.type + ";base64,"
 					+ window.btoa(this.result);
-			result.innerHTML = '<img id="readPic" style="height: 130px;width: 200px;" src ="' + src + '"/>';
+			result.innerHTML = '<img id="readGoodsPic" style="height: 130px;width: 200px;" src ="' + src + '"/>';
 		}
 		//document.getElementById("showpic").style.display="";
 	}

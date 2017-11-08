@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsClassFeignClient;
+import com.chinasofti.mall.web.entrance.feign.SpMerchantUserFeignClient;
 
 import net.sf.json.JSONObject;
 
@@ -18,7 +20,7 @@ public class ChnGoodsCheckController {
 	ChnGoodsClassFeignClient chnGoodsClassFeignClient;
 	
 	@Autowired
-	
+	SpMerchantUserFeignClient spMerchantUserFeignClient;
 	
 	/**
 	 * 返回主界面
@@ -46,8 +48,10 @@ public class ChnGoodsCheckController {
 	@RequestMapping("/reqSpUserName")
 	public String reqSpUserName(){
 		
+		SpMerchantUser spMerchantUser = new SpMerchantUser();
+		JSONObject spUser = spMerchantUserFeignClient.selectBySpUser(spMerchantUser);
 		
-		return "";
+		return spUser.toString();
 	}
 	
 	
