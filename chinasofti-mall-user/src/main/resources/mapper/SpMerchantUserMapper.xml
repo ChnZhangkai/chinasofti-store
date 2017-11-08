@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.chinasofti.mall.sp.user.mapper.SpMerchantUserMapper" >
+<mapper namespace="com.chinasofti.mall.user.mapper.SpMerchantUserMapper" >
   <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.spuser.SpMerchantUser" >
     <id column="IDS" property="ids" jdbcType="VARCHAR" />
     <result column="USER_IDS" property="userIds" jdbcType="VARCHAR" />

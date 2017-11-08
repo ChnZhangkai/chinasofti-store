@@ -6,9 +6,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample.Criteria;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.ChnGoodsClassExample;
+import com.chinasofti.mall.common.entity.ChnGoodsClassExample.Criteria;
 import com.chinasofti.mall.goodsclass.mapper.ChnGoodsClassMapper;
 import com.chinasofti.mall.goodsclass.service.ChnGoodsClassService;
 import com.github.pagehelper.Page;

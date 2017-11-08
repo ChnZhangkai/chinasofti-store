@@ -1,4 +1,4 @@
-package com.chinasofti.mall.common.entity.goods;
+package com.chinasofti.mall.common.entity;
 
 import java.util.ArrayList;
 import java.util.List;

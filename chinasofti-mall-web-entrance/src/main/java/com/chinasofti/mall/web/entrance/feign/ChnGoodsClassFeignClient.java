@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.ChnGoodsClass;
 import com.chinasofti.mall.web.entrance.hystrix.SpGoodsClassFeignClientHystrix;
 
 import net.sf.json.JSONObject;

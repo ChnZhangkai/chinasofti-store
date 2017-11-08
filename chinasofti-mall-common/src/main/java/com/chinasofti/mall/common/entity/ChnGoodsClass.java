@@ -1,4 +1,4 @@
-package com.chinasofti.mall.common.entity.goods;
+package com.chinasofti.mall.common.entity;
 
 import com.chinasofti.mall.common.utils.PageBean;
 
