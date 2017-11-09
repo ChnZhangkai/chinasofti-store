@@ -1,10 +1,17 @@
 package com.chinasofti.mall.web.entrance.controller;
 
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baidu.ueditor.ActionEnter;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsClassFeignClient;
@@ -61,14 +68,18 @@ public class ChnGoodsCheckController {
 	/**
 	 * 富文本编辑器多图保存
 	 * @return 
+	 * @throws UnsupportedEncodingException 
 	 */
-	@RequestMapping("/saveMoreImages")
-	public String saveMoreImages(){
+	@RequestMapping("/ueditor")
+	@ResponseBody
+	public String ueUpload(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
 		
-//		String htmlText = new ActionEnter( getRequest(), PathKit.getWebRootPath() + File.separator ).exec();
-//		renderHtml(htmlText);
-		
-		return "";
+		//这里就是把controller.jsp代码copy下来
+        request.setCharacterEncoding( "utf-8" );
+        response.setHeader("Content-Type" , "text/html");
+        String roolPath = request.getSession().getServletContext().getRealPath("/");
+        String configStr = new ActionEnter(request, roolPath).exec();
+        return configStr;
 		
 	}
 	

@@ -55,8 +55,28 @@
 			<artifactId>chinasofti-mall-common</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/cn.songxinqiang/com.baidu.ueditor -->
+		
+		<!--UEditor依赖的jar包 -->  
+                <dependency>  
+                    <groupId>org.json</groupId>  
+                    <artifactId>json</artifactId>  
+                </dependency>  
+                <dependency>  
+                    <groupId>commons-fileupload</groupId>  
+                    <artifactId>commons-fileupload</artifactId>  
+                    <version>1.3.2</version>  
+                </dependency>  
+                <dependency>  
+                    <groupId>commons-codec</groupId>  
+                    <artifactId>commons-codec</artifactId>  
+                    <version>1.9</version>  
+                </dependency>  
+		
+				<dependency>
+				    <groupId>com.blingblingbang</groupId>
+				    <artifactId>ueditor</artifactId>
+				    <version>1.1.2</version>
+				</dependency>
 
 
 	</dependencies>
