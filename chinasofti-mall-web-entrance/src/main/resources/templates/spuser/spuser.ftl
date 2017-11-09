@@ -133,31 +133,18 @@
 			<tr>
 				<td align="right">商户负责人:</td>
                 <td><input id="chargeman" name="chargeman" class="wu-text" /></td>
-           
-                <td align="right">商户联系人:</td>
-                <td><input id="linkman" name="linkman" class="wu-text" /></td>
+           		<td align="right">联系手机号:</td>
+                <td><input id="mobile" name="mobile" class="wu-text" /></td>
+                
 			</tr>
 			
-			<tr>
-				<td align="right">联系电话:</td>
-                <td><input id="phone" name="phone" class="wu-text" /></td>
-           
-                <td align="right">联系手机号:</td>
-                <td><input id="mobile" name="mobile" class="wu-text" /></td>
-			</tr>
+			
 			 <tr>
                 <td align="right">通讯地址:</td>
                 <td><input id="address" name="address" class="wu-text" /></td>
-                
-                <td align="right">供应商结算账号:</td>
-                <td><input id="accno" name="accno" class="wu-text" /></td>
-            </tr>
-            <tr>
-                <td align="right">供应商开户行:</td>
-                <td><input id="accbank" name="accbank" class="wu-text" /></td>
-                
                 <td align="right">邮箱:</td>
                 <td><input id="email" name="email" class="wu-text" /></td>
+                
             </tr>
             <tr>
                 <td align="right">拓展网点名称:</td>
@@ -362,7 +349,6 @@ $(function(){
     		type:'POST',
     		data:$('#spUserUpdate').serialize(),
     		success:function(data){
-    		alert(data);
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
     				$('#spUserUpdateDialog').dialog('close');
