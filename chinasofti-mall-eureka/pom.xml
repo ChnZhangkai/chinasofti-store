@@ -7,7 +7,7 @@
 		<artifactId>chinasofti-mall</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	<artifactId>chinasofti-mall-eureka-center</artifactId>
+	<artifactId>chinasofti-mall-eureka</artifactId>
 	<packaging>jar</packaging>
 
 	<properties>
