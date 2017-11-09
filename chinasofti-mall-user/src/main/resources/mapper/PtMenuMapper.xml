@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.user.mapper.PtMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.PtMenu" >
+    <result column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="MENUNAME" property="menuname" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="PIDS" property="pids" jdbcType="VARCHAR" />
+    <result column="CERATETIME" property="ceratetime" jdbcType="VARCHAR" />
+    <result column="CREATEBY" property="createby" jdbcType="VARCHAR" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="VARCHAR" />
+    <result column="UPDATEBY" property="updateby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, MENUNAME, URL, PIDS, CERATETIME, CREATEBY, UPDATETIME, UPDATEBY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PtMenuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pt_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.PtMenuExample" >
+    delete from pt_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PtMenu" >
+    insert into pt_menu (IDS, MENUNAME, URL, 
+      PIDS, CERATETIME, CREATEBY, 
+      UPDATETIME, UPDATEBY)
+    values (#{ids,jdbcType=VARCHAR}, #{menuname,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{pids,jdbcType=VARCHAR}, #{ceratetime,jdbcType=VARCHAR}, #{createby,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=VARCHAR}, #{updateby,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PtMenu" >
+    insert into pt_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="menuname != null" >
+        MENUNAME,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="pids != null" >
+        PIDS,
+      </if>
+      <if test="ceratetime != null" >
+        CERATETIME,
+      </if>
+      <if test="createby != null" >
+        CREATEBY,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="menuname != null" >
+        #{menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="pids != null" >
+        #{pids,jdbcType=VARCHAR},
+      </if>
+      <if test="ceratetime != null" >
+        #{ceratetime,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.PtMenuExample" resultType="java.lang.Integer" >
+    select count(*) from pt_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pt_menu
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuname != null" >
+        MENUNAME = #{record.menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pids != null" >
+        PIDS = #{record.pids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ceratetime != null" >
+        CERATETIME = #{record.ceratetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createby != null" >
+        CREATEBY = #{record.createby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        UPDATETIME = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateby != null" >
+        UPDATEBY = #{record.updateby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pt_menu
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      MENUNAME = #{record.menuname,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      PIDS = #{record.pids,jdbcType=VARCHAR},
+      CERATETIME = #{record.ceratetime,jdbcType=VARCHAR},
+      CREATEBY = #{record.createby,jdbcType=VARCHAR},
+      UPDATETIME = #{record.updatetime,jdbcType=VARCHAR},
+      UPDATEBY = #{record.updateby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectByPrimaryKey" parameterType="string" resultType="com.chinasofti.mall.common.entity.PtMenu">
+  	select IDS,MENUNAME,PIDS,URL from pt_menu where IDS=#{id}
+  </select>
+  <select id="selectByPid" parameterType="string" resultType="com.chinasofti.mall.common.entity.PtMenu">
+  	select IDS,MENUNAME,PIDS,URL from pt_menu where PIDS=#{id}
+  </select>
+</mapper>

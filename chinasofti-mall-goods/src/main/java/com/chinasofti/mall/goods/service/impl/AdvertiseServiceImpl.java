@@ -111,4 +111,22 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 
 	}
 
+	@Override
+	/**
+	 * 根据位置Id查找广告列表和单条广告
+	 * @throws Exception 
+	 */
+	public List<AdvertiseContents> queryAdvertiseList(AdvertiseContents record){
+
+		return advertiseMapper.selectAdvertiseList(record);
+	} 
+
+	
+
+	@Override
+	public AdvertiseContents queryAdvertise(String positionId){
+
+		return advertiseMapper.selectSingleAdvertise(positionId);
+	} 
+
 }
