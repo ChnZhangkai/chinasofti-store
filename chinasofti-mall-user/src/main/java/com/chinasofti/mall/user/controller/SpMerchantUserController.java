@@ -1,6 +1,8 @@
 package com.chinasofti.mall.user.controller;
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,7 @@ import net.sf.json.JSONObject;
 @RestController
 @RequestMapping("/spUser")
 public class SpMerchantUserController {
+	
 	@Autowired
 	private SpMerchantUserService spUserService;
 	
@@ -52,9 +55,7 @@ public class SpMerchantUserController {
 
 	@RequestMapping(value="update" , method = RequestMethod.POST)
 	public int update(@RequestBody(required=false) SpMerchantUser spMerchantUser) {
-		int test = spUserService.update(spMerchantUser);
-		System.out.println("test:"+test);
-		return test;
+		return spUserService.update(spMerchantUser);
 		
 	}
 
@@ -63,4 +64,6 @@ public class SpMerchantUserController {
 		return spUserService.save(spMerchantUser);
 		
 	}
+	
+
 }
