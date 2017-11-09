@@ -83,6 +83,10 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		if ((mainGoodsorder.getContName()) != null && !(mainGoodsorder.getContName()).equals(compare)) {
 			criteria.andContNameLike("%" + mainGoodsorder.getContName() + "%");
 		}
+		
+		if ((mainGoodsorder.getPayway()) != null && !(mainGoodsorder.getPayway()).equals(compare)) {
+			criteria.andPaywayLike("%" + mainGoodsorder.getPayway() + "%");
+		}
 
 		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
