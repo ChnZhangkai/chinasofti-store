@@ -22,4 +22,6 @@ public interface IAdvertiseService extends IBaseService<AdvertiseContents> {
 	* @throws:
 	 */
 	public String findByPage(Map<String,Object> paramMap);
+	
+	public int pubOrCanAdvertise(Map<String, Object> map);
 }
