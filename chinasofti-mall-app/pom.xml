@@ -37,6 +37,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-feign</artifactId>
 		</dependency>
-		
-	</dependencies>
+
+		<dependency>
+			<groupId>com.chinasofti.mall</groupId>
+			<artifactId>chinasofti-mall-common</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+  </dependencies>
 </project>

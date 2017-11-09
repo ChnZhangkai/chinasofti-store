@@ -145,4 +145,17 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 
 	}
 
+	/**
+	 * 根据位置Id查找广告列表和单条广告
+	 */
+	@RequestMapping("findAdvertiseList")
+	public List<AdvertiseContents> findAdvertiseList(@RequestBody AdvertiseContents advertiseContents ){
+		
+		return advertiseService.queryAdvertiseList(advertiseContents);
+   }
+	
+	@RequestMapping("findAdvertise/{positionId}")
+	public AdvertiseContents findAdvertise(@PathVariable String positionId) {
+		return advertiseService.queryAdvertise(positionId);
+	}
 }
