@@ -15,7 +15,6 @@
   	<module>chinasofti-mall-goodsorder</module>
   	<module>chinasofti-mall-goods</module>
   	<module>chinasofti-mall-zuul</module>
-    <module>chinasofti-mall-shiro</module>
 	<module>chinasofti-mall-user</module>
 
   </modules>
