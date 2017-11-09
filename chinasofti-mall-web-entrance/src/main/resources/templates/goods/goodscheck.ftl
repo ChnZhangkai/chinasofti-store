@@ -71,49 +71,49 @@
 	<div id="addDl" class="easyui-dialog"
 		data-options="closed:true,iconCls:'icon-add',inline:true"
 		style="width: 100%; height: 100%; padding: 10px;background-image: url(images/goodsdiv.jpg)">
-		<form id="addGoodsForm">
+		<form id="addGoodsForm"  enctype="multipart/form-data">
 			<table>
 				<tr>
 					<th align="right">商品名称</th>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox easyui-validatebox" name="title" data-options="required:true"/> <span><font
+						class="easyui-textbox easyui-validatebox" id="title" name="title" data-options="required:true"/> <span><font
 							style="color: #CCCCCC; font-size: 10px;">1-100位中文</font></span></td>
 					<th align="right">商品分类</th>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="codeids" name="code"></select></td>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="goodsClassIds" name="goodsClassIds"></select></td>
 				</tr>
 				<tr>
 					<th align="right">商品类型</th>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'">
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="type" name="type">
 							<option value="0">普通商品</option>
 							<option value="1">活动商品</option>
 					</select></td>
 					<th align="right">商户名称</th>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="vendorids" name="vendor"></select></td>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="vendorids" name="vendorids"></select></td>
 				</tr>
 				<tr>
 					<th align="right">开始日期</th>
-					<td><input type="text" class="easyui-datebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'true'" /></td>
+					<td><input type="text" class="easyui-datetimebox"
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'true'" id="createTime" name="createTime"/></td>
 					<th align="right">结束日期</th>
-					<td><input type="text" class="easyui-datebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'true'" /></td>
+					<td><input type="text" class="easyui-datetimebox"
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'true'" id="endTime" name="endTime"/></td>
 				</tr>
 				<tr>
 					<th align="right">规格</th>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" /></td>
+						class="easyui-textbox" id="standard" name="standard"/></td>
 					<th align="right">重量</th>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" /> <span><font
+						class="easyui-textbox" id="weight" name="weight"/> <span><font
 							style="color: #CCCCCC; font-size: 10px;">重量单位:KG</font></span></td>
 				</tr>
 				<tr>
-					<th align="right">首次录入库存</th>
+					<th align="right">首次录入库存数量</th>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" /></td>
+						class="easyui-textbox" id="collNum" name="collNum"/></td>
 					<th align="right">每个用户限购数量</th>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" /> <span><font
+						class="easyui-textbox" id="limitUserNum" name="limitUserNum"/> <span><font
 							style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
 				</tr>
 				<tr>
@@ -123,7 +123,7 @@
 						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
 					<th align="right">每笔订单限购数量</th>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" /></td>
+						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum"/></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -151,7 +151,7 @@
 		initialFrameWidth:1000,  //初始化编辑器宽度,默认1000  
         initialFrameHeight:140  //初始化编辑器高度,默认320
 	});
-
+	
 	function openGoodsAdd() {
 		$('#addGoodsForm').form('clear');
 		$('#addDl').dialog({
@@ -162,9 +162,7 @@
 			buttons : [ {
 				text : '确定',
 				iconCls : 'icon-ok',
-				handler : function() {
-
-				}
+				handler : addGoods
 			}, {
 				text : '取消',
 				iconCls : 'icon-cancel',
@@ -182,7 +180,7 @@
 			type:"GET",
 			success: function(data){
 				data = eval("("+data+")");
-				$('#codeids').combobox({
+				$('#goodsClassIds').combobox({
 					valueField:'ids',
 					textField:'name',
 					data:data.rows,
@@ -195,7 +193,6 @@
 			type:"GET",
 			success: function(data){
 				data = eval("("+data+")");
-				alert(data.rows)
 				$('#vendorids').combobox({
 					valueField:'vendorId',
 					textField:'vendorSnm',
@@ -206,6 +203,24 @@
 		
 	}
 	
+	function addGoods(){
+		/* var ueditorData = UE.getEditor('container').getContent();*/
+		
+		var formData = new FormData($("#addGoodsForm")[0]); 
+		   $.ajax({ 
+		     url:'/goodscheck/addGoods',
+		     type: 'POST', 
+		     data: formData, 
+		     async: false, 
+		     cache: false, 
+		     contentType: false, 
+		     processData: false, 
+		     success: function(data) {
+		     }, 
+		     error: function(data) {   
+		     } 
+		   }); 
+	}
 	
 	/*
 	 * 全局加载数据
