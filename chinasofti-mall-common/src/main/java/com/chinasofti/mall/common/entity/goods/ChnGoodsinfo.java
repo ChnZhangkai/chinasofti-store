@@ -2,7 +2,9 @@ package com.chinasofti.mall.common.entity.goods;
 
 import java.math.BigDecimal;
 
-public class ChnGoodsinfo {
+import com.chinasofti.mall.common.utils.PageBean;
+
+public class ChnGoodsinfo extends PageBean{
     private String ids;
 
     private String vendorids;

@@ -69,7 +69,7 @@ public interface ChnGoodsFeignClient {
 	public JSONObject selectByGoodsCheck(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck);
 	
 	/**
-	 * 根商品审核据ID删除
+	 * 商品审核根据ID删除
 	 * @param ids
 	 * @return
 	 */
