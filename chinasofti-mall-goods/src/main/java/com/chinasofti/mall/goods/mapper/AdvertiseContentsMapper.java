@@ -1,10 +1,13 @@
-package com.chinasofti.mall.goods.mapper.advertise;
+package com.chinasofti.mall.goods.mapper;
 
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertiseContentsExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+@Mapper
 public interface AdvertiseContentsMapper {
     int countByExample(AdvertiseContentsExample example);
 
@@ -27,4 +30,6 @@ public interface AdvertiseContentsMapper {
     int updateByPrimaryKeySelective(AdvertiseContents record);
 
     int updateByPrimaryKey(AdvertiseContents record);
+
+	int pubOrCanAdvertise(Map<String, Object> map);
 }

@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goods.controller.advertise;
+package com.chinasofti.mall.goods.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -98,7 +98,17 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 		logger.info(">>>>>>>>>>>>>>>>>>>>>>map:"+map.toString());
 		return advertiseService.findByPage(map);
 	}
-
+	
+	@RequestMapping("pubOrCanAdvertise")
+	public String pubOrCanAdvertise(@RequestParam Map<String, Object> map) {
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>map:" + map.toString());
+			JSONObject jsonObject = new JSONObject();
+			int row = advertiseService.pubOrCanAdvertise(map);
+			if (row <= 0) {
+				jsonObject.put("errorMsg", "操作失败");
+			}
+			return jsonObject.toString();
+	}
 	
 
 	@RequestMapping("batchAdd")

@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goods.controller.goodsclass;
+package com.chinasofti.mall.goods.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
