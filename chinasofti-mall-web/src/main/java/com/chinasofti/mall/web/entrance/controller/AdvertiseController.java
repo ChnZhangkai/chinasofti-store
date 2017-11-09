@@ -28,7 +28,7 @@ public class AdvertiseController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdvertiseController.class);
 	
-	private static final String basePath = System.getProperty("user.dir")  + "/src/main/resources/static/images/advertise";
+	private static final String basePath = System.getProperty("user.dir")  + "/src/main/resources/static/data/advertise";
 	@RequestMapping("/index")
 	public ModelAndView index() {
 		return new ModelAndView("/advertise/advertise");

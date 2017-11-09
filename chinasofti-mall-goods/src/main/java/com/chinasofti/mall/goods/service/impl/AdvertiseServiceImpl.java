@@ -31,6 +31,8 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	@Override
 	public int save(AdvertiseContents advertiseContents) {
 		advertiseContents.setIds(UUID.randomUUID().toString().replaceAll("-", ""));
+		//advertiseContents.setBeginTime((DateUtil.DadeFormat(advertiseContents.getBeginTime()))); 
+		//advertiseContents.setEndTime((DateUtil.DadeFormat(advertiseContents.getEndTime())));
 		return advertiseMapper.insertSelective(advertiseContents);
 	}
 
