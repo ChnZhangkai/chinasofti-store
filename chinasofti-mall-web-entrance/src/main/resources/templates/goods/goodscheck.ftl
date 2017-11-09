@@ -1,3 +1,4 @@
+
 <div id="auditlist" class="easyui-layout" data-options="fit:true">
 	<!-- Begin of toolbar -->
 	<div id="wu-toolbar-3" style="height: 15%">
@@ -194,9 +195,10 @@
 			type:"GET",
 			success: function(data){
 				data = eval("("+data+")");
+				alert(data.rows)
 				$('#vendorids').combobox({
-					valueField:'ids',
-					textField:'name',
+					valueField:'vendorId',
+					textField:'vendorSnm',
 					data:data.rows,
 				})	
 			}
