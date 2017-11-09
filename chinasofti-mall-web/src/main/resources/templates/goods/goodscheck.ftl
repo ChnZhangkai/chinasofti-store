@@ -2,19 +2,8 @@
 <div id="auditlist" class="easyui-layout" data-options="fit:true">
 	<!-- Begin of toolbar -->
 	<div id="wu-toolbar-3" style="height: 15%">
-		<div class="wu-toolbar-button">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-add"
-				onclick="openGoodsAdd()" plain="true">添加</a> <a href="#"
-				class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()"
-				plain="true">修改</a> <a href="#" class="easyui-linkbutton"
-				iconCls="icon-remove" onclick="remove()" plain="true">删除</a> <a
-				href="#" class="easyui-linkbutton" iconCls="icon-excel"
-				onclick="print()" plain="true">导出</a> <a href="#"
-				class="easyui-linkbutton" iconCls="icon-print" onclick="print()"
-				plain="true">打印</a>
-		</div>
-		<div class="wu-toolbar-search">
-			<form id="searchCheckForm">
+		<div class="wu-toolbar-search" style="border-bottom: 1px solid #DDDDDD">
+			<form id="searchCheckForm" style="margin: 0px">
 				<label>商品编号</label> <input type="text" id="goodsids" name="ids" class="easyui-textbox"/>
 				<label>商品名称</label> <input type="text" id="goodstitle" name="title" class="easyui-textbox"/>
 				<label>开始时间</label> <input type="text" id="goodsstarttime" name="starttime" class="easyui-datebox"/>
@@ -44,6 +33,15 @@
 					iconCls="icon-edit-clear" onclick="doClear()">清除</a>
 			</form>
 		</div>
+		<div class="wu-toolbar-button">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openGoodsAdd()" plain="true">添加</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" onclick="print()" plain="true">提交审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" onclick="print()" plain="true">撤销审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-chk-checked" onclick="print()" plain="true">商品审核</a>
+		</div>
 	</div>
 
 	<!-- 数据显示datagrid -->
@@ -51,13 +49,14 @@
 		style="height: 95%">
 		<thead>
 			<tr>
-				<th field="title" width="10%" align="center">商品名称</th>
+				<th field="title" width="20%" align="center">商品名称</th>
 				<th field="img" width="10%" align="center"
 					data-options="formatter:imgFormatter">商品图片</th>
-				<th field="price" width="15%" align="center">商品价格</th>
+				<th field="price" width="10%" align="center">商品价格</th>
 				<th field="vendorids" width="15%" align="center">商户名称</th>
 				<th field="goodsClassIds" width="25%" align="center">分类名称</th>
-				<th field="type" width="15%" align="center">商品类型</th>
+				<th field="type" width="10%" align="center"
+					data-options="formatter:typeFormatter">商品类型</th>
 				<th field="reviewStatues" width="10%" align="center"
 					data-options="formatter:statesFormatter">审核状态</th>
 			</tr>
@@ -260,7 +259,7 @@
 		//获取分页工具条元素
 		var pageId = $('#goodsCheckPagination');
 		//此处设置自己的url地址
-		var url = '/goods/list';
+		var url = '/goodsCheck/list';
 		//分页查询时传递查询条件
 		seachId = '#searchCheckForm';
 		//调用初始化方法	
@@ -278,7 +277,7 @@
 	function imgFormatter(value, row) {
 		var str = "";
 		if (value != "" || value != null) {
-			str = "<img style=\"height: 75px;width: 110px;\" src=\""+value+"\"/>";
+			str = "<img style=\"height: 75px;width: 110px;\" src=\""+ "data/goods/luoli.jpg" +"\"/>";
 			return str;
 		}
 	}
@@ -296,7 +295,15 @@
 		if (value == '2'){
 			return '<span style="color:red">审核拒绝</span>';
 		}else{
-			return '<span style="color:yellow">已提交审核</span>';
+			return '<span style="color:blue">已提交审核</span>';
+		}
+	}
+	
+	function typeFormatter(value){
+		if(value == "0"){
+			return '<span>普通商品</span>';
+		}else{
+			return '<span style="color:#FF00FF">活动商品</span>';
 		}
 	}
 	

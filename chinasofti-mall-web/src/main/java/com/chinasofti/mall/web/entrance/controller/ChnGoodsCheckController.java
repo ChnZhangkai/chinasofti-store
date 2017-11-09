@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,11 +28,11 @@ import com.chinasofti.mall.web.entrance.feign.SpMerchantUserFeignClient;
 import net.sf.json.JSONObject;
 
 @RestController
-@RequestMapping("/goodscheck")
+@RequestMapping("/goodsCheck")
 public class ChnGoodsCheckController {
 	
 	@Autowired
-	ChnGoodsFeignClient chnGoodsClassFeignClient;
+	ChnGoodsFeignClient chnGoodsFeignClient;
 	
 	@Autowired
 	SpMerchantUserFeignClient spMerchantUserFeignClient;
@@ -55,7 +56,7 @@ public class ChnGoodsCheckController {
 	public String reqGoodsClassName(){
 		
 		ChnGoodsClass chnGoodsClass = new ChnGoodsClass();
-		JSONObject goodsClass = chnGoodsClassFeignClient.selectByGoodsClass(chnGoodsClass);
+		JSONObject goodsClass = chnGoodsFeignClient.selectByGoodsClass(chnGoodsClass);
 		
 		return goodsClass.toString();
 		
@@ -72,6 +73,28 @@ public class ChnGoodsCheckController {
 		JSONObject spUser = spMerchantUserFeignClient.selectBySpUser(spMerchantUser);
 		
 		return spUser.toString();
+	}
+	
+	/**
+	 * 列表及条件查询
+	 * @param spGoodsClass
+	 * @return
+	 */
+	@RequestMapping("/list")
+	public String selectByGoodsCheck(ChnGoodsinfoCheck chnGoodsinfoCheck){
+		JSONObject jsonlist = chnGoodsFeignClient.selectByGoodsCheck(chnGoodsinfoCheck);
+		return jsonlist.toString();
+	}
+	
+	/**
+	 * 根据ID查询
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/select/{ids}")
+	public ChnGoodsinfoCheck selectByGoodsCheckById(@PathVariable String ids){
+		ChnGoodsinfoCheck chnGoodsinfoCheck = chnGoodsFeignClient.selectGoodsCheckById(ids);
+		return chnGoodsinfoCheck;
 	}
 	
 	/**

@@ -1,31 +1,27 @@
 <script type="text/javascript" src="js/common.js"></script>
 <div class="easyui-layout" data-options="fit:true">
 	<!-- Begin of toolbar -->
-	<div id="wu-toolbar-2" style="height: 12%">
-		<div class="wu-toolbar-button">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-add"
-				onclick="openAdd()" plain="true">添加</a> <a href="#"
-				class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()"
-				plain="true">修改</a> <a href="#" class="easyui-linkbutton"
-				iconCls="icon-remove" onclick="remove()" plain="true">删除</a> <a
-				href="#" class="easyui-linkbutton" iconCls="icon-excel"
-				onclick="print()" plain="true">导出</a> <a href="#"
-				class="easyui-linkbutton" iconCls="icon-print" onclick="print()"
-				plain="true">打印</a>
+	<div id="wu-toolbar-2" style="height: 10%">
+		<div class="wu-toolbar-search" style="border-bottom: 1px solid #DDDDDD">
+			<form id="searchForm" style="margin: 0px">
+				<label>分类名称</label> <input type="text" id="categoryname" name="name" class="easyui-textbox"/>
+				<label>分类描述</label> <input type="text" id="categorycommons" name="commons" class="easyui-textbox"/>
+				<label>创建员工</label> <input type="text" id="createbyname" name="createBy" class="easyui-textbox"/>
+				<label>状态</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="states" style="width: 125px">
+										<option selected="selected" value="">请选择</option>
+										<option value="0">禁用</option>
+										<option value="1">启用</option>
+									</select>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
+			    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
+			</form>	
 		</div>
-		<div class="wu-toolbar-search">
-		<form id="searchForm">
-			<label>分类名称</label> <input type="text" id="categoryname" name="name" class="easyui-textbox"/>
-			<label>分类描述</label> <input type="text" id="categorycommons" name="commons" class="easyui-textbox"/>
-			<label>创建员工</label> <input type="text" id="createbyname" name="createBy" class="easyui-textbox"/>
-			<label>状态</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="states" style="width: 125px">
-									<option selected="selected" value="">请选择</option>
-									<option value="0">禁用</option>
-									<option value="1">启用</option>
-								</select>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
-		</form>	
+		<div class="wu-toolbar-button">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印</a>
 		</div>
 	</div>
 	

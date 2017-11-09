@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.goods.service.impl.ChnGoodsClassServiceImpl;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
+import com.chinasofti.mall.goods.service.impl.ChnGoodsCheckServiceImpl;
 
 import net.sf.json.JSONObject;
 
@@ -22,7 +22,7 @@ import net.sf.json.JSONObject;
 public class ChnGoodsCheckController {
 	
 	@Autowired
-	private ChnGoodsClassServiceImpl spGoodsClassService;
+	private ChnGoodsCheckServiceImpl chnGoodsCheckService;
 	
 	/**
 	 * 列表及条件查询
@@ -30,8 +30,8 @@ public class ChnGoodsCheckController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
-	public JSONObject selectByGoodsClass(@RequestBody(required = false)ChnGoodsClass chnGoodsClass){
-		return spGoodsClassService.selectByExample(chnGoodsClass);
+	public JSONObject selectByGoodsCheck(@RequestBody(required = false)ChnGoodsinfoCheck chnGoodsinfoCheck){
+		return chnGoodsCheckService.selectByExample(chnGoodsinfoCheck);
 		
 	}
 	
@@ -41,8 +41,8 @@ public class ChnGoodsCheckController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select/{ids}" , method = RequestMethod.POST)
-	public ChnGoodsClass selectGoodsClassById(@PathVariable String ids){
-		return spGoodsClassService.findById(ids);
+	public ChnGoodsinfoCheck selectGoodsCheckById(@PathVariable String ids){
+		return chnGoodsCheckService.findById(ids);
 		
 	}
 	
@@ -52,8 +52,8 @@ public class ChnGoodsCheckController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
-	public int updateGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
-		return spGoodsClassService.update(chnGoodsClass);
+	public int updateGoodsCheck(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck){
+		return chnGoodsCheckService.update(chnGoodsinfoCheck);
 	}
 	
 	/**
@@ -62,8 +62,8 @@ public class ChnGoodsCheckController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete/{ids}" ,method = RequestMethod.POST)
-	public int deleteGoodsClassById(@PathVariable String ids){
-		return spGoodsClassService.deleteById(ids);
+	public int deleteGoodsCheckById(@PathVariable String ids){
+		return chnGoodsCheckService.deleteById(ids);
 	}
 	
 	/**
@@ -72,8 +72,8 @@ public class ChnGoodsCheckController {
 	 * @return
 	 */
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
-	public int saveGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
-		return spGoodsClassService.save(chnGoodsClass);
+	public int saveGoodsCheck(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck){
+		return chnGoodsCheckService.save(chnGoodsinfoCheck);
 	}
 	
 }
