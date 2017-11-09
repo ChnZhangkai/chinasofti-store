@@ -51,14 +51,14 @@
 		style="height: 95%">
 		<thead>
 			<tr>
-				<th field="name" width="10%" align="center">商品名称</th>
+				<th field="title" width="10%" align="center">商品名称</th>
 				<th field="img" width="10%" align="center"
 					data-options="formatter:imgFormatter">商品图片</th>
 				<th field="price" width="15%" align="center">商品价格</th>
-				<th field="createBy" width="15%" align="center">商户名称</th>
-				<th field="commons" width="25%" align="center">分类名称</th>
-				<th field="createTime" width="15%" align="center">商品类型</th>
-				<th field="states" width="10%" align="center"
+				<th field="vendorids" width="15%" align="center">商户名称</th>
+				<th field="goodsClassIds" width="25%" align="center">分类名称</th>
+				<th field="type" width="15%" align="center">商品类型</th>
+				<th field="reviewStatues" width="10%" align="center"
 					data-options="formatter:statesFormatter">审核状态</th>
 			</tr>
 		</thead>
