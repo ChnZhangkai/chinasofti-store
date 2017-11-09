@@ -418,10 +418,10 @@
   <update id="pubOrCanAdvertise" parameterType="Map">
   	update advertise_contents
      <set >
-      <if test="states != null and states == '0'"  >
+      <if test="states != null and states == 0"  >
        STATES = '1',
       </if>
-      <if test="states != null and states == '1'"  >
+      <if test="states != null and states == 1"  >
        STATES = '0',
       </if> 
     </set>

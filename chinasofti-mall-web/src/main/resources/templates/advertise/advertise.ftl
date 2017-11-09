@@ -1,17 +1,13 @@
 <script type="text/javascript" src="js/advertise.js">
-<!--
-	
-//-->
 </script>
 <div class="easyui-layout" data-options="fit:true">
 	<!-- Begin of toolbar -->
-	<div id="advertise-toolbar">
+	<div id="advertise-toolbar" >
 		<div class="wu-toolbar-button">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="addAdvertise()" plain="true">添加</a> 
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="editAdvertise()" plain="true">修改</a>
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="deleteAdvertise()" plain="true">删除</a> 
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="showAdvertise()" plain="true">查看</a>
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="publicAdvertise()" plain="true">广告发布</a>
 		</div>
 		<form id="searchForm">
 		<div class="wu-toolbar-search">
@@ -38,25 +34,29 @@
 	<!-- 数据显示datagrid -->
 	<table id="ad-datagrid" class="easyui-datagrid" toolbar="#advertise-toolbar"
 		data-options="url:'/advertise/findByPage',
-    				 fitColumns:true,
+    				 	 fitColumns:false,
        				 pagination:true,
        				 sortName:'ids',
        				 sortOrder:'asc',
-       				 toolbar:'#mainorderToolbar',
-       				 title:'主订单列表',
+        				 title:'广告列表',
        				 iconCls:'icon-man',
        				 striped:true,
-       				 collapsible:true">
+       				 singleSelect:true,
+       				 collapsible:true,
+       				 pageSize:15,
+       				  pageList: [15, 25, 50, 100]"
+       				 >
 		<thead>
 			<tr>
-				<th field="title" width="15%" align="center" data-options="sortable:true">标题</th>
-				<th field="url" width="15%" align="center" data-options="sortable:true">链接URL</th>
-				<th field="type" width="15%" align="center" data-options="formatter:typeFormatter,sortable:true">广告类型</th>
-				<th field="states" width="15%" align="center" data-options="formatter:statesFormatter,sortable:true">前台状态</th>
-				<th field="positionName" width="15%" align="center" data-options="sortable:true">广告位名称</th>
-				<th field="categoryName" width="15%" align="center" data-options="sortable:true">分类广告名称</th>
-				<th field="beginTime" width="15%" align="center" data-options="sortable:true">有效开始日期</th>
+				<th field="title"  width="15%" align="center" data-options="sortable:true">标题</th>
+				<th field="url"   width="15%" align="center" data-options="sortable:true">链接URL</th>
+				<th field="type"  width="15%" align="center" data-options="formatter:typeFormatter,sortable:true">广告类型</th>
+				<th field="states"  width="15%" align="center" data-options="formatter:statesFormatter,sortable:true">前台状态</th>
+				<th field="positionName"  width="15%" align="center" data-options="sortable:true">广告位名称</th>
+				<th field="categoryName"  width="15%" align="center" data-options="sortable:true">分类广告名称</th>
+				<th field="beginTime"  width="15%" align="center" data-options="sortable:true">有效开始日期</th>
 				<th field="endTime" width="15%" align="center" data-options="sortable:true">有效结束日期</th>
+				<th field="_operator"  width="15%" align="center" data-options="formatter:OperatorFormatter">操作</th>  
 			</tr>
 		</thead>
 	</table>
@@ -133,9 +133,7 @@
 	</div>
 
 	<!-- 广告查看框  -->
-	
-	<div id="ad-show-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save',inline:true" style="width: 80%; padding: 50px;"
-	buttons="#ad-show-dialog-button">
+	<div id="ad-show-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save',inline:true" style="width: 80%; padding: 50px;">
 		<form id="ad-show-form" method="post" enctype="multipart/form-data">
 			<table>
 			<tr>
@@ -210,6 +208,4 @@
 			</table>
 		</form>
 </div>
-	<!-- 分页工具条 -->
-	<div id="pagination" style="background: #efefef; border: 1px solid #ccc;"></div>
 </div>

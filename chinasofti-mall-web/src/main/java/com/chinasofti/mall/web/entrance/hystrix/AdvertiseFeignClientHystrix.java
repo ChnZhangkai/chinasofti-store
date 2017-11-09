@@ -42,5 +42,11 @@ public class AdvertiseFeignClientHystrix implements AdvertiseFeignClient{
 		return "服务已断开";
 	}
 
+	@Override
+	public String pubOrCanAdvertise(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
