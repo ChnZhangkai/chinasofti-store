@@ -1,7 +1,7 @@
 /**
  * 主订单信息查看
  */
-function openMainorderCheck() {
+/*function openMainorderCheck() {
 	var row = $("#mainorderDataGrid").datagrid('getSelected');
 	if (row) {
 		$('#mainorderEditDialog').dialog('open').dialog({
@@ -13,7 +13,7 @@ function openMainorderCheck() {
 	} else {
 		$.messager.alert('信息提示', '请选中要查看的订单');
 	}
-}
+}*/
 
 /**
  * 主订单条件查询
@@ -141,7 +141,7 @@ function orderTypeFormatter(value, row, index) {
 /**
  * 子订单信息查看
  */
-function openChildorderCheck() {
+/*function openChildorderCheck() {
 	var row = $("#childorderDataGrid").datagrid('getSelected');
 	//console.log(row.orderType);
 	if (row) {
@@ -163,7 +163,7 @@ function openChildorderCheck() {
 	} else {
 		$.messager.alert('信息提示', '请选择要查看的订单');
 	}
-}
+}*/
 
 /**
  * 前端排序
@@ -177,17 +177,16 @@ function childorderSort(a, b) {
 }
 
 /**
- * 操作按钮显示
+ * 子操作按钮显示
  */
-var childorderLookBtn;
 function btnFormatter(value, row, index) {
-	childorderLookBtn ='<button onclick="childorderLook('+ index +')">查看</button>' ;
+	var childorderLookBtn ='<button onclick="childorderLook('+ index +')">查看</button>' ;
 	return childorderLookBtn;
 }
 
 function childorderLook(index){
 	var row = $("#childorderDataGrid").datagrid('getData').rows[index];
-	console.log(row);
+	//console.log(row);
 	$('#childorderEditDialog').dialog('open').dialog({
 		closed : false,
 		modal : true,
@@ -203,6 +202,25 @@ function childorderLook(index){
 		
 	}
 	$('#childorderEditForm').form('load', row);
+}
+
+/**
+ * 主订单按钮
+ */
+function mianBtnFormatter(value, row, index) {
+	var lookBtn ='<button onclick="mainorderLook('+ index +')">查看</button><br>' + 
+				 '<button onclick="mainorderLoo(\''+ row.ids +'\')">删除</button>';
+	return lookBtn;
+}
+
+function mainorderLook(index){
+	var row = $("#childorderDataGrid").datagrid('getData').rows[index];
+	$('#mainorderEditDialog').dialog('open').dialog({
+		closed : false,
+		modal : true,
+		title : "主订单订单信息"
+	});
+	$('#mainorderEditForm').form('load', row);
 }
 
 
