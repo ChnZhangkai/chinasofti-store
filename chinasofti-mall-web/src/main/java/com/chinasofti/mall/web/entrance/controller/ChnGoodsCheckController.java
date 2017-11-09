@@ -1,8 +1,10 @@
 package com.chinasofti.mall.web.entrance.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baidu.ueditor.ActionEnter;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
-import com.chinasofti.mall.web.entrance.feign.ChnGoodsClassFeignClient;
+import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
 import com.chinasofti.mall.web.entrance.feign.SpMerchantUserFeignClient;
 
 import net.sf.json.JSONObject;
@@ -29,10 +31,12 @@ import net.sf.json.JSONObject;
 public class ChnGoodsCheckController {
 	
 	@Autowired
-	ChnGoodsClassFeignClient chnGoodsClassFeignClient;
+	ChnGoodsFeignClient chnGoodsClassFeignClient;
 	
 	@Autowired
 	SpMerchantUserFeignClient spMerchantUserFeignClient;
+	
+	private static final String beforePath = System.getProperty("user.dir")  + "\\src\\main\\resources\\static\\data\\goods";
 	
 	/**
 	 * 返回主界面
@@ -75,14 +79,27 @@ public class ChnGoodsCheckController {
 	 * @return
 	 */
 	@RequestMapping("/addGoods")
-	public String addGoods(HttpServletRequest request,ChnGoodsinfo chnGoodsinfo){
+	public String addGoods(HttpServletRequest request,ChnGoodsinfoCheck chnGoodsinfoCheck){
 		
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("img");
 		String imageName = multipartFile.getOriginalFilename();
 		
-		return "";
+		String fileName = beforePath + File.separator + imageName;
+		File file = new File(fileName);
+		try {
+			multipartFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		chnGoodsinfoCheck.setIds(UUID.randomUUID().toString().replace("-", ""));
+		chnGoodsinfoCheck.setGoodsids(UUID.randomUUID().toString().replace("-", ""));
+		
+		return "保存成功";
 	}
 	
 	/**
