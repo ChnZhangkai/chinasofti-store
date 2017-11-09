@@ -34,8 +34,8 @@ input[type="checkbox"] { cursor: pointer;}
 
 .tabs-tool { border-top:0;}
 .wu-text,
-.wu-textarea { padding:3px; border:1px #95b8e7 solid; width:260px;}
-.wu-text { height:18px; line-height:14px; }
+.wu-textarea { padding:3px; border:1px #95b8e7 solid; width:260px;height:60px;     border-radius: 5px 5px 5px 5px;}
+.wu-text { height:22px; line-height:14px; border-radius: 5px 5px 5px 5px; }
 
 .zk-header { height:55px; position:relative; z-index:0; overflow:hidden; border-bottom:1px #95b8e7 solid; background:url(/images/bg_header.jpg) bottom repeat-x;}
 .zk-header-left { position:absolute; z-index:1; left:30px; top:0;}

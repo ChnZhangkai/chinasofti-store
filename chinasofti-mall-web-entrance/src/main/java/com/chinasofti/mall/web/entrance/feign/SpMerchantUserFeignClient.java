@@ -3,6 +3,7 @@
  */
 package com.chinasofti.mall.web.entrance.feign;
 
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,5 +59,6 @@ public interface SpMerchantUserFeignClient {
 	 */
 	@RequestMapping("/spUser/update")
 	int spUserUpdate(SpMerchantUser spMerchantUser);
+
 
 }

@@ -56,4 +56,5 @@ public class SpMerchantUserFeignClientHystrix implements SpMerchantUserFeignClie
 		return 0;
 	}
 
+
 }
