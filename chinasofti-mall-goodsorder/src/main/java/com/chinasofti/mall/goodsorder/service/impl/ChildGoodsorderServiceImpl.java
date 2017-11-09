@@ -84,7 +84,12 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 		
 		return js;
 	}
-	
+
+	@Override
+	public List<PyChildGoodsorder> selectAllTest() {
+		
+		return childGoodsorderMapper.selectAll();
+	}
 	
 
 }
