@@ -108,22 +108,41 @@
 							style="color: #CCCCCC; font-size: 10px;">重量单位:KG</font></span></td>
 				</tr>
 				<tr>
+					<th align="right">前台是否显示商户名</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisVerdorname" name="isDisVerdorname">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
+					<th align="right">前台是否显示规格</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStandard" name="isDisStandard">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
+				</tr>
+				<tr>
+					<th align="right">前台是否显示库存</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStore" name="isDisStore">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
 					<th align="right">首次录入库存数量</th>
 					<td><input type="text" style="width: 180px;"
 						class="easyui-textbox" id="collNum" name="collNum"/></td>
+				</tr>
+				<tr>
 					<th align="right">每个用户限购数量</th>
 					<td><input type="text" style="width: 180px;"
 						class="easyui-textbox" id="limitUserNum" name="limitUserNum"/> <span><font
 							style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
+					<th align="right">每笔订单限购数量</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum"/></td>
 				</tr>
 				<tr>
 					<th align="right">商品图片:</th>
 					<td><input id="img" name="img" class="easyui-filebox"
 						style="width: 180px;"
 						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
-					<th align="right">每笔订单限购数量</th>
-					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum"/></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -155,6 +174,7 @@
 	
 	//打开商品添加页面
 	function openGoodsAdd() {
+		
 		$('#addGoodsForm').form('clear');
 		$('#addDl').dialog({
 			draggable : false,			
@@ -164,9 +184,7 @@
 			buttons : [ {
 				text : '确定',
 				iconCls : 'icon-ok',
-				handler : function() {
-
-				}
+				handler : addGoods
 			}, {
 				text : '取消',
 				iconCls : 'icon-cancel',
@@ -184,7 +202,7 @@
 			type:"GET",
 			success: function(data){
 				data = eval("("+data+")");
-				$('#codeids').combobox({
+				$('#goodsClassIds').combobox({
 					valueField:'ids',
 					textField:'name',
 					data:data.rows,
@@ -197,7 +215,6 @@
 			type:"GET",
 			success: function(data){
 				data = eval("("+data+")");
-				alert(data.rows)
 				$('#vendorids').combobox({
 					valueField:'vendorId',
 					textField:'vendorSnm',
@@ -222,6 +239,7 @@
 		     contentType: false, 
 		     processData: false, 
 		     success: function(data) {
+				alert(data);
 		     }, 
 		     error: function(data) {   
 		     } 
@@ -310,7 +328,7 @@
 			var result = document.getElementById("showGoodsPic");
 			var src = "data:" + simpleFile.type + ";base64,"
 					+ window.btoa(this.result);
-			result.innerHTML = '<img id="readGoodsPic" style="height: 130px;width: 200px;" src ="' + src + '"/>';
+			result.innerHTML = '<img id="readGoodsPic" style="height: 130px;width: 180px;" src ="' + src + '"/>';
 		}
 		//document.getElementById("showpic").style.display="";
 	}
