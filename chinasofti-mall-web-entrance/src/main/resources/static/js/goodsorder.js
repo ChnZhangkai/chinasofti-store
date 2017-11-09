@@ -143,14 +143,67 @@ function orderTypeFormatter(value, row, index) {
  */
 function openChildorderCheck() {
 	var row = $("#childorderDataGrid").datagrid('getSelected');
+	//console.log(row.orderType);
 	if (row) {
 		$('#childorderEditDialog').dialog('open').dialog({
 			closed : false,
 			modal : true,
 			title : "订单详细信息"
 		});
+		if(row.orderType == 1){
+			row.orderType = "普通订单";
+		} else if(row.orderType == 2){
+			row.orderType = "优惠券订单";
+		} else if(row.orderType == 3){
+			row.orderType = "实物众筹订单";
+		} else {
+			
+		}
 		$('#childorderEditForm').form('load', row);
 	} else {
 		$.messager.alert('信息提示', '请选择要查看的订单');
 	}
 }
+
+/**
+ * 前端排序
+ */
+function childorderSort(a, b) {
+	if (a >= b){
+		return 1;
+	}else {
+		return -1;
+	}
+}
+
+/**
+ * 操作按钮显示
+ */
+var childorderLookBtn;
+function btnFormatter(value, row, index) {
+	childorderLookBtn ='<button onclick="childorderLook('+ index +')">查看</button>' ;
+	return childorderLookBtn;
+}
+
+function childorderLook(index){
+	var row = $("#childorderDataGrid").datagrid('getData').rows[index];
+	console.log(row);
+	$('#childorderEditDialog').dialog('open').dialog({
+		closed : false,
+		modal : true,
+		title : "订单详细信息"
+	});
+	if(row.orderType == 1){
+		row.orderType = "普通订单";
+	} else if(row.orderType == 2){
+		row.orderType = "优惠券订单";
+	} else if(row.orderType == 3){
+		row.orderType = "实物众筹订单";
+	} else {
+		
+	}
+	$('#childorderEditForm').form('load', row);
+}
+
+
+
