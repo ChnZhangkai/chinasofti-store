@@ -1,5 +1,7 @@
 package com.chinasofti.mall.web.entrance.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baidu.ueditor.ActionEnter;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsClassFeignClient;
 import com.chinasofti.mall.web.entrance.feign.SpMerchantUserFeignClient;
@@ -66,20 +71,40 @@ public class ChnGoodsCheckController {
 	}
 	
 	/**
+	 * 添加商品
+	 * @return
+	 */
+	@RequestMapping("/addGoods")
+	public String addGoods(HttpServletRequest request,ChnGoodsinfo chnGoodsinfo){
+		
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		
+		MultipartFile multipartFile = multipartHttpServletRequest.getFile("img");
+		String imageName = multipartFile.getOriginalFilename();
+		
+		return "";
+	}
+	
+	/**
 	 * 富文本编辑器多图保存
 	 * @return 
 	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping("/ueditor")
 	@ResponseBody
-	public String ueUpload(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
+	public void ueUpload(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
 		
-		//这里就是把controller.jsp代码copy下来
-        request.setCharacterEncoding( "utf-8" );
-        response.setHeader("Content-Type" , "text/html");
-        String roolPath = request.getSession().getServletContext().getRealPath("/");
-        String configStr = new ActionEnter(request, roolPath).exec();
-        return configStr;
+		response.setContentType("application/json");  
+        String rootPath = request.getSession().getServletContext().getRealPath("/");  
+        try {  
+            String exec = new ActionEnter(request, rootPath).exec();  
+            PrintWriter writer = response.getWriter();  
+            writer.write(exec);  
+            writer.flush();  
+            writer.close();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        } 
 		
 	}
 	
