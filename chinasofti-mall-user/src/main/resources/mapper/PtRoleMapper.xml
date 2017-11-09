@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.user.mapper.PtRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.PtRole" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="NUMBERS" property="numbers" jdbcType="VARCHAR" />
+    <result column="NAMES" property="names" jdbcType="VARCHAR" />
+    <result column="UPDATEBY" property="updateby" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+    <result column="UPDATETIME" property="updatetime" jdbcType="VARCHAR" />
+    <result column="CREATEBY" property="createby" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.mall.common.entity.PtRole" extends="BaseResultMap" >
+    <result column="DESCRIPTION" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, NUMBERS, NAMES, UPDATEBY, CREATETIME, UPDATETIME, CREATEBY
+  </sql>
+  <sql id="Blob_Column_List" >
+    DESCRIPTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.mall.common.entity.PtRoleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pt_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PtRoleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pt_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pt_role
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pt_role
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.PtRoleExample" >
+    delete from pt_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PtRole" >
+    insert into pt_role (IDS, NUMBERS, NAMES, 
+      UPDATEBY, CREATETIME, UPDATETIME, 
+      CREATEBY, DESCRIPTION)
+    values (#{ids,jdbcType=VARCHAR}, #{numbers,jdbcType=VARCHAR}, #{names,jdbcType=VARCHAR}, 
+      #{updateby,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{createby,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PtRole" >
+    insert into pt_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="numbers != null" >
+        NUMBERS,
+      </if>
+      <if test="names != null" >
+        NAMES,
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME,
+      </if>
+      <if test="createby != null" >
+        CREATEBY,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="numbers != null" >
+        #{numbers,jdbcType=VARCHAR},
+      </if>
+      <if test="names != null" >
+        #{names,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null" >
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.PtRoleExample" resultType="java.lang.Integer" >
+    select count(*) from pt_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pt_role
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numbers != null" >
+        NUMBERS = #{record.numbers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.names != null" >
+        NAMES = #{record.names,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateby != null" >
+        UPDATEBY = #{record.updateby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        CREATETIME = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        UPDATETIME = #{record.updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createby != null" >
+        CREATEBY = #{record.createby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update pt_role
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      NUMBERS = #{record.numbers,jdbcType=VARCHAR},
+      NAMES = #{record.names,jdbcType=VARCHAR},
+      UPDATEBY = #{record.updateby,jdbcType=VARCHAR},
+      CREATETIME = #{record.createtime,jdbcType=VARCHAR},
+      UPDATETIME = #{record.updatetime,jdbcType=VARCHAR},
+      CREATEBY = #{record.createby,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pt_role
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      NUMBERS = #{record.numbers,jdbcType=VARCHAR},
+      NAMES = #{record.names,jdbcType=VARCHAR},
+      UPDATEBY = #{record.updateby,jdbcType=VARCHAR},
+      CREATETIME = #{record.createtime,jdbcType=VARCHAR},
+      UPDATETIME = #{record.updatetime,jdbcType=VARCHAR},
+      CREATEBY = #{record.createby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.PtRole" >
+    update pt_role
+    <set >
+      <if test="numbers != null" >
+        NUMBERS = #{numbers,jdbcType=VARCHAR},
+      </if>
+      <if test="names != null" >
+        NAMES = #{names,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null" >
+        CREATEBY = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chinasofti.mall.common.entity.PtRole" >
+    update pt_role
+    set NUMBERS = #{numbers,jdbcType=VARCHAR},
+      NAMES = #{names,jdbcType=VARCHAR},
+      UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      CREATEBY = #{createby,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=LONGVARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.PtRole" >
+    update pt_role
+    set NUMBERS = #{numbers,jdbcType=VARCHAR},
+      NAMES = #{names,jdbcType=VARCHAR},
+      UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR},
+      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      CREATEBY = #{createby,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <!--  -->
+  <insert id="add2"></insert>
+  
+  <select id="getRoleMenuids" parameterType="string" resultType="string">
+  	SELECT MENUIDS FROM pt_role_menu WHERE ROLEIDS = #{id}
+  </select>
+  
+</mapper>

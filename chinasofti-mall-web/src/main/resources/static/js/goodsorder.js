@@ -1,8 +1,9 @@
 /**
  * 主订单信息查看
- */
+
 function openMainorderCheck() {
 	var row = $("#mainorderDataGrid").datagrid('getSelected');
+	console.log(row);
 	if (row) {
 		$('#mainorderEditDialog').dialog('open').dialog({
 			closed : false,
@@ -13,7 +14,7 @@ function openMainorderCheck() {
 	} else {
 		$.messager.alert('信息提示', '请选中要查看的订单');
 	}
-}
+} */
 
 /**
  * 主订单条件查询
@@ -140,17 +141,92 @@ function orderTypeFormatter(value, row, index) {
 
 /**
  * 子订单信息查看
- */
+
 function openChildorderCheck() {
 	var row = $("#childorderDataGrid").datagrid('getSelected');
+	console.log(row);
 	if (row) {
 		$('#childorderEditDialog').dialog('open').dialog({
 			closed : false,
 			modal : true,
 			title : "订单详细信息"
 		});
+		if(row.orderType == 1){
+			row.orderType = "普通订单";
+		} else if(row.orderType == 2){
+			row.orderType = "优惠券订单";
+		} else if(row.orderType == 3){
+			row.orderType = "实物众筹订单";
+		} else {
+			
+		}
 		$('#childorderEditForm').form('load', row);
 	} else {
 		$.messager.alert('信息提示', '请选择要查看的订单');
 	}
+} */
+
+/**
+ * 前端排序
+ */
+function childorderSort(a, b) {
+	if (a >= b){
+		return 1;
+	}else {
+		return -1;
+	}
 }
+
+/**
+ * 子操作按钮显示
+ */
+function btnFormatter(value, row, index) {
+	var childorderLookBtn ='<button onclick="childorderLook('+ index +')">查看</button>' ;
+	return childorderLookBtn;
+}
+
+function childorderLook(index){
+	var row = $("#childorderDataGrid").datagrid('getData').rows[index];
+	console.log(row);
+	$('#childorderEditDialog').dialog('open').dialog({
+		closed : false,
+		modal : true,
+		title : "订单详细信息"
+	});
+	if(row.orderType == 1){
+		row.orderType = "普通订单";
+	} else if(row.orderType == 2){
+		row.orderType = "优惠券订单";
+	} else if(row.orderType == 3){
+		row.orderType = "实物众筹订单";
+	} else {
+		
+	}
+	$('#childorderEditForm').form('load', row);
+}
+
+/**
+ * 主订单按钮
+ */
+function mianBtnFormatter(value, row, index) {
+	var lookBtn ='<button onclick="mainorderLook('+ index +')">查看</button><br>';
+	return lookBtn;
+}
+
+/**
+ * 主订单详细信息
+ */
+function mainorderLook(index){
+	var row = $("#mainorderDataGrid").datagrid('getData').rows[index];
+	console.log(row);
+	$('#mainorderEditDialog').dialog('open').dialog({
+		closed : false,
+		modal : true,
+		title : "主订单订单信息"
+	});
+	$('#mainorderEditForm').form('load', row);
+}
+
+
+
+

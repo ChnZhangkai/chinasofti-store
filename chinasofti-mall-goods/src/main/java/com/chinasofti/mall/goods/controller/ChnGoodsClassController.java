@@ -13,7 +13,7 @@ import com.chinasofti.mall.goods.service.impl.ChnGoodsClassServiceImpl;
 import net.sf.json.JSONObject;
 
 @RestController
-@RequestMapping("/goods")
+@RequestMapping("/goodsClass")
 public class ChnGoodsClassController {
 	
 	@Autowired

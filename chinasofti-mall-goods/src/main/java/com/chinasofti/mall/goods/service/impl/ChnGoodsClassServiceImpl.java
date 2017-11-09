@@ -33,8 +33,6 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 	@Override
 	public JSONObject selectByExample(ChnGoodsClass chnGoodsClass) {
 		
-		//String compare = "";
-		
 		JSONObject js = new JSONObject();
 		ChnGoodsClassExample example = new ChnGoodsClassExample();
 		Criteria criteria = example.createCriteria();
