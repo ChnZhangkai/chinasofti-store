@@ -4,10 +4,18 @@
 	<!-- Begin of toolbar -->
 	<div id="advertise-toolbar" >
 		<div class="wu-toolbar-button">
+			<@shiro.hasPermission name="adv_add">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="addAdvertise()" plain="true">添加</a> 
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="adv_update">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="editAdvertise()" plain="true">修改</a>
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="deleteAdvertise()" plain="true">删除</a> 
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="adv_delete">
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="deleteAdvertise()" plain="true">删除</a>
+			 </@shiro.hasPermission> 
+			 <@shiro.hasPermission name="adv_query">
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="showAdvertise()" plain="true">查看</a>
+			 </@shiro.hasPermission>
 		</div>
 		<form id="searchForm">
 		<div class="wu-toolbar-search">
