@@ -16,10 +16,10 @@ import com.chinasofti.mall.common.entity.AdvertiseContents;
 
 @RestController
 @RequestMapping("advertise")
-public class AppController {
+public class AdvertiseController {
 	@Autowired
 	AdvertiseFeignClient advertiseFeignClient;
-	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdvertiseController.class);
 
 
 
