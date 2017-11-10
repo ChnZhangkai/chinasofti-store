@@ -26,18 +26,11 @@ public class ChnGoodsCheckController {
 	
 	/**
 	 * 列表及条件查询
-	 * @param goodscategory
+	 * @param chnGoodsinfoCheck
 	 * @return
 	 */
-//	@RequestMapping(value = "/select" , method = RequestMethod.POST)
-//	public JSONObject selectByGoodsCheck(@RequestBody(required = false)ChnGoodsinfoCheck chnGoodsinfoCheck){
-//		return chnGoodsCheckService.selectByExample(chnGoodsinfoCheck);
-//		
-//	}
-	
 	@RequestMapping("/select")
-	public JSONObject findAll(ChnGoodsinfoCheck chnGoodsinfoCheck){
-		
+	public JSONObject findAll(@RequestBody(required = false)ChnGoodsinfoCheck chnGoodsinfoCheck){
 		return chnGoodsCheckService.selectAll(chnGoodsinfoCheck);
 	}
 	
@@ -81,5 +74,12 @@ public class ChnGoodsCheckController {
 	public int saveGoodsCheck(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck){
 		return chnGoodsCheckService.save(chnGoodsinfoCheck);
 	}
+	
+	
+	/*@RequestMapping(value = "/select" , method = RequestMethod.POST)
+	public JSONObject selectByGoodsCheck(@RequestBody(required = false)ChnGoodsinfoCheck chnGoodsinfoCheck){
+		return chnGoodsCheckService.selectByExample(chnGoodsinfoCheck);
+		
+	}*/
 	
 }

@@ -24,12 +24,12 @@
 					style="width: 135px">
 					<option selected="selected" value="">请选择</option>
 					<option value="0">待提交审核</option>
+					<option value="3">已提交审核</option>
 					<option value="1">审核通过</option>
 					<option value="2">审核拒绝</option>
-					<option value="3">已提交申请</option>
 				</select>
 				<a href="#" class="easyui-linkbutton" iconCls="icon-search"
-					onclick="doSearch()">开始检索</a> <a href="#" class="easyui-linkbutton"
+					onclick="doGoodsCheckSearch()">开始检索</a> <a href="#" class="easyui-linkbutton"
 					iconCls="icon-edit-clear" onclick="doClear()">清除</a>
 			</form>
 		</div>
@@ -222,6 +222,32 @@
 			}
 		}); 
 		
+	}
+	
+	function doGoodsCheckSearch(){
+		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchCheckForm').serialize();
+		//console.info(param)
+		$.ajax({ 
+	          type: 'POST', 
+	          url: '/goodsCheck/list', //用户请求数据的URL
+	          data: param, 
+	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
+	              alert("没有查询到数据"); 
+	          }, 
+	          success: function (data) { 
+	        	  
+	        	  data =eval("("+data+")");
+	        	  
+	        	  if(data.total == 0){
+	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
+	        	  }
+	        	  
+	              $('#goodscheck').datagrid('loadData', data.rows);
+	               $('#goodsCheckPagination').pagination({ 
+			    	  total:data.total
+			    	  });
+	          }
+	       });
 	}
 	
 	//商品添加
