@@ -1,7 +1,7 @@
 package com.chinasofti.mall.goodsorder.mapper;
 
-import com.chinasofti.mall.common.entity.PyPayorder;
-import com.chinasofti.mall.common.entity.PyPayorderExample;
+import com.chinasofti.mall.common.entity.order.PyPayorder;
+import com.chinasofti.mall.common.entity.order.PyPayorderExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

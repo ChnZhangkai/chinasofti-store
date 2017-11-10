@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.controller.BaseController;
-import com.chinasofti.mall.common.entity.PyMainGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 
 import net.sf.json.JSONObject;

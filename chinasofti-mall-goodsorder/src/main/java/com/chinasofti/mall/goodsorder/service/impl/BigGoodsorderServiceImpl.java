@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.mall.common.entity.PyBigGoodsorder;
-import com.chinasofti.mall.common.entity.PyBigGoodsorderExample;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorderExample;
 import com.chinasofti.mall.goodsorder.mapper.PyBigGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.BigGoodsorderService;
 
