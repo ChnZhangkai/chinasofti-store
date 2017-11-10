@@ -2,8 +2,8 @@ package com.chinasofti.mall.goodsorder.service;
 
 import java.util.List;
 
-import com.chinasofti.mall.common.entity.PyBigGoodsorder;
-import com.chinasofti.mall.common.entity.PyBigGoodsorderExample;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorderExample;
 import com.chinasofti.mall.common.service.IBaseService;
 
 

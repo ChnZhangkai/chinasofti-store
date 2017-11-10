@@ -3,7 +3,7 @@ package com.chinasofti.mall.goodsorder.service;
 
 import java.util.List;
 
-import com.chinasofti.mall.common.entity.PyChildGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.service.IBaseService;
 
 import net.sf.json.JSONObject;
