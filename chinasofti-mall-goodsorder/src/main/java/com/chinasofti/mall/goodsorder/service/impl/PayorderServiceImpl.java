@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.mall.common.entity.PyPayorder;
-import com.chinasofti.mall.common.entity.PyPayorderExample;
+import com.chinasofti.mall.common.entity.order.PyPayorder;
+import com.chinasofti.mall.common.entity.order.PyPayorderExample;
 import com.chinasofti.mall.goodsorder.mapper.PyPayorderMapper;
 import com.chinasofti.mall.goodsorder.service.PayorderService;
 

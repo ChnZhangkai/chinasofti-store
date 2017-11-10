@@ -26,7 +26,7 @@ public class AdvertiseFeignClientHystrix implements AdvertiseFeignClient{
 	}
 
 	@Override
-	public List<AdvertiseContents> findAdvertiseList(AdvertiseContents advertiseContents) {
+	public List<AdvertiseContents> findAdvertiseList(String positionId) {
 		return new ArrayList<AdvertiseContents>();
 	}
 

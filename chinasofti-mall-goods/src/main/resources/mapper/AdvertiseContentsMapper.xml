@@ -427,7 +427,7 @@
     </set>
   	   where IDS = #{ids,jdbcType=VARCHAR}
   </update>
-  <select id="selectAdvertiseList" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.AdvertiseContents" >
+  <select id="selectAdvertiseList" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from advertise_contents

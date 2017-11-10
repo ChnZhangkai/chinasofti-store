@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper" >
-  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.PyMainGoodsorder" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.order.PyMainGoodsorder" >
     <id column="IDS" property="ids" jdbcType="VARCHAR" />
     <result column="BIGORDER_ID" property="bigorderId" jdbcType="VARCHAR" />
     <result column="VENDOR_IDS" property="vendorIds" jdbcType="VARCHAR" />
@@ -122,7 +122,7 @@
     SENDOUTTIME, UPDATETIME, S_LATITUDE, S_LONGITUDE, P_LATITUDE, P_LONGITUDE, SENDDESC, 
     FREIGHT_OLD, CONT_PROVINCE_CODE, CONT_CITY_CODE, CONT_DISTRICT_CODE, FREIGHT
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample" >
     select
     <if test="distinct" >
       distinct
@@ -146,13 +146,13 @@
     delete from py_main_goodsorder
     where IDS = #{ids,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderExample" >
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample" >
     delete from py_main_goodsorder
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorder" >
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorder" >
     insert into py_main_goodsorder (IDS, BIGORDER_ID, VENDOR_IDS, 
       USER_IDS, CONT_POSTCODE, CONT_ADDRESS, 
       CONT_MOBILE, CONT_PHONE, CONT_PROVINCE, 
@@ -190,7 +190,7 @@
       #{contCityCode,jdbcType=VARCHAR}, #{contDistrictCode,jdbcType=VARCHAR}, #{freight,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorder" >
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorder" >
     insert into py_main_goodsorder
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ids != null" >
@@ -503,7 +503,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorderExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample" resultType="java.lang.Integer" >
     select count(*) from py_main_goodsorder
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -727,7 +727,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorder" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorder" >
     update py_main_goodsorder
     <set >
       <if test="bigorderId != null" >
@@ -883,7 +883,7 @@
     </set>
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.PyMainGoodsorder" >
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorder" >
     update py_main_goodsorder
     set BIGORDER_ID = #{bigorderId,jdbcType=VARCHAR},
       VENDOR_IDS = #{vendorIds,jdbcType=VARCHAR},
