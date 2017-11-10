@@ -35,6 +35,6 @@ public class AdvertiseController {
 		logger.info("查询位置ID"+positionId);
 		return advertiseFeignClient.findAdvertise(positionId);
 	}
-
+   
 
 }
