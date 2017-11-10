@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertiseContentsExample;
+import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.goods.mapper.AdvertiseContentsMapper;
 import com.chinasofti.mall.goods.service.IAdvertiseService;
 import com.github.pagehelper.Page;
@@ -129,6 +130,11 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	public AdvertiseContents queryAdvertise(String positionId){
 
 		return advertiseMapper.selectSingleAdvertise(positionId);
+	}
+
+	@Override
+	public List<AdvertisePosition> findAdPostionAll() {
+		return advertiseMapper.findAdPostionAll();
 	} 
 
 }

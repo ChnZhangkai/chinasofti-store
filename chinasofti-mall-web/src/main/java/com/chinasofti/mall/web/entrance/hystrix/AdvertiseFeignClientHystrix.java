@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
 /**
  * 
@@ -48,5 +49,10 @@ public class AdvertiseFeignClientHystrix implements AdvertiseFeignClient{
 		return null;
 	}
 
-	
+	@Override
+	public List<AdvertisePosition> findAdPostionAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
