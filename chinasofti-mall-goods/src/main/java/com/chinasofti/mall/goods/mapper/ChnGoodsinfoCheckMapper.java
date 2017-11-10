@@ -27,4 +27,7 @@ public interface ChnGoodsinfoCheckMapper {
     int updateByPrimaryKeySelective(ChnGoodsinfoCheck record);
 
     int updateByPrimaryKey(ChnGoodsinfoCheck record);
+    
+    List<ChnGoodsinfoCheck> findAll(ChnGoodsinfoCheck chnGoodsinfoCheck);
+    
 }
