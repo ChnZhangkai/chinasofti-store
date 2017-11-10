@@ -747,4 +747,12 @@
       ISSHOW = #{isshow,jdbcType=VARCHAR}
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
+    <!--根据分类Id查询商品信息  -->
+    <select id="selectByClassId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chn_goodsinfo
+    where GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR}
+  </select>
+  
 </mapper>

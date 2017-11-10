@@ -307,5 +307,13 @@
   <select id="getRoleMenuids" parameterType="string" resultType="string">
   	SELECT MENUIDS FROM pt_role_menu WHERE ROLEIDS = #{id}
   </select>
+  <select id="getRoleOperatorIds" parameterType="string" resultType="string">
+  	SELECT OPERATORIDS FROM pt_role_operator WHERE ROLEIDS = #{id}
+  </select>
+  
+  <insert id="insertRoleOperator" parameterType="com.chinasofti.mall.common.entity.PtRoleOperator" >
+  	INSERT INTO pt_role_operator (IDS, ROLEIDS, OPERATORIDS)
+    VALUES (#{ids,jdbcType=VARCHAR}, #{roleids,jdbcType=VARCHAR}, #{operatorids,jdbcType=VARCHAR})
+  </insert>
   
 </mapper>

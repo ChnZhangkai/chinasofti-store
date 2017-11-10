@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.web.entrance.feign.ChildGoodsorderFeign;
 
@@ -95,6 +96,12 @@ public class ChildGoodsorderController {
 
 		return childGoodsorderFeign.update(childGoodsorder);
 
+	}
+	
+	@RequestMapping(value="selectall", method = RequestMethod.POST)
+	public String selectByChildorderCondition(ChildorderCondition childorderCondition){
+		JSONObject jsonlist = childGoodsorderFeign.selectByChildorderCondition(childorderCondition);
+		return jsonlist.toString();
 	}
 
 }

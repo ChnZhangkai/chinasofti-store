@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample.Criteria;
@@ -86,9 +87,17 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	}
 
 	@Override
-	public List<PyChildGoodsorder> selectAllTest() {
+	public JSONObject selectByChildorderCondition(ChildorderCondition childorderCondition) {
 		
-		return childGoodsorderMapper.selectAll();
+		JSONObject js = new JSONObject();
+		
+		PageHelper.startPage(childorderCondition.getPage(),childorderCondition.getRows());
+		List<PyChildGoodsorder> list = childGoodsorderMapper.selectByChildorderCondition(childorderCondition);
+
+		js.put("rows", list);
+		js.put("total", ((Page<PyChildGoodsorder>)list).getTotal());
+		
+		return js;
 	}
 	
 

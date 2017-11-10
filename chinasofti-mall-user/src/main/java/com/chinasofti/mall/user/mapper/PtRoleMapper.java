@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.PtRoleExample;
+import com.chinasofti.mall.common.entity.PtRoleOperator;
 
 public interface PtRoleMapper {
     int countByExample(PtRoleExample example);
@@ -38,5 +39,9 @@ public interface PtRoleMapper {
     int add2(String[] arr);
     
     List<String> getRoleMenuids(String roleId);
+    
+    List<String> getRoleOperatorIds(String roleId);
+
+	int insertRoleOperator(PtRoleOperator roleOperator);
     
 }

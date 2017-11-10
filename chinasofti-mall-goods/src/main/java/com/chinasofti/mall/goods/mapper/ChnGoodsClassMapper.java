@@ -28,4 +28,11 @@ public interface ChnGoodsClassMapper {
     int updateByPrimaryKeySelective(ChnGoodsClass record);
 
     int updateByPrimaryKey(ChnGoodsClass record);
+    /**
+     * 根据相应Id查询分类
+     * @param isParent
+     * @return
+     */
+    List<ChnGoodsClass> selectByIsParent(String isParent);
+    List<ChnGoodsClass> selectById(String pids);
 }
