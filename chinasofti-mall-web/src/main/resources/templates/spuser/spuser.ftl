@@ -12,7 +12,7 @@
 			<label>商户编号：</label> <input type="text" id="vendorId" name="vendorId" class="easyui-textbox"/>
 			<label>商户名称：</label> <input type="text" id="vendorSnm" name="vendorSnm" class="easyui-textbox"/>
 			<label>拓展网站：</label> <input type="text" id="belongSiteName" name="belongSiteName" class="easyui-textbox"/>
-			<label>状态</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="status" style="width: 125px">
+			<label>状态：</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="status" style="width: 125px">
 									<option value=""  selected="selected">请选择</option>
 									<option value="0" >未开启</option>
 									<option value="1">已启用</option>
