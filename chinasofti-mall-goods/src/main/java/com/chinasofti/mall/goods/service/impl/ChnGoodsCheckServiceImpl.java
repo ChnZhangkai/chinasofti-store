@@ -1,7 +1,5 @@
 package com.chinasofti.mall.goods.service.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
