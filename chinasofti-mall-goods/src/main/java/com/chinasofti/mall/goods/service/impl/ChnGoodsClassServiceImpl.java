@@ -90,9 +90,23 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 		return chnGoodsClassMapper.selectByPrimaryKey(ids);
 	}
 
+	/**
+	 * 查询分类信息
+	 */
+
+	@Override
+	public List<ChnGoodsClass> selectByIsParent(String isParent) {
+		return chnGoodsClassMapper.selectByIsParent(isParent);
+	}
+
+	@Override
+	public List<ChnGoodsClass> selectById(String pids) {
+		
+		return chnGoodsClassMapper.selectById(pids);
+	}
+
 	@Override
 	public List<ChnGoodsClass> findAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -350,4 +350,16 @@
       IMG = #{img,jdbcType=VARCHAR}
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
+  <select id="selectByIsParent" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chn_goods_class
+    where ISPARENT = #{isparent,jdbcType=VARCHAR}
+  </select>
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chn_goods_class
+    where PIDS = #{pids,jdbcType=VARCHAR}
+  </select>
 </mapper>

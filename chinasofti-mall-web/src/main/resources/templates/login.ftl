@@ -3,7 +3,7 @@
 <title>客户关系管理系统-用户登录页面</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
+<!-- <script type="text/javascript" src="js/login.js"></script> -->
 <link rel="stylesheet" type="text/css" href="css/login.css" />
 </head>
 <body>
@@ -22,7 +22,7 @@
       <div class="web_login" id="web_login">
          <div class="login-box">
 			<div class="login_form">
-				<form  name="loginform" accept-charset="utf-8" id="login_form" class="loginForm" method="post">
+				<form  name="loginform" accept-charset="utf-8" id="login_form" class="loginForm" method="post" action="/loginUser">
 					<input type="hidden" name="did" value="0"/>
               		<input type="hidden" name="to" value="log"/>
               		
@@ -41,7 +41,7 @@
 	                </div>
                
 	                <div style="padding-left:50px;margin-top:20px;">
-	                	<input type="button" value="登 录" style="width:150px;" class="button_blue" id="sub"/>
+	                	<input type="submit" value="登 录" style="width:150px;" class="button_blue" id="sub"/>
 	                </div>
                 </form>
            </div>

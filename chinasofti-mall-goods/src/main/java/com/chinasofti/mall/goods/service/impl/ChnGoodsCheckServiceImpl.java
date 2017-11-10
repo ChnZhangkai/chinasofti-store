@@ -35,10 +35,22 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 		return chnGoodsinfoCheckMapper.insertSelective(chnGoodsinfoCheck);
 	}
 
-	@Override
-	public List<ChnGoodsinfoCheck> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * 列表及条件查询
+	 * @param chnGoodsinfoCheck
+	 * @return
+	 */
+	public JSONObject selectAll(ChnGoodsinfoCheck chnGoodsinfoCheck) {
+		
+		JSONObject js = new JSONObject();
+		
+		PageHelper.startPage(chnGoodsinfoCheck.getPageNumber(),chnGoodsinfoCheck.getPageSize());
+		List<ChnGoodsinfoCheck> list = chnGoodsinfoCheckMapper.findAll(chnGoodsinfoCheck);
+		
+		js.put("rows", list);
+		js.put("total", ((Page<ChnGoodsinfoCheck>)list).getTotal());
+		
+		return js;
 	}
 	
 	/* 
@@ -117,6 +129,12 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	@Override
 	public int deleteById(String ids) {
 		return chnGoodsinfoCheckMapper.deleteByPrimaryKey(ids);
+	}
+
+	@Override
+	public List<ChnGoodsinfoCheck> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.chinasofti.mall.web.entrance;
 
 import javax.annotation.PostConstruct;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import com.jagregory.shiro.freemarker.ShiroTags;
+
 import cn.org.rapid_framework.freemarker.directive.BlockDirective;
 import cn.org.rapid_framework.freemarker.directive.ExtendsDirective;
 import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
@@ -20,6 +23,7 @@ import cn.org.rapid_framework.freemarker.directive.OverrideDirective;
 @EnableEurekaClient
 @EnableHystrix
 @EnableFeignClients
+@MapperScan("com.chinasofti.mall.web.entrance.mapper")
 public class WebEntranceApplication {
 
   @Bean
@@ -44,6 +48,7 @@ public class WebEntranceApplication {
 	        configuration.setSharedVariable("block", new BlockDirective());
 	        configuration.setSharedVariable("override", new OverrideDirective());
 	        configuration.setSharedVariable("extends", new ExtendsDirective());
+	        configuration.setSharedVariable("shiro", new ShiroTags());
 	    }
 	}
 }

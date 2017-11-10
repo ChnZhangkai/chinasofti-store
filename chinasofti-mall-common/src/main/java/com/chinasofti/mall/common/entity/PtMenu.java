@@ -1,5 +1,7 @@
 package com.chinasofti.mall.common.entity;
 
+import java.util.List;
+
 public class PtMenu {
     private String ids;
 
@@ -16,8 +18,19 @@ public class PtMenu {
     private String updatetime;
 
     private String updateby;
+    
+    private List<PtMenu> childMenu;
+    
 
-    public String getIds() {
+    public List<PtMenu> getChildMenu() {
+		return childMenu;
+	}
+
+	public void setChildMenu(List<PtMenu> childMenu) {
+		this.childMenu = childMenu;
+	}
+
+	public String getIds() {
         return ids;
     }
 
