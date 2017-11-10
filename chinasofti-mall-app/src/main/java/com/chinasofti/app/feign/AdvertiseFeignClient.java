@@ -21,7 +21,7 @@ import com.chinasofti.mall.common.entity.AdvertiseContents;
 * @date 2017年11月2日 下午5:50:13 
 * @version
 */
-@FeignClient(name = "advertise-service" , fallback = AdvertiseFeignClientHystrix.class)
+@FeignClient(name = "Goods-Service" , fallback = AdvertiseFeignClientHystrix.class)
 public interface AdvertiseFeignClient {
 	
 	
@@ -44,7 +44,7 @@ public interface AdvertiseFeignClient {
 	* @throws
 	*/
 	@RequestMapping(value = "/advertise/findAdvertiseList")
-	public List<AdvertiseContents> findAdvertiseList(@RequestBody(required = false) AdvertiseContents advertiseContents);
+	public List<AdvertiseContents> findAdvertiseList(@RequestParam("positionId") String positionId);
 	
 	
 	

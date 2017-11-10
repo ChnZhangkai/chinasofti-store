@@ -24,10 +24,10 @@ public class AdvertiseController {
 
 
 	@RequestMapping("findAdvertiseList")
-	public List<AdvertiseContents> findAdvertiseList(@RequestParam AdvertiseContents advertiseContents,HttpServletResponse response) {
+	public List<AdvertiseContents> findAdvertiseList(@RequestParam String positionId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		logger.info(advertiseContents.toString());
-		return advertiseFeignClient.findAdvertiseList(advertiseContents);
+		logger.info(positionId);
+		return advertiseFeignClient.findAdvertiseList(positionId);
 	}
 	@RequestMapping("findAdvertise")
 	public AdvertiseContents findAdvertise(@RequestParam String positionId,HttpServletResponse response) {
