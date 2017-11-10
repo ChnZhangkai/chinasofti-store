@@ -4,16 +4,16 @@
 	<div id="wu-toolbar-3" style="height: 15%">
 		<div class="wu-toolbar-search" style="border-bottom: 1px solid #DDDDDD">
 			<form id="searchCheckForm" style="margin: 0px">
-				<label>商品编号</label> <input type="text" id="goodsids" name="goodsids" class="easyui-textbox"/>
-				<label>商品名称</label> <input type="text" id="goodstitle" name="title" class="easyui-textbox"/>
-				<label>开始时间</label> <input type="text" id="goodsstarttime" name="startTime" class="easyui-datebox"/>
-				<label>结束时间</label> <input type="text" id="goodsendtime" name="endTime" class="easyui-datebox"/><br>
-				<label>商户名称</label> <input type="text" id="goodsvendorids" name="vendorSnm" class="easyui-textbox"/>
-				<label>商品分类</label> <input type="text" id="goodsclassname" name=name class="easyui-textbox"/>
+				<label>商品编号</label> <input type="text" id="goodsids" name="goodsids" class="easyui-textbox" style="width: 160px"/>
+				<label>商品名称</label> <input type="text" id="goodstitle" name="title" class="easyui-textbox" style="width: 160px"/>
+				<label>开始时间</label> <input type="text" id="goodsstarttime" name="startTime" class="easyui-datetimebox" style="width: 160px" data-options="prompt:'请选择日期',editable:'false'"/>
+				<label>结束时间</label> <input type="text" id="goodsendtime" name="endTime" class="easyui-datetimebox" style="width: 160px" data-options="prompt:'请选择日期',editable:'false'"/><br>
+				<label>商户名称</label> <input type="text" id="goodsvendorids" name="vendorSnm" class="easyui-textbox" style="width: 160px"/>
+				<label>商品分类</label> <input type="text" id="goodsclassname" name=name class="easyui-textbox" style="width: 160px"/>
 				<label>商品类型</label>
 				<select autocomplete="off" class="easyui-combobox"
 					data-options="panelHeight:'auto'" id="goodsType" name="type"
-					style="width: 135px">
+					style="width: 160px">
 					<option selected="selected" value="">请选择</option>
 					<option value="0">普通商品</option>
 					<option value="1">活动商品</option>
@@ -21,7 +21,7 @@
 				<label>审核状态</label>
 				<select autocomplete="off" class="easyui-combobox"
 					data-options="panelHeight:'auto'" id="goodsReviewStates" name="reviewStatues"
-					style="width: 135px">
+					style="width: 160px">
 					<option selected="selected" value="">请选择</option>
 					<option value="0">待提交审核</option>
 					<option value="3">已提交审核</option>
@@ -38,9 +38,9 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeGoodsCheck()" plain="true">删除</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" onclick="print()" plain="true">提交审核</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" onclick="print()" plain="true">撤销审核</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-chk-checked" onclick="print()" plain="true">商品审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="pushCheck" onclick="handleCheck(this)" plain="true">提交审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="repealCheck" onclick="handleCheck(this)" plain="true">撤销审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-chk-checked" id="doCheck" onclick="handleCheck(this)" plain="true">商品审核</a>
 		</div>
 	</div>
 
@@ -92,10 +92,10 @@
 				<tr>
 					<th align="right">开始日期</th>
 					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'true'" id="createTime" name="createTime"/></td>
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="createTime" name="createTime"/></td>
 					<th align="right">结束日期</th>
-					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'true'" id="endTime" name="endTime"/></td>
+					<td><input type="text" class="easyui-datebox"
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime"/></td>
 				</tr>
 				<tr>
 					<th align="right">规格</th>
@@ -276,6 +276,7 @@
 	 * 删除
 	 */
 	function removeGoodsCheck(){
+		
 		var items = $('#goodscheck').datagrid('getSelections');
 		var ids = [];
 		
@@ -306,6 +307,101 @@
 				});
 			}	
 		});
+	}
+	
+	/*
+	 * 审核流程
+	 */
+	function handleCheck(obj){
+		
+		var data = [];
+		var ids = [];
+		
+		var items = $('#goodscheck').datagrid('getSelections');
+		if(items.length < 1){
+			$.messager.alert('温馨提醒','请选中要删的数据');
+			return ;
+		}
+		$(items).each(function(){data.push(this.reviewStatues);});
+		//提交
+		if(obj.id == "pushCheck"){
+			
+			if(data != 0){
+				$.messager.alert('温馨提醒','您选中的不是一条待提交的数据，请重新选择其他待提交审核数据','question')
+				return ;
+			}
+			$(items).each(function(){
+				ids.push(this.ids);	
+			});
+			$.ajax({
+				url:'' + ids,
+				type:'POST',
+				success:function(data){
+					if(data){
+						$.messager.alert('信息提示','删除成功！','info');
+						//$('#goodsinfo').datagrid('reload')
+						$('#goodsCheckPagination').pagination('select');
+					}
+					else
+					{
+						$.messager.alert('信息提示','删除失败！','info');		
+					}
+				}	
+			});
+		}
+			//待审核
+			if(obj.id == "repealCheck"){
+			
+				if(data != 3){
+					$.messager.alert('温馨提醒','您选中的不是一条已提交审核的数据，请重新选择其他已提交提交审核数据','question')
+					return ;
+				}
+				$(items).each(function(){
+					ids.push(this.ids);	
+				});
+				$.ajax({
+					url:'' + ids,
+					type:'POST',
+					success:function(data){
+						if(data){
+							$.messager.alert('信息提示','删除成功！','info');
+							//$('#goodsinfo').datagrid('reload')
+							$('#goodsCheckPagination').pagination('select');
+						}
+						else
+						{
+							$.messager.alert('信息提示','删除失败！','info');		
+						}
+					}	
+				});
+		}
+			//审核通过或拒绝
+			if(obj.id == "doCheck"){
+				
+				if(data != 3){
+					$.messager.alert('温馨提醒','您选中的不是一条已提交审核的数据，请重新选择其他已提交提交审核数据','question')
+					return ;
+				}
+				$(items).each(function(){
+					ids.push(this.ids);	
+				});
+				$.ajax({
+					url:'' + ids,
+					type:'POST',
+					success:function(data){
+						if(data){
+							$.messager.alert('信息提示','删除成功！','info');
+							//$('#goodsinfo').datagrid('reload')
+							$('#goodsCheckPagination').pagination('select');
+						}
+						else
+						{
+							$.messager.alert('信息提示','删除失败！','info');		
+						}
+					}	
+				});
+		}
+		
 	}
 	
 	/*
