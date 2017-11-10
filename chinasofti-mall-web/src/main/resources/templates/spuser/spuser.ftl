@@ -3,15 +3,15 @@
     <!-- Begin of toolbar -->
     <div id="user-toolbar-2">
         <div class="user-toolbar-button">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="spUserOpenAdd()" plain="true">添加</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="spUserOpenEdit()" plain="true">修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-spUserRemove" onclick="spUserRemove()" plain="true">删除</a>
         </div>
        	<div class="spUser-toolbar-search">
 		<form id="spUserSearchForm">
-			<label>商户编号：</label> <input type="text" id="vendorId" name="vendorId"/></br>
-			<label>商户名称：</label> <input type="text" id="vendorSnm" name="vendorSnm"/>
-			<label>拓展网站：</label> <input type="text" id="belongSiteName" name="belongSiteName"/>
+			<label>商户编号：</label> <input type="text" id="vendorId" name="vendorId" class="easyui-textbox"/>
+			<label>商户名称：</label> <input type="text" id="vendorSnm" name="vendorSnm" class="easyui-textbox"/>
+			<label>拓展网站：</label> <input type="text" id="belongSiteName" name="belongSiteName" class="easyui-textbox"/>
 			<label>状态</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="status" style="width: 125px">
 									<option value=""  selected="selected">请选择</option>
 									<option value="0" >未开启</option>
@@ -48,17 +48,28 @@
 	data-options="closed:true,iconCls:'icon-save'"
 	style="width: 800px; padding: 10px;">
 	<form id="spUserAdd" method="post" enctype="multipart/form-data">
-		<table id="add">
+		<table id="spUserAdd">
 			<tr>
                 <td align="right">商户编号:</td>
-                <td><input  id="vendorId" name="vendorId" class="wu-text" /></td>
+                <td>
+                	<input  id="vendorId" name="vendorId" class="easyui-textbox" 
+               		style="width: 180px" type="text" required="required" />
+                	<span style="color:gray"><font size="1">由6-10位字母和数字组成</font></span>
+                </td>
                 	
                 <td align="right">商户全称:</td>
-                <td><input id="vendorFnm" name="vendorFnm" class="wu-text" /></td>
+                <td>
+                  <input id="vendorFnm" name="vendorFnm" class="easyui-textbox" 
+                  	style="width: 180px" type="text" required="required"/>
+                	<span style="color:gray"><font size="1">长度不超过50字</font></span>
+                </td>
             </tr>
             <tr>
                 <td align="right">商户简称:</td>
-                <td><input id="vendorSnm" name="vendorSnm" class="wu-text" /></td>
+                <td><input id="vendorSnm" name="vendorSnm" class="easyui-textbox" 
+                	 style="width: 180px" type="text" required="required"/>
+                	 <span style="color:gray"><font size="1">长度不超过20字</font></span>
+                </td>
                 
                 <td align="right">状态:</td>
 				<td>
@@ -66,29 +77,47 @@
 							<option value="0" selected="selected">未开启</option>
 							<option value="1">已启用</option>
 					</select>
+					<span style="color:gray"><font size="1">必选</font></span>
 				</td>
             </tr>
           
 			<tr>
                 <td align="right">商户负责人:</td>
-                <td><input id="chargeman" name="chargeman" class="wu-text" /></td>
+                <td><input id="chargeman" name="chargeman" class="easyui-textbox" 
+                	 style="width: 180px" type="text" required="required"/>
+            	 <span style="color:gray"><font size="1">长度不超过15字</font></span>
+            	</td>
            
-           		 <td align="right">联系手机号:</td>
-                <td><input id="mobile" name="mobile" class="wu-text" /></td>
+           		<td align="right">联系手机号:</td>
+                <td><input id="mobile" name="mobile" class="easyui-textbox" 
+                	 style="width: 180px" type="text" required="required"/>
+            	 <span style="color:gray"><font size="1">长度不超过11字</font></span>
+            	</td>
             </tr>
             <tr>
                 <td align="right">邮箱:</td>
-                <td><input id="email" name="email" class="wu-text" width="60px" /></td>
+                <td><input id="email" name="email" class="easyui-textbox" 
+                	 style="width: 180px" type="text" required="required"/>
+            	 <span style="color:gray"><font size="1">长度不超过30字</font></span>
+            	</td>
                 
                 <td align="right">通讯地址:</td>
-                <td><input id="address" name="address" class="wu-text" /></td>
+                <td><input id="address" name="address" class="easyui-textbox" 
+                	 style="width: 180px" type="text" required="required"/>
+            	 <span style="color:gray"><font size="1">必填</font></span>
+            	</td>
             </tr>
             
             <tr>
                 <td align="right">售后服务电话:</td>
-                <td><input id="servicePhone" name="servicePhone" class="wu-text" /></td>
+                <td><input id="servicePhone" name="servicePhone"class="easyui-textbox" 
+                	 style="width: 180px" type="text" required="required"/>
+            	 <span style="color:gray"><font size="1">必填</font></span>
+            	</td>
                 <td align="right">拓展网点名称:</td>
-                <td><input id="belongSiteName" name="belongSiteName" class="wu-text" /></td>
+                <td><input id="belongSiteName" name="belongSiteName" class="easyui-textbox"
+                 style="width: 180px" type="text"/>
+                </td>
                 
             </tr>
             <tr>
@@ -113,7 +142,8 @@
 		<table id="update">
 			<tr>
 				<td  align="right">商户编号:</td>
-				<td><input class="wu-text" id="vendorId" name="vendorId"/></td>
+				<td><input class="wu-text easyui-tooltip" id="vendorId" name="vendorId"
+				 title="商户编号不可修改" style="background-color: #F4F4F4" readonly="true"/></td>
 				
 				<td align="right">商户全称:</td>
                 <td><input id="vendorFnm" name="vendorFnm" class="wu-text" /></td>
@@ -151,18 +181,27 @@
                 <td><input id="belongSiteName" name="belongSiteName" class="wu-text" /></td>
                 
                 <td align="right">创建日期:</td>
-                <td><input id="createDate" name="createDate" class="wu-text" /></td>
+                <td>
+                	<input id="createDate" name="createDate" class="wu-text easyui-tooltip" 
+               		 title="不可修改" style="background-color: #F4F4F4" readonly="true"/>
+                </td>
             </tr>
              <tr>
                 <td align="right">创建时间:</td>
-                <td><input id="createTime" name="createTime" class="wu-text" /></td>
+                <td><input id="createTime" name="createTime" class="wu-text easyui-tooltip" 
+               		 title="不可修改" style="background-color: #F4F4F4" readonly="true"/>
+                </td>
                 
                 <td align="right">更新时间:</td>
-                <td><input id="updatetime" name="updatetime" class="wu-text" /></td>
+                <td><input id="updatetime" name="updatetime" class="wu-text easyui-tooltip" 
+               		 title="不可修改" style="background-color: #F4F4F4" readonly="true"/>
+                </td>
             </tr>
                <tr>
                 <td align="right">更新人:</td>
-                <td><input id="updateby" name="updateby" class="wu-text" /></td>
+                <td><input id="updateby" name="updateby" class="wu-text easyui-tooltip" 
+               		 title="不可修改" style="background-color: #F4F4F4" readonly="true"/>
+                </td>
                 
                 <td align="right">售后服务电话:</td>
                 <td><input id="servicePhone" name="servicePhone" class="wu-text" /></td>
@@ -226,7 +265,7 @@ $(function(){
 	/**
 	* Name 删除记录
 	*/
-	function remove(){
+	function spUserRemove(){
 	
 		var items = $('#spuserinfo').datagrid('getSelections');
 		var ids = [];
@@ -262,7 +301,7 @@ $(function(){
 	/**
 	* Name 打开添加窗口
 	*/
-	function openAdd(){
+	function spUserOpenAdd(){
 		$('#spUserAdd').form('clear');
 		$('#spUserAddDialog').dialog({
 			closed: false,
@@ -312,7 +351,7 @@ $(function(){
 		/**
 	* Name 打开修改窗口
 	*/
-	function openEdit(){
+	function spUserOpenEdit(){
 		$('#spUserUpdate').form('clear');
 		var row = $("#spuserinfo").datagrid('getSelected');
 		if (row) {
