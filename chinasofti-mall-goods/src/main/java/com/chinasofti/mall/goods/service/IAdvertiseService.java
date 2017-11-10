@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.common.service.IBaseService;
 /**
  * 
@@ -28,4 +29,12 @@ public interface IAdvertiseService extends IBaseService<AdvertiseContents> {
 	
 	public List<AdvertiseContents> queryAdvertiseList(AdvertiseContents record) ;
 	public AdvertiseContents queryAdvertise(String positionId);
+	/**
+	 * 
+	* @Title: findAdPostionAll
+	* @Description: 查询所有位置广告位置信息
+	* @return: List<AdvertisePosition>
+	* @throws:
+	 */
+	public List<AdvertisePosition> findAdPostionAll();
 }

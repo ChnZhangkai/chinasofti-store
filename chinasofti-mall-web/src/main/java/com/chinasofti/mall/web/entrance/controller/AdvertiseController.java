@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
 import net.sf.json.JSONObject;
 
@@ -99,5 +100,10 @@ public class AdvertiseController {
 		logger.info("publicAdvertise>>>>>>>>>>>>>>>>>>>map:" + map.toString());
 		return advertiseFeignClient.pubOrCanAdvertise(map);
 	}
+	
+	@RequestMapping(value="findAdPostionAll",method=RequestMethod.GET)
+	public List<AdvertisePosition> findAdPostionAll(@RequestParam Map<String,Object> map) {
+		return advertiseFeignClient.findAdPostionAll();
+	}	
 
 }

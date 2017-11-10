@@ -127,7 +127,11 @@ function saveAdvertise() {
 // 删除
 function deleteAdvertise() {
 	var row = $('#ad-datagrid').datagrid('getSelected');
-
+	
+	if (row <= 0) {
+		$.messager.alert('提示', '请选择要删除的广告', 'info');
+		return;
+		}
 	if (row.states == 1) {
 		$.messager.alert('warning', '该广告已发布，无法删除，请先取消发布！', 'info');
 		return;
@@ -217,4 +221,17 @@ function loadClassName() {
 			})
 		}
 	});
+	
+//	$.ajax({
+//		url : '/advertise/findAdPostionAll',
+//		type : "GET",
+//		success : function(data) {
+//			data = eval("(" + data + ")");
+//			$('#_positionId').combobox({
+//				valueField : 'ids',
+//				textField : 'name',
+//				data : data.rows,
+//			})
+//		}
+//	});
 }

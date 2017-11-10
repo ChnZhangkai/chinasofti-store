@@ -1,1 +1,7 @@
 /target/
+.settings
+.project
+.classpath
+.log
+.classes
+.jar

@@ -89,19 +89,17 @@
 					</td>
 					<th nowrap="nowrap">广告位名称*:</th>
 					<td>
-						<select id="positionId" name="title" style="width: 180px" class="easyui-combobox" required="required">
-							<option value="" data-options="selected:true">请选择</option>
-							<option value="1">专区广告</option>
-							<option value="2">分类广告</option>
-							<option value="3">首页轮播位</option>
-						</select>
+						<!-- <select id="_positionId" name="positionId" style="width: 180px" class="easyui-combobox" required="required"></select> -->
+						<input id="positionId" class="easyui-combobox" style="width: 180px" name="positionId" data-options="valueField:'ids',textField:'name',url:'advertise/findAdPostionAll'">
 						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
 				</tr>
 				<tr>
 					<th  style="padding:10px">分类名称*:</td>
 					<td>
-						<select id="_className" name="categoryName" style="width: 180px" required="required" class="easyui-combobox"></select>
+<!-- 					<select id="_className" name="categoryName" style="width: 180px" required="required" class="easyui-combobox"></select>
+ -->						<input id="" class="easyui-combobox" style="width: 180px" name="categoryName" data-options="valueField:'ids',textField:'name',url:'/goodsCheck/reqGoodsClassName'">
+						
 					</td>
 					
 					<th nowrap="nowrap">有效开始日期*:</th>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.chinasofti.mall.common.controller.BaseController;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.goods.service.IAdvertiseService;
 
 import net.sf.json.JSONObject;
@@ -109,6 +110,17 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 			}
 			return jsonObject.toString();
 	}
+	/**
+	* @Title: findAdPostionAll
+	* @Description: 查询所有位置
+	* @return: List<AdvertisePosition>
+	* @throws:
+	 */
+	@RequestMapping("findAdPostionAll")
+	public List<AdvertisePosition> findAdPostionAll() {
+		return advertiseService.findAdPostionAll();
+	}
+	
 	
 
 	

@@ -2,6 +2,8 @@ package com.chinasofti.mall.goods.mapper;
 
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertiseContentsExample;
+import com.chinasofti.mall.common.entity.AdvertisePosition;
+
 import java.util.List;
 import java.util.Map;
 
@@ -36,4 +38,6 @@ public interface AdvertiseContentsMapper {
     List<AdvertiseContents> selectAdvertiseList(AdvertiseContents record);
     
     AdvertiseContents selectSingleAdvertise(String positionId);
+    
+   List<AdvertisePosition> findAdPostionAll();
 }
