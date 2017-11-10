@@ -53,7 +53,7 @@
 	<!--左菜单栏-->
 	<div class="zk-sidebar"
 		data-options="region:'west',split:true,title:'菜单'"
-		style="width: 150px; padding: 10px;">
+		style="width: 150px; padding: 0px;">
 		<div class="easyui-accordion" data-options="border:false,fit:true"
 			id="acc"></div>
 	</div>
