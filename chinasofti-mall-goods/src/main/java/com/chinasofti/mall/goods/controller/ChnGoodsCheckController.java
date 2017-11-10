@@ -29,10 +29,16 @@ public class ChnGoodsCheckController {
 	 * @param goodscategory
 	 * @return
 	 */
-	@RequestMapping(value = "/select" , method = RequestMethod.POST)
-	public JSONObject selectByGoodsCheck(@RequestBody(required = false)ChnGoodsinfoCheck chnGoodsinfoCheck){
-		return chnGoodsCheckService.selectByExample(chnGoodsinfoCheck);
+//	@RequestMapping(value = "/select" , method = RequestMethod.POST)
+//	public JSONObject selectByGoodsCheck(@RequestBody(required = false)ChnGoodsinfoCheck chnGoodsinfoCheck){
+//		return chnGoodsCheckService.selectByExample(chnGoodsinfoCheck);
+//		
+//	}
+	
+	@RequestMapping("/select")
+	public JSONObject findAll(ChnGoodsinfoCheck chnGoodsinfoCheck){
 		
+		return chnGoodsCheckService.selectAll(chnGoodsinfoCheck);
 	}
 	
 	/**
