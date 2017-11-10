@@ -8,8 +8,8 @@
 				<label>商品名称</label> <input type="text" id="goodstitle" name="title" class="easyui-textbox"/>
 				<label>开始时间</label> <input type="text" id="goodsstarttime" name="startTime" class="easyui-datebox"/>
 				<label>结束时间</label> <input type="text" id="goodsendtime" name="endTime" class="easyui-datebox"/><br>
-				<label>商户编号</label> <input type="text" id="goodsvendorids" name="vendorids" class="easyui-textbox"/>
-				<label>商品分类</label> <input type="text" id="goodsclassname" name=goodsClassIds class="easyui-textbox"/>
+				<label>商户名称</label> <input type="text" id="goodsvendorids" name="vendorSnm" class="easyui-textbox"/>
+				<label>商品分类</label> <input type="text" id="goodsclassname" name=name class="easyui-textbox"/>
 				<label>商品类型</label>
 				<select autocomplete="off" class="easyui-combobox"
 					data-options="panelHeight:'auto'" id="goodsType" name="type"
@@ -30,13 +30,13 @@
 				</select>
 				<a href="#" class="easyui-linkbutton" iconCls="icon-search"
 					onclick="doGoodsCheckSearch()">开始检索</a> <a href="#" class="easyui-linkbutton"
-					iconCls="icon-edit-clear" onclick="doClear()">清除</a>
+					iconCls="icon-edit-clear" onclick="doGoodsCheckClear()">清除</a>
 			</form>
 		</div>
 		<div class="wu-toolbar-button">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openGoodsAdd()" plain="true">添加</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeGoodsCheck()" plain="true">删除</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" onclick="print()" plain="true">提交审核</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" onclick="print()" plain="true">撤销审核</a>
@@ -54,7 +54,7 @@
 					data-options="formatter:imgFormatter">商品图片</th>
 				<th field="price" width="15%" align="center">商品价格</th>
 				<th field="vendorSnm" width="15%" align="center">商户名称</th>
-				<th field="name" width="20%" align="center">分类名称</th>
+				<th field="name" width="20%" align="center">商品分类</th>
 				<th field="type" width="10%" align="center"
 					data-options="formatter:typeFormatter">商品类型</th>
 				<th field="reviewStatues" width="10%" align="center"
@@ -224,6 +224,28 @@
 		
 	}
 	
+	//商品添加
+	function addGoods(){
+		/* var ueditorData = UE.getEditor('container').getContent();*/
+		
+		var formData = new FormData($("#addGoodsForm")[0]); 
+		   $.ajax({ 
+		     url:'/goodsCheck/addGoods',
+		     type: 'POST', 
+		     data: formData, 
+		     async: false, 
+		     cache: false, 
+		     contentType: false, 
+		     processData: false, 
+		     success: function(data) {
+				alert(data);
+		     }, 
+		     error: function(data) {   
+		     } 
+		   }); 
+	}
+	
+	//条件查询
 	function doGoodsCheckSearch(){
 		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchCheckForm').serialize();
 		//console.info(param)
@@ -250,25 +272,40 @@
 	       });
 	}
 	
-	//商品添加
-	function addGoods(){
-		/* var ueditorData = UE.getEditor('container').getContent();*/
+	/*
+	 * 删除
+	 */
+	function removeGoodsCheck(){
+		var items = $('#goodscheck').datagrid('getSelections');
+		var ids = [];
 		
-		var formData = new FormData($("#addGoodsForm")[0]); 
-		   $.ajax({ 
-		     url:'/goodscheck/addGoods',
-		     type: 'POST', 
-		     data: formData, 
-		     async: false, 
-		     cache: false, 
-		     contentType: false, 
-		     processData: false, 
-		     success: function(data) {
-				alert(data);
-		     }, 
-		     error: function(data) {   
-		     } 
-		   }); 
+		if(items.length < 1){
+			$.messager.alert('温馨提醒','请选中要删的数据');
+			return ;
+		}
+	
+		$.messager.confirm('信息提示','确定要删除该记录？', function(result){
+			if(result){
+				$(items).each(function(){
+					ids.push(this.ids);	
+				});
+				$.ajax({
+					url:'/goodsCheck/delete/' + ids,
+					type:'POST',
+					success:function(data){
+						if(data){
+							$.messager.alert('信息提示','删除成功！','info');
+							//$('#goodsinfo').datagrid('reload')
+							$('#goodsCheckPagination').pagination('select');
+						}
+						else
+						{
+							$.messager.alert('信息提示','删除失败！','info');		
+						}
+					}	
+				});
+			}	
+		});
 	}
 	
 	/*
@@ -325,6 +362,9 @@
 		}
 	}
 	
+	/*
+	 * 商品类型
+	 */
 	function typeFormatter(value){
 		if(value == "0"){
 			return '<span>普通商品</span>';
@@ -336,7 +376,7 @@
 	/*
 	 *清除查询条件
 	 */
-	 function doClear(){
+	 function doGoodsCheckClear(){
 		$('#searchCheckForm').form('reset');
 	}
 	
