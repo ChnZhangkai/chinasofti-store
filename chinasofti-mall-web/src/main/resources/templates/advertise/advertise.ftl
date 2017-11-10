@@ -90,7 +90,7 @@
 					<th nowrap="nowrap">广告位名称*:</th>
 					<td>
 						<select id="positionId" name="title" style="width: 180px" class="easyui-combobox" required="required">
-							<option value="" selected="selected">请选择</option>
+							<option value="" data-options="selected:true">请选择</option>
 							<option value="1">专区广告</option>
 							<option value="2">分类广告</option>
 							<option value="3">首页轮播位</option>
@@ -106,13 +106,13 @@
 					
 					<th nowrap="nowrap">有效开始日期*:</th>
 					<td>
-						<input type="text" placeholder="请输入日期" name="beginTime" class="easyui-datetimebox" required="required" style="width: 180px" />
+						<input type="text" data-options="prompt:'请输入日期',required:'true'" name="beginTime" class="easyui-datetimebox"  style="width: 180px" />
 					</td>
 				</tr>
 				<tr>
 					<th nowrap="nowrap" style="padding:10px">有效结束日期*:</th>
 					<td>
-						<input type="text" placeholder="请输入日期" name="endTime" class="easyui-datetimebox" data-options="required:true" style="width: 180px" />
+						<input type="text" data-options="prompt:'请输入日期'" name="endTime" class="easyui-datetimebox" data-options="required:true" style="width: 180px" />
 						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
 					<th nowrap="nowrap">排序*:</th>
