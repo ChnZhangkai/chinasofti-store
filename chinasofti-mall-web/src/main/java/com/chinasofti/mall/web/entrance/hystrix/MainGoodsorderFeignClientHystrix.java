@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
-import com.chinasofti.mall.common.entity.PyMainGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.web.entrance.feign.MainGoodsorderFeign;
 
 import net.sf.json.JSONObject;
