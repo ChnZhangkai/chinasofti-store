@@ -33,8 +33,6 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 	@Override
 	public JSONObject selectByExample(ChnGoodsClass chnGoodsClass) {
 		
-		//String compare = "";
-		
 		JSONObject js = new JSONObject();
 		ChnGoodsClassExample example = new ChnGoodsClassExample();
 		Criteria criteria = example.createCriteria();
@@ -92,9 +90,23 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 		return chnGoodsClassMapper.selectByPrimaryKey(ids);
 	}
 
+	/**
+	 * 查询分类信息
+	 */
+
+	@Override
+	public List<ChnGoodsClass> selectByIsParent(String isParent) {
+		return chnGoodsClassMapper.selectByIsParent(isParent);
+	}
+
+	@Override
+	public List<ChnGoodsClass> selectById(String pids) {
+		
+		return chnGoodsClassMapper.selectById(pids);
+	}
+
 	@Override
 	public List<ChnGoodsClass> findAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.web.entrance.feign.ChnGoodsClassFeignClient;
+import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
 
 import net.sf.json.JSONObject;
 
@@ -31,7 +31,7 @@ public class ChnGoodsClassController {
 	private static final String beforePath = System.getProperty("user.dir")  + "\\src\\main\\resources\\static\\data\\goods";
 	
 	@Autowired
-	private ChnGoodsClassFeignClient chnGoodsClassFeignClient;
+	private ChnGoodsFeignClient chnGoodsClassFeignClient;
 	
 	/**
 	 * 返回主界面
@@ -39,7 +39,7 @@ public class ChnGoodsClassController {
 	 */
 	@RequestMapping("/index")
 	public ModelAndView toIndex(){
-		return new ModelAndView("/goods/goods");
+		return new ModelAndView("/goods/goodsclass");
 	}
 	
 	/**

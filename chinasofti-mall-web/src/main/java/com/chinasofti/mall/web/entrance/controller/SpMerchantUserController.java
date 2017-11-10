@@ -96,6 +96,7 @@ public class SpMerchantUserController {
 	}
 	
 	
+	
 	/**
 	 * 修改商户
 	 * @param spMerchantUser
@@ -103,7 +104,12 @@ public class SpMerchantUserController {
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public int spUserUpdate(SpMerchantUser spMerchantUser) {
-		return spUserFeignClient.spUserUpdate(spMerchantUser);
-		
+		spMerchantUser.setModifyOper("admins");
+		spMerchantUser.setUpdateby("admins");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		spMerchantUser.setUpdatetime(df.format(new Date()));
+		return spUserFeignClient.spUserUpdate(spMerchantUser); 
 	}
+	
+	
 }

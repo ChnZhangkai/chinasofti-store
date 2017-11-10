@@ -23,6 +23,7 @@ import net.sf.json.JSONObject;
 @RestController
 @RequestMapping("/spUser")
 public class SpMerchantUserController {
+	
 	@Autowired
 	private SpMerchantUserService spUserService;
 	
@@ -63,4 +64,6 @@ public class SpMerchantUserController {
 		return spUserService.save(spMerchantUser);
 		
 	}
+	
+
 }

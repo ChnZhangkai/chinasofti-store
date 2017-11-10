@@ -504,4 +504,30 @@ public class SpMerchantUser extends PageBean{
     public void setVenderExplain(String venderExplain) {
         this.venderExplain = venderExplain == null ? null : venderExplain.trim();
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SpMerchantUser [ids=" + ids + ", userIds=" + userIds + ", vendorId=" + vendorId + ", rightCode="
+				+ rightCode + ", vendorFnm=" + vendorFnm + ", vendorSnm=" + vendorSnm + ", chargeman=" + chargeman
+				+ ", linkman=" + linkman + ", phone=" + phone + ", mobile=" + mobile + ", address=" + address
+				+ ", accbank=" + accbank + ", accno=" + accno + ", email=" + email + ", bankNbr=" + bankNbr
+				+ ", vendorDesc=" + vendorDesc + ", createOper=" + createOper + ", modifyOper=" + modifyOper
+				+ ", createDate=" + createDate + ", createTime=" + createTime + ", modifyDate=" + modifyDate
+				+ ", modifyTime=" + modifyTime + ", feeAcct=" + feeAcct + ", status=" + status + ", tips=" + tips
+				+ ", tipsRange=" + tipsRange + ", isDelivery=" + isDelivery + ", isDeliveryFree=" + isDeliveryFree
+				+ ", feeRange=" + feeRange + ", feeModel=" + feeModel + ", vendorModel=" + vendorModel
+				+ ", deliveryInitPrice=" + deliveryInitPrice + ", deliveryPerPrice=" + deliveryPerPrice
+				+ ", deliveryFreePrice=" + deliveryFreePrice + ", updAfterSale=" + updAfterSale + ", pledgeType="
+				+ pledgeType + ", vendorRemark=" + vendorRemark + ", salePage=" + salePage + ", isSettle=" + isSettle
+				+ ", accType=" + accType + ", accName=" + accName + ", payType=" + payType + ", belongSiteNo="
+				+ belongSiteNo + ", belongSiteName=" + belongSiteName + ", frezenInterval=" + frezenInterval
+				+ ", servicePhone=" + servicePhone + ", updatetime=" + updatetime + ", updateby=" + updateby
+				+ ", venderIntro=" + venderIntro + ", venderExplain=" + venderExplain + "]";
+	}
+    
+    
+    
 }

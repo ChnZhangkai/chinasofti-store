@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.controller.BaseController;
-import com.chinasofti.mall.common.entity.PyChildGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
 
 import net.sf.json.JSONObject;
@@ -74,6 +74,11 @@ public class ChildGoodsorderController implements BaseController<PyChildGoodsord
 	public JSONObject selectByExample(@RequestBody(required=false) PyChildGoodsorder childGoodsorder){
 		
 		return childGoodsorderService.selectByChildorderClass(childGoodsorder);
+	}
+	
+	@RequestMapping(value="selectall" , method = RequestMethod.POST)
+	public List<PyChildGoodsorder> selectAll2(){
+		return childGoodsorderService.selectAllTest();
 	}
 
 }

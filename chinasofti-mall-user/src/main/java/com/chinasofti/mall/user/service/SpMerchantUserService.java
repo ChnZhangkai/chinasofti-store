@@ -1,5 +1,7 @@
 package com.chinasofti.mall.user.service;
 
+
+
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.common.service.IBaseService;
 
@@ -20,5 +22,6 @@ public interface SpMerchantUserService extends IBaseService<SpMerchantUser>{
 	 * @return
 	 */
 	JSONObject selectByExample(SpMerchantUser spMerchantUser);
+
 
 }

@@ -4,10 +4,10 @@
 	<!-- 主订单模块开始 -->
 	<!-- 主订单工具栏 -->
 	<div id="mainorderToolbar">
-		<div class="mainorderoolbarButton"  style="padding:0 0 0 10px">
+		<!-- <div class="mainorderoolbarButton"  style="padding:0 0 0 10px">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search"
 				onclick="openMainorderCheck()" plain="false">查看主订单详细信息</a>
-		</div>
+		</div> -->
 
 		<!-- 主订单条件搜索 -->
 		<form id="mainorderSearchForm" method="post">
@@ -120,16 +120,18 @@
        				 collapsible:true">
 		<thead>
 			<tr>
-				<th field="transactionid" width="20%" align="center" data-options="sortable:true">主订单号</th>
-				<th field="bigorderId" width="20%" align="center">大订单号</th>
+				<th field="transactionid" width="17%" align="center" data-options="sortable:true">主订单号</th>
+				<th field="bigorderId" width="17%" align="center">大订单号</th>
 				<th field="ac" width="8%" align="center" data-options="formatter:paywayFormatter">订单类型-</th>
 				<th field="vendorIds" width="10%" align="center">商户名称-</th>
-				<th field="orderTotalAmt" width="8%" align="center" data-options="sortable:true">订单总额</th>
+				<th field="orderTotalAmt" width="6%" align="center" data-options="sortable:true">订单总额</th>
 				<th field="payStatus" width="5%" align="center" data-options="formatter:payStatusFormatter">支付状态</th>
 				<th field="status" width="5%" align="center" data-options="formatter:statusFormatter">订单状态-</th>
 				<th field="ac" width="5%" align="center">物流状态</th>
 				<th field="settleStatues" width="8%" align="center" data-options="formatter:settleStatuesFormatter">清算状态</th>
 				<th field="ac" width="5%" align="center" data-options="formatter:statusFormatter">核销状态-</th>
+				<th field="ad" width="6%" align="center" 
+					data-options="formatter:mianBtnFormatter">操作</th>
 			</tr>
 		</thead>
 	</table>
@@ -442,9 +444,9 @@
 	<!-- 子订单模块开始 -->
 	<!-- 子订单模块工具栏 -->
 	<div id="childorderToolbar">
-		<div class="childorderoolbarButton" style="padding:0 0 0 10px">
+		<!-- <div class="childorderoolbarButton" style="padding:0 0 0 10px">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="openChildorderCheck()">查看订单详细信息</a>
-		</div>
+		</div> -->
 
 		<!-- 子订单条件搜索 -->
 		<form id="childorderSearchForm" method="post">
@@ -506,9 +508,9 @@
        				 collapsible:true">
 		<thead>
 			<tr>
-				<th field="transactionid" width="20%" align="center" 
+				<th field="transactionid" width="17%" align="center" 
 					data-options="sortable:true">子订单号</th>
-				<th field="mainorderIds" width="20%" align="center" 
+				<th field="mainorderIds" width="17%" align="center" 
 					data-options="sortable:true">主订单号</th>
 				<th field="orderType" width="8%" align="center"
 					data-options="formatter:orderTypeFormatter">订单类型</th>

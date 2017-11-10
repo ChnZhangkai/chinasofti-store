@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <name>parent</name>
-  <groupId>com.chinasofti.mall</groupId>
-  <artifactId>chinasofti-mall</artifactId>
-  <version>0.0.1</version>
-  <packaging>pom</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>parent</name>
+	<groupId>com.chinasofti.mall</groupId>
+	<artifactId>chinasofti-mall</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
 	<url>http://maven.apache.org</url>
-  <modules>
- 	<module>chinasofti-mall-common</module>
-  	<module>chinasofti-mall-eureka</module>
-  	<module>chinasofti-mall-web</module>
-  	<module>chinasofti-mall-app</module>
-  	<module>chinasofti-mall-goodsorder</module>
-  	<module>chinasofti-mall-goods</module>
-  	<module>chinasofti-mall-zuul</module>
-    <module>chinasofti-mall-shiro</module>
-	<module>chinasofti-mall-user</module>
+	<modules>
+		<module>chinasofti-mall-common</module>
+		<module>chinasofti-mall-eureka</module>
+		<module>chinasofti-mall-web</module>
+		<module>chinasofti-mall-app</module>
+		<module>chinasofti-mall-goodsorder</module>
+		<module>chinasofti-mall-goods</module>
+		<module>chinasofti-mall-zuul</module>
+		<module>chinasofti-mall-user</module>
+	</modules>
 
-  </modules>
-  
-  <properties>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
@@ -42,13 +41,13 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	 <dependencies>
-	 
-	 <!-- 热部署自动重启 -->
-		 <dependency>
+	<dependencies>
+
+		<!-- 热部署自动重启 -->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
-   		 	<artifactId>spring-boot-devtools</artifactId>
-		</dependency> 
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -56,7 +55,18 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>1.5.4.RELEASE</version>  
+				<version>1.5.4.RELEASE</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- 资源文件拷贝插件 -->
 			<plugin>
@@ -78,5 +88,5 @@
 			</plugin>
 		</plugins>
 	</build>
-  
+
 </project>
