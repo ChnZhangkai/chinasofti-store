@@ -111,26 +111,35 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 	}
 	
 
+	
 	@RequestMapping("batchAdd")
 	public void batchAdd() {
 		AdvertiseContents t = new AdvertiseContents();
 		for (int i = 1; i < 200; i++) {
 			if (i % 2 == 0) {
-				t.setTitle("测试广告" + i);
+				t.setTitle("测试广告");
 				t.setStates("1");
+			} else if (i % 2 == 1) {
+				t.setTitle("首页广告");
+				t.setStates("0");
 			} else {
-				t.setTitle("分类广告" + i);
+				t.setTitle("首页广告");
 				t.setStates("0");
 			}
+			t.setImageurl("data/advertise/0c3dd0f09b824d419764943285659512.jpg");
 			t.setIds(String.valueOf(i));
-			t.setUrl("www.baidu.com" + i);
+			t.setUrl("www.huateng.com");
 			t.setDescs(BigDecimal.valueOf(i));
-			t.setContens("单广告" + i);
-			t.setCategoryName("生鲜水果" + i);
-			t.setImageurl("www.test.com" + i);
-			t.setPositionName("首页");
-			t.setBeginTime("2017-08-23 00:" + i);
-			t.setEndTime("2017-08-24 00:" + i);
+			t.setContens("单广告");
+			t.setCategoryName("生鲜水果");
+			t.setPositionName("首页轮播");
+			t.setBeginTime("2017-08-23 00:00:00");
+			t.setEndTime("2017-08-24 00:00:00");
+			t.setCreateBy("jack");
+			t.setType("1");
+			t.setUpdateBy("tony");
+			t.setUpdateTime("2017-08-29 00:00:00");
+			t.setCreateTime("2017-07-26 00:00:00");
 			advertiseService.save(t);
 		}
 

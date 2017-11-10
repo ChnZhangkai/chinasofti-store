@@ -55,7 +55,12 @@ public class SpMerchantUserController {
 
 	@RequestMapping(value="update" , method = RequestMethod.POST)
 	public int update(@RequestBody(required=false) SpMerchantUser spMerchantUser) {
+<<<<<<< HEAD
 		return spUserService.update(spMerchantUser);
+=======
+		int test = spUserService.update(spMerchantUser);
+		return test;
+>>>>>>> branch 'master' of https://github.com/ChnZhangkai/chinasofti-store.git
 		
 	}
 

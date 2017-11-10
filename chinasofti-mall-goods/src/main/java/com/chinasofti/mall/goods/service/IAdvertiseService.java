@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goods.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.chinasofti.mall.common.entity.AdvertiseContents;
@@ -24,4 +25,7 @@ public interface IAdvertiseService extends IBaseService<AdvertiseContents> {
 	public String findByPage(Map<String,Object> paramMap);
 	
 	public int pubOrCanAdvertise(Map<String, Object> map);
+	
+	public List<AdvertiseContents> queryAdvertiseList(AdvertiseContents record) ;
+	public AdvertiseContents queryAdvertise(String positionId);
 }

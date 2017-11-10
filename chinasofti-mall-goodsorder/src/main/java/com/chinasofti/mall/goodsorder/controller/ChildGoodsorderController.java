@@ -75,5 +75,10 @@ public class ChildGoodsorderController implements BaseController<PyChildGoodsord
 		
 		return childGoodsorderService.selectByChildorderClass(childGoodsorder);
 	}
+	
+	@RequestMapping(value="selectall" , method = RequestMethod.POST)
+	public List<PyChildGoodsorder> selectAll2(){
+		return childGoodsorderService.selectAllTest();
+	}
 
 }

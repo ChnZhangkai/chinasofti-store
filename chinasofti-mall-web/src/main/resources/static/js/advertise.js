@@ -1,61 +1,18 @@
-//$(function() {
-//	// 获取表格datagrid的ID属性
-//	var tableID = $("table.easyui-datagrid").attr("id");
-//	// alert(tableID);
-//	// 获取分页工具条元素
-//	var pageId = $('#pagination');
-//
-//	// 此处设置自己的url地址
-//	var url = '/advertise/findByPage';
-//
-//	tdload(tableID, pageId, url);
-//});
-
-// 图片转换
-/*
- * function imgFormatter(value,row){ //alert(123) var str = ""; if(value != "" ||
- * value != null){ str = "<img style=\"height: 80px;width: 150px;\"
- * src=\""+value+"\"/>"; return str; } }
- */
 // 搜索
-//function ad_search() {
-//	$.ajax({
-//		type : 'POST',
-//		url : '/advertise/findByPage', // 用户请求数据的URL
-//		data : {
-//			'title' : $('#ad_search_title').val(),
-//			'positionId' : $('#ad_search_position').val(),
-//			'type' : $('#ad_search_type').val()
-//		},
-//		error : function(XMLHttpRequest, textStatus, errorThrown) {
-//			alert(textStatus);
-//		},
-//		success : function(data) {
-//			data = eval("(" + data + ")");
-//			$('#ad-datagrid').datagrid('loadData', data.rows);
-//			$('#pagination').pagination({
-//				total : data.total
-//			});
-//		}
-//	});
-//}
-
 function ad_search() {
-	$("#ad-datagrid").datagrid("load",{
+	$("#ad-datagrid").datagrid("load", {
 		'title' : $('#ad_search_title').val(),
 		'positionId' : $('#ad_search_position').val(),
 		'type' : $('#ad_search_type').val()
 	});
 }
 
-
-
 // 状态转换
 function statesFormatter(value) {
 	if (value == "0") {
 		return '<span style="color:gray">未显示</span>';
 	} else {
-		return '<span>已显示</span>';
+		return '<span style="color:blue">已显示</span>';
 	}
 }
 
@@ -64,42 +21,85 @@ function typeFormatter(value) {
 	if (value == "0") {
 		return '<span style="color:gray">备用</span>';
 	} else {
-		return '<span >正常</span>';
+		return '<span style="color:blue">正常</span>';
 	}
 }
-//图片转换
-function imgFormatter(value,row){
-	var str = "";
-	if(value != "" || value != null){
-		str = "<img style=\"height: 80px;width: 117px;\" src=\""+value+"\"/>";
-        return str;
+// 操作栏
+function OperatorFormatter(value, row, index) {
+	if (row.states == 0) {
+		return '<button id="publicButton" style="color:blue" onclick="publicAdvertise(\''
+				+ row.ids + '\',\'' + row.states + '\')">发布广告</button>';
+	} else {
+		return '<button style="color:gray" class="easyui-linkbutton" onclick="cancleAdvertise(\''
+				+ row.ids + '\',\'' + row.states + '\')">取消发布广告</button>';
 	}
+}
+
+// 广告发布
+function publicAdvertise(id, states) {
+
+	$.messager.confirm('操作确认', '确定要发布广告吗?', function(r) {
+		if (r) {
+			$.post("advertise/pubOrCanAdvertise", {
+				ids : id,
+				states : states
+			}, function(data) {
+				$('#ad-datagrid').datagrid('reload');
+				$.messager.show({
+					title : '提示',
+					msg : '发布成功',
+					showType : 'slide'
+				});
+			});
+		}
+	});
+}
+
+// 取消发布广告
+function cancleAdvertise(id, states) {
+	$.messager.confirm('操作确认', '确定要取消发布广告吗?', function(r) {
+		if (r) {
+			$.post("advertise/pubOrCanAdvertise", {
+				ids : id,
+				states : states
+			}, function(data) {
+				$('#ad-datagrid').datagrid('reload');
+				$.messager.show({
+					title : '提示',
+					msg : '已取消发布',
+					showType : 'slide'
+				});
+			});
+		}
+	});
 }
 
 // 清空搜索框
 function ad_clear() {
-//	$("#ad_search_title").val("");
-//	$("#ad_search_type").val("");
-//	$("#ad_search_position").val("");
 	$("#searchForm").form('reset');
-	$('#ad-datagrid').datagrid('load',{});
+	$('#ad-datagrid').datagrid('load', {});
 }
 
 // 添加
 function addAdvertise() {
 	$('#ad-edit-dialog').dialog('open').dialog('setTitle', '添加广告');
 	$('#ad-edit-form').form('clear');
+	loadClassName();
+	// 清空预览图片
+	$("#preview").empty();
 	url = 'advertise/add';
 }
 // 编辑
 function editAdvertise() {
 	$('#ad-edit-form').form('clear');
+	loadClassName();
 	var row = $('#ad-datagrid').datagrid('getSelected');
 	if (row <= 0) {
 		$.messager.alert('提示', '请选择要编辑的条目!');
 	} else {
 		$('#ad-edit-dialog').dialog('open').dialog('setTitle', '编辑广告');
 		$('#ad-edit-form').form('load', row);
+		$("#imghead").attr("src", row.imageurl);
 		url = 'advertise/update';
 	}
 }
@@ -127,9 +127,12 @@ function saveAdvertise() {
 // 删除
 function deleteAdvertise() {
 	var row = $('#ad-datagrid').datagrid('getSelected');
-	debugger
-	if (row) {
-		$.messager.confirm('Confirm', '确定要删除此条广告吗？', function(r) {
+
+	if (row.states == 1) {
+		$.messager.alert('warning', '该广告已发布，无法删除，请先取消发布！', 'info');
+		return;
+	} else {
+		$.messager.confirm('操作确认', '确定要删除此条广告吗？', function(r) {
 			if (r) {
 				$.post('advertise/deleteById', {
 					id : row.ids
@@ -147,7 +150,8 @@ function deleteAdvertise() {
 		});
 	}
 }
-//广告查看
+
+// 广告查看
 function showAdvertise() {
 	var row = $('#ad-datagrid').datagrid('getSelected');
 	if (row <= 0) {
@@ -155,13 +159,10 @@ function showAdvertise() {
 	} else {
 		$('#ad-show-dialog').dialog('open').dialog('setTitle', '广告查看');
 		$('#ad-show-form').form('load', row);
-		$("#showImg").attr("src",row.imageurl);
+		$("#showImg").attr("src", row.imageurl);
 	}
 }
-//广告发布
-function showAdvertise(){
-	
-}
+
 // 图片预览
 function previewImage(file) {
 	var MAXWIDTH = 235;
@@ -200,4 +201,20 @@ function previewImage(file) {
 
 	var tpwarnobj = document.getElementById('tpwanrInfo');
 	tpwarnobj.innerText = "上传的预览图片如下：";
+}
+
+//加载分类名称
+function loadClassName() {
+	$.ajax({
+		url : '/goodsCheck/reqGoodsClassName',
+		type : "GET",
+		success : function(data) {
+			data = eval("(" + data + ")");
+			$('#_className').combobox({
+				valueField : 'ids',
+				textField : 'name',
+				data : data.rows,
+			})
+		}
+	});
 }

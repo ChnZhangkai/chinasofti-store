@@ -18,7 +18,7 @@ import com.chinasofti.mall.web.entrance.hystrix.AdvertiseFeignClientHystrix;
 * @date 2017年11月2日 下午5:50:13 
 * @version
 */
-@FeignClient(name = "advertise-service" , fallback = AdvertiseFeignClientHystrix.class)
+@FeignClient(name = "Goods-Service" , fallback = AdvertiseFeignClientHystrix.class)
 public interface AdvertiseFeignClient {
 	
 	@RequestMapping(value = "/advertise/findAll")
@@ -66,6 +66,15 @@ public interface AdvertiseFeignClient {
 	
 	
 	
-	
+	/**
+	 * 
+	* @Title: pubOrCanAdvertise
+	* @Description: 发布或取消发布广告
+	* @param map
+	* @return: String
+	* @throws:
+	 */
+	@RequestMapping(value = "/advertise/pubOrCanAdvertise")
+	public String pubOrCanAdvertise(@RequestParam Map<String, Object> map);
 	
 }

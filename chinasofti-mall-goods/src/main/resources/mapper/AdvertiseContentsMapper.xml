@@ -418,13 +418,31 @@
   <update id="pubOrCanAdvertise" parameterType="Map">
   	update advertise_contents
      <set >
-      <if test="states != null and states == '0'"  >
+      <if test="states != null and states == 0"  >
        STATES = '1',
       </if>
-      <if test="states != null and states == '1'"  >
+      <if test="states != null and states == 1"  >
        STATES = '0',
       </if> 
     </set>
   	   where IDS = #{ids,jdbcType=VARCHAR}
   </update>
+  <select id="selectAdvertiseList" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.AdvertiseContents" >
+    select
+    <include refid="Base_Column_List" />
+    from advertise_contents
+    where 1=1
+    <if test="positionId != null" >
+     and POSITION_ID = #{positionId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectSingleAdvertise" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from advertise_contents
+    where 1=1
+    <if test="positionId != null" >
+     and POSITION_ID = #{positionId,jdbcType=VARCHAR}
+    </if>
+  </select>
 </mapper>

@@ -6,21 +6,19 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印</a>
         </div>
        	<div class="spUser-toolbar-search">
-		<form id="searchForm">
+		<form id="spUserSearchForm">
 			<label>商户编号：</label> <input type="text" id="vendorId" name="vendorId"/></br>
 			<label>商户名称：</label> <input type="text" id="vendorSnm" name="vendorSnm"/>
 			<label>拓展网站：</label> <input type="text" id="belongSiteName" name="belongSiteName"/>
-			<label>状态：</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
-									<option selected="selected" value="">请选择</option>
-									<option value="0">禁用</option>
-									<option value="1">启用</option>
+			<label>状态</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="status" style="width: 125px">
+									<option value=""  selected="selected">请选择</option>
+									<option value="0" >未开启</option>
+									<option value="1">已启用</option>
 								</select>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="spUserDoSearch()">开始检索</a>
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="spUserDoClear()">清除</a>
 		</form>	
 		</div>
 	</div>
@@ -33,10 +31,9 @@
 			<th field="vendorId" width="15%" align="center">商户编号</th>
 			<th field="vendorFnm" width="20%" align="center">商户全称</th>
 			<th field="vendorSnm" width="15%" align="center">商户简称</th>
-			<th field="states" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
+			<th field="status" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
 			<th field="chargeman" width="10%" align="center">商户负责人</th>	
 			<th field="linkman" width="15%" align="center">商户方联系人</th>	
-			<th field="phone" width="10%" align="center">联系电话</th>
 			<th field="mobile" width="10%" align="center">联系手机号</th>
 			<th field="address" width="20%" align="center">通讯地址</th>
 		</tr>
@@ -65,8 +62,8 @@
                 
                 <td align="right">状态:</td>
 				<td>
-					<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 75px">
-							<option value="0">未开启</option>
+					<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="classstates" name="status" style="width: 75px">
+							<option value="0" selected="selected">未开启</option>
 							<option value="1">已启用</option>
 					</select>
 				</td>
@@ -76,42 +73,29 @@
                 <td align="right">商户负责人:</td>
                 <td><input id="chargeman" name="chargeman" class="wu-text" /></td>
            
-                <td align="right">商户联系人:</td>
-                <td><input id="linkman" name="linkman" class="wu-text" /></td>
-            </tr>
-            <tr>
-                <td align="right">联系电话:</td>
-                <td><input id="phone" name="phone" class="wu-text" /></td>
-           
-                <td align="right">联系手机号:</td>
+           		 <td align="right">联系手机号:</td>
                 <td><input id="mobile" name="mobile" class="wu-text" /></td>
             </tr>
             <tr>
+                <td align="right">邮箱:</td>
+                <td><input id="email" name="email" class="wu-text" width="60px" /></td>
+                
                 <td align="right">通讯地址:</td>
                 <td><input id="address" name="address" class="wu-text" /></td>
-                
-                <td align="right">供应商结算账号:</td>
-                <td><input id="accno" name="accno" class="wu-text" /></td>
             </tr>
+            
             <tr>
-                <td align="right">供应商开户行:</td>
-                <td><input id="accbank" name="accbank" class="wu-text" /></td>
-                
-                <td align="right">邮箱:</td>
-                <td><input id="email" name="email" class="wu-text" /></td>
-            </tr>
-            <tr>
+                <td align="right">售后服务电话:</td>
+                <td><input id="servicePhone" name="servicePhone" class="wu-text" /></td>
                 <td align="right">拓展网点名称:</td>
                 <td><input id="belongSiteName" name="belongSiteName" class="wu-text" /></td>
                 
-                <td align="right">售后服务电话:</td>
-                <td><input id="servicePhone" name="servicePhone" class="wu-text" /></td>
             </tr>
             <tr>
-            	<td align="right">商户介绍:</td>
+               
+                <td align="right">商户介绍:</td>
                 <td><textarea id="venderIntro" name="venderIntro" class="wu-textarea" /></textarea></td>
-                
-                <td align="right">售后说明:</td>
+                 <td align="right">售后说明:</td>
                 <td><textarea id="venderExplain" name="venderExplain" class="wu-textarea" /></textarea></td>
                 
             </tr>
@@ -149,31 +133,18 @@
 			<tr>
 				<td align="right">商户负责人:</td>
                 <td><input id="chargeman" name="chargeman" class="wu-text" /></td>
-           
-                <td align="right">商户联系人:</td>
-                <td><input id="linkman" name="linkman" class="wu-text" /></td>
+           		<td align="right">联系手机号:</td>
+                <td><input id="mobile" name="mobile" class="wu-text" /></td>
+                
 			</tr>
 			
-			<tr>
-				<td align="right">联系电话:</td>
-                <td><input id="phone" name="phone" class="wu-text" /></td>
-           
-                <td align="right">联系手机号:</td>
-                <td><input id="mobile" name="mobile" class="wu-text" /></td>
-			</tr>
+			
 			 <tr>
                 <td align="right">通讯地址:</td>
                 <td><input id="address" name="address" class="wu-text" /></td>
-                
-                <td align="right">供应商结算账号:</td>
-                <td><input id="accno" name="accno" class="wu-text" /></td>
-            </tr>
-            <tr>
-                <td align="right">供应商开户行:</td>
-                <td><input id="accbank" name="accbank" class="wu-text" /></td>
-                
                 <td align="right">邮箱:</td>
                 <td><input id="email" name="email" class="wu-text" /></td>
+                
             </tr>
             <tr>
                 <td align="right">拓展网点名称:</td>
@@ -229,7 +200,7 @@ $(function(){
 	//此处设置自己的url地址
 	var url = '/spUser/list';
 	//分页查询时传递查询条件
-	seachId = '#searchForm';
+	seachId = '#spUserSearchForm';
 	//调用初始化方法	
 	tdload(tableID, pageId, url);
 	
@@ -378,7 +349,6 @@ $(function(){
     		type:'POST',
     		data:$('#spUserUpdate').serialize(),
     		success:function(data){
-    		alert(data);
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
     				$('#spUserUpdateDialog').dialog('close');
@@ -393,9 +363,9 @@ $(function(){
 	/* 
 	*查询
 	*/
-	function doSearch(){
-		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchForm').serialize();
-		//console.info(param)
+	function spUserDoSearch(){
+		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#spUserSearchForm').serialize();
+		console.info(param)
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/spUser/list', //用户请求数据的URL
@@ -422,8 +392,8 @@ $(function(){
 	/*
 	*清除搜索框内容
 	*/
-	function doClear(){
-		$("#searchForm").form("reset");
+	function spUserDoClear(){
+		$("#spUserSearchForm").form("reset");
 	} 	
 	
 	

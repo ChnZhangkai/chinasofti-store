@@ -32,4 +32,8 @@ public interface AdvertiseContentsMapper {
     int updateByPrimaryKey(AdvertiseContents record);
 
 	int pubOrCanAdvertise(Map<String, Object> map);
+	//根据位置Id查询广告列表
+    List<AdvertiseContents> selectAdvertiseList(AdvertiseContents record);
+    
+    AdvertiseContents selectSingleAdvertise(String positionId);
 }

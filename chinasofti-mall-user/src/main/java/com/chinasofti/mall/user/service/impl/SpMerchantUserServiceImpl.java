@@ -72,7 +72,7 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 			}
 		
 		if (!StringUtils.isEmpty(spMerchantUser.getVendorSnm())) {
-			criteria.andVendorSnmLike("%" + spMerchantUser.getVendorFnm() + "%");
+			criteria.andVendorSnmLike("%" + spMerchantUser.getVendorSnm() + "%");
 		}
 		if (!StringUtils.isEmpty(spMerchantUser.getBelongSiteName())) {
 			criteria.andBelongSiteNameLike("%" + spMerchantUser.getBelongSiteName() + "%");
