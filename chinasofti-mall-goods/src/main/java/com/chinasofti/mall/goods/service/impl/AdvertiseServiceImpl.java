@@ -119,9 +119,9 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	 * 根据位置Id查找广告列表和单条广告
 	 * @throws Exception 
 	 */
-	public List<AdvertiseContents> queryAdvertiseList(AdvertiseContents record){
+	public List<AdvertiseContents> queryAdvertiseList(String positionId){
 
-		return advertiseMapper.selectAdvertiseList(record);
+		return advertiseMapper.selectAdvertiseList(positionId);
 	} 
 
 	

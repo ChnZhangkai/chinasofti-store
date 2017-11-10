@@ -35,7 +35,7 @@ public interface AdvertiseContentsMapper {
 
 	int pubOrCanAdvertise(Map<String, Object> map);
 	//根据位置Id查询广告列表
-    List<AdvertiseContents> selectAdvertiseList(AdvertiseContents record);
+    List<AdvertiseContents> selectAdvertiseList(String positionId);
     
     AdvertiseContents selectSingleAdvertise(String positionId);
     

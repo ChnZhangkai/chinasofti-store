@@ -10,7 +10,7 @@
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" src="/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" src="/js/menu.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 </head>
@@ -32,10 +32,10 @@
 		<div class="zk-header-right">
 			<button href="javascript:void(0)" id="mb" class="easyui-menubutton"
 				data-options="menu:'#mm',iconCls:'icon-personal'"
-				style="background-color: white;">admin</button>
+				style="background-color: white;">${user.username}</button>
 			<div id="mm" style="width: 150px;">
 				<div data-options="iconCls:'icon-undo'">密码设置</div>
-				<div data-options="iconCls:'icon-redo'">退出系统</div>
+				<div data-options="iconCls:'icon-redo'"><a href="/logOut">退出系统</a></div>
 			</div>
 			<button href="javascript:void(0)" id="mb" class="easyui-menubutton"
 				data-options="menu:'#mm2',iconCls:'icon-settings32'"
@@ -46,14 +46,14 @@
 					onclick="swicthOperationCenter()">运营中心</div>
 				<div data-options="iconCls:'icon-wechat'"
 					onclick="swicthWechatCenter()">微信平台</div>
-			</div>
+			</div>	
 		</div>
 	</div>
 
 	<!--左菜单栏-->
 	<div class="zk-sidebar"
 		data-options="region:'west',split:true,title:'菜单'"
-		style="width: 150px; padding: 10px;">
+		style="width: 150px; padding: 0px;">
 		<div class="easyui-accordion" data-options="border:false,fit:true"
 			id="acc"></div>
 	</div>

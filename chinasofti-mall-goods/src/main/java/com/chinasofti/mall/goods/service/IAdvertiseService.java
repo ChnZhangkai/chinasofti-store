@@ -26,8 +26,13 @@ public interface IAdvertiseService extends IBaseService<AdvertiseContents> {
 	public String findByPage(Map<String,Object> paramMap);
 	
 	public int pubOrCanAdvertise(Map<String, Object> map);
+	/**
+	 * 根据位置Id查询广告信息
+	 * @param positionId
+	 * @return
+	 */
+	public List<AdvertiseContents> queryAdvertiseList(String positionId) ;
 	
-	public List<AdvertiseContents> queryAdvertiseList(AdvertiseContents record) ;
 	public AdvertiseContents queryAdvertise(String positionId);
 	/**
 	 * 

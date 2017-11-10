@@ -101,6 +101,7 @@ public class AdvertiseController {
 		return advertiseFeignClient.pubOrCanAdvertise(map);
 	}
 	
+	
 	@RequestMapping(value="findAdPostionAll",method=RequestMethod.GET)
 	public List<AdvertisePosition> findAdPostionAll(@RequestParam Map<String,Object> map) {
 		return advertiseFeignClient.findAdPostionAll();

@@ -55,5 +55,4 @@ public class AdvertiseFeignClientHystrix implements AdvertiseFeignClient{
 		return null;
 	}
 
-	
 }

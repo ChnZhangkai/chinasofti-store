@@ -922,5 +922,6 @@
       UPDATETIME = #{updatetime,jdbcType=VARCHAR},
       UPDATEBY = #{updateby,jdbcType=VARCHAR}
     where IDS = #{ids,jdbcType=VARCHAR}
+    
   </update>
 </mapper>

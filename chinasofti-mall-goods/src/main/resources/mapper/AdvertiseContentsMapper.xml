@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasofti.mall.goods.mapper.AdvertiseContentsMapper">
-	<resultMap id="BaseResultMap"
-		type="com.chinasofti.mall.common.entity.AdvertiseContents">
+	<resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.AdvertiseContents">
 		<id column="IDS" property="ids" jdbcType="VARCHAR" />
 		<result column="TITLE" property="title" jdbcType="VARCHAR" />
 		<result column="URL" property="url" jdbcType="VARCHAR" />

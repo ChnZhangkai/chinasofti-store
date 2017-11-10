@@ -13,7 +13,7 @@ function tdload(tableID, pageId, url){
 		singleSelect : true,
 		//fit:true,
 	})
-	getData(1,10,tableID,pageId,url,"")
+	getData(1,10,tableID,pageId,url)
 	
 };
 

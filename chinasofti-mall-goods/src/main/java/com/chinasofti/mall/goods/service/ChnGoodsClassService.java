@@ -1,5 +1,7 @@
 package com.chinasofti.mall.goods.service;
 
+import java.util.List;
+
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.service.IBaseService;
 
@@ -11,4 +13,6 @@ public interface ChnGoodsClassService extends IBaseService<ChnGoodsClass>{
 	
 	int deleteById(String ids);
 	
+	 List<ChnGoodsClass> selectByIsParent(String isParent);
+	 List<ChnGoodsClass> selectById(String pids);
 }

@@ -87,6 +87,25 @@ public class ChnGoodsCheckController {
 	}
 	
 	/**
+	 * 根据ID删除分类,并删除图片
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/delete/{ids}")
+	public int deleteGoodsCheckById(@PathVariable String ids){
+		/*ChnGoodsinfoCheck delImg = chnGoodsFeignClient.deleteGoodsCheckById(ids);
+		String relWay = delImg.getImg();
+		String imageName = relWay.substring(relWay.lastIndexOf("/")+1);
+		String imgUrl = beforePath + File.separator + imageName;
+		File file = new File(imgUrl);
+		if (file.exists()) {
+			file.delete();
+		}*/
+		int delById = chnGoodsFeignClient.deleteGoodsCheckById(ids);
+		return delById;
+	}
+	
+	/**
 	 * 根据ID查询
 	 * @param ids
 	 * @return

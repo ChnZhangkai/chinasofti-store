@@ -80,8 +80,28 @@ public class ChnGoodsinfoCheck extends PageBean{
     private BigDecimal orgPrice;
 
     private String type;
+    
+    private String name;
+    
+    private String vendorSnm;
 
-    public String getIds() {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getVendorSnm() {
+		return vendorSnm;
+	}
+
+	public void setVendorSnm(String vendorSnm) {
+		this.vendorSnm = vendorSnm;
+	}
+
+	public String getIds() {
         return ids;
     }
 

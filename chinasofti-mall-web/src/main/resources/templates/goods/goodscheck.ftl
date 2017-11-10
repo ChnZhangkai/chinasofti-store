@@ -4,12 +4,12 @@
 	<div id="wu-toolbar-3" style="height: 15%">
 		<div class="wu-toolbar-search" style="border-bottom: 1px solid #DDDDDD">
 			<form id="searchCheckForm" style="margin: 0px">
-				<label>商品编号</label> <input type="text" id="goodsids" name="ids" class="easyui-textbox"/>
+				<label>商品编号</label> <input type="text" id="goodsids" name="goodsids" class="easyui-textbox"/>
 				<label>商品名称</label> <input type="text" id="goodstitle" name="title" class="easyui-textbox"/>
-				<label>开始时间</label> <input type="text" id="goodsstarttime" name="starttime" class="easyui-datebox"/>
-				<label>结束时间</label> <input type="text" id="goodsendtime" name="endtime" class="easyui-datebox"/><br>
-				<label>商户编号</label> <input type="text" id="goodsvendorids" name="vendorids" class="easyui-textbox"/>
-				<label>商品分类</label> <input type="text" id="goodsclassname" name="goodsclass" class="easyui-textbox"/>
+				<label>开始时间</label> <input type="text" id="goodsstarttime" name="startTime" class="easyui-datebox"/>
+				<label>结束时间</label> <input type="text" id="goodsendtime" name="endTime" class="easyui-datebox"/><br>
+				<label>商户名称</label> <input type="text" id="goodsvendorids" name="vendorSnm" class="easyui-textbox"/>
+				<label>商品分类</label> <input type="text" id="goodsclassname" name=name class="easyui-textbox"/>
 				<label>商品类型</label>
 				<select autocomplete="off" class="easyui-combobox"
 					data-options="panelHeight:'auto'" id="goodsType" name="type"
@@ -20,23 +20,23 @@
 				</select>
 				<label>审核状态</label>
 				<select autocomplete="off" class="easyui-combobox"
-					data-options="panelHeight:'auto'" id="goodsReviewStates" name="reviewstates"
+					data-options="panelHeight:'auto'" id="goodsReviewStates" name="reviewStatues"
 					style="width: 135px">
 					<option selected="selected" value="">请选择</option>
 					<option value="0">待提交审核</option>
+					<option value="3">已提交审核</option>
 					<option value="1">审核通过</option>
 					<option value="2">审核拒绝</option>
-					<option value="3">已提交申请</option>
 				</select>
 				<a href="#" class="easyui-linkbutton" iconCls="icon-search"
-					onclick="doSearch()">开始检索</a> <a href="#" class="easyui-linkbutton"
-					iconCls="icon-edit-clear" onclick="doClear()">清除</a>
+					onclick="doGoodsCheckSearch()">开始检索</a> <a href="#" class="easyui-linkbutton"
+					iconCls="icon-edit-clear" onclick="doGoodsCheckClear()">清除</a>
 			</form>
 		</div>
 		<div class="wu-toolbar-button">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openGoodsAdd()" plain="true">添加</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeGoodsCheck()" plain="true">删除</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" onclick="print()" plain="true">提交审核</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" onclick="print()" plain="true">撤销审核</a>
@@ -52,9 +52,9 @@
 				<th field="title" width="20%" align="center">商品名称</th>
 				<th field="img" width="10%" align="center"
 					data-options="formatter:imgFormatter">商品图片</th>
-				<th field="price" width="10%" align="center">商品价格</th>
-				<th field="vendorids" width="15%" align="center">商户名称</th>
-				<th field="goodsClassIds" width="25%" align="center">分类名称</th>
+				<th field="price" width="15%" align="center">商品价格</th>
+				<th field="vendorSnm" width="15%" align="center">商户名称</th>
+				<th field="name" width="20%" align="center">商品分类</th>
 				<th field="type" width="10%" align="center"
 					data-options="formatter:typeFormatter">商品类型</th>
 				<th field="reviewStatues" width="10%" align="center"
@@ -197,7 +197,7 @@
 		});
 		
 		$.ajax({
-			url:'/goodscheck/reqGoodsClassName',
+			url:'/goodsCheck/reqGoodsClassName',
 			type:"GET",
 			success: function(data){
 				data = eval("("+data+")");
@@ -210,7 +210,7 @@
 		});
 		
 		$.ajax({
-			url:'/goodscheck/reqSpUserName',
+			url:'/goodsCheck/reqSpUserName',
 			type:"GET",
 			success: function(data){
 				data = eval("("+data+")");
@@ -230,7 +230,7 @@
 		
 		var formData = new FormData($("#addGoodsForm")[0]); 
 		   $.ajax({ 
-		     url:'/goodscheck/addGoods',
+		     url:'/goodsCheck/addGoods',
 		     type: 'POST', 
 		     data: formData, 
 		     async: false, 
@@ -243,6 +243,69 @@
 		     error: function(data) {   
 		     } 
 		   }); 
+	}
+	
+	//条件查询
+	function doGoodsCheckSearch(){
+		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchCheckForm').serialize();
+		//console.info(param)
+		$.ajax({ 
+	          type: 'POST', 
+	          url: '/goodsCheck/list', //用户请求数据的URL
+	          data: param, 
+	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
+	              alert("没有查询到数据"); 
+	          }, 
+	          success: function (data) { 
+	        	  
+	        	  data =eval("("+data+")");
+	        	  
+	        	  if(data.total == 0){
+	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
+	        	  }
+	        	  
+	              $('#goodscheck').datagrid('loadData', data.rows);
+	               $('#goodsCheckPagination').pagination({ 
+			    	  total:data.total
+			    	  });
+	          }
+	       });
+	}
+	
+	/*
+	 * 删除
+	 */
+	function removeGoodsCheck(){
+		var items = $('#goodscheck').datagrid('getSelections');
+		var ids = [];
+		
+		if(items.length < 1){
+			$.messager.alert('温馨提醒','请选中要删的数据');
+			return ;
+		}
+	
+		$.messager.confirm('信息提示','确定要删除该记录？', function(result){
+			if(result){
+				$(items).each(function(){
+					ids.push(this.ids);	
+				});
+				$.ajax({
+					url:'/goodsCheck/delete/' + ids,
+					type:'POST',
+					success:function(data){
+						if(data){
+							$.messager.alert('信息提示','删除成功！','info');
+							//$('#goodsinfo').datagrid('reload')
+							$('#goodsCheckPagination').pagination('select');
+						}
+						else
+						{
+							$.messager.alert('信息提示','删除失败！','info');		
+						}
+					}	
+				});
+			}	
+		});
 	}
 	
 	/*
@@ -299,6 +362,9 @@
 		}
 	}
 	
+	/*
+	 * 商品类型
+	 */
 	function typeFormatter(value){
 		if(value == "0"){
 			return '<span>普通商品</span>';
@@ -310,7 +376,7 @@
 	/*
 	 *清除查询条件
 	 */
-	 function doClear(){
+	 function doGoodsCheckClear(){
 		$('#searchCheckForm').form('reset');
 	}
 	

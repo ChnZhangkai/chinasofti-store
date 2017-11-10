@@ -1,5 +1,7 @@
 package com.chinasofti.mall.common.entity;
 
+import java.util.HashSet;
+import java.util.Set;
 
 public class PtRole {
     private String ids;
@@ -17,6 +19,10 @@ public class PtRole {
     private String createby;
 
     private String description;
+    
+    private Set<PtUser> users = new HashSet<PtUser>();
+    
+    private Set<PtOperator> ptoperators = new HashSet<PtOperator>();
 
     public String getIds() {
         return ids;
@@ -81,4 +87,31 @@ public class PtRole {
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
     }
+
+	public Set<PtUser> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<PtUser> users) {
+		this.users = users;
+	}
+
+	public Set<PtOperator> getPtoperators() {
+		return ptoperators;
+	}
+
+	public void setPtoperators(Set<PtOperator> ptoperators) {
+		this.ptoperators = ptoperators;
+	}
+
+	@Override
+	public String toString() {
+		return "PtRole [ids=" + ids + ", numbers=" + numbers + ", names="
+				+ names + ", updateby=" + updateby + ", createtime="
+				+ createtime + ", updatetime=" + updatetime + ", createby="
+				+ createby + ", description=" + description + ", users="
+				+ users + ", ptoperators=" + ptoperators + "]";
+	}
+
+    
 }

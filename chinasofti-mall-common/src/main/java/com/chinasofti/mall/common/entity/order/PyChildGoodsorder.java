@@ -1,9 +1,7 @@
 package com.chinasofti.mall.common.entity.order;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.utils.PageBean;
 
 /**
@@ -119,17 +117,54 @@ public class PyChildGoodsorder extends PageBean{
     */
     private BigDecimal freight;
     
-    /**
-    * @Fields goodsinfos : 商品详情
-    */
-    private List<ChnGoodsinfo> goodsinfos;
+    private String goodsTitle;
+    
+    private String goodsStandard;
+    
+    private String goodsCode;
+    
+    private String goodsType;
+    
+    private String className;
 
-    public List<ChnGoodsinfo> getGoodsinfos() {
-		return goodsinfos;
+    public String getGoodsTitle() {
+		return goodsTitle;
 	}
 
-	public void setGoodsinfos(List<ChnGoodsinfo> goodsinfos) {
-		this.goodsinfos = goodsinfos;
+	public void setGoodsTitle(String goodsTitle) {
+		this.goodsTitle = goodsTitle == null ? null : goodsTitle.trim();
+	}
+
+	public String getGoodsStandard() {
+		return goodsStandard;
+	}
+
+	public void setGoodsStandard(String goodsStandard) {
+		this.goodsStandard = goodsStandard == null ? null : goodsStandard.trim();
+	}
+
+	public String getGoodsCode() {
+		return goodsCode;
+	}
+
+	public void setGoodsCode(String goodsCode) {
+		this.goodsCode = goodsCode == null ? null : goodsCode.trim();
+	}
+
+	public String getGoodsType() {
+		return goodsType;
+	}
+
+	public void setGoodsType(String goodsType) {
+		this.goodsType = goodsType == null ? null : goodsType.trim();
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className == null ? null : className.trim();
 	}
 
 	public String getIds() {
