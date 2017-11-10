@@ -40,7 +40,7 @@ $(function(){
 			id:'role',
 			title:'角色管理',
 			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation">8<a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">角色管理</a></ul>',
+	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="ptrole/index" iframe="0">角色管理</a></ul>',
 			selected:false
 		})
 	}

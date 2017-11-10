@@ -11,12 +11,14 @@ public interface PtRoleService {
 
 	PtRole findById(String ids);
 
-	List<PtRole> findAll();
+	String findAll();
 
 	int update(PtRole ptRole);
 
-	int add2(String ids);
-
 	List<Tree> show(String roleId);
+
+	List<Tree> showTree(String id);
+
+	int saveIds(PtRole ptRole);
 
 }
