@@ -1,7 +1,7 @@
 package com.chinasofti.mall.goodsorder.mapper;
 
-import com.chinasofti.mall.common.entity.PyBigGoodsorder;
-import com.chinasofti.mall.common.entity.PyBigGoodsorderExample;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorderExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

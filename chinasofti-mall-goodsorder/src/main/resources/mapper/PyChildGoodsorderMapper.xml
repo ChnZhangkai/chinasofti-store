@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasofti.mall.goodsorder.mapper.PyChildGoodsorderMapper" >
-  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.order.PyChildGoodsorder" >
     <id column="IDS" property="ids" jdbcType="VARCHAR" />
     <result column="MAINORDER_IDS" property="mainorderIds" jdbcType="VARCHAR" />
     <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />
@@ -87,7 +87,7 @@
     ORDER_REAL_AMT, ISEVALUATE, ORDER_REVOKE, REMARK1, REMARK2, REMARK3, TRANSACTIONID, 
     ORDER_AMT, ORDER_DATE, VENDER_REMARK, ORDER_TYPE, ORDER_REAL_AMT_OLD, FREIGHT
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample" >
     select
     <if test="distinct" >
       distinct
@@ -111,13 +111,13 @@
     delete from py_child_goodsorder
     where IDS = #{ids,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorderExample" >
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample" >
     delete from py_child_goodsorder
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder" >
     insert into py_child_goodsorder (IDS, MAINORDER_IDS, GOODSIDS, 
       CUST_IDS, ORDER_STATUS, GOODS_NUM, 
       GOODS_PRICE, DISCOUNT, ORDER_REAL_AMT, 
@@ -135,7 +135,7 @@
       #{orderType,jdbcType=VARCHAR}, #{orderRealAmtOld,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder" >
     insert into py_child_goodsorder
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="ids != null" >
@@ -268,7 +268,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorderExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample" resultType="java.lang.Integer" >
     select count(*) from py_child_goodsorder
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -372,7 +372,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder" >
     update py_child_goodsorder
     <set >
       <if test="mainorderIds != null" >
@@ -438,7 +438,7 @@
     </set>
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder" >
     update py_child_goodsorder
     set MAINORDER_IDS = #{mainorderIds,jdbcType=VARCHAR},
       GOODSIDS = #{goodsids,jdbcType=VARCHAR},
@@ -463,7 +463,7 @@
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
   
-  <resultMap id="myResultMap" type="com.chinasofti.mall.common.entity.PyChildGoodsorder" >
+  <resultMap id="myResultMap" type="com.chinasofti.mall.common.entity.order.PyChildGoodsorder" >
     <id column="IDS" property="ids" jdbcType="VARCHAR" />
     <result column="MAINORDER_IDS" property="mainorderIds" jdbcType="VARCHAR" />
     <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />

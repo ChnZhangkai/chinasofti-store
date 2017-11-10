@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.chinasofti.mall.common.entity.PyChildGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.web.entrance.hystrix.ChildGoodsorderFeignClientHystrix;
 
 import net.sf.json.JSONObject;
