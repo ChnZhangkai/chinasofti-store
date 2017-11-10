@@ -1,4 +1,4 @@
-//搜索
+// 搜索
 function ad_search() {
 	$("#ad-datagrid").datagrid("load", {
 		'title' : $('#ad_search_title').val(),
@@ -44,7 +44,7 @@ function publicAdvertise(id, states) {
 				ids : id,
 				states : states
 			}, function(data) {
-				$('#ad-datagrid').datagrid('load', {});
+				$('#ad-datagrid').datagrid('reload');
 				$.messager.show({
 					title : '提示',
 					msg : '发布成功',
@@ -63,7 +63,7 @@ function cancleAdvertise(id, states) {
 				ids : id,
 				states : states
 			}, function(data) {
-				$('#ad-datagrid').datagrid('load', {});
+				$('#ad-datagrid').datagrid('reload');
 				$.messager.show({
 					title : '提示',
 					msg : '已取消发布',
@@ -84,11 +84,15 @@ function ad_clear() {
 function addAdvertise() {
 	$('#ad-edit-dialog').dialog('open').dialog('setTitle', '添加广告');
 	$('#ad-edit-form').form('clear');
+	loadClassName();
+	// 清空预览图片
+	$("#preview").empty();
 	url = 'advertise/add';
 }
 // 编辑
 function editAdvertise() {
 	$('#ad-edit-form').form('clear');
+	loadClassName();
 	var row = $('#ad-datagrid').datagrid('getSelected');
 	if (row <= 0) {
 		$.messager.alert('提示', '请选择要编辑的条目!');
@@ -197,4 +201,20 @@ function previewImage(file) {
 
 	var tpwarnobj = document.getElementById('tpwanrInfo');
 	tpwarnobj.innerText = "上传的预览图片如下：";
+}
+
+//加载分类名称
+function loadClassName() {
+	$.ajax({
+		url : '/goodsCheck/reqGoodsClassName',
+		type : "GET",
+		success : function(data) {
+			data = eval("(" + data + ")");
+			$('#_className').combobox({
+				valueField : 'ids',
+				textField : 'name',
+				data : data.rows,
+			})
+		}
+	});
 }

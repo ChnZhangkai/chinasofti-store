@@ -1,7 +1,9 @@
-package com.chinasofti.mall.common.entity;
+package com.chinasofti.mall.common.entity.order;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.utils.PageBean;
 
 /**
@@ -116,8 +118,21 @@ public class PyChildGoodsorder extends PageBean{
     * @Fields freight : 运费
     */
     private BigDecimal freight;
+    
+    /**
+    * @Fields goodsinfos : 商品详情
+    */
+    private List<ChnGoodsinfo> goodsinfos;
 
-    public String getIds() {
+    public List<ChnGoodsinfo> getGoodsinfos() {
+		return goodsinfos;
+	}
+
+	public void setGoodsinfos(List<ChnGoodsinfo> goodsinfos) {
+		this.goodsinfos = goodsinfos;
+	}
+
+	public String getIds() {
         return ids;
     }
 

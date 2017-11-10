@@ -55,7 +55,6 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 	
 	@Override
 	public int update(SpMerchantUser spMerchantUser) {
-		System.out.println("商户负责人："+spMerchantUser.getLinkman());
 		return spUserMapper.updateByPrimaryKeySelective(spMerchantUser);
 	}
 
@@ -71,11 +70,9 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 		if (!StringUtils.isEmpty(spMerchantUser.getVendorId())) {
 				criteria.andVendorIdLike("%" + spMerchantUser.getVendorId() + "%");
 			}
-		if (!StringUtils.isEmpty(spMerchantUser.getVendorFnm())) {
-				criteria.andVendorFnmLike("%" + spMerchantUser.getVendorFnm() + "%");
-		}
+		
 		if (!StringUtils.isEmpty(spMerchantUser.getVendorSnm())) {
-			criteria.andVendorSnmLike("%" + spMerchantUser.getVendorFnm() + "%");
+			criteria.andVendorSnmLike("%" + spMerchantUser.getVendorSnm() + "%");
 		}
 		if (!StringUtils.isEmpty(spMerchantUser.getBelongSiteName())) {
 			criteria.andBelongSiteNameLike("%" + spMerchantUser.getBelongSiteName() + "%");
@@ -93,6 +90,7 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 		
 		return js;
 	}
+
 
 
 

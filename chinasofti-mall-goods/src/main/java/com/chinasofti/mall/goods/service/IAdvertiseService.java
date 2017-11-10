@@ -26,6 +26,6 @@ public interface IAdvertiseService extends IBaseService<AdvertiseContents> {
 	
 	public int pubOrCanAdvertise(Map<String, Object> map);
 	
-	public List<AdvertiseContents> queryAdvertiseList(AdvertiseContents record) ;
+	public List<AdvertiseContents> queryAdvertiseList(String positionId) ;
 	public AdvertiseContents queryAdvertise(String positionId);
 }
