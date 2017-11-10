@@ -206,7 +206,7 @@ function previewImage(file) {
 //加载分类名称
 function loadClassName() {
 	$.ajax({
-		url : '/goodscheck/reqGoodsClassName',
+		url : '/goodsCheck/reqGoodsClassName',
 		type : "GET",
 		success : function(data) {
 			data = eval("(" + data + ")");

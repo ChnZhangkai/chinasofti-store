@@ -2,6 +2,8 @@ package com.chinasofti.app.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,14 @@ public class AppController {
 
 
 	@RequestMapping("findAdvertiseList")
-	public List<AdvertiseContents> findAdvertiseList(@RequestParam AdvertiseContents advertiseContents) {
+	public List<AdvertiseContents> findAdvertiseList(@RequestParam AdvertiseContents advertiseContents,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		logger.info(advertiseContents.toString());
 		return advertiseFeignClient.findAdvertiseList(advertiseContents);
 	}
 	@RequestMapping("findAdvertise")
-	public AdvertiseContents findAdvertise(@RequestParam String positionId) {
+	public AdvertiseContents findAdvertise(@RequestParam String positionId,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		logger.info("查询位置ID"+positionId);
 		return advertiseFeignClient.findAdvertise(positionId);
 	}
