@@ -7,10 +7,10 @@
 <link rel="stylesheet" type="text/css" href="/css/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/myicon.css" />
 <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript"
-	src="/js/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
-<script type="text/javascript"
-	src="/js/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/js/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/js/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" src="/js/menu.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 </head>
