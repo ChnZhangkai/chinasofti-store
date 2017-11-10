@@ -27,4 +27,10 @@ public interface ChnGoodsinfoMapper {
     int updateByPrimaryKeySelective(ChnGoodsinfo record);
 
     int updateByPrimaryKey(ChnGoodsinfo record);
+    /**
+     * 根据分类Id查询商品信息
+     * @param goodsClassId
+     * @return
+     */
+    List<ChnGoodsinfo> selectByClassId(String goodsClassId);
 }
