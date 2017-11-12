@@ -32,8 +32,8 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	@Override
 	public int save(AdvertiseContents advertiseContents) {
 		advertiseContents.setIds(UUID.randomUUID().toString().replaceAll("-", ""));
-		//advertiseContents.setBeginTime((DateUtil.DadeFormat(advertiseContents.getBeginTime()))); 
-		//advertiseContents.setEndTime((DateUtil.DadeFormat(advertiseContents.getEndTime())));
+		// advertiseContents.setBeginTime((DateUtil.DadeFormat(advertiseContents.getBeginTime())));
+		// advertiseContents.setEndTime((DateUtil.DadeFormat(advertiseContents.getEndTime())));
 		return advertiseMapper.insertSelective(advertiseContents);
 	}
 
@@ -67,47 +67,6 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		return advertiseMapper.updateByPrimaryKeySelective(t);
 	}
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public String findByPage(Map<String, Object> paramMap) {
-		JSONObject js = new JSONObject();
-		AdvertiseContentsExample advertiseContentsExample = new AdvertiseContentsExample();
-		// 条件判断
-		if (paramMap.containsKey("title")) {
-			if (null != paramMap.get("title") && !"".equals(paramMap.get("title"))) {
-				advertiseContentsExample.createCriteria().andTitleLike("%" + paramMap.get("title").toString() + "%");
-			}
-		}
-		;
-		if (paramMap.containsKey("type")) {
-			if (null != paramMap.get("type") && !"".equals(paramMap.get("type"))) {
-				advertiseContentsExample.createCriteria().andTypeEqualTo(paramMap.get("type").toString());
-			}
-
-		}
-		;
-		if (paramMap.containsKey("positionId")) {
-			if (null != paramMap.get("positionId") && !"".equals(paramMap.get("positionId"))) {
-				advertiseContentsExample.createCriteria().andPositionIdEqualTo(paramMap.get("positionId").toString());
-			}
-		}
-		;
-		// 排序
-		if (paramMap.containsKey("sort") && (paramMap.containsKey("order"))) {
-			if (null != paramMap.get("sort") && !"".equals(paramMap.get("sort")) && null != paramMap.get("order")
-					&& !"".equals(paramMap.get("order"))) {
-				advertiseContentsExample.setOrderByClause(paramMap.get("sort") + " " + paramMap.get("order"));
-			}
-		}
-		// 执行分页查询
-		PageHelper.startPage(Integer.parseInt(paramMap.get("page").toString()),
-				Integer.parseInt(paramMap.get("rows").toString()));
-		List<AdvertiseContents> list = advertiseMapper.selectByExample(advertiseContentsExample);
-		js.put("rows", list);
-		js.put("total", ((Page) list).getTotal());
-		return js.toString();
-	}
-
 	@Override
 	public int pubOrCanAdvertise(Map<String, Object> map) {
 		return advertiseMapper.pubOrCanAdvertise(map);
@@ -117,17 +76,16 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	@Override
 	/**
 	 * 根据位置Id查找广告列表和单条广告
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
-	public List<AdvertiseContents> queryAdvertiseList(String positionId){
+	public List<AdvertiseContents> queryAdvertiseList(String positionId) {
 
 		return advertiseMapper.selectAdvertiseList(positionId);
-	} 
-
-	
+	}
 
 	@Override
-	public AdvertiseContents queryAdvertise(String positionId){
+	public AdvertiseContents queryAdvertise(String positionId) {
 
 		return advertiseMapper.selectSingleAdvertise(positionId);
 	}
@@ -135,6 +93,18 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	@Override
 	public List<AdvertisePosition> findAdPostionAll() {
 		return advertiseMapper.findAdPostionAll();
-	} 
+	}
+	
+	@Override
+	public String findByPage(Map<String, Object> paramMap) {
+		JSONObject js = new JSONObject();
+		// 执行分页查询
+		PageHelper.startPage(Integer.parseInt(paramMap.get("page").toString()),
+				Integer.parseInt(paramMap.get("rows").toString()));
+		List<AdvertiseContents> list = advertiseMapper.findByPage(paramMap);
+		js.put("rows", list);
+		js.put("total", ((Page<AdvertiseContents>) list).getTotal());
+		return js.toString();
+	}
 
 }
