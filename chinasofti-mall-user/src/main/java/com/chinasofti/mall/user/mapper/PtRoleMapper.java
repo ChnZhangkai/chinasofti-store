@@ -43,5 +43,7 @@ public interface PtRoleMapper {
     List<String> getRoleOperatorIds(String roleId);
 
 	int insertRoleOperator(PtRoleOperator roleOperator);
+
+	int deleteByRoleIds(String ids);
     
 }

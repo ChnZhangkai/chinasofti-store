@@ -493,13 +493,28 @@
 		</if>
 	</select>
 
+
 	<!-- 分页条件查询 -->
-	<select id="findByPage" resultMap="BaseResultMap">
+	<select id="findByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT
 		ac.*, ap.NAME AS POSITION_NAME
 		FROM
 		advertise_contents ac
-		JOIN
+		LEFT JOIN
 		advertise_position ap ON ac.POSITION_ID = ap.IDS
+		<where>
+			<if test="title != null and title != ''">
+				and TITLE LIKE CONCAT('%',#{title},'%')
+			</if>
+			<if test="positionId != null and positionId != ''">
+				and POSITION_ID = #{positionId,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type !=''">
+				and TYPE = #{type,jdbcType=CHAR}
+			</if>
+		</where>
+			<if test="sort != null and sort != '' and order != null and order != ''">
+				order by ${sort} ${order}
+			</if>	
 	</select>
 </mapper>

@@ -15,7 +15,7 @@ public interface PtRoleService {
 
 	int update(PtRole ptRole);
 
-	List<Tree> show(String roleId);
+	List<Tree> menuTree(String roleId);
 
 	List<Tree> showTree(String id);
 

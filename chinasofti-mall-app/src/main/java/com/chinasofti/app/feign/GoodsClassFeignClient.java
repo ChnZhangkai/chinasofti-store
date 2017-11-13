@@ -24,5 +24,5 @@ public interface GoodsClassFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goodsClass/queryClass" ,method = RequestMethod.POST )
-	public List<ChnGoodsClass> queryClass(@PathVariable("ids") String ids);
+	public List<ChnGoodsClass> queryClass(@PathVariable("classId") String classId);
 }
