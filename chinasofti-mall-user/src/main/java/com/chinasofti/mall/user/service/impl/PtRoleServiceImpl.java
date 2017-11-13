@@ -62,7 +62,7 @@ public class PtRoleServiceImpl implements PtRoleService {
 
 
 	@Override
-	public List<Tree> show(String roleId) {
+	public List<Tree> menuTree(String roleId) {
 		List<String> roleMenuids = ptRoleMapper.getRoleMenuids(roleId);
 		List<PtMenu> roleMenus = new ArrayList<PtMenu>();
 		Tree tree = null;
