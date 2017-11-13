@@ -76,14 +76,15 @@ public class ChnGoodsClassController {
 	}
 	/**
 	 * 当Ids不为空时查询二级列表，为空时则查询一级分类
-	 * @param ids
+	 * @param pids
 	 * @return
 	 */
-	@RequestMapping(value = "/queryClass/{ids}" , method = RequestMethod.POST)
-	public List<ChnGoodsClass> queryClass(@PathVariable String ids){
+	@RequestMapping(value = "/queryClass/{id}" , method = RequestMethod.POST)
+	public List<ChnGoodsClass> queryClass(@PathVariable String classId){
 		List<ChnGoodsClass> goodsClass=null;
-		if(StringUtil.isNotEmpty(ids)){
-			goodsClass = spGoodsClassService.selectById(ids);
+		if(StringUtil.isNotEmpty(classId)){
+			String pids = classId;
+			goodsClass = spGoodsClassService.selectById(pids);
 		}else{
 			
 			goodsClass = spGoodsClassService.selectByIsParent(Constant.IS_PARENT);
