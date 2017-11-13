@@ -1,8 +1,12 @@
 package com.chinasofti.mall.common.entity;
 
+import java.io.Serializable;
 
-public class PtRole {
-    private String ids;
+public class PtRole implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
+	private String ids;
 
     private String numbers;
 
@@ -16,69 +20,71 @@ public class PtRole {
 
     private String createby;
 
-    private String description;
+    private String description;//DESCRIPTION
 
-    public String getIds() {
-        return ids;
-    }
+	public String getIds() {
+		return ids;
+	}
 
-    public void setIds(String ids) {
-        this.ids = ids == null ? null : ids.trim();
-    }
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
 
-    public String getNumbers() {
-        return numbers;
-    }
+	public String getNumbers() {
+		return numbers;
+	}
 
-    public void setNumbers(String numbers) {
-        this.numbers = numbers == null ? null : numbers.trim();
-    }
+	public void setNumbers(String numbers) {
+		this.numbers = numbers;
+	}
 
-    public String getNames() {
-        return names;
-    }
+	public String getNames() {
+		return names;
+	}
 
-    public void setNames(String names) {
-        this.names = names == null ? null : names.trim();
-    }
+	public void setNames(String names) {
+		this.names = names;
+	}
 
-    public String getUpdateby() {
-        return updateby;
-    }
+	public String getUpdateby() {
+		return updateby;
+	}
 
-    public void setUpdateby(String updateby) {
-        this.updateby = updateby == null ? null : updateby.trim();
-    }
+	public void setUpdateby(String updateby) {
+		this.updateby = updateby;
+	}
 
-    public String getCreatetime() {
-        return createtime;
-    }
+	public String getCreatetime() {
+		return createtime;
+	}
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
-    }
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
+	}
 
-    public String getUpdatetime() {
-        return updatetime;
-    }
+	public String getUpdatetime() {
+		return updatetime;
+	}
 
-    public void setUpdatetime(String updatetime) {
-        this.updatetime = updatetime == null ? null : updatetime.trim();
-    }
+	public void setUpdatetime(String updatetime) {
+		this.updatetime = updatetime;
+	}
 
-    public String getCreateby() {
-        return createby;
-    }
+	public String getCreateby() {
+		return createby;
+	}
 
-    public void setCreateby(String createby) {
-        this.createby = createby == null ? null : createby.trim();
-    }
+	public void setCreateby(String createby) {
+		this.createby = createby;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+    
 }

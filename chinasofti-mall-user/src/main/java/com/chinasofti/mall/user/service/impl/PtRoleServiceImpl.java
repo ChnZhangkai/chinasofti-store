@@ -62,7 +62,7 @@ public class PtRoleServiceImpl implements PtRoleService {
 
 
 	@Override
-	public List<Tree> show(String roleId) {
+	public List<Tree> menuTree(String roleId) {
 		List<String> roleMenuids = ptRoleMapper.getRoleMenuids(roleId);
 		List<PtMenu> roleMenus = new ArrayList<PtMenu>();
 		Tree tree = null;
@@ -142,6 +142,10 @@ public class PtRoleServiceImpl implements PtRoleService {
 		String[] arr = ptRole.getNumbers().split(",");
 		int count = 0;
 		PtRoleOperator roleOperator = new PtRoleOperator();
+		/**
+		 * 修改之前把原来关联的信息删除
+		 */
+		ptRoleMapper.deleteByRoleIds(ptRole.getIds());
 		for (String operatorIds : arr) {
 			roleOperator.setIds(getIds());
 			roleOperator.setRoleids(ptRole.getIds());
