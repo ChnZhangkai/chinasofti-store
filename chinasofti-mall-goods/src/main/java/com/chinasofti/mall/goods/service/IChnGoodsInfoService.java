@@ -11,6 +11,8 @@ public interface IChnGoodsInfoService{
      * @param goodsClassId
      * @return
      */
-   public List<ChnGoodsinfo> selectByClassId(String goodsClassId);
+   public List<ChnGoodsinfo> selectByClassId(String goodsClassIds);
+   
+   public ChnGoodsinfo selectByGoodsId(String ids);
 
 }

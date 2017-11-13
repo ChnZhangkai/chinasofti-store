@@ -77,7 +77,6 @@ public class PtRoleController {
 		List<Tree> list = ptroleServiceImpl.showTree(id);
 		return list;
 	}
-	
 	/**
 	 * 展示角色的菜单权限
 	 * @param id

@@ -142,6 +142,10 @@ public class PtRoleServiceImpl implements PtRoleService {
 		String[] arr = ptRole.getNumbers().split(",");
 		int count = 0;
 		PtRoleOperator roleOperator = new PtRoleOperator();
+		/**
+		 * 修改之前把原来关联的信息删除
+		 */
+		ptRoleMapper.deleteByRoleIds(ptRole.getIds());
 		for (String operatorIds : arr) {
 			roleOperator.setIds(getIds());
 			roleOperator.setRoleids(ptRole.getIds());

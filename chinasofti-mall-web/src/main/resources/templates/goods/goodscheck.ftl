@@ -314,37 +314,35 @@
 	 */
 	function handleCheck(obj){
 		
-		var data = [];
-		var ids = [];
+		var  reviewStatues;
+		var ids ;
 		
 		var items = $('#goodscheck').datagrid('getSelections');
 		if(items.length < 1){
-			$.messager.alert('温馨提醒','请选中要删的数据');
+			$.messager.alert('温馨提醒','请选中操作的数据');
 			return ;
 		}
-		$(items).each(function(){data.push(this.reviewStatues);});
+		ids = items[0].ids;
+		reviewStatues = items[0].reviewStatues;
+		
 		//提交
 		if(obj.id == "pushCheck"){
-			
-			if(data != 0){
+			if(reviewStatues != 0){
 				$.messager.alert('温馨提醒','您选中的不是一条待提交的数据，请重新选择其他待提交审核数据','question')
 				return ;
 			}
-			$(items).each(function(){
-				ids.push(this.ids);	
-			});
 			$.ajax({
-				url:'' + ids,
+				url:'/goodsCheck/updateGoodsCheckStatus',
 				type:'POST',
+				data: {'ids':ids,'reviewStatues':reviewStatues},
 				success:function(data){
 					if(data){
-						$.messager.alert('信息提示','删除成功！','info');
-						//$('#goodsinfo').datagrid('reload')
+						$.messager.alert('信息提示','提交成功！','info');
 						$('#goodsCheckPagination').pagination('select');
 					}
 					else
 					{
-						$.messager.alert('信息提示','删除失败！','info');		
+						$.messager.alert('信息提示','提交失败！','info');		
 					}
 				}	
 			});
@@ -364,13 +362,13 @@
 					type:'POST',
 					success:function(data){
 						if(data){
-							$.messager.alert('信息提示','删除成功！','info');
+							$.messager.alert('信息提示','撤销成功！','info');
 							//$('#goodsinfo').datagrid('reload')
 							$('#goodsCheckPagination').pagination('select');
 						}
 						else
 						{
-							$.messager.alert('信息提示','删除失败！','info');		
+							$.messager.alert('信息提示','撤销失败！','info');		
 						}
 					}	
 				});
