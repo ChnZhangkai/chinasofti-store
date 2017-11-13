@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.web.entrance.hystrix.SpGoodsClassFeignClientHystrix;
 
@@ -99,5 +100,13 @@ public interface ChnGoodsFeignClient {
 	 */
 	@RequestMapping(value = "/goodsCheck/save" , method = RequestMethod.POST)
 	public int saveGoodsCheck(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck);
+
+	/**
+	 * 商品在线管理查询
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsOnline/list" , method = RequestMethod.POST)
+	public JSONObject selectByGoodsOnline(ChnGoodsOnline chnGoodsOnline);
 	
 }
