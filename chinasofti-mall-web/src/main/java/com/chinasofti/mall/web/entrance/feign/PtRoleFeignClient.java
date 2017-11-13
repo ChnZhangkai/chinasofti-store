@@ -1,14 +1,15 @@
 package com.chinasofti.mall.web.entrance.feign;
 
+import java.util.List;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chinasofti.mall.common.entity.PtRole;
+import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.web.entrance.hystrix.PtRoleFeignClientHystrix;
 
 /**
@@ -22,9 +23,7 @@ import com.chinasofti.mall.web.entrance.hystrix.PtRoleFeignClientHystrix;
 public interface PtRoleFeignClient{
 	
 	@RequestMapping("/ptrole/{id}")
-	@ResponseBody
-	public String show(@PathVariable("id") String id);
-	
+	public List<Tree> show(@PathVariable("id") String id);
 	
 	@RequestMapping("/ptrole/all")
 	public String list();
@@ -38,5 +37,6 @@ public interface PtRoleFeignClient{
 	@RequestMapping(value = "/ptrole/save" , method = RequestMethod.POST)
 	public int saveIds(@RequestBody PtRole ptRole);
 	
-	
+	@RequestMapping("/ptrole/menu/{id}")
+	public List<Tree> menuTree(@PathVariable("id") String id);
 }

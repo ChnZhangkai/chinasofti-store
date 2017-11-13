@@ -17,9 +17,14 @@ public class ChnGoodsinfoController {
 	@Autowired
 	private IChnGoodsInfoService goodsInfoService;
 	
-	@RequestMapping("queryGoodsInfo/{id}")
-	public List<ChnGoodsinfo>queryGoodsInfo(@PathVariable String id){
-		
-		return goodsInfoService.selectByClassId(id);
+	@RequestMapping("queryGoodList/{id}")
+	public List<ChnGoodsinfo>queryGoodList(@PathVariable String id){
+		String goodsClassIds = id;
+		return goodsInfoService.selectByClassId(goodsClassIds);
+	}
+	
+	@RequestMapping("queryGoodsInfo/{ids}")
+	public ChnGoodsinfo queryGoodsInfo(@PathVariable String ids){
+		return goodsInfoService.selectByGoodsId(ids);
 	}
 }

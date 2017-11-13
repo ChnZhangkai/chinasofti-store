@@ -316,4 +316,8 @@
     VALUES (#{ids,jdbcType=VARCHAR}, #{roleids,jdbcType=VARCHAR}, #{operatorids,jdbcType=VARCHAR})
   </insert>
   
+  
+  <delete id="deleteByRoleIds" parameterType="string">
+  	delete from pt_role_operator where ROLEIDS = #{id}
+  </delete>
 </mapper>
