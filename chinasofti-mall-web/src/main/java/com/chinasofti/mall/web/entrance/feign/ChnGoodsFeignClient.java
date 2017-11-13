@@ -86,7 +86,7 @@ public interface ChnGoodsFeignClient {
 	
 	/**
 	 * 商品审核根据ID修改
-	 * @param goodscategory
+	 * @param chnGoodsinfoCheck
 	 * @return
 	 */
 	@RequestMapping(value = "/goodsCheck/update" , method = RequestMethod.POST)
@@ -94,10 +94,20 @@ public interface ChnGoodsFeignClient {
 	
 	/**
 	 * 商品审核增加
-	 * @param goodscategory
+	 * @param chnGoodsinfoCheck
 	 * @return
 	 */
 	@RequestMapping(value = "/goodsCheck/save" , method = RequestMethod.POST)
 	public int saveGoodsCheck(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck);
+	
+	/**
+	 * 更改审核状态
+	 * @param chnGoodsinfoCheck
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsCheck/updateReviewStatus" ,method = RequestMethod.POST)
+	public int updateGoodsCheckReviewStatus(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck);
+		
+	
 	
 }
