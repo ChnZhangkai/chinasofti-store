@@ -1,6 +1,7 @@
 package com.chinasofti.mall.goods.controller;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chinasofti.mall.common.controller.BaseController;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertisePosition;
+import com.chinasofti.mall.common.utils.MsgEnum;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.service.IAdvertiseService;
 
 import net.sf.json.JSONObject;
@@ -167,7 +170,8 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 	}
 
 	@RequestMapping("findAdvertise/{positionId}")
-	public AdvertiseContents findAdvertise(@PathVariable String positionId) {
+	public ResponseInfo findAdvertise(@PathVariable String positionId) {
 		return advertiseService.queryAdvertise(positionId);
 	}
+
 }

@@ -79,7 +79,7 @@ public class ChnGoodsClassController {
 	 * @param pids
 	 * @return
 	 */
-	@RequestMapping(value = "/queryClass/{id}" , method = RequestMethod.POST)
+	@RequestMapping(value = "/queryClass/{classId}" , method = RequestMethod.POST)
 	public List<ChnGoodsClass> queryClass(@PathVariable String classId){
 		List<ChnGoodsClass> goodsClass=null;
 		if(StringUtil.isNotEmpty(classId)){

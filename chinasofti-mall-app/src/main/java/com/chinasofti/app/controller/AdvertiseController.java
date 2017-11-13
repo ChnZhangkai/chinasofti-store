@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.AdvertiseFeignClient;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 @RestController
 @RequestMapping("advertise")
@@ -30,7 +31,7 @@ public class AdvertiseController {
 		return advertiseFeignClient.findAdvertiseList(positionId);
 	}
 	@RequestMapping("findAdvertise")
-	public AdvertiseContents findAdvertise(@RequestParam String positionId,HttpServletResponse response) {
+	public ResponseInfo findAdvertise(@RequestParam String positionId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		logger.info("查询位置ID"+positionId);
 		return advertiseFeignClient.findAdvertise(positionId);

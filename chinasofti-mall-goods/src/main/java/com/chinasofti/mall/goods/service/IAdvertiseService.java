@@ -6,6 +6,7 @@ import java.util.Map;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.common.service.IBaseService;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 /**
  * 
 * @ClassName: IAdvertiseService
@@ -33,7 +34,7 @@ public interface IAdvertiseService extends IBaseService<AdvertiseContents> {
 	 */
 	public List<AdvertiseContents> queryAdvertiseList(String positionId) ;
 	
-	public AdvertiseContents queryAdvertise(String positionId);
+	public ResponseInfo queryAdvertise(String positionId);
 	/**
 	 * 
 	* @Title: findAdPostionAll

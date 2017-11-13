@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goods.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertiseContentsExample;
 import com.chinasofti.mall.common.entity.AdvertisePosition;
+import com.chinasofti.mall.common.utils.MsgEnum;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.AdvertiseContentsMapper;
 import com.chinasofti.mall.goods.service.IAdvertiseService;
 import com.github.pagehelper.Page;
@@ -127,9 +130,26 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	
 
 	@Override
-	public AdvertiseContents queryAdvertise(String positionId){
-
-		return advertiseMapper.selectSingleAdvertise(positionId);
+	public ResponseInfo queryAdvertise(String positionId){
+		ResponseInfo  response= new ResponseInfo();
+		AdvertiseContents result = advertiseMapper.selectSingleAdvertise(positionId);
+		response = dealResponseData(result);
+		return response;
+	}
+	//封装返回参数
+	private ResponseInfo dealResponseData(AdvertiseContents result) {
+		ResponseInfo  response= new ResponseInfo();
+		if(result !=null){
+			Map<String, Object> data= new HashMap<String, Object>();
+			data.put(null, result);
+			response.setData(data);
+			response.setRetCode(MsgEnum.SUCCESS.getCode());
+			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		}else{
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg(MsgEnum.ERROR.getMsg());
+		}
+		return response;
 	}
 
 	@Override
