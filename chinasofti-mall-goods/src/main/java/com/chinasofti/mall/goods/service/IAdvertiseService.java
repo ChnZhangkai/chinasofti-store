@@ -32,7 +32,7 @@ public interface IAdvertiseService extends IBaseService<AdvertiseContents> {
 	 * @param positionId
 	 * @return
 	 */
-	public List<AdvertiseContents> queryAdvertiseList(String positionId) ;
+	public ResponseInfo queryAdvertiseList(String positionId) ;
 	
 	public ResponseInfo queryAdvertise(String positionId);
 	/**

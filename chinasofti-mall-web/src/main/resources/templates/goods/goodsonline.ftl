@@ -3,18 +3,18 @@
 	<!-- Begin of toolbar -->
 	<div id="goodonline-toolbar-3" style="height: 15%">
 		<div class="goodonline-toolbar-button">
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()"plain="true">修改</a> 
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a> 
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印</a>
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="opensEdit()"plain="true">修改</a> 
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="prints()" plain="true">导出</a> 
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-prints" onclick="prints()" plain="true">打印</a>
 		</div>
 		<div class="goodonline-toolbar-search">
 			<form id="searchOnlineForm">
-				<label>商品编号</label> <input type="text" id="goodsids" name="ids" class="easyui-textbox"/>
-				<label>商品名称</label> <input type="text" id="goodstitle" name="title" class="easyui-textbox"/>
-				<label>开始时间</label> <input type="text" id="goodsstarttime" name="starttime" class="easyui-datebox"/>
-				<label>结束时间</label> <input type="text" id="goodsendtime" name="endtime" class="easyui-datebox"/><br>
-				<label>商户编号</label> <input type="text" id="goodsvendorids" name="vendorids" class="easyui-textbox"/>
-				<label>商品分类</label> <input type="text" id="goodsclassname" name="goodsclass" class="easyui-textbox"/>
+				<label>商品编号</label> <input type="text" id="goodsids" name="goodsids" class="easyui-textbox"/>
+				<label>商品名称</label> <input type="text" id="title" name="title" class="easyui-textbox"/>
+				<label>开始时间</label> <input type="text" id="startTime" name="startTime" class="easyui-datebox"/>
+				<label>结束时间</label> <input type="text" id="endTime" name="endTime" class="easyui-datebox"/><br>
+				<label>商户编号</label> <input type="text" id="vendorId" name="vendorId" class="easyui-textbox"/>
+				<label>商品分类</label> <input type="text" id="classId" name="classId" class="easyui-textbox"/>
 				<label>商品类型</label>
 				<select autocomplete="off" class="easyui-combobox"
 					data-options="panelHeight:'auto'" id="goodsType" name="type"
@@ -25,7 +25,7 @@
 				</select>
 				<label>审核状态</label>
 				<select autocomplete="off" class="easyui-combobox"
-					data-options="panelHeight:'auto'" id="goodsReviewStates" name="reviewstates"
+					data-options="panelHeight:'auto'" id="goodsReviewStates" name="reviewStatues"
 					style="width: 135px">
 					<option selected="selected" value="">请选择</option>
 					<option value="0">待提交审核</option>
@@ -38,19 +38,19 @@
 			</form>
 		</div>
 	</div>
-
 	<!-- 数据显示datagrid -->
 	<table id="goodsOnlineinfo" class="easyui-datagrid" toolbar="#goodonline-toolbar-3"
 		style="height: 95%">
-		<thead>
+		<thead> 
 			<tr>
-				<th field="name" width="10%" align="center">商品名称</th>
+				<th field="title" width="10%" align="center">商品名称</th>
 				<th field="img" width="10%" align="center"
 					data-options="formatter:imgFormatter">商品图片</th>
 				<th field="price" width="15%" align="center">商品价格</th>
-				<th field="createBy" width="15%" align="center">商户名称</th>
-				<th field="commons" width="25%" align="center">分类名称</th>
-				<th field="createTime" width="15%" align="center">商品类型</th>
+				<th field="vendorSnm" width="15%" align="center">商户名称</th>
+				<th field="name" width="25%" align="center">分类名称</th>
+				<th field="type" width="10%" align="center"
+					data-options="formatter:typesFormatter">商品类型</th>
 				<th field="storeNum" width="15%" align="center">当前库存</th>
 				<th field="status" width="15%" align="center">商品状态</th>
 			</tr>
@@ -88,7 +88,7 @@
 		//获取分页工具条元素
 		var pageId = $('#goodsOnlinePagination');
 		//此处设置自己的url地址
-		var url = '/goods/list';
+		var url = '/goodsOnline/list';
 		//分页查询时传递查询条件
 		seachId = '#searchOnlineForm';
 		//调用初始化方法	
@@ -111,21 +111,43 @@
 		}
 	}
 
+	
 	/*
-	 * 分类状态
+	 * 商品类型
 	 */
-	function statesFormatter(value) {
-		if (value == "0") {
-			return '<span style="color:black">待提交审核</span>';
-		} 
-		if (value == "1"){
-			return '<span style="color:green">审核通过</span>';
-		} 
-		if (value == '2'){
-			return '<span style="color:red">审核拒绝</span>';
+	function typesFormatter(value){
+		if(value == "0"){
+			return '<span>普通商品</span>';
 		}else{
-			return '<span style="color:yellow">已提交审核</span>';
+			return '<span style="color:#FF00FF">活动商品</span>';
 		}
+	}
+	
+	//条件查询
+	function goodOnlineDoSearch(){
+		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchOnlineForm').serialize();
+		//console.info(param)
+		$.ajax({ 
+	          type: 'POST', 
+	          url: '/goodsOnline/list', //用户请求数据的URL
+	          data: param, 
+	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
+	              alert("没有查询到数据"); 
+	          }, 
+	          success: function (data) { 
+	        	  
+	        	  data =eval("("+data+")");
+	        	  
+	        	  if(data.total == 0){
+	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
+	        	  }
+	        	  
+	              $('#goodsOnlineinfo').datagrid('loadData', data.rows);
+	               $('#goodsOnlinePagination').pagination({ 
+			    	  total:data.total
+			    	  });
+	          }
+	       });
 	}
 	
 	/*

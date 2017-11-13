@@ -132,7 +132,7 @@ public class PyMainGoodsorder extends PageBean{
     private String payStatus;
 
     /**
-    * @Fields status : 订单状态: 0 已删除  1 未发货 2 已发货 3 已收货
+    * @Fields status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
     */
     private String status;
 
@@ -261,8 +261,38 @@ public class PyMainGoodsorder extends PageBean{
     * @Fields freight : 运费
     */
     private BigDecimal freight;
+    
+    private String orderType;
+    
+    private BigDecimal afterType;
+    
+    private String vendorSnm;
 
-    public String getIds() {
+    public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+
+	public BigDecimal getAfterType() {
+		return afterType;
+	}
+
+	public void setAfterType(BigDecimal afterType) {
+		this.afterType = afterType;
+	}
+
+	public String getVendorSnm() {
+		return vendorSnm;
+	}
+
+	public void setVendorSnm(String vendorSnm) {
+		this.vendorSnm = vendorSnm;
+	}
+
+	public String getIds() {
         return ids;
     }
 

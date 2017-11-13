@@ -166,7 +166,7 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
  * @return
  */
 	@RequestMapping("findAdvertiseList/{positionId}")
-	public List<AdvertiseContents> findAdvertiseList(@PathVariable String positionId) {
+	public ResponseInfo findAdvertiseList(@PathVariable String positionId) {
 		return advertiseService.queryAdvertiseList(positionId);
 	}
 

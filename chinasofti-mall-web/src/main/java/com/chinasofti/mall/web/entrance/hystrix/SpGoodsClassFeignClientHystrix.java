@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
 
@@ -77,8 +78,15 @@ public class SpGoodsClassFeignClientHystrix implements ChnGoodsFeignClient{
 
 	@Override
 	public int updateGoodsCheckReviewStatus(ChnGoodsinfoCheck chnGoodsinfoCheck) {
-		// TODO Auto-generated method stub
 		return 0;
+		}
+
+	@Override
+	public JSONObject selectByGoodsOnline(ChnGoodsOnline chnGoodsOnline) {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("total", 0);
+		jsonObject.put("rows", new ArrayList<>());
+		return jsonObject;
 	}
 
 }

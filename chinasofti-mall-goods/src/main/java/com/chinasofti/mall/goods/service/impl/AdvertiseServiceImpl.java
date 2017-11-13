@@ -81,12 +81,31 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	 * 根据位置Id查找广告列表和单条广告
 	 * @throws Exception 
 	 */
-	public List<AdvertiseContents> queryAdvertiseList(String positionId){
-
-		return advertiseMapper.selectAdvertiseList(positionId);
+	public ResponseInfo queryAdvertiseList(String positionId){
+		ResponseInfo  response= new ResponseInfo();
+		List<AdvertiseContents> result = advertiseMapper.selectAdvertiseList(positionId);
+		response = dealAdResponseData(result);
+		return response;
 	} 
 
-	
+    //处理广告列表返回的数据
+	private ResponseInfo dealAdResponseData(List<AdvertiseContents> result) {
+		ResponseInfo  response= new ResponseInfo();
+		if(result.size()>0){
+			Map<String, Object> data= new HashMap<String, Object>();
+			for(AdvertiseContents ad :result){
+				
+				data.put(result.get(0).toString(), ad);	
+			}			
+			response.setData(data);
+			response.setRetCode(MsgEnum.SUCCESS.getCode());
+			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		}else{
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg(MsgEnum.ERROR.getMsg());
+		}
+		return response;
+	}
 
 	@Override
 	public ResponseInfo queryAdvertise(String positionId){

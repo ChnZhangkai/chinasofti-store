@@ -40,7 +40,7 @@ public interface AdvertiseFeignClient {
 	* @throws
 	*/
 	@RequestMapping(value = "/advertise/findAdvertiseList")
-	public List<AdvertiseContents> findAdvertiseList(@RequestParam("positionId") String positionId);
+	public ResponseInfo findAdvertiseList(@RequestParam("positionId") String positionId);
 	
 	
 	

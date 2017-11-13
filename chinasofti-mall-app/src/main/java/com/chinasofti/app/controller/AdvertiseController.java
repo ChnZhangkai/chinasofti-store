@@ -1,6 +1,5 @@
 package com.chinasofti.app.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.AdvertiseFeignClient;
-import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 @RestController
@@ -25,7 +23,7 @@ public class AdvertiseController {
 
 
 	@RequestMapping("findAdvertiseList")
-	public List<AdvertiseContents> findAdvertiseList(@RequestParam String positionId,HttpServletResponse response) {
+	public ResponseInfo findAdvertiseList(@RequestParam String positionId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		logger.info(positionId);
 		return advertiseFeignClient.findAdvertiseList(positionId);
