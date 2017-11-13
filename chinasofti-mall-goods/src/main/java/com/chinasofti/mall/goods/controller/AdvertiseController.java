@@ -124,7 +124,6 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 		return advertiseService.findAdPostionAll();
 	}
 	
-	
 
 	
 	@RequestMapping("batchAdd")

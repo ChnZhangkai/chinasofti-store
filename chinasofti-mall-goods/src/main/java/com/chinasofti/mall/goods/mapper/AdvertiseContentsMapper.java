@@ -40,4 +40,6 @@ public interface AdvertiseContentsMapper {
     AdvertiseContents selectSingleAdvertise(String positionId);
     
    List<AdvertisePosition> findAdPostionAll();
+   
+   List<AdvertiseContents> findByPage(Map<String,Object> map);
 }
