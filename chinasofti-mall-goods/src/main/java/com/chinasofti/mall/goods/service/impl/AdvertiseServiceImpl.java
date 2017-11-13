@@ -127,5 +127,4 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		js.put("total", ((Page<AdvertiseContents>) list).getTotal());
 		return js.toString();
 	}
-
 }
