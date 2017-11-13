@@ -94,7 +94,7 @@
 					<td><input type="text" class="easyui-datetimebox"
 						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="createTime" name="createTime"/></td>
 					<th align="right">结束日期</th>
-					<td><input type="text" class="easyui-datebox"
+					<td><input type="text" class="easyui-datetimebox"
 						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime"/></td>
 				</tr>
 				<tr>
@@ -261,7 +261,11 @@
 		     contentType: false, 
 		     processData: false, 
 		     success: function(data) {
-				alert(data);
+				$('#addDl').dialog('close');
+				$('#addGoodsForm').form('reset');
+				UE.getEditor('container').setContent("");
+				$.messager.alert('信息提示','添加成功！','info');
+				$('#goodsCheckPagination').pagination('select');
 		     }, 
 		     error: function(data) {   
 		     } 
