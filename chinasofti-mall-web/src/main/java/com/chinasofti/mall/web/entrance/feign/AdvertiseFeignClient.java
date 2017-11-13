@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.web.entrance.hystrix.AdvertiseFeignClientHystrix;
 
 
@@ -77,4 +78,13 @@ public interface AdvertiseFeignClient {
 	@RequestMapping(value = "/advertise/pubOrCanAdvertise")
 	public String pubOrCanAdvertise(@RequestParam Map<String, Object> map);
 	
+	/**
+	 *
+	* @Title: findAdPostionAll
+	* @Description: 查询广告位置
+	* @return: String
+	* @throws:
+	 */
+	@RequestMapping(value = "/advertise/findAdPostionAll")
+	public List<AdvertisePosition> findAdPostionAll();
 }

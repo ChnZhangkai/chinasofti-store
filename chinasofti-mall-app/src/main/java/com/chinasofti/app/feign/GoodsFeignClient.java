@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.chinasofti.app.hystrix.GoodsClassFeignClientHystrix;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 
 /**分类消费类
  * 
@@ -16,13 +17,17 @@ import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
  *
  */
 @FeignClient(name = "Goods-Service" ,fallback = GoodsClassFeignClientHystrix.class)
-public interface GoodsClassFeignClient {
+public interface GoodsFeignClient {
 
 	/***
 	 * 商品分类查询
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping(value = "/goodsClass/queryClass" ,method = RequestMethod.POST )
-	public List<ChnGoodsClass> queryClass(@PathVariable("classId") String classId);
+	@RequestMapping(value = "/goodsinfo/queryGoodList" ,method = RequestMethod.POST )
+	public List<ChnGoodsinfo>queryGoodList(@PathVariable("id") String id);
+  
+	@RequestMapping(value = "/goodsinfo/queryGoodinfo" ,method = RequestMethod.POST )
+	public ChnGoodsinfo queryGoodInfo(@PathVariable("ids") String ids);
+  
 }

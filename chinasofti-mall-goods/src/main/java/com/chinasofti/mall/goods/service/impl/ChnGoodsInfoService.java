@@ -15,8 +15,11 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 	@Autowired
 	private ChnGoodsinfoMapper goodsinfoMapper;
 	
-	public List<ChnGoodsinfo> selectByClassId(String goodsClassId) {
-		return goodsinfoMapper.selectByClassId(goodsClassId);
+	public List<ChnGoodsinfo> selectByClassId(String goodsClassIds) {
+		return goodsinfoMapper.selectByClassId(goodsClassIds);
 	}
 
+	public ChnGoodsinfo selectByGoodsId(String ids) {
+		return goodsinfoMapper.selectByPrimaryKey(ids);
+	}
 }
