@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.web.entrance.hystrix.ChildGoodsorderFeignClientHystrix;
 
@@ -30,4 +31,6 @@ public interface ChildGoodsorderFeign {
 	@RequestMapping(value="childorder/list" , method = RequestMethod.POST)
 	public JSONObject selectByChildorderClass(@RequestBody(required=false) PyChildGoodsorder childGoodsorder);
 
+	@RequestMapping(value="childorder/selectbycondition" , method = RequestMethod.POST)
+	public JSONObject selectByChildorderCondition(@RequestBody(required=false)ChildorderCondition childorderCondition);
 }

@@ -1,12 +1,11 @@
 package com.chinasofti.mall.common.entity;
 
-import java.io.Serializable;
 
-public class PtRole implements Serializable{
+import java.util.HashSet;
+import java.util.Set;
 
-	private static final long serialVersionUID = 1L;
-
-	private String ids;
+public class PtRole {
+    private String ids;
 
     private String numbers;
 
@@ -25,6 +24,10 @@ public class PtRole implements Serializable{
 	public String getIds() {
 		return ids;
 	}
+    
+    private Set<PtUser> users = new HashSet<PtUser>();
+    
+    private Set<PtOperator> ptoperators = new HashSet<PtOperator>();
 
 	public void setIds(String ids) {
 		this.ids = ids;
@@ -84,6 +87,33 @@ public class PtRole implements Serializable{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+    
+
+	public Set<PtUser> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<PtUser> users) {
+		this.users = users;
+	}
+
+	public Set<PtOperator> getPtoperators() {
+		return ptoperators;
+	}
+
+	public void setPtoperators(Set<PtOperator> ptoperators) {
+		this.ptoperators = ptoperators;
+	}
+
+	@Override
+	public String toString() {
+		return "PtRole [ids=" + ids + ", numbers=" + numbers + ", names="
+				+ names + ", updateby=" + updateby + ", createtime="
+				+ createtime + ", updatetime=" + updatetime + ", createby="
+				+ createby + ", description=" + description + ", users="
+				+ users + ", ptoperators=" + ptoperators + "]";
 	}
 
     

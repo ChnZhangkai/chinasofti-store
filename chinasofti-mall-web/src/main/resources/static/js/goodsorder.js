@@ -47,6 +47,7 @@ function childorderDoSearch() {
 	$('#childorderDataGrid').datagrid('load', {
 		transactionid : $('#childorder-transactionid').val(),
 		mainorderIds : $('#childorder-mainorderIds').val(),
+		type:$('#childorder-type').val(),
 		orderType : $('#childorder-orderType').val()
 	});
 
@@ -139,6 +140,7 @@ function orderTypeFormatter(value, row, index) {
 	}
 }
 
+
 /**
  * 子订单信息查看
 
@@ -168,14 +170,14 @@ function openChildorderCheck() {
 
 /**
  * 前端排序
- */
+ 
 function childorderSort(a, b) {
 	if (a >= b){
 		return 1;
 	}else {
 		return -1;
 	}
-}
+}*/
 
 /**
  * 子操作按钮显示
@@ -193,7 +195,7 @@ function childorderLook(index){
 		modal : true,
 		title : "订单详细信息"
 	});
-	if(row.orderType == 1){
+	/*if(row.orderType == 1){
 		row.orderType = "普通订单";
 	} else if(row.orderType == 2){
 		row.orderType = "优惠券订单";
@@ -201,7 +203,7 @@ function childorderLook(index){
 		row.orderType = "实物众筹订单";
 	} else {
 		
-	}
+	}*/
 	$('#childorderEditForm').form('load', row);
 }
 

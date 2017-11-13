@@ -463,11 +463,11 @@
 						</td>
 						<th style="width:10%;padding:0 10px 0 0;" align="right">商品类型</th>
 						<td style="width:15%" align="left">
-							<select id="childorder-goodsClass" data-options="panelMaxHeight:82" class="easyui-combobox" name="goodsClass">
+							<select id="childorder-type" data-options="panelMaxHeight:82" class="easyui-combobox" name="type">
 								<option value="">请选择</option>
-								<option value="1">普通商品</option>
-								<option value="2">活动商品</option>
-								<option value="3">实物众筹商品</option>
+								<option value="0">普通商品</option>
+								<option value="1">活动商品</option>
+								<option value="2">实物众筹商品</option>
 							</select>
 						</td>
 						<th style="width:10%;padding:0 10px 0 0;" align="right">订单类型</th>
@@ -494,13 +494,11 @@
 	<!-- 子订单模块数据表 -->
 	<table id="childorderDataGrid" class="easyui-datagrid"
 		singleSelect="true"
-		data-options="url:'childorder/list',
+		data-options="url:'childorder/selectall',
     				 fitColumns:true,
        				 pagination:true,
-       				 sortName:'mainorderIds',
+       				 sortName:'TRANSACTIONID',
        				 sortOrder:'asc',
-       				 remoteSort:false,
-       				 sorter:childorderSort,
        				 toolbar:'#childorderToolbar',
        				 title:'子订单列表',
        				 iconCls:'icon-man',
@@ -510,12 +508,11 @@
 			<tr>
 				<th field="transactionid" width="17%" align="center" 
 					data-options="sortable:true">子订单号</th>
-				<th field="mainorderIds" width="17%" align="center" 
-					data-options="sortable:true">主订单号</th>
+				<th field="mainorderIds" width="17%" align="center">主订单号</th>
 				<th field="orderType" width="8%" align="center"
 					data-options="formatter:orderTypeFormatter">订单类型</th>
-				<th field="goodsids" width="15%" align="center">商品名称-</th>
-				<th field="aa" width="8%" align="center">商品规格</th>
+				<th field="goodsTitle" width="15%" align="center">商品名称</th>
+				<th field="goodsStandard" width="8%" align="center">商品规格</th>
 				<th field="goodsNum" width="5%" align="center">购买数量</th>
 				<th field="orderAmt" width="5%" align="center">商品总价</th>
 				<th field="ab" width="8%" align="center">退换货类型</th>
@@ -544,27 +541,27 @@
 				<tr>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">商品分类</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
+						<input name="className" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">商品类型</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
+						<input name="goodsType" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
 					</td>
 				</tr>
 				<tr>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">商品名称</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
+						<input name="goodsTitle" class="easyui-box" style="width:80%;height:30px;" readonly="readonly" />
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">商品编号</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
+						<input name="goodsCode" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
 					</td>
 				</tr>
 				<tr>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">商品规格</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
+						<input name="goodsStandard" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">购买数量</td>
 					<td style="width:40%" align="left">
@@ -618,7 +615,7 @@
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">订单类型</td>
 					<td style="width:40%" align="left">
-						<input name="orderType" class="easyui-textbox" 
+						<input name="orderType" class="easyui-combobox" 
 							style="width:80%;height:30px;" readonly="readonly"/>
 					</td>
 				</tr>

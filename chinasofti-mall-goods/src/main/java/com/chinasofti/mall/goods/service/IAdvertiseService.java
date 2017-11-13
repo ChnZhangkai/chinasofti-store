@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.common.service.IBaseService;
 /**
  * 
@@ -25,7 +26,20 @@ public interface IAdvertiseService extends IBaseService<AdvertiseContents> {
 	public String findByPage(Map<String,Object> paramMap);
 	
 	public int pubOrCanAdvertise(Map<String, Object> map);
-	
+	/**
+	 * 根据位置Id查询广告信息
+	 * @param positionId
+	 * @return
+	 */
 	public List<AdvertiseContents> queryAdvertiseList(String positionId) ;
+	
 	public AdvertiseContents queryAdvertise(String positionId);
+	/**
+	 * 
+	* @Title: findAdPostionAll
+	* @Description: 查询所有位置广告位置信息
+	* @return: List<AdvertisePosition>
+	* @throws:
+	 */
+	public List<AdvertisePosition> findAdPostionAll();
 }

@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goodsorder.mapper;
 
+import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample;
 
@@ -29,5 +30,5 @@ public interface PyChildGoodsorderMapper {
 
     int updateByPrimaryKey(PyChildGoodsorder record);
     
-    List<PyChildGoodsorder> selectAll();
+    List<PyChildGoodsorder> selectByChildorderCondition(ChildorderCondition childorderCondition);
 }
