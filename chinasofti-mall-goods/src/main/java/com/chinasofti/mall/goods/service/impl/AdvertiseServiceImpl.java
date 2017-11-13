@@ -115,7 +115,6 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	public List<AdvertisePosition> findAdPostionAll() {
 		return advertiseMapper.findAdPostionAll();
 	}
-	
 	@Override
 	public String findByPage(Map<String, Object> paramMap) {
 		JSONObject js = new JSONObject();

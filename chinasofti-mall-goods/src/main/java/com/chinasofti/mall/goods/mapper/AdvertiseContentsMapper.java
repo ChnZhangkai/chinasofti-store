@@ -42,5 +42,4 @@ public interface AdvertiseContentsMapper {
    List<AdvertisePosition> findAdPostionAll();
    
    List<AdvertiseContents> findByPage(Map<String,Object> map);
-
 }
