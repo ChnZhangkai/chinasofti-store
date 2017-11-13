@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.chinasofti.app.hystrix.GoodsClassFeignClientHystrix;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**分类消费类
  * 
@@ -28,6 +29,6 @@ public interface GoodsFeignClient {
 	public List<ChnGoodsinfo>queryGoodList(@PathVariable("id") String id);
   
 	@RequestMapping(value = "/goodsinfo/queryGoodinfo" ,method = RequestMethod.POST )
-	public ChnGoodsinfo queryGoodInfo(@PathVariable("ids") String ids);
+	public ResponseInfo queryGoodInfo(@PathVariable("ids") String ids);
   
 }

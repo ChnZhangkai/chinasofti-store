@@ -14,6 +14,7 @@ import com.chinasofti.app.feign.GoodsClassFeignClient;
 import com.chinasofti.app.feign.GoodsFeignClient;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 @Controller
 @RequestMapping("goodsInfo")
@@ -33,7 +34,7 @@ public class GoodsController {
 		return goodsFeignClient.queryGoodList(id);
 	}
 	@RequestMapping("queryGoodsInfo")
-	public ChnGoodsinfo queryGoodsInfo(@RequestParam String ids,HttpServletResponse response){
+	public ResponseInfo queryGoodsInfo(@RequestParam String ids,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		return goodsFeignClient.queryGoodInfo(ids);
 	}
