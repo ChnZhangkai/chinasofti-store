@@ -144,12 +144,16 @@ public class ChnGoodsCheckController {
 		return "保存成功";
 	}
 	
+	/**
+	 * 商品审核(0.提交审核,3.撤销审核,1.审核通过,2.审核拒绝)
+	 * @param chnGoodsinfoCheck
+	 * @return
+	 */
 	@RequestMapping("/updateGoodsCheckStatus")
 	public int updateGoodsCheck(ChnGoodsinfoCheck chnGoodsinfoCheck){
 		
-		String ids = chnGoodsinfoCheck.getIds();
+		return chnGoodsFeignClient.updateGoodsCheckReviewStatus(chnGoodsinfoCheck);
 		
-		return 0;
 	}
 	
 	/**

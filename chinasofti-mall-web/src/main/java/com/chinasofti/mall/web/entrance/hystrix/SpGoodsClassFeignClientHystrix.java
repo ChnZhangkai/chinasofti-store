@@ -75,4 +75,10 @@ public class SpGoodsClassFeignClientHystrix implements ChnGoodsFeignClient{
 		return 0;
 	}
 
+	@Override
+	public int updateGoodsCheckReviewStatus(ChnGoodsinfoCheck chnGoodsinfoCheck) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
