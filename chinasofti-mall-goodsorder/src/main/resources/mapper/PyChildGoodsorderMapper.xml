@@ -27,7 +27,10 @@
     <result column="title" property="goodsTitle" />
     <result column="standard" property="goodsStandard" />
     <result column="code" property="goodsCode" />
-    <result column="type" property="goodsType" />
+    <result column="type" property="goodsType"  />
+    <result column="after_type" property="afterType" jdbcType="DECIMAL" />
+    <result column="approve_status" property="approveStatus" />
+    <result column="payway" property="payWay" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -494,25 +497,28 @@
   </resultMap>
   
   <select id="selectByChildorderCondition" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.ChildorderCondition">
-  	SELECT orderinfo.*, gc.name
-	FROM (
-		SELECT co.*,gf.TITLE,gf.STANDARD,gf.CODE,gf.GOODS_CLASS_IDS,gf.TYPE
-      	FROM py_child_goodsorder co,chn_goodsinfo gf
-      	WHERE co.goodsids = gf.ids 
-      	<if test="transactionid != null and transactionid !=''">
-			and co.transactionid like concat(concat('%', #{transactionid}), '%')
-		</if>
-		<if test="mainorderIds != null and mainorderIds !=''">
-			and co.mainorder_ids like concat(concat('%', #{mainorderIds}), '%')
-		</if>
-		<if test="orderType != null and orderType !=''">
-			and co.ORDER_TYPE = #{orderType}
-		</if> 
-		<if test="type != null and type !=''">
-			and gf.type = #{type} 
-		</if>) orderinfo,
-  		chn_goods_class gc
-	WHERE orderinfo.goods_class_ids = gc.IDS
+	 SELECT childorder.*, asales.TYPE AS after_type,asales.APPROVE_STATUS,mainorder.PAYWAY FROM 
+	 	(SELECT orderinfo.*, gc.name
+		FROM (
+			SELECT co.*,gf.TITLE,gf.STANDARD,gf.CODE,gf.GOODS_CLASS_IDS,gf.TYPE
+	      	FROM py_child_goodsorder co,chn_goodsinfo gf
+	      	WHERE co.goodsids = gf.ids 
+	      	<if test="transactionid != null and transactionid !=''">
+				and co.transactionid like concat(concat('%', #{transactionid}), '%')
+			</if>
+			<if test="mainorderIds != null and mainorderIds !=''">
+				and co.mainorder_ids like concat(concat('%', #{mainorderIds}), '%')
+			</if>
+			<if test="orderType != null and orderType !=''">
+				and co.ORDER_TYPE = #{orderType}
+			</if> 
+			<if test="type != null and type !=''">
+				and gf.type = #{type} 
+			</if>) orderinfo,chn_goods_class gc
+		WHERE orderinfo.goods_class_ids = gc.IDS) childorder LEFT JOIN sp_after_sales asales 
+	ON childorder.TRANSACTIONID = asales.ORDER_IDS 
+	LEFT JOIN py_main_goodsorder mainorder 
+	ON childorder.MAINORDER_IDS = mainorder.TRANSACTIONID
 	order by ${sort} ${order}
   </select>
 </mapper>

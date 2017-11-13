@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goodsorder.mapper;
 
+import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample;
 import java.util.List;
@@ -27,4 +28,6 @@ public interface PyMainGoodsorderMapper {
     int updateByPrimaryKeySelective(PyMainGoodsorder record);
 
     int updateByPrimaryKey(PyMainGoodsorder record);
+    
+    List<PyMainGoodsorder> selectByMainorderCondition(MainorderCondition mainorderCondition);
 }
