@@ -1,12 +1,10 @@
 package com.chinasofti.app.hystrix;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.springframework.stereotype.Component;
 
 import com.chinasofti.app.feign.GoodsFeignClient;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**
@@ -18,8 +16,8 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 public class GoodsFeignClientHystrix implements GoodsFeignClient{
 
 	@Override
-	public List<ChnGoodsinfo>queryGoodList(String classId) {
-		return new ArrayList<ChnGoodsinfo>();
+	public ResponseInfo queryGoodList(String classId) {
+		return new ResponseInfo();
 	}
 
 	@Override

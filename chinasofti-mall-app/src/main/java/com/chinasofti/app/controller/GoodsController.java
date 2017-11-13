@@ -29,7 +29,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("queryGoodList")
-	public List<ChnGoodsinfo>queryGoodList(@RequestParam String id,HttpServletResponse response){
+	public ResponseInfo queryGoodList(@RequestParam String id,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		return goodsFeignClient.queryGoodList(id);
 	}

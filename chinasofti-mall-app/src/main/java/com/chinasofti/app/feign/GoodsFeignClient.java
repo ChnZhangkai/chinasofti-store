@@ -26,7 +26,7 @@ public interface GoodsFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goodsinfo/queryGoodList" ,method = RequestMethod.POST )
-	public List<ChnGoodsinfo>queryGoodList(@PathVariable("id") String id);
+	public ResponseInfo queryGoodList(@PathVariable("id") String id);
   
 	@RequestMapping(value = "/goodsinfo/queryGoodinfo" ,method = RequestMethod.POST )
 	public ResponseInfo queryGoodInfo(@PathVariable("ids") String ids);

@@ -8,23 +8,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.service.IChnGoodsInfoService;
 
 @RestController
 @RequestMapping("goodsInfo")
-public class ChnGoodsinfoController {
+public class ChnGoodsInfoController {
 
 	@Autowired
 	private IChnGoodsInfoService goodsInfoService;
 	
 	@RequestMapping("queryGoodList/{id}")
-	public List<ChnGoodsinfo>queryGoodList(@PathVariable String id){
+	public ResponseInfo queryGoodList(@PathVariable String id){
 		String goodsClassIds = id;
 		return goodsInfoService.selectByClassId(goodsClassIds);
 	}
 	
 	@RequestMapping("queryGoodsInfo/{ids}")
-	public ChnGoodsinfo queryGoodsInfo(@PathVariable String ids){
+	public ResponseInfo queryGoodsInfo(@PathVariable String ids){
 		return goodsInfoService.selectByGoodsId(ids);
 	}
 }
