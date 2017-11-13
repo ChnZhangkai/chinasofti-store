@@ -144,6 +144,14 @@ public class ChnGoodsCheckController {
 		return "保存成功";
 	}
 	
+	@RequestMapping("/updateGoodsCheckStatus")
+	public int updateGoodsCheck(ChnGoodsinfoCheck chnGoodsinfoCheck){
+		
+		String ids = chnGoodsinfoCheck.getIds();
+		
+		return 0;
+	}
+	
 	/**
 	 * 富文本编辑器多图保存
 	 * @return 
