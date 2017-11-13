@@ -18,7 +18,7 @@
 						<td style="width:15%" align="left">
 							<input class="easyui-textbox" id="mainorder-transactionid" name="transactionid" data-options="" />
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">主订单号</th>
+						<th style="width:10%;padding:0 10px 0 0;" align="right">大订单号</th>
 						<td style="width:15%" align="left">
 							<input class="easyui-textbox" id="mainorder-bigorderId" name="bigorderId" data-options="" />
 						</td>
@@ -53,7 +53,7 @@
 						</td>
 						<th style="width:10%;padding:0 10px 0 0;" align="right">订单状态</th>
 						<td style="width:15%" align="left">
-							<select id="mainorder-orderStatus" class="easyui-combobox" name="orderStatus"
+							<select id="mainorder-status" class="easyui-combobox" name="orderStatus"
 									data-options="width:135,panelMaxHeight:82">
 								<option value="">请选择</option>
 								<option value="0">待付款</option>
@@ -67,7 +67,7 @@
 						</td>
 						<th style="width:10%;padding:0 10px 0 0;" align="right">联系人</th>
 						<td style="width:15%" align="left">
-							<input class="easyui-textbox"id="mainorder-contName" name="contName" data-options="" />
+							<input class="easyui-textbox"id="mainorder-contName" name="contName" />
 						</td>
 					</tr>
 					<tr>
@@ -108,30 +108,32 @@
 	<!-- 主订单数据表格 -->
 	<table id="mainorderDataGrid" class="easyui-datagrid"
 		singleSelect="true"
-		data-options="url:'mainorder/list',
+		data-options="url:'mainorder/selectall',
     				 fitColumns:true,
        				 pagination:true,
-       				 sortName:'ids',
+       				 sortName:'transactionid',
        				 sortOrder:'asc',
        				 toolbar:'#mainorderToolbar',
        				 title:'主订单列表',
        				 iconCls:'icon-man',
        				 striped:true,
-       				 collapsible:true">
+       				 collapsible:true,
+       				 checkOnSelect: false,
+					 selectOnCheck: true">
 		<thead>
 			<tr>
 				<th field="transactionid" width="17%" align="center" data-options="sortable:true">主订单号</th>
 				<th field="bigorderId" width="17%" align="center">大订单号</th>
-				<th field="ac" width="8%" align="center" data-options="formatter:paywayFormatter">订单类型-</th>
-				<th field="vendorIds" width="10%" align="center">商户名称-</th>
-				<th field="orderTotalAmt" width="6%" align="center" data-options="sortable:true">订单总额</th>
+				<th field="orderType" width="8%" align="center" data-options="formatter:orderTypeFormatter">订单类型</th>
+				<th field="vendorSnm" width="10%" align="center">商户名称</th>
+				<th field="orderTotalAmt" width="6%" align="center" data-options="">订单总额</th>
 				<th field="payStatus" width="5%" align="center" data-options="formatter:payStatusFormatter">支付状态</th>
-				<th field="status" width="5%" align="center" data-options="formatter:statusFormatter">订单状态-</th>
+				<th field="status" width="5%" align="center" data-options="formatter:statusFormatter">订单状态</th>
 				<th field="ac" width="5%" align="center">物流状态</th>
 				<th field="settleStatues" width="8%" align="center" data-options="formatter:settleStatuesFormatter">清算状态</th>
-				<th field="ac" width="5%" align="center" data-options="formatter:statusFormatter">核销状态-</th>
+				<th field="ac" width="5%" align="center" data-options="formatter:statusFormatter">核销状态</th>
 				<th field="ad" width="6%" align="center" 
-					data-options="formatter:mianBtnFormatter">操作</th>
+					data-options="formatter:mainBtnFormatter">操作</th>
 			</tr>
 		</thead>
 	</table>
@@ -477,7 +479,7 @@
 								<option value="1">普通订单</option>
 								<option value="2">优惠券订单</option>
 								<option value="3">实物众筹订单</option>
-						</select>
+							</select>
 						</td>
 					</tr>
 					<tr>
@@ -515,8 +517,10 @@
 				<th field="goodsStandard" width="8%" align="center">商品规格</th>
 				<th field="goodsNum" width="5%" align="center">购买数量</th>
 				<th field="orderAmt" width="5%" align="center">商品总价</th>
-				<th field="ab" width="8%" align="center">退换货类型</th>
-				<th field="ac" width="8%" align="center">售后状态</th>
+				<th field="afterType" width="8%" align="center" 
+					data-options="formatter:afterTypeFormatter">退换货类型</th>
+				<th field="approveStatus" width="8%" align="center" 
+					data-options="formatter:approveStatusFormatter">售后状态</th>
 				<th field="ad" width="8%" align="center" 
 					data-options="formatter:btnFormatter">操作</th>
 			</tr>
@@ -545,13 +549,17 @@
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">商品类型</td>
 					<td style="width:40%" align="left">
-						<input name="goodsType" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
+						<select data-options="panelMaxHeight:82" class="easyui-combobox" name="goodsType" style="width:80%;height:30px;" readonly="true">
+							<option value="0">普通商品</option>
+							<option value="1">活动商品</option>
+							<option value="2">实物众筹商品</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">商品名称</td>
 					<td style="width:40%" align="left">
-						<input name="goodsTitle" class="easyui-box" style="width:80%;height:30px;" readonly="readonly" />
+						<input name="goodsTitle" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">商品编号</td>
 					<td style="width:40%" align="left">
@@ -575,7 +583,7 @@
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">商品总价</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
+						<input name="orderAmt" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
 					</td>
 				</tr>
 				<tr>
@@ -591,7 +599,11 @@
 				<tr>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">支付渠道</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
+						<select data-options="panelMaxHeight:82" class="easyui-combobox" name="payWay" style="width:80%;height:30px;" readonly="true">
+							<option value="1">微信</option>
+							<option value="2">支付宝</option>
+							<option value="3">银联</option>
+						</select>
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">支付方式</td>
 					<td style="width:40%" align="left">
@@ -615,8 +627,11 @@
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">订单类型</td>
 					<td style="width:40%" align="left">
-						<input name="orderType" class="easyui-combobox" 
-							style="width:80%;height:30px;" readonly="readonly"/>
+						<select data-options="panelMaxHeight:82" class="easyui-combobox" name="orderType" style="width:80%;height:30px;" readonly="true">
+							<option value="1">普通订单</option>
+							<option value="2">优惠券订单</option>
+							<option value="3">实物众筹订单</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
@@ -646,17 +661,33 @@
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">是否已申请退换货</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
+						<select data-options="panelMaxHeight:82" class="easyui-combobox" name="afterType" style="width:80%;height:30px;" readonly="true">
+							<option value="">否</option>
+							<option value="1">是</option>
+							<option value="2">是</option>
+							<option value="3">是</option>
+						</select>
 					</td>
 				</tr>
 				<tr>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">退换货类型</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
+						<select data-options="panelMaxHeight:82" class="easyui-combobox" name="afterType" style="width:80%;height:30px;" readonly="true">
+							<option value="">未申请售后</option>
+							<option value="1">退货退款</option>
+							<option value="2">仅退款</option>
+							<option value="3">换货</option>
+						</select>
 					</td>
 					<td style="width:10%;padding:0 15px 0 0;" align="right">售后状态</td>
 					<td style="width:40%" align="left">
-						<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
+						<select data-options="panelMaxHeight:82" class="easyui-combobox" name="approveStatus" style="width:80%;height:30px;" readonly="true">
+							<option value="">未申请售后</option>
+							<option value="0">待审核</option>
+							<option value="1">审批通过</option>
+							<option value="2">审批未通过</option>
+							<option value="3">售后成功</option>
+						</select>
 					</td>
 				</tr>
 			</table>

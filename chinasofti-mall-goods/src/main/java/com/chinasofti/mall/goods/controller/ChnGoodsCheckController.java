@@ -75,11 +75,16 @@ public class ChnGoodsCheckController {
 		return chnGoodsCheckService.save(chnGoodsinfoCheck);
 	}
 	
+	/**
+	 * 更改审核状态
+	 * @param chnGoodsinfoCheck
+	 * @return
+	 */
+	@RequestMapping(value = "/updateReviewStatus" , method = RequestMethod.POST)
+	public int updateGoodsCheckReviewStatus(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck){
+		return chnGoodsCheckService.updateByPrimaryKeySelective(chnGoodsinfoCheck);
+	}
 	
-	/*@RequestMapping(value = "/select" , method = RequestMethod.POST)
-	public JSONObject selectByGoodsCheck(@RequestBody(required = false)ChnGoodsinfoCheck chnGoodsinfoCheck){
-		return chnGoodsCheckService.selectByExample(chnGoodsinfoCheck);
-		
-	}*/
+
 	
 }

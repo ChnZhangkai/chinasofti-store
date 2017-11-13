@@ -493,6 +493,7 @@
 		</if>
 	</select>
 
+
 	<!-- 分页条件查询 -->
 	<select id="findByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT

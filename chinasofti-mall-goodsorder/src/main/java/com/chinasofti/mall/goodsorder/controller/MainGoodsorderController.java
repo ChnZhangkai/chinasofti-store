@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.controller.BaseController;
+import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 
@@ -75,6 +76,11 @@ public class MainGoodsorderController implements BaseController<PyMainGoodsorder
 	public JSONObject selectByExample(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder){
 		
 		return mainGoodsorderService.selectByExample(mainGoodsorder);
+	}
+	
+	@RequestMapping(value="selectbycondition" , method = RequestMethod.POST)
+	public JSONObject selectByMainorderCondition(@RequestBody(required=false)MainorderCondition mainorderCondition){
+		return mainGoodsorderService.selectByMainorderCondition(mainorderCondition);
 	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.web.entrance.hystrix.MainGoodsorderFeignClientHystrix;
 
@@ -22,7 +23,6 @@ public interface MainGoodsorderFeign {
 
 	@RequestMapping(value="mainorder/update" , method = RequestMethod.POST)
 	public String update(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder); 
-	
 
 	@RequestMapping(value="mainorder/add" , method = RequestMethod.POST)
 	public String add(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder) ;
@@ -30,4 +30,6 @@ public interface MainGoodsorderFeign {
 	@RequestMapping(value="mainorder/list" , method = RequestMethod.POST)
 	public JSONObject selectByMainorderClass(@RequestBody(required=false) PyMainGoodsorder mainGoodsorder);
 
+	@RequestMapping(value="mainorder/selectbycondition" , method = RequestMethod.POST)
+	public JSONObject selectByMainorderCondition(@RequestBody(required=false)MainorderCondition mainorderCondition);
 }

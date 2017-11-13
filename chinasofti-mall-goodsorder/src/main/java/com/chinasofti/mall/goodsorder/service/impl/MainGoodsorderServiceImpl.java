@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample.Criteria;
@@ -90,6 +91,18 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 
 		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
+
+		js.put("rows", list);
+		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());
+		
+		return js;
+	}
+
+	@Override
+	public JSONObject selectByMainorderCondition(MainorderCondition mainorderCondition) {
+		JSONObject js = new JSONObject();
+		PageHelper.startPage(mainorderCondition.getPage(),mainorderCondition.getRows());
+		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByMainorderCondition(mainorderCondition);
 
 		js.put("rows", list);
 		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());

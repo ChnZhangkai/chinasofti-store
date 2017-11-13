@@ -30,4 +30,5 @@ public interface ChnGoodsinfoCheckMapper {
     
     List<ChnGoodsinfoCheck> findAll(ChnGoodsinfoCheck chnGoodsinfoCheck);
     
+    
 }

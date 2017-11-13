@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.web.entrance.feign.MainGoodsorderFeign;
 
@@ -107,6 +108,12 @@ public class MainGoodsorderController {
 
 		return mainGoodsorderFeign.update(mainGoodsorder);
 
+	}
+	
+	@RequestMapping(value="selectall", method = RequestMethod.POST)
+	public String selectByMainorderCondition(MainorderCondition mainorderCondition){
+		JSONObject jsonlist = mainGoodsorderFeign.selectByMainorderCondition(mainorderCondition);
+		return jsonlist.toString();
 	}
 
 }
