@@ -2,13 +2,10 @@ package com.chinasofti.mall.goods.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheckExample;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheckExample.Criteria;
 import com.chinasofti.mall.goods.mapper.ChnGoodsinfoCheckMapper;
 import com.chinasofti.mall.goods.service.ChnGoodsCheckService;
 import com.github.pagehelper.Page;
@@ -43,7 +40,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	public JSONObject selectAll(ChnGoodsinfoCheck chnGoodsinfoCheck){
 		
 		JSONObject js = new JSONObject();
-		
+
 		PageHelper.startPage(chnGoodsinfoCheck.getPageNumber(),chnGoodsinfoCheck.getPageSize());
 		List<ChnGoodsinfoCheck> list = chnGoodsinfoCheckMapper.findAll(chnGoodsinfoCheck);
 		
