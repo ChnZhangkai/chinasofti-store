@@ -75,7 +75,7 @@ public class ShoppingCartController implements BaseController<PyShoppingCart> {
 	@ResponseBody
 	@RequestMapping(value="/query/goodsList", method = RequestMethod.POST)
 	@ApiOperation(value="查询购物车商品", notes="报文示例：{'userId':'1'}")
-	public ResponseInfo queryPyShoppingCartListByUserId(JSONObject json){
+	public ResponseInfo queryPyShoppingCartListByUserId(@RequestBody JSONObject json){
 		return pyShoppingCartService.queryPyShoppingCartListByUserId(json.getString("userId").toString());
 	}
 
