@@ -1,8 +1,7 @@
 package com.chinasofti.mall.goods.service;
 
-import java.util.List;
 
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 public interface IChnGoodsInfoService{
 	
@@ -11,8 +10,8 @@ public interface IChnGoodsInfoService{
      * @param goodsClassId
      * @return
      */
-   public List<ChnGoodsinfo> selectByClassId(String goodsClassIds);
+   public ResponseInfo selectByClassId(String goodsClassIds);
    
-   public ChnGoodsinfo selectByGoodsId(String ids);
+   public ResponseInfo selectByGoodsId(String ids);
 
 }

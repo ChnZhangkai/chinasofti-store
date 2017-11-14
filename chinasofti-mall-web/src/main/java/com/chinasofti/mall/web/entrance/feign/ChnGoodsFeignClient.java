@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.web.entrance.hystrix.SpGoodsClassFeignClientHystrix;
 
@@ -86,18 +87,36 @@ public interface ChnGoodsFeignClient {
 	
 	/**
 	 * 商品审核根据ID修改
-	 * @param goodscategory
+	 * @param chnGoodsinfoCheck
 	 * @return
 	 */
 	@RequestMapping(value = "/goodsCheck/update" , method = RequestMethod.POST)
 	public int updateGoodsCheck(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck);
-	
+	 
 	/**
 	 * 商品审核增加
-	 * @param goodscategory
+	 * @param chnGoodsinfoCheck
 	 * @return
 	 */
 	@RequestMapping(value = "/goodsCheck/save" , method = RequestMethod.POST)
 	public int saveGoodsCheck(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck);
+
+	/**
+	 * 商品在线管理查询
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsOnline/list" , method = RequestMethod.POST)
+	public JSONObject selectByGoodsOnline(ChnGoodsOnline chnGoodsOnline);
+	  
+	/**
+	 * 更改审核状态
+	 * @param chnGoodsinfoCheck
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsCheck/updateReviewStatus" ,method = RequestMethod.POST)
+	public int updateGoodsCheckReviewStatus(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck);
+		
+
 	
 }

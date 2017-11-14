@@ -53,6 +53,9 @@
     <result column="CONT_CITY_CODE" property="contCityCode" jdbcType="VARCHAR" />
     <result column="CONT_DISTRICT_CODE" property="contDistrictCode" jdbcType="VARCHAR" />
     <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
+    <result column="ORDER_TYPE" property="orderType" />
+    <result column="TYPE" property="afterType" />
+    <result column="VENDOR_SNM" property="vendorSnm" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -937,4 +940,36 @@
       FREIGHT = #{freight,jdbcType=DECIMAL}
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectByMainorderCondition" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.MainorderCondition">
+  	SELECT mainorder.*, childorder.ORDER_TYPE, afterorder.TYPE, muser.VENDOR_SNM
+	FROM py_main_goodsorder mainorder 
+		LEFT JOIN py_child_goodsorder childorder 
+		ON mainorder.TRANSACTIONID = childorder.MAINORDER_IDS
+		LEFT JOIN sp_after_sales afterorder
+		ON childorder.TRANSACTIONID = afterorder.ORDER_IDS
+		LEFT JOIN sp_merchant_user muser
+		ON mainorder.VENDOR_IDS = muser.VENDOR_ID
+	<where>
+		<if test="transactionid != null and transactionid !=''">
+			and mainorder.transactionid like concat(concat('%', #{transactionid}), '%')
+		</if>
+		<if test="bigorderId != null and bigorderId !=''">
+			and mainorder.BIGORDER_ID like concat(concat('%', #{bigorderId}), '%')
+		</if>
+		<if test="payStatus != null and payStatus !=''">
+			and mainorder.PAY_STATUS = #{payStatus}
+		</if> 
+		<if test="contName != null and contName !=''">
+			and mainorder.CONT_NAME like concat(concat('%', #{contName}), '%') 
+		</if>
+		<if test="payway != null and payway !=''">
+			and mainorder.PAYWAY = #{payway}
+		</if> 
+		<if test="orderStatus != null and orderStatus !=''">
+			and mainorder.STATUS = #{orderStatus}
+		</if>
+	</where>
+	order by ${sort} ${order}
+  </select>
 </mapper>

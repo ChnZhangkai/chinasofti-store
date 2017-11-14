@@ -27,7 +27,9 @@ function mainorderDoSearch() {
 		minPayTime : $('#mainorder-minPayTime').val(),
 		maxPayTime : $('#mainorder-maxPayTime').val(),
 		contName : $('#mainorder-contName').val(),
-		payway:$('#mainorder-payway').val()
+		payway:$('#mainorder-payway').val(),
+		orderStatus:$('#mainorder-status').val(),
+		settleTimeFee:$('#mainorder-settleTimeFee').val()
 	});
 
 }
@@ -92,13 +94,19 @@ function paywayFormatter(value, row, index) {
  */
 function statusFormatter(value, row, index) {
 	if (value == "0") {
-		return '<span style="color:#E8343B">已删除</span>';
+		return '<span style="color:#E8343B">待付款</span>';
 	} else if (value == "1") {
-		return '<span style="color:#FF7E00">未发货</span>';
+		return '<span style="color:#FF7E00">待发货</span>';
 	} else if (value == "2") {
-		return '<span>已发货</span>';
+		return '<span>待收货</span>';
+	} else if (value == "3") {
+		return '<span>交易成功</span>';
+	} else if (value == "4") {
+		return '<span>交易关闭（已删除）</span>';
+	} else if (value == "5") {
+		return '<span>交易关闭（已取消）</span>';
 	} else {
-		return '<span style="color:#0ADA85">已收货</span>';
+		return '<span style="color:#0ADA85">交易关闭（退款成功）</span>';
 	}
 }
 
@@ -137,6 +145,38 @@ function orderTypeFormatter(value, row, index) {
 		return '<span>实物众筹</span>';
 	} else {
 		return '<span></span>';
+	}
+}
+
+/**
+ * 退换货类型显示
+ */
+function afterTypeFormatter(value, row, index) {
+	if (value == "1") {
+		return '<span>退货退款</span>';
+	} else if (value == "2") {
+		return '<span>仅退款</span>';
+	} else if (value == "3") {
+		return '<span>换货</span>';
+	} else {
+		return '<span>订单正常</span>';
+	}
+}
+
+/**
+ * 售后状态显示
+ */
+function approveStatusFormatter(value, row, index) {
+	if (value == "0") {
+		return '<span>待审核</span>';
+	} else if (value == "1") {
+		return '<span>审批通过</span>';
+	} else if (value == "2") {
+		return '<span>审批未通过</span>';
+	} else if (value == "3") {
+		return '<span>售后成功</span>';
+	}else {
+		return '<span>未申请售后</span>';
 	}
 }
 
@@ -210,7 +250,7 @@ function childorderLook(index){
 /**
  * 主订单按钮
  */
-function mianBtnFormatter(value, row, index) {
+function mainBtnFormatter(value, row, index) {
 	var lookBtn ='<button onclick="mainorderLook('+ index +')">查看</button><br>';
 	return lookBtn;
 }

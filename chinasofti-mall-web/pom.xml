@@ -140,8 +140,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- freemarker + shiro（标签） end -->
-
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.13</version>
+		</dependency>
+			
 	</dependencies>
 
 </project>

@@ -2,13 +2,10 @@ package com.chinasofti.mall.goods.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheckExample;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheckExample.Criteria;
 import com.chinasofti.mall.goods.mapper.ChnGoodsinfoCheckMapper;
 import com.chinasofti.mall.goods.service.ChnGoodsCheckService;
 import com.github.pagehelper.Page;
@@ -43,7 +40,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	public JSONObject selectAll(ChnGoodsinfoCheck chnGoodsinfoCheck){
 		
 		JSONObject js = new JSONObject();
-		
+
 		PageHelper.startPage(chnGoodsinfoCheck.getPageNumber(),chnGoodsinfoCheck.getPageSize());
 		List<ChnGoodsinfoCheck> list = chnGoodsinfoCheckMapper.findAll(chnGoodsinfoCheck);
 		
@@ -70,6 +67,45 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	}
 
 	/* 
+	 * 根据ID删除
+	 */
+	@Override
+	public int deleteById(String ids) {
+		return chnGoodsinfoCheckMapper.deleteByPrimaryKey(ids);
+	}
+
+	/* 
+	 * 更改审核状态(0.提交审核,3.撤销审核,1.审核通过,2.审核拒绝)
+	 */
+	@Override
+	public int updateByPrimaryKeySelective(ChnGoodsinfoCheck chnGoodsinfoCheck) {
+		
+		int checkReviewStatus = Integer.valueOf(chnGoodsinfoCheck.getReviewStatues());
+		
+		//若未提交则更改为已提交
+		if (checkReviewStatus == 0) {
+			chnGoodsinfoCheck.setReviewStatues("3");
+		}
+		//若已提交则改为未提交
+		if (checkReviewStatus == 3) {
+			chnGoodsinfoCheck.setReviewStatues("0");
+		}
+		
+		return chnGoodsinfoCheckMapper.updateByPrimaryKeySelective(chnGoodsinfoCheck);
+	}
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<ChnGoodsinfoCheck> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/* 
 	 * 列表及条件查询
 	 */
 	@Override
@@ -77,7 +113,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 		
 		JSONObject js = new JSONObject();
 		
-		ChnGoodsinfoCheckExample example = new ChnGoodsinfoCheckExample();
+		/*ChnGoodsinfoCheckExample example = new ChnGoodsinfoCheckExample();
 		Criteria criteria = example.createCriteria();
 		
 		//商品编号
@@ -118,23 +154,9 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 		List<ChnGoodsinfoCheck> list = chnGoodsinfoCheckMapper.selectByExample(example);
 
 		js.put("rows", list);
-		js.put("total", ((Page<ChnGoodsinfoCheck>)list).getTotal());
+		js.put("total", ((Page<ChnGoodsinfoCheck>)list).getTotal());*/
 		
 		return js;
-	}
-
-	/* 
-	 * 根据ID删除
-	 */
-	@Override
-	public int deleteById(String ids) {
-		return chnGoodsinfoCheckMapper.deleteByPrimaryKey(ids);
-	}
-
-	@Override
-	public List<ChnGoodsinfoCheck> findAll() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

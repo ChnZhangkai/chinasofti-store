@@ -67,7 +67,6 @@ public class PtRoleController {
 	public int saveIds(@RequestBody PtRole ptRole) {
 		return ptroleServiceImpl.saveIds(ptRole);	
 	}
-	
 	/**
 	 * 展示角色的操作权限
 	 * @param id
@@ -93,3 +92,4 @@ public class PtRoleController {
 		return ptroleServiceImpl.saveMenuIds(ptRole);	
 	}
 }
+

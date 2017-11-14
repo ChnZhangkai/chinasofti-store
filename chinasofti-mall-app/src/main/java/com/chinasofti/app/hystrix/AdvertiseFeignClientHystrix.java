@@ -1,13 +1,12 @@
 package com.chinasofti.app.hystrix;
 
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.springframework.stereotype.Component;
 
 import com.chinasofti.app.feign.AdvertiseFeignClient;
-import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**
  * 
@@ -21,16 +20,14 @@ import com.chinasofti.mall.common.entity.AdvertiseContents;
 public class AdvertiseFeignClientHystrix implements AdvertiseFeignClient{
 
 	@Override
-	public AdvertiseContents findAdvertise(String positionId) {
-		return null;
+	public ResponseInfo findAdvertise(String positionId) {
+		
+		return new ResponseInfo();
 	}
 
 	@Override
-	public List<AdvertiseContents> findAdvertiseList(String positionId) {
-		return new ArrayList<AdvertiseContents>();
+	public ResponseInfo findAdvertiseList(String positionId) {
+		return new ResponseInfo();
 	}
-
-	
-
 	
 }

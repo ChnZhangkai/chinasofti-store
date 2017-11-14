@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertisePosition;
+import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
 import net.sf.json.JSONObject;
 
@@ -51,7 +55,7 @@ public class AdvertiseController {
 	}
 
 	@RequestMapping("add")
-	public String add(AdvertiseContents advertiseContents, MultipartFile file) {
+	public String add(AdvertiseContents advertiseContents, MultipartFile file,HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		if (file.isEmpty()) {
 			return jsonObject.put("errorMsg", "图片为空！！！").toString();
@@ -71,12 +75,15 @@ public class AdvertiseController {
 		}
 		try {
 			file.transferTo(dest);
-			advertiseContents.setImageurl("/images/advertise/"+ fileName);
+			advertiseContents.setImageurl("/data/advertise/"+ fileName);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		//存入创建者信息
+		//PtUser user = (PtUser) session.getAttribute("user");
+		//advertiseContents.setCreateBy(user.getUsername());	
 		logger.info(">>>>>>>>>>>>>>>>>>>advertiseContents:" + advertiseContents);
 		return advertiseFeignClient.add(advertiseContents);
 	}
@@ -101,7 +108,14 @@ public class AdvertiseController {
 		return advertiseFeignClient.pubOrCanAdvertise(map);
 	}
 	
-	
+	/**
+	 * 
+	* @Title: findAdPostionAll
+	* @Description: 查出所有广告位置
+	* @param map
+	* @return: List<AdvertisePosition>
+	* @throws:
+	 */
 	@RequestMapping(value="findAdPostionAll",method=RequestMethod.GET)
 	public List<AdvertisePosition> findAdPostionAll(@RequestParam Map<String,Object> map) {
 		return advertiseFeignClient.findAdPostionAll();
