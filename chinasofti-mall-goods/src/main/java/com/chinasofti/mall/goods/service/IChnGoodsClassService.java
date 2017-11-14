@@ -8,7 +8,7 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 
 import net.sf.json.JSONObject;
 
-public interface ChnGoodsClassService extends IBaseService<ChnGoodsClass>{
+public interface IChnGoodsClassService extends IBaseService<ChnGoodsClass>{
 	
 	public JSONObject selectByExample(ChnGoodsClass chnGoodsClass);
 	

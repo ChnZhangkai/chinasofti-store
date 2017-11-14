@@ -93,10 +93,7 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		ResponseInfo  response= new ResponseInfo();
 		if(result.size()>0){
 			Map<String, Object> data= new HashMap<String, Object>();
-			for(AdvertiseContents ad :result){
-				
-				data.put(result.get(0).toString(), ad);	
-			}			
+			data.put("responseInfo", result);	
 			response.setData(data);
 			response.setRetCode(MsgEnum.SUCCESS.getCode());
 			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
@@ -119,7 +116,7 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		ResponseInfo  response= new ResponseInfo();
 		if(result !=null){
 			Map<String, Object> data= new HashMap<String, Object>();
-			data.put(null, result);
+			data.put("responseInfo", result);
 			response.setData(data);
 			response.setRetCode(MsgEnum.SUCCESS.getCode());
 			response.setRetMsg(MsgEnum.SUCCESS.getMsg());

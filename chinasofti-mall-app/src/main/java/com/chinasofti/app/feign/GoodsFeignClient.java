@@ -6,6 +6,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.app.hystrix.GoodsFeignClientHystrix;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -23,10 +24,10 @@ public interface GoodsFeignClient {
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping(value = "/goodsinfo/queryGoodList/{id}" ,method = RequestMethod.POST )
-	public ResponseInfo queryGoodList(@PathVariable("id") String id);
+	@RequestMapping(value = "/goodsinfo/queryGoodList")
+	public ResponseInfo queryGoodList(@RequestParam("id") String id);
   
-	@RequestMapping(value = "/goodsinfo/queryGoodinfo/{ids}" ,method = RequestMethod.POST )
-	public ResponseInfo queryGoodInfo(@PathVariable("ids") String ids);
+	@RequestMapping(value = "/goodsinfo/queryGoodinfo")
+	public ResponseInfo queryGoodInfo(@RequestParam("ids") String ids);
   
 }

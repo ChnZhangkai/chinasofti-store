@@ -16,7 +16,7 @@ import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.ChnGoodsClassMapper;
-import com.chinasofti.mall.goods.service.ChnGoodsClassService;
+import com.chinasofti.mall.goods.service.IChnGoodsClassService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.util.StringUtil;
@@ -29,7 +29,7 @@ import net.sf.json.JSONObject;
  *
  */
 @Service
-public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
+public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 	
 	@Autowired
 	private ChnGoodsClassMapper chnGoodsClassMapper;
