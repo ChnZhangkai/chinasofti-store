@@ -4,6 +4,10 @@ import com.chinasofti.mall.common.entity.PtOperator;
 
 public interface PtOperatorService {
 
-	int save(PtOperator ptOperator);
+	String save(PtOperator ptOperator);
+
+	int update(PtOperator ptOperator);
+
+	int delete(String ids);
 
 }

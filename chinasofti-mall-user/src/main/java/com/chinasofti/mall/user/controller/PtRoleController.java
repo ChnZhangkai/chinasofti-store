@@ -46,7 +46,7 @@ public class PtRoleController {
 	 * 查询所有 列表展示
 	 * @return 返回信息是否成功
 	 */
-	@GetMapping("/all")
+	@RequestMapping("/all")
 	public String findAll() {
 		return ptroleServiceImpl.findAll();
 	}
@@ -86,5 +86,10 @@ public class PtRoleController {
 	@RequestMapping("/menu/{id}")
 	public List<Tree> menuTree(@PathVariable String id) {
 		return ptroleServiceImpl.menuTree(id);
+	}
+	
+	@PostMapping("/insert")
+	public int saveMenuIds(@RequestBody PtRole ptRole) {
+		return ptroleServiceImpl.saveMenuIds(ptRole);	
 	}
 }
