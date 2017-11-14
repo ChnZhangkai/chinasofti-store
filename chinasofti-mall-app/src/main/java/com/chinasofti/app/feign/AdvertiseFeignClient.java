@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.app.hystrix.AdvertiseFeignClientHystrix;
-import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 

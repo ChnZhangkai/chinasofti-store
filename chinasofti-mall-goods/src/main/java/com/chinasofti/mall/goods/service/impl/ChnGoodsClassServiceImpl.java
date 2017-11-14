@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample.Criteria;
@@ -16,7 +15,7 @@ import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.ChnGoodsClassMapper;
-import com.chinasofti.mall.goods.service.ChnGoodsClassService;
+import com.chinasofti.mall.goods.service.IChnGoodsClassService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.util.StringUtil;
@@ -29,7 +28,7 @@ import net.sf.json.JSONObject;
  *
  */
 @Service
-public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
+public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 	
 	@Autowired
 	private ChnGoodsClassMapper chnGoodsClassMapper;
@@ -115,10 +114,7 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 	private ResponseInfo dealGoodsResponseData(ResponseInfo  response,List<ChnGoodsClass> result) {
 		if(result.size()>0){
 			Map<String, Object> data= new HashMap<String, Object>();
-			for(ChnGoodsClass gc :result){
-				
-				data.put(result.get(0).toString(), gc);	
-			}			
+			data.put("ResponseInfo", result);				
 			response.setData(data);
 			response.setRetCode(MsgEnum.SUCCESS.getCode());
 			response.setRetMsg(MsgEnum.SUCCESS.getMsg());

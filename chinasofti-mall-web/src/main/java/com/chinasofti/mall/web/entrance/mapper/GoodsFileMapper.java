@@ -11,6 +11,8 @@ public interface GoodsFileMapper {
     int deleteByExample(GoodsFileExample example);
 
     int deleteByPrimaryKey(String ids);
+    
+    int deleteByGoodsIds(String ids);
 
     int insert(GoodsFile record);
 
@@ -19,6 +21,8 @@ public interface GoodsFileMapper {
     List<GoodsFile> selectByExample(GoodsFileExample example);
 
     GoodsFile selectByPrimaryKey(String ids);
+    
+    GoodsFile selectByGoodsIds(String ids);
 
     int updateByExampleSelective(@Param("record") GoodsFile record, @Param("example") GoodsFileExample example);
 

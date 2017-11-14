@@ -3,6 +3,7 @@ package com.chinasofti.mall.common.entity.order;
 import java.math.BigDecimal;
 
 import com.chinasofti.mall.common.utils.PageBean;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 
 public class PyMainGoodsorder extends PageBean{
     /**
@@ -421,7 +422,11 @@ public class PyMainGoodsorder extends PageBean{
     }
 
     public String getOrderTime() {
-        return orderTime;
+    	if(orderTime != null){
+    		return StringDateUtil.convertToPageFormat(orderTime);
+    	} else {
+    		return orderTime;
+    	}
     }
 
     public void setOrderTime(String orderTime) {
@@ -429,7 +434,11 @@ public class PyMainGoodsorder extends PageBean{
     }
 
     public String getSettleTime() {
-        return settleTime;
+    	if(settleTime != null){
+    		return StringDateUtil.convertToPageFormat(settleTime);
+    	} else {
+    		return settleTime;
+    	}
     }
 
     public void setSettleTime(String settleTime) {
@@ -549,7 +558,12 @@ public class PyMainGoodsorder extends PageBean{
     }
 
     public String getSettleTimeFee() {
-        return settleTimeFee;
+    	if(settleTimeFee != null){
+    		return StringDateUtil.convertToPageFormat(settleTimeFee);
+    	} else {
+    		return settleTimeFee;
+    	}
+        
     }
 
     public void setSettleTimeFee(String settleTimeFee) {

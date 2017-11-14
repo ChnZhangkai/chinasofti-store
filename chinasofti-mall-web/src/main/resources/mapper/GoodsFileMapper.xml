@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.chinasofti.mall.goodsfile.mapper.GoodsFileMapper" >
+<mapper namespace="com.chinasofti.mall.web.entrance.mapper.GoodsFileMapper" >
   <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.goods.GoodsFile" >
     <id column="IDS" property="ids" jdbcType="VARCHAR" />
     <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />
@@ -89,9 +89,19 @@
     from goods_file
     where IDS = #{ids,jdbcType=VARCHAR}
   </select>
+  <select id="selectByGoodsIds" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_file
+    where GOODSIDS = #{goodsids,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from goods_file
     where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByGoodsIds" parameterType="java.lang.String" >
+    delete from goods_file
+    where GOODSIDS = #{goodsids,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.goods.GoodsFileExample" >
     delete from goods_file

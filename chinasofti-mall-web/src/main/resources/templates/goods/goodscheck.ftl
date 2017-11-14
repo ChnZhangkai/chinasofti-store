@@ -92,7 +92,7 @@
 				<tr>
 					<th align="right">开始日期</th>
 					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="createTime" name="createTime"/></td>
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="startTime" name="startTime"/></td>
 					<th align="right">结束日期</th>
 					<td><input type="text" class="easyui-datetimebox"
 						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime"/></td>
@@ -142,6 +142,9 @@
 					<td><input id="img" name="img" class="easyui-filebox"
 						style="width: 180px;"
 						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
+					<th align="right">商品价格</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="price" name="price"/></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -337,7 +340,7 @@
 	}
 	
 	/*
-	 * 审核审核/撤销申请流程
+	 * 提交审核申请/撤销申请流程
 	 */
 	function handleCheck(obj){
 		
@@ -385,6 +388,9 @@
 			
 	}
 	
+	/*
+	 * 执行审核
+	 */
 	function doCheck(obj){
 			
 		var reviewStatues;
@@ -471,11 +477,13 @@
 	 * 读取路径显示图片
 	 */
 	function imgFormatter(value, row) {
+		var ids = row.ids
 		var str = "";
-		if (value != "" || value != null) {
-			str = "<img style=\"height: 75px;width: 110px;\" src=\""+ "data/goods/luoli.jpg" +"\"/>";
-			return str;
-		}
+		
+		images = $.ajax({url:'/goodsCheck/reqGoodsGoodsImgPath/' + ids,type:'POST',async:false});
+		str = "<img style=\"height: 75px;width: 110px;\" src=\""+ images.responseText +"\"/>";
+		return str;
+		
 	}
 
 	/*
