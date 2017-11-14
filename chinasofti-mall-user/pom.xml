@@ -76,7 +76,11 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.2.3</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.13</version>
+		</dependency>
 
 		<!--配置jsp jstl的支持 -->
 		<!-- <dependency> <groupId>jstl</groupId> <artifactId>jstl</artifactId> 

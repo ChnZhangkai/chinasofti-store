@@ -2,7 +2,7 @@
 function ad_search() {
 	$("#ad-datagrid").datagrid("load", {
 		'title' : $('#ad_search_title').val(),
-		'positionId' : $('#ad_search_position').val(),
+		'positionId' : $('#_positionId').val(),
 		'type' : $('#ad_search_type').val()
 	});
 }
@@ -10,9 +10,9 @@ function ad_search() {
 // 状态转换
 function statesFormatter(value) {
 	if (value == "0") {
-		return '<span style="color:gray">未显示</span>';
+		return '<span style="color:gray">未展示</span>';
 	} else {
-		return '<span style="color:blue">已显示</span>';
+		return '<span style="color:blue">已展示</span>';
 	}
 }
 
@@ -92,13 +92,13 @@ function addAdvertise() {
 // 编辑
 function editAdvertise() {
 	$('#ad-edit-form').form('clear');
-	loadClassName();
 	var row = $('#ad-datagrid').datagrid('getSelected');
 	if (row <= 0) {
 		$.messager.alert('提示', '请选择要编辑的条目!');
 	} else {
 		$('#ad-edit-dialog').dialog('open').dialog('setTitle', '编辑广告');
 		$('#ad-edit-form').form('load', row);
+		loadClassName();
 		$("#imghead").attr("src", row.imageurl);
 		url = 'advertise/update';
 	}
@@ -127,7 +127,11 @@ function saveAdvertise() {
 // 删除
 function deleteAdvertise() {
 	var row = $('#ad-datagrid').datagrid('getSelected');
-
+	
+	if (row <= 0) {
+		$.messager.alert('提示', '请选择要删除的广告', 'info');
+		return;
+		}
 	if (row.states == 1) {
 		$.messager.alert('warning', '该广告已发布，无法删除，请先取消发布！', 'info');
 		return;
@@ -211,10 +215,38 @@ function loadClassName() {
 		success : function(data) {
 			data = eval("(" + data + ")");
 			$('#_className').combobox({
-				valueField : 'ids',
+				valueField : 'name',
 				textField : 'name',
 				data : data.rows,
 			})
 		}
 	});
 }
+
+
+$(function(){
+	//加载广告位名称
+	$('#_positionId').combobox({
+	     url:'/advertise/findAdPostionAll',
+	     method:'GET',
+	     valueField:'ids',
+		 textField:'name'
+		});
+	$('#positionId_').combobox({
+		url:'/advertise/findAdPostionAll',
+		method:'GET',
+		valueField:'ids',
+		textField:'name'
+	});
+	//日期验证
+	$.extend($.fn.validatebox.defaults.rules, {  
+	       equaldDate: {  
+	           validator: function (value, param) {  
+	               var start = $(param[0]).datetimebox('getValue');  //获取开始时间    
+	               return value > start;                             //有效范围为当前时间大于开始时间    
+	           },  
+	           message: '结束日期应大于开始日期!'                     //匹配失败消息  
+	       }  
+	   }); 
+
+});

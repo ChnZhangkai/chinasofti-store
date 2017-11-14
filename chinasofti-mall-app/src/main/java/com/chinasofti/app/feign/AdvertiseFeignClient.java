@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.app.hystrix.AdvertiseFeignClientHystrix;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 
 /**广告消费类
@@ -29,7 +30,7 @@ public interface AdvertiseFeignClient {
 	* @throws:
 	 */
 	@RequestMapping(value = "/advertise/findAdvertise")
-	public AdvertiseContents findAdvertise(@RequestParam("positionId") String positionId);
+	public ResponseInfo findAdvertise(@RequestParam("positionId") String positionId);
 
 	/**
 	* @Title: 
@@ -39,7 +40,7 @@ public interface AdvertiseFeignClient {
 	* @throws
 	*/
 	@RequestMapping(value = "/advertise/findAdvertiseList")
-	public List<AdvertiseContents> findAdvertiseList(@RequestParam("positionId") String positionId);
+	public ResponseInfo findAdvertiseList(@RequestParam("positionId") String positionId);
 	
 	
 	

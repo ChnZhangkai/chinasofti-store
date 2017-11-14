@@ -10,5 +10,6 @@ public interface ChnGoodsCheckService extends IBaseService<ChnGoodsinfoCheck> {
 	JSONObject selectByExample(ChnGoodsinfoCheck chnGoodsinfoCheck);
 
 	int deleteById(String ids);
-
+	
+	int updateByPrimaryKeySelective(ChnGoodsinfoCheck chnGoodsinfoCheck);
 }

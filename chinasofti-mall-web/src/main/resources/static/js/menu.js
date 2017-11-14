@@ -1,238 +1,102 @@
 /*
  * 左侧菜单初始化
  * */
+/**
+ * 主菜单ID 目前只支持二级菜单
+ */
+var JCMENUPID="000";
+var YYMENUPID="001";
+var WXMENUPID="002";
 $(function(){
-	if($('#wechat').length>0){
-		$('#acc').accordion('remove','微信平台管理')	
-	}
-	if($('#goods').length>0){
-		$('#acc').accordion('remove','商品管理')	
-	}
-	if($('#order').length>0){
-		$('#acc').accordion('remove','订单管理')	
-	}
-	if($('#advertise').length>0){
-		$('#acc').accordion('remove','广告管理')	
-	}
-	
-	if($('#user').length<=0){
-		$("#acc").accordion('add',{
-			id:'user',
-			title:'用户管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="user/user" iframe="0">用户管理</a></li></ul>',
-			selected:true
-		})
-	}
-	if($('#merchant').length<=0){
-		$("#acc").accordion('add',{
-			id:'merchant',
-			title:'商户管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="spUser/index" iframe="0">商户管理</a></li></ul>',
-			selected:true
-		})
-	}
-	
-	
-	if($('#role').length<=0){
-		$("#acc").accordion('add',{
-			id:'role',
-			title:'角色管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="ptrole/index" iframe="0">角色管理</a></ul>',
-			selected:false
-		})
-	}
-	if($('#permission').length<=0){
-		$("#acc").accordion('add',{
-			id:'permission',
-			title:'权限管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">权限管理</a></ul>',
-			selected:false
-		})
-	}
-	if($('#parameter').length<=0){
-		$("#acc").accordion('add',{
-			id:'parameter',
-			title:'参数管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">参数管理</a></ul>',
-			selected:false
-		})
-	}
-	addt();
-	//window.document.location.reload()
+	/**
+	 * 查询基础平台菜单
+	 */
+	 switchMain();
 })
-
+function addMenuAll(pids){
+	/**
+	 * 查询基础平台菜单
+	 */
+	 $.ajax({
+		  url:'menu/getMenu?pIds='+pids,
+		  type:'POST',
+		  dataType:'json',
+		  data:"",
+		  success:function(data){
+		   if(data){
+			   for ( var index in data) {
+				  var menudata=data[index]
+				   if($('#'+menudata.ids).length<=0){
+					   var childMenu=menudata.childMenu;
+					   var childMenuHtml="";
+					   for ( var i in childMenu) {
+						   childMenuHtml+='<ul class="easyui-tree zk-side-tree">'+
+			    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="'+childMenu[i].url+'" iframe="0">'+childMenu[i].menuname+'</a></li></ul>';
+					   }
+						$("#acc").accordion('add',{
+							id:menudata.ids,
+							title:menudata.menuname,
+							content:childMenuHtml,
+							selected:true
+						})
+					}
+			}
+				addt();   
+		   }else{
+		    alert("系统繁忙,请稍候再试");
+		   }
+		  },
+		  error:function(){
+		   alert("系统繁忙,请稍候再试");
+		  }
+		 });
+}
 /*
  * 切换到基础平台
  * */
 function switchMain(){
-	if($('#wechat').length>0){
-		$('#acc').accordion('remove','微信平台管理')	
-	}
-	if($('#goods').length>0){
-		$('#acc').accordion('remove','商品管理')	
-	}
-	if($('#order').length>0){
-		$('#acc').accordion('remove','订单管理')	
-	}
-	if($('#advertise').length>0){
-		$('#acc').accordion('remove','广告管理')	
-	}
+	removeAll();
+	addMenuAll(JCMENUPID);
 	
-	if($('#user').length<=0){
-		$("#acc").accordion('add',{
-			id:'user',
-			title:'用户管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="user/user" iframe="0">用户管理</a></li></ul>',
-			selected:true
-		})
-	}
 	
-	if($('#merchant').length<=0){
-		$("#acc").accordion('add',{
-			id:'merchant',
-			title:'商户管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="spUser/index" iframe="0">商户管理</a></li></ul>',
-			selected:true
-		})
-	}
-
-	if($('#role').length<=0){
-		$("#acc").accordion('add',{
-			id:'role',
-			title:'角色管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="" iframe="0">角色管理</a></ul>',
-			selected:false
-		})
-	}
-	if($('#permission').length<=0){
-		$("#acc").accordion('add',{
-			id:'permission',
-			title:'权限管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">权限管理</a></ul>',
-			selected:false
-		})
-	}
-	if($('#parameter').length<=0){
-		$("#acc").accordion('add',{
-			id:'parameter',
-			title:'参数管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="temp/layout-2.html" iframe="0">参数管理</a></ul>',
-			selected:false
-		})
-	}
-	addt();
-	//window.document.location.reload()
 }
 
 /*
- * 切换到数据中心
+ * 运营中心
  * */
 function swicthOperationCenter(){
-	if($('#user').length>0){
-		$('#acc').accordion('remove','用户管理')	
-	}
-	if($('#merchant').length>0){
-		$('#acc').accordion('remove','商户管理')	
-	}
-	if($('#role').length>0){
-		$('#acc').accordion('remove','角色管理')	
-	}
-	if($('#permission').length>0){
-		$('#acc').accordion('remove','权限管理')	
-	}
-	if($('#parameter').length>0){
-		$('#acc').accordion('remove','参数管理')	
-	}
-	if($('#wechat').length>0){
-		$('#acc').accordion('remove','微信平台管理')	
-	}
-	
-	if($('#goods').length<=0){
-		$("#acc").accordion('add',{
-			id:'goods',
-			title:'商品管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-			    	'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" class="easyui-tree zk-side-tree" data-icon="icon-chart-organisation" data-link="/goods/index" iframe="0">商品分类管理</a></li>'+
-			        '<li iconCls="icon-check-error"><a href="javascript:void(0)" class="easyui-tree zk-side-tree" data-icon="icon-check-error" data-link="/goodsCheck/index" iframe="0">商品审核管理</a></li>'+
-			        '<li iconCls="icon-chart-line"><a href="javascript:void(0)" class="easyui-tree zk-side-tree" data-icon="icon-chart-line" data-link="/goodsOnline/index" iframe="0">商品在线管理</a></li></ul>',
-			selected:true
-		})
-	}
-	if($('#order').length<=0){
-		$("#acc").accordion('add',{
-			id:'order',
-			title:'订单管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-					'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/mainorder/index" iframe="0">订单在线管理</a></li>'+
-			        '<li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="temp/layout-3.html" iframe="0">批量发货管理</a></li>'+
-			        '<li iconCls="icon-user-group"><a href="javascript:void(0)" data-icon="icon-user-group" data-link="temp/layout-3.html" iframe="0">退换订单管理</a></li></ul>',
-			selected:false
-		})
-	}
+	removeAll();
+	addMenuAll(YYMENUPID);
 
-	if($('#advertise').length<=0){
-		$("#acc").accordion('add',{
-			id:'advertise',
-			title:'广告管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="/advertise/index" iframe="0">广告管理</a></li></ul>',
-			selected:false
-		})
-	}
-	addt();
 }
 
 /*
  * 切换到微信平台
  * */
 function swicthWechatCenter(){
-	if($('#user').length>0){
-		$('#acc').accordion('remove','用户管理')	
-	}
-	if($('#merchant').length>0){
-		$('#acc').accordion('remove','商户管理')	
-	}
-	if($('#role').length>0){
-		$('#acc').accordion('remove','角色管理')	
-	}
-	if($('#permission').length>0){
-		$('#acc').accordion('remove','权限管理')	
-	}
-	if($('#parameter').length>0){
-		$('#acc').accordion('remove','参数管理')	
-	}
-	if($('#wechat').length>0){
-		$('#acc').accordion('remove','微信管理')	
-	}
-	if($('#goods').length>0){
-		$('#acc').accordion('remove','商品管理')	
-	}
-	if($('#order').length>0){
-		$('#acc').accordion('remove','订单管理')	
-	}
-	if($('#advertise').length>0){
-		$('#acc').accordion('remove','广告管理')	
-	}
-	if($('#wechat').length<=0){
-		$("#acc").accordion('add',{
-			id:'wechat',
-			title:'微信平台管理',
-			content:'<ul class="easyui-tree zk-side-tree">'+
-	    			'<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" class="easyui-tree zk-side-tree" data-icon="icon-chart-organisation" data-link="/wechat/index" iframe="0">公众号管理</a></li></ul>',
-			selected:true
-		})
-	}
-	addt();
+	removeAll();
+	addMenuAll(WXMENUPID);
+}
+/**
+ * 移除所有菜单
+ */
+function removeAll(){
+	var pnl = $("#acc").accordion("panels");  
+    var titles='';  
+    if (pnl){  
+        $.each(pnl, function(i) {  
+            var title = pnl[i].panel("options").title;  
+            titles += title+',';  
+        })  
+    }   
+    var arr_title = new Array();   
+    arr_title = titles.split(",");  
+    for (i=0;i<arr_title.length ;i++ )   
+    {   
+        if(arr_title[i] != ""){  
+            $('#acc').accordion("remove",arr_title[i]);  
+        }  
+    }  
 }
 
 /*

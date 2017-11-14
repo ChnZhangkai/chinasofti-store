@@ -27,7 +27,9 @@ function mainorderDoSearch() {
 		minPayTime : $('#mainorder-minPayTime').val(),
 		maxPayTime : $('#mainorder-maxPayTime').val(),
 		contName : $('#mainorder-contName').val(),
-		payway:$('#mainorder-payway').val()
+		payway:$('#mainorder-payway').val(),
+		orderStatus:$('#mainorder-status').val(),
+		settleTimeFee:$('#mainorder-settleTimeFee').val()
 	});
 
 }
@@ -47,6 +49,7 @@ function childorderDoSearch() {
 	$('#childorderDataGrid').datagrid('load', {
 		transactionid : $('#childorder-transactionid').val(),
 		mainorderIds : $('#childorder-mainorderIds').val(),
+		type:$('#childorder-type').val(),
 		orderType : $('#childorder-orderType').val()
 	});
 
@@ -91,13 +94,19 @@ function paywayFormatter(value, row, index) {
  */
 function statusFormatter(value, row, index) {
 	if (value == "0") {
-		return '<span style="color:#E8343B">已删除</span>';
+		return '<span style="color:#E8343B">待付款</span>';
 	} else if (value == "1") {
-		return '<span style="color:#FF7E00">未发货</span>';
+		return '<span style="color:#FF7E00">待发货</span>';
 	} else if (value == "2") {
-		return '<span>已发货</span>';
+		return '<span>待收货</span>';
+	} else if (value == "3") {
+		return '<span>交易成功</span>';
+	} else if (value == "4") {
+		return '<span>交易关闭（已删除）</span>';
+	} else if (value == "5") {
+		return '<span>交易关闭（已取消）</span>';
 	} else {
-		return '<span style="color:#0ADA85">已收货</span>';
+		return '<span style="color:#0ADA85">交易关闭（退款成功）</span>';
 	}
 }
 
@@ -140,6 +149,39 @@ function orderTypeFormatter(value, row, index) {
 }
 
 /**
+ * 退换货类型显示
+ */
+function afterTypeFormatter(value, row, index) {
+	if (value == "1") {
+		return '<span>退货退款</span>';
+	} else if (value == "2") {
+		return '<span>仅退款</span>';
+	} else if (value == "3") {
+		return '<span>换货</span>';
+	} else {
+		return '<span>订单正常</span>';
+	}
+}
+
+/**
+ * 售后状态显示
+ */
+function approveStatusFormatter(value, row, index) {
+	if (value == "0") {
+		return '<span>待审核</span>';
+	} else if (value == "1") {
+		return '<span>审批通过</span>';
+	} else if (value == "2") {
+		return '<span>审批未通过</span>';
+	} else if (value == "3") {
+		return '<span>售后成功</span>';
+	}else {
+		return '<span>未申请售后</span>';
+	}
+}
+
+
+/**
  * 子订单信息查看
 
 function openChildorderCheck() {
@@ -168,14 +210,14 @@ function openChildorderCheck() {
 
 /**
  * 前端排序
- */
+ 
 function childorderSort(a, b) {
 	if (a >= b){
 		return 1;
 	}else {
 		return -1;
 	}
-}
+}*/
 
 /**
  * 子操作按钮显示
@@ -193,7 +235,7 @@ function childorderLook(index){
 		modal : true,
 		title : "订单详细信息"
 	});
-	if(row.orderType == 1){
+	/*if(row.orderType == 1){
 		row.orderType = "普通订单";
 	} else if(row.orderType == 2){
 		row.orderType = "优惠券订单";
@@ -201,14 +243,14 @@ function childorderLook(index){
 		row.orderType = "实物众筹订单";
 	} else {
 		
-	}
+	}*/
 	$('#childorderEditForm').form('load', row);
 }
 
 /**
  * 主订单按钮
  */
-function mianBtnFormatter(value, row, index) {
+function mainBtnFormatter(value, row, index) {
 	var lookBtn ='<button onclick="mainorderLook('+ index +')">查看</button><br>';
 	return lookBtn;
 }

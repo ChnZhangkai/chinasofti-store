@@ -6,19 +6,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.entity.AdvertisePosition;
+import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
-
 import net.sf.json.JSONObject;
+
 
 @RestController
 @RequestMapping("advertise")
@@ -51,7 +55,7 @@ public class AdvertiseController {
 	}
 
 	@RequestMapping("add")
-	public String add(AdvertiseContents advertiseContents, MultipartFile file) {
+	public String add(AdvertiseContents advertiseContents, MultipartFile file,HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
 		if (file.isEmpty()) {
 			return jsonObject.put("errorMsg", "图片为空！！！").toString();
@@ -71,12 +75,15 @@ public class AdvertiseController {
 		}
 		try {
 			file.transferTo(dest);
-			advertiseContents.setImageurl("/images/advertise/"+ fileName);
+			advertiseContents.setImageurl("/data/advertise/"+ fileName);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		//存入创建者信息
+		//PtUser user = (PtUser) session.getAttribute("user");
+		//advertiseContents.setCreateBy(user.getUsername());	
 		logger.info(">>>>>>>>>>>>>>>>>>>advertiseContents:" + advertiseContents);
 		return advertiseFeignClient.add(advertiseContents);
 	}
@@ -86,5 +93,32 @@ public class AdvertiseController {
 		logger.info(">>>>>>>>>>>>>>>>>>>advertiseContents:" + advertiseContents);
 		return advertiseFeignClient.update(advertiseContents);
 	}
+	
+	/**
+	 * 
+	* @Title: publicAdvertise
+	* @Description: 发布广告和取消发布
+	* @param map
+	* @return: String
+	* @throws:
+	 */
+	@RequestMapping(value="pubOrCanAdvertise",method=RequestMethod.POST)
+	public String pubOrCanAdvertise(@RequestParam Map<String,Object> map){
+		logger.info("publicAdvertise>>>>>>>>>>>>>>>>>>>map:" + map.toString());
+		return advertiseFeignClient.pubOrCanAdvertise(map);
+	}
+	
+	/**
+	 * 
+	* @Title: findAdPostionAll
+	* @Description: 查出所有广告位置
+	* @param map
+	* @return: List<AdvertisePosition>
+	* @throws:
+	 */
+	@RequestMapping(value="findAdPostionAll",method=RequestMethod.GET)
+	public List<AdvertisePosition> findAdPostionAll(@RequestParam Map<String,Object> map) {
+		return advertiseFeignClient.findAdPostionAll();
+	}	
 
 }

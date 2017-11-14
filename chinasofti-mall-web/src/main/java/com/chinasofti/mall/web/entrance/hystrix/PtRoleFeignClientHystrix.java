@@ -1,15 +1,18 @@
 package com.chinasofti.mall.web.entrance.hystrix;
 
 
+import java.util.List;
+
 import com.chinasofti.mall.common.entity.PtRole;
+import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.web.entrance.feign.PtRoleFeignClient;
 
 
 public class PtRoleFeignClientHystrix implements PtRoleFeignClient{
 
 	@Override
-	public String show(String roleId) {
-		return "系统繁忙";
+	public List<Tree> show(String roleId) {
+		return null;
 	}
 
 	@Override
@@ -30,6 +33,11 @@ public class PtRoleFeignClientHystrix implements PtRoleFeignClient{
 	@Override
 	public int saveIds(PtRole ptRole) {
 		return 0;
+	}
+
+	@Override
+	public List<Tree> menuTree(String id) {
+		return null;
 	}
 
 }

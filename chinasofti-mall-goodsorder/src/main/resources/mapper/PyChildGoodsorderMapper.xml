@@ -23,6 +23,14 @@
     <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
     <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
     <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
+    <result column="name" property="className" />
+    <result column="title" property="goodsTitle" />
+    <result column="standard" property="goodsStandard" />
+    <result column="code" property="goodsCode" />
+    <result column="type" property="goodsType"  />
+    <result column="after_type" property="afterType" jdbcType="DECIMAL" />
+    <result column="approve_status" property="approveStatus" />
+    <result column="payway" property="payWay" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -485,50 +493,32 @@
     <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
     <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
     <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
-    <collection property="goodsinfos" ofType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo">
-    	<id column="IDS" jdbcType="VARCHAR" property="ids" />
-	    <result column="VENDORIDS" jdbcType="VARCHAR" property="vendorids" />
-	    <result column="TITLE" jdbcType="VARCHAR" property="title" />
-	    <result column="MOUTH_TRADE" jdbcType="DECIMAL" property="mouthTrade" />
-	    <result column="SUBTITLE" jdbcType="VARCHAR" property="subtitle" />
-	    <result column="COMMON" jdbcType="VARCHAR" property="common" />
-	    <result column="PRICE" jdbcType="DECIMAL" property="price" />
-	    <result column="DIS_PRICE" jdbcType="DECIMAL" property="disPrice" />
-	    <result column="GOODS_CLASS_IDS" jdbcType="VARCHAR" property="goodsClassIds" />
-	    <result column="STANDARD" jdbcType="VARCHAR" property="standard" />
-	    <result column="CODE" jdbcType="VARCHAR" property="code" />
-	    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
-	    <result column="STORE_NUM" jdbcType="DECIMAL" property="storeNum" />
-	    <result column="REVIEW_DESC" jdbcType="VARCHAR" property="reviewDesc" />
-	    <result column="REVIEW_STATUES" jdbcType="CHAR" property="reviewStatues" />
-	    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
-	    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
-	    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
-	    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
-	    <result column="COLL_NUM" jdbcType="DECIMAL" property="collNum" />
-	    <result column="STATUS" jdbcType="VARCHAR" property="status" />
-	    <result column="START_TIME" jdbcType="VARCHAR" property="startTime" />
-	    <result column="END_TIME" jdbcType="VARCHAR" property="endTime" />
-	    <result column="ONLINE_TIME" jdbcType="VARCHAR" property="onlineTime" />
-	    <result column="LEAVE_TIME" jdbcType="VARCHAR" property="leaveTime" />
-	    <result column="BRAND_IDS" jdbcType="VARCHAR" property="brandIds" />
-	    <result column="WEIGHT" jdbcType="DECIMAL" property="weight" />
-	    <result column="DELIVE_WAY" jdbcType="VARCHAR" property="deliveWay" />
-	    <result column="IS_DIS_VERDORNAME" jdbcType="VARCHAR" property="isDisVerdorname" />
-	    <result column="IS_DIS_STANDARD" jdbcType="VARCHAR" property="isDisStandard" />
-	    <result column="IS_DIS_STORE" jdbcType="VARCHAR" property="isDisStore" />
-	    <result column="LIMIT_ORDER_NUM" jdbcType="DECIMAL" property="limitOrderNum" />
-	    <result column="REVIEW_BY" jdbcType="VARCHAR" property="reviewBy" />
-	    <result column="REVIEW_TIME" jdbcType="VARCHAR" property="reviewTime" />
-	    <result column="TOTAL_TRADE" jdbcType="DECIMAL" property="totalTrade" />
-	    <result column="LIMIT_USER_NUM" jdbcType="DECIMAL" property="limitUserNum" />
-	    <result column="ORG_PRICE" jdbcType="DECIMAL" property="orgPrice" />
-	    <result column="TYPE" jdbcType="VARCHAR" property="type" />
-	    <result column="ISSHOW" jdbcType="VARCHAR" property="isshow" />
-    </collection>
+    
   </resultMap>
   
-  <select id="selectAll" resultMap="myResultMap">
-  	SELECT * FROM py_child_goodsorder childorder,chn_goodsinfo goodsinfo WHERE childorder.goodsids = goodsinfo.ids;
+  <select id="selectByChildorderCondition" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.ChildorderCondition">
+	 SELECT childorder.*, asales.TYPE AS after_type,asales.APPROVE_STATUS,mainorder.PAYWAY FROM 
+	 	(SELECT orderinfo.*, gc.name
+		FROM (
+			SELECT co.*,gf.TITLE,gf.STANDARD,gf.CODE,gf.GOODS_CLASS_IDS,gf.TYPE
+	      	FROM py_child_goodsorder co,chn_goodsinfo gf
+	      	WHERE co.goodsids = gf.ids 
+	      	<if test="transactionid != null and transactionid !=''">
+				and co.transactionid like concat(concat('%', #{transactionid}), '%')
+			</if>
+			<if test="mainorderIds != null and mainorderIds !=''">
+				and co.mainorder_ids like concat(concat('%', #{mainorderIds}), '%')
+			</if>
+			<if test="orderType != null and orderType !=''">
+				and co.ORDER_TYPE = #{orderType}
+			</if> 
+			<if test="type != null and type !=''">
+				and gf.type = #{type} 
+			</if>) orderinfo,chn_goods_class gc
+		WHERE orderinfo.goods_class_ids = gc.IDS) childorder LEFT JOIN sp_after_sales asales 
+	ON childorder.TRANSACTIONID = asales.ORDER_IDS 
+	LEFT JOIN py_main_goodsorder mainorder 
+	ON childorder.MAINORDER_IDS = mainorder.TRANSACTIONID
+	order by ${sort} ${order}
   </select>
 </mapper>

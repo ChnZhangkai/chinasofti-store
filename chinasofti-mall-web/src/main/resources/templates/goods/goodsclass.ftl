@@ -138,10 +138,6 @@
  * 全局加载数据
  */
 $(function(){
-	$.messager.show({
-		title:'提示',
-		msg:'该充值智商了!'
-	});
 	
 	//获取表格datagrid的ID属性,
 	var tableID = "goodsinfo";

@@ -17,7 +17,7 @@ import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 public class GoodsClassFeignClientHystrix implements GoodsClassFeignClient{
 
 	@Override
-	public List<ChnGoodsClass> queryClass(String ids) {
+	public List<ChnGoodsClass> queryClass(String classId) {
 		return new ArrayList<ChnGoodsClass>();
 	}
 

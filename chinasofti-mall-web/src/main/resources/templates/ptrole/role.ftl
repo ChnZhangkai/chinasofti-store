@@ -7,7 +7,7 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="operatorChange()" plain="true">权限设置</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="menuTree()" plain="true">菜单树展示</a>
         </div>
        	<div class="ptrole-toolbar-search">
 		<form id="searchForm">
@@ -29,16 +29,16 @@
 	<table id="ptroleinfo" class="easyui-datagrid" title="商户用户列表" 
 			data-options="singleSelect:true,collapsible:true" style="height: 80%">
 		<thead>
-		<tr>
-			<th field="ids" width="10%" align="center">编号</th>
-			<th field="names" width="15%" align="center">角色全称</th>
-			<th field="numbers" width="10%" align="center">角色数量</th>
-			<th field="updateby" width="10%" align="center">更新人员</th>
-			<th field="updatetime" width="10%" align="center">更新时间</th>	
-			<th field="createby" width="15%" align="center">创建人员</th>	
-			<th field="createtime" width="10%" align="center">创建时间</th>
-			<th field="description" width="20%" align="center">角色描述</th>
-		</tr>
+			<tr>
+				<th field="ids" width="10%" align="center">编号</th>
+				<th field="names" width="15%" align="center">角色全称</th>
+				<th field="numbers" width="10%" align="center">角色数量</th>
+				<th field="updateby" width="10%" align="center">更新人员</th>
+				<th field="updatetime" width="10%" align="center">更新时间</th>	
+				<th field="createby" width="15%" align="center">创建人员</th>	
+				<th field="createtime" width="10%" align="center">创建时间</th>
+				<th field="description" width="20%" align="center">角色描述</th>
+			</tr>
 		</thead>
 	</table>
 	<!-- 分页工具条 -->
@@ -106,6 +106,10 @@
 	<div id="treeDlg">
 		<div id="tree" style="padding:4px;"></div>
 	</div>
+	
+	<div id="menuTreeDlg">
+		<div id="menuTree" style="padding:4px;"></div>
+	</div>
 <script type="text/javascript">
 
 /*
@@ -131,7 +135,7 @@ $(function(){
 	$.messager.progress({
 		text:'数据正在加载中'
 	});
-	
+	//角色权限选择窗口
 	$('#treeDlg').dialog({
 		title: '菜单树',//窗口标题
 		width: 400,//窗口宽度
@@ -140,8 +144,24 @@ $(function(){
 		modal: true,//模式窗口
 		resizable:true
 	});
-	
+	//展示的内容
 	$('#tree').tree({
+		animate:true,
+		checkbox:true
+	});
+	
+	
+	//菜单展示窗口
+	$('#menuTreeDlg').dialog({
+		title: '菜单树',//窗口标题
+		width: 400,//窗口宽度
+		height: 400,//窗口高度
+		closed: true,//窗口是是否为关闭状态, true：表示关闭
+		modal: true,//模式窗口
+		resizable:true
+	});
+	//展示的内容
+	$('#menuTree').tree({
 		animate:true,
 		checkbox:true
 	});
@@ -173,9 +193,7 @@ $(function(){
 							$.messager.alert('信息提示','删除成功！','info');
 							//$('#ptroleinfo').datagrid('reload')
 							$('#ptrolePagination').pagination('select');
-						}
-						else
-						{
+						} else {
 							$.messager.alert('信息提示','删除失败！','info');		
 						}
 					}	
@@ -262,15 +280,11 @@ $(function(){
 	
 	/**
 	 * 角色权限设置
-	 *
 	 */
 	function operatorChange(){
-		$('#treeDlg').dialog('open');
+		
 		var row = $("#ptroleinfo").datagrid('getSelected');
-		var id = row.ids;
-		$('#tree').tree({
-			url:'/ptrole/' + id
-		});
+		
 		if (row) {
 			$('#treeDlg').dialog('open').dialog({
 				closed: false,
@@ -289,9 +303,16 @@ $(function(){
 	                }
 	            }]
 	        });
+	        //异步请求数据
+	        $('#treeDlg').dialog('open');
+			var id = row.ids;
+			$('#tree').tree({
+				url:'/ptrole/' + id
+			});
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
+		
 	}
 	
 	/* 
@@ -332,23 +353,23 @@ $(function(){
 	
 	
 	/*
-	*修改
+	* 修改
 	*/
 	function edit(){
 		$('#ptroleUpdate').form('submit', {
 			url:'/ptrole/update',
-    		type:'POST',
-    		data:$('#ptroleUpdate').serialize(),
-    		success:function(data){
-    			if(data > 0){
-    				$.messager.alert('信息提示','提交成功！','info');
-    				$('#ptroleUpdateDialog').dialog('close');
-    				$('#ptrolePagination').pagination('select');
-    			}else{
-    				$.messager.alert('信息提示','提交失败！','info');
+	    		type:'POST',
+	    		data:$('#ptroleUpdate').serialize(),
+	    		success:function(data){
+	    			if(data > 0){
+	    				$.messager.alert('信息提示','提交成功！','info');
+	    				$('#ptroleUpdateDialog').dialog('close');
+	    				$('#ptrolePagination').pagination('select');
+	    			}else{
+	    				$.messager.alert('信息提示','提交失败！','info');
+	    			}
     			}
-    		}
-    	});
+   	 	});
 	}
 	
 	/* 
@@ -366,30 +387,65 @@ $(function(){
 	          }, 
 	          success: function (data) { 
 	        	  
-	        	  data =eval("("+data+")");
-	        	  
-	        	  if(data.total == 0){
-	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
-	        	  }
-	        	  
-	              $('#ptroleinfo').datagrid('loadData', data.rows);
-	               $('#ptrolePagination').pagination({ 
-			    	  total:data.total
-			    	  });
-	          }
+		        	  data =eval("("+data+")");
+		        	  
+		        	  if(data.total == 0){
+		        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
+		        	  }
+		        	  
+		              $('#ptroleinfo').datagrid('loadData', data.rows);
+		              $('#ptrolePagination').pagination({ 
+							total:data.total
+				    	  });
+		          }
 	       });
 	}
 	
-	
-	
-	
 	/*
-	*清除搜索框内容
-	*/
+	 * 清除搜索框内容
+	 */
 	function doClear(){
 		$("#searchForm").form("reset");
 	} 	
-		
+	
+	
+	/**
+	 * 菜单树展示
+	 */
+	function menuTree(){
+		var row = $("#ptroleinfo").datagrid('getSelected');
+		if (row) {
+			$('#menuTreeDlg').dialog('open').dialog({
+				closed: false,
+				modal:true,
+				closable:false,
+	            title: "修改角色操作",
+	            buttons: [{
+	                text: '确定',
+	                iconCls: 'icon-ok',
+	                handler: menuSave
+	            }, {
+	                text: '取消',
+	                iconCls: 'icon-cancel',
+	                handler: function () {
+	                    $('#menuTreeDlg').dialog('close');
+	                }
+	            }]
+	        });
+	        //异步请求数据
+	        $('#menuTreeDlg').dialog('open');
+			var id = row.ids;
+			$('#menuTree').tree({
+				url:'/ptrole/menu/' + id
+			});
+		} else {
+			$.messager.alert('信息提示','请选中要修改的数据');
+		}
+	}	
+	
+	function menuSave(){
+		alert("12")
+	}
 </script>
 
 

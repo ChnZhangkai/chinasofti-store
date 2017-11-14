@@ -28,12 +28,7 @@
 					<option value="0">备用</option>
 				</select> 
 				<label>广告位置：</label> 
-				<select id="ad_search_position" class="easyui-combobox" style="width: 100px">
-					<option value="">请选择</option>
-					<option value="1">专区广告</option>
-					<option value="2">分类广告</option>
-					<option value="3">首页轮播位</option>
-			</select> 
+				<input id="_positionId" class="easyui-combobox" style="width: 100px">
 				<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="ad_search()">开始检索</a> 
 				<a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="ad_clear()" >清除</a>
 			</div>
@@ -88,39 +83,40 @@
 				<tr>
 					<th nowrap="nowrap" style="padding:10px">广告类型*:</th>
 					<td>
-						<select id="" name="type" style="width: 180px" class="easyui-combobox" required="required"  >
-							<option value="" selected="selected">请选择</option>
+					<select id="_type" name="type" class="easyui-combobox" style="width: 180px">
+						<option value="" >请选择</option>
+						<option value="1">正常</option>
+						<option value="0">备用</option>
+					</select>
+			
+						<!--  <select id="" name="type" style="width: 180px" class="easyui-combobox" data-options="required:true"  >
+							<option value="" >请选择</option>
 							<option value="1">正常</option>
 							<option value="0">备用</option>
-						</select>
+						</select>-->
 						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
 					<th nowrap="nowrap">广告位名称*:</th>
 					<td>
-						<select id="positionId" name="title" style="width: 180px" class="easyui-combobox" required="required">
-							<option value="" data-options="selected:true">请选择</option>
-							<option value="1">专区广告</option>
-							<option value="2">分类广告</option>
-							<option value="3">首页轮播位</option>
-						</select>
+						<input id="positionId_" name="positionId" style="width: 180px" class="easyui-combobox" required="required">
 						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
 				</tr>
 				<tr>
-					<th  style="padding:10px">分类名称*:</td>
+					<th  style="padding:10px">分类名称*:</th>
 					<td>
-						<select id="_className" name="categoryName" style="width: 180px" required="required" class="easyui-combobox"></select>
+						<input id="_className" name="categoryName" style="width: 180px" required="required" class="easyui-combobox">
 					</td>
 					
 					<th nowrap="nowrap">有效开始日期*:</th>
 					<td>
-						<input type="text" data-options="prompt:'请输入日期',required:'true'" name="beginTime" class="easyui-datetimebox"  style="width: 180px" />
+						<input type="text" id="startDateTime" data-options="prompt:'请输入日期',required:'true'" name="beginTime" class="easyui-datetimebox"  style="width: 180px" />
 					</td>
 				</tr>
 				<tr>
 					<th nowrap="nowrap" style="padding:10px">有效结束日期*:</th>
 					<td>
-						<input type="text" data-options="prompt:'请输入日期'" name="endTime" class="easyui-datetimebox" data-options="required:true" style="width: 180px" />
+						<input type="text" id="startEndTime" data-options="prompt:'请输入日期',required:'true',validType:'equaldDate[\'#startDateTime\']'" name="endTime" class="easyui-datetimebox" style="width: 180px" />
 						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
 					<th nowrap="nowrap">排序*:</th>
@@ -188,12 +184,7 @@
 			<tr>
 				<th align="right" >广告位名称</th>
 				<td>
-					<select id="positionName" name="title" disabled="disabled" class="easyui-combobox" style="width:180px">
-						<option value="">请选择</option>
-						<option value="1">专区广告</option>
-						<option value="2">分类广告</option>
-						<option value="3">首页轮播位</option>
-					</select>
+					<input name="positionName" readonly="readonly" class="easyui-textbox" style="width:180px"/>
 				</td>
 				<th align="right">分类名称</th>
 				<td>
@@ -210,8 +201,8 @@
 				<th align="right" >前台展示状态</th>
 				<td>
 					<select name="states" disabled="disabled" class="easyui-combobox" style="width:180px">
-						<option value="0">备用</option>
-						<option value="1">正常</option>
+						<option value="0">未显示</option>
+						<option value="1">已显示</option>
 					</select>
 				</td>
 				<th align="right" >创建者</th>

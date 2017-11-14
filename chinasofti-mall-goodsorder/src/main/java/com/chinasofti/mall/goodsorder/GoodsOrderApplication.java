@@ -4,6 +4,9 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
 * @ClassName: 	GoodsOrderApplication
@@ -15,6 +18,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.chinasofti.mall.goodsorder.mapper")
+@EnableEurekaClient  
+@EnableFeignClients //Feign支持
+@EnableWebMvc
 public class GoodsOrderApplication {
 	 
 	public static void main(String[] args) {
