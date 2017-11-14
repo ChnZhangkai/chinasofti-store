@@ -89,6 +89,13 @@ public class PtRoleController {
 		return ptRoleFeignClient.menuTree(id);
 	}
 
+	@PostMapping("/insert")
+	public int saveMenuIds(String id, String ids) {
+		PtRole ptRole = new PtRole();
+		ptRole.setIds(id);
+		ptRole.setNumbers(ids);
+		return ptRoleFeignClient.saveMenuIds(ptRole);
+	}
 	/**
 	 * 角色页面跳转
 	 * @return
