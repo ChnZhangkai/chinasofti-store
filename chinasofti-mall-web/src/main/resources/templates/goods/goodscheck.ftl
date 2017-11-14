@@ -474,11 +474,24 @@
 	 * 读取路径显示图片
 	 */
 	function imgFormatter(value, row) {
+		var ids = row.ids
 		var str = "";
-		if (value != "" || value != null) {
-			str = "<img style=\"height: 75px;width: 110px;\" src=\""+ "data/goods/luoli.jpg" +"\"/>";
-			return str;
-		}
+		
+		$.ajax({
+			url:'/goodsCheck/reqGoodsGoodsImgPath/' + ids,
+			type:'POST',
+			success:function(data){
+				if (value != "" || value != null) {
+					if(data != "" || data != null){
+						str = "<img style=\"height: 75px;width: 110px;\" src=\""+ data +"\"/>";
+					}else{
+						str = "<img style=\"height: 75px;width: 110px;\" src=\""+ "data/goods/luoli.jpg" +"\"/>";
+					}
+					return str;
+				}
+			}
+		})
+		
 	}
 
 	/*

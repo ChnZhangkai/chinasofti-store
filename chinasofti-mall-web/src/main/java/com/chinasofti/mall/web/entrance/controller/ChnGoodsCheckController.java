@@ -61,6 +61,19 @@ public class ChnGoodsCheckController {
 	}
 	
 	/**
+	 * 商品页面查询商品图片
+	 * @return
+	 */
+	@RequestMapping("/reqGoodsGoodsImgPath/{ids}")
+	public String reqGoodsImgPath(@PathVariable String ids){
+		
+		GoodsFile goodsFile = goodsFileService.selectByGoodsIds(ids);
+		
+		return goodsFile.getFilepath();
+		
+	}
+	
+	/**
 	 * 商品添加页面查询商品分类
 	 * @return
 	 */
