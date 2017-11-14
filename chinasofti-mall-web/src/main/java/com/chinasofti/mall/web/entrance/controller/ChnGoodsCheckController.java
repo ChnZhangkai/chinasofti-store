@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +22,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baidu.ueditor.ActionEnter;
+import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
+import com.chinasofti.mall.common.entity.goods.GoodsFile;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
 import com.chinasofti.mall.web.entrance.feign.SpMerchantUserFeignClient;
+import com.chinasofti.mall.web.entrance.service.impl.GoodsFileServiceImpl;
 
 import net.sf.json.JSONObject;
 
@@ -37,7 +44,12 @@ public class ChnGoodsCheckController {
 	@Autowired
 	SpMerchantUserFeignClient spMerchantUserFeignClient;
 	
+	@Autowired
+	GoodsFileServiceImpl goodsFileService;
+	
 	private static final String beforePath = System.getProperty("user.dir")  + "\\src\\main\\resources\\static\\data\\goods";
+	
+	private static String toUUID = UUID.randomUUID().toString().replace("-", "");
 	
 	/**
 	 * 返回主界面
@@ -87,22 +99,28 @@ public class ChnGoodsCheckController {
 	}
 	
 	/**
-	 * 根据ID删除分类,并删除图片
+	 * 根据ID删除商品,并删除图片
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping("/delete/{ids}")
 	public int deleteGoodsCheckById(@PathVariable String ids){
-		/*ChnGoodsinfoCheck delImg = chnGoodsFeignClient.deleteGoodsCheckById(ids);
-		String relWay = delImg.getImg();
-		String imageName = relWay.substring(relWay.lastIndexOf("/")+1);
-		String imgUrl = beforePath + File.separator + imageName;
-		File file = new File(imgUrl);
+		
+		//删除图片文件
+		GoodsFile goodsFile = goodsFileService.selectByGoodsIds(ids);
+		String filepath = goodsFile.getFilepath();
+		String imgPath = beforePath + File.separator + filepath.substring(filepath.lastIndexOf("/")+1);
+		File file = new File(imgPath);
 		if (file.exists()) {
 			file.delete();
-		}*/
-		int delById = chnGoodsFeignClient.deleteGoodsCheckById(ids);
-		return delById;
+		}
+		//删除对应商品id的图片数据
+		goodsFileService.deleteByGoodsIds(ids);
+		//删除商品
+		int delImg = chnGoodsFeignClient.deleteGoodsCheckById(ids);
+		
+		return delImg;
+		
 	}
 	
 	/**
@@ -121,13 +139,14 @@ public class ChnGoodsCheckController {
 	 * @return
 	 */
 	@RequestMapping("/addGoods")
-	public String addGoods(HttpServletRequest request,ChnGoodsinfoCheck chnGoodsinfoCheck){
+	public String addGoods(HttpServletRequest request,ChnGoodsinfoCheck chnGoodsinfoCheck,HttpSession session){
 		
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("img");
 		String imageName = multipartFile.getOriginalFilename();
 		
+		//文件上传
 		String fileName = beforePath + File.separator + imageName;
 		File file = new File(fileName);
 		try {
@@ -138,10 +157,29 @@ public class ChnGoodsCheckController {
 			e.printStackTrace();
 		}
 		
-		chnGoodsinfoCheck.setIds(UUID.randomUUID().toString().replace("-", ""));
-		chnGoodsinfoCheck.setGoodsids(UUID.randomUUID().toString().replace("-", ""));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		PtUser user = (PtUser) session.getAttribute("user");
 		
-		return "保存成功";
+		chnGoodsinfoCheck.setIds(toUUID);
+		chnGoodsinfoCheck.setGoodsids(toUUID);
+		chnGoodsinfoCheck.setReviewStatues("0");
+		chnGoodsinfoCheck.setCreateBy(user.getUsername());
+		chnGoodsinfoCheck.setCreateTime(sdf.format(new Date()));
+		chnGoodsinfoCheck.setStartTime(StringDateUtil.convertToSqlFormat(chnGoodsinfoCheck.getStartTime()));
+		chnGoodsinfoCheck.setEndTime(StringDateUtil.convertToSqlFormat(chnGoodsinfoCheck.getEndTime()));
+		
+		//保存商品信息(goodsCheck表)
+		int goodsCheck = chnGoodsFeignClient.saveGoodsCheck(chnGoodsinfoCheck);
+		//保存对应的图片信息(goodsFile表)
+		GoodsFile goodsFile = new GoodsFile();
+		goodsFile.setIds(toUUID);
+		goodsFile.setGoodsids(chnGoodsinfoCheck.getGoodsids());
+		goodsFile.setFilename(imageName);
+		goodsFile.setFilepath("/data/goods/"+ imageName);
+		goodsFile.setFiletype(imageName.substring(imageName.lastIndexOf(".")+1));
+		goodsFileService.insert(goodsFile);
+		
+		return String.valueOf(goodsCheck);
 	}
 	
 	/**
