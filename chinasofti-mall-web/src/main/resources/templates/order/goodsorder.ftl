@@ -91,7 +91,7 @@
 						</td>
 						<th style="width:10%;padding:0 10px 0 0;" align="right">清算日期</th>
 						<td style="width:15%" align="left">
-							<input class="easyui-datetimebox" id="mainorder-settleTimeFee" name="settleTimeFee" data-options="" />
+							<input class="easyui-datebox" id="mainorder-settleTimeFee" name="settleTimeFee" data-options="editable:false" />
 						</td>
 					</tr>
 					<tr>
@@ -129,9 +129,9 @@
 				<th field="orderTotalAmt" width="6%" align="center" data-options="">订单总额</th>
 				<th field="payStatus" width="5%" align="center" data-options="formatter:payStatusFormatter">支付状态</th>
 				<th field="status" width="5%" align="center" data-options="formatter:statusFormatter">订单状态</th>
-				<th field="ac" width="5%" align="center">物流状态</th>
+				<th field="orderTime" width="13%" align="center">订单时间</th>
 				<th field="settleStatues" width="8%" align="center" data-options="formatter:settleStatuesFormatter">清算状态</th>
-				<th field="ac" width="5%" align="center" data-options="formatter:statusFormatter">核销状态</th>
+				<th field="_ac" width="5%" align="center" data-options="">核销状态</th>
 				<th field="ad" width="6%" align="center" 
 					data-options="formatter:mainBtnFormatter">操作</th>
 			</tr>
@@ -159,11 +159,15 @@
 					<tr>
 						<td style="width:10%;padding:0 15px 0 0;" align="right">商户名称</td>
 						<td style="width:40%" align="left">
-							<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
+							<input name="vendorSnm" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
 						</td>
 						<td style="width:10%;padding:0 15px 0 0;" align="right">订单类型</td>
 						<td style="width:40%" align="left">
-							<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
+							<select data-options="panelMaxHeight:82" class="easyui-combobox" name="orderType" style="width:80%;height:30px;" readonly="true">
+								<option value="1">普通订单</option>
+								<option value="2">优惠券订单</option>
+								<option value="3">实物众筹订单</option>
+							</select>
 						</td>
 					</tr>
 					<tr>
@@ -199,7 +203,7 @@
 					<tr>
 						<td style="width:10%;padding:0 15px 0 0;" align="right">是否已申请退换货</td>
 						<td style="width:40%" align="left">
-							<input name="" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
+							<input name="afterType" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
 						</td>
 						<td style="width:10%;padding:0 15px 0 0;" align="right">抽奖码</td>
 						<td style="width:40%" align="left">
@@ -249,7 +253,10 @@
 					<tr>
 						<td style="width:10%;padding:0 15px 0 0;" align="right">配送方式</td>
 						<td style="width:40%" align="left">
-							<input name="deliveryWay" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
+							<select data-options="panelMaxHeight:82" class="easyui-combobox" name="deliveryWay" style="width:80%;height:30px;" readonly="true">
+								<option value="1">快递</option>
+								<option value="2">自提</option>
+							</select>
 						</td>
 						<td style="width:10%;padding:0 15px 0 0;" align="right">收货人</td>
 						<td style="width:40%" align="left">
@@ -294,7 +301,10 @@
 					<tr>
 						<td style="width:10%;padding:0 15px 0 0;" align="right">支付渠道</td>
 						<td style="width:40%" align="left">
-							<input name="payway" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly" />
+							<select data-options="panelMaxHeight:82" class="easyui-combobox" name="payway" style="width:80%;height:30px;" readonly="true">
+								<option value="1">微信</option>
+								<option value="2">支付宝</option>
+							</select>
 						</td>
 						<td style="width:10%;padding:0 15px 0 0;" align="right">支付方式</td>
 						<td style="width:40%" align="left">
