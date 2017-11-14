@@ -14,7 +14,7 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
  * @author heruilong
  *
  */
-@FeignClient("goodsorder-service")
+@FeignClient(name="goodsorder-service")
 public interface ShoppingCartFeignClient {
 
 	@ResponseBody
