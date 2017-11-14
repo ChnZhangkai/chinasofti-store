@@ -619,7 +619,11 @@ public class PyMainGoodsorder extends PageBean{
     }
 
     public String getSendouttime() {
-        return sendouttime;
+    	if(sendouttime != null && !sendouttime.equals("")) {
+    		return StringDateUtil.convertToPageFormat(sendouttime);
+    	}else {
+    		return sendouttime;
+    	}
     }
 
     public void setSendouttime(String sendouttime) {

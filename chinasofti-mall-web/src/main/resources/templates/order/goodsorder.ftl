@@ -14,25 +14,25 @@
 			<div align="left">
 				<table class="" style="width: 95%">
 					<tr>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">主订单号</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">主订单号</td>
 						<td style="width:15%" align="left">
-							<input class="easyui-textbox" id="mainorder-transactionid" name="transactionid" data-options="" />
+							<input class="easyui-textbox" id="mainorder-transactionid" name="transactionid" style="width:80%" />
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">大订单号</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">大订单号</td>
 						<td style="width:15%" align="left">
-							<input class="easyui-textbox" id="mainorder-bigorderId" name="bigorderId" data-options="" />
+							<input class="easyui-textbox" id="mainorder-bigorderId" name="bigorderId" style="width:80%" />
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">订单开始时间</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">订单开始时间</td>
 						<td style="width:15%" align="left"> 
 							<input class="easyui-datetimebox" id="mainorder-minPayTime" name="minPayTime" data-options="editable:false" />
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">订单结束时间</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">订单结束时间</td>
 						<td style="width:15%" align="left">
 							<input class="easyui-datetimebox" id="mainorder-maxPayTime" name="maxPayTime" data-options="editable:false" />
 						</td>
 					</tr>
 					<tr>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">支付状态</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">支付状态</td>
 						<td style="width:15%" align="left">
 							<select id="mainorder-payStatus" class="easyui-combobox" name="payStatus"
 									data-options="width:135,panelMaxHeight:82">
@@ -42,7 +42,7 @@
 								<option value="2">已取消</option>
 							</select>
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">支付渠道</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">支付渠道</td>
 						<td style="width:15%" align="left">
 							<select id="mainorder-payway" class="easyui-combobox" name="payway"
 									data-options="width:135,panelMaxHeight:82">
@@ -51,7 +51,7 @@
 								<option value="2">支付宝</option>
 							</select>
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">订单状态</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">订单状态</td>
 						<td style="width:15%" align="left">
 							<select id="mainorder-status" class="easyui-combobox" name="orderStatus"
 									data-options="width:135,panelMaxHeight:82">
@@ -65,13 +65,13 @@
 								<option value="6">交易关闭（退款成功）</option>
 							</select>
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">联系人</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">联系人</td>
 						<td style="width:15%" align="left">
 							<input class="easyui-textbox"id="mainorder-contName" name="contName" />
 						</td>
 					</tr>
 					<tr>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">销售渠道</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">销售渠道</td>
 						<td style="width:15%" align="left">
 							<select id="mainorder-" class="easyui-combobox" name=""
 									data-options="width:135,panelMaxHeight:82">
@@ -80,7 +80,7 @@
 								<option value="1">线下</option>
 							</select>
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">核销状态</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">核销状态</td>
 						<td style="width:15%" align="left">
 							<select id="mainorder-" class="easyui-combobox" name=""
 									data-options="width:135,panelMaxHeight:82">
@@ -89,9 +89,14 @@
 								<option value="1">未核销</option>
 							</select>
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">清算日期</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">清算日期</td>
 						<td style="width:15%" align="left">
 							<input class="easyui-datebox" id="mainorder-settleTimeFee" name="settleTimeFee" data-options="editable:false" />
+						</td>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">商户编号</td>
+						<td style="width:15%" align="left">
+							<input class="easyui-textbox" id="mainorder-vendorIds" name="vendorIds" readonly="true" />
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderChoose()">选择</a>
 						</td>
 					</tr>
 					<tr>
@@ -465,15 +470,15 @@
 			<div align="left">
 				<table class="" style="width: 95%">
 					<tr>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">子订单号</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">子订单号</td>
 						<td style="width:15%" align="left">
-							<input class="easyui-textbox" id="childorder-transactionid" name="transactionid" />
+							<input class="easyui-textbox" id="childorder-transactionid" name="transactionid" style="width:80%"/>
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">主订单号</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">主订单号</td>
 						<td style="width:15%" align="left">
-							<input class="easyui-textbox" id="childorder-mainorderIds" name="mainorderIds" />
+							<input class="easyui-textbox" id="childorder-mainorderIds" name="mainorderIds" style="width:80%" />
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">商品类型</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">商品类型</td>
 						<td style="width:15%" align="left">
 							<select id="childorder-type" data-options="panelMaxHeight:82" class="easyui-combobox" name="type">
 								<option value="">请选择</option>
@@ -482,7 +487,7 @@
 								<option value="2">实物众筹商品</option>
 							</select>
 						</td>
-						<th style="width:10%;padding:0 10px 0 0;" align="right">订单类型</th>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">订单类型</td>
 						<td style="width:15%" align="left">
 							<select id="childorder-orderType" data-options="panelMaxHeight:82" class="easyui-combobox" name="orderType">
 								<option value="">请选择</option>
@@ -705,5 +710,75 @@
 	</div>
 	<!-- 子订单详细信息显示开始 -->
 	<!-- 子订单模块结束 -->
+</div>
+<div id="venderRemarkEditDialog" class="easyui-dialog" title="商户备注" style="width: 40%; height: 30%;padding:10px 10px 0 0;"
+	 data-options="closed:true,iconCls:'icon-edit',resizable:true,modal:true,buttons:'#venderRemarkEditBtns'">
+	<form id="venderRemarkUpdateForm" action="" method="post">
+    	<input type="hidden" name="ids">
+    	<table style="width:100%;height:90%;">
+    		<tr> 
+    			<td style="width:20%;padding:0 15px 0 0;" align="right">商户备注</td>
+				<td style="width:80%" align="left">
+					<textarea name="venderRemark" style="width:90%;height:95%;"></textarea><br/>
+					<span style="color:red">0-200字之间</span>
+				</td>
+    		</tr>
+    	</table>
+    </form>    
+</div>
+<div id="venderRemarkEditBtns">
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="updateVenderRemark()">保存</a>
 </div> 
+
+
+<div id="venderChooseDialog" class="easyui-dialog" title="商户列表" style="width: 40%; height: 40%;padding:0 0 0 0;"
+	 data-options="closed:true,resizable:true,modal:true,buttons:'#venderChooseBtns'">
+	<div id="venderToolbar" style="width: 100%">
+		<!-- 子订单条件搜索 -->
+		<form id="venderSearchForm" method="post">
+			<div align="left">
+				<table class="" style="width: 95%">
+					<tr>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">商户编号</td>
+						<td style="width:15%" align="left">
+							<input class="easyui-textbox" id="vender-vendorId" name="vendorId" style="width:80%"/>
+						</td>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">商户名称</td>
+						<td style="width:15%" align="left">
+							<input class="easyui-textbox" id="vender-vendorSnm" name="vendorSnm" style="width:80%" />
+						</td>
+					</tr>
+					<tr>
+						<td align="center" colspan="2">
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderDoSearch()">查询</a>&nbsp;&nbsp;
+							<a class="easyui-linkbutton" iconCls="icon-edit-clear" plain="false" onclick="venderClearAll()">清空</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</form>
+	</div>
+
+	<table id="venderDataGrid" class="easyui-datagrid" singleSelect="true" style="width: 97%"
+		data-options="url:'spUser/list',
+    				 fitColumns:true,
+       				 pagination:true,
+       				 pageSize:5,
+       				 pageList:[5,10,15,20],
+       				 toolbar:'#venderToolbar',
+       				 striped:true">
+		<thead>
+			<tr>
+				<th field="_ddd" width="15%" data-options="checkbox:true">选择</th>
+				<th field="vendorId" width="20%" align="center">商户编号</th>
+				<th field="vendorFnm" width="50%" align="center">商户全称</th>
+				<th field="vendorSnm" width="20%" align="center">商户简称</th>
+			</tr>
+		</thead>
+	</table>    
+</div>
+<div id="venderChooseBtns">
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="venderIdChoose()">选择</a>
+</div>
+ 
 <!-- End of easyui-dialog -->

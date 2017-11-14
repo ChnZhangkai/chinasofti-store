@@ -978,6 +978,9 @@
 		<if test="settleTimeFee != null and settleTimeFee !=''">
 			and mainorder.SETTLE_TIME like concat(concat('%', #{settleTimeFee}), '%')
 		</if>
+		<if test="vendorIds != null and vendorIds !=''">
+			and mainorder.VENDOR_IDS = #{vendorIds}
+		</if>
 	</where>
 	order by ${sort} ${order}
   </select>

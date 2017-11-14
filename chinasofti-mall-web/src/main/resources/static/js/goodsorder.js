@@ -7,7 +7,7 @@ function mainorderDoSearch() {
 	if (minTime > maxTime){
 		$.messager.show({
 			title:'提示信息',
-			msg:'结束日期必须大于开始日期',
+			msg:'结束时间必须大于开始时间',
 			timeout:5000,
 			showType:'slide'
 		});
@@ -21,7 +21,8 @@ function mainorderDoSearch() {
 			contName : $('#mainorder-contName').val(),
 			payway:$('#mainorder-payway').val(),
 			orderStatus:$('#mainorder-status').val(),
-			settleTimeFee:$('#mainorder-settleTimeFee').val()
+			settleTimeFee:$('#mainorder-settleTimeFee').val(),
+			vendorIds:$('#mainorder-vendorIds').val()
 		});
 	}
 }
@@ -44,7 +45,6 @@ function childorderDoSearch() {
 		type:$('#childorder-type').val(),
 		orderType : $('#childorder-orderType').val()
 	});
-
 }
 
 /**
@@ -177,7 +177,9 @@ function approveStatusFormatter(value, row, index) {
  * 子操作按钮显示
  */
 function btnFormatter(value, row, index) {
-	var childorderLookBtn ='<button onclick="childorderLook('+ index +')">查看</button>' ;
+	var childorderLookBtn ='<button onclick="childorderLook('+ index +')">查看</button>' 
+							+ '<button style="background:#772953" onclick="venderRemark('+ index +')">' 
+							+ '<span style="color: #FFFFFF">商户备注</span></button>';
 	return childorderLookBtn;
 }
 /**
@@ -194,15 +196,69 @@ function childorderLook(index){
 }
 
 /**
+ * 商户备注
+ */
+function venderRemark(index){
+	var row = $("#childorderDataGrid").datagrid('getData').rows[index];
+	$('#venderRemarkEditDialog').dialog('open');
+	$('#venderRemarkUpdateForm').form('load', row);
+}
+
+/**
+ * 商户备注修改提交
+ */
+function updateVenderRemark(){
+	$('#venderRemarkUpdateForm').form('submit',{
+		url:'childorder/update',    
+	    onSubmit: function(){
+	    	
+	    },    
+	    success:function(){    
+	    	$.messager.show({
+				title: '系统消息',
+				msg: '备注更改成功',
+				timeout: 5000,
+				showType:'slide'
+			});
+	    	$("#venderRemarkEditDialog").dialog("close");
+			$("#childorderDataGrid").datagrid("load");
+	    }
+	});
+}
+
+/**
+ * 打开商户列表
+ */
+function venderChoose(){
+	$('#venderChooseDialog').dialog('open');
+}
+
+/**
+ * 商户id选择
+ */
+function venderIdChoose(){
+	var row = $("#venderDataGrid").datagrid("getSelected");
+	if(row){
+		$("#mainorder-vendorIds").textbox('setValue',row.vendorId);
+		$("#venderChooseDialog").dialog("close");
+	}else{
+		$.messager.alert('系统消息','请选择一项进行操作!','info');
+	}
+}
+
+/**
  * 主订单按钮
  */
 function mainBtnFormatter(value, row, index) {
-	var lookBtn ='<button onclick="mainorderLook('+ index +')">查看</button><br>';
+	var lookBtn ='<button style="background:#51A351" onclick="mainorderLook('+ index +')">' 
+					+ '<span style="color: #FFFFFF">查看</span></button><br>'
+					+ '<button style="background:#772953" onclick="checkChildorder('+ index +')">' 
+					+ '<span style="color: #FFFFFF">订单明细</span></button>';
 	return lookBtn;
 }
 
 /**
- * 主订单详细信息
+ * 主订单查看按钮
  */
 function mainorderLook(index){
 	var row = $("#mainorderDataGrid").datagrid('getData').rows[index];
@@ -219,6 +275,35 @@ function mainorderLook(index){
 	$('#mainorderEditForm').form('load', row);
 }
 
+/**
+ * 主订单订单明细按钮
+ */
+function checkChildorder(index){
+	var row = $("#mainorderDataGrid").datagrid('getData').rows[index];
+	var mainorderIds = row.transactionid;
+	$("#childorder-mainorderIds").textbox('setValue',mainorderIds);
+	$('#childorderDataGrid').datagrid('load', {
+		mainorderIds : $('#childorder-mainorderIds').val()
+	});
+}
+
+/**
+ * 商户查询
+ */
+function venderDoSearch() {
+	$('#venderDataGrid').datagrid('load', {
+		vendorId : $('#vender-vendorId').val(),
+		vendorSnm : $('#vender-vendorSnm').val()
+	});
+}
+
+/**
+ * 商户搜索条件清空
+ */
+function venderClearAll() {
+	$("#venderSearchForm").form("reset");
+	$('#venderDataGrid').datagrid("load", {});
+}
 
 
 

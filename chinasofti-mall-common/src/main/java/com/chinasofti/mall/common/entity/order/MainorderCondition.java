@@ -21,6 +21,16 @@ public class MainorderCondition extends PageBean {
 	private String orderStatus;
 	
 	private String settleTimeFee;
+	
+	private String vendorIds;
+
+	public String getVendorIds() {
+		return vendorIds;
+	}
+
+	public void setVendorIds(String vendorIds) {
+		this.vendorIds = vendorIds;
+	}
 
 	public String getTransactionid() {
 		return transactionid;
