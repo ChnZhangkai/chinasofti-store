@@ -6,6 +6,8 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.chinasofti.app.hystrix.GoodsFeignClientHystrix;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**分类消费类
@@ -13,7 +15,7 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
  * @author gezhenlin
  *
  */
-@FeignClient(name = "Goods-Service" ,fallback = GoodsFeignClient.class)
+@FeignClient(name = "Goods-Service" ,fallback = GoodsFeignClientHystrix.class)
 public interface GoodsFeignClient {
 
 	/***
