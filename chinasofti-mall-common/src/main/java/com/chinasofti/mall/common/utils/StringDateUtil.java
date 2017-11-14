@@ -15,6 +15,8 @@ public class StringDateUtil {
 	
 	public static final String sqlFormat = "yyyyMMddHHmmss";
 	public static final String pageFormat = "yyyy-MM-dd HH:mm:ss";
+	public static final String sqlShortFormat = "yyyyMMdd";
+	public static final String pageShortFormat = "yyyy-MM-dd";
 	
 	/**
 	* @Title: convertToSqlFormat
@@ -45,6 +47,23 @@ public class StringDateUtil {
 			Date parseDate = new SimpleDateFormat(sqlFormat).parse(dateStr);
 			return new SimpleDateFormat(pageFormat).format(parseDate);
 		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	* @Title: convertToSqlShortFormat
+	* @Description: 将yyyy-MM-dd日期字符串装换成yyyyMMdd日期字符串
+	* @param dateStr	yyyy-MM-dd类型日期字符串
+	* @return String
+	* @throws
+	*/
+	public static String convertToSqlShortFormat(String dateStr) {
+		try {
+			Date parseDate = new SimpleDateFormat(pageShortFormat).parse(dateStr);
+			return new SimpleDateFormat(sqlShortFormat).format(parseDate);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}

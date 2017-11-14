@@ -39,4 +39,7 @@ public interface PtRoleFeignClient{
 	
 	@RequestMapping("/ptrole/menu/{id}")
 	public List<Tree> menuTree(@PathVariable("id") String id);
+	
+	@RequestMapping(value = "/ptrole/insert" , method = RequestMethod.POST)
+	public int saveMenuIds(PtRole ptRole);
 }

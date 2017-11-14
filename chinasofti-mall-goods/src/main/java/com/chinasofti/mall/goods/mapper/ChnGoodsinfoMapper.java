@@ -18,7 +18,7 @@ public interface ChnGoodsinfoMapper {
 
     List<ChnGoodsinfo> selectByExample(ChnGoodsinfoExample example);
 
-    ChnGoodsinfo selectByPrimaryKey(String ids);
+    ChnGoodsinfo selectByPrimaryKey(@Param("ids") String ids);
 
     int updateByExampleSelective(@Param("record") ChnGoodsinfo record, @Param("example") ChnGoodsinfoExample example);
 
@@ -32,6 +32,6 @@ public interface ChnGoodsinfoMapper {
      * @param goodsClassIds
      * @return
      */
-    List<ChnGoodsinfo> selectByClassId(String goodsClassIds);
+    List<ChnGoodsinfo> selectByClassId(@Param("goodsClassIds")String goodsClassIds);
     
 }

@@ -2,7 +2,6 @@ package com.chinasofti.mall.user.service;
 
 import java.util.List;
 
-import com.chinasofti.mall.common.entity.PtHrUserBak;
 import com.chinasofti.mall.common.entity.PtMenu;
 import com.chinasofti.mall.common.service.IBaseService;
 

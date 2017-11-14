@@ -30,10 +30,7 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 		ResponseInfo  response= new ResponseInfo();
 		if(result.size()>0){
 			Map<String, Object> data= new HashMap<String, Object>();
-			for(ChnGoodsinfo ad :result){
-				
-				data.put(result.get(0).toString(), ad);	
-			}			
+			data.put("ResponseInfo", result);			
 			response.setData(data);
 			response.setRetCode(MsgEnum.SUCCESS.getCode());
 			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
@@ -55,7 +52,7 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 			ResponseInfo  response= new ResponseInfo();
 			if(result !=null){
 				Map<String, Object> data= new HashMap<String, Object>();
-				data.put(null, result);
+				data.put("ResponseInfo", result);
 				response.setData(data);
 				response.setRetCode(MsgEnum.SUCCESS.getCode());
 				response.setRetMsg(MsgEnum.SUCCESS.getMsg());

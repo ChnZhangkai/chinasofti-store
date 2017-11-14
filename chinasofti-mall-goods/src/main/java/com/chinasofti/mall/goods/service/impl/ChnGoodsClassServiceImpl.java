@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample.Criteria;
@@ -115,10 +114,7 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 	private ResponseInfo dealGoodsResponseData(ResponseInfo  response,List<ChnGoodsClass> result) {
 		if(result.size()>0){
 			Map<String, Object> data= new HashMap<String, Object>();
-			for(ChnGoodsClass gc :result){
-				
-				data.put(result.get(0).toString(), gc);	
-			}			
+			data.put("ResponseInfo", result);				
 			response.setData(data);
 			response.setRetCode(MsgEnum.SUCCESS.getCode());
 			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
