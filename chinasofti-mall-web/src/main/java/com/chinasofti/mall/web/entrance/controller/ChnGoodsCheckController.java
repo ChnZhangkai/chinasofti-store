@@ -69,6 +69,9 @@ public class ChnGoodsCheckController {
 		
 		GoodsFile goodsFile = goodsFileService.selectByGoodsIds(ids);
 		
+//		String filepath = goodsFile.getFilepath();
+//		String newFilePath = filepath.substring(1);
+		
 		return goodsFile.getFilepath();
 		
 	}
