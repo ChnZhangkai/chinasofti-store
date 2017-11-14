@@ -50,7 +50,7 @@ public class ShoppingCartController implements BaseController<PyShoppingCart> {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/add/goods", method = RequestMethod.POST)
-	@ApiOperation(value="添加购物车商品", notes="报文示例：{'goodsId':'1001','userId':'chinasofti','goodsNum':'1'}")
+	@ApiOperation(value="添加购物车商品", notes="报文示例：{'goodsId':'1001','userId':'chin','goodsNum':'1'}")
 	public ResponseInfo savePyShoppingCart(@RequestBody JSONObject json) {
 		return pyShoppingCartService.savePyShoppingCart(json);
 	}
