@@ -340,7 +340,7 @@
 	}
 	
 	/*
-	 * 审核审核/撤销申请流程
+	 * 提交审核申请/撤销申请流程
 	 */
 	function handleCheck(obj){
 		
@@ -388,6 +388,9 @@
 			
 	}
 	
+	/*
+	 * 执行审核
+	 */
 	function doCheck(obj){
 			
 		var reviewStatues;
@@ -477,20 +480,9 @@
 		var ids = row.ids
 		var str = "";
 		
-		$.ajax({
-			url:'/goodsCheck/reqGoodsGoodsImgPath/' + ids,
-			type:'POST',
-			success:function(data){
-				if (value != "" || value != null) {
-					if(data != "" || data != null){
-						str = "<img style=\"height: 75px;width: 110px;\" src=\""+ data +"\"/>";
-					}else{
-						str = "<img style=\"height: 75px;width: 110px;\" src=\""+ "data/goods/luoli.jpg" +"\"/>";
-					}
-					return str;
-				}
-			}
-		})
+		images = $.ajax({url:'/goodsCheck/reqGoodsGoodsImgPath/' + ids,type:'POST',async:false});
+		str = "<img style=\"height: 75px;width: 110px;\" src=\""+ images.responseText +"\"/>";
+		return str;
 		
 	}
 
