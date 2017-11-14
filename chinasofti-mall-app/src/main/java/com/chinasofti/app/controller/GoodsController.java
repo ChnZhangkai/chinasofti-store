@@ -24,7 +24,7 @@ public class GoodsController {
 	private GoodsFeignClient goodsFeignClient;
 	
 	/**
-	 * 当classId不为空时查询二级列表，为空时则查询一级分类
+	 * 根据Ids查询商品列表
 	 * @param classId(ids)
 	 * @return
 	 */

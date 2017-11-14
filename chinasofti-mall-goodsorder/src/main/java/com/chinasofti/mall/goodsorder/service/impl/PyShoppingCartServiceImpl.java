@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.common.utils.UiidUtil;
 import com.chinasofti.mall.goodsorder.mapper.PyShoppingCartMapper;
 import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
 
@@ -71,15 +72,20 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	@Override
 	public ResponseInfo savePyShoppingCart(JSONObject json) {
 		ResponseInfo responseInfo = new ResponseInfo();
+		Map<String, Object> data = new HashMap<String, Object>();
 		try{
 			PyShoppingCart pyShoppingCart = new PyShoppingCart();
+			pyShoppingCart.setIds(UiidUtil.getUiid());
 			pyShoppingCart.setUserids(json.getString("userId").toString());
 			pyShoppingCart.setGoodsIds(json.getString("goodsId").toString());
 			pyShoppingCart.setGoodsNum(Short.valueOf(json.getString("goodsNum").toString()));
-			
+			pyShoppingCart.setVendorid("1");
+			pyShoppingCart.setChecked("1");
 			this.save(pyShoppingCart);
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
+			data.put("pyShoppingCart", pyShoppingCart);
+			responseInfo.setData(data);
 		}catch(Exception e){
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
@@ -97,7 +103,8 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 			pyShoppingCart.setUserids(json.getString("userId").toString());
 			pyShoppingCart.setGoodsIds(json.getString("goodsId").toString());
 			pyShoppingCart.setGoodsNum(Short.valueOf(json.getString("goodsNum").toString()));
-			
+			pyShoppingCart.setVendorid("1");
+			pyShoppingCart.setChecked("1");
 			this.update(pyShoppingCart);
 				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 				responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
