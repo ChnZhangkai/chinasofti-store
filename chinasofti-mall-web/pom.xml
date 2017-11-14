@@ -141,7 +141,12 @@
 			</exclusions>
 		</dependency>
 		<!-- freemarker + shiro（标签） end -->
-
+		<!-- druid数据源 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.26</version>
+		</dependency>
 	</dependencies>
 
 </project>
