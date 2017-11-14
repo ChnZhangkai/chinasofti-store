@@ -1,6 +1,5 @@
 package com.chinasofti.app.feign;
 
-import java.util.List;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.chinasofti.app.hystrix.GoodsClassFeignClientHystrix;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**分类消费类
  * 
@@ -24,5 +23,5 @@ public interface GoodsClassFeignClient {
 	 * @return
 	 */
 	@RequestMapping(value = "/goodsClass/queryClass" ,method = RequestMethod.POST )
-	public List<ChnGoodsClass> queryClass(@PathVariable("classId") String classId);
+	public ResponseInfo queryClass(@PathVariable("classId") String classId);
 }

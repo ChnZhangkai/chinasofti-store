@@ -21,10 +21,10 @@ public interface GoodsFeignClient {
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping(value = "/goodsinfo/queryGoodList" ,method = RequestMethod.POST )
+	@RequestMapping(value = "/goodsinfo/queryGoodList/{id}" ,method = RequestMethod.POST )
 	public ResponseInfo queryGoodList(@PathVariable("id") String id);
   
-	@RequestMapping(value = "/goodsinfo/queryGoodinfo" ,method = RequestMethod.POST )
+	@RequestMapping(value = "/goodsinfo/queryGoodinfo/{ids}" ,method = RequestMethod.POST )
 	public ResponseInfo queryGoodInfo(@PathVariable("ids") String ids);
   
 }
