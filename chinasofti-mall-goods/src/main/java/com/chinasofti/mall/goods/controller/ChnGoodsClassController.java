@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.utils.Constant;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.service.impl.ChnGoodsClassServiceImpl;
 import com.github.pagehelper.util.StringUtil;
 
@@ -75,22 +76,13 @@ public class ChnGoodsClassController {
 		return spGoodsClassService.save(chnGoodsClass);
 	}
 	/**
-	 * 当Ids不为空时查询二级列表，为空时则查询一级分类
-	 * @param pids
+	 * 通过classId查询商品分类（分一级与二级分类）
+	 * @param classId
 	 * @return
 	 */
 	@RequestMapping(value = "/queryClass/{classId}" , method = RequestMethod.POST)
-	public List<ChnGoodsClass> queryClass(@PathVariable String classId){
-		List<ChnGoodsClass> goodsClass=null;
-		if(StringUtil.isNotEmpty(classId)){
-			String pids = classId;
-			goodsClass = spGoodsClassService.selectById(pids);
-		}else{
-			
-			goodsClass = spGoodsClassService.selectByIsParent(Constant.IS_PARENT);
-		}
-		 
-		return goodsClass;
+	public ResponseInfo queryClass(@PathVariable String classId){
+		return spGoodsClassService.queryClass(classId);
 		
 	}
 	

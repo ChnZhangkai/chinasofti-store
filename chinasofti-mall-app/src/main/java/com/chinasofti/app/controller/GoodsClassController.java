@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.app.feign.GoodsClassFeignClient;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 @Controller
 @RequestMapping("goodsClass")
@@ -26,7 +27,7 @@ public class GoodsClassController {
 	 * @return
 	 */
 	@RequestMapping("queryClass")
-	public List<ChnGoodsClass> queryClass(@RequestParam String classId,HttpServletResponse response){
+	public ResponseInfo queryClass(@RequestParam String classId,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		return goodsFeignClient.queryClass(classId);
 	}
