@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.chinasofti.app.feign.GoodsClassFeignClient;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**
  * 熔断类
@@ -17,8 +18,8 @@ import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 public class GoodsClassFeignClientHystrix implements GoodsClassFeignClient{
 
 	@Override
-	public List<ChnGoodsClass> queryClass(String classId) {
-		return new ArrayList<ChnGoodsClass>();
+	public ResponseInfo queryClass(String classId) {
+		return new ResponseInfo();
 	}
 
 }
