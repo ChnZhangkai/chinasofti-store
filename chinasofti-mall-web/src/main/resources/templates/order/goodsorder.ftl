@@ -1,4 +1,7 @@
 <script type="text/javascript" src="js/goodsorder.js"></script>
+<div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#DDDDDB;text-align :center;padding-top:20%;">
+     <h1><font color="#15428B">页面加载中....</font></h1>
+</div> 
 <div class="easyui-layout" data-options="" >
 	<!-- 主订单模块开始 -->
 	<!-- 主订单工具栏 -->

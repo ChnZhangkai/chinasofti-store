@@ -1,3 +1,15 @@
+var pc; 
+//不要放在$(function(){});中
+$.parser.onComplete = function () {
+    if (pc) clearTimeout(pc);
+    pc = setTimeout(closes, 2000);
+} 
+
+function closes() {
+    $('#loading').fadeOut('normal', function () {
+        $(this).remove();
+    });
+}
 /**
  * 主订单条件查询
  */
