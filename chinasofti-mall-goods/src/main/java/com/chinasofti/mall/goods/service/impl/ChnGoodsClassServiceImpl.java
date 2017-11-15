@@ -99,8 +99,8 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 	/**
 	 * 查询分类信息
 	 */
-	public ResponseInfo selectByIsParent(ResponseInfo  response, String isParent) {
-		 List<ChnGoodsClass> result = chnGoodsClassMapper.selectByIsParent(isParent);
+	public ResponseInfo selectByIsParent(ResponseInfo  response, String isparent) {
+		 List<ChnGoodsClass> result = chnGoodsClassMapper.selectByIsParent(isparent);
 		 response = dealGoodsResponseData(response,result);
 		return response;
 	}
@@ -140,8 +140,8 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 		if(StringUtil.isNotEmpty(pids)){
 			response = selectById(response,pids);
 		}else{
-			String isParent =Constant.IS_PARENT;
-			response = selectByIsParent(response,isParent);
+			String isparent =Constant.IS_PARENT;
+			response = selectByIsParent(response,isparent);
 		}
 		return response;
 	}
