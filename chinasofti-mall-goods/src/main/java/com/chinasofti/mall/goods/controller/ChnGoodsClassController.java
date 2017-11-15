@@ -17,7 +17,7 @@ import com.chinasofti.mall.goods.service.IChnGoodsClassService;
 import net.sf.json.JSONObject;
 
 @RestController
-@RequestMapping("/goodsClass")
+@RequestMapping("goodsClass")
 public class ChnGoodsClassController {
 	
 	@Autowired
@@ -79,7 +79,7 @@ public class ChnGoodsClassController {
 	 * @param classId
 	 * @return
 	 */
-	@RequestMapping(value = "queryClass" , method = RequestMethod.POST)
+	@RequestMapping(value = "queryClass")
 	public ResponseInfo queryClass(@RequestParam("classId") String classId){
 		return GoodsClassService.queryClass(classId);
 		

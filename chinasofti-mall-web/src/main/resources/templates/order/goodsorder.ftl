@@ -712,7 +712,7 @@
 	<!-- 子订单模块结束 -->
 </div>
 <div id="venderRemarkEditDialog" class="easyui-dialog" title="商户备注" style="width: 40%; height: 30%;padding:10px 10px 0 0;"
-	 data-options="closed:true,iconCls:'icon-edit',resizable:true,modal:true,buttons:'#venderRemarkEditBtns'">
+	 data-options="closed:true,iconCls:'icon-edit',resizable:true,modal:true,buttons:'#venderRemarkEditBtns',resizable:'false'">
 	<form id="venderRemarkUpdateForm" action="" method="post">
     	<input type="hidden" name="ids">
     	<table style="width:100%;height:90%;">
@@ -731,7 +731,7 @@
 </div> 
 
 
-<div id="venderChooseDialog" class="easyui-dialog" title="商户列表" style="width: 40%; height: 40%;padding:0 0 0 0;"
+<div id="venderChooseDialog" class="easyui-dialog" title="商户列表" style="width: 550px; height: 333px;padding:0 0 0 0;"
 	 data-options="closed:true,resizable:true,modal:true,buttons:'#venderChooseBtns'">
 	<div id="venderToolbar" style="width: 100%">
 		<!-- 子订单条件搜索 -->
