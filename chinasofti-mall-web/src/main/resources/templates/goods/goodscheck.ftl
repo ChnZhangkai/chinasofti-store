@@ -38,8 +38,8 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeGoodsCheck()" plain="true">删除</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="pushCheck" onclick="handleCheck(this)" plain="true">提交审核</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="repealCheck" onclick="handleCheck(this)" plain="true">撤销审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="pushCheck" onclick="handleCheck(this)" plain="true">申请审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="repealCheck" onclick="handleCheck(this)" plain="true">撤销申请</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-chk-checked" id="doCheck" onclick="doCheck(this)" plain="true">商品审核</a>
 		</div>
 	</div>
@@ -491,7 +491,7 @@
 	 */
 	function statesFormatter(value) {
 		if (value == "0") {
-			return '<span style="color:black">待提交审核</span>';
+			return '<span style="color:black">待申请审核</span>';
 		} 
 		if (value == "1"){
 			return '<span style="color:green">审核通过</span>';
@@ -499,7 +499,7 @@
 		if (value == '2'){
 			return '<span style="color:red">审核拒绝</span>';
 		}else{
-			return '<span style="color:blue">已提交审核</span>';
+			return '<span style="color:blue">已申请审核</span>';
 		}
 	}
 	
