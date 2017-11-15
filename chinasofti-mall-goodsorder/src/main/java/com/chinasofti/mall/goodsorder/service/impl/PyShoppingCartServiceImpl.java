@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
-import com.chinasofti.mall.common.utils.UiidUtil;
+import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.goodsorder.mapper.PyShoppingCartMapper;
 import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
 
@@ -75,7 +75,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		Map<String, Object> data = new HashMap<String, Object>();
 		try{
 			PyShoppingCart pyShoppingCart = new PyShoppingCart();
-			pyShoppingCart.setIds(UiidUtil.getUiid());
+			pyShoppingCart.setIds(UUIDUtils.getUuid());
 			pyShoppingCart.setUserids(json.getString("userId").toString());
 			pyShoppingCart.setGoodsIds(json.getString("goodsId").toString());
 			pyShoppingCart.setGoodsNum(Short.valueOf(json.getString("goodsNum").toString()));

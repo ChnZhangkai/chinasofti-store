@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +27,7 @@ import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.common.entity.goods.GoodsFile;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.common.utils.StringDateUtil;
+import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
 import com.chinasofti.mall.web.entrance.feign.SpMerchantUserFeignClient;
 import com.chinasofti.mall.web.entrance.service.impl.GoodsFileServiceImpl;
@@ -48,8 +48,6 @@ public class ChnGoodsCheckController {
 	GoodsFileServiceImpl goodsFileService;
 	
 	private static final String beforePath = System.getProperty("user.dir")  + "\\src\\main\\resources\\static\\data\\goods";
-	
-	private static String toUUID = UUID.randomUUID().toString().replace("-", "");
 	
 	/**
 	 * 返回主界面
@@ -176,8 +174,8 @@ public class ChnGoodsCheckController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		PtUser user = (PtUser) session.getAttribute("user");
 		
-		chnGoodsinfoCheck.setIds(toUUID);
-		chnGoodsinfoCheck.setGoodsids(toUUID);
+		chnGoodsinfoCheck.setIds(UUIDUtils.getUuid());
+		chnGoodsinfoCheck.setGoodsids(UUIDUtils.getUuid());
 		chnGoodsinfoCheck.setReviewStatues("0");
 		chnGoodsinfoCheck.setCreateBy(user.getUsername());
 		chnGoodsinfoCheck.setCreateTime(sdf.format(new Date()));
@@ -188,7 +186,7 @@ public class ChnGoodsCheckController {
 		int goodsCheck = chnGoodsFeignClient.saveGoodsCheck(chnGoodsinfoCheck);
 		//保存对应的图片信息(goodsFile表)
 		GoodsFile goodsFile = new GoodsFile();
-		goodsFile.setIds(toUUID);
+		goodsFile.setIds(UUIDUtils.getUuid());
 		goodsFile.setGoodsids(chnGoodsinfoCheck.getGoodsids());
 		goodsFile.setFilename(imageName);
 		goodsFile.setFilepath("/data/goods/"+ imageName);
