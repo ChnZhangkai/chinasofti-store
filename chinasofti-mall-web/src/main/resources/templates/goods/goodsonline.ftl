@@ -2,13 +2,8 @@
 <div id="auditlist" class="easyui-layout" data-options="fit:true">
 	<!-- Begin of toolbar -->
 	<div id="goodonline-toolbar-3" style="height: 15%">
-		<div class="goodonline-toolbar-button">
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="opensEdit()"plain="true">修改</a> 
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="prints()" plain="true">导出</a> 
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-prints" onclick="prints()" plain="true">打印</a>
-		</div>
-		<div class="goodonline-toolbar-search">
-			<form id="searchOnlineForm">
+		<div class="goodonline-toolbar-search" style="border-bottom: 1px solid #DDDDDD">
+			<form id="searchOnlineForm" style="margin: 0px">
 				<label>商品编号</label> <input type="text" id="goodsids" name="goodsids" class="easyui-textbox"/>
 				<label>商品名称</label> <input type="text" id="title" name="title" class="easyui-textbox"/>
 				<label>开始时间</label> <input type="text" id="startTime" name="startTime" class="easyui-datebox"/>
@@ -23,19 +18,24 @@
 					<option value="0">普通商品</option>
 					<option value="1">活动商品</option>
 				</select>
-				<label>审核状态</label>
+				<label>商品状态</label>
 				<select autocomplete="off" class="easyui-combobox"
-					data-options="panelHeight:'auto'" id="goodsReviewStates" name="reviewStatues"
+					data-options="panelHeight:'auto'" id="status" name="status"
 					style="width: 135px">
 					<option selected="selected" value="">请选择</option>
-					<option value="0">待提交审核</option>
-					<option value="1">审核通过</option>
-					<option value="2">审核拒绝</option>
-					<option value="3">已提交申请</option>
+					<option value="1">已上架</option>
+					<option value="2">已下架</option>
 				</select>
 				<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="goodOnlineDoSearch()">开始检索</a> 
 				<a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="goodOnlineDoClear()">清除</a>
 			</form>
+		</div>
+		<div class="goodonline-toolbar-button">
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="onlineEdits()"plain="true">修改</a> 
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="prints()" plain="true">导出</a> 
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-prints" onclick="prints()" plain="true">打印</a>
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="putaway" onclick="putaway(this)" plain="true">上架</a>
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="soldOut" onclick="putaway(this)" plain="true">下架</a>
 		</div>
 	</div>
 	<!-- 数据显示datagrid -->
@@ -43,16 +43,17 @@
 		style="height: 95%">
 		<thead> 
 			<tr>
-				<th field="title" width="10%" align="center">商品名称</th>
-				<th field="img" width="10%" align="center"
+				<th field="title" width="13%" align="center">商品名称</th>
+				<th field="img" width="14%" align="center"
 					data-options="formatter:imgFormatter">商品图片</th>
 				<th field="price" width="15%" align="center">商品价格</th>
 				<th field="vendorSnm" width="15%" align="center">商户名称</th>
-				<th field="name" width="25%" align="center">分类名称</th>
+				<th field="name" width="15%" align="center">分类名称</th>
 				<th field="type" width="10%" align="center"
 					data-options="formatter:typesFormatter">商品类型</th>
-				<th field="storeNum" width="15%" align="center">当前库存</th>
-				<th field="status" width="15%" align="center">商品状态</th>
+				<th field="storeNum" width="10%" align="center">当前库存</th>
+				<th field="status" width="10%" align="center"
+					data-options="formatter:statusFormatter">商品状态</th>
 			</tr>
 		</thead>
 	</table>
@@ -60,9 +61,97 @@
 	<!-- 分页工具条 -->
 	<div id="goodsOnlinePagination" style="background:#efefef;border:1px solid #ccc;"></div>
 
+	<!-- 商品修改表格表格 -->
+	<div id="updateDl" class="easyui-dialog"
+		data-options="closed:true,iconCls:'icon-add',inline:true"
+		style="width: 100%; height: 100%; padding: 10px;background-image: url(images/goodsdiv.jpg)">
+		<form id="updateGoodsForm"  enctype="multipart/form-data">
+			<table>
+				<tr>
+					<th align="right">商品名称</th>
+					<td><input type="text" id="title" name="title" 
+				class="easyui-textbox" title="不可修改" readonly="true"/></td>
+					<th align="right">分类名称</th>
+					<td><input type="text" class="easyui-textbox" id="name" name="name" 
+					title="不可修改" readonly="true" /></td>
+				</tr>
+				<tr>
+					<th align="right">商品类型</th>
+					<td><select style="width: 180px;" class="easyui-combobox " data-options="panelHeight:'auto'" id="type" name="type"
+					style=" width: 180px;background-color:#F4F4F4" readonly="true">
+							<option value="0">普通商品</option>
+							<option value="1">活动商品</option>
+					</select></td>
+					<th align="right">商户名称</th>
+					<td>
+						<input type="text" id="vendorSnm" name="vendorSnm" class="easyui-tooltip textbox"
+						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true"/>
+					</td>
+				</tr>
+				<tr>
+					<th align="right">开始日期</th>
+					<td><input type="text" class="easyui-datetimebox"
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="startTime" name="startTime" readonly="true"/></td>
+					<th align="right">结束日期</th>
+					<td><input type="text" class="easyui-datetimebox"
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime" readonly="true"/></td>
+				</tr>
+				<tr>
+					<th align="right">规格</th>
+					<td><input type="text" id="standard" name="standard" class="easyui-tooltip textbox"
+						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true" /></td>
+					<th align="right">重量</th>
+					<td><input type="text" id="weight" name="weight" class="easyui-tooltip textbox"
+						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true"  /> <span><font
+							style="color: #CCCCCC; font-size: 10px;">重量单位:KG</font></span></td>
+				</tr>
+				
+				<tr>
+					<th align="right">审核状态</th>
+					<td><select style="width: 180px;" class="easyui-combobox " data-options="panelHeight:'auto'" id="reviewStatues" name="reviewStatues"
+					style=" width: 180px;background-color:#F4F4F4" readonly="true">
+							<option value="0">待提交审核</option>
+							<option value="3">已提交审核</option>
+							<option value="1">审核通过</option>
+							<option value="2">审核拒绝</option>
+				
+					<th align="right">商品状态</th>
+					<td><select style="width: 180px;" class="easyui-combobox " data-options="panelHeight:'auto'" id="status" name="status"
+					style=" width: 180px;background-color:#F4F4F4" readonly="true">
+						<option value="1">已上架</option>
+						<option value="2">已下架</option>
+					</select></td>
+						
+				</tr>
+			
+				<tr>
+					<th align="right">价格</th>
+					<td><input type="text" id="price" name="price" class="easyui-tooltip textbox"
+						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true" />
+					</td>
+				
+					<th align="right">当前库存数量</th>
+					<td>
+						<input type="text" style="width: 180px;"
+						class="easyui-textbox" id="storeNum" name="storeNum"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<th align="right">售后电话</th>
+					<td><input type="text" id="servicePhone" name="servicePhone" class="easyui-tooltip textbox"
+						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true" />
+					</td>
+					
+				</tr>
+				
+			</table>
+		</form>
+	</div>
 	
-
 </div>
+
+
 
 
 <script type="text/javascript">
@@ -123,6 +212,137 @@
 		}
 	}
 	
+	/*
+	 * 商品状态
+	 */
+	function statusFormatter(value) {
+		if (value == "0") {
+			return '<span style="color:black">已删除</span>';
+		} 
+		if (value == "1"){
+			return '<span style="color:green">已上架</span>';
+		} 
+		if (value == "2"){
+			return '<span style="color:red">已下架</span>';
+		}
+	}
+	
+	/**
+	* 打开修改窗口
+	*/
+	function onlineEdits(){
+		$('#updateGoodsForm').form('clear');
+		var row = $("#goodsOnlineinfo").datagrid('getSelected');
+		if (row) {
+			$('#updateDl').dialog('open').dialog({
+				closed: false,
+				modal:true,
+				closable:false,
+	            title: "修改分类",
+	            buttons: [{
+	                text: '确定',
+	                iconCls: 'icon-ok',
+	                handler: edit
+	            }, {
+	                text: '取消',
+	                iconCls: 'icon-cancel',
+	                handler: function () {
+	                    $('#updateDl').dialog('close');
+	                    document.getElementById("showGoodsPic").innerHTML = "";
+	                }
+	            }]
+	        });
+			$('#updateGoodsForm').form('load',row);
+		} else {
+			$.messager.alert('信息提示','请选中要修改的数据');
+		}
+	}
+	
+	/*
+	*修改
+	*/
+	function edit(){
+		$('#updateGoodsForm').form('submit', {
+			url:'/goodsOnline/update',
+    		type:'POST',
+    		data:$('#updateGoodsForm').serialize(),
+    		success:function(data){
+    			if(data > 0){
+    				$.messager.alert('信息提示','提交成功！','info');
+    				$('#updateDl').dialog('close');
+    				$('#goodsOnlinePagination').pagination('select');
+    			}else{
+    				$.messager.alert('信息提示','提交失败！','info');
+    			}
+    		}
+    	});
+	}
+	
+		
+	/*
+	*商品上下架
+	*/
+	function putaway(obj){
+	 var goodsids;
+	 var status;
+	 var onlineTime;
+	 var leaveTime;
+	 
+	 var items = $('#goodsOnlineinfo').datagrid('getSelections');
+		if(items.length < 1){
+			$.messager.alert('温馨提醒','请选中操作的数据');
+			return ;
+		}
+		goodsids = items[0].ids;
+		status = items[0].status;
+		onlineTime1 = items[0].onlineTime;
+		leaveTime = items[0].leaveTime;
+		
+		//提交
+		if(obj.id == "putaway"){
+			if(status != 2){
+				$.messager.alert('温馨提醒','您选中的是一条已上架的数据，请重新选择其他要上架的商品数据','question')
+				return ;
+			}
+			$.ajax({
+				url:'/goodsOnline/updateGoodsStatus',
+				type:'POST',
+				data: {'ids':goodsids,'status':status,'leaveTime':leaveTime,'onlineTime':onlineTime1},
+				success:function(data){
+					if(data){
+						$.messager.alert('信息提示','提交成功！','info');
+						$('#goodsOnlinePagination').pagination('select');
+					}
+					else
+					{
+						$.messager.alert('信息提示','提交失败！','info');		
+					}
+				}	
+			});
+		}if(obj.id == "soldOut"){
+			if(status != 1){
+				$.messager.alert('温馨提醒','您选中的是一条已下架的数据，请重新选择其他要下架的商品数据','question')
+				return ;
+			}
+			$.ajax({
+				url:'/goodsOnline/updateGoodsStatus',
+				type:'POST',
+				data: {'ids':goodsids,'status':status,'leaveTime':leaveTime,'onlineTime':onlineTime1},
+				success:function(data){
+					if(data){
+						$.messager.alert('信息提示','提交成功！','info');
+						$('#goodsOnlinePagination').pagination('select');
+					}
+					else
+					{
+						$.messager.alert('信息提示','提交失败！','info');		
+					}
+				}	
+			});
+		}
+	}
+	
+
 	//条件查询
 	function goodOnlineDoSearch(){
 		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchOnlineForm').serialize();
@@ -156,6 +376,9 @@
 	 function goodOnlineDoClear(){
 		$('#searchOnlineForm').form('reset');
 	}
+	
+	
+	
 	
 	/*
 	 * 上传图片回显

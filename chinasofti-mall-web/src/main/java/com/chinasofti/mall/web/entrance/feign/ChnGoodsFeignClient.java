@@ -116,6 +116,22 @@ public interface ChnGoodsFeignClient {
 	 */
 	@RequestMapping(value = "/goodsCheck/updateReviewStatus" ,method = RequestMethod.POST)
 	public int updateGoodsCheckReviewStatus(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck);
+
+	/**
+	 * 商品上架
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsOnline/updateGoodsStatus" ,method = RequestMethod.POST)
+	public int updateGoodsStatus(@RequestBody(required = false) ChnGoodsOnline chnGoodsOnline);
+
+	/**
+	 * 修改商品库存
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsOnline/update" ,method = RequestMethod.POST)
+	public int updateStore(@RequestBody(required = false) ChnGoodsOnline chnGoodsOnline);
 		
 
 	
