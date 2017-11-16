@@ -14,7 +14,7 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
  * @author gezhenlin
  *
  */
-//@FeignClient(name = "Goods-Service" ,fallback = GoodsClassFeignClientHystrix.class)
+@FeignClient(name = "Goods-Service" ,fallback = GoodsClassFeignClientHystrix.class)
 public interface GoodsClassFeignClient {
 
 	/***
