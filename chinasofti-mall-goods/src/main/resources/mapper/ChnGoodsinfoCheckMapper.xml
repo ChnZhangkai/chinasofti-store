@@ -769,4 +769,238 @@
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
   
+  
+    <insert id="insertGoodsOnlineSelective" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck">
+    insert into chn_goodsinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ids != null">
+        IDS,
+      </if>
+      <if test="vendorids != null">
+        VENDORIDS,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="mouthTrade != null">
+        MOUTH_TRADE,
+      </if>
+      <if test="subtitle != null">
+        SUBTITLE,
+      </if>
+      <if test="common != null">
+        COMMON,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="disPrice != null">
+        DIS_PRICE,
+      </if>
+      <if test="standard != null">
+        STANDARD,
+      </if>
+      <if test="goodsClassIds != null">
+        GOODS_CLASS_IDS,
+      </if>
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="storeNum != null">
+        STORE_NUM,
+      </if>
+      <if test="reviewDesc != null">
+        REVIEW_DESC,
+      </if>
+      <if test="reviewStatues != null">
+        REVIEW_STATUES,
+      </if>
+      <if test="updateBy != null">
+        UPDATE_BY,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="collNum != null">
+        COLL_NUM,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="onlineTime != null">
+        ONLINE_TIME,
+      </if>
+      <if test="leaveTime != null">
+        LEAVE_TIME,
+      </if>
+      <if test="brandIds != null">
+        BRAND_IDS,
+      </if>
+      <if test="weight != null">
+        WEIGHT,
+      </if>
+      <if test="deliveWay != null">
+        DELIVE_WAY,
+      </if>
+      <if test="isDisVerdorname != null">
+        IS_DIS_VERDORNAME,
+      </if>
+      <if test="isDisStandard != null">
+        IS_DIS_STANDARD,
+      </if>
+      <if test="isDisStore != null">
+        IS_DIS_STORE,
+      </if>
+      <if test="limitOrderNum != null">
+        LIMIT_ORDER_NUM,
+      </if>
+      <if test="reviewBy != null">
+        REVIEW_BY,
+      </if>
+      <if test="reviewTime != null">
+        REVIEW_TIME,
+      </if>
+      <if test="limitUserNum != null">
+        LIMIT_USER_NUM,
+      </if>
+      <if test="orgPrice != null">
+        ORG_PRICE,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ids != null">
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorids != null">
+        #{vendorids,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="mouthTrade != null">
+        #{mouthTrade,jdbcType=DECIMAL},
+      </if>
+      <if test="subtitle != null">
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="common != null">
+        #{common,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="disPrice != null">
+        #{disPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="standard != null">
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsClassIds != null">
+        #{goodsClassIds,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNum != null">
+        #{storeNum,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewDesc != null">
+        #{reviewDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewStatues != null">
+        #{reviewStatues,jdbcType=CHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="collNum != null">
+        #{collNum,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineTime != null">
+        #{onlineTime,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveTime != null">
+        #{leaveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="brandIds != null">
+        #{brandIds,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveWay != null">
+        #{deliveWay,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisVerdorname != null">
+        #{isDisVerdorname,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisStandard != null">
+        #{isDisStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="isDisStore != null">
+        #{isDisStore,jdbcType=VARCHAR},
+      </if>
+      <if test="limitOrderNum != null">
+        #{limitOrderNum,jdbcType=DECIMAL},
+      </if>
+      <if test="reviewBy != null">
+        #{reviewBy,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewTime != null">
+        #{reviewTime,jdbcType=VARCHAR},
+      </if>
+      <if test="limitUserNum != null">
+        #{limitUserNum,jdbcType=DECIMAL},
+      </if>
+      <if test="orgPrice != null">
+        #{orgPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  
 </mapper>

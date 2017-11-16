@@ -31,6 +31,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	 */
 	@Override
 	public int save(ChnGoodsinfoCheck chnGoodsinfoCheck) {
+		chnGoodsinfoCheck.setStatus("2");
 		return chnGoodsinfoCheckMapper.insertSelective(chnGoodsinfoCheck);
 	}
 
@@ -72,12 +73,8 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	 */
 	@Override
 	public int update(ChnGoodsinfoCheck chnGoodsinfoCheck) {
+
 		int updateGoodsCheck = chnGoodsinfoCheckMapper.updateByPrimaryKeySelective(chnGoodsinfoCheck);
-		
-		if (chnGoodsinfoCheck.getReviewStatues() == "1") {
-			
-		}
-		
 		return updateGoodsCheck;
 	}
 
@@ -104,6 +101,14 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 		//若已提交则改为未提交
 		if (checkReviewStatus == 3) {
 			chnGoodsinfoCheck.setReviewStatues("0");
+		}
+		
+		if (checkReviewStatus == 1) {
+			ChnGoodsinfoCheck goods = findById(chnGoodsinfoCheck.getIds());
+			goods.setIds(goods.getGoodsids());
+			goods.setGoodsids("");
+			goods.setReviewStatues("1");
+			chnGoodsinfoCheckMapper.insertGoodsOnlineSelective(goods);
 		}
 		
 		return chnGoodsinfoCheckMapper.updateByPrimaryKeySelective(chnGoodsinfoCheck);

@@ -348,6 +348,7 @@
 		var ids ;
 		
 		var items = $('#goodscheck').datagrid('getSelections');
+		
 		if(items.length < 1){
 			$.messager.alert('温馨提醒','请选中操作的数据');
 			return ;
@@ -369,7 +370,7 @@
 				return ;
 			}
 		}
-		
+			
 			$.ajax({
 				url:'/goodsCheck/updateGoodsCheckStatus',
 				type:'POST',
@@ -397,6 +398,7 @@
 		var ids ;
 		
 		var items = $('#goodscheck').datagrid('getSelections');
+		
 		if(items.length < 1){
 			$.messager.alert('温馨提醒','请选中操作的数据');
 			return ;
@@ -410,7 +412,6 @@
 				$.messager.alert('温馨提醒','您选中的不是一条已提交审核的数据，请重新选择其他已提交审核数据','question')
 				return ;
 			}
-			
 			$('#checkDialog').dialog({
 				draggable : false,			
 				closed : false,
