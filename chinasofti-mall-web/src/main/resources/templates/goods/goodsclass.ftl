@@ -290,7 +290,6 @@ $(function(){
 	                }
 	            }]
 	        });
-			/* $('#showImg').attr("src",row.img); */
 			$('#updateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
