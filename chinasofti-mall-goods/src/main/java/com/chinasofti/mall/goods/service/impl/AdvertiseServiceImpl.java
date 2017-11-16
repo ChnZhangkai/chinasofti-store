@@ -88,21 +88,24 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		return response;
 	} 
 
-    //处理广告列表返回的数据
-	private ResponseInfo dealAdResponseData(List<AdvertiseContents> result) {
-		ResponseInfo  response= new ResponseInfo();
-		if(result.size()>0){
-			Map<String, Object> data= new HashMap<String, Object>();
-			data.put("responseInfo", result);	
-			response.setData(data);
-			response.setRetCode(MsgEnum.SUCCESS.getCode());
-			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-		}else{
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg(MsgEnum.ERROR.getMsg());
+	  //处理广告列表返回的数据
+		private ResponseInfo dealAdResponseData(List<AdvertiseContents> result) {
+			ResponseInfo  response= new ResponseInfo();
+			if(result.size()>0){
+				Map<String, Object> data= new HashMap<String, Object>();
+				data.put("responseInfo", result);	
+				response.setData(data);
+				response.setRetCode(MsgEnum.SUCCESS.getCode());
+				response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+			}else if(result==null||result.size()==0){
+				response.setRetCode(MsgEnum.ERROR.getCode());
+				response.setRetMsg("未找到相关数据！");
+			}else{
+				response.setRetCode(MsgEnum.ERROR.getCode());
+				response.setRetMsg(MsgEnum.ERROR.getMsg());
+			}
+			return response;
 		}
-		return response;
-	}
 
 	@Override
 	public ResponseInfo queryAdvertise(String positionId){
@@ -112,21 +115,23 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		return response;
 	}
 	//封装返回参数
-	private ResponseInfo dealResponseData(AdvertiseContents result) {
-		ResponseInfo  response= new ResponseInfo();
-		if(result !=null){
-			Map<String, Object> data= new HashMap<String, Object>();
-			data.put("responseInfo", result);
-			response.setData(data);
-			response.setRetCode(MsgEnum.SUCCESS.getCode());
-			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-		}else{
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg(MsgEnum.ERROR.getMsg());
+		private ResponseInfo dealResponseData(AdvertiseContents result) {
+			ResponseInfo  response= new ResponseInfo();
+			if(result !=null){
+				Map<String, Object> data= new HashMap<String, Object>();
+				data.put("responseInfo", result);
+				response.setData(data);
+				response.setRetCode(MsgEnum.SUCCESS.getCode());
+				response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+			}else if("".equals(result)){
+				response.setRetCode(MsgEnum.ERROR.getCode());
+				response.setRetMsg(MsgEnum.ERROR.getMsg());
+			}else{
+				response.setRetCode(MsgEnum.ERROR.getCode());
+				response.setRetMsg("未找到相关数据！");	
+			}
+			return response;
 		}
-		return response;
-	}
-
 	@Override
 	public List<AdvertisePosition> findAdPostionAll() {
 		return advertiseMapper.findAdPostionAll();
