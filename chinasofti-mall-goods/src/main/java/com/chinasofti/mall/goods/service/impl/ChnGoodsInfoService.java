@@ -11,14 +11,14 @@ import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
-import com.chinasofti.mall.goods.mapper.ChnGoodsinfoMapper;
+import com.chinasofti.mall.goods.mapper.ChnGoodsInfoMapper;
 import com.chinasofti.mall.goods.service.IChnGoodsInfoService;
 
 @Service
 public class ChnGoodsInfoService implements IChnGoodsInfoService{
 
 	@Autowired
-	private ChnGoodsinfoMapper goodsinfoMapper;
+	private ChnGoodsInfoMapper goodsinfoMapper;
 	
 	public ResponseInfo selectByClassId(String goodsClassIds) {
 		ResponseInfo  response= new ResponseInfo();

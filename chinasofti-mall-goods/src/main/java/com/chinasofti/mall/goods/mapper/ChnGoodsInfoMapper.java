@@ -5,7 +5,7 @@ import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface ChnGoodsinfoMapper {
+public interface ChnGoodsInfoMapper {
     int countByExample(ChnGoodsinfoExample example);
 
     int deleteByExample(ChnGoodsinfoExample example);
