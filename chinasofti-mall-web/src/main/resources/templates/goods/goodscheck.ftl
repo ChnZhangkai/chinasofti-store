@@ -477,7 +477,7 @@
 	 * 读取路径显示图片
 	 */
 	function imgFormatter(value, row) {
-		var ids = row.ids
+		var ids = row.goodsids
 		var str = "";
 		
 		images = $.ajax({url:'/goodsCheck/reqGoodsGoodsImgPath/' + ids,type:'POST',async:false});
