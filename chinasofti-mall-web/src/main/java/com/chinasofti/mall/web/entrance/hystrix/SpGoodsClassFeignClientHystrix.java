@@ -89,4 +89,14 @@ public class SpGoodsClassFeignClientHystrix implements ChnGoodsFeignClient{
 		return jsonObject;
 	}
 
+	@Override
+	public int updateGoodsStatus(ChnGoodsOnline chnGoodsOnline) {
+		return 0;
+	}
+
+	@Override
+	public int updateStore(ChnGoodsOnline chnGoodsOnline) {
+		return 0;
+	}
+
 }

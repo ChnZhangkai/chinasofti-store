@@ -2,29 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinasofti.mall.goods.mapper.ChnGoodsOnlineMapper">
   <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.goods.ChnGoodsOnline">
-    <result column="GOODS_CLASS_IDS" jdbcType="VARCHAR" property="classId" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="IMG" jdbcType="VARCHAR" property="img" />
-      
-    <result column="GOODSIDS" jdbcType="VARCHAR" property="goodsids" />
+    <id column="IDS" jdbcType="VARCHAR" property="ids" />
+    <result column="VENDORIDS" jdbcType="VARCHAR" property="vendorids" />
     <result column="TITLE" jdbcType="VARCHAR" property="title" />
-    <result column="COMMON" jdbcType="VARCHAR" property="goodsCommons" />
+    <result column="MOUTH_TRADE" jdbcType="DECIMAL" property="mouthTrade" />
+    <result column="SUBTITLE" jdbcType="VARCHAR" property="subtitle" />
+    <result column="COMMON" jdbcType="VARCHAR" property="common" />
     <result column="PRICE" jdbcType="DECIMAL" property="price" />
     <result column="DIS_PRICE" jdbcType="DECIMAL" property="disPrice" />
     <result column="STANDARD" jdbcType="VARCHAR" property="standard" />
+    <result column="GOODS_CLASS_IDS" jdbcType="VARCHAR" property="goodsClassIds" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
     <result column="CONTENT" jdbcType="VARCHAR" property="content" />
     <result column="STORE_NUM" jdbcType="DECIMAL" property="storeNum" />
     <result column="REVIEW_DESC" jdbcType="VARCHAR" property="reviewDesc" />
     <result column="REVIEW_STATUES" jdbcType="CHAR" property="reviewStatues" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="COLL_NUM" jdbcType="DECIMAL" property="collNum" />
     <result column="STATUS" jdbcType="VARCHAR" property="status" />
     <result column="START_TIME" jdbcType="VARCHAR" property="startTime" />
     <result column="END_TIME" jdbcType="VARCHAR" property="endTime" />
     <result column="ONLINE_TIME" jdbcType="VARCHAR" property="onlineTime" />
     <result column="LEAVE_TIME" jdbcType="VARCHAR" property="leaveTime" />
+    <result column="BRAND_IDS" jdbcType="VARCHAR" property="brandIds" />
+    <result column="WEIGHT" jdbcType="DECIMAL" property="weight" />
+    <result column="DELIVE_WAY" jdbcType="VARCHAR" property="deliveWay" />
+    <result column="IS_DIS_VERDORNAME" jdbcType="VARCHAR" property="isDisVerdorname" />
+    <result column="IS_DIS_STANDARD" jdbcType="VARCHAR" property="isDisStandard" />
+    <result column="IS_DIS_STORE" jdbcType="VARCHAR" property="isDisStore" />
+    <result column="LIMIT_ORDER_NUM" jdbcType="DECIMAL" property="limitOrderNum" />
+    <result column="REVIEW_BY" jdbcType="VARCHAR" property="reviewBy" />
+    <result column="REVIEW_TIME" jdbcType="VARCHAR" property="reviewTime" />
+    <result column="LIMIT_USER_NUM" jdbcType="DECIMAL" property="limitUserNum" />
     <result column="ORG_PRICE" jdbcType="DECIMAL" property="orgPrice" />
     <result column="TYPE" jdbcType="VARCHAR" property="type" />
-      
-    <result column="VENDOR_ID" property="vendorId" jdbcType="VARCHAR" />
+    <result column="NAME" jdbcType="VARCHAR" property="name"/>
+    
     <result column="VENDOR_FNM" property="vendorFnm" jdbcType="VARCHAR" />
     <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR" />
     <result column="CHARGEMAN" property="chargeman" jdbcType="VARCHAR" />  
@@ -95,9 +111,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    cg.GOODS_CLASS_IDS,cgs.NAME,cgs.IMG,cgc.GOODSIDS,cg.TITLE,cg.COMMON,cg.PRICE,cg.DIS_PRICE,
-    cg.STANDARD,cg.CONTENT,cg.STORE_NUM,cg.REVIEW_DESC,cg.REVIEW_STATUES,cg.STATUS,cg.START_TIME,
-    cg.END_TIME,cg.ONLINE_TIME,cg.LEAVE_TIME,cg.ORG_PRICE,cg.TYPE,smu.VENDOR_ID,smu.VENDOR_FNM,
+	 cg.IDS, cg.VENDORIDS, cg.TITLE, cg.MOUTH_TRADE, cg.SUBTITLE,cg.COMMON, cg.PRICE, cg.DIS_PRICE, 
+    cg.STANDARD, cg.GOODS_CLASS_IDS, cg.CODE, cg.CONTENT, cg.STORE_NUM, cg.REVIEW_DESC, cg.REVIEW_STATUES, 
+    cg.UPDATE_BY, cg.UPDATE_TIME, cg.CREATE_BY, cg.CREATE_TIME, cg.COLL_NUM, cg.STATUS, cg.START_TIME, cg.END_TIME, 
+    cg.ONLINE_TIME, cg.LEAVE_TIME, cg.BRAND_IDS, cg.WEIGHT, cg.DELIVE_WAY, cg.IS_DIS_VERDORNAME, cg.IS_DIS_STANDARD, 
+    cg.IS_DIS_STORE, cg.LIMIT_ORDER_NUM, cg.REVIEW_BY, cg.REVIEW_TIME, cg.LIMIT_USER_NUM, cg.ORG_PRICE, 
+    cg.TYPE,cgs.NAME,smu.VENDOR_FNM,
     smu.VENDOR_SNM,smu.CHARGEMAN,smu.MOBILE,smu.ADDRESS,smu.BELONG_SITE_NAME,smu.SERVICE_PHONE,
     smu.VENDER_INTRO,smu.VENDER_EXPLAIN
   </sql>
@@ -107,18 +126,20 @@
 	SELECT 
 	<include refid="Base_Column_List" /> 
 	FROM 
-		chn_goodsinfo cg,chn_goods_class cgs,sp_merchant_user smu,chn_goodsinfo_check cgc
+		chn_goodsinfo cg,chn_goods_class cgs,sp_merchant_user smu
 	<where>  
-		cg.VENDORIDS=smu.VENDOR_ID AND cg.GOODS_CLASS_IDS=cgs.ids AND cgc.VENDORIDS=cg.VENDORIDS
-	AND cgc.goodsids=cg.IDS
-		<if test="goodsids != null and goodsids !='' ">
-			and cgc.GOODSIDS like CONCAT('%',#{goodsids},'%')
+		cg.VENDORIDS=smu.VENDOR_ID AND cg.GOODS_CLASS_IDS=cgs.ids AND  cg.REVIEW_STATUES='1'
+		<if test="ids != null and ids !='' ">
+			and cg.IDS like CONCAT('%',#{ids},'%')
 		</if>
 		<if test="title != null and title !='' ">
 			and cg.TITLE like CONCAT('%',#{title},'%')
 		</if>
-		<if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
-			and cg.START_TIME &gt;= #{startTime} and cg.END_TIME &lt;= #{endTime}
+		<if test="startTime != null and startTime != ''">
+			and cg.START_TIME &gt;= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != '' ">
+			and cg.END_TIME &lt;= #{endTime}
 		</if>
 		<if test="name != null and name != '' ">
 			and cgs.NAME like CONCAT('%',#{name},'%')
@@ -129,12 +150,62 @@
 		<if test="type != null and type != '' ">
 			and cg.TYPE = #{type}
 		</if>
-		<if test="reviewStatues != null and reviewStatues != '' ">
-			and cg.REVIEW_STATUES = #{reviewStatues}
+		<if test="status != null and status != '' ">
+			and cg.STATUS = #{status}
 		</if>
 	</where>
   </select>
   
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsOnline" >
+  	UPDATE 
+  		chn_goodsinfo cg
+  	SET 
+  	    cg.STATUS = #{status,jdbcType=VARCHAR},
+  	    cg.ONLINE_TIME = #{onlineTime,jdbcType=VARCHAR},
+        cg.LEAVE_TIME = #{leaveTime,jdbcType=VARCHAR}
+  	WHERE 
+  		cg.IDS = #{ids,jdbcType=VARCHAR}
 
+  </update>
+  
+   <update id="update" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsOnline" >
+  	UPDATE 
+  		chn_goodsinfo cg
+  	SET 
+  	    cg.STORE_NUM = #{storeNum,jdbcType=VARCHAR}
+  	WHERE 
+  		cg.IDS = #{ids,jdbcType=VARCHAR}
+
+  </update>
+  
+  <insert id="save" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsOnline">
+    insert into chn_goodsinfo cg (IDS, VENDORIDS, 
+      TITLE, MOUTH_TRADE, SUBTITLE, 
+      COMMON, PRICE, DIS_PRICE, 
+      STANDARD, GOODS_CLASS_IDS, CODE, 
+      CONTENT, STORE_NUM, REVIEW_DESC, 
+      REVIEW_STATUES, UPDATE_BY, UPDATE_TIME, 
+      CREATE_BY, CREATE_TIME, COLL_NUM, 
+      STATUS, START_TIME, END_TIME, 
+      ONLINE_TIME, LEAVE_TIME, BRAND_IDS, 
+      WEIGHT, DELIVE_WAY, IS_DIS_VERDORNAME, 
+      IS_DIS_STANDARD, IS_DIS_STORE, LIMIT_ORDER_NUM, 
+      REVIEW_BY, REVIEW_TIME, LIMIT_USER_NUM, 
+      ORG_PRICE, TYPE,NAME,VENDOR_SNM)
+    values (#{ids,jdbcType=VARCHAR}, #{goodsids,jdbcType=VARCHAR}, #{vendorids,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{mouthTrade,jdbcType=DECIMAL}, #{subtitle,jdbcType=VARCHAR}, 
+      #{common,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{disPrice,jdbcType=DECIMAL}, 
+      #{standard,jdbcType=VARCHAR}, #{goodsClassIds,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{storeNum,jdbcType=DECIMAL}, #{reviewDesc,jdbcType=VARCHAR}, 
+      #{reviewStatues,jdbcType=CHAR}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{collNum,jdbcType=DECIMAL}, 
+      #{status,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{onlineTime,jdbcType=VARCHAR}, #{leaveTime,jdbcType=VARCHAR}, #{brandIds,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=DECIMAL}, #{deliveWay,jdbcType=VARCHAR}, #{isDisVerdorname,jdbcType=VARCHAR}, 
+      #{isDisStandard,jdbcType=VARCHAR}, #{isDisStore,jdbcType=VARCHAR}, #{limitOrderNum,jdbcType=DECIMAL}, 
+      #{reviewBy,jdbcType=VARCHAR}, #{reviewTime,jdbcType=VARCHAR}, #{limitUserNum,jdbcType=DECIMAL}, 
+      #{orgPrice,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{vendorSnm,jdbcType=VARCHAR})
+  </insert>
+ 
   
 </mapper>

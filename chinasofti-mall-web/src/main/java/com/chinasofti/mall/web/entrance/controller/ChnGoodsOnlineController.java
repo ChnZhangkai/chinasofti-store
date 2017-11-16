@@ -29,13 +29,35 @@ public class ChnGoodsOnlineController {
 	
 	/**
 	 * 列表及条件查询
-	 * @param spGoodsClass
+	 * @param chnGoodsOnline
 	 * @return
 	 */
 	@RequestMapping("/list")
 	public String selectByGoodsOnline(ChnGoodsOnline chnGoodsOnline){
-		System.out.println("goodsOnline!!!!!!");
 		JSONObject jsonlist = chnGoodsFeignClient.selectByGoodsOnline(chnGoodsOnline);
 		return jsonlist.toString();
+	}
+	
+	
+	/**
+	 * 商品状态修改
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping("/updateGoodsStatus")
+	public int updateGoodsStatus(ChnGoodsOnline chnGoodsOnline){
+		return chnGoodsFeignClient.updateGoodsStatus(chnGoodsOnline);
+		
+	}
+	
+	/**
+	 * 商品库存修改
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping("/update")
+	public int updateStore(ChnGoodsOnline chnGoodsOnline){
+		return chnGoodsFeignClient.updateStore(chnGoodsOnline);
+		
 	}
 }

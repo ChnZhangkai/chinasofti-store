@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.goods.service.ChnGoodsOnlineService;
 
 import net.sf.json.JSONObject;
@@ -24,12 +25,34 @@ public class ChnGoodsOnlineController {
 	private ChnGoodsOnlineService chnGoodsOnlineServiceImpl;
 	/**
 	 * 列表及条件查询
-	 * @param goodscategory
+	 * @param chnGoodsOnline
 	 * @return
 	 */
 	@RequestMapping(value = "/list" , method = RequestMethod.POST)
 	public JSONObject selectByGoodsOnline(@RequestBody(required = false)ChnGoodsOnline chnGoodsOnline){
 		return chnGoodsOnlineServiceImpl.selectByExample(chnGoodsOnline);
+ 
+	}
+	
+	/**
+	 * 商品上架
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/updateGoodsStatus" , method = RequestMethod.POST)
+	public int updateGoodsStatus(@RequestBody(required = false)ChnGoodsOnline chnGoodsOnline){
+		return chnGoodsOnlineServiceImpl.updateGoodsStatus(chnGoodsOnline);
+ 
+	}
+	
+	/**
+	 * 修改商品库存
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/update" , method = RequestMethod.POST)
+	public int updateGoodsStore(@RequestBody(required = false)ChnGoodsinfoCheck chnGoodsinfoCheck){
+		return chnGoodsOnlineServiceImpl.update(chnGoodsinfoCheck);
  
 	}
 

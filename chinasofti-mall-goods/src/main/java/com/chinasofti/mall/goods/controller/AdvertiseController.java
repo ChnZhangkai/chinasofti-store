@@ -178,7 +178,6 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 		
 		return response;
 	}
-
 	@SuppressWarnings("null")
 	@RequestMapping("findAdvertise")
 	public ResponseInfo findAdvertise(@RequestParam("positionId") String positionId) {

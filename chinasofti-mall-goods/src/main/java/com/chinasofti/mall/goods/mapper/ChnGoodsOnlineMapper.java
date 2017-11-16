@@ -22,4 +22,16 @@ public interface ChnGoodsOnlineMapper {
 	 */
 	List<ChnGoodsOnline> findAll(ChnGoodsOnline chnGoodsOnline);
 
+	/**
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	int updateByPrimaryKey(ChnGoodsOnline chnGoodsOnline);
+
+	/**
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	int updateByPrimaryKeySelective(ChnGoodsOnline chnGoodsOnline);
+
 }
