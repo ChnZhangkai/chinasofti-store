@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,28 +72,34 @@ public class ChnGoodsClassController {
 	 */
 	@RequestMapping("/update")
 	public int updateGoodsClassById(ChnGoodsClass chnGoodsClass,MultipartHttpServletRequest multipartHttpServletRequest){
-		
-		String delImg = chnGoodsClass.getImg();
-		String delImgname = delImg.substring(delImg.lastIndexOf("/")+1);
-		String delImgUrl = beforePath + File.separator + delImgname;
-		File file = new File(delImgUrl);
-		if (file.exists()) {
-			file.delete();
-		}
-		
+
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("uimg");
 		String imageName = multipartFile.getOriginalFilename();
 		String fileName = beforePath + File.separator + imageName;
 		File fileSave = new File(fileName);
-		try {
-			multipartFile.transferTo(fileSave);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		if (!StringUtils.isEmpty(multipartFile.getOriginalFilename())) {
+			
+			//若选择了图片则保存新图片
+			try {
+				multipartFile.transferTo(fileSave);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//若选择了图片则删除旧图片
+			String delImg = chnGoodsClass.getImg();
+			String delImgname = delImg.substring(delImg.lastIndexOf("/")+1);
+			String delImgUrl = beforePath + File.separator + delImgname;
+			File file = new File(delImgUrl);
+			if (file.exists()) {
+				file.delete();
+			}
+			//存储新图片路径
+			chnGoodsClass.setImg("/data/goods/" + imageName);
 		}
 		
-		chnGoodsClass.setImg("/data/goods/" + imageName);
 		int updateGoodsClass = chnGoodsClassFeignClient.updateGoodsClass(chnGoodsClass);
 		return updateGoodsClass;
 	}

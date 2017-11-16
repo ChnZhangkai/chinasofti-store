@@ -126,7 +126,7 @@
 					</select></td>
 					<th align="right">首次录入库存数量</th>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" id="collNum" name="collNum"/></td>
+						class="easyui-textbox" id="storeNum" name="storeNum"/></td>
 				</tr>
 				<tr>
 					<th align="right">每个用户限购数量</th>

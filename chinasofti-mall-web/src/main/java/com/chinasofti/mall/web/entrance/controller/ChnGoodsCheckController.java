@@ -82,6 +82,7 @@ public class ChnGoodsCheckController {
 	public String reqGoodsClassName(){
 		
 		ChnGoodsClass chnGoodsClass = new ChnGoodsClass();
+		chnGoodsClass.setStates("1");
 		JSONObject goodsClass = chnGoodsFeignClient.selectByGoodsClass(chnGoodsClass);
 		
 		return goodsClass.toString();
