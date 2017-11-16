@@ -8,30 +8,44 @@ import java.math.BigDecimal;
 import com.chinasofti.mall.common.utils.PageBean;
  
 public class ChnGoodsOnline extends PageBean{
-	//商品分类
-	private String classId;//分类Id
-	private String name;//分类名称
-	private String img;//商品图片
-	//商品信息
-	private String goodsids;//商品编号
-	private String title;//商品名称
-	private String goodsCommons;//商品描述
-	private BigDecimal price;//商品价格
-    private BigDecimal disPrice;//优惠比例
-    private String standard;//商品规格
-    private String content;//展示内容
-    private BigDecimal storeNum;//库存
-    private String reviewDesc;//审核原因
-    private String reviewStatues;//审核状态
-    private String status;//商品状态
-    private String startTime;//开始时间
-    private String endTime;//结束时间
-    private String onlineTime;//上架时间
-    private String leaveTime;//下架时间
-    private BigDecimal orgPrice;//商品原价
-    private String type;//商品类型
-    //商户信息
-	private String vendorId;//商户Id
+	private String ids;
+    private String vendorids;
+    private String title;
+    private BigDecimal mouthTrade;
+    private String subtitle;
+    private String common;
+    private BigDecimal price;
+    private BigDecimal disPrice;
+    private String standard;
+    private String goodsClassIds;
+    private String code;
+    private String content;
+    private BigDecimal storeNum;
+    private String reviewDesc;
+    private String reviewStatues;
+    private String updateBy;
+    private String updateTime;
+    private String createBy;
+    private String createTime;
+    private BigDecimal collNum;
+    private String status;
+    private String startTime;
+    private String endTime;
+    private String onlineTime;
+    private String leaveTime;
+    private String brandIds;
+    private BigDecimal weight;
+    private String deliveWay;
+    private String isDisVerdorname;
+    private String isDisStandard;
+    private String isDisStore;
+    private BigDecimal limitOrderNum;
+    private String reviewBy;
+    private String reviewTime;
+    private BigDecimal limitUserNum;
+    private BigDecimal orgPrice;
+    private String type;   
+    private String name;
 	private String vendorFnm;//商户全称
 	private String vendorSnm;//商户简称
 	private String chargeman;//商户负责人
@@ -41,57 +55,29 @@ public class ChnGoodsOnline extends PageBean{
 	private String servicePhone;//售后电话
 	private String venderIntro;//商户介绍
     private String venderExplain;//售后说明
-
 	/**
-	 * @return the classId
+	 * @return the ids
 	 */
-	public String getClassId() {
-		return classId;
+	public String getIds() {
+		return ids;
 	}
 	/**
-	 * @param classId the classId to set
+	 * @param ids the ids to set
 	 */
-	public void setClassId(String classId) {
-		this.classId = classId;
+	public void setIds(String ids) {
+		this.ids = ids;
 	}
 	/**
-	 * @return the name
+	 * @return the vendorids
 	 */
-	public String getName() {
-		return name;
+	public String getVendorids() {
+		return vendorids;
 	}
 	/**
-	 * @param name the name to set
+	 * @param vendorids the vendorids to set
 	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the img
-	 */
-	public String getImg() {
-		return img;
-	}
-	/**
-	 * @param img the img to set
-	 */
-	public void setImg(String img) {
-		this.img = img;
-	}
-	
-
-	/**
-	 * @return the goodsids
-	 */
-	public String getGoodsids() {
-		return goodsids;
-	}
-	/**
-	 * @param goodsids the goodsids to set
-	 */
-	public void setGoodsids(String goodsids) {
-		this.goodsids = goodsids;
+	public void setVendorids(String vendorids) {
+		this.vendorids = vendorids;
 	}
 	/**
 	 * @return the title
@@ -106,16 +92,40 @@ public class ChnGoodsOnline extends PageBean{
 		this.title = title;
 	}
 	/**
-	 * @return the goodsCommons
+	 * @return the mouthTrade
 	 */
-	public String getGoodsCommons() {
-		return goodsCommons;
+	public BigDecimal getMouthTrade() {
+		return mouthTrade;
 	}
 	/**
-	 * @param goodsCommons the goodsCommons to set
+	 * @param mouthTrade the mouthTrade to set
 	 */
-	public void setGoodsCommons(String goodsCommons) {
-		this.goodsCommons = goodsCommons;
+	public void setMouthTrade(BigDecimal mouthTrade) {
+		this.mouthTrade = mouthTrade;
+	}
+	/**
+	 * @return the subtitle
+	 */
+	public String getSubtitle() {
+		return subtitle;
+	}
+	/**
+	 * @param subtitle the subtitle to set
+	 */
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+	/**
+	 * @return the common
+	 */
+	public String getCommon() {
+		return common;
+	}
+	/**
+	 * @param common the common to set
+	 */
+	public void setCommon(String common) {
+		this.common = common;
 	}
 	/**
 	 * @return the price
@@ -152,6 +162,30 @@ public class ChnGoodsOnline extends PageBean{
 	 */
 	public void setStandard(String standard) {
 		this.standard = standard;
+	}
+	/**
+	 * @return the goodsClassIds
+	 */
+	public String getGoodsClassIds() {
+		return goodsClassIds;
+	}
+	/**
+	 * @param goodsClassIds the goodsClassIds to set
+	 */
+	public void setGoodsClassIds(String goodsClassIds) {
+		this.goodsClassIds = goodsClassIds;
+	}
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
 	}
 	/**
 	 * @return the content
@@ -200,6 +234,66 @@ public class ChnGoodsOnline extends PageBean{
 	 */
 	public void setReviewStatues(String reviewStatues) {
 		this.reviewStatues = reviewStatues;
+	}
+	/**
+	 * @return the updateBy
+	 */
+	public String getUpdateBy() {
+		return updateBy;
+	}
+	/**
+	 * @param updateBy the updateBy to set
+	 */
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
+	/**
+	 * @return the updateTime
+	 */
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	/**
+	 * @param updateTime the updateTime to set
+	 */
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	/**
+	 * @return the createBy
+	 */
+	public String getCreateBy() {
+		return createBy;
+	}
+	/**
+	 * @param createBy the createBy to set
+	 */
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+	/**
+	 * @return the createTime
+	 */
+	public String getCreateTime() {
+		return createTime;
+	}
+	/**
+	 * @param createTime the createTime to set
+	 */
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	/**
+	 * @return the collNum
+	 */
+	public BigDecimal getCollNum() {
+		return collNum;
+	}
+	/**
+	 * @param collNum the collNum to set
+	 */
+	public void setCollNum(BigDecimal collNum) {
+		this.collNum = collNum;
 	}
 	/**
 	 * @return the status
@@ -262,6 +356,126 @@ public class ChnGoodsOnline extends PageBean{
 		this.leaveTime = leaveTime;
 	}
 	/**
+	 * @return the brandIds
+	 */
+	public String getBrandIds() {
+		return brandIds;
+	}
+	/**
+	 * @param brandIds the brandIds to set
+	 */
+	public void setBrandIds(String brandIds) {
+		this.brandIds = brandIds;
+	}
+	/**
+	 * @return the weight
+	 */
+	public BigDecimal getWeight() {
+		return weight;
+	}
+	/**
+	 * @param weight the weight to set
+	 */
+	public void setWeight(BigDecimal weight) {
+		this.weight = weight;
+	}
+	/**
+	 * @return the deliveWay
+	 */
+	public String getDeliveWay() {
+		return deliveWay;
+	}
+	/**
+	 * @param deliveWay the deliveWay to set
+	 */
+	public void setDeliveWay(String deliveWay) {
+		this.deliveWay = deliveWay;
+	}
+	/**
+	 * @return the isDisVerdorname
+	 */
+	public String getIsDisVerdorname() {
+		return isDisVerdorname;
+	}
+	/**
+	 * @param isDisVerdorname the isDisVerdorname to set
+	 */
+	public void setIsDisVerdorname(String isDisVerdorname) {
+		this.isDisVerdorname = isDisVerdorname;
+	}
+	/**
+	 * @return the isDisStandard
+	 */
+	public String getIsDisStandard() {
+		return isDisStandard;
+	}
+	/**
+	 * @param isDisStandard the isDisStandard to set
+	 */
+	public void setIsDisStandard(String isDisStandard) {
+		this.isDisStandard = isDisStandard;
+	}
+	/**
+	 * @return the isDisStore
+	 */
+	public String getIsDisStore() {
+		return isDisStore;
+	}
+	/**
+	 * @param isDisStore the isDisStore to set
+	 */
+	public void setIsDisStore(String isDisStore) {
+		this.isDisStore = isDisStore;
+	}
+	/**
+	 * @return the limitOrderNum
+	 */
+	public BigDecimal getLimitOrderNum() {
+		return limitOrderNum;
+	}
+	/**
+	 * @param limitOrderNum the limitOrderNum to set
+	 */
+	public void setLimitOrderNum(BigDecimal limitOrderNum) {
+		this.limitOrderNum = limitOrderNum;
+	}
+	/**
+	 * @return the reviewBy
+	 */
+	public String getReviewBy() {
+		return reviewBy;
+	}
+	/**
+	 * @param reviewBy the reviewBy to set
+	 */
+	public void setReviewBy(String reviewBy) {
+		this.reviewBy = reviewBy;
+	}
+	/**
+	 * @return the reviewTime
+	 */
+	public String getReviewTime() {
+		return reviewTime;
+	}
+	/**
+	 * @param reviewTime the reviewTime to set
+	 */
+	public void setReviewTime(String reviewTime) {
+		this.reviewTime = reviewTime;
+	}
+	/**
+	 * @return the limitUserNum
+	 */
+	public BigDecimal getLimitUserNum() {
+		return limitUserNum;
+	}
+	/**
+	 * @param limitUserNum the limitUserNum to set
+	 */
+	public void setLimitUserNum(BigDecimal limitUserNum) {
+		this.limitUserNum = limitUserNum;
+	}
+	/**
 	 * @return the orgPrice
 	 */
 	public BigDecimal getOrgPrice() {
@@ -286,16 +500,16 @@ public class ChnGoodsOnline extends PageBean{
 		this.type = type;
 	}
 	/**
-	 * @return the vendorId
+	 * @return the name
 	 */
-	public String getVendorId() {
-		return vendorId;
+	public String getName() {
+		return name;
 	}
 	/**
-	 * @param vendorId the vendorId to set
+	 * @param name the name to set
 	 */
-	public void setVendorId(String vendorId) {
-		this.vendorId = vendorId;
+	public void setName(String name) {
+		this.name = name;
 	}
 	/**
 	 * @return the vendorFnm
@@ -405,23 +619,25 @@ public class ChnGoodsOnline extends PageBean{
 	public void setVenderExplain(String venderExplain) {
 		this.venderExplain = venderExplain;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	
+	
 	@Override
 	public String toString() {
-		return "ChnGoodsOnline [ classId=" + classId + ", name=" + name + ", "
-				+ "img=" + img + ", goodsId=" + goodsids + ", title=" + title + ", goodsCommons=" + goodsCommons
-				+ ", price=" + price + ", disPrice=" + disPrice + ", standard=" + standard + ", content=" + content
-				+ ", storeNum=" + storeNum + ", reviewDesc=" + reviewDesc + ", reviewStatues=" + reviewStatues
-				+ ", status=" + status + ", startTime=" + startTime + ", endTime=" + endTime + ", onlineTime="
-				+ onlineTime + ", leaveTime=" + leaveTime + ", orgPrice=" + orgPrice + ", type=" + type + ", "
-						+ " vendorId=" + vendorId + ", vendorFnm=" + vendorFnm + ", vendorSnm=" + vendorSnm
-				+ ", chargeman=" + chargeman + ", mobile=" + mobile + ", address=" + address + ", belongSiteName="
-				+ belongSiteName + ", servicePhone=" + servicePhone + ", venderIntro=" + venderIntro
-				+ ", venderExplain=" + venderExplain + "]";
+		return "ChnGoodsOnline [ids=" + ids + ", vendorids=" + vendorids + ", title=" + title + ", mouthTrade="
+				+ mouthTrade + ", subtitle=" + subtitle + ", common=" + common + ", price=" + price + ", disPrice="
+				+ disPrice + ", standard=" + standard + ", goodsClassIds=" + goodsClassIds + ", code=" + code
+				+ ", content=" + content + ", storeNum=" + storeNum + ", reviewDesc=" + reviewDesc + ", reviewStatues="
+				+ reviewStatues + ", updateBy=" + updateBy + ", updateTime=" + updateTime + ", createBy=" + createBy
+				+ ", createTime=" + createTime + ", collNum=" + collNum + ", status=" + status + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", onlineTime=" + onlineTime + ", leaveTime=" + leaveTime
+				+ ", brandIds=" + brandIds + ", weight=" + weight + ", deliveWay=" + deliveWay + ", isDisVerdorname="
+				+ isDisVerdorname + ", isDisStandard=" + isDisStandard + ", isDisStore=" + isDisStore
+				+ ", limitOrderNum=" + limitOrderNum + ", reviewBy=" + reviewBy + ", reviewTime=" + reviewTime
+				+ ", limitUserNum=" + limitUserNum + ", orgPrice=" + orgPrice + ", type=" + type + ", name=" + name
+				+ ", vendorFnm=" + vendorFnm + ", vendorSnm=" + vendorSnm + ", chargeman=" + chargeman + ", mobile="
+				+ mobile + ", address=" + address + ", belongSiteName=" + belongSiteName + ", servicePhone="
+				+ servicePhone + ", venderIntro=" + venderIntro + ", venderExplain=" + venderExplain + "]";
 	}
     
     
-	
 }
