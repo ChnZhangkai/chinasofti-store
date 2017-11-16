@@ -9,14 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.app.hystrix.AdvertiseFeignClientHystrix;
 import com.chinasofti.mall.common.utils.ResponseInfo;
-
-
+ 
 /**广告消费类
  * 
  * @author gezhenlin
  *
  */
-@FeignClient(name = "Goods-Service" , fallback = AdvertiseFeignClientHystrix.class)
+//@FeignClient(name = "Goods-Service" , fallback = AdvertiseFeignClientHystrix.class)
 public interface AdvertiseFeignClient {
 	
 	

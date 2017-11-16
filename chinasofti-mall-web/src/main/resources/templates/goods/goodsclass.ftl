@@ -31,9 +31,9 @@
 		<tr>
 			<th field="ids" width="20%" align="center">分类编号</th>
 			<th field="name" width="10%" align="center">分类名称</th>
-			<th field="states" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
-			<th field="commons" width="25%" align="center">分类描述</th>
 			<th field="img" width="10%" align="center" data-options="formatter:imgFormatter">分类图片</th>
+			<th field="commons" width="25%" align="center">分类描述</th>
+			<th field="states" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
 			<th field="createBy" width="15%" align="center">创建员工</th>
 			<th field="createTime" width="15%" align="center" >创建时间</th>
 		</tr>
