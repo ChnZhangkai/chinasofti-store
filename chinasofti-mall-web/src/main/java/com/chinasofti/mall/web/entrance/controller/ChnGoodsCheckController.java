@@ -67,9 +67,6 @@ public class ChnGoodsCheckController {
 		
 		GoodsFile goodsFile = goodsFileService.selectByGoodsIds(ids);
 		
-//		String filepath = goodsFile.getFilepath();
-//		String newFilePath = filepath.substring(1);
-		
 		return goodsFile.getFilepath();
 		
 	}
@@ -82,6 +79,7 @@ public class ChnGoodsCheckController {
 	public String reqGoodsClassName(){
 		
 		ChnGoodsClass chnGoodsClass = new ChnGoodsClass();
+		chnGoodsClass.setStates("1");
 		JSONObject goodsClass = chnGoodsFeignClient.selectByGoodsClass(chnGoodsClass);
 		
 		return goodsClass.toString();

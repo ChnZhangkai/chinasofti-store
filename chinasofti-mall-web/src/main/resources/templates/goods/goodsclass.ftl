@@ -114,7 +114,7 @@
 			<tr>
 				<td align="center">原图地址:</td>
 				<td><input type="text" id="img" name="img"
-					class="wu-text" readonly="true"/></td>
+					class="wu-text easyui-tooltip" title="请选择新图片" style="background-color: #F4F4F4" readonly="true"/></td>
 			</tr>
 			<tr>
 				<td align="center">分类图片:</td>
@@ -254,6 +254,7 @@ $(function(){
 				if(data > 0){
 					$('#goodsPagination').pagination('select');
 					$('#wu-dialog-2').dialog('close');
+					document.getElementById("showpic").innerHTML = "";
 					$.messager.alert('信息提示','提交成功！','info');
 				}
 				else
@@ -289,7 +290,6 @@ $(function(){
 	                }
 	            }]
 	        });
-			/* $('#showImg').attr("src",row.img); */
 			$('#updateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');

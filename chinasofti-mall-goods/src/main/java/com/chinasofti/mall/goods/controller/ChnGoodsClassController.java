@@ -52,7 +52,7 @@ public class ChnGoodsClassController {
 	 */
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
 	public int updateGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
-		return GoodsClassService.update(chnGoodsClass);
+		return GoodsClassService.updateById(chnGoodsClass);
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class ChnGoodsClassController {
 	 */
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	public int saveGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
-		return GoodsClassService.save(chnGoodsClass);
+		return GoodsClassService.saveGoodsClass(chnGoodsClass);
 	}
 	/**
 	 * 通过classId查询商品分类（分一级与二级分类）

@@ -68,4 +68,15 @@ public class StringDateUtil {
 			return null;
 		}
 	}
+	
+	/**
+	 * Date类型转换为yyyyMMddHHmmss日期字符串
+	 * @param date
+	 * @return
+	 */
+	public static String convertDateToLongString(Date date){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String longStringDate = sdf.format(date);
+		return longStringDate;
+	}
 }

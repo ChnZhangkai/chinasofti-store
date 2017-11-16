@@ -72,7 +72,13 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	 */
 	@Override
 	public int update(ChnGoodsinfoCheck chnGoodsinfoCheck) {
-		return chnGoodsinfoCheckMapper.updateByPrimaryKeySelective(chnGoodsinfoCheck);
+		int updateGoodsCheck = chnGoodsinfoCheckMapper.updateByPrimaryKeySelective(chnGoodsinfoCheck);
+		
+		if (chnGoodsinfoCheck.getReviewStatues() == "1") {
+			
+		}
+		
+		return updateGoodsCheck;
 	}
 
 	/* 
