@@ -25,7 +25,7 @@ public class ChnGoodsInfoController {
 	 * @param id
 	 * @return queryGoodList 
 	 */
-	@RequestMapping("queryGoodList")
+	@RequestMapping("queryGoodsList")
 	public ResponseInfo queryGoodList(@RequestParam("id") String id){
 		String goodsClassIds = id;
 		return goodsInfoService.selectByClassId(goodsClassIds);
