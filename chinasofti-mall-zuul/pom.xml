@@ -29,4 +29,33 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			
+			<plugin>  
+			        <groupId>org.apache.maven.plugins</groupId>  
+			        <artifactId>maven-antrun-plugin</artifactId>  
+			        <version>1.8</version>  
+			        <executions>  
+			            <execution>  
+			                <id>deploy</id>  
+			                <phase>package</phase>  
+			                <goals>  
+			                    <goal>run</goal>  
+			                </goals>  
+			                <configuration>  
+			                    <target>  
+			                        <property name="servicemix_path" value="D:/mall/deploy" />  
+			                        <property name="target_file" value="${project.artifactId}-${project.version}.jar" />  
+			                        <echo message="servicemix_path: ${servicemix_path}" />  
+			                        <echo message="file: ${target_file}" />  
+			                        <delete file="${servicemix_path}/${target_file}"></delete>  
+			                        <copy file="target/${target_file}" todir="${servicemix_path}/" />  
+			                    </target>  
+			                </configuration>  
+			            </execution>  
+			        </executions>  
+			</plugin>  
+		</plugins>
+	</build>
 </project>
