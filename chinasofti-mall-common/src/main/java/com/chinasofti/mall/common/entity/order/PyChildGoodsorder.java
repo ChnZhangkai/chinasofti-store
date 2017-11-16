@@ -126,8 +126,38 @@ public class PyChildGoodsorder extends PageBean{
     private String goodsType;
     
     private String className;
+    
+    private BigDecimal afterType;
+    
+    private String approveStatus;
+    
+    private String payWay;
 
-    public String getGoodsTitle() {
+    public String getPayWay() {
+		return payWay;
+	}
+
+	public void setPayWay(String payWay) {
+		this.payWay = payWay;
+	}
+
+	public BigDecimal getAfterType() {
+		return afterType;
+	}
+
+	public void setAfterType(BigDecimal afterType) {
+		this.afterType = afterType;
+	}
+
+	public String getApproveStatus() {
+		return approveStatus;
+	}
+
+	public void setApproveStatus(String approveStatus) {
+		this.approveStatus = approveStatus;
+	}
+
+	public String getGoodsTitle() {
 		return goodsTitle;
 	}
 

@@ -3,6 +3,7 @@ package com.chinasofti.mall.common.entity.order;
 import java.math.BigDecimal;
 
 import com.chinasofti.mall.common.utils.PageBean;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 
 public class PyMainGoodsorder extends PageBean{
     /**
@@ -132,7 +133,7 @@ public class PyMainGoodsorder extends PageBean{
     private String payStatus;
 
     /**
-    * @Fields status : 订单状态: 0 已删除  1 未发货 2 已发货 3 已收货
+    * @Fields status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
     */
     private String status;
 
@@ -261,8 +262,38 @@ public class PyMainGoodsorder extends PageBean{
     * @Fields freight : 运费
     */
     private BigDecimal freight;
+    
+    private String orderType;
+    
+    private BigDecimal afterType;
+    
+    private String vendorSnm;
 
-    public String getIds() {
+    public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+
+	public BigDecimal getAfterType() {
+		return afterType;
+	}
+
+	public void setAfterType(BigDecimal afterType) {
+		this.afterType = afterType;
+	}
+
+	public String getVendorSnm() {
+		return vendorSnm;
+	}
+
+	public void setVendorSnm(String vendorSnm) {
+		this.vendorSnm = vendorSnm;
+	}
+
+	public String getIds() {
         return ids;
     }
 
@@ -391,7 +422,11 @@ public class PyMainGoodsorder extends PageBean{
     }
 
     public String getOrderTime() {
-        return orderTime;
+    	if(orderTime != null){
+    		return StringDateUtil.convertToPageFormat(orderTime);
+    	} else {
+    		return orderTime;
+    	}
     }
 
     public void setOrderTime(String orderTime) {
@@ -399,7 +434,11 @@ public class PyMainGoodsorder extends PageBean{
     }
 
     public String getSettleTime() {
-        return settleTime;
+    	if(settleTime != null){
+    		return StringDateUtil.convertToPageFormat(settleTime);
+    	} else {
+    		return settleTime;
+    	}
     }
 
     public void setSettleTime(String settleTime) {
@@ -519,7 +558,12 @@ public class PyMainGoodsorder extends PageBean{
     }
 
     public String getSettleTimeFee() {
-        return settleTimeFee;
+    	if(settleTimeFee != null){
+    		return StringDateUtil.convertToPageFormat(settleTimeFee);
+    	} else {
+    		return settleTimeFee;
+    	}
+        
     }
 
     public void setSettleTimeFee(String settleTimeFee) {
@@ -575,7 +619,11 @@ public class PyMainGoodsorder extends PageBean{
     }
 
     public String getSendouttime() {
-        return sendouttime;
+    	if(sendouttime != null && !sendouttime.equals("")) {
+    		return StringDateUtil.convertToPageFormat(sendouttime);
+    	}else {
+    		return sendouttime;
+    	}
     }
 
     public void setSendouttime(String sendouttime) {

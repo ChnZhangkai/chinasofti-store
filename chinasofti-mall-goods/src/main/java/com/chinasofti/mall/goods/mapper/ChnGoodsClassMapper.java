@@ -33,6 +33,6 @@ public interface ChnGoodsClassMapper {
      * @param isParent
      * @return
      */
-    List<ChnGoodsClass> selectByIsParent(String isParent);
-    List<ChnGoodsClass> selectById(String pids);
-}
+    List<ChnGoodsClass> selectByIsParent(@Param("isparent") String isparent);
+    List<ChnGoodsClass> selectById(@Param("pids") String pids);
+} 

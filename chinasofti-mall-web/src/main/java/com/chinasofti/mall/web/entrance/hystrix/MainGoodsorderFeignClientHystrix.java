@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
+import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.web.entrance.feign.MainGoodsorderFeign;
 
@@ -34,6 +35,14 @@ public class MainGoodsorderFeignClientHystrix implements MainGoodsorderFeign {
 
 	@Override
 	public JSONObject selectByMainorderClass(PyMainGoodsorder mainGoodsorder) {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("total", 0);
+		jsonObject.put("rows", new ArrayList<>());
+		return jsonObject;
+	}
+
+	@Override
+	public JSONObject selectByMainorderCondition(MainorderCondition mainorderCondition) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("total", 0);
 		jsonObject.put("rows", new ArrayList<>());

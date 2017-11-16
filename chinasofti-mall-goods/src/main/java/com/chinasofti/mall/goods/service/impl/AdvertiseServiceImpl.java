@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goods.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertiseContentsExample;
 import com.chinasofti.mall.common.entity.AdvertisePosition;
+import com.chinasofti.mall.common.utils.MsgEnum;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.AdvertiseContentsMapper;
 import com.chinasofti.mall.goods.service.IAdvertiseService;
 import com.github.pagehelper.Page;
@@ -32,8 +35,8 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	@Override
 	public int save(AdvertiseContents advertiseContents) {
 		advertiseContents.setIds(UUID.randomUUID().toString().replaceAll("-", ""));
-		// advertiseContents.setBeginTime((DateUtil.DadeFormat(advertiseContents.getBeginTime())));
-		// advertiseContents.setEndTime((DateUtil.DadeFormat(advertiseContents.getEndTime())));
+		//advertiseContents.setBeginTime((DateUtil.DadeFormat(advertiseContents.getBeginTime()))); 
+		//advertiseContents.setEndTime((DateUtil.DadeFormat(advertiseContents.getEndTime())));
 		return advertiseMapper.insertSelective(advertiseContents);
 	}
 
@@ -76,25 +79,58 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	@Override
 	/**
 	 * 根据位置Id查找广告列表和单条广告
-	 * 
-	 * @throws Exception
+	 * @throws Exception 
 	 */
-	public List<AdvertiseContents> queryAdvertiseList(String positionId) {
+	public ResponseInfo queryAdvertiseList(String positionId){
+		ResponseInfo  response= new ResponseInfo();
+		List<AdvertiseContents> result = advertiseMapper.selectAdvertiseList(positionId);
+		response = dealAdResponseData(result);
+		return response;
+	} 
 
-		return advertiseMapper.selectAdvertiseList(positionId);
+    //处理广告列表返回的数据
+	private ResponseInfo dealAdResponseData(List<AdvertiseContents> result) {
+		ResponseInfo  response= new ResponseInfo();
+		if(result.size()>0){
+			Map<String, Object> data= new HashMap<String, Object>();
+			data.put("responseInfo", result);	
+			response.setData(data);
+			response.setRetCode(MsgEnum.SUCCESS.getCode());
+			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		}else{
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg(MsgEnum.ERROR.getMsg());
+		}
+		return response;
 	}
 
 	@Override
-	public AdvertiseContents queryAdvertise(String positionId) {
-
-		return advertiseMapper.selectSingleAdvertise(positionId);
+	public ResponseInfo queryAdvertise(String positionId){
+		ResponseInfo  response= new ResponseInfo();
+		AdvertiseContents result = advertiseMapper.selectSingleAdvertise(positionId);
+		response = dealResponseData(result);
+		return response;
+	}
+	//封装返回参数
+	private ResponseInfo dealResponseData(AdvertiseContents result) {
+		ResponseInfo  response= new ResponseInfo();
+		if(result !=null){
+			Map<String, Object> data= new HashMap<String, Object>();
+			data.put("responseInfo", result);
+			response.setData(data);
+			response.setRetCode(MsgEnum.SUCCESS.getCode());
+			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		}else{
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg(MsgEnum.ERROR.getMsg());
+		}
+		return response;
 	}
 
 	@Override
 	public List<AdvertisePosition> findAdPostionAll() {
 		return advertiseMapper.findAdPostionAll();
 	}
-	
 	@Override
 	public String findByPage(Map<String, Object> paramMap) {
 		JSONObject js = new JSONObject();
@@ -106,5 +142,4 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		js.put("total", ((Page<AdvertiseContents>) list).getTotal());
 		return js.toString();
 	}
-
 }

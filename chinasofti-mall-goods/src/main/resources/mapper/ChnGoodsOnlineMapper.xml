@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasofti.mall.goods.mapper.ChnGoodsOnlineMapper">
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.goods.ChnGoodsOnline">
+    <result column="GOODS_CLASS_IDS" jdbcType="VARCHAR" property="classId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="IMG" jdbcType="VARCHAR" property="img" />
+      
+    <result column="GOODSIDS" jdbcType="VARCHAR" property="goodsids" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="COMMON" jdbcType="VARCHAR" property="goodsCommons" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="DIS_PRICE" jdbcType="DECIMAL" property="disPrice" />
+    <result column="STANDARD" jdbcType="VARCHAR" property="standard" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="STORE_NUM" jdbcType="DECIMAL" property="storeNum" />
+    <result column="REVIEW_DESC" jdbcType="VARCHAR" property="reviewDesc" />
+    <result column="REVIEW_STATUES" jdbcType="CHAR" property="reviewStatues" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="START_TIME" jdbcType="VARCHAR" property="startTime" />
+    <result column="END_TIME" jdbcType="VARCHAR" property="endTime" />
+    <result column="ONLINE_TIME" jdbcType="VARCHAR" property="onlineTime" />
+    <result column="LEAVE_TIME" jdbcType="VARCHAR" property="leaveTime" />
+    <result column="ORG_PRICE" jdbcType="DECIMAL" property="orgPrice" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+      
+    <result column="VENDOR_ID" property="vendorId" jdbcType="VARCHAR" />
+    <result column="VENDOR_FNM" property="vendorFnm" jdbcType="VARCHAR" />
+    <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR" />
+    <result column="CHARGEMAN" property="chargeman" jdbcType="VARCHAR" />  
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />  
+    <result column="BELONG_SITE_NAME" property="belongSiteName" jdbcType="VARCHAR" />
+    <result column="SERVICE_PHONE" property="servicePhone" jdbcType="VARCHAR" />
+    <result column="VENDER_INTRO" property="venderIntro" jdbcType="LONGVARCHAR" />
+    <result column="VENDER_EXPLAIN" property="venderExplain" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cg.GOODS_CLASS_IDS,cgs.NAME,cgs.IMG,cgc.GOODSIDS,cg.TITLE,cg.COMMON,cg.PRICE,cg.DIS_PRICE,
+    cg.STANDARD,cg.CONTENT,cg.STORE_NUM,cg.REVIEW_DESC,cg.REVIEW_STATUES,cg.STATUS,cg.START_TIME,
+    cg.END_TIME,cg.ONLINE_TIME,cg.LEAVE_TIME,cg.ORG_PRICE,cg.TYPE,smu.VENDOR_ID,smu.VENDOR_FNM,
+    smu.VENDOR_SNM,smu.CHARGEMAN,smu.MOBILE,smu.ADDRESS,smu.BELONG_SITE_NAME,smu.SERVICE_PHONE,
+    smu.VENDER_INTRO,smu.VENDER_EXPLAIN
+  </sql>
+  
+   <select id="findAll" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsOnline" resultMap="BaseResultMap">
+
+	SELECT 
+	<include refid="Base_Column_List" /> 
+	FROM 
+		chn_goodsinfo cg,chn_goods_class cgs,sp_merchant_user smu,chn_goodsinfo_check cgc
+	<where>  
+		cg.VENDORIDS=smu.VENDOR_ID AND cg.GOODS_CLASS_IDS=cgs.ids AND cgc.VENDORIDS=cg.VENDORIDS
+	AND cgc.goodsids=cg.IDS
+		<if test="goodsids != null and goodsids !='' ">
+			and cgc.GOODSIDS like CONCAT('%',#{goodsids},'%')
+		</if>
+		<if test="title != null and title !='' ">
+			and cg.TITLE like CONCAT('%',#{title},'%')
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
+			and cg.START_TIME &gt;= #{startTime} and cg.END_TIME &lt;= #{endTime}
+		</if>
+		<if test="name != null and name != '' ">
+			and cgs.NAME like CONCAT('%',#{name},'%')
+		</if>
+		<if test="vendorSnm != null and vendorSnm != '' ">
+			and smu.VENDOR_SNM like CONCAT('%',#{vendorSnm},'%')
+		</if>
+		<if test="type != null and type != '' ">
+			and cg.TYPE = #{type}
+		</if>
+		<if test="reviewStatues != null and reviewStatues != '' ">
+			and cg.REVIEW_STATUES = #{reviewStatues}
+		</if>
+	</where>
+  </select>
+  
+
+  
+</mapper>

@@ -1,6 +1,8 @@
 package com.chinasofti.mall.goods.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,14 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample.Criteria;
+import com.chinasofti.mall.common.utils.Constant;
+import com.chinasofti.mall.common.utils.MsgEnum;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.ChnGoodsClassMapper;
-import com.chinasofti.mall.goods.service.ChnGoodsClassService;
+import com.chinasofti.mall.goods.service.IChnGoodsClassService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.util.StringUtil;
 
 import net.sf.json.JSONObject;
 
@@ -22,7 +28,7 @@ import net.sf.json.JSONObject;
  *
  */
 @Service
-public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
+public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 	
 	@Autowired
 	private ChnGoodsClassMapper chnGoodsClassMapper;
@@ -93,20 +99,50 @@ public class ChnGoodsClassServiceImpl implements ChnGoodsClassService{
 	/**
 	 * 查询分类信息
 	 */
-
-	@Override
-	public List<ChnGoodsClass> selectByIsParent(String isParent) {
-		return chnGoodsClassMapper.selectByIsParent(isParent);
+	public ResponseInfo selectByIsParent(ResponseInfo  response, String isparent) {
+		 List<ChnGoodsClass> result = chnGoodsClassMapper.selectByIsParent(isparent);
+		 response = dealGoodsResponseData(response,result);
+		return response;
 	}
 
-	@Override
-	public List<ChnGoodsClass> selectById(String pids) {
-		
-		return chnGoodsClassMapper.selectById(pids);
+	public ResponseInfo selectById(ResponseInfo  response,String pids) {
+		List<ChnGoodsClass> result = chnGoodsClassMapper.selectById(pids);
+		response = dealGoodsResponseData(response,result);
+		return response;
+	}
+
+	private ResponseInfo dealGoodsResponseData(ResponseInfo  response,List<ChnGoodsClass> result) {
+		if(result.size()>0){
+			Map<String, Object> data= new HashMap<String, Object>();
+			data.put("ResponseInfo", result);				
+			response.setData(data);
+			response.setRetCode(MsgEnum.SUCCESS.getCode());
+			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		}else{
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg(MsgEnum.ERROR.getMsg());
+		}
+		return response;
 	}
 
 	@Override
 	public List<ChnGoodsClass> findAll() {
 		return null;
+	}
+	/**
+	 * 当classId不为空时查询二级列表，为空时则查询一级分类
+	 * @param classId
+	 * @return
+	 */
+	public ResponseInfo queryClass(String classId) {
+		ResponseInfo  response= new ResponseInfo();
+		String pids = classId;
+		if(StringUtil.isNotEmpty(pids)){
+			response = selectById(response,pids);
+		}else{
+			String isparent =Constant.IS_PARENT;
+			response = selectByIsParent(response,isparent);
+		}
+		return response;
 	}
 }

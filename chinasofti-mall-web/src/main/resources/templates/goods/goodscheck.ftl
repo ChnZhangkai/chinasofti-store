@@ -38,9 +38,9 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeGoodsCheck()" plain="true">删除</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="pushCheck" onclick="handleCheck(this)" plain="true">提交审核</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="repealCheck" onclick="handleCheck(this)" plain="true">撤销审核</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-chk-checked" id="doCheck" onclick="handleCheck(this)" plain="true">商品审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="pushCheck" onclick="handleCheck(this)" plain="true">申请审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="repealCheck" onclick="handleCheck(this)" plain="true">撤销申请</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-chk-checked" id="doCheck" onclick="doCheck(this)" plain="true">商品审核</a>
 		</div>
 	</div>
 
@@ -92,9 +92,9 @@
 				<tr>
 					<th align="right">开始日期</th>
 					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="createTime" name="createTime"/></td>
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="startTime" name="startTime"/></td>
 					<th align="right">结束日期</th>
-					<td><input type="text" class="easyui-datebox"
+					<td><input type="text" class="easyui-datetimebox"
 						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime"/></td>
 				</tr>
 				<tr>
@@ -142,6 +142,9 @@
 					<td><input id="img" name="img" class="easyui-filebox"
 						style="width: 180px;"
 						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
+					<th align="right">商品价格</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="price" name="price"/></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -154,6 +157,29 @@
 					<th align="right" style="padding-bottom: 0px">商品详情</th>
 					<td colspan="3">
 						<script id="container" name="content" type="text/plain"></script>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+		<!-- 商品添加表格 -->
+	<div id="checkDialog" class="easyui-dialog"
+		data-options="closed:true,iconCls:'icon-chk-checked',inline:true"
+		style="width: 500px; height: 260px; padding: 10px;">
+		<form id="checkForm">
+			<table>
+				<tr>
+					<th align="right">审核状态</th>
+					<td>
+						<input type="radio" name="reviewStatues" value="1">审核通过</input>
+                		<input type="radio" name="reviewStatues" value="2">审核拒绝</input>
+					</td>
+				</tr>
+				<tr>
+					<th align="right" style="padding-bottom: 0px">审核备注</th>
+					<td><input type="text" style="width: 350px;height: 120px"
+						class="easyui-textbox" id="reviewDesc" name="reviewDesc" data-options="multiline:true"/>
 					</td>
 				</tr>
 			</table>
@@ -238,7 +264,11 @@
 		     contentType: false, 
 		     processData: false, 
 		     success: function(data) {
-				alert(data);
+				$('#addDl').dialog('close');
+				$('#addGoodsForm').form('reset');
+				UE.getEditor('container').setContent("");
+				$.messager.alert('信息提示','添加成功！','info');
+				$('#goodsCheckPagination').pagination('select');
 		     }, 
 		     error: function(data) {   
 		     } 
@@ -310,7 +340,7 @@
 	}
 	
 	/*
-	 * 审核流程
+	 * 提交审核申请/撤销申请流程
 	 */
 	function handleCheck(obj){
 		
@@ -325,91 +355,106 @@
 		ids = items[0].ids;
 		reviewStatues = items[0].reviewStatues;
 		
-		//提交
+		//提交审核
 		if(obj.id == "pushCheck"){
 			if(reviewStatues != 0){
 				$.messager.alert('温馨提醒','您选中的不是一条待提交的数据，请重新选择其他待提交审核数据','question')
 				return ;
 			}
+		}
+		//撤销审核
+		if(obj.id == "repealCheck"){
+			if(reviewStatues != 3){
+				$.messager.alert('温馨提醒','您选中的不是一条已提交审核的数据，请重新选择其他已提交审核数据','question')
+				return ;
+			}
+		}
+		
 			$.ajax({
 				url:'/goodsCheck/updateGoodsCheckStatus',
 				type:'POST',
 				data: {'ids':ids,'reviewStatues':reviewStatues},
 				success:function(data){
 					if(data){
-						$.messager.alert('信息提示','提交成功！','info');
+						$.messager.alert('信息提示','操作成功！','info');
 						$('#goodsCheckPagination').pagination('select');
 					}
 					else
 					{
-						$.messager.alert('信息提示','提交失败！','info');		
+						$.messager.alert('信息提示','操作失败！','info');		
 					}
 				}	
 			});
-		}
-			//待审核
-			if(obj.id == "repealCheck"){
 			
-				if(data != 3){
-					$.messager.alert('温馨提醒','您选中的不是一条已提交审核的数据，请重新选择其他已提交提交审核数据','question')
-					return ;
-				}
-				$(items).each(function(){
-					ids.push(this.ids);	
-				});
-				$.ajax({
-					url:'' + ids,
-					type:'POST',
-					success:function(data){
-						if(data){
-							$.messager.alert('信息提示','撤销成功！','info');
-							//$('#goodsinfo').datagrid('reload')
-							$('#goodsCheckPagination').pagination('select');
-						}
-						else
-						{
-							$.messager.alert('信息提示','撤销失败！','info');		
-						}
-					}	
-				});
-		}
-			//审核通过或拒绝
-			if(obj.id == "doCheck"){
-				
-				if(data != 3){
-					$.messager.alert('温馨提醒','您选中的不是一条已提交审核的数据，请重新选择其他已提交提交审核数据','question')
-					return ;
-				}
-				$(items).each(function(){
-					ids.push(this.ids);	
-				});
-				$.ajax({
-					url:'' + ids,
-					type:'POST',
-					success:function(data){
-						if(data){
-							$.messager.alert('信息提示','删除成功！','info');
-							//$('#goodsinfo').datagrid('reload')
-							$('#goodsCheckPagination').pagination('select');
-						}
-						else
-						{
-							$.messager.alert('信息提示','删除失败！','info');		
-						}
-					}	
-				});
-		}
+	}
+	
+	/*
+	 * 执行审核
+	 */
+	function doCheck(obj){
+			
+		var reviewStatues;
+		var ids ;
 		
+		var items = $('#goodscheck').datagrid('getSelections');
+		if(items.length < 1){
+			$.messager.alert('温馨提醒','请选中操作的数据');
+			return ;
+		}
+		ids = items[0].ids;
+		reviewStatues = items[0].reviewStatues;
+		
+		//审核通过或拒绝
+		if(obj.id == "doCheck"){
+			if(reviewStatues != 3){
+				$.messager.alert('温馨提醒','您选中的不是一条已提交审核的数据，请重新选择其他已提交审核数据','question')
+				return ;
+			}
+			
+			$('#checkDialog').dialog({
+				draggable : false,			
+				closed : false,
+				modal : true,
+				title : "商品审核",
+				buttons : [ {
+					text : '确定',
+					iconCls : 'icon-ok',
+					handler : function() {
+					var param = $.param({'ids':ids}) + '&' + $('#checkForm').serialize();
+						$.ajax({
+							url:'/goodsCheck/updateGoodsCheckStatus',
+							type:'POST',
+							data: param,
+							success:function(data){
+								if(data){
+									$('#checkDialog').dialog('close');
+									$('#checkForm').form('reset');
+									$.messager.alert('信息提示','操作成功！','info');
+									$('#goodsCheckPagination').pagination('select');
+								}
+								else
+								{
+									$.messager.alert('信息提示','操作失败！','info');		
+								}
+							}	
+						});
+					}
+				}, {
+					text : '取消',
+					iconCls : 'icon-cancel',
+					handler : function() {
+						$('#checkDialog').dialog('close');
+						$('#checkForm').form('reset');
+					}
+				} ]
+			});
+		}
 	}
 	
 	/*
 	 * 全局加载数据
 	 */
 	$(function() {
-		$.messager.show({
-			title : '提示',
-			msg : '该充值智商了!'
-		});
 
 		//获取表格datagrid的ID属性,
 		var tableID = "goodscheck";
@@ -432,11 +477,13 @@
 	 * 读取路径显示图片
 	 */
 	function imgFormatter(value, row) {
+		var ids = row.ids
 		var str = "";
-		if (value != "" || value != null) {
-			str = "<img style=\"height: 75px;width: 110px;\" src=\""+ "data/goods/luoli.jpg" +"\"/>";
-			return str;
-		}
+		
+		images = $.ajax({url:'/goodsCheck/reqGoodsGoodsImgPath/' + ids,type:'POST',async:false});
+		str = "<img style=\"height: 75px;width: 110px;\" src=\""+ images.responseText +"\"/>";
+		return str;
+		
 	}
 
 	/*
@@ -444,7 +491,7 @@
 	 */
 	function statesFormatter(value) {
 		if (value == "0") {
-			return '<span style="color:black">待提交审核</span>';
+			return '<span style="color:black">待申请审核</span>';
 		} 
 		if (value == "1"){
 			return '<span style="color:green">审核通过</span>';
@@ -452,7 +499,7 @@
 		if (value == '2'){
 			return '<span style="color:red">审核拒绝</span>';
 		}else{
-			return '<span style="color:blue">已提交审核</span>';
+			return '<span style="color:blue">已申请审核</span>';
 		}
 	}
 	

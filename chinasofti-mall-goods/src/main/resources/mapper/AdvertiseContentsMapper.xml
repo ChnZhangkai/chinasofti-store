@@ -9,8 +9,6 @@
 		<result column="IMAGEURL" property="imageurl" jdbcType="VARCHAR" />
 		<result column="CATEGORY_NAME" property="categoryName"
 			jdbcType="VARCHAR" />
-		<result column="POSITION_NAME" property="positionName"
-			jdbcType="VARCHAR" />
 		<result column="STATES" property="states" jdbcType="CHAR" />
 		<result column="TYPE" property="type" jdbcType="CHAR" />
 		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
@@ -23,6 +21,11 @@
 		<result column="DESCS" property="descs" jdbcType="DECIMAL" />
 		<result column="IS_OUTURL" property="isOuturl" jdbcType="CHAR" />
 	</resultMap>
+	<resultMap id="BaseResultMap2" type="com.chinasofti.mall.common.entity.AdvertiseContents" extends="BaseResultMap">
+		<result column="POSITION_NAME" property="positionName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	
 	<!--广告位置表 -->
 	<resultMap id="AdPositionResultMap"
 		type="com.chinasofti.mall.common.entity.AdvertisePosition">
@@ -113,13 +116,19 @@
 			</foreach>
 		</where>
 	</sql>
+	<sql id="Base_Column_List2">
+		IDS, TITLE, URL, CONTENS, IMAGEURL, CATEGORY_NAME, STATES,
+		TYPE, CREATE_BY,
+		CREATE_TIME, UPDATE_BY, UPDATE_TIME, BEGIN_TIME, END_TIME, POSITION_ID, DESCS,
+		IS_OUTURL
+	</sql>
 	<sql id="Base_Column_List">
 		IDS, TITLE, URL, CONTENS, IMAGEURL, CATEGORY_NAME, POSITION_NAME, STATES,
 		TYPE, CREATE_BY,
 		CREATE_TIME, UPDATE_BY, UPDATE_TIME, BEGIN_TIME, END_TIME, POSITION_ID, DESCS,
 		IS_OUTURL
 	</sql>
-	<select id="selectByExample" resultMap="BaseResultMap"
+	<select id="selectByExample" resultMap="BaseResultMap2"
 		parameterType="com.chinasofti.mall.common.entity.AdvertiseContentsExample">
 		select
 		<if test="distinct">
@@ -135,7 +144,7 @@
 		</if>
 	</select>
 
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap2"
 		parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
@@ -475,26 +484,22 @@
 	<select id="selectAdvertiseList" resultMap="BaseResultMap"
 		parameterType="com.chinasofti.mall.common.entity.AdvertiseContents">
 		select
-		<include refid="Base_Column_List" />
+		<include refid="Base_Column_List2" />
 		from advertise_contents
-		where 1=1
-		<if test="positionId != null">
-			and POSITION_ID = #{positionId,jdbcType=VARCHAR}
-		</if>
+		where POSITION_ID = #{positionId,jdbcType=VARCHAR}
+		
 	</select>
 	<select id="selectSingleAdvertise" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select
-		<include refid="Base_Column_List" />
+		<include refid="Base_Column_List2" />
 		from advertise_contents
-		where 1=1
-		<if test="positionId != null">
-			and POSITION_ID = #{positionId,jdbcType=VARCHAR}
-		</if>
+		where POSITION_ID = #{positionId,jdbcType=VARCHAR}
 	</select>
 
+
 	<!-- 分页条件查询 -->
-	<select id="findByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+	<select id="findByPage" resultMap="BaseResultMap2" parameterType="java.util.Map">
 		SELECT
 		ac.*, ap.NAME AS POSITION_NAME
 		FROM
