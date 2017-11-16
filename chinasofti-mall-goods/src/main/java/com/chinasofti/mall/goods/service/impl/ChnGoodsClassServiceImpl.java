@@ -118,6 +118,9 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 			response.setData(data);
 			response.setRetCode(MsgEnum.SUCCESS.getCode());
 			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		}else if(result==null||result.size()==0){
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("未找到相关数据！");
 		}else{
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg(MsgEnum.ERROR.getMsg());
