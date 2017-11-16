@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.user.mapper.SpUserMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.spuser.SpUser" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="USERID" property="userId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="NICKNAME" property="nickName" jdbcType="VARCHAR" />
+    <!-- <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="HEADIMGURL" property="headimgUrl" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="COUNTRY" property="country" jdbcType="VARCHAR" />
+    <result column="DISTRICT" property="district" jdbcType="VARCHAR" />
+    <result column="STREET" property="street" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="REGISTETIME" property="registeTime" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="BIND_PHONE_TIME" property="bindPhoneTime" jdbcType="VARCHAR" /> -->
+  </resultMap>
+  <sql id="Base_Column" >
+    IDS, USERID, NAME,SEX, NICKNAME
+  </sql>
+  <select id="contByUserId" parameterType="java.lang.String" resultType="java.lang.String" >
+    	select USERID from sp_user where USERID = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="select" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpUser" >
+    select 
+    <include refid="Base_Column" /> 
+    from sp_user
+    where userId = #{userId,jdbcType=VARCHAR}
+      and password = #{password,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.chinasofti.mall.common.entity.spuser.SpUser" >
+    insert into sp_user (
+    	IDS,
+    	USERID,
+    	NAME,
+    	PASSWORD,
+    	NICKNAME, 
+    	SEX
+      )
+    values (
+    	#{ids,jdbcType=VARCHAR},
+    	#{userId,jdbcType=VARCHAR}, 
+    	#{name,jdbcType=VARCHAR},
+    	#{password,jdbcType=VARCHAR}, 
+    	#{nickName,jdbcType=VARCHAR}, 
+        #{sex,jdbcType=VARCHAR}
+        )
+  </insert>
+</mapper>
