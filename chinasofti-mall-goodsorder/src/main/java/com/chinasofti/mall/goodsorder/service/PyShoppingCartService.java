@@ -13,6 +13,6 @@ public interface PyShoppingCartService  extends IBaseService<PyShoppingCart> {
 
 	public ResponseInfo updatePyShoppingCart(JSONObject json);
 	
-	public ResponseInfo deletePyShoppingCartById(String id);
+	public ResponseInfo deletePyShoppingCartById(JSONObject json);
 	
 }

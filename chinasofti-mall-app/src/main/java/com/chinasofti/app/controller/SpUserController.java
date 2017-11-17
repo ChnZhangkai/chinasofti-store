@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.SpUserFeignClient;
+import com.chinasofti.app.handler.MyException;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
@@ -24,7 +25,10 @@ public class SpUserController {
 	SpUserFeignClient spUserFeignClient;
 	private static final Logger logger = LoggerFactory.getLogger(SpUserController.class);
 
-
+	 @RequestMapping("/test")
+	    public String hello() throws MyException {
+	        throw new MyException("9999","发生错误");
+	    }
 
 	@RequestMapping(value="/signUp" , method = RequestMethod.POST)
 	public ResponseInfo signUp(@RequestBody SpUser spUser) {;
