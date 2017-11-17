@@ -54,13 +54,13 @@ public class SpMerchantUserController {
 	}
 	
 	/**
-	 * 根据ID查询
+	 * 根据商户ID查询
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping("/select/{ids}")
-	public SpMerchantUser selectBySpUserById(@PathVariable String ids){
-		SpMerchantUser spMerchantUser = spUserFeignClient.selectSpUserById(ids);
+	@RequestMapping("/select/{vendorids}")
+	public SpMerchantUser selectBySpUserById(@PathVariable String vendorids){
+		SpMerchantUser spMerchantUser = spUserFeignClient.selectSpUserById(vendorids);
 		return spMerchantUser;
 	}
 	

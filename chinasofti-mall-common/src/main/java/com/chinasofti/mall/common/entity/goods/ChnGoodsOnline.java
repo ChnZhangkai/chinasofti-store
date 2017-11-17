@@ -46,6 +46,7 @@ public class ChnGoodsOnline extends PageBean{
     private BigDecimal orgPrice;
     private String type;   
     private String name;
+    private String img;
 	private String vendorFnm;//商户全称
 	private String vendorSnm;//商户简称
 	private String chargeman;//商户负责人
@@ -78,6 +79,20 @@ public class ChnGoodsOnline extends PageBean{
 	 */
 	public void setVendorids(String vendorids) {
 		this.vendorids = vendorids;
+	}
+	
+	
+	/**
+	 * @return the img
+	 */
+	public String getImg() {
+		return img;
+	}
+	/**
+	 * @param img the img to set
+	 */
+	public void setImg(String img) {
+		this.img = img;
 	}
 	/**
 	 * @return the title

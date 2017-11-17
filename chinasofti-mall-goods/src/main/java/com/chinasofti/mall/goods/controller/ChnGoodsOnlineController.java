@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.goods.service.ChnGoodsOnlineService;
 
 import net.sf.json.JSONObject;
@@ -51,8 +50,8 @@ public class ChnGoodsOnlineController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
-	public int updateGoodsStore(@RequestBody(required = false)ChnGoodsinfoCheck chnGoodsinfoCheck){
-		return chnGoodsOnlineServiceImpl.update(chnGoodsinfoCheck);
+	public int updateGoodsStore(@RequestBody(required = false)ChnGoodsOnline chnGoodsOnline){
+		return chnGoodsOnlineServiceImpl.update(chnGoodsOnline);
  
 	}
 

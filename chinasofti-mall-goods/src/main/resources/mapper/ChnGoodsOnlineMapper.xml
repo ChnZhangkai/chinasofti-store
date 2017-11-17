@@ -40,6 +40,7 @@
     <result column="ORG_PRICE" jdbcType="DECIMAL" property="orgPrice" />
     <result column="TYPE" jdbcType="VARCHAR" property="type" />
     <result column="NAME" jdbcType="VARCHAR" property="name"/>
+    <result column="FILEPATH" jdbcType="VARCHAR" property="img"/>
     
     <result column="VENDOR_FNM" property="vendorFnm" jdbcType="VARCHAR" />
     <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR" />
@@ -111,7 +112,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-	 cg.IDS, cg.VENDORIDS, cg.TITLE, cg.MOUTH_TRADE, cg.SUBTITLE,cg.COMMON, cg.PRICE, cg.DIS_PRICE, 
+	cg.IDS, cg.VENDORIDS, cg.TITLE,cg.MOUTH_TRADE, cg.SUBTITLE,cg.COMMON, cg.PRICE, cg.DIS_PRICE, 
     cg.STANDARD, cg.GOODS_CLASS_IDS, cg.CODE, cg.CONTENT, cg.STORE_NUM, cg.REVIEW_DESC, cg.REVIEW_STATUES, 
     cg.UPDATE_BY, cg.UPDATE_TIME, cg.CREATE_BY, cg.CREATE_TIME, cg.COLL_NUM, cg.STATUS, cg.START_TIME, cg.END_TIME, 
     cg.ONLINE_TIME, cg.LEAVE_TIME, cg.BRAND_IDS, cg.WEIGHT, cg.DELIVE_WAY, cg.IS_DIS_VERDORNAME, cg.IS_DIS_STANDARD, 
@@ -128,18 +129,19 @@
 	FROM 
 		chn_goodsinfo cg,chn_goods_class cgs,sp_merchant_user smu
 	<where>  
-		cg.VENDORIDS=smu.VENDOR_ID AND cg.GOODS_CLASS_IDS=cgs.ids AND  cg.REVIEW_STATUES='1'
+		cg.VENDORIDS=smu.VENDOR_ID AND cg.GOODS_CLASS_IDS=cgs.ids 
+		AND cg.REVIEW_STATUES='1'
 		<if test="ids != null and ids !='' ">
 			and cg.IDS like CONCAT('%',#{ids},'%')
 		</if>
 		<if test="title != null and title !='' ">
 			and cg.TITLE like CONCAT('%',#{title},'%')
 		</if>
-		<if test="startTime != null and startTime != ''">
-			and cg.START_TIME &gt;= #{startTime}
+			<if test="startTime != null and startTime != '' ">
+			and START_TIME &gt;= #{startTime}
 		</if>
 		<if test="endTime != null and endTime != '' ">
-			and cg.END_TIME &lt;= #{endTime}
+			and END_TIME &lt;= #{endTime}
 		</if>
 		<if test="name != null and name != '' ">
 			and cgs.NAME like CONCAT('%',#{name},'%')

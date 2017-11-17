@@ -28,10 +28,11 @@ public interface ChnGoodsOnlineMapper {
 	 */
 	int updateByPrimaryKey(ChnGoodsOnline chnGoodsOnline);
 
+
 	/**
 	 * @param chnGoodsOnline
 	 * @return
 	 */
-	int updateByPrimaryKeySelective(ChnGoodsOnline chnGoodsOnline);
+	int update(ChnGoodsOnline chnGoodsOnline);
 
 }

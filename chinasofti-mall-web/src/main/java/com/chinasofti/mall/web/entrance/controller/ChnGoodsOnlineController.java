@@ -1,12 +1,15 @@
 package com.chinasofti.mall.web.entrance.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
  
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
+import com.chinasofti.mall.common.entity.goods.GoodsFile;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
+import com.chinasofti.mall.web.entrance.service.impl.GoodsFileServiceImpl;
 
 import net.sf.json.JSONObject;
 
@@ -16,6 +19,9 @@ public class ChnGoodsOnlineController {
 	
 	@Autowired
 	ChnGoodsFeignClient chnGoodsFeignClient;
+	
+	@Autowired
+	GoodsFileServiceImpl goodsFileService;
 	
 	/**
 	 * 返回主界面
@@ -36,6 +42,20 @@ public class ChnGoodsOnlineController {
 	public String selectByGoodsOnline(ChnGoodsOnline chnGoodsOnline){
 		JSONObject jsonlist = chnGoodsFeignClient.selectByGoodsOnline(chnGoodsOnline);
 		return jsonlist.toString();
+	}
+	
+	
+	/**
+	 * 商品页面查询商品图片
+	 * @return
+	 */
+	@RequestMapping("/reqGoodsImgPath/{ids}")
+	public String reqGoodsImgPath(@PathVariable String ids){
+		System.out.println("商品ID："+ids);
+		GoodsFile goodsFile = goodsFileService.selectByGoodsIds(ids);
+		
+		return goodsFile.getFilepath();
+		
 	}
 	
 	

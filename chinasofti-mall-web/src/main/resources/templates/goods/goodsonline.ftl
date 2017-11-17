@@ -4,10 +4,10 @@
 	<div id="goodonline-toolbar-3" style="height: 15%">
 		<div class="goodonline-toolbar-search" style="border-bottom: 1px solid #DDDDDD">
 			<form id="searchOnlineForm" style="margin: 0px">
-				<label>商品编号</label> <input type="text" id="goodsids" name="goodsids" class="easyui-textbox"/>
+				<label>商品编号</label> <input type="text" id="ids" name="ids" class="easyui-textbox"/>
 				<label>商品名称</label> <input type="text" id="title" name="title" class="easyui-textbox"/>
-				<label>开始时间</label> <input type="text" id="startTime" name="startTime" class="easyui-datebox"/>
-				<label>结束时间</label> <input type="text" id="endTime" name="endTime" class="easyui-datebox"/><br>
+				<label>开始时间</label> <input type="text" id="goodsstarttime" name="startTime" class="easyui-datetimebox" style="width: 160px" data-options="prompt:'请选择日期',editable:'false'"/>
+				<label>结束时间</label> <input type="text" id="goodsendtime" name="endTime" class="easyui-datetimebox" style="width: 160px" data-options="prompt:'请选择日期',editable:'false'"/><br>
 				<label>商户编号</label> <input type="text" id="vendorId" name="vendorId" class="easyui-textbox"/>
 				<label>商品分类</label> <input type="text" id="classId" name="classId" class="easyui-textbox"/>
 				<label>商品类型</label>
@@ -33,7 +33,6 @@
 		<div class="goodonline-toolbar-button">
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="onlineEdits()"plain="true">修改</a> 
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="prints()" plain="true">导出</a> 
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-prints" onclick="prints()" plain="true">打印</a>
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="putaway" onclick="putaway(this)" plain="true">上架</a>
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="soldOut" onclick="putaway(this)" plain="true">下架</a>
 		</div>
@@ -44,7 +43,7 @@
 		<thead> 
 			<tr>
 				<th field="title" width="13%" align="center">商品名称</th>
-				<th field="img" width="14%" align="center"
+				<th field="img" width="10%" align="center"
 					data-options="formatter:imgFormatter">商品图片</th>
 				<th field="price" width="15%" align="center">商品价格</th>
 				<th field="vendorSnm" width="15%" align="center">商户名称</th>
@@ -68,12 +67,15 @@
 		<form id="updateGoodsForm"  enctype="multipart/form-data">
 			<table>
 				<tr>
+					<td><input type="hidden"  id="ids" name="ids" /></td>
+				</tr>
+				<tr>
 					<th align="right">商品名称</th>
-					<td><input type="text" id="title" name="title" 
+					<td><input type="text" id="title" name="title" style=" width: 180px;background-color:#F4F4F4"
 				class="easyui-textbox" title="不可修改" readonly="true"/></td>
 					<th align="right">分类名称</th>
 					<td><input type="text" class="easyui-textbox" id="name" name="name" 
-					title="不可修改" readonly="true" /></td>
+					style=" width: 180px;background-color:#F4F4F4" title="不可修改" readonly="true" /></td>
 				</tr>
 				<tr>
 					<th align="right">商品类型</th>
@@ -84,8 +86,8 @@
 					</select></td>
 					<th align="right">商户名称</th>
 					<td>
-						<input type="text" id="vendorSnm" name="vendorSnm" class="easyui-tooltip textbox"
-						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true"/>
+						<input type="text" id="vendorSnm" name="vendorSnm" class="easyui-textbox"
+						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" readonly="true"/>
 					</td>
 				</tr>
 				<tr>
@@ -96,13 +98,15 @@
 					<td><input type="text" class="easyui-datetimebox"
 						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime" readonly="true"/></td>
 				</tr>
+				
+				
 				<tr>
 					<th align="right">规格</th>
-					<td><input type="text" id="standard" name="standard" class="easyui-tooltip textbox"
-						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true" /></td>
+					<td><input type="text" id="standard" name="standard" class="easyui-textbox"
+						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" readonly="true" /></td>
 					<th align="right">重量</th>
-					<td><input type="text" id="weight" name="weight" class="easyui-tooltip textbox"
-						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true"  /> <span><font
+					<td><input type="text" id="weight" name="weight" class="easyui-textbox"
+						 title="不可修改" style="width: 180px;background-color: #F4F4F4" readonly="true"  /> <span><font
 							style="color: #CCCCCC; font-size: 10px;">重量单位:KG</font></span></td>
 				</tr>
 				
@@ -123,11 +127,56 @@
 					</select></td>
 						
 				</tr>
-			
 				<tr>
-					<th align="right">价格</th>
-					<td><input type="text" id="price" name="price" class="easyui-tooltip textbox"
-						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true" />
+					<th align="right">前台是否显示商户名</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisVerdorname" name="isDisVerdorname" readonly="true">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
+					<th align="right">前台是否显示规格</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStandard" name="isDisStandard" readonly="true">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
+				</tr>
+				<tr>
+					<th align="right">前台是否显示库存</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStore" name="isDisStore" readonly="true">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
+					<th align="right">每个用户限购数量</th>
+				<td><input type="text" style="width: 180px;"
+					class="easyui-textbox" id="limitUserNum" name="limitUserNum" readonly="true"/> <span><font
+						style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
+				</tr>
+				<tr>
+					<th align="right">每笔订单限购数量</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum" readonly="true"/></td>
+					<th align="right">商品价格</th>
+					<td><input type="text" id="price" name="price" class="easyui-textbox"
+						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" readonly="true" />
+					</td>
+				</tr>
+				<tr>
+					<th align="right">商品图片:</th>
+					<td><img style="height: 75px;width: 110px;" src=""/></td>
+						
+					
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td>
+						<div id="showGoodsPic"></div>
+					</td>
+				</tr>
+				
+					<tr>
+					<th align="right">售后电话</th>
+					<td><input type="text" id="servicePhone" name="servicePhone" class="easyui-textbox"
+						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" readonly="true" />
 					</td>
 				
 					<th align="right">当前库存数量</th>
@@ -138,13 +187,14 @@
 				</tr>
 				
 				<tr>
-					<th align="right">售后电话</th>
-					<td><input type="text" id="servicePhone" name="servicePhone" class="easyui-tooltip textbox"
-						 title="不可修改" style="height:24px; width: 180px;background-color: #F4F4F4" readonly="true" />
+					<th align="right" style="padding-bottom: 0px">商品详情</th>
+					<td colspan="3">
+						<script id="container" name="content" type="text/plain"></script>
 					</td>
-					
 				</tr>
-				
+			
+			
+			
 			</table>
 		</form>
 	</div>
@@ -189,17 +239,23 @@
 
 	});
 
+
 	/*
 	 * 读取路径显示图片
 	 */
 	function imgFormatter(value, row) {
+		var ids = row.ids;
 		var str = "";
-		if (value != "" || value != null) {
-			str = "<img style=\"height: 75px;width: 110px;\" src=\""+value+"\"/>";
-			return str;
-		}
+		images = $.ajax({url:'/goodsOnline/reqGoodsImgPath/' + ids,type:'POST',async:false});
+		str = "images = $.ajax({url:'/goodsOnline/reqGoodsImgPath/' + ids,type:'POST',async:false});
+		str = "<img style=\"height: 75px;width: 110px;\" src=\""+ images.responseText +"\"/>";
+		return str;";
+		return str;
+		
 	}
+	
 
+	
 	
 	/*
 	 * 商品类型
@@ -228,7 +284,7 @@
 	}
 	
 	/**
-	* 打开修改窗口
+	* Name 打开修改窗口
 	*/
 	function onlineEdits(){
 		$('#updateGoodsForm').form('clear');
@@ -253,6 +309,7 @@
 	            }]
 	        });
 			$('#updateGoodsForm').form('load',row);
+			alert($('#updateGoodsForm').serialize());
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
@@ -262,6 +319,7 @@
 	*修改
 	*/
 	function edit(){
+		var imgURl;
 		$('#updateGoodsForm').form('submit', {
 			url:'/goodsOnline/update',
     		type:'POST',
@@ -270,6 +328,7 @@
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
     				$('#updateDl').dialog('close');
+    				UE.getEditor('container').setContent("");
     				$('#goodsOnlinePagination').pagination('select');
     			}else{
     				$.messager.alert('信息提示','提交失败！','info');
@@ -277,6 +336,7 @@
     		}
     	});
 	}
+	
 	
 		
 	/*
