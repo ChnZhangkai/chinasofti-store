@@ -51,7 +51,7 @@ public class SpSendAddressController {
 		res = dealResponseData(list);
 		logger.info("res="+res.toString());
 		return res;
-	}
+	} 
 	
 	/*
 	 * 增加收件地址

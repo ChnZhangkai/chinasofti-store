@@ -22,7 +22,7 @@
     <result column="REGISTETIME" property="registeTime" jdbcType="VARCHAR" />
     <result column="CREATETIME" property="createTime" jdbcType="VARCHAR" />
     <result column="BIND_PHONE_TIME" property="bindPhoneTime" jdbcType="VARCHAR" />
-  </resultMap>
+  </resultMap> 
   <sql id="Base_Column" >
     IDS, USERID, NAME,SEX, NICKNAME
   </sql>
