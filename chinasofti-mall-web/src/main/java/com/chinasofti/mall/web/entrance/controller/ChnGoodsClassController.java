@@ -2,7 +2,9 @@ package com.chinasofti.mall.web.entrance.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -11,12 +13,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.PtUser;
+import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
@@ -46,6 +50,12 @@ public class ChnGoodsClassController {
 		return new ModelAndView("/goods/goodsclass");
 	}
 	
+	//新分类界面
+	@RequestMapping("/goodsClass")
+	public ModelAndView toGoodsClass(){
+		return new ModelAndView("/goods/newGoodsClass");
+	}
+	
 	/**
 	 * 列表及条件查询
 	 * @param spGoodsClass
@@ -55,6 +65,61 @@ public class ChnGoodsClassController {
 	public String selectByGoodsClass(ChnGoodsClass chnGoodsClass){
 		JSONObject jsonlist = chnGoodsClassFeignClient.selectByGoodsClass(chnGoodsClass);
 		return jsonlist.toString();
+	}
+	
+	/**
+	 * 新商品分类查询
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/findGoodsClass")
+	@ResponseBody
+	public List<Tree> findGoodsClass(String id){
+		if (id == null) {
+			id = "0";
+		}
+		List<ChnGoodsClass> classList = chnGoodsClassFeignClient.findGoodsClass(id);
+		Tree tree = new Tree();
+		List<Tree> treeList = new ArrayList<>();
+		for (ChnGoodsClass chnGoodsClass : classList) {
+			List<ChnGoodsClass> childrenGoodsClass = chnGoodsClassFeignClient.findGoodsClass(chnGoodsClass.getIds());
+			List<Tree> treeList2 = new ArrayList<>();
+			for (ChnGoodsClass chnGoodsClass2 : childrenGoodsClass) {
+				List<ChnGoodsClass> childrenGoodsClass3 = chnGoodsClassFeignClient.findGoodsClass(chnGoodsClass2.getIds());
+				List<Tree> treeList3 = new ArrayList<>();
+				for (ChnGoodsClass chnGoodsClass3 : childrenGoodsClass3) {
+					Tree tree3 = new Tree();
+					tree3.setId(chnGoodsClass3.getIds());
+					tree3.setText(chnGoodsClass3.getName());
+					tree3.setIconCls(chnGoodsClass3.getLogo());
+					treeList3.add(tree3);
+				}
+				Tree tree2 = new Tree();
+				tree2.setId(chnGoodsClass2.getIds());
+				tree2.setText(chnGoodsClass2.getName());
+				tree2.setIconCls(chnGoodsClass2.getLogo());
+				tree2.setChildren(treeList3);
+				treeList2.add(tree2);
+			}
+			tree.setId(chnGoodsClass.getIds());
+			tree.setText(chnGoodsClass.getName());
+			tree.setIconCls(chnGoodsClass.getLogo());
+			tree.setChildren(treeList2);
+			treeList.add(tree);
+		}
+		
+		return treeList;
+	}
+	
+	/**
+	 * 查询子节点
+	 * @return
+	 */
+	@RequestMapping("/findGoodsClassChildren")
+	@ResponseBody
+	public String findGoodsClassChildren(){
+		
+		return "";
 	}
 	
 	/**
