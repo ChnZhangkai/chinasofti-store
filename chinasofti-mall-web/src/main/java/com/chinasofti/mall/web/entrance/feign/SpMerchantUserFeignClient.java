@@ -35,8 +35,8 @@ public interface SpMerchantUserFeignClient {
 	 * @param ids
 	 * @return
 	 */
-	@RequestMapping("/spUser/select/{ids}")
-	public SpMerchantUser selectSpUserById(@PathVariable("ids") String id);
+	@RequestMapping("/spUser/select/{vendorids}")
+	public SpMerchantUser selectSpUserById(@PathVariable("vendorids") String id);
 
 	/**
 	 * @param ids

@@ -38,8 +38,8 @@ public class SpMerchantUserController {
 		
 	}
 	
-	@RequestMapping("select/{ids}")
-	public SpMerchantUser findById(@PathVariable("ids") String id) {
+	@RequestMapping("/select/{vendorids}")
+	public SpMerchantUser findById(@PathVariable("vendorids") String id) {
 		
 		return spUserService.findById(id);
 	}

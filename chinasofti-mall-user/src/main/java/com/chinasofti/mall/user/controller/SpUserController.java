@@ -3,12 +3,14 @@ package com.chinasofti.mall.user.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+ 
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
@@ -30,6 +32,8 @@ public class SpUserController {
 	
 	@Autowired
 	SpUserService spUserService;
+	
+	Logger logger = LoggerFactory.getLogger(SpUserController.class);  
 	
 	@RequestMapping(value="/signUp" , method = RequestMethod.POST)
 	public ResponseInfo signUp(@RequestBody(required=false) SpUser spUser) {
@@ -60,7 +64,7 @@ public class SpUserController {
 		ResponseInfo  response= new ResponseInfo();
 		if(obj !=null){
 			Map<String, Object> data= new HashMap<String, Object>();
-			data.put("data", obj);
+			data.put("responseInfo", obj);
 			response.setData(data);
 			response.setRetCode(MsgEnum.SUCCESS.getCode());
 			response.setRetMsg(MsgEnum.SUCCESS.getMsg());

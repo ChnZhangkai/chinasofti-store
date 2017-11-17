@@ -21,13 +21,13 @@ public class SpUserFeignClientHystrix implements SpUserFeignClient{
 
 	@Override
 	public ResponseInfo signUp(SpUser spUser) {
-		return null;
+		return new ResponseInfo();
 	}
 	
-
+ 
 	@Override
 	public ResponseInfo signIn(SpUser spUser) {
-		return null;
+		return new ResponseInfo();
 	}
 
 	

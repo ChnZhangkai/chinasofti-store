@@ -1,16 +1,14 @@
 package com.chinasofti.app.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.SpSendAddressFeignClient;
@@ -35,19 +33,21 @@ public class SpSendAddressController {
 	 * 查询地址列表
 	 * 参数 userId 用户ID
 	 * */
-	@RequestMapping(value="/liResponseInfost")
-	@ResponseBody
-	public ResponseInfo findSendAddressList(@RequestParam String userId) {
+	@RequestMapping(value="/list")
+	public ResponseInfo findSendAddressList(@RequestParam String userId,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spSendAddressFeignClient.findSendAddressList(userId);
 	}
-	
+	 
 	/*
 	 * 增加收件地址
 	 * 参数 spSendAddress
 	 * */
 	@RequestMapping(value="/add" , method = RequestMethod.POST)
-	public ResponseInfo addSendAddress(@RequestBody SpSendAddress spSendAddress){
-		
+	public ResponseInfo addSendAddress(@RequestBody SpSendAddress spSendAddress,HttpServletResponse response){
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spSendAddressFeignClient.addSendAddress(spSendAddress);
 	}
 	
@@ -56,7 +56,9 @@ public class SpSendAddressController {
 	 * 参数 spSendAddress
 	 * */
 	@RequestMapping(value="/updata" , method = RequestMethod.POST)
-	public ResponseInfo updataSendAddress(@RequestBody SpSendAddress spSendAddress){
+	public ResponseInfo updataSendAddress(@RequestBody SpSendAddress spSendAddress,HttpServletResponse response){
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spSendAddressFeignClient.updataSendAddress(spSendAddress);
 	}
 	
@@ -65,7 +67,8 @@ public class SpSendAddressController {
 	 * 参数 userId,addressId
 	 * */
 	@RequestMapping(value="/delete" , method = RequestMethod.POST)
-	public ResponseInfo deleteSendAddress(@RequestBody SpSendAddress spSendAddress){
+	public ResponseInfo deleteSendAddress(@RequestBody SpSendAddress spSendAddress,HttpServletResponse response){
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		return spSendAddressFeignClient.deleteSendAddress(spSendAddress);
 	}
 	

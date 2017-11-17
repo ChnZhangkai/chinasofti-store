@@ -8,15 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+ 
 import com.chinasofti.app.feign.SpUserFeignClient;
 import com.chinasofti.app.handler.MyException;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
-import net.sf.json.JSONObject;
 
 @RestController
 @RequestMapping("/spUser")
@@ -31,12 +29,16 @@ public class SpUserController {
 	    }
 
 	@RequestMapping(value="/signUp" , method = RequestMethod.POST)
-	public ResponseInfo signUp(@RequestBody SpUser spUser) {;
+	public ResponseInfo signUp(@RequestBody SpUser spUser,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spUserFeignClient.signUp(spUser);
 		//return null;
 	}
 	@RequestMapping(value="/signIn" , method = RequestMethod.POST)
-	public ResponseInfo signIn(@RequestBody SpUser spUser) {
+	public ResponseInfo signIn(@RequestBody SpUser spUser,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods","POST");
 		logger.info(spUser.toString());
 		return spUserFeignClient.signIn(spUser);
 		//return null;
