@@ -7,7 +7,7 @@
     <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="SEX" property="sex" jdbcType="VARCHAR" />
     <result column="NICKNAME" property="nickName" jdbcType="VARCHAR" />
-    <!-- <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
     <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
     <result column="EMAIL" property="email" jdbcType="VARCHAR" />
     <result column="HEADIMGURL" property="headimgUrl" jdbcType="VARCHAR" />
@@ -21,7 +21,7 @@
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
     <result column="REGISTETIME" property="registeTime" jdbcType="VARCHAR" />
     <result column="CREATETIME" property="createTime" jdbcType="VARCHAR" />
-    <result column="BIND_PHONE_TIME" property="bindPhoneTime" jdbcType="VARCHAR" /> -->
+    <result column="BIND_PHONE_TIME" property="bindPhoneTime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column" >
     IDS, USERID, NAME,SEX, NICKNAME
@@ -39,21 +39,126 @@
   </select>
 
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.chinasofti.mall.common.entity.spuser.SpUser" >
-    insert into sp_user (
-    	IDS,
-    	USERID,
-    	NAME,
-    	PASSWORD,
-    	NICKNAME, 
-    	SEX
-      )
-    values (
-    	#{ids,jdbcType=VARCHAR},
-    	#{userId,jdbcType=VARCHAR}, 
-    	#{name,jdbcType=VARCHAR},
-    	#{password,jdbcType=VARCHAR}, 
-    	#{nickName,jdbcType=VARCHAR}, 
-        #{sex,jdbcType=VARCHAR}
-        )
+    insert into sp_user 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+     <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="userId != null" >
+        USERID,
+      </if>
+       <if test="name != null" >
+        NAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="nickName != null" >
+        NICKNAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="country != null" >
+        COUNTRY,
+      </if>
+      <if test="district != null" >
+        DISTRICT,
+      </if>
+      <if test="street != null" >
+        STREET,
+      </if>
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="registeTime != null" >
+        REGISTETIME,
+      </if>
+      <if test="createTime!= null" >
+        CREATETIME,
+      </if>
+      <if test="bindPhoneTime != null" >
+        BIND_PHONE_TIME
+      </if>
+     </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      
+       <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null" >
+        #{test="street ,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="registeTime != null" >
+        #{registeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="bindPhoneTime != null" >
+        #{bindPhoneTime,jdbcType=VARCHAR}
+      </if>
+      
+     </trim>
   </insert>
 </mapper>

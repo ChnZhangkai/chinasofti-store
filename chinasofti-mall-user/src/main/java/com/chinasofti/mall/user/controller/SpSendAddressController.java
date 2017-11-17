@@ -44,7 +44,6 @@ public class SpSendAddressController {
 	 * 参数 userId 用户ID
 	 * */
 	@RequestMapping(value="/list")
-	@ResponseBody
 	public ResponseInfo findSendAddressList(@RequestParam("userId") String userId) {
 		ResponseInfo res = new ResponseInfo();
 		List<SpSendAddress> list = new ArrayList<SpSendAddress>();
@@ -101,7 +100,7 @@ public class SpSendAddressController {
 		ResponseInfo  response= new ResponseInfo();
 		if(obj !=null){
 			Map<String, Object> data= new HashMap<String, Object>();
-			data.put("res", obj);
+			data.put("responseInfo", obj);
 			response.setData(data);
 			response.setRetCode(MsgEnum.SUCCESS.getCode());
 			response.setRetMsg(MsgEnum.SUCCESS.getMsg());

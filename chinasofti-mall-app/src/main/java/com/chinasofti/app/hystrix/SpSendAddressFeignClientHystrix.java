@@ -23,22 +23,22 @@ public class SpSendAddressFeignClientHystrix implements SpSendAddressFeignClient
 
 	@Override
 	public ResponseInfo findSendAddressList(String userId) {
-		return null;
+		return new ResponseInfo();
 	}
 
 	@Override
 	public ResponseInfo addSendAddress(SpSendAddress spSendAddress) {
-		return null;
+		return new ResponseInfo();
 	}
 	
 	@Override
 	public ResponseInfo updataSendAddress(SpSendAddress spSendAddress) {
-		return null;
+		return new ResponseInfo();
 	}
 	
 	@Override
 	public ResponseInfo deleteSendAddress(SpSendAddress spSendAddress) {
-		return null;
+		return new ResponseInfo();
 	}
 
 	
