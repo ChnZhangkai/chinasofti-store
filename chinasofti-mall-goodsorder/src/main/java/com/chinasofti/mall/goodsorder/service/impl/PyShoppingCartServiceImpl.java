@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goodsorder.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.utils.MsgEnum;
@@ -73,18 +75,24 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	public ResponseInfo savePyShoppingCart(JSONObject json) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
+		List<PyShoppingCart> pyShoppingCartList = new ArrayList<PyShoppingCart>();
 		try{
-			PyShoppingCart pyShoppingCart = new PyShoppingCart();
-			pyShoppingCart.setIds(UUIDUtils.getUuid());
-			pyShoppingCart.setUserids(json.getString("userId").toString());
-			pyShoppingCart.setGoodsIds(json.getString("goodsId").toString());
-			pyShoppingCart.setGoodsNum(Short.valueOf(json.getString("goodsNum").toString()));
-			pyShoppingCart.setVendorid("1");
-			pyShoppingCart.setChecked("1");
-			this.save(pyShoppingCart);
+			JSONArray jSONArray =  json.getJSONArray("goodsList");
+			for(int i=0;jSONArray.size()>i;i++){
+				JSONObject jsonObject = jSONArray.getJSONObject(i);
+				PyShoppingCart pyShoppingCart = new PyShoppingCart();
+				pyShoppingCart.setIds(UUIDUtils.getUuid());
+				pyShoppingCart.setUserids(jsonObject.getString("userId").toString());
+				pyShoppingCart.setGoodsIds(jsonObject.getString("goodsId").toString());
+				pyShoppingCart.setGoodsNum(Short.valueOf(jsonObject.getString("goodsNum").toString()));
+				pyShoppingCart.setVendorid("1");
+				pyShoppingCart.setChecked("1");
+				this.save(pyShoppingCart);
+				pyShoppingCartList.add(pyShoppingCart);
+			}
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			data.put("pyShoppingCart", pyShoppingCart);
+			data.put("pyShoppingCartList", pyShoppingCartList);
 			responseInfo.setData(data);
 		}catch(Exception e){
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
@@ -98,14 +106,18 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	public ResponseInfo updatePyShoppingCart(JSONObject json) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		try{
-			PyShoppingCart pyShoppingCart = new PyShoppingCart();
-			pyShoppingCart.setIds(json.getString("ids").toString());
-			pyShoppingCart.setUserids(json.getString("userId").toString());
-			pyShoppingCart.setGoodsIds(json.getString("goodsId").toString());
-			pyShoppingCart.setGoodsNum(Short.valueOf(json.getString("goodsNum").toString()));
-			pyShoppingCart.setVendorid("1");
-			pyShoppingCart.setChecked("1");
-			this.update(pyShoppingCart);
+			JSONArray jSONArray =  json.getJSONArray("goodsList");
+			for(int i=0;jSONArray.size()>i;i++){
+				JSONObject jsonObject = jSONArray.getJSONObject(i);
+				PyShoppingCart pyShoppingCart = new PyShoppingCart();
+				pyShoppingCart.setIds(jsonObject.getString("ids").toString());
+				pyShoppingCart.setUserids(jsonObject.getString("userId").toString());
+				pyShoppingCart.setGoodsIds(jsonObject.getString("goodsId").toString());
+				pyShoppingCart.setGoodsNum(Short.valueOf(jsonObject.getString("goodsNum").toString()));
+				pyShoppingCart.setVendorid("1");
+				pyShoppingCart.setChecked("1");
+				this.update(pyShoppingCart);
+			}
 				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 				responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		}catch(Exception e){
@@ -117,10 +129,14 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	}
 
 	@Override
-	public ResponseInfo deletePyShoppingCartById(String id) {
+	public ResponseInfo deletePyShoppingCartById(JSONObject json) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		try{
-			this.deleteById(id);
+			JSONArray jSONArray =  json.getJSONArray("goodsList");
+			for(int i=0;jSONArray.size()>i;i++){
+				JSONObject jsonObject = jSONArray.getJSONObject(i);
+				this.deleteById(jsonObject.getString("id").toString());
+			}
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		}catch(Exception e){
