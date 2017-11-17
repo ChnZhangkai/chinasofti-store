@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.spuser.SpUser;
+import com.chinasofti.mall.user.handler.MyException;
 import com.chinasofti.mall.user.mapper.SpUserMapper;
 import com.chinasofti.mall.user.service.SpUserService;
 
@@ -19,7 +20,7 @@ public class SpUserServiceImp implements SpUserService {
 	private SpUserMapper spUserMapper;
 	
 	@Override
-	public String insert(SpUser spUser) {
+	public String insert(SpUser spUser) throws MyException{
 		String userId = spUser.getUserId();
 		//查询账号是否已被注册
 		String reUserId = spUserMapper.contByUserId(userId);
@@ -32,16 +33,21 @@ public class SpUserServiceImp implements SpUserService {
 		}
 		//如果没有 ，进行注册
 		int retIn = spUserMapper.insert(spUser);
-		System.out.println("retIn="+retIn);
+		if(retIn !=1){
+			throw new MyException("9999","发生错误");
+		}
 		return "SUCCESS";
 		
 	}
 	
 	@Override
-	public SpUser select(SpUser spUser) {
+	public SpUser select(SpUser spUser) throws MyException{
 		SpUser res = new SpUser();
-		res = spUserMapper.select(spUser);
-		System.out.println("res="+res);
+		try{
+			res = spUserMapper.select(spUser);
+		}catch(Exception e){
+			throw new MyException("9999","发生错误");
+		}
 		return res;
 	}
 	

@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.user.handler.MyException;
 import com.chinasofti.mall.user.service.SpSendAddressService;
 
 /**
@@ -47,9 +47,13 @@ public class SpSendAddressController {
 	public ResponseInfo findSendAddressList(@RequestParam("userId") String userId) {
 		ResponseInfo res = new ResponseInfo();
 		List<SpSendAddress> list = new ArrayList<SpSendAddress>();
+		try{
 		list = spSendAddressService.querySentAddressList(userId);
 		res = dealResponseData(list);
-		logger.info("res="+res.toString());
+		}catch(Exception e){
+			res.setRetCode("999999");
+			res.setRetMsg("系统异常");
+		}
 		return res;
 	} 
 	
@@ -66,8 +70,13 @@ public class SpSendAddressController {
 			res.setRetMsg(retMsg);
 			return res;
 		}
-		res = dealResponseData(spSendAddressService.insertSendAddress(spSendAddress));
-		logger.info(res.toString());
+		try{
+			res = dealResponseData(spSendAddressService.insertSendAddress(spSendAddress));
+			logger.info(res.toString());
+		}catch(Exception e){
+			res.setRetCode("999999");
+			res.setRetMsg("系统异常");
+		}
 		return res;
 	}
 	
@@ -83,7 +92,13 @@ public class SpSendAddressController {
 			res.setRetMsg(retMsg);
 			return res;
 		}
-		return dealResponseData(spSendAddressService.updateSendAddress(spSendAddress));
+		try{
+			res = dealResponseData(spSendAddressService.updateSendAddress(spSendAddress));
+		}catch(Exception e){
+			res.setRetCode("999999");
+			res.setRetMsg("系统异常");
+		}
+		return res;
 	}
 	
 	/*
@@ -92,7 +107,14 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/delete"  , method = RequestMethod.POST)
 	public ResponseInfo deleteSendAddress(@RequestBody(required=false) SpSendAddress spSendAddress){
-		return dealResponseData(spSendAddressService.deleteSendAddress(spSendAddress));
+		ResponseInfo res = new ResponseInfo();
+		try{
+			res = dealResponseData(spSendAddressService.deleteSendAddress(spSendAddress));
+		}catch(Exception e){
+			res.setRetCode("999999");
+			res.setRetMsg("系统异常");
+		}
+		return res;
 	}
 	
 	//封装返回参数

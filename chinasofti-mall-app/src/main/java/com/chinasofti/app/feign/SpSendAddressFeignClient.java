@@ -8,6 +8,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.app.hystrix.SpSendAddressFeignClientHystrix;
@@ -48,8 +49,8 @@ public interface SpSendAddressFeignClient {
 	* @return: String
 	* @throws
 	*/
-	@RequestMapping(value = "/address/add")
-	public ResponseInfo addSendAddress(@RequestBody(required=false) SpSendAddress spSendAddress);
+	@RequestMapping(value = "/address/add" , method = RequestMethod.POST)
+	public ResponseInfo addSendAddress(@RequestBody SpSendAddress spSendAddress);
 	
 	/**
 	* @Title: address
@@ -58,8 +59,8 @@ public interface SpSendAddressFeignClient {
 	* @return: String
 	* @throws
 	*/
-	@RequestMapping(value = "/address/updata")
-	public ResponseInfo updataSendAddress(@RequestBody(required=false) SpSendAddress spSendAddress);
+	@RequestMapping(value = "/address/updata" , method = RequestMethod.POST)
+	public ResponseInfo updataSendAddress(@RequestBody SpSendAddress spSendAddress);
 	
 	/**
 	* @Title: address
@@ -68,8 +69,8 @@ public interface SpSendAddressFeignClient {
 	* @return: String
 	* @throws
 	*/
-	@RequestMapping(value = "/address/delete")
-	public ResponseInfo deleteSendAddress(@RequestBody(required=false) SpSendAddress spSendAddress);
+	@RequestMapping(value = "/address/delete" , method = RequestMethod.POST)
+	public ResponseInfo deleteSendAddress(@RequestBody SpSendAddress spSendAddress);
 	
 	
 }

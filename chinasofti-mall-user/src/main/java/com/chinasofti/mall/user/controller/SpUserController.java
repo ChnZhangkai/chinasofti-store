@@ -36,27 +36,39 @@ public class SpUserController {
 	Logger logger = LoggerFactory.getLogger(SpUserController.class);  
 	
 	@RequestMapping(value="/signUp" , method = RequestMethod.POST)
-	public ResponseInfo signUp(@RequestBody(required=false) SpUser spUser) {
+	public ResponseInfo signUp(@RequestBody SpUser spUser) {
 		ResponseInfo res = new ResponseInfo();
-		if("Y".equals(spUserService.insert(spUser))){
-			res.setRetCode("400010");
-			res.setRetMsg("该账号已被注册");
-			return res;
-		}
-		return dealResponseData(spUserService.insert(spUser));
+		try{
+			if("Y".equals(spUserService.insert(spUser))){
+				res.setRetCode("400010");
+				res.setRetMsg("该账号已被注册");
+				return res;
+			}
+			res = dealResponseData(spUserService.insert(spUser));
+		}catch(Exception e){
+			res.setRetCode("999999");
+			res.setRetMsg("系统异常");
+		}	
+		return res;
 			
 		
 	}
 	
 	@RequestMapping(value="/signIn" , method = RequestMethod.POST)
-	public ResponseInfo signIn(@RequestBody(required=false) SpUser spUser) {
+	public ResponseInfo signIn(@RequestBody SpUser spUser) {
 		ResponseInfo res = new ResponseInfo();
-		if(spUserService.select(spUser) == null){
-			res.setRetCode("400020");
-			res.setRetMsg("账户或密码错误");
-			return res;
-		}
-		return dealResponseData(spUserService.select(spUser));
+		try{
+			if(spUserService.select(spUser) == null){
+				res.setRetCode("400020");
+				res.setRetMsg("账户或密码错误");
+				return res;
+			}
+			res = dealResponseData(spUserService.select(spUser));
+		}catch(Exception e){
+			res.setRetCode("999999");
+			res.setRetMsg("系统异常");
+		}	
+		return res;	
 	}
 	
 	//封装返回参数
@@ -73,8 +85,7 @@ public class SpUserController {
 			response.setRetMsg(MsgEnum.ERROR.getMsg());
 		}
 		return response;
-	}	
-	
+	}
 	
 	
 }

@@ -5,6 +5,7 @@ package com.chinasofti.app.feign;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.chinasofti.app.hystrix.AdvertiseFeignClientHystrix;
 import com.chinasofti.app.hystrix.SpUserFeignClientHystrix;
@@ -35,8 +36,8 @@ public interface SpUserFeignClient {
 	* @return: String
 	* @throws:
 	 */
-	@RequestMapping(value = "/spUser/signUp")
-	public ResponseInfo signUp(@RequestBody(required=false) SpUser spUser);
+	@RequestMapping(value = "/spUser/signUp" , method = RequestMethod.POST)
+	public ResponseInfo signUp(@RequestBody SpUser spUser);
 
 	/**
 	* @Title: 
@@ -45,8 +46,8 @@ public interface SpUserFeignClient {
 	* @return: String
 	* @throws
 	*/
-	@RequestMapping(value = "/spUser/signIn")
-	public ResponseInfo signIn(@RequestBody(required=false) SpUser spUser);
+	@RequestMapping(value = "/spUser/signIn" , method = RequestMethod.POST)
+	public ResponseInfo signIn(@RequestBody SpUser spUser);
 	
 	
 }
