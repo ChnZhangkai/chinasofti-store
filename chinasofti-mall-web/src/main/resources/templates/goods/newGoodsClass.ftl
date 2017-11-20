@@ -1,6 +1,6 @@
 <div id="goodsClassMain" class="easyui-layout" data-options="fit:true">
 	
-	<div><font style="color: red;">左键双击快速修改分类名称,左y右键单击节点增删改</font></div>
+	<div><font style="color: red;">左键双击快速修改分类名称,右键单击节点增删改</font></div>
 	
 	<!-- 菜单主体 -->
 	<div>	
