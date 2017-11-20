@@ -61,8 +61,8 @@ public class SpSendAddressController {
 	 * 增加收件地址
 	 * 参数 spSendAddress
 	 * */
-	@RequestMapping(value="/add" , method = RequestMethod.POST)
-	public ResponseInfo addSendAddress(@RequestBody(required=false) SpSendAddress spSendAddress){
+	@RequestMapping(value="/add")
+	public ResponseInfo addSendAddress(@RequestBody SpSendAddress spSendAddress){
 		ResponseInfo res = new ResponseInfo();
 		//验证地址信息
 		if(!checkAddrInfo(spSendAddress)){
@@ -78,14 +78,15 @@ public class SpSendAddressController {
 			res.setRetMsg("系统异常");
 		}
 		return res;
+		
 	}
 	
 	/*
 	 * 修改收件地址
 	 * 参数 spSendAddress
 	 * */
-	@RequestMapping(value="/updata" ,  method = RequestMethod.POST)
-	public ResponseInfo updataSendAddress(@RequestBody(required=false) SpSendAddress spSendAddress){
+	@RequestMapping(value="/updata")
+	public ResponseInfo updataSendAddress(@RequestBody SpSendAddress spSendAddress){
 		ResponseInfo res = new ResponseInfo();
 		if(!"".equals(spSendAddress.getMobile())&&!checkAddrInfo(spSendAddress)){
 			res.setRetCode(retCode);
@@ -105,8 +106,8 @@ public class SpSendAddressController {
 	 * 删除收件地址
 	 * 参数 userId,addressId
 	 * */
-	@RequestMapping(value="/delete"  , method = RequestMethod.POST)
-	public ResponseInfo deleteSendAddress(@RequestBody(required=false) SpSendAddress spSendAddress){
+	@RequestMapping(value="/delete")
+	public ResponseInfo deleteSendAddress(@RequestBody SpSendAddress spSendAddress){
 		ResponseInfo res = new ResponseInfo();
 		try{
 			res = dealResponseData(spSendAddressService.deleteSendAddress(spSendAddress));
