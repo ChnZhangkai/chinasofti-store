@@ -2,6 +2,8 @@ package com.chinasofti.mall.goodsorder.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 
 public interface PyShoppingCartMapper {
@@ -19,6 +21,6 @@ public interface PyShoppingCartMapper {
 
     int updateByPrimaryKey(PyShoppingCart record);
     
-    List<PyShoppingCart> getPyShoppingCartListByUserId(String userId);
+    List<PyShoppingCart> getPyShoppingCartListByUserId(@Param("userId") String userId);
     
 }

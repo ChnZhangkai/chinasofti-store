@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,17 +22,15 @@ public class AdvertiseController {
 
 
 
-	@RequestMapping(value="findAdvertiseList", method = RequestMethod.POST)
+	@RequestMapping(value="findAdvertiseList")
 	public ResponseInfo findAdvertiseList(@RequestParam String positionId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
 		logger.info(positionId);
 		return advertiseFeignClient.findAdvertiseList(positionId);
 	}
-	@RequestMapping(value="findAdvertise", method = RequestMethod.POST)
+	@RequestMapping(value="findAdvertise")
 	public ResponseInfo findAdvertise(@RequestParam String positionId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
 		logger.info("查询位置ID"+positionId);
 		return advertiseFeignClient.findAdvertise(positionId);
 	}
