@@ -1,6 +1,8 @@
 package com.chinasofti.mall.goodsorder.service;
 
-import com.alibaba.fastjson.JSONObject;
+import java.util.List;
+
+
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.service.IBaseService;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -9,10 +11,10 @@ public interface PyShoppingCartService  extends IBaseService<PyShoppingCart> {
 
 	public ResponseInfo queryPyShoppingCartListByUserId(String userId);
 	
-	public ResponseInfo savePyShoppingCart(JSONObject json);
+	public ResponseInfo savePyShoppingCart(List<PyShoppingCart>goodsList);
 
-	public ResponseInfo updatePyShoppingCart(JSONObject json);
+	public ResponseInfo updatePyShoppingCart(List<PyShoppingCart>goodsList);
 	
-	public ResponseInfo deletePyShoppingCartById(JSONObject json);
+	public ResponseInfo deletePyShoppingCartById(List<PyShoppingCart> goodsList);
 	
 }

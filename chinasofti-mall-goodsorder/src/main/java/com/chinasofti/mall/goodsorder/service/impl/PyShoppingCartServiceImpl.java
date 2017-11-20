@@ -72,27 +72,17 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	}
 
 	@Override
-	public ResponseInfo savePyShoppingCart(JSONObject json) {
+	public ResponseInfo savePyShoppingCart(List<PyShoppingCart>goodsList) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
-		List<PyShoppingCart> pyShoppingCartList = new ArrayList<PyShoppingCart>();
 		try{
-			JSONArray jSONArray =  json.getJSONArray("goodsList");
-			for(int i=0;jSONArray.size()>i;i++){
-				JSONObject jsonObject = jSONArray.getJSONObject(i);
-				PyShoppingCart pyShoppingCart = new PyShoppingCart();
-				pyShoppingCart.setIds(UUIDUtils.getUuid());
-				pyShoppingCart.setUserids(jsonObject.getString("userId").toString());
-				pyShoppingCart.setGoodsIds(jsonObject.getString("goodsId").toString());
-				pyShoppingCart.setGoodsNum(Short.valueOf(jsonObject.getString("goodsNum").toString()));
-				pyShoppingCart.setVendorid("1");
-				pyShoppingCart.setChecked("1");
-				this.save(pyShoppingCart);
-				pyShoppingCartList.add(pyShoppingCart);
+			for(int i=0;goodsList.size()>i;i++){
+				PyShoppingCart goods = goodsList.get(i);
+				this.save(goods);
 			}
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			data.put("pyShoppingCartList", pyShoppingCartList);
+			data.put("pyShoppingCartList", goodsList);
 			responseInfo.setData(data);
 		}catch(Exception e){
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
@@ -103,23 +93,23 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	}
 
 	@Override
-	public ResponseInfo updatePyShoppingCart(JSONObject json) {
+	public ResponseInfo updatePyShoppingCart(List<PyShoppingCart>goodsList) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		try{
-			JSONArray jSONArray =  json.getJSONArray("goodsList");
-			for(int i=0;jSONArray.size()>i;i++){
-				JSONObject jsonObject = jSONArray.getJSONObject(i);
-				PyShoppingCart pyShoppingCart = new PyShoppingCart();
-				pyShoppingCart.setIds(jsonObject.getString("ids").toString());
-				pyShoppingCart.setUserids(jsonObject.getString("userId").toString());
-				pyShoppingCart.setGoodsIds(jsonObject.getString("goodsId").toString());
-				pyShoppingCart.setGoodsNum(Short.valueOf(jsonObject.getString("goodsNum").toString()));
-				pyShoppingCart.setVendorid("1");
-				pyShoppingCart.setChecked("1");
-				this.update(pyShoppingCart);
+			if(goodsList.size()>0){
+			for(int i=0;goodsList.size()>i;i++){
+				PyShoppingCart goods = goodsList.get(i);
+				this.update(goods);
 			}
 				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 				responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
+			}else{
+				
+				responseInfo.setRetCode(MsgEnum.ERROR.getCode());
+				responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
+				return responseInfo;
+			}
+			
 		}catch(Exception e){
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
@@ -129,17 +119,27 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	}
 
 	@Override
-	public ResponseInfo deletePyShoppingCartById(JSONObject json) {
+	public ResponseInfo deletePyShoppingCartById(List<PyShoppingCart> goodsList) {
 		ResponseInfo responseInfo = new ResponseInfo();
-		try{
-			JSONArray jSONArray =  json.getJSONArray("goodsList");
-			for(int i=0;jSONArray.size()>i;i++){
-				JSONObject jsonObject = jSONArray.getJSONObject(i);
-				this.deleteById(jsonObject.getString("id").toString());
+		try {
+			if (goodsList.size() > 0) {
+				for (int i = 0; goodsList.size() > i; i++) {
+					PyShoppingCart goods = goodsList.get(i);
+					int row = deleteById(goods.getIds());
+					if (row <= 0) {
+						responseInfo.setRetCode(MsgEnum.ERROR.getCode());
+						responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
+						logger.error("删除购物车失败");
+					}else{
+						responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
+						responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
+					}
+
+				}
+				
 			}
-			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
-			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
 			logger.error("删除购物车失败");
