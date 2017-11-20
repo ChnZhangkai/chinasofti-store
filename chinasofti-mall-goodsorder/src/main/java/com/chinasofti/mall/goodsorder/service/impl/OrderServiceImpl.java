@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorderExample;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.utils.MsgEnum;
@@ -35,17 +35,25 @@ public class OrderServiceImpl implements OrderService {
 	private BigGoodsorderService bigGoodsorderService;
 
 	@Override
-	public ResponseInfo queryOrderListByUserId(JSONObject json) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseInfo queryOrderListByUserId(String userId) {
+		
+		PyBigGoodsorderExample example = new PyBigGoodsorderExample();
+		example.createCriteria().andUserIdsEqualTo(userId);
+		ResponseInfo info = new ResponseInfo();
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("list", bigGoodsorderService.selectByExample(example));
+		
+		info.setData(data );
+		info.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		info.setRetCode(MsgEnum.SUCCESS.getCode());
+		return info;
 	}
 
 	@Override
-	public ResponseInfo saveOrder(JSONObject json) {
+	public ResponseInfo saveOrder(PyBigGoodsorder pyBigGoodsorder) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
 		try{
-			PyBigGoodsorder pyBigGoodsorder = new PyBigGoodsorder();
 			pyBigGoodsorder.setIds(UUIDUtils.getUuid());
 			//pyBigGoodsorder.setTransactionid(transactionid);
 			//……
@@ -76,15 +84,25 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public ResponseInfo cancelOrder(JSONObject json) {
-		// TODO Auto-generated method stub
+	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder) {
+		pyBigGoodsorder.setCheckingStatus("");
 		return null;
 	}
 
+	
 	@Override
-	public ResponseInfo deleteOrderById(JSONObject json) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseInfo deleteOrderById(String orderId) {
+		ResponseInfo responseInfo = new ResponseInfo();
+		int count = bigGoodsorderService.deleteById(orderId);
+		if (count > 0) {
+			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
+			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		}else {
+			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
+			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
+			logger.error("提交删除失败");
+		}
+		return responseInfo;
 	}
 
 	

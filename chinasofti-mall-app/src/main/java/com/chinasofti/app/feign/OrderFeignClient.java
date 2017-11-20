@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**
@@ -19,17 +19,17 @@ public interface OrderFeignClient {
 
 	@ResponseBody
 	@RequestMapping(value="/order/V1.0/query/orderList", method = RequestMethod.POST)
-	public ResponseInfo queryOrderListByUserId(@RequestBody JSONObject json);
+	public ResponseInfo queryOrderListByUserId(@RequestBody String userId);
 	
 	@ResponseBody
 	@RequestMapping(value="/order/V1.0/add/order", method = RequestMethod.POST)
-	public ResponseInfo saveOrder(@RequestBody JSONObject json);
+	public ResponseInfo saveOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder);
 
 	@ResponseBody
 	@RequestMapping(value="/order/V1.0/cancel/order", method = RequestMethod.POST)
-	public ResponseInfo cancelOrder(@RequestBody JSONObject json);
+	public ResponseInfo cancelOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder);
 	
 	@ResponseBody
 	@RequestMapping(value="/order/V1.0/del/order", method = RequestMethod.POST)
-	public ResponseInfo deleteOrderById(@RequestBody JSONObject json);
+	public ResponseInfo deleteOrderById(@RequestBody String orderId);
 }

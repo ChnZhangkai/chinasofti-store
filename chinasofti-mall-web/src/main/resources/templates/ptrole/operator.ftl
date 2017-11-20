@@ -29,6 +29,7 @@
 				//让当前点击的树节点选中---select选中方法
 	            $(this).tree('select',node.target);
 				//让id=menuOperatorMenu的标签显示对应的EasyUI菜单界面,固定当前弹出的菜单坐标
+				alert(node.parentId)
 	            $('#menuOperatorMenu').menu('show',{
 	                left: e.pageX,
 	                top: e.pageY

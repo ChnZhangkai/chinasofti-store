@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
-import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goodsorder.service.OrderService;
 
@@ -36,8 +35,8 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value="/del/order", method = RequestMethod.POST)
 	@ApiOperation(value="删除订单", notes="报文示例：{'orderId':'1001'}")
-	public ResponseInfo deleteOrderById(@RequestBody JSONObject json) {
-		ResponseInfo responseInfo = orderService.deleteOrderById(json);
+	public ResponseInfo deleteOrderById( String orderId) {
+		ResponseInfo responseInfo = orderService.deleteOrderById(orderId);
 		return responseInfo;
 	}
 	
@@ -49,8 +48,8 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value="/add/order", method = RequestMethod.POST)
 	@ApiOperation(value="提交订单", notes="报文示例：{'userId':'chin','goodsId':'1001'}")
-	public ResponseInfo saveOrder(@RequestBody JSONObject json) {
-		ResponseInfo responseInfo = orderService.saveOrder(json);
+	public ResponseInfo saveOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder) {
+		ResponseInfo responseInfo = orderService.saveOrder(pyBigGoodsorder);
 		return responseInfo;
 	}
 
@@ -62,8 +61,8 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value="/cancel/order", method = RequestMethod.POST)
 	@ApiOperation(value="取消订单", notes="报文示例：{'ids':'1','orderId':'1001','userId':'chin'}")
-	public ResponseInfo cancelOrder(@RequestBody JSONObject json) {
-		ResponseInfo responseInfo = orderService.cancelOrder(json);
+	public ResponseInfo cancelOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder) {
+		ResponseInfo responseInfo = orderService.cancelOrder( pyBigGoodsorder);
 		return responseInfo;
 	}
 	
@@ -75,8 +74,8 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value="/query/orderList", method = RequestMethod.POST)
 	@ApiOperation(value="查询订单", notes="报文示例：{'orderId':'1001','userId':'chin'}")
-	public ResponseInfo queryOrderListByUserId(@RequestBody JSONObject json){
-		ResponseInfo responseInfo = orderService.queryOrderListByUserId(json);
+	public ResponseInfo queryOrderListByUserId(@RequestBody String userId){
+		ResponseInfo responseInfo = orderService.queryOrderListByUserId(userId);
 		return responseInfo;
 	}
 

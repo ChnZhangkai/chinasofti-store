@@ -474,6 +474,3 @@ $(function(){
 		});
 	}
 </script>
-
-
-
