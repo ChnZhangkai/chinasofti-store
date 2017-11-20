@@ -3,6 +3,8 @@
  */
 package com.chinasofti.app.hystrix;
 
+import org.springframework.stereotype.Component;
+
 import com.chinasofti.app.feign.SpMerchantUserFeignClient;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 
@@ -13,6 +15,7 @@ import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
  * @Date: 2017年11月17日 下午5:09:27
  * @parma <T>
  */
+@Component
 public class SpMerchantUserFeignClientHystrix implements SpMerchantUserFeignClient{
 
 	
