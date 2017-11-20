@@ -37,8 +37,8 @@ public interface SpSendAddressFeignClient {
 	* @throws:
 	 */
 	@RequestMapping(value = "/address/list")
-	
 	public ResponseInfo findSendAddressList(@RequestParam("userId") String userId);
+	
 	
 	/**
 	* @Title: address
@@ -47,7 +47,7 @@ public interface SpSendAddressFeignClient {
 	* @return: String
 	* @throws
 	*/
-	@RequestMapping(value = "/address/add" , method = RequestMethod.POST)
+	@RequestMapping(value = "/address/add")
 	public ResponseInfo addSendAddress(@RequestBody SpSendAddress spSendAddress);
 	
 	/**
@@ -57,7 +57,7 @@ public interface SpSendAddressFeignClient {
 	* @return: String
 	* @throws
 	*/
-	@RequestMapping(value = "/address/updata" , method = RequestMethod.POST)
+	@RequestMapping(value = "/address/updata")
 	public ResponseInfo updataSendAddress(@RequestBody SpSendAddress spSendAddress);
 	
 	/**
@@ -67,7 +67,7 @@ public interface SpSendAddressFeignClient {
 	* @return: String
 	* @throws
 	*/
-	@RequestMapping(value = "/address/delete" , method = RequestMethod.POST)
+	@RequestMapping(value = "/address/delete")
 	public ResponseInfo deleteSendAddress(@RequestBody SpSendAddress spSendAddress);
 	
 	

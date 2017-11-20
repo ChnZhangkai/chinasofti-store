@@ -176,6 +176,19 @@ public class ChnGoodsClassController {
 	}
 	
 	/**
+	 * 修改名称
+	 * @return
+	 */
+	@RequestMapping("/updateGoodsClassName")
+	public int updateGoodsClassName(ChnGoodsClass chnGoodsClass,HttpSession session){
+		PtUser user = (PtUser) session.getAttribute("user");
+		chnGoodsClass.setUpdateBy(user.getUsername());
+		chnGoodsClass.setUpdateTime(StringDateUtil.convertDateToLongString(new Date()));
+		int updateGoodsClass = chnGoodsClassFeignClient.updateGoodsClass(chnGoodsClass);
+		return updateGoodsClass;
+	}
+	
+	/**
 	 * 根据ID删除分类,并删除图片
 	 * @param ids
 	 * @return

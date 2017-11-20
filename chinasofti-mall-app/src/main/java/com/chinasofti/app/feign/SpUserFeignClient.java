@@ -33,9 +33,10 @@ public interface SpUserFeignClient {
 	* @return: String
 	* @throws:
 	 */
-	@RequestMapping(value = "/spUser/signUp" , method = RequestMethod.POST)
+	@RequestMapping(value = "/spUser/signUp")
 	public ResponseInfo signUp(@RequestBody SpUser spUser);
-
+    
+	
 	/**
 	* @Title: 
 	* @Description: 前端用户登录
@@ -43,7 +44,7 @@ public interface SpUserFeignClient {
 	* @return: String
 	* @throws
 	*/
-	@RequestMapping(value = "/spUser/signIn" , method = RequestMethod.POST)
+	@RequestMapping(value = "/spUser/signIn")
 	public ResponseInfo signIn(@RequestBody SpUser spUser);
 	
 	

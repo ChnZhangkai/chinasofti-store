@@ -42,8 +42,8 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 
 
 	@Override
-	public SpMerchantUser findById(String id) {
-		return spUserMapper.selectByPrimaryKey(id);
+	public SpMerchantUser findById(String vendorId) {
+		return spUserMapper.selectByPrimaryKey(vendorId);
 	}
 
 	
