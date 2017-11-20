@@ -16,6 +16,7 @@ import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.user.handler.MyException;
 import com.chinasofti.mall.user.service.SpUserService;
 
 import net.sf.json.JSONObject;
@@ -35,57 +36,32 @@ public class SpUserController {
 	
 	Logger logger = LoggerFactory.getLogger(SpUserController.class);  
 	
-	@RequestMapping(value="/signUp" , method = RequestMethod.POST)
+	@RequestMapping(value="/signUp")
 	public ResponseInfo signUp(@RequestBody SpUser spUser) {
 		ResponseInfo res = new ResponseInfo();
-		try{
-			if("Y".equals(spUserService.insert(spUser))){
-				res.setRetCode("400010");
-				res.setRetMsg("该账号已被注册");
-				return res;
-			}
-			res = dealResponseData(spUserService.insert(spUser));
-		}catch(Exception e){
+		try {
+			res = spUserService.add(spUser);
+		} catch (MyException e1) {
 			res.setRetCode("999999");
 			res.setRetMsg("系统异常");
-		}	
-		return res;
-			
+		}
+		return res;	
 		
 	}
 	
-	@RequestMapping(value="/signIn" , method = RequestMethod.POST)
+	@RequestMapping(value="/signIn")
 	public ResponseInfo signIn(@RequestBody SpUser spUser) {
 		ResponseInfo res = new ResponseInfo();
-		try{
-			if(spUserService.select(spUser) == null){
-				res.setRetCode("400020");
-				res.setRetMsg("账户或密码错误");
-				return res;
-			}
-			res = dealResponseData(spUserService.select(spUser));
-		}catch(Exception e){
+		try {
+			res = spUserService.select(spUser);
+		} catch (MyException e1) {
 			res.setRetCode("999999");
 			res.setRetMsg("系统异常");
-		}	
-		return res;	
+		}
+		return res;
 	}
 	
-	//封装返回参数
-	private ResponseInfo dealResponseData(Object obj) {
-		ResponseInfo  response= new ResponseInfo();
-		if(obj !=null){
-			Map<String, Object> data= new HashMap<String, Object>();
-			data.put("responseInfo", obj);
-			response.setData(data);
-			response.setRetCode(MsgEnum.SUCCESS.getCode());
-			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-		}else{
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg(MsgEnum.ERROR.getMsg());
-		}
-		return response;
-	}
+	
 	
 	
 }
