@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,7 +26,7 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
  *
  */
 @RestController
-@RequestMapping("/shoppingCart")
+@RequestMapping("shoppingCart")
 @Api(value = "ShoppingCartController", description = "购物车-API")
 public class ShoppingCartController {
 	
@@ -38,7 +39,7 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/del/goods", method = RequestMethod.POST)
+	@RequestMapping(value="del/goods", method = RequestMethod.POST)
 	@ApiOperation(value="删除购物车商品", notes="报文示例：{\"goodsList\":[{\"id\":\"1001\"},{\"id\":\"1002\"}]}")
 	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -53,12 +54,13 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/add/goods", method = RequestMethod.POST)
+	@RequestMapping(value="add/goods", method = RequestMethod.POST)
 	@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsList\":[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]}")
-	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
+	public ResponseInfo savePyShoppingCart(@RequestBody Map<String,Object> requestMap,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
-		ResponseInfo responseInfo = shoppingCartFeignClient.savePyShoppingCart(goodsList);
+		response.setHeader("Access-Control-Allow-Methods", "POST");
+		response.setHeader("Access-Control-Allow-Headers:application/x-www-form-urlencoded","content-type");
+		ResponseInfo responseInfo = shoppingCartFeignClient.savePyShoppingCart(requestMap);
 		return responseInfo;
 	}
 
@@ -82,7 +84,7 @@ public class ShoppingCartController {
 	 * @param json
 	 * @return
 	 */
-	@RequestMapping(value="/query/goodsList", method = RequestMethod.POST)
+	@RequestMapping(value="query/goodsList", method = RequestMethod.POST)
 	@ApiOperation(value="查询购物车商品", notes="报文示例：{\"userId\":\"1\"}")
 	public ResponseInfo queryPyShoppingCartListByUserId(@RequestParam("userId") String userId,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");

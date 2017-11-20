@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,10 +48,12 @@ public class ShoppingCartController {
 	 * @param tt
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(value="/add/goods", method = RequestMethod.POST)
 	@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsList\":[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]}")
-	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList) {
+	public ResponseInfo savePyShoppingCart(@RequestBody Map<String,Object> requestMap) {
+		List<PyShoppingCart> goodsList = (List<PyShoppingCart>) requestMap.get("goodsList");
 		return pyShoppingCartService.savePyShoppingCart(goodsList);
 	}
 
