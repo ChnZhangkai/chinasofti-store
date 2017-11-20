@@ -33,12 +33,13 @@ public class SpSendAddressController {
 	 * 查询地址列表
 	 * 参数 userId 用户ID
 	 * */
-	@RequestMapping(value="/list")
+	@RequestMapping(value="/list", method = RequestMethod.POST)
 	public ResponseInfo findSendAddressList(@RequestParam String userId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spSendAddressFeignClient.findSendAddressList(userId);
 	}
+	
 	 
 	/*
 	 * 增加收件地址
@@ -69,6 +70,7 @@ public class SpSendAddressController {
 	@RequestMapping(value="/delete" , method = RequestMethod.POST)
 	public ResponseInfo deleteSendAddress(@RequestBody SpSendAddress spSendAddress,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spSendAddressFeignClient.deleteSendAddress(spSendAddress);
 	}
 	

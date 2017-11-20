@@ -63,6 +63,45 @@
 	</div>
 	
 	
+	<!-- 分类添加表格 -->
+	<div id="goodsClassAddDialog" class="easyui-dialog"
+		data-options="closed:true,iconCls:'icon-save'"
+		style="width: 400px; padding: 10px;">
+		<form id="goodsClassAddForm" method="post" enctype="multipart/form-data">
+			<table id="goodsClassAddTable">
+				<tr>
+					<td width="60" align="right">分类名称:</td>
+					<td><input type="text" id="name" name="name"
+						class="easyui-validatebox wu-text" required="true" missingMessage="请输入分类名称"/></td>
+				</tr>
+				<tr>
+					<td align="right">分类描述:</td>
+					<td><input type="text" id="commons" name="commons"
+						class="wu-text" /></td>
+				</tr>
+				<tr>
+					<td align="right">分类状态:</td>
+					<td>
+						<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择分类状态" data-options="editable:false,panelHeight:'auto'" id="states" name="states" style="width: 75px">
+								<option value="0">禁用</option>
+								<option value="1">启用</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">分类图片:</td>
+					<td><input type="file" id="img" name="img"  class="img" onchange="readPicture()"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<div id="showpic"></div>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
 </div>
 <script type="text/javascript">
 	
@@ -76,6 +115,8 @@
 	/* 分类树 */
 	function loadGoodsClassTree(){
 		
+		var isChange ;
+		
 		$('#goodsClassTree').tree({
 			url:'/goods/findGoodsClass', //加载请求节点数据
 			//checkbox:true, //复选框
@@ -84,6 +125,7 @@
 			onDblClick:function(node){  //双击事件
                	var id = node.id;  
                 var text = node.text;  
+                isChange = node.text;
                 $('#goodsClassTree').tree('beginEdit', node.target);//开启编辑
 			},
             //右键点击打开菜单
@@ -101,38 +143,110 @@
 			
 			//编辑之后
 			onAfterEdit : function(node) { 
-				alert(node.id + '||' + node.text);
+				if(node.text != isChange){
+					$.ajax({
+						url:'/goods/updateGoodsClassName',
+						type:'POST',
+						data:{'ids':node.id,'name':node.text},
+						success:function(data){
+							//$('#goodsClassTree').tree('reload')
+						}
+					});
+				}
 			}
 		});
 	}
-	
-		//打开添加窗口
+		
+		//打开新增窗口
 		function openGsAdd(){
+			
+		}
+		
+		//执行新增方法
+		function addGoodsClass(){
 			
 		}
 		
 		//打开修改窗口
 		function openGsEdit(){
-			$('#goodsClassDialog').dialog('open').dialog({
-				closed: false,
-				modal:true,
-				closable:false,
-	            title: "分类详情",
-				buttons : [{
-					text : '确认',
-					iconCls : 'icon-ok',
-					handler : function() {
-						$('#goodsClassDialog').dialog('close');
-					}
-				},{
-					text : '关闭',
-					iconCls : 'icon-cancel',
-					handler : function() {
-						$('#goodsClassDialog').dialog('close');
-					}
-				}]
-			});
+			$('#goodsClassForm').form('clear');
+			var node = $('#goodsClassTree').tree('getSelected');
+			var ids = node.id;
+			$.ajax({
+				url:'/goods/select/' + ids,
+				type:'POST',
+				success:function(data){
+					$('#goodsClassDialog').dialog('open').dialog({
+						closed: false,
+						modal:true,
+						closable:false,
+			            title: "分类详情",
+						buttons : [{
+							text : '确认',
+							iconCls : 'icon-ok',
+							handler : function() {
+								$('#goodsClassForm').form('submit', {
+									url:'/goods/update',
+						    		type:'POST',
+						    		data:$('#goodsClassForm').serialize(),
+						    		success:function(data){
+						    			if(data > 0){
+						    				$.messager.alert('信息提示','提交成功！','info');
+						    				$('#goodsClassDialog').dialog('close');
+						    			}else{
+						    				$.messager.alert('信息提示','提交失败！','info');
+						    			}
+						    		}
+						    	});
+								$('#goodsClassDialog').dialog('close');
+							}
+						},{
+							text : '关闭',
+							iconCls : 'icon-cancel',
+							handler : function() {
+								$('#goodsClassDialog').dialog('close');
+								document.getElementById("showupic").innerHTML = "";
+							}
+						}]
+					});
+					$('#goodsClassForm').form('load',data);
+				}
+			})
+			
 
+		}
+		
+		//移除节点
+		function removeGs(){
+			var node = $('#goodsClassTree').tree('getSelected');
+			var ids = node.id;
+			$.ajax({
+				url:'/goods//delete/' + ids,
+				type:'POST',
+				success:function(data){
+					loadTree();
+				}
+			});
+		}
+		
+		//修改图片时回显
+		function updatePicture() {
+			// 检查是否为图像类型
+			var simpleFile = document.getElementById("uimg").files[0];
+			//console.info(simpleFile)
+			if (!/image\/\w+/.test(simpleFile.type)) {
+				$.messager.alert('信息提示','请确保文件类型为图像类型','info')
+				return false;
+			}
+			var reader = new FileReader();
+			// 将文件以二进制文件读入页面中
+			reader.readAsBinaryString(simpleFile);
+			reader.onload = function(f) {
+				var result = document.getElementById("showupic");
+				var src = "data:" + simpleFile.type + ";base64," + window.btoa(this.result);
+				result.innerHTML = '<img id="readPic" style="height: 80px;width: 117px;" src ="' + src + '"/>';
+			}
+			//document.getElementById("showpic").style.display="";
 		}
 		
 </script>
