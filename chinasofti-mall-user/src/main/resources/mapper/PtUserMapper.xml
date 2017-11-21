@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.user.mapper.PtUserMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.PtUser" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="ERRORCOUNT" property="errorcount" jdbcType="VARCHAR" />
+    <result column="ORDERIDS" property="orderids" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="STOPDATE" property="stopdate" jdbcType="TIMESTAMP" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="DEPARTMENTIDS" property="departmentids" jdbcType="VARCHAR" />
+    <result column="USERINFOIDS" property="userinfoids" jdbcType="VARCHAR" />
+    <result column="STATIONIDS" property="stationids" jdbcType="VARCHAR" />
+    <result column="DEPTIDS" property="deptids" jdbcType="VARCHAR" />
+    <result column="USERIDS" property="userids" jdbcType="VARCHAR" />
+    <result column="DEPARTMENTNAMES" property="departmentnames" jdbcType="VARCHAR" />
+    <result column="STATIONNAMES" property="stationnames" jdbcType="VARCHAR" />
+    <result column="DEPTNAMES" property="deptnames" jdbcType="VARCHAR" />
+    <result column="USERNAMES" property="usernames" jdbcType="VARCHAR" />
+    <result column="GROUPNAMES" property="groupnames" jdbcType="VARCHAR" />
+    <result column="ISMERCHANTUSER" property="ismerchantuser" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+    <result column="LOGINCOUNT" property="logincount" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.mall.common.entity.PtUser" extends="BaseResultMap" >
+    <result column="GROUPIDS" property="groupids" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, VERSION, ERRORCOUNT, ORDERIDS, PASSWORD, STATUS, STOPDATE, USERNAME, DEPARTMENTIDS, 
+    USERINFOIDS, STATIONIDS, DEPTIDS, USERIDS, DEPARTMENTNAMES, STATIONNAMES, DEPTNAMES, 
+    USERNAMES, GROUPNAMES, ISMERCHANTUSER, CREATETIME, LOGINCOUNT
+  </sql>
+  <sql id="Blob_Column_List" >
+    GROUPIDS
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.mall.common.entity.PtUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pt_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PtUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pt_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pt_user
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pt_user
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.PtUserExample" >
+    delete from pt_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PtUser" >
+    insert into pt_user (IDS, VERSION, ERRORCOUNT, 
+      ORDERIDS, PASSWORD, STATUS, 
+      STOPDATE, USERNAME, DEPARTMENTIDS, 
+      USERINFOIDS, STATIONIDS, DEPTIDS, 
+      USERIDS, DEPARTMENTNAMES, STATIONNAMES, 
+      DEPTNAMES, USERNAMES, GROUPNAMES, 
+      ISMERCHANTUSER, CREATETIME, LOGINCOUNT, 
+      GROUPIDS)
+    values (#{ids,jdbcType=VARCHAR}, #{version,jdbcType=DECIMAL}, #{errorcount,jdbcType=DECIMAL}, 
+      #{orderids,jdbcType=DECIMAL}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{stopdate,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, #{departmentids,jdbcType=VARCHAR}, 
+      #{userinfoids,jdbcType=VARCHAR}, #{stationids,jdbcType=VARCHAR}, #{deptids,jdbcType=VARCHAR}, 
+      #{userids,jdbcType=VARCHAR}, #{departmentnames,jdbcType=VARCHAR}, #{stationnames,jdbcType=VARCHAR}, 
+      #{deptnames,jdbcType=VARCHAR}, #{usernames,jdbcType=VARCHAR}, #{groupnames,jdbcType=VARCHAR}, 
+      #{ismerchantuser,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{logincount,jdbcType=DECIMAL}, 
+      #{groupids,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PtUser" >
+    insert into pt_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="errorcount != null" >
+        ERRORCOUNT,
+      </if>
+      <if test="orderids != null" >
+        ORDERIDS,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="stopdate != null" >
+        STOPDATE,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="departmentids != null" >
+        DEPARTMENTIDS,
+      </if>
+      <if test="userinfoids != null" >
+        USERINFOIDS,
+      </if>
+      <if test="stationids != null" >
+        STATIONIDS,
+      </if>
+      <if test="deptids != null" >
+        DEPTIDS,
+      </if>
+      <if test="userids != null" >
+        USERIDS,
+      </if>
+      <if test="departmentnames != null" >
+        DEPARTMENTNAMES,
+      </if>
+      <if test="stationnames != null" >
+        STATIONNAMES,
+      </if>
+      <if test="deptnames != null" >
+        DEPTNAMES,
+      </if>
+      <if test="usernames != null" >
+        USERNAMES,
+      </if>
+      <if test="groupnames != null" >
+        GROUPNAMES,
+      </if>
+      <if test="ismerchantuser != null" >
+        ISMERCHANTUSER,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="logincount != null" >
+        LOGINCOUNT,
+      </if>
+      <if test="groupids != null" >
+        GROUPIDS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="errorcount != null" >
+        #{errorcount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderids != null" >
+        #{orderids,jdbcType=DECIMAL},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="stopdate != null" >
+        #{stopdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentids != null" >
+        #{departmentids,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoids != null" >
+        #{userinfoids,jdbcType=VARCHAR},
+      </if>
+      <if test="stationids != null" >
+        #{stationids,jdbcType=VARCHAR},
+      </if>
+      <if test="deptids != null" >
+        #{deptids,jdbcType=VARCHAR},
+      </if>
+      <if test="userids != null" >
+        #{userids,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentnames != null" >
+        #{departmentnames,jdbcType=VARCHAR},
+      </if>
+      <if test="stationnames != null" >
+        #{stationnames,jdbcType=VARCHAR},
+      </if>
+      <if test="deptnames != null" >
+        #{deptnames,jdbcType=VARCHAR},
+      </if>
+      <if test="usernames != null" >
+        #{usernames,jdbcType=VARCHAR},
+      </if>
+      <if test="groupnames != null" >
+        #{groupnames,jdbcType=VARCHAR},
+      </if>
+      <if test="ismerchantuser != null" >
+        #{ismerchantuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="logincount != null" >
+        #{logincount,jdbcType=DECIMAL},
+      </if>
+      <if test="groupids != null" >
+        #{groupids,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.PtUserExample" resultType="java.lang.Integer" >
+    select count(*) from pt_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pt_user
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        VERSION = #{record.version,jdbcType=DECIMAL},
+      </if>
+      <if test="record.errorcount != null" >
+        ERRORCOUNT = #{record.errorcount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderids != null" >
+        ORDERIDS = #{record.orderids,jdbcType=DECIMAL},
+      </if>
+      <if test="record.password != null" >
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.stopdate != null" >
+        STOPDATE = #{record.stopdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.username != null" >
+        USERNAME = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentids != null" >
+        DEPARTMENTIDS = #{record.departmentids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfoids != null" >
+        USERINFOIDS = #{record.userinfoids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stationids != null" >
+        STATIONIDS = #{record.stationids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptids != null" >
+        DEPTIDS = #{record.deptids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userids != null" >
+        USERIDS = #{record.userids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentnames != null" >
+        DEPARTMENTNAMES = #{record.departmentnames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stationnames != null" >
+        STATIONNAMES = #{record.stationnames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptnames != null" >
+        DEPTNAMES = #{record.deptnames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usernames != null" >
+        USERNAMES = #{record.usernames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupnames != null" >
+        GROUPNAMES = #{record.groupnames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ismerchantuser != null" >
+        ISMERCHANTUSER = #{record.ismerchantuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        CREATETIME = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logincount != null" >
+        LOGINCOUNT = #{record.logincount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.groupids != null" >
+        GROUPIDS = #{record.groupids,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update pt_user
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      VERSION = #{record.version,jdbcType=DECIMAL},
+      ERRORCOUNT = #{record.errorcount,jdbcType=DECIMAL},
+      ORDERIDS = #{record.orderids,jdbcType=DECIMAL},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=CHAR},
+      STOPDATE = #{record.stopdate,jdbcType=TIMESTAMP},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      DEPARTMENTIDS = #{record.departmentids,jdbcType=VARCHAR},
+      USERINFOIDS = #{record.userinfoids,jdbcType=VARCHAR},
+      STATIONIDS = #{record.stationids,jdbcType=VARCHAR},
+      DEPTIDS = #{record.deptids,jdbcType=VARCHAR},
+      USERIDS = #{record.userids,jdbcType=VARCHAR},
+      DEPARTMENTNAMES = #{record.departmentnames,jdbcType=VARCHAR},
+      STATIONNAMES = #{record.stationnames,jdbcType=VARCHAR},
+      DEPTNAMES = #{record.deptnames,jdbcType=VARCHAR},
+      USERNAMES = #{record.usernames,jdbcType=VARCHAR},
+      GROUPNAMES = #{record.groupnames,jdbcType=VARCHAR},
+      ISMERCHANTUSER = #{record.ismerchantuser,jdbcType=VARCHAR},
+      CREATETIME = #{record.createtime,jdbcType=VARCHAR},
+      LOGINCOUNT = #{record.logincount,jdbcType=DECIMAL},
+      GROUPIDS = #{record.groupids,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pt_user
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      VERSION = #{record.version,jdbcType=DECIMAL},
+      ERRORCOUNT = #{record.errorcount,jdbcType=DECIMAL},
+      ORDERIDS = #{record.orderids,jdbcType=DECIMAL},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=CHAR},
+      STOPDATE = #{record.stopdate,jdbcType=TIMESTAMP},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      DEPARTMENTIDS = #{record.departmentids,jdbcType=VARCHAR},
+      USERINFOIDS = #{record.userinfoids,jdbcType=VARCHAR},
+      STATIONIDS = #{record.stationids,jdbcType=VARCHAR},
+      DEPTIDS = #{record.deptids,jdbcType=VARCHAR},
+      USERIDS = #{record.userids,jdbcType=VARCHAR},
+      DEPARTMENTNAMES = #{record.departmentnames,jdbcType=VARCHAR},
+      STATIONNAMES = #{record.stationnames,jdbcType=VARCHAR},
+      DEPTNAMES = #{record.deptnames,jdbcType=VARCHAR},
+      USERNAMES = #{record.usernames,jdbcType=VARCHAR},
+      GROUPNAMES = #{record.groupnames,jdbcType=VARCHAR},
+      ISMERCHANTUSER = #{record.ismerchantuser,jdbcType=VARCHAR},
+      CREATETIME = #{record.createtime,jdbcType=VARCHAR},
+      LOGINCOUNT = #{record.logincount,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.PtUser" >
+    update pt_user
+    <set >
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="errorcount != null" >
+        ERRORCOUNT = #{errorcount,jdbcType=DECIMAL},
+      </if>
+      <if test="orderids != null" >
+        ORDERIDS = #{orderids,jdbcType=DECIMAL},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="stopdate != null" >
+        STOPDATE = #{stopdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentids != null" >
+        DEPARTMENTIDS = #{departmentids,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoids != null" >
+        USERINFOIDS = #{userinfoids,jdbcType=VARCHAR},
+      </if>
+      <if test="stationids != null" >
+        STATIONIDS = #{stationids,jdbcType=VARCHAR},
+      </if>
+      <if test="deptids != null" >
+        DEPTIDS = #{deptids,jdbcType=VARCHAR},
+      </if>
+      <if test="userids != null" >
+        USERIDS = #{userids,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentnames != null" >
+        DEPARTMENTNAMES = #{departmentnames,jdbcType=VARCHAR},
+      </if>
+      <if test="stationnames != null" >
+        STATIONNAMES = #{stationnames,jdbcType=VARCHAR},
+      </if>
+      <if test="deptnames != null" >
+        DEPTNAMES = #{deptnames,jdbcType=VARCHAR},
+      </if>
+      <if test="usernames != null" >
+        USERNAMES = #{usernames,jdbcType=VARCHAR},
+      </if>
+      <if test="groupnames != null" >
+        GROUPNAMES = #{groupnames,jdbcType=VARCHAR},
+      </if>
+      <if test="ismerchantuser != null" >
+        ISMERCHANTUSER = #{ismerchantuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="logincount != null" >
+        LOGINCOUNT = #{logincount,jdbcType=DECIMAL},
+      </if>
+      <if test="groupids != null" >
+        GROUPIDS = #{groupids,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chinasofti.mall.common.entity.PtUser" >
+    update pt_user
+    set VERSION = #{version,jdbcType=DECIMAL},
+      ERRORCOUNT = #{errorcount,jdbcType=DECIMAL},
+      ORDERIDS = #{orderids,jdbcType=DECIMAL},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      STOPDATE = #{stopdate,jdbcType=TIMESTAMP},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      DEPARTMENTIDS = #{departmentids,jdbcType=VARCHAR},
+      USERINFOIDS = #{userinfoids,jdbcType=VARCHAR},
+      STATIONIDS = #{stationids,jdbcType=VARCHAR},
+      DEPTIDS = #{deptids,jdbcType=VARCHAR},
+      USERIDS = #{userids,jdbcType=VARCHAR},
+      DEPARTMENTNAMES = #{departmentnames,jdbcType=VARCHAR},
+      STATIONNAMES = #{stationnames,jdbcType=VARCHAR},
+      DEPTNAMES = #{deptnames,jdbcType=VARCHAR},
+      USERNAMES = #{usernames,jdbcType=VARCHAR},
+      GROUPNAMES = #{groupnames,jdbcType=VARCHAR},
+      ISMERCHANTUSER = #{ismerchantuser,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR},
+      LOGINCOUNT = #{logincount,jdbcType=DECIMAL},
+      GROUPIDS = #{groupids,jdbcType=LONGVARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.PtUser" >
+    update pt_user
+    set VERSION = #{version,jdbcType=DECIMAL},
+      ERRORCOUNT = #{errorcount,jdbcType=DECIMAL},
+      ORDERIDS = #{orderids,jdbcType=DECIMAL},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      STOPDATE = #{stopdate,jdbcType=TIMESTAMP},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      DEPARTMENTIDS = #{departmentids,jdbcType=VARCHAR},
+      USERINFOIDS = #{userinfoids,jdbcType=VARCHAR},
+      STATIONIDS = #{stationids,jdbcType=VARCHAR},
+      DEPTIDS = #{deptids,jdbcType=VARCHAR},
+      USERIDS = #{userids,jdbcType=VARCHAR},
+      DEPARTMENTNAMES = #{departmentnames,jdbcType=VARCHAR},
+      STATIONNAMES = #{stationnames,jdbcType=VARCHAR},
+      DEPTNAMES = #{deptnames,jdbcType=VARCHAR},
+      USERNAMES = #{usernames,jdbcType=VARCHAR},
+      GROUPNAMES = #{groupnames,jdbcType=VARCHAR},
+      ISMERCHANTUSER = #{ismerchantuser,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR},
+      LOGINCOUNT = #{logincount,jdbcType=DECIMAL}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>
