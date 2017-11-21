@@ -1,5 +1,5 @@
 package com.chinasofti.mall.common.entity.order;
-
+import java.math.BigDecimal;
 public class PyShoppingCart {
     private String ids;
 
@@ -11,9 +11,9 @@ public class PyShoppingCart {
 
     private String goodsPayIds;
 
-    private Short goodsNum;
+    private BigDecimal goodsNum;
 
-    private String createTime;
+	private String createTime;
 
     private String payStatus;
 
@@ -61,13 +61,6 @@ public class PyShoppingCart {
         this.goodsPayIds = goodsPayIds == null ? null : goodsPayIds.trim();
     }
 
-    public Short getGoodsNum() {
-        return goodsNum;
-    }
-
-    public void setGoodsNum(Short goodsNum) {
-        this.goodsNum = goodsNum;
-    }
 
     public String getCreateTime() {
         return createTime;
@@ -100,4 +93,15 @@ public class PyShoppingCart {
     public void setAttr(String attr) {
         this.attr = attr == null ? null : attr.trim();
     }
+
+	public BigDecimal getGoodsNum() {
+		return goodsNum;
+	}
+
+	public void setGoodsNum(BigDecimal goodsNum) {
+		this.goodsNum = goodsNum;
+	}
+
+	
+   
 }

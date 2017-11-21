@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.ShoppingCartFeignClient;
@@ -39,7 +38,7 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value="del/goods", method = RequestMethod.POST)
-	@ApiOperation(value="删除购物车商品", notes="报文示例：{\"goodsList\":[{\"id\":\"1001\"},{\"id\":\"1002\"}]}")
+	@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
 	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods","POST");
@@ -53,12 +52,11 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value="add/goods", method = RequestMethod.POST)
-	@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsList\":[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]}")
+	@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]")
 	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
-		ResponseInfo responseInfo = shoppingCartFeignClient.savePyShoppingCart(goodsList);
-		return responseInfo;
+		return shoppingCartFeignClient.savePyShoppingCart(goodsList);
 	}
 
 	/**

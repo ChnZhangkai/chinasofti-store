@@ -177,4 +177,14 @@
     from py_shopping_cart
     where USERIDS = #{userId,jdbcType=VARCHAR}
   </select>
+    <select id="IsUserExistGoods" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
+    select 
+    <include refid="Base_Column_List" />
+    from py_shopping_cart
+    where 1=1
+       and USERIDS = #{userId,jdbcType=VARCHAR} and GOODS_IDS = #{goodsIds,jdbcType=VARCHAR}
+     <if test="vendorid != null" >
+      and  VENDORID = #{vendorid,jdbcType=VARCHAR},
+     </if>
+  </select>
 </mapper>
