@@ -3,7 +3,7 @@
 <mapper namespace="com.chinasofti.mall.goodsorder.mapper.PyShoppingCartMapper" >
   <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     <id column="IDS" property="ids" jdbcType="VARCHAR" />
-    <result column="USERIDS" property="userids" jdbcType="VARCHAR" />
+    <result column="USERIDS" property="userId" jdbcType="VARCHAR" />
     <result column="VENDORID" property="vendorid" jdbcType="VARCHAR" />
     <result column="GOODS_IDS" property="goodsIds" jdbcType="VARCHAR" />
     <result column="GOODS_PAY_IDS" property="goodsPayIds" jdbcType="VARCHAR" />
@@ -39,7 +39,7 @@
       GOODS_IDS, GOODS_PAY_IDS, GOODS_NUM, 
       CREATE_TIME, PAY_STATUS, CHECKED, 
       ATTR)
-    values (#{ids,jdbcType=VARCHAR}, #{userids,jdbcType=VARCHAR}, #{vendorid,jdbcType=VARCHAR}, 
+    values (#{ids,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{vendorid,jdbcType=VARCHAR}, 
       #{goodsIds,jdbcType=VARCHAR}, #{goodsPayIds,jdbcType=VARCHAR}, #{goodsNum,jdbcType=DECIMAL}, 
       #{createTime,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR}, #{checked,jdbcType=VARCHAR}, 
       #{attr,jdbcType=LONGVARCHAR})
@@ -50,7 +50,7 @@
       <if test="ids != null" >
         IDS,
       </if>
-      <if test="userids != null" >
+      <if test="userId != null" >
         USERIDS,
       </if>
       <if test="vendorid != null" >
@@ -82,8 +82,8 @@
       <if test="ids != null" >
         #{ids,jdbcType=VARCHAR},
       </if>
-      <if test="userids != null" >
-        #{userids,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="vendorid != null" >
         #{vendorid,jdbcType=VARCHAR},
@@ -114,8 +114,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     update py_shopping_cart
     <set >
-      <if test="userids != null" >
-        USERIDS = #{userids,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        USERIDS = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="vendorid != null" >
         VENDORID = #{vendorid,jdbcType=VARCHAR},
@@ -146,7 +146,7 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     update py_shopping_cart
-    set USERIDS = #{userids,jdbcType=VARCHAR},
+    set USERIDS = #{userId,jdbcType=VARCHAR},
       VENDORID = #{vendorid,jdbcType=VARCHAR},
       GOODS_IDS = #{goodsIds,jdbcType=VARCHAR},
       GOODS_PAY_IDS = #{goodsPayIds,jdbcType=VARCHAR},
@@ -159,7 +159,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     update py_shopping_cart
-    set USERIDS = #{userids,jdbcType=VARCHAR},
+    set USERIDS = #{userId,jdbcType=VARCHAR},
       VENDORID = #{vendorid,jdbcType=VARCHAR},
       GOODS_IDS = #{goodsIds,jdbcType=VARCHAR},
       GOODS_PAY_IDS = #{goodsPayIds,jdbcType=VARCHAR},

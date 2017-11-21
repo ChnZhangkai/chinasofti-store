@@ -3,7 +3,7 @@ import java.math.BigDecimal;
 public class PyShoppingCart {
     private String ids;
 
-    private String userids;
+    private String userId;
 
     private String vendorid;
 
@@ -27,14 +27,6 @@ public class PyShoppingCart {
 
     public void setIds(String ids) {
         this.ids = ids == null ? null : ids.trim();
-    }
-
-    public String getUserids() {
-        return userids;
-    }
-
-    public void setUserids(String userids) {
-        this.userids = userids == null ? null : userids.trim();
     }
 
     public String getVendorid() {
@@ -100,6 +92,14 @@ public class PyShoppingCart {
 
 	public void setGoodsNum(BigDecimal goodsNum) {
 		this.goodsNum = goodsNum;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	
