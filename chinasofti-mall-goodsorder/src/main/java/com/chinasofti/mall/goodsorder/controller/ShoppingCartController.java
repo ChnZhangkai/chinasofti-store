@@ -24,7 +24,7 @@ import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
  *
  */
 @RestController
-@RequestMapping("/shoppingCart/")
+@RequestMapping("shoppingCart")
 @Api(value = "ShoppingCartController", description = "购物车工程接口V1.0-API")
 public class ShoppingCartController {
 	
@@ -74,7 +74,7 @@ public class ShoppingCartController {
 	 * @param json
 	 * @return
 	 */
-	@RequestMapping(value="/query/goodsList", method = RequestMethod.POST)
+	@RequestMapping(value="/query/goodsList")
 	@ApiOperation(value="查询购物车商品", notes="报文示例：{\"userId\":\"1\"}")
 	public ResponseInfo queryPyShoppingCartListByUserId(@RequestParam("userId") String userId){
 		return pyShoppingCartService.queryPyShoppingCartListByUserId(userId);
