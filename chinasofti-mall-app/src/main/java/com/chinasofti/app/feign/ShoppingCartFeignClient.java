@@ -1,12 +1,14 @@
 package com.chinasofti.app.feign;
 
+import java.util.List;
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.alibaba.fastjson.JSONObject;
+import com.chinasofti.app.hystrix.ShoppingCartFeignClientHystrix;
+import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**
@@ -14,22 +16,18 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
  * @author heruilong
  *
  */
-@FeignClient("goodsorder-service")
+@FeignClient(name="goodsorder-service",fallback = ShoppingCartFeignClientHystrix.class)
 public interface ShoppingCartFeignClient {
 
-	@ResponseBody
-	@RequestMapping(value="/shoppingCart/V1.0//query/goodsList", method = RequestMethod.POST)
-	public ResponseInfo queryPyShoppingCartListByUserId(@RequestBody JSONObject json);
+	@RequestMapping(value="/shoppingCart/query/goodsList")
+	public ResponseInfo queryPyShoppingCartListByUserId(@RequestParam("userId") String userId);
 	
-	@ResponseBody
-	@RequestMapping(value="/shoppingCart/V1.0/add/goods", method = RequestMethod.POST)
-	public ResponseInfo savePyShoppingCart(@RequestBody JSONObject json);
+	@RequestMapping(value="/shoppingCart/add/goods")
+	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList);
 
-	@ResponseBody
-	@RequestMapping(value="/shoppingCart/V1.0/mod/goods", method = RequestMethod.POST)
-	public ResponseInfo updatePyShoppingCart(@RequestBody JSONObject json);
+	@RequestMapping(value="/shoppingCart/mod/goods")
+	public ResponseInfo updatePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList);
 	
-	@ResponseBody
-	@RequestMapping(value="/shoppingCart/V1.0/del/goods", method = RequestMethod.POST)
-	public ResponseInfo deletePyShoppingCartById(@RequestBody JSONObject json);
+	@RequestMapping(value="/shoppingCart/del/goods")
+	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList);
 }

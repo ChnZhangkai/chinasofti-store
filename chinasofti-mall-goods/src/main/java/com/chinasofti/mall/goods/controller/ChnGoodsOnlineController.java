@@ -24,12 +24,34 @@ public class ChnGoodsOnlineController {
 	private ChnGoodsOnlineService chnGoodsOnlineServiceImpl;
 	/**
 	 * 列表及条件查询
-	 * @param goodscategory
+	 * @param chnGoodsOnline
 	 * @return
 	 */
 	@RequestMapping(value = "/list" , method = RequestMethod.POST)
 	public JSONObject selectByGoodsOnline(@RequestBody(required = false)ChnGoodsOnline chnGoodsOnline){
 		return chnGoodsOnlineServiceImpl.selectByExample(chnGoodsOnline);
+ 
+	}
+	
+	/**
+	 * 商品上架
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/updateGoodsStatus" , method = RequestMethod.POST)
+	public int updateGoodsStatus(@RequestBody(required = false)ChnGoodsOnline chnGoodsOnline){
+		return chnGoodsOnlineServiceImpl.updateGoodsStatus(chnGoodsOnline);
+ 
+	}
+	
+	/**
+	 * 修改商品库存
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/update" , method = RequestMethod.POST)
+	public int updateGoodsStore(@RequestBody(required = false)ChnGoodsOnline chnGoodsOnline){
+		return chnGoodsOnlineServiceImpl.update(chnGoodsOnline);
  
 	}
 

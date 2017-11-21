@@ -11,4 +11,16 @@ public interface ChnGoodsOnlineService {
 	 * @return
 	 */ 
 	JSONObject selectByExample(ChnGoodsOnline chnGoodsOnline);
+
+	/**
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	int updateGoodsStatus(ChnGoodsOnline chnGoodsOnline);
+
+	/**
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	int update(ChnGoodsOnline chnGoodsOnline);
 }

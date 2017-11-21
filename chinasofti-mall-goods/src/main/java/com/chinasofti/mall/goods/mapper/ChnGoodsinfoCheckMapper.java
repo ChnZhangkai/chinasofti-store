@@ -30,5 +30,9 @@ public interface ChnGoodsinfoCheckMapper {
     
     List<ChnGoodsinfoCheck> findAll(ChnGoodsinfoCheck chnGoodsinfoCheck);
     
+    //审核通过插入商品在线管理表中
+    int insertGoodsOnlineSelective(ChnGoodsinfoCheck chnGoodsinfoCheck);
+    
+    
     
 }

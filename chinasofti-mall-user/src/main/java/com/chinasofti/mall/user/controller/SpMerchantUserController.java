@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
@@ -38,10 +39,10 @@ public class SpMerchantUserController {
 		
 	}
 	
-	@RequestMapping("select/{ids}")
-	public SpMerchantUser findById(@PathVariable("ids") String id) {
+	@RequestMapping("/queryVendorInfo")
+	public SpMerchantUser findById(@RequestParam("vendorId") String vendorId) {
 		
-		return spUserService.findById(id);
+		return spUserService.findById(vendorId);
 	}
 	
 	

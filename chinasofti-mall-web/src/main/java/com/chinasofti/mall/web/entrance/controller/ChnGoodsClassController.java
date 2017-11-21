@@ -2,19 +2,27 @@ package com.chinasofti.mall.web.entrance.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.chinasofti.mall.common.entity.PtUser;
+import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
 
 import net.sf.json.JSONObject;
@@ -42,6 +50,12 @@ public class ChnGoodsClassController {
 		return new ModelAndView("/goods/goodsclass");
 	}
 	
+	//新分类界面
+	@RequestMapping("/goodsClass")
+	public ModelAndView toGoodsClass(){
+		return new ModelAndView("/goods/newGoodsClass");
+	}
+	
 	/**
 	 * 列表及条件查询
 	 * @param spGoodsClass
@@ -51,6 +65,61 @@ public class ChnGoodsClassController {
 	public String selectByGoodsClass(ChnGoodsClass chnGoodsClass){
 		JSONObject jsonlist = chnGoodsClassFeignClient.selectByGoodsClass(chnGoodsClass);
 		return jsonlist.toString();
+	}
+	
+	/**
+	 * 新商品分类查询
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/findGoodsClass")
+	@ResponseBody
+	public List<Tree> findGoodsClass(String id){
+		if (id == null) {
+			id = "0";
+		}
+		List<ChnGoodsClass> classList = chnGoodsClassFeignClient.findGoodsClass(id);
+		Tree tree = new Tree();
+		List<Tree> treeList = new ArrayList<>();
+		for (ChnGoodsClass chnGoodsClass : classList) {
+			List<ChnGoodsClass> childrenGoodsClass = chnGoodsClassFeignClient.findGoodsClass(chnGoodsClass.getIds());
+			List<Tree> treeList2 = new ArrayList<>();
+			for (ChnGoodsClass chnGoodsClass2 : childrenGoodsClass) {
+				List<ChnGoodsClass> childrenGoodsClass3 = chnGoodsClassFeignClient.findGoodsClass(chnGoodsClass2.getIds());
+				List<Tree> treeList3 = new ArrayList<>();
+				for (ChnGoodsClass chnGoodsClass3 : childrenGoodsClass3) {
+					Tree tree3 = new Tree();
+					tree3.setId(chnGoodsClass3.getIds());
+					tree3.setText(chnGoodsClass3.getName());
+					tree3.setIconCls(chnGoodsClass3.getLogo());
+					treeList3.add(tree3);
+				}
+				Tree tree2 = new Tree();
+				tree2.setId(chnGoodsClass2.getIds());
+				tree2.setText(chnGoodsClass2.getName());
+				tree2.setIconCls(chnGoodsClass2.getLogo());
+				tree2.setChildren(treeList3);
+				treeList2.add(tree2);
+			}
+			tree.setId(chnGoodsClass.getIds());
+			tree.setText(chnGoodsClass.getName());
+			tree.setIconCls(chnGoodsClass.getLogo());
+			tree.setChildren(treeList2);
+			treeList.add(tree);
+		}
+		
+		return treeList;
+	}
+	
+	/**
+	 * 查询子节点
+	 * @return
+	 */
+	@RequestMapping("/findGoodsClassChildren")
+	@ResponseBody
+	public String findGoodsClassChildren(){
+		
+		return "";
 	}
 	
 	/**
@@ -70,29 +139,51 @@ public class ChnGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public int updateGoodsClassById(ChnGoodsClass chnGoodsClass,MultipartHttpServletRequest multipartHttpServletRequest){
-		
-		String delImg = chnGoodsClass.getImg();
-		String delImgname = delImg.substring(delImg.lastIndexOf("/")+1);
-		String delImgUrl = beforePath + File.separator + delImgname;
-		File file = new File(delImgUrl);
-		if (file.exists()) {
-			file.delete();
-		}
-		
+	public int updateGoodsClassById(ChnGoodsClass chnGoodsClass,MultipartHttpServletRequest multipartHttpServletRequest,HttpSession session){
+
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("uimg");
 		String imageName = multipartFile.getOriginalFilename();
 		String fileName = beforePath + File.separator + imageName;
 		File fileSave = new File(fileName);
-		try {
-			multipartFile.transferTo(fileSave);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		if (!StringUtils.isEmpty(multipartFile.getOriginalFilename())) {
+			
+			//若选择了图片则保存新图片
+			try {
+				multipartFile.transferTo(fileSave);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//若选择了图片则删除旧图片
+			String delImg = chnGoodsClass.getImg();
+			String delImgname = delImg.substring(delImg.lastIndexOf("/")+1);
+			String delImgUrl = beforePath + File.separator + delImgname;
+			File file = new File(delImgUrl);
+			if (file.exists()) {
+				file.delete();
+			}
+			//存储新图片路径
+			chnGoodsClass.setImg("/data/goods/" + imageName);
 		}
 		
-		chnGoodsClass.setImg("/data/goods/" + imageName);
+		PtUser user = (PtUser) session.getAttribute("user");
+		chnGoodsClass.setUpdateBy(user.getUsername());
+		chnGoodsClass.setUpdateTime(StringDateUtil.convertDateToLongString(new Date()));
+		int updateGoodsClass = chnGoodsClassFeignClient.updateGoodsClass(chnGoodsClass);
+		return updateGoodsClass;
+	}
+	
+	/**
+	 * 修改名称
+	 * @return
+	 */
+	@RequestMapping("/updateGoodsClassName")
+	public int updateGoodsClassName(ChnGoodsClass chnGoodsClass,HttpSession session){
+		PtUser user = (PtUser) session.getAttribute("user");
+		chnGoodsClass.setUpdateBy(user.getUsername());
+		chnGoodsClass.setUpdateTime(StringDateUtil.convertDateToLongString(new Date()));
 		int updateGoodsClass = chnGoodsClassFeignClient.updateGoodsClass(chnGoodsClass);
 		return updateGoodsClass;
 	}
@@ -122,9 +213,9 @@ public class ChnGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping("/save")
-	public int saveGoodsClass(MultipartHttpServletRequest multipartHttpServletRequest){
+	public int saveGoodsClass(MultipartHttpServletRequest multipartHttpServletRequest,HttpSession session){
 		
-		MultipartFile multipartFile = multipartHttpServletRequest.getFile("url");
+		MultipartFile multipartFile = multipartHttpServletRequest.getFile("img"); 
 		String imageName = multipartFile.getOriginalFilename();
 		
 		String fileName = beforePath + File.separator + imageName;
@@ -137,15 +228,16 @@ public class ChnGoodsClassController {
 			e.printStackTrace();
 		}
 		
+		PtUser user = (PtUser) session.getAttribute("user");
 		ChnGoodsClass chnGoodsClass = new ChnGoodsClass();
-		chnGoodsClass.setIds(UUID.randomUUID().toString().replace("-", ""));;
+		chnGoodsClass.setIds(UUID.randomUUID().toString().replace("-", ""));
+		chnGoodsClass.setPids(multipartHttpServletRequest.getParameter("pid"));
 		chnGoodsClass.setName(multipartHttpServletRequest.getParameter("name"));
 		chnGoodsClass.setCommons(multipartHttpServletRequest.getParameter("commons"));
 		chnGoodsClass.setStates(multipartHttpServletRequest.getParameter("states"));
 		chnGoodsClass.setImg("/data/goods/" + imageName);
-		chnGoodsClass.setCreateBy("Mrzhang");
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		chnGoodsClass.setCreateTime(df.format(new Date()));
+		chnGoodsClass.setCreateBy(user.getUsername());
+		chnGoodsClass.setCreateTime(StringDateUtil.convertDateToLongString(new Date()));
 		int chngoodsClass = chnGoodsClassFeignClient.saveGoodsClass(chnGoodsClass);
 		return chngoodsClass;
 	}

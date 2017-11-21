@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import com.alibaba.druid.pool.DruidDataSource;
-
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+@EnableEncryptableProperties
 @Configuration
 public class DruidDBConfig {
 

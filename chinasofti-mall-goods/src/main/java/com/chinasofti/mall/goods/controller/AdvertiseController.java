@@ -1,7 +1,6 @@
 package com.chinasofti.mall.goods.controller;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +18,7 @@ import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.service.IAdvertiseService;
+import com.github.pagehelper.util.StringUtil;
 
 import net.sf.json.JSONObject;
 
@@ -165,15 +165,30 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
  * @param advertiseContents
  * @return
  */
-	@RequestMapping("findAdvertiseList/{positionId}")
-	public ResponseInfo findAdvertiseList(@PathVariable String positionId) {
-		return advertiseService.queryAdvertiseList(positionId);
+	@SuppressWarnings("null")
+	@RequestMapping("findAdvertiseList")
+	public ResponseInfo findAdvertiseList(@RequestParam("positionId") String positionId) {
+		ResponseInfo response=null;
+		if(StringUtil.isNotEmpty(positionId)){
+			response = advertiseService.queryAdvertiseList(positionId);
+		}else{
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("位置Id不能为空！");
+		}
+		
+		return response;
 	}
-
-	
-	@RequestMapping("findAdvertise/{positionId}")
-	public ResponseInfo findAdvertise(@PathVariable String positionId) {
-		return advertiseService.queryAdvertise(positionId);
+	@SuppressWarnings("null")
+	@RequestMapping("findAdvertise")
+	public ResponseInfo findAdvertise(@RequestParam("positionId") String positionId) {
+		ResponseInfo response=null;
+		if(StringUtil.isNotEmpty(positionId)){
+			response = advertiseService.queryAdvertise(positionId);
+		}else{
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("位置Id不能为空！");
+		}
+		return response;
 	}
 
 }

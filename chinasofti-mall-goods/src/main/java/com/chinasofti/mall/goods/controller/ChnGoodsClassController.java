@@ -1,5 +1,7 @@
 package com.chinasofti.mall.goods.controller;
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,21 +9,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.common.utils.Constant;
-import com.chinasofti.mall.goods.service.impl.ChnGoodsClassServiceImpl;
-import com.github.pagehelper.util.StringUtil;
+import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.goods.service.IChnGoodsClassService;
 
 import net.sf.json.JSONObject;
 
 @RestController
-@RequestMapping("/goodsClass")
+@RequestMapping("goodsClass")
 public class ChnGoodsClassController {
 	
 	@Autowired
-	private ChnGoodsClassServiceImpl spGoodsClassService;
+	private IChnGoodsClassService GoodsClassService;
 	
 	/**
 	 * 列表及条件查询
@@ -30,8 +32,18 @@ public class ChnGoodsClassController {
 	 */
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
 	public JSONObject selectByGoodsClass(@RequestBody(required = false)ChnGoodsClass chnGoodsClass){
-		return spGoodsClassService.selectByExample(chnGoodsClass);
-		
+		return GoodsClassService.selectByExample(chnGoodsClass);
+	}
+	
+	/**
+	 * 分类查询
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/findGoodsClass", method = RequestMethod.POST)
+	public List<ChnGoodsClass> findGoodsClass(@RequestBody(required = false) String ids){
+		List<ChnGoodsClass> jsonlist = GoodsClassService.findGoodsClass(ids);
+		return jsonlist;
 	}
 	
 	/**
@@ -41,7 +53,7 @@ public class ChnGoodsClassController {
 	 */
 	@RequestMapping(value = "/select/{ids}" , method = RequestMethod.POST)
 	public ChnGoodsClass selectGoodsClassById(@PathVariable String ids){
-		return spGoodsClassService.findById(ids);
+		return GoodsClassService.findById(ids);
 		
 	}
 	
@@ -52,7 +64,7 @@ public class ChnGoodsClassController {
 	 */
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
 	public int updateGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
-		return spGoodsClassService.update(chnGoodsClass);
+		return GoodsClassService.updateById(chnGoodsClass);
 	}
 	
 	/**
@@ -62,7 +74,7 @@ public class ChnGoodsClassController {
 	 */
 	@RequestMapping(value = "/delete/{ids}" ,method = RequestMethod.POST)
 	public int deleteGoodsClassById(@PathVariable String ids){
-		return spGoodsClassService.deleteById(ids);
+		return GoodsClassService.deleteById(ids);
 	}
 	
 	/**
@@ -72,25 +84,16 @@ public class ChnGoodsClassController {
 	 */
 	@RequestMapping(value = "/save" , method = RequestMethod.POST)
 	public int saveGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass){
-		return spGoodsClassService.save(chnGoodsClass);
+		return GoodsClassService.saveGoodsClass(chnGoodsClass);
 	}
 	/**
-	 * 当Ids不为空时查询二级列表，为空时则查询一级分类
-	 * @param pids
+	 * 通过classId查询商品分类（分一级与二级分类）
+	 * @param classId
 	 * @return
 	 */
-	@RequestMapping(value = "/queryClass/{classId}" , method = RequestMethod.POST)
-	public List<ChnGoodsClass> queryClass(@PathVariable String classId){
-		List<ChnGoodsClass> goodsClass=null;
-		if(StringUtil.isNotEmpty(classId)){
-			String pids = classId;
-			goodsClass = spGoodsClassService.selectById(pids);
-		}else{
-			
-			goodsClass = spGoodsClassService.selectByIsParent(Constant.IS_PARENT);
-		}
-		 
-		return goodsClass;
+	@RequestMapping(value = "queryClass")
+	public ResponseInfo queryClass(@RequestParam("classId") String classId){
+		return GoodsClassService.queryClass(classId);
 		
 	}
 	

@@ -42,8 +42,8 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 
 
 	@Override
-	public SpMerchantUser findById(String id) {
-		return spUserMapper.selectByPrimaryKey(id);
+	public SpMerchantUser findById(String vendorId) {
+		return spUserMapper.selectByPrimaryKey(vendorId);
 	}
 
 	
@@ -81,8 +81,13 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 		if (!StringUtils.isEmpty(spMerchantUser.getStatus())) {
 			criteria.andStatesEqualTo(spMerchantUser.getStatus());
 		}
-
-		PageHelper.startPage(spMerchantUser.getPageNumber(),spMerchantUser.getPageSize());
+		
+		
+		if(spMerchantUser.getPageNumber() != 0 && spMerchantUser.getPageSize() != 0){
+			PageHelper.startPage(spMerchantUser.getPageNumber(),spMerchantUser.getPageSize());
+		} else {
+			PageHelper.startPage(spMerchantUser.getPage(),spMerchantUser.getRows());
+		}
 		List<SpMerchantUser> list = spUserMapper.selectByExample(example);
 
 		js.put("rows", list);

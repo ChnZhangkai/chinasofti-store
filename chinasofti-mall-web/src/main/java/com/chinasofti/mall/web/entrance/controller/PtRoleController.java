@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
+ 
 import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.web.entrance.feign.PtRoleFeignClient;
@@ -89,6 +89,13 @@ public class PtRoleController {
 		return ptRoleFeignClient.menuTree(id);
 	}
 
+	@PostMapping("/insert")
+	public int saveMenuIds(String id, String ids) {
+		PtRole ptRole = new PtRole();
+		ptRole.setIds(id);
+		ptRole.setNumbers(ids);
+		return ptRoleFeignClient.saveMenuIds(ptRole);
+	}
 	/**
 	 * 角色页面跳转
 	 * @return

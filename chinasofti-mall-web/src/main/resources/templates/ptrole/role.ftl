@@ -6,8 +6,9 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="menuTree()" plain="true">角色权限菜单</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="operatorChange()" plain="true">权限设置</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="menuTree()" plain="true">菜单树展示</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印本页</a>
         </div>
        	<div class="ptrole-toolbar-search">
 		<form id="searchForm">
@@ -282,9 +283,7 @@ $(function(){
 	 * 角色权限设置
 	 */
 	function operatorChange(){
-		
 		var row = $("#ptroleinfo").datagrid('getSelected');
-		
 		if (row) {
 			$('#treeDlg').dialog('open').dialog({
 				closed: false,
@@ -444,7 +443,35 @@ $(function(){
 	}	
 	
 	function menuSave(){
-		alert("12")
+		var nodes = $('#menuTree').tree('getChecked');
+		var idsArr = new Array();
+		$.each(nodes,function(i, node){
+			idsArr.push(node.id);
+		});
+		//选中的菜单编号以逗号分割的字符串 
+		var checkedIds = idsArr.toString();
+		var row = $("#ptroleinfo").datagrid('getSelected');
+		
+		//构建提交参数
+		var submitData = {};
+		submitData.id = row.ids;
+		submitData.ids = checkedIds;
+		
+		//提交保存请求
+		$.ajax({
+			url:'/ptrole/insert',
+			data:submitData,
+			dataType:'json',
+			type:'post',
+			success:function(data){
+				if(data > 0){
+	    				$.messager.alert('信息提示','提交成功！','info');
+	    				$('#menuTreeDlg').dialog('close');
+    				}else{
+    					$.messager.alert('信息提示','提交失败！','info');
+    				}
+			}
+		});
 	}
 </script>
 

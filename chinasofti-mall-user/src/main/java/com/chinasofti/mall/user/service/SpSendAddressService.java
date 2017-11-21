@@ -1,0 +1,30 @@
+package com.chinasofti.mall.user.service;
+
+
+import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
+import com.chinasofti.mall.common.service.IBaseService;
+import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.user.handler.MyException;
+
+/**
+ * @author: xiaozhiliang
+ * @Date:   2017年11月08日:04时52分20秒
+ *
+ */
+public interface SpSendAddressService extends IBaseService<SpSendAddress>{
+	
+	/**
+	 * @param spSendAddress
+	 * @return
+	 */
+	
+	public ResponseInfo querySentAddressList(String userId)throws MyException;
+	
+	public ResponseInfo insertSendAddress(SpSendAddress spSendAddress)throws MyException;
+	
+	public ResponseInfo updateSendAddress(SpSendAddress spSendAddress)throws MyException;
+	
+	public ResponseInfo deleteSendAddress(SpSendAddress spSendAddress)throws MyException;
+	
+
+}

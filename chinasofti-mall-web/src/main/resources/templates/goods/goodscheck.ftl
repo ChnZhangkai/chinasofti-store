@@ -38,8 +38,8 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeGoodsCheck()" plain="true">删除</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="pushCheck" onclick="handleCheck(this)" plain="true">提交审核</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="repealCheck" onclick="handleCheck(this)" plain="true">撤销审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="pushCheck" onclick="handleCheck(this)" plain="true">申请审核</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="repealCheck" onclick="handleCheck(this)" plain="true">撤销申请</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-chk-checked" id="doCheck" onclick="doCheck(this)" plain="true">商品审核</a>
 		</div>
 	</div>
@@ -92,7 +92,7 @@
 				<tr>
 					<th align="right">开始日期</th>
 					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="createTime" name="createTime"/></td>
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="startTime" name="startTime"/></td>
 					<th align="right">结束日期</th>
 					<td><input type="text" class="easyui-datetimebox"
 						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime"/></td>
@@ -126,7 +126,7 @@
 					</select></td>
 					<th align="right">首次录入库存数量</th>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" id="collNum" name="collNum"/></td>
+						class="easyui-textbox" id="storeNum" name="storeNum"/></td>
 				</tr>
 				<tr>
 					<th align="right">每个用户限购数量</th>
@@ -142,6 +142,9 @@
 					<td><input id="img" name="img" class="easyui-filebox"
 						style="width: 180px;"
 						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
+					<th align="right">商品价格</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="price" name="price"/></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -160,7 +163,104 @@
 		</form>
 	</div>
 	
-		<!-- 商品添加表格 -->
+	<!-- 商品修改表格 -->
+	<div id="updateDl" class="easyui-dialog"
+		data-options="closed:true,iconCls:'icon-add',inline:true"
+		style="width: 100%; height: 100%; padding: 10px;background-image: url(images/goodsdiv.jpg)">
+		<form id="updateForm"  enctype="multipart/form-data">
+			<table>
+				<tr>
+					<th align="right">商品名称</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox easyui-validatebox" id="title" name="title" data-options="required:true"/> <span><font
+							style="color: #CCCCCC; font-size: 10px;">1-100位中文</font></span></td>
+					<th align="right">商品分类</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="goodsClassIds" name="goodsClassIds"></select></td>
+				</tr>
+				<tr>
+					<th align="right">商品类型</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="type" name="type">
+							<option value="0">普通商品</option>
+							<option value="1">活动商品</option>
+					</select></td>
+					<th align="right">商户名称</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="vendorids" name="vendorids"></select></td>
+				</tr>
+				<tr>
+					<th align="right">开始日期</th>
+					<td><input type="text" class="easyui-datetimebox"
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="startTime" name="startTime"/></td>
+					<th align="right">结束日期</th>
+					<td><input type="text" class="easyui-datetimebox"
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime"/></td>
+				</tr>
+				<tr>
+					<th align="right">规格</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="standard" name="standard"/></td>
+					<th align="right">重量</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="weight" name="weight"/> <span><font
+							style="color: #CCCCCC; font-size: 10px;">重量单位:KG</font></span></td>
+				</tr>
+				<tr>
+					<th align="right">前台是否显示商户名</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisVerdorname" name="isDisVerdorname">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
+					<th align="right">前台是否显示规格</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStandard" name="isDisStandard">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
+				</tr>
+				<tr>
+					<th align="right">前台是否显示库存</th>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStore" name="isDisStore">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
+					<th align="right">首次录入库存数量</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="storeNum" name="storeNum"/></td>
+				</tr>
+				<tr>
+					<th align="right">每个用户限购数量</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="limitUserNum" name="limitUserNum"/> <span><font
+							style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
+					<th align="right">每笔订单限购数量</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum"/></td>
+				</tr>
+				<tr>
+					<th align="right">商品图片:</th>
+					<td><input id="img" name="img" class="easyui-filebox"
+						style="width: 180px;"
+						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
+					<th align="right">商品价格</th>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox" id="price" name="price"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<div id="showGoodsPic"></div>
+					</td>
+				</tr>
+				
+				<tr>
+					<th align="right" style="padding-bottom: 0px">商品详情</th>
+					<td colspan="3">
+						<script id="containerUpdate" name="content" type="text/plain"></script>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+		<!-- 商品审核表格 -->
 	<div id="checkDialog" class="easyui-dialog"
 		data-options="closed:true,iconCls:'icon-chk-checked',inline:true"
 		style="width: 500px; height: 260px; padding: 10px;">
@@ -219,6 +319,15 @@
 			} ]
 		});
 		
+		 /* $(document).ready(function(){  
+		        var ue = UE.getEditor('container');  
+		          
+		        ue.ready(function() {//编辑器初始化完成再赋值  
+		            ue.setContent('123');  //赋值给UEditor  
+		        });  
+		          
+		    });  */
+		
 		$.ajax({
 			url:'/goodsCheck/reqGoodsClassName',
 			type:"GET",
@@ -271,6 +380,32 @@
 		     } 
 		   }); 
 	}
+	
+	//打开修改窗口
+	function openEdit(){
+		ue.setContent('123');
+		$('#updateForm').form('clear');
+		$('#updateDl').dialog({
+			draggable : false,			
+			closed : false,
+			modal : true,
+			title : "修改商品",
+			buttons : [ {
+				text : '确定',
+				iconCls : 'icon-ok',
+				handler : addGoods
+			}, {
+				text : '取消',
+				iconCls : 'icon-cancel',
+				handler : function() {
+					$('#updateDl').dialog('close');
+					$('#updateForm').form('reset');
+					ue.setContent('');
+					document.getElementById("showGoodsPic").innerHTML = "";
+				}
+			} ]
+		});
+	}	
 	
 	//条件查询
 	function doGoodsCheckSearch(){
@@ -337,7 +472,7 @@
 	}
 	
 	/*
-	 * 审核审核/撤销申请流程
+	 * 提交审核申请/撤销申请流程
 	 */
 	function handleCheck(obj){
 		
@@ -345,6 +480,7 @@
 		var ids ;
 		
 		var items = $('#goodscheck').datagrid('getSelections');
+		
 		if(items.length < 1){
 			$.messager.alert('温馨提醒','请选中操作的数据');
 			return ;
@@ -366,7 +502,7 @@
 				return ;
 			}
 		}
-		
+			
 			$.ajax({
 				url:'/goodsCheck/updateGoodsCheckStatus',
 				type:'POST',
@@ -385,12 +521,16 @@
 			
 	}
 	
+	/*
+	 * 执行审核
+	 */
 	function doCheck(obj){
 			
 		var reviewStatues;
 		var ids ;
 		
 		var items = $('#goodscheck').datagrid('getSelections');
+		
 		if(items.length < 1){
 			$.messager.alert('温馨提醒','请选中操作的数据');
 			return ;
@@ -404,7 +544,6 @@
 				$.messager.alert('温馨提醒','您选中的不是一条已提交审核的数据，请重新选择其他已提交审核数据','question')
 				return ;
 			}
-			
 			$('#checkDialog').dialog({
 				draggable : false,			
 				closed : false,
@@ -471,11 +610,13 @@
 	 * 读取路径显示图片
 	 */
 	function imgFormatter(value, row) {
+		var ids = row.goodsids
 		var str = "";
-		if (value != "" || value != null) {
-			str = "<img style=\"height: 75px;width: 110px;\" src=\""+ "data/goods/luoli.jpg" +"\"/>";
-			return str;
-		}
+		
+		images = $.ajax({url:'/goodsCheck/reqGoodsGoodsImgPath/' + ids,type:'POST',async:false});
+		str = "<img style=\"height: 75px;width: 110px;\" src=\""+ images.responseText +"\"/>";
+		return str;
+		
 	}
 
 	/*
@@ -483,7 +624,7 @@
 	 */
 	function statesFormatter(value) {
 		if (value == "0") {
-			return '<span style="color:black">待提交审核</span>';
+			return '<span style="color:black">待申请审核</span>';
 		} 
 		if (value == "1"){
 			return '<span style="color:green">审核通过</span>';
@@ -491,7 +632,7 @@
 		if (value == '2'){
 			return '<span style="color:red">审核拒绝</span>';
 		}else{
-			return '<span style="color:blue">已提交审核</span>';
+			return '<span style="color:blue">已申请审核</span>';
 		}
 	}
 	

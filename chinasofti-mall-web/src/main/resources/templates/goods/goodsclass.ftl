@@ -31,9 +31,9 @@
 		<tr>
 			<th field="ids" width="20%" align="center">分类编号</th>
 			<th field="name" width="10%" align="center">分类名称</th>
-			<th field="states" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
-			<th field="commons" width="25%" align="center">分类描述</th>
 			<th field="img" width="10%" align="center" data-options="formatter:imgFormatter">分类图片</th>
+			<th field="commons" width="25%" align="center">分类描述</th>
+			<th field="states" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
 			<th field="createBy" width="15%" align="center">创建员工</th>
 			<th field="createTime" width="15%" align="center" >创建时间</th>
 		</tr>
@@ -114,7 +114,7 @@
 			<tr>
 				<td align="center">原图地址:</td>
 				<td><input type="text" id="img" name="img"
-					class="wu-text" readonly="true"/></td>
+					class="wu-text easyui-tooltip" title="请选择新图片" style="background-color: #F4F4F4" readonly="true"/></td>
 			</tr>
 			<tr>
 				<td align="center">分类图片:</td>
@@ -254,6 +254,7 @@ $(function(){
 				if(data > 0){
 					$('#goodsPagination').pagination('select');
 					$('#wu-dialog-2').dialog('close');
+					document.getElementById("showpic").innerHTML = "";
 					$.messager.alert('信息提示','提交成功！','info');
 				}
 				else
@@ -289,7 +290,6 @@ $(function(){
 	                }
 	            }]
 	        });
-			/* $('#showImg').attr("src",row.img); */
 			$('#updateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
@@ -357,8 +357,8 @@ $(function(){
 	 */
  	function readPicture() {
 		
- 		var a = document.getElementsByClassName("img");
- 		console.info(a);
+ 		//var a = document.getElementsByClassName("img");
+ 		//console.info(a);
 		
 		// 检查是否为图像类型
 		var simpleFile = document.getElementById("img").files[0];

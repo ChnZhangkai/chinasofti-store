@@ -7,18 +7,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
-import com.chinasofti.mall.goods.mapper.ChnGoodsinfoMapper;
+import com.chinasofti.mall.goods.mapper.ChnGoodsInfoMapper;
 import com.chinasofti.mall.goods.service.IChnGoodsInfoService;
 
 @Service
 public class ChnGoodsInfoService implements IChnGoodsInfoService{
 
 	@Autowired
-	private ChnGoodsinfoMapper goodsinfoMapper;
+	private ChnGoodsInfoMapper goodsinfoMapper;
 	
 	public ResponseInfo selectByClassId(String goodsClassIds) {
 		ResponseInfo  response= new ResponseInfo();
@@ -30,13 +29,13 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 		ResponseInfo  response= new ResponseInfo();
 		if(result.size()>0){
 			Map<String, Object> data= new HashMap<String, Object>();
-			for(ChnGoodsinfo ad :result){
-				
-				data.put(result.get(0).toString(), ad);	
-			}			
+			data.put("ResponseInfo", result);			
 			response.setData(data);
 			response.setRetCode(MsgEnum.SUCCESS.getCode());
 			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		}else if(result==null||result.size()==0){
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("未找到相关数据！");
 		}else{
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg(MsgEnum.ERROR.getMsg());
@@ -55,13 +54,16 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 			ResponseInfo  response= new ResponseInfo();
 			if(result !=null){
 				Map<String, Object> data= new HashMap<String, Object>();
-				data.put(null, result);
+				data.put("ResponseInfo", result);
 				response.setData(data);
 				response.setRetCode(MsgEnum.SUCCESS.getCode());
 				response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			}else{
+			}else if("".equals(result)){
 				response.setRetCode(MsgEnum.ERROR.getCode());
 				response.setRetMsg(MsgEnum.ERROR.getMsg());
+			}else{
+				response.setRetCode(MsgEnum.ERROR.getCode());
+				response.setRetMsg("未找到相关数据！");	
 			}
 			return response;
 		}

@@ -9,6 +9,7 @@ import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample.Criteria;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 import com.github.pagehelper.Page;
@@ -101,6 +102,17 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	@Override
 	public JSONObject selectByMainorderCondition(MainorderCondition mainorderCondition) {
 		JSONObject js = new JSONObject();
+		
+		if(mainorderCondition.getMinPayTime() != null && !mainorderCondition.getMinPayTime().equals("")){
+			mainorderCondition.setMinPayTime(StringDateUtil.convertToSqlFormat(mainorderCondition.getMinPayTime()));
+		}
+		if(mainorderCondition.getMaxPayTime() != null && !mainorderCondition.getMaxPayTime().equals("")){
+			mainorderCondition.setMaxPayTime(StringDateUtil.convertToSqlFormat(mainorderCondition.getMaxPayTime()));
+		}
+		if(mainorderCondition.getSettleTimeFee() !=null && !mainorderCondition.getSettleTimeFee().equals("")){
+			mainorderCondition.setSettleTimeFee(StringDateUtil.convertToSqlShortFormat(mainorderCondition.getSettleTimeFee()));
+		}
+		
 		PageHelper.startPage(mainorderCondition.getPage(),mainorderCondition.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByMainorderCondition(mainorderCondition);
 

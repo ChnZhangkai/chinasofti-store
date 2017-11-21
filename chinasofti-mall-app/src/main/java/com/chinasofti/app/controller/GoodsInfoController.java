@@ -1,34 +1,30 @@
 package com.chinasofti.app.controller;
 
-import java.util.List;
+
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.app.feign.GoodsClassFeignClient;
-import com.chinasofti.app.feign.GoodsFeignClient;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.app.feign.GoodsInfoFeignClient;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
-@Controller
+@RestController
 @RequestMapping("goodsInfo")
-public class GoodsController {
+public class GoodsInfoController {
 	
 	@Autowired
-	private GoodsFeignClient goodsFeignClient;
+	private GoodsInfoFeignClient goodsFeignClient;
 	
 	/**
-	 * 当classId不为空时查询二级列表，为空时则查询一级分类
+	 * 根据Ids查询商品列表
 	 * @param classId(ids)
 	 * @return
 	 */
-	@RequestMapping("queryGoodList")
+	@RequestMapping("queryGoodsList")
 	public ResponseInfo queryGoodList(@RequestParam String id,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		return goodsFeignClient.queryGoodList(id);

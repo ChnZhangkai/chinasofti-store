@@ -1,5 +1,7 @@
 package com.chinasofti.mall.web.entrance.feign;
 
+import java.util.List;
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +30,9 @@ public interface ChnGoodsFeignClient {
 	 */
 	@RequestMapping(value = "/goodsClass/select" , method = RequestMethod.POST)
 	public JSONObject selectByGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass);
+	
+	@RequestMapping(value = "/goodsClass/findGoodsClass" ,method = RequestMethod.POST)
+	public List<ChnGoodsClass> findGoodsClass(@RequestBody(required = false) String ids);
 	
 	/**
 	 * 商品分类根据ID删除
@@ -116,6 +121,22 @@ public interface ChnGoodsFeignClient {
 	 */
 	@RequestMapping(value = "/goodsCheck/updateReviewStatus" ,method = RequestMethod.POST)
 	public int updateGoodsCheckReviewStatus(@RequestBody(required = false) ChnGoodsinfoCheck chnGoodsinfoCheck);
+
+	/**
+	 * 商品上架
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsOnline/updateGoodsStatus" ,method = RequestMethod.POST)
+	public int updateGoodsStatus(@RequestBody(required = false) ChnGoodsOnline chnGoodsOnline);
+
+	/**
+	 * 修改商品库存
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsOnline/update" ,method = RequestMethod.POST)
+	public int updateStore(@RequestBody(required = false) ChnGoodsOnline chnGoodsOnline);
 		
 
 	

@@ -141,7 +141,7 @@
     select 
     <include refid="Base_Column_List" />
     from sp_merchant_user
-    where IDS = #{ids,jdbcType=VARCHAR}
+    where VENDOR_ID = #{vendorId,jdbcType=VARCHAR}
   </select>
   
   <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample" >

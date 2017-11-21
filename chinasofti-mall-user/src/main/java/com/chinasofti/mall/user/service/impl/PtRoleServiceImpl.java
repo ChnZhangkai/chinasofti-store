@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.PtMenu;
 import com.chinasofti.mall.common.entity.PtOperator;
+import com.chinasofti.mall.common.entity.PtOperatorExample;
+import com.chinasofti.mall.common.entity.PtOperatorExample.Criteria;
 import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.PtRoleOperator;
 import com.chinasofti.mall.common.entity.Tree;
@@ -20,6 +22,7 @@ import com.chinasofti.mall.user.mapper.PtRoleMapper;
 import com.chinasofti.mall.user.service.PtRoleService;
 
 import net.sf.json.JSONObject;
+
 
 @Service
 public class PtRoleServiceImpl implements PtRoleService {
@@ -60,26 +63,35 @@ public class PtRoleServiceImpl implements PtRoleService {
 		return ptRoleMapper.updateByPrimaryKeySelective(ptRole);
 	}
 
-
 	@Override
 	public List<Tree> menuTree(String roleId) {
-		List<String> roleMenuids = ptRoleMapper.getRoleMenuids(roleId);
-		List<PtMenu> roleMenus = new ArrayList<PtMenu>();
+		//查出角色有的操作
+		List<String> operatorIds = ptRoleMapper.getRoleOperatorIds(roleId);
+		List<PtOperator> roleOperators = new ArrayList<PtOperator>();
+		for (String id : operatorIds) {
+			roleOperators.add(ptOperatorMapper.selectByPrimaryKey(id));
+		}
 		Tree tree = null;
 		List<Tree> list = new ArrayList<Tree>();
 		//一级菜单
 		List<PtMenu> menus = ptMenuMapper.selectByPid("000");
-		for (String id : roleMenuids) {
-			roleMenus.add(ptMenuMapper.selectByPrimaryKey(id));
-		}
 		for (PtMenu ptMenu : menus) {
 			tree = getTree(ptMenu);
 			//二级菜单
 			List<PtMenu> menus2 = ptMenuMapper.selectByPid(ptMenu.getIds());
 			for (PtMenu ptMenu2 : menus2) {
 				Tree tree2 = getTree(ptMenu2);
-				if (roleMenus.contains(ptMenu2)) {
-					tree2.setChecked(true);
+				//三级菜单 操作
+				PtOperatorExample example = new PtOperatorExample();
+				Criteria criteria = example.createCriteria();
+				criteria.andMenuidsEqualTo(ptMenu2.getIds());
+				List<PtOperator> operators = ptOperatorMapper.selectByExample(example);
+				for (PtOperator ptOperator : operators) {
+					Tree tree3 = getOperatorTree(ptOperator);
+					if (roleOperators.contains(ptOperator)) {
+						tree3.setChecked(true);
+					}
+					tree2.getChildren().add(tree3);
 				}
 				tree.getChildren().add(tree2);
 			}
@@ -105,14 +117,11 @@ public class PtRoleServiceImpl implements PtRoleService {
 	public List<Tree> showTree(String roleIds) {
 		List<String> operatorIds = ptRoleMapper.getRoleOperatorIds(roleIds);
 		List<PtOperator> operators = new ArrayList<PtOperator>();
-		
 		for (String id : operatorIds) {
 			operators.add(ptOperatorMapper.selectByPrimaryKey(id));
 		}
-		
 		Tree tree = null;
 		List<Tree> trees = new ArrayList<Tree>();
-		
 		List<PtOperator> list = ptOperatorMapper.selectByExample(null);
 		for (PtOperator ptOperator : list) {
 			tree = getOperatorTree(ptOperator);
@@ -142,9 +151,7 @@ public class PtRoleServiceImpl implements PtRoleService {
 		String[] arr = ptRole.getNumbers().split(",");
 		int count = 0;
 		PtRoleOperator roleOperator = new PtRoleOperator();
-		/**
-		 * 修改之前把原来关联的信息删除
-		 */
+		//修改之前把原来关联的信息删除
 		ptRoleMapper.deleteByRoleIds(ptRole.getIds());
 		for (String operatorIds : arr) {
 			roleOperator.setIds(getIds());
@@ -157,5 +164,21 @@ public class PtRoleServiceImpl implements PtRoleService {
 	
 	private String getIds() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
+	}
+
+	@Override
+	public int saveMenuIds(PtRole ptRole) {
+		String[] arr = ptRole.getNumbers().split(",");
+		int count = 0;
+		PtRoleOperator roleOperator = new PtRoleOperator();
+		//修改之前把原来关联的信息删除
+		ptRoleMapper.deleteByRoleIds(ptRole.getIds());
+		for (String operatorIds : arr) {
+			roleOperator.setIds(getIds());
+			roleOperator.setRoleids(ptRole.getIds());
+			roleOperator.setOperatorids(operatorIds);
+			count += ptRoleMapper.insertRoleOperator(roleOperator);
+		}
+		return count;
 	}
 }

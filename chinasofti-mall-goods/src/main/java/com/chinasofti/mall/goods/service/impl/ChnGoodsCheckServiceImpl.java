@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheckExample;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheckExample.Criteria;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.goods.mapper.ChnGoodsinfoCheckMapper;
 import com.chinasofti.mall.goods.service.ChnGoodsCheckService;
 import com.github.pagehelper.Page;
@@ -32,6 +31,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	 */
 	@Override
 	public int save(ChnGoodsinfoCheck chnGoodsinfoCheck) {
+		chnGoodsinfoCheck.setStatus("2");
 		return chnGoodsinfoCheckMapper.insertSelective(chnGoodsinfoCheck);
 	}
 
@@ -44,6 +44,13 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 		
 		JSONObject js = new JSONObject();
 		
+		if (!StringUtils.isEmpty(chnGoodsinfoCheck.getStartTime())) {
+			chnGoodsinfoCheck.setStartTime(StringDateUtil.convertToSqlFormat(chnGoodsinfoCheck.getStartTime()));
+		}
+		if (!StringUtils.isEmpty(chnGoodsinfoCheck.getEndTime())) {
+			chnGoodsinfoCheck.setEndTime(StringDateUtil.convertToSqlFormat(chnGoodsinfoCheck.getEndTime()));
+		}
+
 		PageHelper.startPage(chnGoodsinfoCheck.getPageNumber(),chnGoodsinfoCheck.getPageSize());
 		List<ChnGoodsinfoCheck> list = chnGoodsinfoCheckMapper.findAll(chnGoodsinfoCheck);
 		
@@ -66,7 +73,9 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	 */
 	@Override
 	public int update(ChnGoodsinfoCheck chnGoodsinfoCheck) {
-		return chnGoodsinfoCheckMapper.updateByPrimaryKeySelective(chnGoodsinfoCheck);
+
+		int updateGoodsCheck = chnGoodsinfoCheckMapper.updateByPrimaryKeySelective(chnGoodsinfoCheck);
+		return updateGoodsCheck;
 	}
 
 	/* 
@@ -94,6 +103,14 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 			chnGoodsinfoCheck.setReviewStatues("0");
 		}
 		
+		if (checkReviewStatus == 1) {
+			ChnGoodsinfoCheck goods = findById(chnGoodsinfoCheck.getIds());
+			goods.setIds(goods.getGoodsids());
+			goods.setGoodsids("");
+			goods.setReviewStatues("1");
+			chnGoodsinfoCheckMapper.insertGoodsOnlineSelective(goods);
+		}
+		
 		return chnGoodsinfoCheckMapper.updateByPrimaryKeySelective(chnGoodsinfoCheck);
 	}
 	
@@ -115,49 +132,6 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	public JSONObject selectByExample(ChnGoodsinfoCheck chnGoodsinfoCheck) {
 		
 		JSONObject js = new JSONObject();
-		
-		/*ChnGoodsinfoCheckExample example = new ChnGoodsinfoCheckExample();
-		Criteria criteria = example.createCriteria();
-		
-		//商品编号
-		if (!StringUtils.isEmpty(chnGoodsinfoCheck.getGoodsids())) {
-			criteria.andGoodsidsLike("%" + chnGoodsinfoCheck.getGoodsids() + "%");
-		}
-		//商品名称标题
-		if (!StringUtils.isEmpty(chnGoodsinfoCheck.getTitle())) {
-				criteria.andTitleLike("%" + chnGoodsinfoCheck.getTitle() + "%");
-			}
-		//开始时间,结束时间
-		if (!StringUtils.isEmpty(chnGoodsinfoCheck.getStartTime()) && !StringUtils.isEmpty(chnGoodsinfoCheck.getEndTime())) {
-			criteria.andStartTimeGreaterThanOrEqualTo(chnGoodsinfoCheck.getStartTime());
-			criteria.andEndTimeLessThanOrEqualTo(chnGoodsinfoCheck.getEndTime());
-		}else if (!StringUtils.isEmpty(chnGoodsinfoCheck.getStartTime())) {
-			criteria.andBrandIdsGreaterThanOrEqualTo(chnGoodsinfoCheck.getStartTime());
-		}else if (!StringUtils.isEmpty(chnGoodsinfoCheck.getEndTime())) {
-			criteria.andEndTimeLessThanOrEqualTo(chnGoodsinfoCheck.getEndTime());
-		}
-		//商户编号
-		if (!StringUtils.isEmpty(chnGoodsinfoCheck.getVendorids())) {
-			criteria.andVendoridsLike("%" + chnGoodsinfoCheck.getVendorids() + "%");
-		}
-		//商品分类
-		if (!StringUtils.isEmpty(chnGoodsinfoCheck.getGoodsClassIds())) {
-				criteria.andGoodsClassIdsLike("%" + chnGoodsinfoCheck.getGoodsClassIds() + "%");
-		}
-		//商品类型
-		if (!StringUtils.isEmpty(chnGoodsinfoCheck.getType())) {
-			criteria.andTypeEqualTo(chnGoodsinfoCheck.getType());
-		}
-		//审核状态
-		if (!StringUtils.isEmpty(chnGoodsinfoCheck.getReviewStatues())) {
-			criteria.andReviewStatuesEqualTo(chnGoodsinfoCheck.getReviewStatues());
-		}
-		
-		PageHelper.startPage(chnGoodsinfoCheck.getPageNumber(),chnGoodsinfoCheck.getPageSize());
-		List<ChnGoodsinfoCheck> list = chnGoodsinfoCheckMapper.selectByExample(example);
-
-		js.put("rows", list);
-		js.put("total", ((Page<ChnGoodsinfoCheck>)list).getTotal());*/
 		
 		return js;
 	}

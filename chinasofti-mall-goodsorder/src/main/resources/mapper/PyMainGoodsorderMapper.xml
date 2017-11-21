@@ -969,6 +969,18 @@
 		<if test="orderStatus != null and orderStatus !=''">
 			and mainorder.STATUS = #{orderStatus}
 		</if>
+		<if test="minPayTime != null and minPayTime !=''">
+			and mainorder.ORDER_TIME &gt;= #{minPayTime}
+		</if>
+		<if test="maxPayTime != null and maxPayTime !=''">
+			and mainorder.ORDER_TIME &lt;= #{maxPayTime}
+		</if>
+		<if test="settleTimeFee != null and settleTimeFee !=''">
+			and mainorder.SETTLE_TIME like concat(concat('%', #{settleTimeFee}), '%')
+		</if>
+		<if test="vendorIds != null and vendorIds !=''">
+			and mainorder.VENDOR_IDS = #{vendorIds}
+		</if>
 	</where>
 	order by ${sort} ${order}
   </select>

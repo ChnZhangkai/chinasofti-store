@@ -1,7 +1,6 @@
 package com.chinasofti.mall.user.service;
 
 import java.util.List;
-
 import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.Tree;
 
@@ -20,5 +19,7 @@ public interface PtRoleService {
 	List<Tree> showTree(String id);
 
 	int saveIds(PtRole ptRole);
+
+	int saveMenuIds(PtRole ptRole);
 
 }
