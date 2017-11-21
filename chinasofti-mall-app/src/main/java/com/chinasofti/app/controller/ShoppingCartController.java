@@ -59,7 +59,6 @@ public class ShoppingCartController {
 	public ResponseInfo savePyShoppingCart(@RequestBody Map<String,Object> requestMap,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
-		response.setHeader("Access-Control-Allow-Headers:application/x-www-form-urlencoded","content-type");
 		ResponseInfo responseInfo = shoppingCartFeignClient.savePyShoppingCart(requestMap);
 		return responseInfo;
 	}
