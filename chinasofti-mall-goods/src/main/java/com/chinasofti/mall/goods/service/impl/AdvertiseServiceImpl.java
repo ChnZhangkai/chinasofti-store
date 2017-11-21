@@ -137,14 +137,18 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 		return advertiseMapper.findAdPostionAll();
 	}
 	@Override
-	public String findByPage(Map<String, Object> paramMap) {
+	public Map<String,Object> findByPage(Map<String, Object> paramMap) {
 		JSONObject js = new JSONObject();
 		// 执行分页查询
 		PageHelper.startPage(Integer.parseInt(paramMap.get("page").toString()),
 				Integer.parseInt(paramMap.get("rows").toString()));
 		List<AdvertiseContents> list = advertiseMapper.findByPage(paramMap);
-		js.put("rows", list);
-		js.put("total", ((Page<AdvertiseContents>) list).getTotal());
-		return js.toString();
+		Map<String,Object> map = new HashMap<>();
+		map.put("rows", list);
+		map.put("total", ((Page<AdvertiseContents>) list).getTotal());
+		return map;
+		//js.put("rows", list);
+		//js.put("total", ((Page<AdvertiseContents>) list).getTotal());
+		//return js.toString();
 	}
 }
