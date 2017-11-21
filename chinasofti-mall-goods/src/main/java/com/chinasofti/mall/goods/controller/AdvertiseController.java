@@ -98,9 +98,8 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 	 * @throws:
 	 */
 	@RequestMapping("findByPage")
-	public String findByPage(@RequestParam Map<String, Object> map) {
+	public Map<String, Object> findByPage(@RequestParam Map<String, Object> map) {
 		logger.info(">>>>>>>>>>>>>>>>>>>>>>map:"+map.toString());
-		//return advertiseService.findByPage(map);
 		return advertiseService.findByPage(map);
 		
 	}
