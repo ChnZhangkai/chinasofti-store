@@ -28,7 +28,6 @@ public class SpSendAddressController {
 	@Autowired
 	SpSendAddressFeignClient spSendAddressFeignClient;
 	private static final Logger logger = LoggerFactory.getLogger(SpSendAddressController.class);
-	
 	/*
 	 * 查询地址列表
 	 * 参数 userId 用户ID
