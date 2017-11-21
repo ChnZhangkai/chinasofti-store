@@ -7,8 +7,7 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="menuTree()" plain="true">角色权限菜单</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="operatorChange()" plain="true">权限设置</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印本页</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印</a>
         </div>
        	<div class="ptrole-toolbar-search">
 		<form id="searchForm">
@@ -117,10 +116,6 @@
  * 全局加载数据
  */
 $(function(){
-	$.messager.show({
-		title:'提示',
-		msg:'飘过'
-	});
 	
 	//获取表格datagrid的ID属性,
 	var tableID = "ptroleinfo";
