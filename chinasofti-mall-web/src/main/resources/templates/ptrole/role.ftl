@@ -1,42 +1,34 @@
 <script type="text/javascript" src="js/common.js"></script>
 <div class="easyui-layout" data-options="fit:true">
     <!-- Begin of toolbar -->
-    <div id="user-toolbar-2">
-        <div class="role-toolbar-button">
+    <div id="wu-toolbar-3">
+       	<div class="wu-toolbar-search">
+			<form id="searchForm" style="margin: 0px">
+				<label>角色编号：</label> <input class="easyui-textbox" id="vendorId" name="vendorId"/>
+				<label>角色名称：</label> <input class="easyui-textbox" id="vendorSnm" name="vendorSnm"/>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
+			    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
+			</form>	
+		</div>
+		<div class="role-toolbar-button">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="menuTree()" plain="true">角色权限菜单</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印</a>
         </div>
-       	<div class="ptrole-toolbar-search">
-		<form id="searchForm">
-			<label>商户编号：</label> <input type="text" id="vendorId" name="vendorId"/></br>
-			<label>商户名称：</label> <input type="text" id="vendorSnm" name="vendorSnm"/>
-			<label>拓展网站：</label> <input type="text" id="belongSiteName" name="belongSiteName"/>
-			<label>状态：</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="states" style="width: 75px">
-									<option selected="selected" value="">请选择</option>
-									<option value="0">禁用</option>
-									<option value="1">启用</option>
-								</select>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
-		</form>	
-		</div>
 	</div>
     
 	<!-- 数据显示datagrid -->
-	<table id="ptroleinfo" class="easyui-datagrid" title="商户用户列表" 
-			data-options="singleSelect:true,collapsible:true" style="height: 80%">
+	<table id="ptroleinfo" class="easyui-datagrid"
+			data-options="singleSelect:true,collapsible:true" style="height: 85%">
 		<thead>
 			<tr>
-				<th field="ids" width="10%" align="center">编号</th>
-				<th field="names" width="15%" align="center">角色全称</th>
+				<th field="ids" width="20%" align="center">编号</th>
+				<th field="names" width="20%" align="center">角色全称</th>
 				<th field="numbers" width="10%" align="center">角色数量</th>
-				<th field="updateby" width="10%" align="center">更新人员</th>
-				<th field="updatetime" width="10%" align="center">更新时间</th>	
 				<th field="createby" width="15%" align="center">创建人员</th>	
-				<th field="createtime" width="10%" align="center">创建时间</th>
+				<th field="createtime" width="15%" align="center">创建时间</th>
 				<th field="description" width="20%" align="center">角色描述</th>
 			</tr>
 		</thead>
