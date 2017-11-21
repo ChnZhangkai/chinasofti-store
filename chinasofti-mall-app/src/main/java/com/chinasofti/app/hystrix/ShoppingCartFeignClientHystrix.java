@@ -1,7 +1,6 @@
 package com.chinasofti.app.hystrix;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,7 @@ public class ShoppingCartFeignClientHystrix implements ShoppingCartFeignClient{
 	}
 
 	@Override
-	public ResponseInfo savePyShoppingCart(Map<String,Object> requestMap) {
+	public ResponseInfo savePyShoppingCart(List<PyShoppingCart> goodsList) {
 		return new ResponseInfo();
 	}
 
