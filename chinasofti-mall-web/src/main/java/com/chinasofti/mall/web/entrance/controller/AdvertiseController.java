@@ -75,7 +75,7 @@ public class AdvertiseController {
 		}
 		try {
 			file.transferTo(dest);
-			advertiseContents.setImageurl("/data/advertise/"+ fileName);
+			advertiseContents.setImageurl("http://192.168.244/advertise/"+ fileName);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
