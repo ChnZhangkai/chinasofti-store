@@ -137,7 +137,16 @@ public interface ChnGoodsFeignClient {
 	 */
 	@RequestMapping(value = "/goodsOnline/update" ,method = RequestMethod.POST)
 	public int updateStore(@RequestBody(required = false) ChnGoodsOnline chnGoodsOnline);
-		
+
+	/**
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsOnline/getList" ,method = RequestMethod.POST)
+	public List<ChnGoodsOnline> getGoodsOnlineList(ChnGoodsOnline chnGoodsOnline);
+
+	
+
 
 	
 }
