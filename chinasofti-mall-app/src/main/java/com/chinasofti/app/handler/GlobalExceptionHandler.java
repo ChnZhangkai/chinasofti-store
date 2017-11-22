@@ -15,12 +15,24 @@ class GlobalExceptionHandler {
     public static final String DEFAULT_ERROR_VIEW = "error";
 
     @ExceptionHandler(value = Exception.class)
-    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("message", e.getMessage());
-        mav.addObject("url", req.getRequestURL());
-        mav.setViewName(DEFAULT_ERROR_VIEW);
-        return mav;
+    public Object defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+        
+    	String header = req.getHeader("X-Requested-With");
+    	boolean isAjax = "XMLHttpRequest".equalsIgnoreCase(header);
+    	if(isAjax){
+    		ResponseInfo r = new ResponseInfo();
+            r.setRetMsg(e.getMessage());
+            r.setRetCode("99990");
+            r.setUrl(req.getRequestURL().toString());
+            return r;
+    	}else{
+    		ModelAndView mav = new ModelAndView();
+            mav.addObject("message", e.getMessage());
+            mav.addObject("url", req.getRequestURL());
+            mav.setViewName(DEFAULT_ERROR_VIEW);
+            return mav;
+    	}
+    	
     }
 
     @ExceptionHandler(value = MyException.class)
