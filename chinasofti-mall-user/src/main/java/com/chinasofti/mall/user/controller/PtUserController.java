@@ -37,9 +37,9 @@ public class PtUserController{
 	
 	
 	@RequestMapping("delete/{ids}")
-	public String deleteById(@PathVariable("ids") String id) {
-		ptUserService.deleteById(id);
-		return "delete";
+	public int deleteById(@PathVariable("ids") String id) {
+		int deleteById = ptUserService.deleteById(id);
+		return deleteById;
 	}
 
 	@RequestMapping(value="update" , method = RequestMethod.POST)
