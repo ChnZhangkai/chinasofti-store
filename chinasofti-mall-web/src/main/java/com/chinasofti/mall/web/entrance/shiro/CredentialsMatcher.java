@@ -1,4 +1,4 @@
-package com.chinasofti.mall.web.entrance.shiroconfig;
+package com.chinasofti.mall.web.entrance.shiro;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

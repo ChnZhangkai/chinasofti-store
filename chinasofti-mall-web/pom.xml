@@ -154,6 +154,12 @@
 			<artifactId>jasypt-spring-boot-starter</artifactId>
 			<version>1.5-java7</version>
 		</dependency>
+		<!--strat redis  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<!--end redis  -->
 	</dependencies>
 
 </project>

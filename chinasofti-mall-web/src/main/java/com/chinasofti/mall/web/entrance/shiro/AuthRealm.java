@@ -1,4 +1,4 @@
-package com.chinasofti.mall.web.entrance.shiroconfig;
+package com.chinasofti.mall.web.entrance.shiro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +65,7 @@ public class AuthRealm extends AuthorizingRealm {
         PtUser user = (PtUser)principal.fromRealm(this.getClass().getName())
                 .iterator()
                 .next();//获取session中的用户
+        System.err.println("=======================从数据库查询权限信息");
         List<String> permissions = new ArrayList<String>();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         Set<PtRole> roles = user.getRoles();
@@ -86,6 +87,7 @@ public class AuthRealm extends AuthorizingRealm {
             }
         }
         info.addStringPermissions(permissions);//将权限放入shiro中.
+        //返回后会把info对象的信息存在cache中  ，这里会调用shiroCache（复写shiro.apche.put）的put(K key, V value）方法
         return info;
     }
 }

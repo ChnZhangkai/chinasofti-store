@@ -32,7 +32,7 @@
 		</div>
 		<div class="goodonline-toolbar-button">
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="onlineEdits()"plain="true">修改</a> 
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="prints()" plain="true">导出</a> 
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="exportExcel()" plain="true">导出</a> 
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="putaway" onclick="putaway(this)" plain="true">上架</a>
 			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="soldOut" onclick="putaway(this)" plain="true">下架</a>
 		</div>
@@ -46,7 +46,7 @@
 				<th field="img" width="10%" align="center"
 					data-options="formatter:imgFormatter">商品图片</th>
 				<th field="price" width="15%" align="center">商品价格</th>
-				<th field="vendorSnm" width="15%" align="center">商户名称</th>
+				<th field="vendorFnm" width="15%" align="center">商户名称</th>
 				<th field="name" width="15%" align="center">分类名称</th>
 				<th field="type" width="10%" align="center"
 					data-options="formatter:typesFormatter">商品类型</th>
@@ -72,7 +72,7 @@
 				<tr>
 					<th align="right">商品名称</th>
 					<td><input type="text" id="title" name="title" style=" width: 180px;background-color:#F4F4F4"
-				class="easyui-textbox" title="不可修改" readonly="true"/></td>
+				class="easyui-textbox"  readonly="true"/></td>
 					<th align="right">分类名称</th>
 					<td><input type="text" class="easyui-textbox" id="name" name="name" 
 					style=" width: 180px;background-color:#F4F4F4" title="不可修改" readonly="true" /></td>
@@ -86,7 +86,7 @@
 					</select></td>
 					<th align="right">商户名称</th>
 					<td>
-						<input type="text" id="vendorSnm" name="vendorSnm" class="easyui-textbox"
+						<input type="text" id="vendorFnm" name="vendorFnm" class="easyui-textbox"
 						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" readonly="true"/>
 					</td>
 				</tr>
@@ -160,9 +160,8 @@
 					</td>
 				</tr>
 				<tr>
-					<th align="right">商品图片:</th>
-					<td><img style="height: 75px;width: 110px;" src=""/></td>
-						
+				<th align="right">商品图片</th>
+				<td><img style="height: 80px;width: 120px;" src="" id="imgUrl"/></td>
 					
 				</tr>
 				
@@ -189,7 +188,7 @@
 				<tr>
 					<th align="right" style="padding-bottom: 0px">商品详情</th>
 					<td colspan="3">
-						<script id="container" name="content" type="text/plain"></script>
+						<script id="containeGoods" name="common" type="text/plain"></script>
 					</td>
 				</tr>
 			
@@ -206,13 +205,11 @@
 
 <script type="text/javascript">
 	
-	var ue = UE.getEditor('container',{
+	var ue = UE.getEditor('containeGoods',{
 		initialFrameWidth:1000,  //初始化编辑器宽度,默认1000  
         initialFrameHeight:140  //初始化编辑器高度,默认320
 	});
 
-	
-	
 	/*
 	 * 全局加载数据
 	 */
@@ -252,8 +249,6 @@
 		
 	}
 	
-
-	
 	
 	/*
 	 * 商品类型
@@ -281,12 +276,13 @@
 		}
 	}
 	
-	/**
+/**
 	* Name 打开修改窗口
 	*/
 	function onlineEdits(){
 		$('#updateGoodsForm').form('clear');
 		var row = $("#goodsOnlineinfo").datagrid('getSelected');
+		
 		if (row) {
 			$('#updateDl').dialog('open').dialog({
 				closed: false,
@@ -306,7 +302,23 @@
 	                }
 	            }]
 	        });
-			$('#updateGoodsForm').form('load',row);
+	 
+				$('#updateGoodsForm').form('load',row);//加载数据
+				var ids = row.ids;
+				$(document).ready(function(){  
+		        var ue = UE.getEditor('containeGoods');  
+		        
+		        ue.ready(function() {//编辑器初始化完成再赋值  
+		        ue.setContent(row.content);  //赋值给UEditor 
+		      	ue.setDisabled('fullscreen');
+		          
+		        images = $.ajax({url:'/goodsOnline/reqGoodsImgPath/' + ids,type:'POST',async:false});
+		        var tp=$("#imgUrl").attr("src",images.responseText); 
+		    
+		        });  
+		        
+		    });
+			
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
@@ -316,7 +328,6 @@
 	*修改
 	*/
 	function edit(){
-		var imgURl;
 		$('#updateGoodsForm').form('submit', {
 			url:'/goodsOnline/update',
     		type:'POST',
@@ -325,7 +336,6 @@
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
     				$('#updateDl').dialog('close');
-    				UE.getEditor('container').setContent("");
     				$('#goodsOnlinePagination').pagination('select');
     			}else{
     				$.messager.alert('信息提示','提交失败！','info');
@@ -334,6 +344,19 @@
     	});
 	}
 	
+
+	
+	// 导出
+	function exportExcel(){
+	    var temp = document.createElement("form");        
+	    temp.action ="goodsOnline/export"; 
+	    temp.method = "post";    
+	    temp.style.display = "none";
+	 
+	    document.body.appendChild(temp); 
+	    temp.submit();        
+ 
+	}
 	
 		
 	/*

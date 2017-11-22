@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,9 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baidu.ueditor.ActionEnter;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.common.entity.goods.GoodsFile;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
+import com.chinasofti.mall.common.utils.JxlsExcelView;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
@@ -229,6 +234,45 @@ public class ChnGoodsCheckController {
 		
 	}
 	
+	
+	/**
+	 * 商品审核数据导出
+	 * @param chnGoodsOnline
+	 * @return
+	 * */
+	@RequestMapping("/export")
+	 public ModelAndView export(ChnGoodsinfoCheck chnGoodsinfoCheck, HttpServletResponse response) throws Exception {
+		return null;  
+		// 1：准备数据  
+	/*	List<ChnGoodsinfoCheck> checkList = chnGoodsFeignClient.getGoodsCheckList(chnGoodsinfoCheck); 
+	        for (ChnGoodsinfoCheck goods : checkList) {
+	        	if ("1".equals(goods.getStatus())) {
+					goods.setStatus("已上架");
+				}else{
+					goods.setStatus("已下架");
+				}
+	        	if("0".equals(goods.getType())){
+	        		goods.setType("普通商品");
+	        	}else{
+	        		goods.setType("活动商品");
+	        	}if("1".equals(goods.getReviewStatues())){
+	        		goods.setReviewStatues("审核通过");
+	        	}else if("0".equals(goods.getReviewStatues())){
+	        		goods .setReviewStatues("待提交审核");
+	        	}else if("2".equals(goods.getReviewStatues())){
+	        		goods .setReviewStatues("审核拒绝");
+	        	}else if("3".equals(goods.getReviewStatues())){
+	        		goods .setReviewStatues("待提交审核");
+	        	}
+			}
+	        System.out.println("商品审核管理数据:"+checkList);
+	        // 2：数据放置到jxls需要的map中  
+	        Map<String,Object> modal = new HashMap<String,Object>();    
+	        modal.put("goodsChecks", checkList);*/
+	          
+	        // 3：导出文件  
+	       // return new ModelAndView(new JxlsExcelView("jxls/goodsCheck.xls","商品审核管理"), modal);  	
+	}
 	
 }
 
