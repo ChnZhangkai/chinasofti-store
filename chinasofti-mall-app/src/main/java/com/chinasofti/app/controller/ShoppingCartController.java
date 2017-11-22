@@ -2,7 +2,10 @@ package com.chinasofti.app.controller;
 
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.app.common.CorsConfig;
 import com.chinasofti.app.feign.ShoppingCartFeignClient;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -56,12 +58,11 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="add/goods", method = RequestMethod.POST)
 	//@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]")
-	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletRequest req,HttpServletResponse response) {
+	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
-		response.setHeader("Content-Type","application/x-www-form-urlencoded");
-		String str = CorsConfig.getRequestPayload(req);
-		logger.info("请求参数《《《《《《《《《》》》》》》》》》》"+str);
+		response.setHeader("application/x-www-form-urlencoded","Content-Type");
+		logger.info("请求参数《《《《《《《《《》》》》》》》》》》"+goodsList.toString());
 		return shoppingCartFeignClient.savePyShoppingCart(goodsList);
 	}
 
@@ -71,7 +72,7 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value="/mod/goods", method = RequestMethod.POST)
-	//@ApiOperation(value="修改购物车商品数量", notes="报文示例：{\"goodsList\":[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]}")
+	//@ApiOperation(value="修改购物车商品数量", notes="报文示例：{"goodsList":{\"goodsList\":[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]}")
 	public ResponseInfo updatePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods","POST");
@@ -91,6 +92,26 @@ public class ShoppingCartController {
 		ResponseInfo responseInfo = shoppingCartFeignClient.queryPyShoppingCartListByUserId(userId);
 		return responseInfo;
 	}
+	/**
+	 * 统一获取请求参数
+	 * @param req
+	 * @return
+	 */
+	public static String getRequestPayload(HttpServletRequest req) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			BufferedReader reader = req.getReader();
+			char[] buff = new char[1024];
+			int len;
+			while ((len = reader.read(buff)) != -1) {
+				sb.append(buff, 0, len);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
+		return sb.toString();
+
+	  }
 
 }
