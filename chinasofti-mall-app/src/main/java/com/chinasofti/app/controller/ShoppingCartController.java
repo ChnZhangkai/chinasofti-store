@@ -1,13 +1,14 @@
 package com.chinasofti.app.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
 
 import java.util.List;
 
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chinasofti.app.common.CorsConfig;
 import com.chinasofti.app.feign.ShoppingCartFeignClient;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -31,6 +33,7 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private ShoppingCartFeignClient shoppingCartFeignClient;
+	private static final Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
 	
 	/**
 	 * 删除购物车商品
@@ -39,7 +42,7 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="del/goods", method = RequestMethod.POST)
 	//@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
-	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
+	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,HttpServletRequest req,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods","POST");
 		ResponseInfo responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
@@ -53,9 +56,12 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="add/goods", method = RequestMethod.POST)
 	//@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]")
-	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
+	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletRequest req,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
+		response.setHeader("Content-Type","application/x-www-form-urlencoded");
+		String str = CorsConfig.getRequestPayload(req);
+		logger.info("请求参数《《《《《《《《《》》》》》》》》》》"+str);
 		return shoppingCartFeignClient.savePyShoppingCart(goodsList);
 	}
 
