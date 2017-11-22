@@ -357,8 +357,8 @@ $(function(){
 	 */
  	function readPicture() {
 		
- 		var a = document.getElementsByClassName("img");
- 		console.info(a);
+ 		//var a = document.getElementsByClassName("img");
+ 		//console.info(a);
 		
 		// 检查是否为图像类型
 		var simpleFile = document.getElementById("img").files[0];

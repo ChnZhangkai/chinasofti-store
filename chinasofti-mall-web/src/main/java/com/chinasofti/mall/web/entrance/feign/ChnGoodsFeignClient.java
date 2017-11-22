@@ -1,5 +1,7 @@
 package com.chinasofti.mall.web.entrance.feign;
 
+import java.util.List;
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +30,9 @@ public interface ChnGoodsFeignClient {
 	 */
 	@RequestMapping(value = "/goodsClass/select" , method = RequestMethod.POST)
 	public JSONObject selectByGoodsClass(@RequestBody(required = false) ChnGoodsClass chnGoodsClass);
+	
+	@RequestMapping(value = "/goodsClass/findGoodsClass" ,method = RequestMethod.POST)
+	public List<ChnGoodsClass> findGoodsClass(@RequestBody(required = false) String ids);
 	
 	/**
 	 * 商品分类根据ID删除

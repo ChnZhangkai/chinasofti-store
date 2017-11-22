@@ -15,9 +15,16 @@ public class Tree implements Serializable{
 	
 	private String text;
 	private String state;
+	private String iconCls;
 	private boolean checked;
 	private List<Tree> children;
 	
+	public String getIconCls() {
+		return iconCls;
+	}
+	public void setIconCls(String iconCls) {
+		this.iconCls = iconCls;
+	}
 	public String getText() {
 		return text;
 	}

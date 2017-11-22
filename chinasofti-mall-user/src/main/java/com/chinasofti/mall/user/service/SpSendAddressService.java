@@ -1,9 +1,10 @@
 package com.chinasofti.mall.user.service;
 
-import java.util.List;
 
 import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
 import com.chinasofti.mall.common.service.IBaseService;
+import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.user.handler.MyException;
 
 /**
  * @author: xiaozhiliang
@@ -17,13 +18,13 @@ public interface SpSendAddressService extends IBaseService<SpSendAddress>{
 	 * @return
 	 */
 	
-	public List<SpSendAddress> querySentAddressList(String userId);
+	public ResponseInfo querySentAddressList(String userId)throws MyException;
 	
-	public int insertSendAddress(SpSendAddress spSendAddress);
+	public ResponseInfo insertSendAddress(SpSendAddress spSendAddress)throws MyException;
 	
-	public int updateSendAddress(SpSendAddress spSendAddress);
+	public ResponseInfo updateSendAddress(SpSendAddress spSendAddress)throws MyException;
 	
-	public int deleteSendAddress(SpSendAddress spSendAddress);
+	public ResponseInfo deleteSendAddress(SpSendAddress spSendAddress)throws MyException;
 	
 
 }

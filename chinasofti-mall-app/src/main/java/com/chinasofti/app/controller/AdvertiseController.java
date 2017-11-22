@@ -22,13 +22,13 @@ public class AdvertiseController {
 
 
 
-	@RequestMapping("findAdvertiseList")
+	@RequestMapping(value="findAdvertiseList")
 	public ResponseInfo findAdvertiseList(@RequestParam String positionId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		logger.info(positionId);
 		return advertiseFeignClient.findAdvertiseList(positionId);
 	}
-	@RequestMapping("findAdvertise")
+	@RequestMapping(value="findAdvertise")
 	public ResponseInfo findAdvertise(@RequestParam String positionId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		logger.info("查询位置ID"+positionId);

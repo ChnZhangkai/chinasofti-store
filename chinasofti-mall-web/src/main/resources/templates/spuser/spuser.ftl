@@ -5,7 +5,7 @@
         <div class="user-toolbar-button">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="spUserOpenAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="spUserOpenEdit()" plain="true">修改</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-spUserRemove" onclick="spUserRemove()" plain="true">删除</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="spUserRemove()" plain="true">删除</a>
         </div>
        	<div class="spUser-toolbar-search">
 		<form id="spUserSearchForm">
@@ -28,12 +28,12 @@
 			data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'" style="height: 80%">
 		<thead>
 		<tr>
-			<th field="vendorId" width="15%" align="center">商户编号</th>
+			<th field="vendorId" width="10%" align="center">商户编号</th>
 			<th field="vendorFnm" width="20%" align="center">商户全称</th>
 			<th field="vendorSnm" width="15%" align="center">商户简称</th>
-			<th field="status" width="5%" align="center" data-options="formatter:statesFormatter">状态</th>
+			<th field="status" width="7%" align="center" data-options="formatter:statesFormatter">状态</th>
 			<th field="chargeman" width="10%" align="center">商户负责人</th>	
-			<th field="linkman" width="15%" align="center">商户方联系人</th>	
+			<th field="linkman" width="10%" align="center">商户方联系人</th>	
 			<th field="mobile" width="10%" align="center">联系手机号</th>
 			<th field="address" width="20%" align="center">通讯地址</th>
 		</tr>

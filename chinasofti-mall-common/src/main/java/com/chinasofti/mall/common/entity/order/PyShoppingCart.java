@@ -1,9 +1,9 @@
 package com.chinasofti.mall.common.entity.order;
-
+import java.math.BigDecimal;
 public class PyShoppingCart {
     private String ids;
 
-    private String userids;
+    private String userId;
 
     private String vendorid;
 
@@ -11,9 +11,9 @@ public class PyShoppingCart {
 
     private String goodsPayIds;
 
-    private Short goodsNum;
+    private BigDecimal goodsNum;
 
-    private String createTime;
+	private String createTime;
 
     private String payStatus;
 
@@ -27,14 +27,6 @@ public class PyShoppingCart {
 
     public void setIds(String ids) {
         this.ids = ids == null ? null : ids.trim();
-    }
-
-    public String getUserids() {
-        return userids;
-    }
-
-    public void setUserids(String userids) {
-        this.userids = userids == null ? null : userids.trim();
     }
 
     public String getVendorid() {
@@ -61,13 +53,6 @@ public class PyShoppingCart {
         this.goodsPayIds = goodsPayIds == null ? null : goodsPayIds.trim();
     }
 
-    public Short getGoodsNum() {
-        return goodsNum;
-    }
-
-    public void setGoodsNum(Short goodsNum) {
-        this.goodsNum = goodsNum;
-    }
 
     public String getCreateTime() {
         return createTime;
@@ -100,4 +85,23 @@ public class PyShoppingCart {
     public void setAttr(String attr) {
         this.attr = attr == null ? null : attr.trim();
     }
+
+	public BigDecimal getGoodsNum() {
+		return goodsNum;
+	}
+
+	public void setGoodsNum(BigDecimal goodsNum) {
+		this.goodsNum = goodsNum;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	
+   
 }

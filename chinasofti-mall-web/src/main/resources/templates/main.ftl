@@ -1,8 +1,7 @@
 <head>
 <meta charset="UTF-8">
 <title>后台界面</title>
-<link rel="stylesheet" type="text/css"
-	href="/css/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/css/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/css/zk.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/myicon.css" />
@@ -71,9 +70,5 @@
 	<div class="zk-footer"
 		data-options="region:'south',border:true,split:true">© 2017
 		后台测试界面, 粤ICP备14024044号-2, All Rights Reserved.</div>
-		
-	<script type="text/javascript">
-		
-	</script>
 
 </body>

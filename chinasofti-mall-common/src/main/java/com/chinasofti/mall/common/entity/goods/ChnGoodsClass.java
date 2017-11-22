@@ -30,7 +30,7 @@ public class ChnGoodsClass extends PageBean{
     private String showIndex;
 
     private String img;
-
+    
     public String getIds() {
         return ids;
     }

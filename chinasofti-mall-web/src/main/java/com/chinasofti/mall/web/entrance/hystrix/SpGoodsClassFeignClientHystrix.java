@@ -1,6 +1,7 @@
 package com.chinasofti.mall.web.entrance.hystrix;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -97,6 +98,12 @@ public class SpGoodsClassFeignClientHystrix implements ChnGoodsFeignClient{
 	@Override
 	public int updateStore(ChnGoodsOnline chnGoodsOnline) {
 		return 0;
+	}
+
+	@Override
+	public List<ChnGoodsClass> findGoodsClass(String ids) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

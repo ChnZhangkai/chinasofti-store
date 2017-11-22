@@ -247,9 +247,7 @@
 		var ids = row.ids;
 		var str = "";
 		images = $.ajax({url:'/goodsOnline/reqGoodsImgPath/' + ids,type:'POST',async:false});
-		str = "images = $.ajax({url:'/goodsOnline/reqGoodsImgPath/' + ids,type:'POST',async:false});
 		str = "<img style=\"height: 75px;width: 110px;\" src=\""+ images.responseText +"\"/>";
-		return str;";
 		return str;
 		
 	}
@@ -309,7 +307,6 @@
 	            }]
 	        });
 			$('#updateGoodsForm').form('load',row);
-			alert($('#updateGoodsForm').serialize());
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}

@@ -27,7 +27,7 @@ public interface SpMerchantUserMapper {
 
 	    List<SpMerchantUser> selectByExample(SpMerchantUserExample example);
 
-	    SpMerchantUser selectByPrimaryKey(String ids);
+	    SpMerchantUser selectByPrimaryKey(String vendorId);
 
 	    int updateByExampleSelective(@Param("record") SpMerchantUser record, @Param("example") SpMerchantUserExample example);
 

@@ -32,7 +32,14 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 
 	@Autowired
 	private ChnGoodsClassMapper chnGoodsClassMapper;
-
+	
+	@Override
+	public List<ChnGoodsClass> findGoodsClass(String ids) {
+		List<ChnGoodsClass> goodsClass = chnGoodsClassMapper.findGoodsClass(ids);
+		return goodsClass;
+	}
+	
+	
 	/*
 	 * 列表及提交查询
 	 */

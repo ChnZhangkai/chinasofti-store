@@ -2,6 +2,8 @@ package com.chinasofti.mall.goods.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +33,17 @@ public class ChnGoodsClassController {
 	@RequestMapping(value = "/select" , method = RequestMethod.POST)
 	public JSONObject selectByGoodsClass(@RequestBody(required = false)ChnGoodsClass chnGoodsClass){
 		return GoodsClassService.selectByExample(chnGoodsClass);
-		
+	}
+	
+	/**
+	 * 分类查询
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/findGoodsClass", method = RequestMethod.POST)
+	public List<ChnGoodsClass> findGoodsClass(@RequestBody(required = false) String ids){
+		List<ChnGoodsClass> jsonlist = GoodsClassService.findGoodsClass(ids);
+		return jsonlist;
 	}
 	
 	/**
