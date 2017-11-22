@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.web.entrance.hystrix.SpMerchantUserFeignClientHystrix;
@@ -32,11 +33,12 @@ public interface SpMerchantUserFeignClient {
 	JSONObject selectBySpUser(@RequestBody(required = false) SpMerchantUser spMerchantUser);
 
 	/**
-	 * @param ids
+	 * @param vendorId
 	 * @return
 	 */
-	@RequestMapping("/spUser/select/{vendorids}")
-	public SpMerchantUser selectSpUserById(@PathVariable("vendorids") String id);
+	@RequestMapping(value = "/spUser/queryVendorInfo")
+	public SpMerchantUser selectSpUserById(@RequestParam("vendorId") String vendorId);
+
 
 	/**
 	 * @param ids
