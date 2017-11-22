@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +67,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 				PyShoppingCart goods = goodsList.get(i);
 				PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
 				
-				if(StringUtils.isNotBlank(shoppingCar.toString())){
+				if(shoppingCar != null){
 					goods.setGoodsNum(goods.getGoodsNum().add(shoppingCar.getGoodsNum()));
 					pyShoppingCartMapper.updateByPrimaryKeySelective(goods);
 				}else{
