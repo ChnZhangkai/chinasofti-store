@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
-import com.chinasofti.mall.goodsorder.service.impl.PyShoppingCartServiceImpl;
+import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
 
 
 @RunWith(SpringRunner.class)
@@ -22,7 +22,7 @@ import com.chinasofti.mall.goodsorder.service.impl.PyShoppingCartServiceImpl;
 public class ShoppingCarTest {
 
 	@Autowired
-	private PyShoppingCartServiceImpl shoppingCartService;
+	private PyShoppingCartService shoppingCartService;
 	
 	@Test
 	public void addShoppingCar(){
