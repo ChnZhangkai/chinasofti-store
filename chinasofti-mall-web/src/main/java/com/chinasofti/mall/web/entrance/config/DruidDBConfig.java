@@ -1,4 +1,4 @@
-package com.chinasofti.mall.web.entrance.shiroconfig;
+package com.chinasofti.mall.web.entrance.config;
 
 import java.sql.SQLException;
 

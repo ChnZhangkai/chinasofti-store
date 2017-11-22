@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,11 @@ public class LoginController {
             PtUser user = (PtUser)subject.getPrincipal();
             session.setAttribute("user", user);
             return "main";
+        }catch (UnknownSessionException use){
+        		subject = new Subject.Builder().buildSubject();
+        		subject.login(usernamePasswordToken);
+        		session = (HttpSession) subject.getSession(true);
+        		return "main";
         }
         catch (Exception e) {
             return "login";//返回登录页面
