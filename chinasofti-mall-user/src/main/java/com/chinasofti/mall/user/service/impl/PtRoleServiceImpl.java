@@ -33,6 +33,7 @@ public class PtRoleServiceImpl implements PtRoleService {
 	private PtMenuMapper ptMenuMapper;
 	@Autowired
 	private PtOperatorMapper ptOperatorMapper;
+	
 	@Override
 	public int save(PtRole ptRole) {
 		ptRole.setIds(getIds());
@@ -180,5 +181,13 @@ public class PtRoleServiceImpl implements PtRoleService {
 			count += ptRoleMapper.insertRoleOperator(roleOperator);
 		}
 		return count;
+	}
+
+	/* 
+	 * 根据ID删除角色
+	 */
+	@Override
+	public int deleteByPrimaryKey(String ids) {
+		return ptRoleMapper.deleteByPrimaryKey(ids);
 	}
 }

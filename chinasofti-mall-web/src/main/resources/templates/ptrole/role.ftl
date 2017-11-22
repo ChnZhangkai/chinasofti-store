@@ -11,16 +11,16 @@
 			</form>	
 		</div>
 		<div class="role-toolbar-button">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openRoleAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="menuTree()" plain="true">角色权限菜单</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="print()" plain="true">打印</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-group-key" onclick="menuTree()" plain="true">角色权限</a>
         </div>
 	</div>
     
 	<!-- 数据显示datagrid -->
-	<table id="ptroleinfo" class="easyui-datagrid"
+	<table id="ptroleinfo" class="easyui-datagrid" title="角色列表"
 			data-options="singleSelect:true,collapsible:true" style="height: 85%">
 		<thead>
 			<tr>
@@ -39,27 +39,21 @@
 
 <!-- 添加表格 -->
 <div id="ptroleAddDialog" class="easyui-dialog"
-	data-options="closed:true,iconCls:'icon-save'"
-	style="width: 800px; padding: 10px;">
+	data-options="closed:true,iconCls:'icon-add'"
+	style="width: 300px; padding: 10px;">
 	<form id="ptroleAdd" method="post" enctype="multipart/form-data">
-		<table id="add">
+		<table id="roleAdd">
 			<tr>
-                <td align="right">角色全称:</td>
-                <td><input  id="names" name="names" class="wu-text" /></td>
-                	
-                <td align="right">角色数量:</td>
-                <td><input id="numbers" name="numbers" class="wu-text" /></td>
-            </tr>
-			<tr>
-				<td align="right">创建人员:</td>
-                <td><input id="createby" name="createby" class="wu-text" /></td>
-                
-                <td align="right">更新人员:</td>
-                <td><input id="updateby" name="updateby" class="wu-text" /></td>
+                <td width="80" align="right">角色名称:</td>
+                <td><input  id="names" name="names" class="easyui-textbox" /></td>
             </tr>
             <tr>
-             <td align="right">角色描述:</td>
-                <td><input id="description" name="description" class="wu-text" /></td>
+             	<td align="right">角色描述:</td>
+                <td><input id="description" name="description" class="easyui-textbox" /></td>
+            </tr>
+            <tr>
+                <td align="right">角色数量:</td>
+                <td><input id="numbers" name="numbers" class="easyui-textbox" /></td>
             </tr>
 		</table>
 	</form>
@@ -68,29 +62,32 @@
 
 <!-- 修改表格 -->
 <div id="ptroleUpdateDialog" class="easyui-dialog"
-	data-options="closed:true,iconCls:'icon-save'"
-	style="width: 800px; padding: 10px;">
-	<form id="ptroleUpdate" method="post" enctype="multipart/form-data">
+	data-options="closed:true,iconCls:'icon-edit'"
+	style="width: 300px; padding: 10px;">
+	<form id="ptroleUpdate" method="post" >
 		<table id="update">
 			<tr>
+				<td><input type="hidden" id="ids" name="ids" /></td>
+			</tr>
+			<tr>
                 <td align="right">角色全称:</td>
-              
-                <td><input  id="names" name="names" class="wu-text" /></td>
-                	
+                <td><input  id="names" name="names" class="easyui-textbox" /></td>
+            </tr>
+            <tr>  	
                 <td align="right">角色数量:</td>
-                <td><input id="numbers" name="numbers" class="wu-text" /></td>
+                <td><input id="numbers" name="numbers" class="easyui-textbox" /></td>
             </tr>
 			<tr>
 				<td align="right">创建人员:</td>
-                <td><input id="createby" name="createby" class="wu-text" /></td>
-                
+                <td><input id="createby" name="createby" class="easyui-textbox" /></td>
+            </tr>
+            <tr>
                 <td align="right">更新人员:</td>
-                <td><input id="updateby" name="updateby" class="wu-text" /></td>
+                <td><input id="updateby" name="updateby" class="easyui-textbox" /></td>
             </tr>
             <tr>
              <td align="right">角色描述:</td>
-                <td><input id="description" name="description" class="wu-text" /></td>
-                  <td><input  id="ids" name="ids" /></td>
+                <td><input id="description" name="description" class="easyui-textbox" /></td>
             </tr>
 		</table>
 	</form>
@@ -179,7 +176,6 @@ $(function(){
 					success:function(data){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
-							//$('#ptroleinfo').datagrid('reload')
 							$('#ptrolePagination').pagination('select');
 						} else {
 							$.messager.alert('信息提示','删除失败！','info');		
@@ -192,25 +188,23 @@ $(function(){
 	/**
 	* Name 打开添加窗口
 	*/
-	function openAdd(){
+	function openRoleAdd(){
 		$('#ptroleAdd').form('clear');
 		$('#ptroleAddDialog').dialog({
 			closed: false,
 			closable:false,
 			modal:true,
-            title: "添加商户用户",
+            title: "新增角色",
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
-                handler: add
+                handler: roleAdd
             }, {
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#ptroleAddDialog').dialog('close');
                     $('#ptroleAdd').form('clear');
-                    //document.getElementById("showpic").style.display="none";
-                    document.getElementById("showpic").innerHTML = "";
                 }
             }]
         });
@@ -220,7 +214,7 @@ $(function(){
 	/**
 	* Name 添加记录
 	*/
-	function add(){
+	function roleAdd(){
 		$('#ptroleAdd').form('submit', {
 			url:'/ptrole/add',
 			type:'POST',
@@ -247,7 +241,7 @@ $(function(){
 				closed: false,
 				modal:true,
 				closable:false,
-	            title: "修改商户用户",
+	            title: "修改角色",
 	            buttons: [{
 	                text: '确定',
 	                iconCls: 'icon-ok',

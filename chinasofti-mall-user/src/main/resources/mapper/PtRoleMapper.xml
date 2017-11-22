@@ -9,9 +9,7 @@
     <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
     <result column="UPDATETIME" property="updatetime" jdbcType="VARCHAR" />
     <result column="CREATEBY" property="createby" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.mall.common.entity.PtRole" extends="BaseResultMap" >
-    <result column="DESCRIPTION" property="description" jdbcType="LONGVARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,27 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    IDS, NUMBERS, NAMES, UPDATEBY, CREATETIME, UPDATETIME, CREATEBY
+    IDS, NUMBERS, NAMES, UPDATEBY, CREATETIME, UPDATETIME, CREATEBY, DESCRIPTION
   </sql>
-  <sql id="Blob_Column_List" >
-    DESCRIPTION
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.mall.common.entity.PtRoleExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from pt_role
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PtRoleExample" >
     select
     <if test="distinct" >
@@ -107,11 +86,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PtRoleExample" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from pt_role
     where IDS = #{ids,jdbcType=VARCHAR}
   </select>
@@ -131,7 +108,7 @@
       CREATEBY, DESCRIPTION)
     values (#{ids,jdbcType=VARCHAR}, #{numbers,jdbcType=VARCHAR}, #{names,jdbcType=VARCHAR}, 
       #{updateby,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{createby,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+      #{createby,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.PtRole" >
     insert into pt_role
@@ -184,7 +161,7 @@
         #{createby,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
-        #{description,jdbcType=LONGVARCHAR},
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -219,23 +196,9 @@
         CREATEBY = #{record.createby,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null" >
-        DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update pt_role
-    set IDS = #{record.ids,jdbcType=VARCHAR},
-      NUMBERS = #{record.numbers,jdbcType=VARCHAR},
-      NAMES = #{record.names,jdbcType=VARCHAR},
-      UPDATEBY = #{record.updateby,jdbcType=VARCHAR},
-      CREATETIME = #{record.createtime,jdbcType=VARCHAR},
-      UPDATETIME = #{record.updatetime,jdbcType=VARCHAR},
-      CREATEBY = #{record.createby,jdbcType=VARCHAR},
-      DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -278,17 +241,6 @@
         DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where IDS = #{ids,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chinasofti.mall.common.entity.PtRole" >
-    update pt_role
-    set NUMBERS = #{numbers,jdbcType=VARCHAR},
-      NAMES = #{names,jdbcType=VARCHAR},
-      UPDATEBY = #{updateby,jdbcType=VARCHAR},
-      CREATETIME = #{createtime,jdbcType=VARCHAR},
-      UPDATETIME = #{updatetime,jdbcType=VARCHAR},
-      CREATEBY = #{createby,jdbcType=VARCHAR},
-      DESCRIPTION = #{description,jdbcType=LONGVARCHAR}
     where IDS = #{ids,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.PtRole" >

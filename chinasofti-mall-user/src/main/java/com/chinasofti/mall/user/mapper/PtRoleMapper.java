@@ -18,21 +18,15 @@ public interface PtRoleMapper {
 
     int insertSelective(PtRole record);
 
-    List<PtRole> selectByExampleWithBLOBs(PtRoleExample example);
-
     List<PtRole> selectByExample(PtRoleExample example);
 
     PtRole selectByPrimaryKey(String ids);
 
     int updateByExampleSelective(@Param("record") PtRole record, @Param("example") PtRoleExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") PtRole record, @Param("example") PtRoleExample example);
-
     int updateByExample(@Param("record") PtRole record, @Param("example") PtRoleExample example);
 
     int updateByPrimaryKeySelective(PtRole record);
-
-    int updateByPrimaryKeyWithBLOBs(PtRole record);
 
     int updateByPrimaryKey(PtRole record);
     
