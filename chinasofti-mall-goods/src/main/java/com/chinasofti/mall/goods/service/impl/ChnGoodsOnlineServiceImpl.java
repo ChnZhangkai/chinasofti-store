@@ -70,9 +70,14 @@ public class ChnGoodsOnlineServiceImpl implements ChnGoodsOnlineService{
 
 	@Override
 	public int update(ChnGoodsOnline chnGoodsOnline) {
-		System.out.println("库存:"+chnGoodsOnline.getStoreNum()+"ids:"+chnGoodsOnline.getIds());
 		return chnGoodsOnlineMapper.update(chnGoodsOnline);
 		 
+	}
+
+
+	@Override
+	public List<ChnGoodsOnline> getGoodsOnlineList(ChnGoodsOnline chnGoodsOnline) {
+		return chnGoodsOnlineMapper.findAll(chnGoodsOnline);
 	}
 
 	
