@@ -4,6 +4,8 @@ package com.chinasofti.mall.web.entrance.controller;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.subject.Subject;
@@ -56,6 +58,12 @@ public class LoginController {
         		session = (HttpSession) subject.getSession(true);
         		return "main";
         }
+        catch (DisabledAccountException de) {
+			return "error";
+		}
+        catch (UnknownAccountException ue) {
+			return "error";
+		}
         catch (Exception e) {
             return "login";//返回登录页面
         }
