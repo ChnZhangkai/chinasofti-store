@@ -50,10 +50,16 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		Map<String, Object> data = new HashMap<String, Object>();
 		try{
 			List<PyShoppingCart> pyShoppingCartList = pyShoppingCartMapper.getPyShoppingCartListByUserId(userId);
-			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
-			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			data.put("pyShoppingCartList", pyShoppingCartList);
-			responseInfo.setData(data);
+			if(pyShoppingCartList !=null){
+				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
+				responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
+				data.put("pyShoppingCartList", pyShoppingCartList);
+				responseInfo.setData(data);
+			}else{
+				responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+				responseInfo.setRetMsg("购物车内无商品！");
+			}
+			
 		}catch(Exception e){
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
