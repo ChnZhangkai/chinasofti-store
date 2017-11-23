@@ -1,5 +1,7 @@
 package com.chinasofti.mall.user.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,6 +49,7 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 			return res;
 		}		
 		spSendAddress.setAddressId(UUIDUtils.getUuid());
+		spSendAddress.setCreateTime(mathNum());
 		int insert = spSendAddressMapper.insert(spSendAddress);
 		res = dealResponseData(insert);
 		return res;
@@ -61,18 +64,17 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 			res.setRetMsg(retMsg);
 			return res;
 		}
-		spSendAddress.setAddressId(UUIDUtils.getUuid());
-		int insert = spSendAddressMapper.update(spSendAddress);
-		res = dealResponseData(insert);
+		int update = spSendAddressMapper.update(spSendAddress);
+		res = dealResponseData(update);
 		return res;
 	}
 	
 	@Override
 	public ResponseInfo deleteSendAddress(SpSendAddress spSendAddress) throws MyException{
 		ResponseInfo res = new ResponseInfo();
-		spSendAddress.setAddressId(UUIDUtils.getUuid());
-		int insert = spSendAddressMapper.delete(spSendAddress);
-		res = dealResponseData(insert);
+		
+		int detele = spSendAddressMapper.delete(spSendAddress);
+		res = dealResponseData(detele);
 		return res;
 	}
 
@@ -142,7 +144,14 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 		}
 		return true;
 		
-	}	
+	}
+	//时间戳
+	private String mathNum(){
+		Date date = new Date();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMddHHmmss");
+		String nowTime = sd.format(date);
+		return nowTime;
+	}
 
 	@Override
 	public int save(SpSendAddress t) {

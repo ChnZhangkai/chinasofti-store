@@ -1,22 +1,23 @@
 package com.chinasofti.mall.goodsorder.service.impl;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
+import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
 import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.StringDateUtil;
+import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.goodsorder.mapper.PyShoppingCartMapper;
 import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
 
@@ -48,19 +49,57 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	public ResponseInfo queryPyShoppingCartListByUserId(String userId) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
-		try{
-			List<PyShoppingCart> pyShoppingCartList = pyShoppingCartMapper.getPyShoppingCartListByUserId(userId);
-			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
-			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			data.put("pyShoppingCartList", pyShoppingCartList);
-			responseInfo.setData(data);
-		}catch(Exception e){
+
+		try {
+			List<VendorShoppingcartVO> pyShoppingCartList = pyShoppingCartMapper.getPyShoppingCartListByUserId(userId);
+			if (pyShoppingCartList != null) {
+				List<Map<String, Object>> vendorList = pakacgeReponseData(pyShoppingCartList);
+				data.put("pyShoppingCartList", vendorList);
+				responseInfo.setData(data);
+				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
+				responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
+			} else {
+				responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+				responseInfo.setRetMsg("购物车内无商品！");
+			}
+
+		} catch (Exception e) {
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
-			logger.error(userId+"：查询购物车失败");
+			logger.error(userId + "：查询购物车失败");
 		}
 		return responseInfo;
 	}
+
+	private List<Map<String, Object>> pakacgeReponseData(List<VendorShoppingcartVO> pyShoppingCartList) {
+		//存放商户下相关商品List的Map
+		Map<String, Object> vendorMap = new HashMap<String, Object>();
+		//存放所有商户的信息的List
+		List<Map<String, Object>>vendorList =new ArrayList<Map<String, Object>>();
+		
+		ChnGoodsinfo buyGoods = new ChnGoodsinfo(); 
+		List<String>idList=new ArrayList<String>();
+		List<ChnGoodsinfo>goodsList=new ArrayList<ChnGoodsinfo>();
+		
+		for(VendorShoppingcartVO shopgoods :pyShoppingCartList){
+			String vendorNm = shopgoods.getVendorSnm();
+			buyGoods.setIds(shopgoods.getGoodsId());
+			buyGoods.setTitle(shopgoods.getGoodsName());
+			buyGoods.setFilepath(Constant.HOST_URL+shopgoods.getFilepath());
+			buyGoods.setGoodsNum(shopgoods.getGoodsNum());
+			buyGoods.setPrice(shopgoods.getPrice());
+			buyGoods.setStandard(shopgoods.getStandard());
+			buyGoods.setOrgPrice(shopgoods.getOrgPrice());
+			buyGoods.setChecked(shopgoods.getChecked());
+			goodsList.add(buyGoods);
+			vendorMap.put("vendorNm", vendorNm);
+			vendorMap.put("goodsList", goodsList);
+			vendorMap.put("idList", idList);
+			vendorList.add(vendorMap);
+		}
+		return vendorList;
+	}
+
 
 	@Override
 	public ResponseInfo savePyShoppingCart(List<PyShoppingCart>goodsList) {
@@ -70,13 +109,14 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 				PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
 				
 				if(shoppingCar != null){
+					goods.setId(shoppingCar.getId());
 					goods.setGoodsNum(goods.getGoodsNum().add(shoppingCar.getGoodsNum()));
 					pyShoppingCartMapper.updateByPrimaryKeySelective(goods);
 				}else{
-					goods.setId(UUID.randomUUID().toString());
+					goods.setId(UUIDUtils.getUuid());
 					goods.setPayStatus(Constant.PAY_STATUS);
 					goods.setChecked(Constant.CHECKED);
-					goods.setCreateTime(StringDateUtil.convertToSqlShortFormat(new Date().toString()));
+					goods.setCreateTime(StringDateUtil.getStringTime());
 					this.save(goods);
 				}
 			}

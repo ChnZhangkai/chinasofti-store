@@ -1,11 +1,7 @@
 package com.chinasofti.app.controller;
 
-
-
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +41,7 @@ public class ShoppingCartController {
 	@RequestMapping(value="del/goods", method = RequestMethod.POST)
 	//@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
 	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,HttpServletRequest req,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
+	    response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods","POST");
 		ResponseInfo responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
 		return responseInfo;
@@ -60,8 +56,7 @@ public class ShoppingCartController {
 	//@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]")
 	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST");
-		response.setHeader("application/x-www-form-urlencoded","Content-Type");
+		response.setHeader("Access-Control-Allow-Methods","POST");
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》"+goodsList.toString());
 		return shoppingCartFeignClient.savePyShoppingCart(goodsList);
 	}
@@ -92,11 +87,11 @@ public class ShoppingCartController {
 		ResponseInfo responseInfo = shoppingCartFeignClient.queryPyShoppingCartListByUserId(userId);
 		return responseInfo;
 	}
-	/**
+/*	*//**
 	 * 统一获取请求参数
 	 * @param req
 	 * @return
-	 */
+	 *//*
 	public static String getRequestPayload(HttpServletRequest req) {
 		StringBuilder sb = new StringBuilder();
 		try {
@@ -112,6 +107,6 @@ public class ShoppingCartController {
 
 		return sb.toString();
 
-	  }
+	  }*/
 
 }

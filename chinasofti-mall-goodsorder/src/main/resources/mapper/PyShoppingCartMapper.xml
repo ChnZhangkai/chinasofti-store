@@ -15,6 +15,16 @@
   <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.mall.common.entity.order.PyShoppingCart" extends="BaseResultMap" >
     <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="ResultMapWithVendor" type="com.chinasofti.mall.common.entity.order.VendorShoppingcartVO" extends="BaseResultMap" >
+    <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
+    <result column="VENDOR_FNM" property="vendorFnm" jdbcType="VARCHAR" />
+    <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="DIS_PRICE" property="disPrice" jdbcType="DECIMAL"/>
+    <result column="ORG_PRICE" property="orgPrice" jdbcType="DECIMAL"/>
+    <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
+    <result column="TITLE" property="goodsName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     IDS, USERIDS, VENDORID, GOODS_IDS, GOODS_PAY_IDS, GOODS_NUM, CREATE_TIME, PAY_STATUS, 
     CHECKED
@@ -169,22 +179,27 @@
       CHECKED = #{checked,jdbcType=VARCHAR}
     where IDS = #{id,jdbcType=VARCHAR}
   </update>
-  <select id="getPyShoppingCartListByUserId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+ <select id="getPyShoppingCartListByUserId" resultMap="ResultMapWithVendor"
+	parameterType="java.lang.String">
+	SELECT
+	s.`IDS`,s.`VENDORID`,s.`GOODS_IDS`,s.`USERIDS`,s.`GOODS_NUM`,s.`GOODS_PAY_IDS`,s.`PAY_STATUS`,s.`CREATE_TIME`
+	, s.`ATTR`, s.`CHECKED`,
+	m.`VENDOR_FNM`,m.`VENDOR_SNM`,g.`PRICE`, g.`DIS_PRICE`,g.`ORG_PRICE`,g.`STANDARD`, g.`TITLE`
+	FROM py_shopping_cart s ,sp_merchant_user m ,chn_goodsinfo g
+	WHERE s.`VENDORID`=m.`VENDOR_ID` AND g.`IDS`=s.`GOODS_IDS`
+	AND USERIDS = #{userId,jdbcType=VARCHAR} 
+	GROUP BY s.`VENDORID` ORDER BY s.`GOODS_IDS`
+</select>
+  <select id="IsUserExistGoods" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     select 
     <include refid="Base_Column_List" />
-    ,
+     ,
     <include refid="Blob_Column_List" />
-    from py_shopping_cart
-    where USERIDS = #{userId,jdbcType=VARCHAR}
-  </select>
-    <select id="IsUserExistGoods" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
-    select 
-    <include refid="Base_Column_List" />
     from py_shopping_cart
     where 1=1
        and USERIDS = #{userId,jdbcType=VARCHAR} and GOODS_IDS = #{goodsId,jdbcType=VARCHAR}
      <if test="vendorId != null" >
-      and  VENDORID = #{vendorId,jdbcType=VARCHAR},
+      and  VENDORID = #{vendorId,jdbcType=VARCHAR}
      </if>
   </select>
 </mapper>
