@@ -61,7 +61,6 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 			res.setRetMsg(retMsg);
 			return res;
 		}
-		
 		int update = spSendAddressMapper.update(spSendAddress);
 		res = dealResponseData(update);
 		return res;
@@ -70,6 +69,7 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 	@Override
 	public ResponseInfo deleteSendAddress(SpSendAddress spSendAddress) throws MyException{
 		ResponseInfo res = new ResponseInfo();
+		
 		int detele = spSendAddressMapper.delete(spSendAddress);
 		res = dealResponseData(detele);
 		return res;
