@@ -21,6 +21,7 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openUserAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-users" onclick="openRole()" plain="true">角色</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-key-go" onclick="resetPw()" plain="true">重置密码</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
         </div>
@@ -124,12 +125,32 @@
 			<tr>
 				<td align="right">状态:</td>
 				<td><select class="easyui-combobox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 75px">
-							<option value="0">未开启</option>
-							<option value="1">已启用</option>
+							<option value="0">禁用</option>
+							<option value="1">启用</option>
 					</select>
 				</td>
 			</tr>
 		</table>
+	</form>
+</div>
+
+<!-- 角色表格 -->
+<div id="userRoleDialog" class="easyui-dialog"
+	data-options="closed:true,iconCls:'icon-users',inline:true"
+	style="width: 500px; padding: 10px;">
+	<form id="userRoleForm" method="post">
+		<table id="userRoleForm" class="easyui-datagrid" singleSelect="true" style="width: 100%"
+		data-options="url:'ptrole/all',fitColumns:true,pagination:true,pageSize:5,pageList:[5,10,15,20],
+       				 toolbar:'#venderToolbar',striped:true">
+		<thead>
+			<tr>
+				<th field="_ddd" width="15%" data-options="checkbox:true">选择</th>
+				<th field="ids" width="20%" align="center">角色编号</th>
+				<th field="names" width="50%" align="center">角色名称</th>
+				<th field="description" width="20%" align="center">角色描述</th>
+			</tr>
+		</thead>
+	</table> 
 	</form>
 </div>
 
@@ -284,7 +305,7 @@
 	                }
 	            }]
 	        });
-			$('#ptUserUpdateForm').form('load',row);
+			$('#userRoleForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
@@ -308,6 +329,35 @@
     			}
     		}
     	});
+	}
+	
+	/**
+	* 修改用户所属角色
+	*/
+	function openRole(){
+		var row = $("#ptUser").datagrid('getSelected');
+		if (row) {
+			//alert(JSON.stringify(row));
+			$('#userRoleDialog').dialog('open').dialog({
+				closed: false,
+				modal:true,
+	            title: "修改用户角色",
+	            buttons: [{
+	                text: '确定',
+	                iconCls: 'icon-ok',
+	                handler: edit
+	            }, {
+	                text: '取消',
+	                iconCls: 'icon-cancel',
+	                handler: function () {
+	                    $('#userRoleDialog').dialog('close');                    
+	                }
+	            }]
+	        });
+			$('#ptUserUpdateForm').form('load',row);
+		} else {
+			$.messager.alert('信息提示','请选中要修改的数据');
+		}
 	}
 	
 	/**

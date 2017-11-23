@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.PtUserExample;
 import com.chinasofti.mall.common.entity.PtUserExample.Criteria;
+import com.chinasofti.mall.common.entity.ptroleuser.PtRoleUser;
 import com.chinasofti.mall.common.utils.UUIDUtils;
+import com.chinasofti.mall.user.mapper.PtRoleUserMapper;
 import com.chinasofti.mall.user.mapper.PtUserMapper;
 import com.chinasofti.mall.user.service.PtUserService;
 import com.github.pagehelper.Page;
@@ -23,11 +25,19 @@ public class PtUserServiceImpl implements PtUserService{
 
 	@Autowired
 	private PtUserMapper PtUserMapper;
+	
+	@Autowired
+	private PtRoleUserMapper ptRoleUserMapper;
 
 	@Override
 	public int save(PtUser ptUser) {
+		PtRoleUser ptRoleUser = new PtRoleUser();
+		ptRoleUser.setIds(UUIDUtils.getUuid());
+		ptRoleUser.setRoleIds(ptUser.getIds());
 		ptUser.setIds(UUIDUtils.getUuid());
-		return PtUserMapper.insertSelective(ptUser);
+		ptRoleUser.setModuleIds(ptUser.getIds());
+		PtUserMapper.insertSelective(ptUser);
+		return ptRoleUserMapper.insert(ptRoleUser);
 	}
 
 	@Override
@@ -41,8 +51,9 @@ public class PtUserServiceImpl implements PtUserService{
 	}
 
 	@Override
-	public int deleteById(String id) {
-		return PtUserMapper.deleteByPrimaryKey(id);
+	public int deleteById(String ids) {
+		ptRoleUserMapper.deleteByUserIds(ids);
+		return PtUserMapper.deleteByPrimaryKey(ids);
 	}
 
 	@Override
