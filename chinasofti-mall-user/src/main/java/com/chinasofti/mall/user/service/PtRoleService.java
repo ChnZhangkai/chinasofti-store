@@ -9,6 +9,8 @@ public interface PtRoleService {
 	int save(PtRole ptRole);
 
 	PtRole findById(String ids);
+	
+	int deleteByPrimaryKey(String ids);
 
 	String findAll();
 

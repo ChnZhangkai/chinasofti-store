@@ -18,7 +18,7 @@
 		    </form>
         </div>
         <div class="user-toolbar-button">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openUserAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-key-go" onclick="resetPw()" plain="true">重置密码</a>
@@ -27,7 +27,7 @@
     </div>
     
     <!-- 显示数据,数据表格列对齐 -->
-    <table id="ptUser" class="easyui-datagrid" title="用户列表" toolbar="#user-toolbar-2" style="height: 95%">
+    <table id="ptUser" class="easyui-datagrid" title="用户列表" data-options="inline:true" toolbar="#user-toolbar-2" style="height: 95%">
     	<thead>
     		<tr>
     			<th field="ids" width="20%" align="center">用户编号</th>
@@ -46,20 +46,20 @@
 <!-- 内管用户添加表格 -->
 <div id="ptUserAdd" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-add',inline:true"
-	style="width: 300px; padding: 10px;">
+	style="width: 300px; padding: 10px;background-color: #FAFAFA">
 	<form id="ptUserAddForm" method="post">
-		<table id="add">
+		<table id="ptUserAdd">
 			<tr>
 				<td width="80" align="right">账号:</td>
-				<td><input type="text" id="username" name="username" class="easyui-textbox" /></td>
+				<td><input type="text" id="username" name="username" class="easyui-textbox" data-options="required:'true'"/></td>
 			</tr>
 			<tr>
 				<td align="right">密码:</td>
-				<td><input type="text" id="password" name="password" class="easyui-textbox" /></td>
+				<td><input type="text" id="password" name="password" class="easyui-textbox" data-options="required:'true'"/></td>
 			</tr>
 			<tr>
 				<td align="right">姓名:</td>
-				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" /></td>
+				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" data-options="required:'true'"/></td>
 			</tr>
 			<tr>
 				<td align="right">部门编号:</td>
@@ -70,8 +70,14 @@
 				<td><input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox" /></td>
 			</tr>
 			<tr>
+				<td align="right">角色:</td>
+				<td>
+					<select class="easyui-combobox" missingMessage="请选择" data-options="panelHeight:'auto',panelMaxHeight:'150px'" id="roleids" name="ids" style="width: 135px;"></select>
+				</td>
+			</tr>
+			<tr>
 			<td align="right">状态:</td>
-				<td><select class="easyui-combobox" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 75px">
+				<td><select class="easyui-combobox" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 135px">
 							<option value="0" selected="selected">禁用</option>
 							<option value="1">启用</option>
 					</select>
@@ -160,7 +166,22 @@
 	/**
 	* Name 打开添加窗口
 	*/
-	function openAdd(){
+	function openUserAdd(){
+		
+		//动态加载角色
+		$.ajax({
+			url:'/user/find/role',
+			type:"GET",
+			success: function(data){
+				data = eval("("+data+")");
+				$('#roleids').combobox({
+					valueField:'ids',
+					textField:'names',
+					data:data.rows,
+				})	
+			}
+		});
+		
 		$('#ptUserAddForm').form('clear');
 		$('#ptUserAdd').dialog({
 			closed: false,
