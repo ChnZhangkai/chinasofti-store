@@ -16,12 +16,14 @@
     <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithVendor" type="com.chinasofti.mall.common.entity.order.VendorShoppingcartVO" extends="BaseResultMap" >
+    <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
     <result column="VENDOR_FNM" property="vendorFnm" jdbcType="VARCHAR" />
     <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR" />
     <result column="PRICE" property="price" jdbcType="DECIMAL" />
     <result column="DIS_PRICE" property="disPrice" jdbcType="DECIMAL"/>
     <result column="ORG_PRICE" property="orgPrice" jdbcType="DECIMAL"/>
     <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
+    <result column="TITLE" property="goodsName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     IDS, USERIDS, VENDORID, GOODS_IDS, GOODS_PAY_IDS, GOODS_NUM, CREATE_TIME, PAY_STATUS, 

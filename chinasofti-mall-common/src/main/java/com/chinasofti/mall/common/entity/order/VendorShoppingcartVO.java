@@ -15,6 +15,8 @@ public class VendorShoppingcartVO extends PyShoppingCart{
 
 	    private String vendorSnm;
 	    
+	    private String goodsName;
+	    
 	    private BigDecimal price;
 
 	    private BigDecimal disPrice;
@@ -22,6 +24,8 @@ public class VendorShoppingcartVO extends PyShoppingCart{
 	    private BigDecimal orgPrice;
 	    
 	    private String standard;
+	    
+	    private String filepath;
 
 
 		public String getVendorFnm() {
@@ -70,5 +74,21 @@ public class VendorShoppingcartVO extends PyShoppingCart{
 
 		public void setOrgPrice(BigDecimal orgPrice) {
 			this.orgPrice = orgPrice;
+		}
+
+		public String getGoodsName() {
+			return goodsName;
+		}
+
+		public void setGoodsName(String goodsName) {
+			this.goodsName = goodsName;
+		}
+
+		public String getFilepath() {
+			return filepath;
+		}
+
+		public void setFilepath(String filepath) {
+			this.filepath = filepath;
 		}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
+import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
 
 public interface PyShoppingCartMapper {
 	public int deleteByPrimaryKey(String ids);
@@ -21,7 +22,7 @@ public interface PyShoppingCartMapper {
 
 	public int updateByPrimaryKey(PyShoppingCart record);
 
-	public List<PyShoppingCart> getPyShoppingCartListByUserId(@Param("userId") String userId);
+	public List<VendorShoppingcartVO> getPyShoppingCartListByUserId(@Param("userId") String userId);
 
 	public PyShoppingCart IsUserExistGoods(PyShoppingCart record);
     
