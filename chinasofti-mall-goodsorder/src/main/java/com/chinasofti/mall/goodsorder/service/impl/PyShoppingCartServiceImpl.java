@@ -1,10 +1,8 @@
 package com.chinasofti.mall.goodsorder.service.impl;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +15,7 @@ import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.StringDateUtil;
+import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.goodsorder.mapper.PyShoppingCartMapper;
 import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
 
@@ -79,10 +78,10 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 					goods.setGoodsNum(goods.getGoodsNum().add(shoppingCar.getGoodsNum()));
 					pyShoppingCartMapper.updateByPrimaryKeySelective(goods);
 				}else{
-					goods.setId(UUID.randomUUID().toString());
+					goods.setId(UUIDUtils.getUuid());
 					goods.setPayStatus(Constant.PAY_STATUS);
 					goods.setChecked(Constant.CHECKED);
-					goods.setCreateTime(StringDateUtil.convertToSqlShortFormat(new Date().toString()));
+					goods.setCreateTime(StringDateUtil.getStringTime());
 					this.save(goods);
 				}
 			}
