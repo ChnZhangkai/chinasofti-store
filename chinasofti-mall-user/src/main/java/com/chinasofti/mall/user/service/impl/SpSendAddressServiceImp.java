@@ -61,18 +61,17 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 			res.setRetMsg(retMsg);
 			return res;
 		}
-		spSendAddress.setAddressId(UUIDUtils.getUuid());
-		int insert = spSendAddressMapper.update(spSendAddress);
-		res = dealResponseData(insert);
+		
+		int update = spSendAddressMapper.update(spSendAddress);
+		res = dealResponseData(update);
 		return res;
 	}
 	
 	@Override
 	public ResponseInfo deleteSendAddress(SpSendAddress spSendAddress) throws MyException{
 		ResponseInfo res = new ResponseInfo();
-		spSendAddress.setAddressId(UUIDUtils.getUuid());
-		int insert = spSendAddressMapper.delete(spSendAddress);
-		res = dealResponseData(insert);
+		int detele = spSendAddressMapper.delete(spSendAddress);
+		res = dealResponseData(detele);
 		return res;
 	}
 
