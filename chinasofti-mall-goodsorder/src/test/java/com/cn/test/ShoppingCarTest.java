@@ -28,10 +28,10 @@ public class ShoppingCarTest {
 	public void addShoppingCar(){
 		List<PyShoppingCart>goodsList = new ArrayList<PyShoppingCart>();
 		PyShoppingCart goods= new PyShoppingCart();
-		goods.setIds("650cdf8142684ef5b0d713bdaa48aebd");
-		goods.setGoodsIds("1003");
+		goods.setId("650cdf8142684ef5b0d713bdaa48aebd");
+		goods.setGoodsId("1003");
 		goods.setUserId("chin2");
-		goods.setVendorid("8888");
+		goods.setVendorId("8888");
 		goods.setGoodsNum(new BigDecimal("2"));
 		goodsList.add(goods);
 		shoppingCartService.savePyShoppingCart(goodsList);

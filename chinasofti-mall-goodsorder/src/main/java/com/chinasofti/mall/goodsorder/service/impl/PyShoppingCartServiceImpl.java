@@ -73,7 +73,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 					goods.setGoodsNum(goods.getGoodsNum().add(shoppingCar.getGoodsNum()));
 					pyShoppingCartMapper.updateByPrimaryKeySelective(goods);
 				}else{
-					goods.setIds(UUID.randomUUID().toString());
+					goods.setId(UUID.randomUUID().toString());
 					goods.setPayStatus(Constant.PAY_STATUS);
 					goods.setChecked(Constant.CHECKED);
 					goods.setCreateTime(StringDateUtil.convertToSqlShortFormat(new Date().toString()));
@@ -119,7 +119,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 			if (goodsList.size() > 0) {
 				for (int i = 0; goodsList.size() > i; i++) {
 					PyShoppingCart goods = goodsList.get(i);
-					int row = deleteById(goods.getIds());
+					int row = deleteById(goods.getId());
 					if (row <= 0) {
 						responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 						responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
