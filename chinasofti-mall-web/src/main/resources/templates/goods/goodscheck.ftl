@@ -37,7 +37,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openGoodsAdd()" plain="true">添加</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="removeGoodsCheck()" plain="true">删除</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="goodsCheckExport()" plain="true">导出</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="pushCheck" onclick="handleCheck(this)" plain="true">申请审核</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="repealCheck" onclick="handleCheck(this)" plain="true">撤销申请</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-chk-checked" id="doCheck" onclick="doCheck(this)" plain="true">商品审核</a>
@@ -582,6 +582,23 @@
 				} ]
 			});
 		}
+	}
+	
+	
+	
+	/*
+	 *数据导出
+	 */ 
+	 function goodsCheckExport(){
+	    var temp = document.createElement("form");        
+	    temp.action ="goodsCheck/export"; 
+	    temp.method = "post";    
+	    temp.id = "goodsChecks"
+	    temp.name = "goodsChecks";
+	 
+	    document.body.appendChild(temp); 
+	    temp.submit();        
+ 
 	}
 	
 	/*

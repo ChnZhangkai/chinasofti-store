@@ -35,11 +35,11 @@ public class PtRoleController {
 		return ptroleServiceImpl.save(ptRole);
 	}
 	/**
-	 * 角色删除
+	 * ID查询角色
 	 * @return 返回信息是否成功
 	 */
 	@GetMapping("/select/{ids}")
-	public PtRole delete(@PathVariable String ids) {
+	public PtRole findById(@PathVariable String ids) {
 		return ptroleServiceImpl.findById(ids);
 	}
 	/**
@@ -66,6 +66,11 @@ public class PtRoleController {
 	@PostMapping("/save")
 	public int saveIds(@RequestBody PtRole ptRole) {
 		return ptroleServiceImpl.saveIds(ptRole);	
+	}
+	
+	@RequestMapping("/delete/{ids}")
+	public int deleteByIds(@PathVariable String ids) {
+		return ptroleServiceImpl.deleteByPrimaryKey(ids);
 	}
 	/**
 	 * 展示角色的操作权限

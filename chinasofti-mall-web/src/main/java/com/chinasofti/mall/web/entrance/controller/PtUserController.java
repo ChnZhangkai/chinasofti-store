@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.PtUser;
+import com.chinasofti.mall.web.entrance.feign.PtRoleFeignClient;
 import com.chinasofti.mall.web.entrance.feign.PtUserFeignClient;
 
 import net.sf.json.JSONObject;
@@ -21,9 +22,21 @@ public class PtUserController {
 	@Autowired
 	private PtUserFeignClient ptUserFeignClient;
 	
+	@Autowired
+	private PtRoleFeignClient ptRoleFeignClient;
+	
 	@RequestMapping("/user")
 	public ModelAndView toUser() {
 		return new ModelAndView("/user/user");
+	}
+	
+	/**
+	 * 查询角色
+	 * @return
+	 */
+	@RequestMapping("/find/role")
+	public String findRole(){
+		return ptRoleFeignClient.list();
 	}
 	
 	/**

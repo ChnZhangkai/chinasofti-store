@@ -49,10 +49,10 @@ public class PtUser extends PageBean{
     private String logincount;
 
     private String groupids;
-    
+
     private Set<PtRole> roles = new HashSet<PtRole>();
 
-    public String getIds() {
+	public String getIds() {
         return ids;
     }
 
@@ -246,6 +246,7 @@ public class PtUser extends PageBean{
 				+ ", groupnames=" + groupnames + ", ismerchantuser=" + ismerchantuser + ", createtime=" + createtime
 				+ ", logincount=" + logincount + ", groupids=" + groupids + ", roles=" + roles + "]";
 	}
+    
     
 	
 }
