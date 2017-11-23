@@ -78,6 +78,7 @@ function cancleAdvertise(id, states) {
 function ad_clear() {
 	$("#searchForm").form('reset');
 	$('#ad-datagrid').datagrid('load', {});
+	loadAdPosition();
 }
 
 // 添加
@@ -85,6 +86,7 @@ function addAdvertise() {
 	$('#ad-edit-dialog').dialog('open').dialog('setTitle', '添加广告');
 	$('#ad-edit-form').form('clear');
 	loadClassName();
+	loadAdPostion();
 	// 清空预览图片
 	$("#preview").empty();
 	url = 'advertise/add';
@@ -127,11 +129,11 @@ function saveAdvertise() {
 // 删除
 function deleteAdvertise() {
 	var row = $('#ad-datagrid').datagrid('getSelected');
-	
+
 	if (row <= 0) {
 		$.messager.alert('提示', '请选择要删除的广告', 'info');
 		return;
-		}
+	}
 	if (row.states == 1) {
 		$.messager.alert('warning', '该广告已发布，无法删除，请先取消发布！', 'info');
 		return;
@@ -207,7 +209,7 @@ function previewImage(file) {
 	tpwarnobj.innerText = "上传的预览图片如下：";
 }
 
-//加载分类名称
+// 加载分类名称
 function loadClassName() {
 	$.ajax({
 		url : '/goodsCheck/reqGoodsClassName',
@@ -221,32 +223,109 @@ function loadClassName() {
 			})
 		}
 	});
+	
+//	$.ajax({
+//		url : '/goodsCheck/reqGoodsClassName',
+//		type:'GET',
+//		dataType : 'json',
+//		success : function(jsonstr) {
+//			jsonstr.unshift({
+//				'ids' : '',
+//				'name' : '请选择'
+//			});// 向json数组开头添加自定义数据
+//			$('#positionId_').combobox({
+//				data : jsonstr,
+//				valueField : 'name',
+//				textField : 'name',
+//				onLoadSuccess : function() { // 加载完成后,设置选中第一项
+//					var val = $(this).combobox('getData');
+//					for ( var item in val[0]) {
+//						if (item == 'ids') {
+//							$(this).combobox('select', val[0][item]);
+//						}
+//					}
+//				}
+//			});
+//		}
+//	});
+	
+	
+}
+
+//加载广告类型
+function loadAdType(){
+	
 }
 
 
-$(function(){
-	//加载广告位名称
-	$('#_positionId').combobox({
-	     url:'/advertise/findAdPostionAll',
-	     method:'GET',
-	     valueField:'ids',
-		 textField:'name'
-		});
-	$('#positionId_').combobox({
-		url:'/advertise/findAdPostionAll',
-		method:'GET',
-		valueField:'ids',
-		textField:'name'
+//加载添加页面广告位名称
+function loadAdPostion(){	
+	$.ajax({
+		url : '/advertise/findAdPostionAll',
+		dataType : 'json',
+		success : function(jsonstr) {
+			jsonstr.unshift({
+				'ids' : '',
+				'name' : '请选择'
+			});// 向json数组开头添加自定义数据
+			$('#positionId_').combobox({
+				data : jsonstr,
+				valueField : 'ids',
+				textField : 'name',
+				onLoadSuccess : function() { // 加载完成后,设置选中第一项
+					var val = $(this).combobox('getData');
+					for ( var item in val[0]) {
+						if (item == 'ids') {
+							$(this).combobox('select', val[0][item]);
+						}
+					}
+				}
+			});
+		}
 	});
-	//日期验证
-	$.extend($.fn.validatebox.defaults.rules, {  
-	       equaldDate: {  
-	           validator: function (value, param) {  
-	               var start = $(param[0]).datetimebox('getValue');  //获取开始时间    
-	               return value > start;                             //有效范围为当前时间大于开始时间    
-	           },  
-	           message: '结束日期应大于开始日期!'                     //匹配失败消息  
-	       }  
-	   }); 
+	
+}
+$(function() {
+	// 加载搜索框广告位名称
+	$.ajax({
+		url : '/advertise/findAdPostionAll',
+		dataType : 'json',
+		success : function(jsonstr) {
+			jsonstr.unshift({
+				'ids' : '',
+				'name' : '请选择'
+			});// 向json数组开头添加自定义数据
+			$('#_positionId').combobox({
+				data : jsonstr,
+				valueField : 'ids',
+				textField : 'name',
+				onLoadSuccess : function() { // 加载完成后,设置选中第一项
+					var val = $(this).combobox('getData');
+					for ( var item in val[0]) {
+						if (item == 'ids') {
+							$(this).combobox('select', val[0][item]);
+						}
+					}
+				}
+			});
+		}
+	});
+	
+//	$('#positionId_').combobox({
+//		url : '/advertise/findAdPostionAll',
+//		method : 'GET',
+//		valueField : 'ids',
+//		textField : 'name'
+//	});
+	// 日期验证
+	$.extend($.fn.validatebox.defaults.rules, {
+		equaldDate : {
+			validator : function(value, param) {
+				var start = $(param[0]).datetimebox('getValue'); // 获取开始时间
+				return value > start; // 有效范围为当前时间大于开始时间
+			},
+			message : '结束日期应大于开始日期!' // 匹配失败消息
+		}
+	});
 
 });

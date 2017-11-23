@@ -1,10 +1,11 @@
 package com.chinasofti.mall.goodsorder.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
+import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.goodsorder.mapper.PyShoppingCartMapper;
 import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
 
@@ -47,10 +50,16 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		Map<String, Object> data = new HashMap<String, Object>();
 		try{
 			List<PyShoppingCart> pyShoppingCartList = pyShoppingCartMapper.getPyShoppingCartListByUserId(userId);
-			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
-			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			data.put("pyShoppingCartList", pyShoppingCartList);
-			responseInfo.setData(data);
+			if(pyShoppingCartList !=null){
+				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
+				responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
+				data.put("pyShoppingCartList", pyShoppingCartList);
+				responseInfo.setData(data);
+			}else{
+				responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+				responseInfo.setRetMsg("购物车内无商品！");
+			}
+			
 		}catch(Exception e){
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
@@ -62,23 +71,23 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	@Override
 	public ResponseInfo savePyShoppingCart(List<PyShoppingCart>goodsList) {
 		ResponseInfo responseInfo = new ResponseInfo();
-		Map<String, Object> data = new HashMap<String, Object>();
 		if(goodsList.size()>0){
-			for(int i=0;goodsList.size()>i;i++){
-				PyShoppingCart goods = goodsList.get(i);
+			for(PyShoppingCart goods:goodsList){
 				PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
 				
-				if(StringUtils.isNotBlank(shoppingCar.toString())){
+				if(shoppingCar != null){
 					goods.setGoodsNum(goods.getGoodsNum().add(shoppingCar.getGoodsNum()));
 					pyShoppingCartMapper.updateByPrimaryKeySelective(goods);
 				}else{
+					goods.setId(UUID.randomUUID().toString());
+					goods.setPayStatus(Constant.PAY_STATUS);
+					goods.setChecked(Constant.CHECKED);
+					goods.setCreateTime(StringDateUtil.convertToSqlShortFormat(new Date().toString()));
 					this.save(goods);
 				}
 			}
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			data.put("pyShoppingCartList", goodsList);
-			responseInfo.setData(data);
 		}else{
 			responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
 			responseInfo.setRetMsg("请选择要添加购物车的商品！");
@@ -116,7 +125,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 			if (goodsList.size() > 0) {
 				for (int i = 0; goodsList.size() > i; i++) {
 					PyShoppingCart goods = goodsList.get(i);
-					int row = deleteById(goods.getIds());
+					int row = deleteById(goods.getId());
 					if (row <= 0) {
 						responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 						responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());

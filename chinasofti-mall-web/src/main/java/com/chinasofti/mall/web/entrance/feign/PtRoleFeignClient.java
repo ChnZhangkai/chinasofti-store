@@ -37,6 +37,9 @@ public interface PtRoleFeignClient{
 	@RequestMapping(value = "/ptrole/save" , method = RequestMethod.POST)
 	public int saveIds(@RequestBody PtRole ptRole);
 	
+	@RequestMapping(value = "/ptrole/delete/{ids}" , method = RequestMethod.POST)
+	public int deleteByIds(@PathVariable("ids") String ids);
+	
 	@RequestMapping("/ptrole/menu/{id}")
 	public List<Tree> menuTree(@PathVariable("id") String id);
 	

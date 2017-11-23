@@ -18,7 +18,7 @@
 		    </form>
         </div>
         <div class="user-toolbar-button">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openUserAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-key-go" onclick="resetPw()" plain="true">重置密码</a>
@@ -27,7 +27,7 @@
     </div>
     
     <!-- 显示数据,数据表格列对齐 -->
-    <table id="ptUser" class="easyui-datagrid" title="用户列表" toolbar="#user-toolbar-2" style="height: 95%">
+    <table id="ptUser" class="easyui-datagrid" title="用户列表" data-options="inline:true" toolbar="#user-toolbar-2" style="height: 95%">
     	<thead>
     		<tr>
     			<th field="ids" width="20%" align="center">用户编号</th>
@@ -46,20 +46,20 @@
 <!-- 内管用户添加表格 -->
 <div id="ptUserAdd" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-add',inline:true"
-	style="width: 300px; padding: 10px;">
-	<form id="ptUserAddForm" method="post" enctype="multipart/form-data">
-		<table id="add">
+	style="width: 300px; padding: 10px;background-color: #FAFAFA">
+	<form id="ptUserAddForm" method="post">
+		<table id="ptUserAdd">
 			<tr>
 				<td width="80" align="right">账号:</td>
-				<td><input type="text" id="username" name="username" class="easyui-textbox" /></td>
+				<td><input type="text" id="username" name="username" class="easyui-textbox" data-options="required:'true'"/></td>
 			</tr>
 			<tr>
 				<td align="right">密码:</td>
-				<td><input type="text" id="password" name="password" class="easyui-textbox" /></td>
+				<td><input type="text" id="password" name="password" class="easyui-textbox" data-options="required:'true'"/></td>
 			</tr>
 			<tr>
 				<td align="right">姓名:</td>
-				<td><input type="text" id="usernames" name="errorcounts" class="easyui-textbox" /></td>
+				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" data-options="required:'true'"/></td>
 			</tr>
 			<tr>
 				<td align="right">部门编号:</td>
@@ -70,8 +70,14 @@
 				<td><input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox" /></td>
 			</tr>
 			<tr>
+				<td align="right">角色:</td>
+				<td>
+					<select class="easyui-combobox" missingMessage="请选择" data-options="panelHeight:'auto',panelMaxHeight:'150px'" id="roleids" name="ids" style="width: 135px;"></select>
+				</td>
+			</tr>
+			<tr>
 			<td align="right">状态:</td>
-				<td><select class="easyui-combobox" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 75px">
+				<td><select class="easyui-combobox" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 135px">
 							<option value="0" selected="selected">禁用</option>
 							<option value="1">启用</option>
 					</select>
@@ -82,18 +88,23 @@
 </div>
 
 <!-- 修改表格 -->
-<div id="user-dialog-3" class="easyui-dialog"
-	data-options="closed:true,iconCls:'icon-save',inline:true"
-	style="width: 300px; padding: 10px;">
-	<form id="user-form-3" method="post">
+<div id="ptUserUpdate" class="easyui-dialog"
+	data-options="closed:true,iconCls:'icon-edit',inline:true"
+	style="width: 320px; padding: 10px;">
+	<form id="ptUserUpdateForm" method="post">
 		<table id="update">
 			<tr>
 				<td width="80" align="right">用户编号:</td>
-				<td><input type="text" id="ids" name="ids" class="easyui-textbox" /></td>
+				<td><input type="text" id="ids" name="ids" readonly="readonly"/></td>
 			</tr>
 			<tr>
 				<td align="right">用户账号:</td>
-				<td><input type="text" id="username" name="username" class="easyui-textbox" />
+				<td><input id="updateUsername" name="username" readonly="readonly"/>
+				</td>		
+			</tr>
+			<tr>
+				<td align="right">用户密码:</td>
+				<td><input type="text" id="password" name="password" class="easyui-textbox" />
 				</td>		
 			</tr>
 			<tr>
@@ -152,24 +163,25 @@
 		}
 	}
 	
-	function imgFormatter(value,row){
-		//alert(123)
-		var str = "";
-		if(value != "" || value != null){
-			str = "<img style=\"height: 80px;width: 150px;\" src=\""+value+"\"/>";
-	        return str;
-		}
-	}
-	
-	function choose1(){
-		var str="";
-		
-	}
-	
 	/**
 	* Name 打开添加窗口
 	*/
-	function openAdd(){
+	function openUserAdd(){
+		
+		//动态加载角色
+		$.ajax({
+			url:'/user/find/role',
+			type:"GET",
+			success: function(data){
+				data = eval("("+data+")");
+				$('#roleids').combobox({
+					valueField:'ids',
+					textField:'names',
+					data:data.rows,
+				})	
+			}
+		});
+		
 		$('#ptUserAddForm').form('clear');
 		$('#ptUserAdd').dialog({
 			closed: false,
@@ -200,17 +212,15 @@
 			success:function(data){
 				if(data > 0){
 					$('#pagination').pagination('select');
-					$('#user-dialog-2').dialog('close');
-					$.messager.alert('信息提示','提交成功！','info');
+					$('#ptUserAdd').dialog('close');
+					successShow();
 				}
 				else
 				{
-					$.messager.alert('信息提示','提交失败！','info');
+					errorShow();
 				}
 			}
 		});
-	
-		
 	}
 	
 	
@@ -221,9 +231,6 @@
 	
 		var items = $('#ptUser').datagrid('getSelections');
 		var ids = [];
-		
-		/*alert(JSON.stringify(items));*/
-		
 		
 		if(items.length < 1){
 			$.messager.alert('温馨提醒','请选中要删的数据');
@@ -241,13 +248,12 @@
 					type:'POST',
 					success:function(data){
 						if(data){
-							$.messager.alert('信息提示','删除成功！','info');
-							//$('#tt-userinfo').datagrid('reload')
 							$('#pagination').pagination('select');
+							successShow();
 						}
 						else
 						{
-							$.messager.alert('信息提示','删除失败！','info');		
+							errorShow()		
 						}
 					}	
 				});
@@ -262,10 +268,10 @@
 		var row = $("#ptUser").datagrid('getSelected');
 		if (row) {
 			//alert(JSON.stringify(row));
-			$('#user-dialog-3').dialog('open').dialog({
+			$('#ptUserUpdate').dialog('open').dialog({
 				closed: false,
 				modal:true,
-	            title: "修改订单信息",
+	            title: "修改用户信息",
 	            buttons: [{
 	                text: '确定',
 	                iconCls: 'icon-ok',
@@ -274,11 +280,11 @@
 	                text: '取消',
 	                iconCls: 'icon-cancel',
 	                handler: function () {
-	                    $('#user-dialog-3').dialog('close');                    
+	                    $('#ptUserUpdate').dialog('close');                    
 	                }
 	            }]
 	        });
-			$('#user-form-3').form('load',row);
+			$('#ptUserUpdateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
@@ -288,20 +294,46 @@
 	*修改
 	*/
 	function edit(){
-		$('#user-form-3').form('submit', {
+		$('#ptUserUpdateForm').form('submit', {
 			url:'/user/update',
     		type:'POST',
-    		data:$('#user-form-3').serialize(),
+    		data:$('#ptUserUpdateForm').serialize(),
     		success:function(data){
     			if(data > 0){
-    				$.messager.alert('信息提示','提交成功！','info');
-    				$('#user-dialog-3').dialog('close');
+    				$('#ptUserUpdate').dialog('close');
     				$('#pagination').pagination('select');
+    				successShow();
     			}else{
-    				$.messager.alert('信息提示','提交失败！','info');
+    				errorShow();
     			}
     		}
     	});
+	}
+	
+	/**
+	* 重置密码确认
+	*/
+	function resetPw(){
+		var items = $('#ptUser').datagrid('getSelections');
+		if(items.length < 1){
+			$.messager.alert('温馨提醒','请选中要重置的用户');
+			return ;
+		}
+		$.messager.confirm('信息提示','确定要将密码重置为000000吗？',function(data){
+			if(data){
+				$.ajax({ 
+			          type: 'POST', 
+			          url: '/user/update', //用户请求数据的URL
+			          data: {'pageNumber':1,'pageSize':10,'ids':items[0].ids,'password':'000000'},
+			          success: function (success) { 
+			        	if(success){
+			        		successShow();
+			        	}
+			          }
+			       });
+			}
+		})
+		
 	}
 	
 	/* 
@@ -335,5 +367,34 @@
 	function doClear(){
 		$('#searchPtUserForm').form('reset');
 	}
-		
+	
+	$('#ids,#updateUsername').tooltip({    
+		position: 'right',    
+		content: '<span style="color:#fff">不可修改</span>',    
+		onShow: function(){        
+			$(this).tooltip('tip').css({            
+				backgroundColor: '#666',            
+				borderColor: '#666'        
+				});    
+			}
+		});
+
+	function successShow(){
+		$.messager.show({
+			title:'提示',
+			msg:'<font style="color:green">操作成功</font>',
+			showType:'slide',
+			timeout:3000,
+		});
+	}
+	
+	function errorShow(){
+		$.messager.show({
+			title:'提示',
+			msg:'<font style="color:red">操作失败</font>',
+			showType:'slide',
+			timeout:3000,
+		});
+	}
+	
 </script>
