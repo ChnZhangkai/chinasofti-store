@@ -7,7 +7,9 @@ import java.util.Set;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -44,10 +46,16 @@ public class AuthRealm extends AuthorizingRealm {
             String username = utoken.getUsername();
             PtUser user = service.findUserByName(username);
             if (user != null) {
-                // 若存在，将此用户存放到登录认证info中，无需自己做密码对比，Shiro会为我们进行密码对比校验
-                return new SimpleAuthenticationInfo(user, user.getPassword(),
-                        this.getClass().getName());//放入shiro.调用CredentialsMatcher检验密码
-            }
+            	if (!user.getStatus().equals("0")) {
+            		// 若存在，将此用户存放到登录认证info中，无需自己做密码对比，Shiro会为我们进行密码对比校验
+            		return new SimpleAuthenticationInfo(user, user.getPassword(),
+            				this.getClass().getName());//放入shiro.调用CredentialsMatcher检验密码
+				}else {
+					throw new DisabledAccountException();//用户未启用
+				}
+            }else {
+				throw new UnknownAccountException();//用户不存在
+			}
         }
         catch (Exception e) {
             e.printStackTrace();
