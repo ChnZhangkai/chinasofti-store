@@ -181,14 +181,13 @@
   </update>
  <select id="getPyShoppingCartListByUserId" resultMap="ResultMapWithVendor"
 	parameterType="java.lang.String">
-	SELECT
+SELECT
 	s.`IDS`,s.`VENDORID`,s.`GOODS_IDS`,s.`USERIDS`,s.`GOODS_NUM`,s.`GOODS_PAY_IDS`,s.`PAY_STATUS`,s.`CREATE_TIME`
 	, s.`ATTR`, s.`CHECKED`,
-	m.`VENDOR_FNM`,m.`VENDOR_SNM`,g.`PRICE`, g.`DIS_PRICE`,g.`ORG_PRICE`,g.`STANDARD`, g.`TITLE`
-	FROM py_shopping_cart s ,sp_merchant_user m ,chn_goodsinfo g
-	WHERE s.`VENDORID`=m.`VENDOR_ID` AND g.`IDS`=s.`GOODS_IDS`
-	AND USERIDS = #{userId,jdbcType=VARCHAR} 
-	GROUP BY s.`VENDORID` ORDER BY s.`GOODS_IDS`
+	m.`VENDOR_FNM`,m.`VENDOR_SNM`,g.`PRICE`, g.`DIS_PRICE`,g.`ORG_PRICE`,g.`STANDARD`, g.`TITLE`,f.`FILEPATH`
+	FROM py_shopping_cart s ,chn_goodsinfo g, sp_merchant_user m ,goods_file f
+	WHERE s.`VENDORID`=m.`VENDOR_ID` AND g.`IDS`=s.`GOODS_IDS` AND f.`GOODSIDS`=g.`IDS`
+	AND USERIDS = #{userId,jdbcType=VARCHAR} ORDER BY s.`GOODS_IDS`
 </select>
   <select id="IsUserExistGoods" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     select 

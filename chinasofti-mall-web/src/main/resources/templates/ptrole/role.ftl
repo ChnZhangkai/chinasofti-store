@@ -455,6 +455,3 @@ $(function(){
 		});
 	}
 </script>
-
-
-
