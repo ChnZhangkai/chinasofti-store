@@ -53,7 +53,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		try {
 			List<VendorShoppingcartVO> pyShoppingCartList = pyShoppingCartMapper.getPyShoppingCartListByUserId(userId);
 			if (pyShoppingCartList != null) {
-				List<Map<String, Object>> vendorList = pakacgeReponseData(pyShoppingCartList);
+				List<Map<String, List<ChnGoodsinfo>>> vendorList = pakacgeReponseData(pyShoppingCartList);
 				data.put("pyShoppingCartList", vendorList);
 				responseInfo.setData(data);
 				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -71,19 +71,23 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		return responseInfo;
 	}
 
-	private List<Map<String, Object>> pakacgeReponseData(List<VendorShoppingcartVO> pyShoppingCartList) {
+	private List<Map<String, List<ChnGoodsinfo>>> pakacgeReponseData(List<VendorShoppingcartVO> pyShoppingCartList) {
 		//存放商户下相关商品List的Map
-		Map<String, Object> vendorMap = new HashMap<String, Object>();
+		Map<String,  List<ChnGoodsinfo>> vendorMap = new HashMap<String,  List<ChnGoodsinfo>>();
 		//存放所有商户的信息的List
-		List<Map<String, Object>>vendorList =new ArrayList<Map<String, Object>>();
+		List<Map<String, List<ChnGoodsinfo>>>vendorList =new ArrayList<Map<String, List<ChnGoodsinfo>>>();
 		
 		ChnGoodsinfo buyGoods = new ChnGoodsinfo(); 
-		List<String>idList=new ArrayList<String>();
-		List<ChnGoodsinfo>goodsList=new ArrayList<ChnGoodsinfo>();
 		
+		String vendorNm =null;
 		for(VendorShoppingcartVO shopgoods :pyShoppingCartList){
-			String vendorNm = shopgoods.getVendorSnm();
+			 vendorNm = shopgoods.getVendorId()+"#"+shopgoods.getVendorSnm();
+			 List<ChnGoodsinfo> goodsList=vendorMap.get(vendorNm);
+			 if(goodsList==null){
+				 goodsList= new ArrayList<ChnGoodsinfo>();
+			 }		
 			buyGoods.setIds(shopgoods.getGoodsId());
+			buyGoods.setVendorids(shopgoods.getVendorId());
 			buyGoods.setTitle(shopgoods.getGoodsName());
 			buyGoods.setFilepath(Constant.HOST_URL+shopgoods.getFilepath());
 			buyGoods.setGoodsNum(shopgoods.getGoodsNum());
@@ -92,11 +96,10 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 			buyGoods.setOrgPrice(shopgoods.getOrgPrice());
 			buyGoods.setChecked(shopgoods.getChecked());
 			goodsList.add(buyGoods);
-			vendorMap.put("vendorNm", vendorNm);
-			vendorMap.put("goodsList", goodsList);
-			vendorMap.put("idList", idList);
-			vendorList.add(vendorMap);
+			vendorMap.put(vendorNm, goodsList);
+			
 		}
+		vendorList.add(vendorMap);
 		return vendorList;
 	}
 

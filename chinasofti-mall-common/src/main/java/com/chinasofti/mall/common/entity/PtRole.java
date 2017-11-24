@@ -4,7 +4,9 @@ package com.chinasofti.mall.common.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PtRole {
+import com.chinasofti.mall.common.utils.PageBean;
+
+public class PtRole extends PageBean{
     private String ids;
 
     private String numbers;

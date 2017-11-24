@@ -45,7 +45,7 @@ public class PtRoleController {
 	 * @return
 	 */
 	@RequestMapping("/all")
-	public String list() {
+	public String list(PtRole ptRole) {
 		return ptRoleFeignClient.list();
 	}
 
