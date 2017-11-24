@@ -1,8 +1,8 @@
 <script type="text/javascript" src="js/common.js"></script>
 <div class="easyui-layout" data-options="fit:true" style="padding:4px;">
     
-    <div style="padding:4px;">
-		<ul id="menuOperator" class="easyui-tree"></ul>
+    <div style="padding:4px;height: 300px">
+		<ul id="menuOperator" class="easyui-tree" style="height: 300px"></ul>
 	</div>
 	<div id="menuOperatorMenu" class="easyui-menu" style="width:120px;" data-options="onClick:menuHandler">
 	    <div data-options="iconCls:'icon-add',name:'add'">添加</div>
@@ -29,7 +29,7 @@
 				//让当前点击的树节点选中---select选中方法
 	            $(this).tree('select',node.target);
 				//让id=menuOperatorMenu的标签显示对应的EasyUI菜单界面,固定当前弹出的菜单坐标
-				alert(node.parentId)
+				alert(JSON.stringify(node))
 	            $('#menuOperatorMenu').menu('show',{
 	                left: e.pageX,
 	                top: e.pageY
