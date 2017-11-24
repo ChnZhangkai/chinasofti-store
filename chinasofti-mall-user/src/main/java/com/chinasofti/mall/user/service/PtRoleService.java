@@ -1,8 +1,11 @@
 package com.chinasofti.mall.user.service;
 
 import java.util.List;
+
 import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.Tree;
+
+import net.sf.json.JSONObject;
 
 public interface PtRoleService {
 
@@ -13,6 +16,8 @@ public interface PtRoleService {
 	int deleteByPrimaryKey(String ids);
 
 	String findAll();
+	
+	JSONObject selectByExample(PtRole ptRole);
 
 	int update(PtRole ptRole);
 

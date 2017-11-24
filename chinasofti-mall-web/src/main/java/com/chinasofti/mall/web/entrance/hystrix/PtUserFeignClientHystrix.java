@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
 import com.chinasofti.mall.common.entity.PtUser;
+import com.chinasofti.mall.common.entity.ptroleuser.PtRoleUser;
 import com.chinasofti.mall.web.entrance.feign.PtUserFeignClient;
 
 import net.sf.json.JSONObject;
@@ -39,6 +40,18 @@ public class PtUserFeignClientHystrix implements PtUserFeignClient{
 		jsonObject.put("total", 0);
 		jsonObject.put("rows", new ArrayList<>());
 		return jsonObject;
+	}
+
+	@Override
+	public String findUserRoleName(String ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int updateRoleUser(PtRoleUser ptRoleUser) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

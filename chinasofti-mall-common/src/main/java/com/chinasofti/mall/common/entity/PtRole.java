@@ -91,8 +91,6 @@ public class PtRole extends PageBean{
 		this.description = description;
 	}
 
-    
-
 	public Set<PtUser> getUsers() {
 		return users;
 	}

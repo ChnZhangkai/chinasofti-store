@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.PtUser;
+import com.chinasofti.mall.common.entity.ptroleuser.PtRoleUser;
 import com.chinasofti.mall.web.entrance.feign.PtRoleFeignClient;
 import com.chinasofti.mall.web.entrance.feign.PtUserFeignClient;
 
@@ -35,8 +37,27 @@ public class PtUserController {
 	 * @return
 	 */
 	@RequestMapping("/find/role")
-	public String findRole(){
-		return ptRoleFeignClient.list();
+	public String findRole(PtRole ptRole){
+		return (ptRoleFeignClient.list(ptRole)).toString();
+	}
+	
+	/**
+	 * 查询用户角色名称
+	 * @return
+	 */
+	@RequestMapping("/findRoleName/{ids}")
+	public String findUserRoleName(@PathVariable("ids") String ids){
+		return ptUserFeignClient.findUserRoleName(ids);
+	}
+	
+	/**
+	 * 修改用户角色
+	 * @param ptRoleUser
+	 * @return
+	 */
+	@RequestMapping("/updateRoleUser")
+	public int updateRoleUser(PtRoleUser ptRoleUser){
+		return ptUserFeignClient.updateRoleUser(ptRoleUser);
 	}
 	
 	/**
@@ -63,7 +84,6 @@ public class PtUserController {
 	@RequestMapping("/list")
 	public String selectByPtUser(PtUser ptUser){
 		JSONObject jsonlist = ptUserFeignClient.selectByPtUser(ptUser);
-		System.out.println(jsonlist.toString());
 		return jsonlist.toString();
 	}
 	

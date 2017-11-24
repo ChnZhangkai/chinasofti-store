@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
- 
+
 import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.Tree;
@@ -46,7 +46,7 @@ public class PtRoleController {
 	 */
 	@RequestMapping("/all")
 	public String list(PtRole ptRole) {
-		return ptRoleFeignClient.list();
+		return (ptRoleFeignClient.list(ptRole)).toString();
 	}
 
 	/**
