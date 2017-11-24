@@ -5,11 +5,13 @@ package com.chinasofti.app.controller;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.GoodsInfoFeignClient;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 @RestController
@@ -33,5 +35,12 @@ public class GoodsInfoController {
 	public ResponseInfo queryGoodsInfo(@RequestParam String ids,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		return goodsFeignClient.queryGoodInfo(ids);
+	}
+	
+	@RequestMapping("queryGoodsInfoList")
+	public ResponseInfo queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo, HttpServletResponse response){
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods","POST");
+		return goodsFeignClient.queryGoodsInfoList(goodsInfo);
 	}
 }

@@ -754,5 +754,13 @@
     from chn_goodsinfo
     where GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR}
   </select>
-  
+   <select id="selectByNameOrother" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chn_goodsinfo
+    where 1=1 and TITLE like #{%title% ,jdbcType=VARCHAR}   
+    <if test="goodsClassIds != null">
+     and   GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR},
+    </if>
+  </select>
 </mapper>
