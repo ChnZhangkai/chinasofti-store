@@ -6,6 +6,8 @@ import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.web.entrance.feign.PtRoleFeignClient;
 
+import net.sf.json.JSONObject;
+
 
 public class PtRoleFeignClientHystrix implements PtRoleFeignClient{
 
@@ -15,8 +17,9 @@ public class PtRoleFeignClientHystrix implements PtRoleFeignClient{
 	}
 
 	@Override
-	public String list() {
-		return "refalsh";
+	public JSONObject list(PtRole ptRole) {
+		JSONObject js = new JSONObject();
+		return js;
 	}
 
 	@Override

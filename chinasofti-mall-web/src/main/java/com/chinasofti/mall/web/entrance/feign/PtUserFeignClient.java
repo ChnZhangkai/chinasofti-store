@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.chinasofti.mall.common.entity.PtUser;
+import com.chinasofti.mall.common.entity.ptroleuser.PtRoleUser;
 import com.chinasofti.mall.web.entrance.hystrix.PtUserFeignClientHystrix;
 
 import net.sf.json.JSONObject;
@@ -28,5 +29,11 @@ public interface PtUserFeignClient {
 		
 	@RequestMapping(value="user/list" , method = RequestMethod.POST)
 	public JSONObject selectByPtUser(@RequestBody(required=false) PtUser ptUser);
+	
+	@RequestMapping("user/findRoleName/{ids}")
+	public String findUserRoleName(@PathVariable("ids") String ids);
+	
+	@RequestMapping("user/updateRoleUser")
+	public int updateRoleUser(@RequestBody(required=false) PtRoleUser ptRoleUser);
 
 }

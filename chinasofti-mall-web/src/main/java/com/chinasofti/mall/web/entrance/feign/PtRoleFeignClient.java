@@ -12,6 +12,8 @@ import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.web.entrance.hystrix.PtRoleFeignClientHystrix;
 
+import net.sf.json.JSONObject;
+
 /**
  * @ClassName: PtRoleFeignClient.java
  * @Description: TODO
@@ -26,7 +28,7 @@ public interface PtRoleFeignClient{
 	public List<Tree> show(@PathVariable("id") String id);
 	
 	@RequestMapping("/ptrole/all")
-	public String list();
+	public JSONObject list(PtRole ptRole);
 
 	@RequestMapping(value = "/ptrole/add" , method = RequestMethod.POST)
 	public int add(@RequestBody PtRole ptRole);

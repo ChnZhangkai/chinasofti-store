@@ -99,6 +99,15 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 		
 		return js;
 	}
+
+	@Override
+	public List<PyChildGoodsorder> selectByMainorderIds(String mainorderIds) {
+		PyChildGoodsorderExample example = new PyChildGoodsorderExample();
+		example.createCriteria().andMainorderIdsEqualTo(mainorderIds);
+		return childGoodsorderMapper.selectByExample(example);
+	}
+
+
 	
 
 }

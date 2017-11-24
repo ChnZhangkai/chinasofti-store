@@ -122,4 +122,18 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		return js;
 	}
 
+	@Override
+	public PyMainGoodsorder selectBybigorderId(String bigorderId) {
+		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
+		example.createCriteria().andBigorderIdEqualTo(bigorderId);
+		return mainGoodsorderMapper.selectByExample(example).get(0);
+	}
+
+	@Override
+	public List<PyMainGoodsorder> selectByUserIds(String userIds) {
+		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
+		example.createCriteria().andUserIdsEqualTo(userIds);
+		return mainGoodsorderMapper.selectByExample(example);
+	}
+
 }
