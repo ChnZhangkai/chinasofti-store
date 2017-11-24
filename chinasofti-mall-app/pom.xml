@@ -1,15 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <name>app</name>
-  <parent>
-    <groupId>com.chinasofti.mall</groupId>
-    <artifactId>chinasofti-mall</artifactId>
-    <version>0.0.1</version>
-  </parent>
-  <artifactId>chinasofti-mall-app</artifactId>
-  <packaging>jar</packaging>
-  <dependencies>
-  	<dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>app</name>
+	<parent>
+		<groupId>com.chinasofti.mall</groupId>
+		<artifactId>chinasofti-mall</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>chinasofti-mall-app</artifactId>
+	<packaging>jar</packaging>
+	<dependencies>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
@@ -45,24 +46,25 @@
 			<artifactId>spring-cloud-starter-feign</artifactId>
 		</dependency>
 
+		
 		<dependency>
 			<groupId>com.chinasofti.mall</groupId>
 			<artifactId>chinasofti-mall-common</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-		
+
 		<!-- swagger2 -->
-        <dependency>
+		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.6.1</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.6.1</version>
 		</dependency>
-		
-  </dependencies>
+
+	</dependencies>
 </project>

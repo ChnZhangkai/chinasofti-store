@@ -85,9 +85,10 @@ public class OrderController {
 	 * @param json
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value="/query/orderList", method = RequestMethod.POST)
 	@ApiOperation(value="查询订单", notes="报文示例：{'userId':'chin'}")
-	public @ResponseBody ResponseInfo queryOrderListByUserId(@RequestBody String userId){
+	public ResponseInfo queryOrderListByUserId(@RequestBody String userId){
 		ResponseInfo responseInfo = orderService.queryOrderListByUserId(userId);
 		return responseInfo;
 	}
