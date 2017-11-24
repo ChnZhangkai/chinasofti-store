@@ -2,6 +2,9 @@ package com.chinasofti.mall.goodsorder.service;
 
 
 
+
+import java.util.List;
+
 import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.service.IBaseService;
@@ -28,5 +31,6 @@ public interface ChildGoodsorderService extends IBaseService<PyChildGoodsorder> 
 	public JSONObject selectByChildorderClass(PyChildGoodsorder childGoodsorder);
 	
 	public JSONObject selectByChildorderCondition(ChildorderCondition childorderCondition);
-
+	
+	public List<PyChildGoodsorder> selectByMainorderIds(String mainorderIds);
 }
