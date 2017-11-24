@@ -22,7 +22,7 @@
     select 
     <include refid="Base_Column" />
     from sp_cont_address
-    where user_ids = #{userId,jdbcType=VARCHAR} ORDER BY CREATETIME
+    where user_ids = #{userId,jdbcType=VARCHAR} ORDER BY CREATETIME DESC
   </select>
 
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.chinasofti.mall.common.entity.spuser.SpSendAddress" >
