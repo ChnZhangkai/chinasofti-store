@@ -68,7 +68,7 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value = "/add/order", method = RequestMethod.POST)
+	@RequestMapping(value = "/update/order", method = RequestMethod.POST)
 	@ApiOperation(value = "提交商品信息，修改保存订单", notes = "报文示例：{'userIds':'1001','goodsList':'[PyChildGoodsorder:{ids:'123',','goodsPrice':'10.00'}......]}")
 	public ResponseInfo updateOrder(@RequestBody JSONObject json, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");

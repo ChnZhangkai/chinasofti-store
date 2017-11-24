@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
 			for (PyBigGoodsorder pyBigGoodsorder : list) {
 				// 支付状态 未付款
 				map = new HashMap<String, Object>();
-				if ("0".equals(pyBigGoodsorder.getPayStatus())) {
+				if (PyBigGoodsorder.PAY_STATUS_NOT.equals(pyBigGoodsorder.getPayStatus())) {
 					for (PyMainGoodsorder pyMainGoodsorder : pyMainGoodsorders) {
 						if (pyMainGoodsorder.getBigorderId().equals(pyBigGoodsorder.getTransactionid())) {
 							map.put("pyBigGoodsorder", pyBigGoodsorder);
@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
 					array0.add(map);
 				}
 				// 已付款
-				if ("1".equals(pyBigGoodsorder.getPayStatus())) {
+				if (PyBigGoodsorder.PAY_STATUS_OK.equals(pyBigGoodsorder.getPayStatus())) {
 					for (PyMainGoodsorder pyMainGoodsorder : pyMainGoodsorders) {
 						if (pyMainGoodsorder.getBigorderId().equals(pyBigGoodsorder.getTransactionid())) {
 							map.put("pyBigGoodsorder", pyBigGoodsorder);
@@ -141,8 +141,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder) {
 		ResponseInfo responseInfo = new ResponseInfo();
-		pyBigGoodsorder.setPayStatus("2");
-		pyBigGoodsorder.setStatus("0");
+		pyBigGoodsorder.setPayStatus(PyBigGoodsorder.PAY_STATUS_CANCLE);
+		pyBigGoodsorder.setStatus(PyBigGoodsorder.STATUS_UNABLE);
 		int count = bigGoodsorderService.update(pyBigGoodsorder);
 		if (count > 0) {
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -160,8 +160,8 @@ public class OrderServiceImpl implements OrderService {
 		ResponseInfo responseInfo = new ResponseInfo();
 		PyBigGoodsorder pyBigGoodsorder = new PyBigGoodsorder();
 		pyBigGoodsorder.setIds(orderId);
-		pyBigGoodsorder.setStatus("0");
-		pyBigGoodsorder.setPayStatus("2");
+		pyBigGoodsorder.setStatus(PyBigGoodsorder.STATUS_UNABLE);
+		pyBigGoodsorder.setPayStatus(PyBigGoodsorder.PAY_STATUS_CANCLE);
 		int count = bigGoodsorderService.update(pyBigGoodsorder);
 		if (count > 0) {
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
