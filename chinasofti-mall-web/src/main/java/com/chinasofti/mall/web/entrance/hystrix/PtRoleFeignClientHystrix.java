@@ -44,4 +44,9 @@ public class PtRoleFeignClientHystrix implements PtRoleFeignClient{
 		return 0;
 	}
 
+	@Override
+	public int deleteByIds(String ids) {
+		return 0;
+	}
+
 }

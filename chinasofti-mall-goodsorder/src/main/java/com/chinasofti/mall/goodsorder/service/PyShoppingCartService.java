@@ -4,10 +4,9 @@ import java.util.List;
 
 
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
-import com.chinasofti.mall.common.service.IBaseService;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
-public interface PyShoppingCartService  extends IBaseService<PyShoppingCart> {
+public interface PyShoppingCartService  {
 
 	public ResponseInfo queryPyShoppingCartListByUserId(String userId);
 	

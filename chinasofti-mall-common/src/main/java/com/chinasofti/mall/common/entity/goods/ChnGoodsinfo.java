@@ -82,6 +82,12 @@ public class ChnGoodsinfo extends PageBean{
     private String type;
 
     private String isshow;
+    
+    private String filepath;
+    //商品数量指购买
+    private BigDecimal goodsNum;
+    
+    private String checked;
 
     public String getIds() {
         return ids;
@@ -394,4 +400,30 @@ public class ChnGoodsinfo extends PageBean{
     public void setIsshow(String isshow) {
         this.isshow = isshow == null ? null : isshow.trim();
     }
+
+	public String getFilepath() {
+		return filepath;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
+	public BigDecimal getGoodsNum() {
+		return goodsNum;
+	}
+
+	public void setGoodsNum(BigDecimal goodsNum) {
+		this.goodsNum = goodsNum;
+	}
+
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
+
+	
 }

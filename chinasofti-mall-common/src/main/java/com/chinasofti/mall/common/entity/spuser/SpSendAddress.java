@@ -44,6 +44,9 @@ public class SpSendAddress {
 	 * 地址
 	 * */
 	private String address;
+	
+	private String createTime;
+	
 	public String getAddressId() {
 		return addressId;
 	}
@@ -104,12 +107,21 @@ public class SpSendAddress {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
+	
+	
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 	@Override
 	public String toString() {
 		return "SpSendAddress [addressId=" + addressId + ", userId=" + userId + ", name=" + name + ", mobile=" + mobile
 				+ ", zipCode=" + zipCode + ", province=" + province + ", city=" + city + ", district=" + district
-				+ ", street=" + street + ", address=" + address + "]";
-	}	
+				+ ", street=" + street + ", address=" + address + ", createTime=" + createTime + "]";
+	}
 	
 	
 }

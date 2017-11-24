@@ -1,19 +1,29 @@
 package com.chinasofti.mall.web.entrance.config;
 
 import java.sql.SQLException;
+
 import javax.sql.DataSource;
+
+import org.jasypt.encryption.StringEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
 import com.alibaba.druid.pool.DruidDataSource;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 
 @Configuration
+@EnableEncryptableProperties
 public class DruidDBConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);
+	
+	@Autowired
+	private StringEncryptor stringEncryptor;
 
 	@Value("${spring.datasource.url}")
 	private String dbUrl;
@@ -94,6 +104,7 @@ public class DruidDBConfig {
 		datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
 		try {
 			datasource.setFilters(filters);
+			System.err.println("=============================================");
 			logger.info("Druid数据源初始化设置成功......");
 		} catch (SQLException e) {
 			logger.error("druid configuration initialization filter", e);  

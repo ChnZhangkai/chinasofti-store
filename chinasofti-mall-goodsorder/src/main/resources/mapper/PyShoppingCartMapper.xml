@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasofti.mall.goodsorder.mapper.PyShoppingCartMapper" >
   <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
-    <id column="IDS" property="ids" jdbcType="VARCHAR" />
-    <result column="USERIDS" property="userids" jdbcType="VARCHAR" />
-    <result column="VENDORID" property="vendorid" jdbcType="VARCHAR" />
-    <result column="GOODS_IDS" property="goodsIds" jdbcType="VARCHAR" />
+    <id column="IDS" property="id" jdbcType="VARCHAR" />
+    <result column="USERIDS" property="userId" jdbcType="VARCHAR" />
+    <result column="VENDORID" property="vendorId" jdbcType="VARCHAR" />
+    <result column="GOODS_IDS" property="goodsId" jdbcType="VARCHAR" />
     <result column="GOODS_PAY_IDS" property="goodsPayIds" jdbcType="VARCHAR" />
     <result column="GOODS_NUM" property="goodsNum" jdbcType="DECIMAL" />
     <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
@@ -14,6 +14,16 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.mall.common.entity.order.PyShoppingCart" extends="BaseResultMap" >
     <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithVendor" type="com.chinasofti.mall.common.entity.order.VendorShoppingcartVO" extends="BaseResultMap" >
+    <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
+    <result column="VENDOR_FNM" property="vendorFnm" jdbcType="VARCHAR" />
+    <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="DIS_PRICE" property="disPrice" jdbcType="DECIMAL"/>
+    <result column="ORG_PRICE" property="orgPrice" jdbcType="DECIMAL"/>
+    <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
+    <result column="TITLE" property="goodsName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     IDS, USERIDS, VENDORID, GOODS_IDS, GOODS_PAY_IDS, GOODS_NUM, CREATE_TIME, PAY_STATUS, 
@@ -28,35 +38,35 @@
     ,
     <include refid="Blob_Column_List" />
     from py_shopping_cart
-    where IDS = #{ids,jdbcType=VARCHAR}
+    where IDS = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from py_shopping_cart
-    where IDS = #{ids,jdbcType=VARCHAR}
+    where IDS = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     insert into py_shopping_cart (IDS, USERIDS, VENDORID, 
       GOODS_IDS, GOODS_PAY_IDS, GOODS_NUM, 
       CREATE_TIME, PAY_STATUS, CHECKED, 
       ATTR)
-    values (#{ids,jdbcType=VARCHAR}, #{userids,jdbcType=VARCHAR}, #{vendorid,jdbcType=VARCHAR}, 
-      #{goodsIds,jdbcType=VARCHAR}, #{goodsPayIds,jdbcType=VARCHAR}, #{goodsNum,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{vendorId,jdbcType=VARCHAR}, 
+      #{goodsId,jdbcType=VARCHAR}, #{goodsPayIds,jdbcType=VARCHAR}, #{goodsNum,jdbcType=DECIMAL}, 
       #{createTime,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR}, #{checked,jdbcType=VARCHAR}, 
       #{attr,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     insert into py_shopping_cart
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="ids != null" >
+      <if test="id != null" >
         IDS,
       </if>
-      <if test="userids != null" >
+      <if test="userId != null" >
         USERIDS,
       </if>
-      <if test="vendorid != null" >
+      <if test="vendorId != null" >
         VENDORID,
       </if>
-      <if test="goodsIds != null" >
+      <if test="goodsId != null" >
         GOODS_IDS,
       </if>
       <if test="goodsPayIds != null" >
@@ -79,17 +89,17 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="ids != null" >
-        #{ids,jdbcType=VARCHAR},
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
       </if>
-      <if test="userids != null" >
-        #{userids,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="vendorid != null" >
-        #{vendorid,jdbcType=VARCHAR},
+      <if test="vendorId != null" >
+        #{vendorId,jdbcType=VARCHAR},
       </if>
-      <if test="goodsIds != null" >
-        #{goodsIds,jdbcType=VARCHAR},
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
       </if>
       <if test="goodsPayIds != null" >
         #{goodsPayIds,jdbcType=VARCHAR},
@@ -114,14 +124,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     update py_shopping_cart
     <set >
-      <if test="userids != null" >
-        USERIDS = #{userids,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        USERIDS = #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="vendorid != null" >
-        VENDORID = #{vendorid,jdbcType=VARCHAR},
+      <if test="vendorId != null" >
+        VENDORID = #{vendorId,jdbcType=VARCHAR},
       </if>
-      <if test="goodsIds != null" >
-        GOODS_IDS = #{goodsIds,jdbcType=VARCHAR},
+      <if test="goodsId != null" >
+        GOODS_IDS = #{goodsId,jdbcType=VARCHAR},
       </if>
       <if test="goodsPayIds != null" >
         GOODS_PAY_IDS = #{goodsPayIds,jdbcType=VARCHAR},
@@ -142,39 +152,53 @@
         ATTR = #{attr,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where IDS = #{ids,jdbcType=VARCHAR}
+    where IDS = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     update py_shopping_cart
-    set USERIDS = #{userids,jdbcType=VARCHAR},
-      VENDORID = #{vendorid,jdbcType=VARCHAR},
-      GOODS_IDS = #{goodsIds,jdbcType=VARCHAR},
+    set USERIDS = #{userId,jdbcType=VARCHAR},
+      VENDORID = #{vendorId,jdbcType=VARCHAR},
+      GOODS_IDS = #{goodsId,jdbcType=VARCHAR},
       GOODS_PAY_IDS = #{goodsPayIds,jdbcType=VARCHAR},
       GOODS_NUM = #{goodsNum,jdbcType=DECIMAL},
       CREATE_TIME = #{createTime,jdbcType=VARCHAR},
       PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
       CHECKED = #{checked,jdbcType=VARCHAR},
       ATTR = #{attr,jdbcType=LONGVARCHAR}
-    where IDS = #{ids,jdbcType=VARCHAR}
+    where IDS = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     update py_shopping_cart
-    set USERIDS = #{userids,jdbcType=VARCHAR},
-      VENDORID = #{vendorid,jdbcType=VARCHAR},
-      GOODS_IDS = #{goodsIds,jdbcType=VARCHAR},
+    set USERIDS = #{userId,jdbcType=VARCHAR},
+      VENDORID = #{vendorId,jdbcType=VARCHAR},
+      GOODS_IDS = #{goodsId,jdbcType=VARCHAR},
       GOODS_PAY_IDS = #{goodsPayIds,jdbcType=VARCHAR},
       GOODS_NUM = #{goodsNum,jdbcType=DECIMAL},
       CREATE_TIME = #{createTime,jdbcType=VARCHAR},
       PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
       CHECKED = #{checked,jdbcType=VARCHAR}
-    where IDS = #{ids,jdbcType=VARCHAR}
+    where IDS = #{id,jdbcType=VARCHAR}
   </update>
-  <select id="getPyShoppingCartListByUserId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+ <select id="getPyShoppingCartListByUserId" resultMap="ResultMapWithVendor"
+	parameterType="java.lang.String">
+SELECT
+	s.`IDS`,s.`VENDORID`,s.`GOODS_IDS`,s.`USERIDS`,s.`GOODS_NUM`,s.`GOODS_PAY_IDS`,s.`PAY_STATUS`,s.`CREATE_TIME`
+	, s.`ATTR`, s.`CHECKED`,
+	m.`VENDOR_FNM`,m.`VENDOR_SNM`,g.`PRICE`, g.`DIS_PRICE`,g.`ORG_PRICE`,g.`STANDARD`, g.`TITLE`,f.`FILEPATH`
+	FROM py_shopping_cart s ,chn_goodsinfo g, sp_merchant_user m ,goods_file f
+	WHERE s.`VENDORID`=m.`VENDOR_ID` AND g.`IDS`=s.`GOODS_IDS` AND f.`GOODSIDS`=g.`IDS`
+	AND USERIDS = #{userId,jdbcType=VARCHAR} ORDER BY s.`GOODS_IDS`
+</select>
+  <select id="IsUserExistGoods" resultMap="ResultMapWithBLOBs" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     select 
     <include refid="Base_Column_List" />
-    ,
+     ,
     <include refid="Blob_Column_List" />
     from py_shopping_cart
-    where USERIDS = #{userId,jdbcType=VARCHAR}
+    where 1=1
+       and USERIDS = #{userId,jdbcType=VARCHAR} and GOODS_IDS = #{goodsId,jdbcType=VARCHAR}
+     <if test="vendorId != null" >
+      and  VENDORID = #{vendorId,jdbcType=VARCHAR}
+     </if>
   </select>
 </mapper>

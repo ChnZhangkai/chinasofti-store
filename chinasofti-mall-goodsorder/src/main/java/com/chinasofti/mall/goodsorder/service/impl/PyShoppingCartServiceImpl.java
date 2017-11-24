@@ -10,11 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
+import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
+import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.goodsorder.mapper.PyShoppingCartMapper;
 import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
@@ -27,28 +29,18 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	@Autowired
 	private PyShoppingCartMapper pyShoppingCartMapper;
 
-	@Override
-	public List<PyShoppingCart> findAll() {
-		return null;
-	}
 
-	@Override
-	public PyShoppingCart findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
+
 	public int deleteById(String id) {
 		return pyShoppingCartMapper.deleteByPrimaryKey(id);
 	}
 	
-	@Override
+
 	public int save(PyShoppingCart t) {
 		return pyShoppingCartMapper.insert(t);
 	}
 
-	@Override
 	public int update(PyShoppingCart t) {
 		return pyShoppingCartMapper.updateByPrimaryKey(t);
 	}
@@ -57,48 +49,98 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	public ResponseInfo queryPyShoppingCartListByUserId(String userId) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
-		try{
-			List<PyShoppingCart> pyShoppingCartList = pyShoppingCartMapper.getPyShoppingCartListByUserId(userId);
-			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
-			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			data.put("pyShoppingCartList", pyShoppingCartList);
-			responseInfo.setData(data);
-		}catch(Exception e){
+
+		try {
+			List<VendorShoppingcartVO> pyShoppingCartList = pyShoppingCartMapper.getPyShoppingCartListByUserId(userId);
+			if (pyShoppingCartList != null) {
+				List<Map<String, List<ChnGoodsinfo>>> vendorList = pakacgeReponseData(pyShoppingCartList);
+				data.put("pyShoppingCartList", vendorList);
+				responseInfo.setData(data);
+				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
+				responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
+			} else {
+				responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+				responseInfo.setRetMsg("购物车内无商品！");
+			}
+
+		} catch (Exception e) {
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
-			logger.error(userId+"：查询购物车失败");
+			logger.error(userId + "：查询购物车失败");
 		}
 		return responseInfo;
 	}
 
+	private List<Map<String, List<ChnGoodsinfo>>> pakacgeReponseData(List<VendorShoppingcartVO> pyShoppingCartList) {
+		//存放商户下相关商品List的Map
+		Map<String,  List<ChnGoodsinfo>> vendorMap = new HashMap<String,  List<ChnGoodsinfo>>();
+		//存放所有商户的信息的List
+		List<Map<String, List<ChnGoodsinfo>>>vendorList =new ArrayList<Map<String, List<ChnGoodsinfo>>>();
+		
+		ChnGoodsinfo buyGoods = new ChnGoodsinfo(); 
+		
+		String vendorNm =null;
+		for(VendorShoppingcartVO shopgoods :pyShoppingCartList){
+			 vendorNm = shopgoods.getVendorId()+"#"+shopgoods.getVendorSnm();
+			 List<ChnGoodsinfo> goodsList=vendorMap.get(vendorNm);
+			 if(goodsList==null){
+				 goodsList= new ArrayList<ChnGoodsinfo>();
+			 }		
+			buyGoods.setIds(shopgoods.getGoodsId());
+			buyGoods.setVendorids(shopgoods.getVendorId());
+			buyGoods.setTitle(shopgoods.getGoodsName());
+			buyGoods.setFilepath(Constant.HOST_URL+shopgoods.getFilepath());
+			buyGoods.setGoodsNum(shopgoods.getGoodsNum());
+			buyGoods.setPrice(shopgoods.getPrice());
+			buyGoods.setStandard(shopgoods.getStandard());
+			buyGoods.setOrgPrice(shopgoods.getOrgPrice());
+			buyGoods.setChecked(shopgoods.getChecked());
+			goodsList.add(buyGoods);
+			vendorMap.put(vendorNm, goodsList);
+			
+		}
+		vendorList.add(vendorMap);
+		return vendorList;
+	}
+
+
 	@Override
 	public ResponseInfo savePyShoppingCart(List<PyShoppingCart>goodsList) {
 		ResponseInfo responseInfo = new ResponseInfo();
-		Map<String, Object> data = new HashMap<String, Object>();
-		try{
-			for(int i=0;goodsList.size()>i;i++){
-				PyShoppingCart goods = goodsList.get(i);
-				this.save(goods);
+		if(goodsList.size()>0){
+			for(PyShoppingCart goods:goodsList){
+				PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
+				
+				if(shoppingCar != null){
+					goods.setId(shoppingCar.getId());
+					goods.setGoodsNum(goods.getGoodsNum().add(shoppingCar.getGoodsNum()));
+					pyShoppingCartMapper.updateByPrimaryKeySelective(goods);
+				}else{
+					goods.setId(UUIDUtils.getUuid());
+					goods.setPayStatus(Constant.PAY_STATUS);
+					goods.setChecked(Constant.CHECKED);
+					goods.setCreateTime(StringDateUtil.getStringTime());
+					this.save(goods);
+				}
 			}
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			data.put("pyShoppingCartList", goodsList);
-			responseInfo.setData(data);
-		}catch(Exception e){
-			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
-			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
-			logger.error("添加购物车失败");
+		}else{
+			responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+			responseInfo.setRetMsg("请选择要添加购物车的商品！");
+			return responseInfo;
 		}
+
 		return responseInfo;
 	}
 
 	@Override
 	public ResponseInfo updatePyShoppingCart(List<PyShoppingCart>goodsList) {
 		ResponseInfo responseInfo = new ResponseInfo();
-		try{
 			if(goodsList.size()>0){
 			for(int i=0;goodsList.size()>i;i++){
 				PyShoppingCart goods = goodsList.get(i);
+				
 				this.update(goods);
 			}
 				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -110,11 +152,6 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 				return responseInfo;
 			}
 			
-		}catch(Exception e){
-			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
-			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
-			logger.error("更新购物车失败");
-		}
 		return responseInfo;
 	}
 
@@ -125,7 +162,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 			if (goodsList.size() > 0) {
 				for (int i = 0; goodsList.size() > i; i++) {
 					PyShoppingCart goods = goodsList.get(i);
-					int row = deleteById(goods.getIds());
+					int row = deleteById(goods.getId());
 					if (row <= 0) {
 						responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 						responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
@@ -140,9 +177,9 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 			}
 
 		} catch (Exception e) {
-			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
-			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
-			logger.error("删除购物车失败");
+			responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+			responseInfo.setRetMsg(MsgEnum.SERVER_ERROR.getMsg());
+			logger.error("服务异常，删除购物车失败！");
 		}
 		return responseInfo;
 	}

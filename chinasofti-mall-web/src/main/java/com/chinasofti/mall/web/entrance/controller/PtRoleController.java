@@ -2,6 +2,8 @@ package com.chinasofti.mall.web.entrance.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
  
 import com.chinasofti.mall.common.entity.PtRole;
+import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.web.entrance.feign.PtRoleFeignClient;
 
@@ -42,7 +45,7 @@ public class PtRoleController {
 	 * @return
 	 */
 	@RequestMapping("/all")
-	public String list() {
+	public String list(PtRole ptRole) {
 		return ptRoleFeignClient.list();
 	}
 
@@ -52,8 +55,19 @@ public class PtRoleController {
 	 * @return
 	 */
 	@PostMapping("/add")
-	public int add(PtRole ptRole) {
+	public int add(PtRole ptRole,HttpSession session) {
+		PtUser user = (PtUser) session.getAttribute("user");
+		ptRole.setCreateby(user.getUsername());
 		return ptRoleFeignClient.add(ptRole);
+	}
+	
+	/**移除角色
+	 * @param ptRole
+	 * @return
+	 */
+	@RequestMapping("/delete/{ids}")
+	public int deleteByIds(@PathVariable("ids") String ids) {
+		return ptRoleFeignClient.deleteByIds(ids);
 	}
 
 	/**
@@ -65,6 +79,8 @@ public class PtRoleController {
 	public int update(PtRole ptRole) {
 		return ptRoleFeignClient.update(ptRole);
 	}
+	
+	
 
 	/**
 	 * 保存页面选择的操作

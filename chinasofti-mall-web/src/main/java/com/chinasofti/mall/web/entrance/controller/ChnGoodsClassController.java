@@ -215,7 +215,7 @@ public class ChnGoodsClassController {
 	@RequestMapping("/save")
 	public int saveGoodsClass(MultipartHttpServletRequest multipartHttpServletRequest,HttpSession session){
 		
-		MultipartFile multipartFile = multipartHttpServletRequest.getFile("url");
+		MultipartFile multipartFile = multipartHttpServletRequest.getFile("img"); 
 		String imageName = multipartFile.getOriginalFilename();
 		
 		String fileName = beforePath + File.separator + imageName;
@@ -230,7 +230,8 @@ public class ChnGoodsClassController {
 		
 		PtUser user = (PtUser) session.getAttribute("user");
 		ChnGoodsClass chnGoodsClass = new ChnGoodsClass();
-		chnGoodsClass.setIds(UUID.randomUUID().toString().replace("-", ""));;
+		chnGoodsClass.setIds(UUID.randomUUID().toString().replace("-", ""));
+		chnGoodsClass.setPids(multipartHttpServletRequest.getParameter("pid"));
 		chnGoodsClass.setName(multipartHttpServletRequest.getParameter("name"));
 		chnGoodsClass.setCommons(multipartHttpServletRequest.getParameter("commons"));
 		chnGoodsClass.setStates(multipartHttpServletRequest.getParameter("states"));

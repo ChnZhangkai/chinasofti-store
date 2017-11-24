@@ -28,15 +28,14 @@ public class SpSendAddressController {
 	@Autowired
 	SpSendAddressFeignClient spSendAddressFeignClient;
 	private static final Logger logger = LoggerFactory.getLogger(SpSendAddressController.class);
-	
 	/*
 	 * 查询地址列表
 	 * 参数 userId 用户ID
 	 * */
-	@RequestMapping(value="/list", method = RequestMethod.POST)
+	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public ResponseInfo findSendAddressList(@RequestParam String userId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
+		response.setHeader("Access-Control-Allow-Methods","GET");
 		return spSendAddressFeignClient.findSendAddressList(userId);
 	}
 	

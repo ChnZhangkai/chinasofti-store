@@ -79,4 +79,12 @@ public class StringDateUtil {
 		String longStringDate = sdf.format(date);
 		return longStringDate;
 	}
+	/**Date类型转换为
+	 * "yyyy-MM-dd HH:mm:ss"
+	 * @return
+	 */
+	public static String getStringTime() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(new Date());
+	}
 }

@@ -1,19 +1,19 @@
 package com.chinasofti.mall.common.entity.order;
-
+import java.math.BigDecimal;
 public class PyShoppingCart {
-    private String ids;
+    private String id;
 
-    private String userids;
+    private String userId;
 
-    private String vendorid;
+    private String vendorId;
 
-    private String goodsIds;
+    private String goodsId;
 
     private String goodsPayIds;
 
-    private Short goodsNum;
+    private BigDecimal goodsNum;
 
-    private String createTime;
+	private String createTime;
 
     private String payStatus;
 
@@ -21,38 +21,7 @@ public class PyShoppingCart {
 
     private String attr;
 
-    public String getIds() {
-        return ids;
-    }
-
-    public void setIds(String ids) {
-        this.ids = ids == null ? null : ids.trim();
-    }
-
-    public String getUserids() {
-        return userids;
-    }
-
-    public void setUserids(String userids) {
-        this.userids = userids == null ? null : userids.trim();
-    }
-
-    public String getVendorid() {
-        return vendorid;
-    }
-
-    public void setVendorid(String vendorid) {
-        this.vendorid = vendorid == null ? null : vendorid.trim();
-    }
-
-    public String getGoodsIds() {
-        return goodsIds;
-    }
-
-    public void setGoodsIds(String goodsIds) {
-        this.goodsIds = goodsIds == null ? null : goodsIds.trim();
-    }
-
+   
     public String getGoodsPayIds() {
         return goodsPayIds;
     }
@@ -61,13 +30,6 @@ public class PyShoppingCart {
         this.goodsPayIds = goodsPayIds == null ? null : goodsPayIds.trim();
     }
 
-    public Short getGoodsNum() {
-        return goodsNum;
-    }
-
-    public void setGoodsNum(Short goodsNum) {
-        this.goodsNum = goodsNum;
-    }
 
     public String getCreateTime() {
         return createTime;
@@ -100,4 +62,47 @@ public class PyShoppingCart {
     public void setAttr(String attr) {
         this.attr = attr == null ? null : attr.trim();
     }
+
+	public BigDecimal getGoodsNum() {
+		return goodsNum;
+	}
+
+	public void setGoodsNum(BigDecimal goodsNum) {
+		this.goodsNum = goodsNum;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(String vendorId) {
+		this.vendorId = vendorId;
+	}
+
+	public String getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(String goodsId) {
+		this.goodsId = goodsId;
+	}
+
+	
+   
 }

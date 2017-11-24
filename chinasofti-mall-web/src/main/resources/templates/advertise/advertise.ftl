@@ -20,7 +20,7 @@
 		<form id="searchForm">
 			<div class="wu-toolbar-search">
 				<label>广告标题：</label> 
-				<input id="ad_search_title" name="title" class="easyui-textbox" style="width: 120px" /> 
+				<input id="ad_search_title" name="title" data-options="prompt:'请输入标题名称'" class="easyui-textbox" style="width: 120px" /> 
 				<label>广告类型：</label>
 				 <select id="ad_search_type" class="easyui-combobox" style="width: 100px">
 					<option value="">请选择</option>
@@ -51,15 +51,15 @@
        				  pageList: [15, 25, 50, 100]">
 		<thead>
 			<tr>
-				<th field="title"  width="15%" align="center" data-options="sortable:true">标题</th>
+				<th field="title"  width="10%" align="center" data-options="sortable:true">标题</th>
 				<th field="url"   width="15%" align="center" data-options="sortable:true">链接URL</th>
-				<th field="type"  width="15%" align="center" data-options="formatter:typeFormatter,sortable:true">广告类型</th>
-				<th field="states"  width="15%" align="center" data-options="formatter:statesFormatter,sortable:true">前台状态</th>
-				<th field="positionName"  width="15%" align="center" data-options="sortable:true">广告位名称</th>
-				<th field="categoryName"  width="15%" align="center" data-options="sortable:true">分类广告名称</th>
+				<th field="type"  width="8%" align="center" data-options="formatter:typeFormatter,sortable:true">广告类型</th>
+				<th field="states"  width="10%" align="center" data-options="formatter:statesFormatter,sortable:true">前台状态</th>
+				<th field="positionName"  width="10%" align="center" data-options="sortable:true">广告位名称</th>
+				<th field="categoryName"  width="10%" align="center" data-options="sortable:true">分类广告名称</th>
 				<th field="beginTime"  width="15%" align="center" data-options="sortable:true">有效开始日期</th>
 				<th field="endTime" width="15%" align="center" data-options="sortable:true">有效结束日期</th>
-				<th field="_operator"  width="15%" align="center" data-options="formatter:OperatorFormatter">操作</th>  
+				<th field="_operator"  width="10%" align="center" data-options="formatter:OperatorFormatter">操作</th>  
 			</tr>
 		</thead>
 	</table>

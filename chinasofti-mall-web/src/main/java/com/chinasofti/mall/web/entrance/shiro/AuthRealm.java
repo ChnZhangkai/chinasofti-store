@@ -1,4 +1,4 @@
-package com.chinasofti.mall.web.entrance.shiroconfig;
+package com.chinasofti.mall.web.entrance.shiro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,9 @@ import java.util.Set;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -44,10 +46,16 @@ public class AuthRealm extends AuthorizingRealm {
             String username = utoken.getUsername();
             PtUser user = service.findUserByName(username);
             if (user != null) {
-                // 若存在，将此用户存放到登录认证info中，无需自己做密码对比，Shiro会为我们进行密码对比校验
-                return new SimpleAuthenticationInfo(user, user.getPassword(),
-                        this.getClass().getName());//放入shiro.调用CredentialsMatcher检验密码
-            }
+            	if (!user.getStatus().equals("0")) {
+            		// 若存在，将此用户存放到登录认证info中，无需自己做密码对比，Shiro会为我们进行密码对比校验
+            		return new SimpleAuthenticationInfo(user, user.getPassword(),
+            				this.getClass().getName());//放入shiro.调用CredentialsMatcher检验密码
+				}else {
+					throw new DisabledAccountException();//用户未启用
+				}
+            }else {
+				throw new UnknownAccountException();//用户不存在
+			}
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -65,6 +73,7 @@ public class AuthRealm extends AuthorizingRealm {
         PtUser user = (PtUser)principal.fromRealm(this.getClass().getName())
                 .iterator()
                 .next();//获取session中的用户
+        System.err.println("=======================从数据库查询权限信息");
         List<String> permissions = new ArrayList<String>();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         Set<PtRole> roles = user.getRoles();
@@ -86,6 +95,7 @@ public class AuthRealm extends AuthorizingRealm {
             }
         }
         info.addStringPermissions(permissions);//将权限放入shiro中.
+        //返回后会把info对象的信息存在cache中  ，这里会调用shiroCache（复写shiro.apche.put）的put(K key, V value）方法
         return info;
     }
 }

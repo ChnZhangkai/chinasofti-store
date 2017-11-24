@@ -12,16 +12,17 @@
     <result column="DISTRICT" property="district" jdbcType="VARCHAR" />
     <result column="STREET" property="street" jdbcType="VARCHAR" />
     <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createTime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column" >
-    IDS, USER_IDS, NAME, MOBILE,ZIPCODE,PROVINCE,CITY,DISTRICT,STREET,ADDRESS
+    IDS, USER_IDS, NAME, MOBILE,ZIPCODE,PROVINCE,CITY,DISTRICT,STREET,ADDRESS,CREATETIME
   </sql>
   
   <select id="selectSentAddressList" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column" />
     from sp_cont_address
-    where user_ids = #{userId,jdbcType=VARCHAR}
+    where user_ids = #{userId,jdbcType=VARCHAR} ORDER BY CREATETIME DESC
   </select>
 
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.chinasofti.mall.common.entity.spuser.SpSendAddress" >
@@ -55,7 +56,10 @@
         STREET,
       </if>
       <if test="address != null" >
-        ADDRESS
+        ADDRESS,
+      </if>
+      <if test="createTime != null" >
+        CREATETIME
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -87,7 +91,10 @@
         #{street,jdbcType=VARCHAR},
       </if>
    	  <if test="address != null" >
-        #{address,jdbcType=VARCHAR}
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
