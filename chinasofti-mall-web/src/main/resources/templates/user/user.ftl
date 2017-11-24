@@ -134,20 +134,23 @@
 	</form>
 </div>
 
-<!-- 角色表格 -->
+<!-- 用户关联角色表格 -->
 <div id="userRoleDialog" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-users',inline:true"
 	style="width: 500px; padding: 10px;">
 	<form id="userRoleForm" method="post">
-		<table id="userRoleForm" class="easyui-datagrid" singleSelect="true" style="width: 100%"
+		<table id="userRoleDg" class="easyui-datagrid" singleSelect="true" style="width: 100%"
 		data-options="url:'ptrole/all',fitColumns:true,pagination:true,pageSize:5,pageList:[5,10,15,20],
        				 toolbar:'#venderToolbar',striped:true">
 		<thead>
+			<div style="margin-bottom: 5px">
+				当前角色<input id="nowName" class="easyui-textbox" readonly="readonly"/>
+			</div>
 			<tr>
-				<th field="_ddd" width="15%" data-options="checkbox:true">选择</th>
+				<th field="_ddd" data-options="checkbox:true">选择</th>
 				<th field="ids" width="20%" align="center">角色编号</th>
-				<th field="names" width="50%" align="center">角色名称</th>
-				<th field="description" width="20%" align="center">角色描述</th>
+				<th field="names" width="30%" align="center">角色名称</th>
+				<th field="description" width="45%" align="center">角色描述</th>
 			</tr>
 		</thead>
 	</table> 
@@ -305,7 +308,7 @@
 	                }
 	            }]
 	        });
-			$('#userRoleForm').form('load',row);
+			$('#ptUserUpdateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
@@ -337,7 +340,15 @@
 	function openRole(){
 		var row = $("#ptUser").datagrid('getSelected');
 		if (row) {
-			//alert(JSON.stringify(row));
+			
+			$.ajax({
+				url:'/user/findRoleName/' + row.ids,
+				type:'POST',
+				success:function(data){
+					$('#nowName').textbox('setValue',data)
+				}
+			})
+			
 			$('#userRoleDialog').dialog('open').dialog({
 				closed: false,
 				modal:true,
@@ -345,7 +356,23 @@
 	            buttons: [{
 	                text: '确定',
 	                iconCls: 'icon-ok',
-	                handler: edit
+	                handler: function(){
+	                	var param = $("#userRoleDg").datagrid('getSelected');
+	                	//alert(JSON.stringify(param))
+	                	$.ajax({
+	                		url:'user/updateRoleUser',
+	                		data:{'moduleIds':row.ids,'roleIds':param.ids},
+	                		type:'POST',
+	                		success:function(data){
+	                			if(data > 0){
+	                				successShow();
+	                				$('#userRoleDialog').dialog('close');
+	                			}else{
+	                				errorShow();
+	                			}
+	                		}
+	                	})
+	                }
 	            }, {
 	                text: '取消',
 	                iconCls: 'icon-cancel',
@@ -354,7 +381,6 @@
 	                }
 	            }]
 	        });
-			$('#ptUserUpdateForm').form('load',row);
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
