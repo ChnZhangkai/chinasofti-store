@@ -6,10 +6,12 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.PtUserExample;
 import com.chinasofti.mall.common.entity.PtUserExample.Criteria;
 import com.chinasofti.mall.common.entity.ptroleuser.PtRoleUser;
+import com.chinasofti.mall.common.entity.ptroleuser.PtRoleUserExample;
 import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.user.mapper.PtRoleUserMapper;
 import com.chinasofti.mall.user.mapper.PtUserMapper;
@@ -88,5 +90,25 @@ public class PtUserServiceImpl implements PtUserService{
 		
 		return js;
 		}
+
+	/* 
+	 * 通过用户ID查询其角色名称
+	 */
+	@Override
+	public PtRole selectUserRoleName(String ids) {
+		return PtUserMapper.selectUserRoleName(ids);
+	}
+	
+	/* 
+	 * 通过用户修改角色
+	 */
+	@Override
+	public int updateByExampleSelective(PtRoleUser ptRoleUser, PtRoleUserExample example) {
+		
+		(example.createCriteria()).andModuleIdsEqualTo(ptRoleUser.getModuleIds());
+		ptRoleUser.setModuleIds(null);
+		return ptRoleUserMapper.updateByExampleSelective(ptRoleUser, example);
+	}
+	
 	
 }

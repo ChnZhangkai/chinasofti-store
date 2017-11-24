@@ -14,6 +14,8 @@ import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.user.service.PtRoleService;
 
+import net.sf.json.JSONObject;
+
 /**
  * 商城 角色
  * 微服务端
@@ -47,8 +49,8 @@ public class PtRoleController {
 	 * @return 返回信息是否成功
 	 */
 	@RequestMapping("/all")
-	public String findAll() {
-		return ptroleServiceImpl.findAll();
+	public JSONObject findAll(@RequestBody(required = false)PtRole ptRole) {
+		return ptroleServiceImpl.selectByExample(ptRole); 
 	}
 	/**
 	 * 角色更新

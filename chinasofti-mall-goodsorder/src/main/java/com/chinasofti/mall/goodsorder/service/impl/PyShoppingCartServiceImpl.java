@@ -77,7 +77,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		//存放所有商户的信息的List
 		List<Map<String, List<ChnGoodsinfo>>>vendorList =new ArrayList<Map<String, List<ChnGoodsinfo>>>();
 		
-		ChnGoodsinfo buyGoods = new ChnGoodsinfo(); 
+		
 		
 		String vendorNm =null;
 		for(VendorShoppingcartVO shopgoods :pyShoppingCartList){
@@ -85,7 +85,8 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 			 List<ChnGoodsinfo> goodsList=vendorMap.get(vendorNm);
 			 if(goodsList==null){
 				 goodsList= new ArrayList<ChnGoodsinfo>();
-			 }		
+			 }	
+			ChnGoodsinfo buyGoods = new ChnGoodsinfo(); 
 			buyGoods.setIds(shopgoods.getGoodsId());
 			buyGoods.setVendorids(shopgoods.getVendorId());
 			buyGoods.setTitle(shopgoods.getGoodsName());

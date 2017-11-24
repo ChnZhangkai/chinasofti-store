@@ -1,8 +1,10 @@
 package com.chinasofti.mall.user.mapper;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.PtUserExample;
 
@@ -20,6 +22,8 @@ public interface PtUserMapper {
     List<PtUser> selectByExampleWithBLOBs(PtUserExample example);
 
     List<PtUser> selectByExample(PtUserExample example);
+    
+    PtRole selectUserRoleName(String ids);
 
     PtUser selectByPrimaryKey(String ids);
 
