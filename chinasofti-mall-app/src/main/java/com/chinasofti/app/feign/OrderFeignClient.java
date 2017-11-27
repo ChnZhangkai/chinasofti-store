@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
@@ -18,21 +17,21 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 @FeignClient(name="goodsorder-service")
 public interface OrderFeignClient {
 
-	@RequestMapping(value="/order/V1.0/list")
+	@RequestMapping(value="/order/list")
 	public ResponseInfo queryOrderListByUserId(@RequestParam("userId") String userId);
 	
-	@RequestMapping(value="/order/V1.0/add", method = RequestMethod.POST)
+	@RequestMapping(value="/order/add", method = RequestMethod.POST)
 	public ResponseInfo saveOrder(@RequestBody JSONObject json);
 
-	@RequestMapping(value="/order/V1.0/pay", method = RequestMethod.POST)
+	@RequestMapping(value="/order/pay", method = RequestMethod.POST)
 	public ResponseInfo payOrder(@RequestBody PyMainGoodsorder pyMainGoodsorder);
 	
-	@RequestMapping(value="/order/V1.0/cancel", method = RequestMethod.POST)
-	public ResponseInfo cancelOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder);
+	@RequestMapping(value="/order/cancel")
+	public ResponseInfo cancelOrder(@RequestParam("orderId") String orderId);
 	
-	@RequestMapping(value="/order/V1.0/del")
+	@RequestMapping(value="/order/del")
 	public ResponseInfo deleteOrderById(@RequestParam("orderId") String orderId);
 
-	@RequestMapping(value="/order/V1.0/update", method = RequestMethod.POST)
+	@RequestMapping(value="/order/update", method = RequestMethod.POST)
 	public ResponseInfo updateOrder(JSONObject json);
 }

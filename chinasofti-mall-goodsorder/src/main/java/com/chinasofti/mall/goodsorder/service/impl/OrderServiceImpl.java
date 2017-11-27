@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goodsorder.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,48 +50,39 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public ResponseInfo queryOrderListByUserId(String userId) {
+		ResponseInfo info = new ResponseInfo();
 		// 用户的全部订单
 		// 分类1.付款（付款未发货，已发货运输 已到货 已签收） 2.未付款
 		PyBigGoodsorderExample example = new PyBigGoodsorderExample();
 		example.createCriteria().andUserIdsEqualTo(userId);
-		ResponseInfo info = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<PyBigGoodsorder> list = bigGoodsorderService.selectByExample(example);
 		List<PyMainGoodsorder> pyMainGoodsorders = mainGoodsorderService.selectByUserIds(userId);
 		Map<String, Object> map = null;
 		List<Object> array0 = new ArrayList<Object>();
 		List<Object> array1 = new ArrayList<Object>();
+		List<Object> array2 = new ArrayList<Object>();
 		//只查询出用户下单后未付款和已付款的订单，被删除或者被取消的订单不做展示
-		if (null != list && null != pyMainGoodsorders) {
+		if (list.size() != 0 && pyMainGoodsorders.size() != 0) {
 			for (PyBigGoodsorder pyBigGoodsorder : list) {
 				// 支付状态 未付款
 				map = new HashMap<String, Object>();
 				if (PyBigGoodsorder.PAY_STATUS_NOT.equals(pyBigGoodsorder.getPayStatus())) {
-					for (PyMainGoodsorder pyMainGoodsorder : pyMainGoodsorders) {
-						if (pyMainGoodsorder.getBigorderId().equals(pyBigGoodsorder.getTransactionid())) {
-							map.put("pyBigGoodsorder", pyBigGoodsorder);
-							map.put("pyMainGoodsorder", pyMainGoodsorder);
-							List<PyChildGoodsorder> pyChildGoodsorders = childGoodsorderService.selectByMainorderIds(pyMainGoodsorder.getTransactionid());
-							map.put("pyChildGoodsorders", pyChildGoodsorders);
-						}
-					}
-					array0.add(map);
+					array0.add(getMap(pyMainGoodsorders, map, pyBigGoodsorder));
 				}
 				// 已付款
 				if (PyBigGoodsorder.PAY_STATUS_OK.equals(pyBigGoodsorder.getPayStatus())) {
-					for (PyMainGoodsorder pyMainGoodsorder : pyMainGoodsorders) {
-						if (pyMainGoodsorder.getBigorderId().equals(pyBigGoodsorder.getTransactionid())) {
-							map.put("pyBigGoodsorder", pyBigGoodsorder);
-							map.put("pyMainGoodsorder", pyMainGoodsorder);
-							List<PyChildGoodsorder> pyChildGoodsorders = childGoodsorderService.selectByMainorderIds(pyMainGoodsorder.getTransactionid());
-							map.put("pyChildGoodsorders", pyChildGoodsorders);
-						}
-					}
-					array1.add(map);
+					array1.add(getMap(pyMainGoodsorders, map, pyBigGoodsorder));
+				}
+				// 被取消
+				if (PyBigGoodsorder.PAY_STATUS_CANCLE.equals(pyBigGoodsorder.getPayStatus())) {
+					array2.add(getMap(pyMainGoodsorders, map, pyBigGoodsorder));
 				}
 			}
-			data.put("array0", array0);
-			data.put("array1", array1);
+			data.put("未付款订单", array0);
+			data.put("已付款订单", array1);
+			data.put("被取消订单", array2);
+			
 			info.setData(data);
 			info.setRetMsg(MsgEnum.SUCCESS.getMsg());
 			info.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -103,6 +95,24 @@ public class OrderServiceImpl implements OrderService {
 		return info;
 	}
 
+	private Map<String, Object> getMap(List<PyMainGoodsorder> pyMainGoodsorders, Map<String, Object> map, PyBigGoodsorder pyBigGoodsorder) {
+		for (PyMainGoodsorder pyMainGoodsorder : pyMainGoodsorders) {
+			if (pyMainGoodsorder.getBigorderId().equals(pyBigGoodsorder.getTransactionid())) {
+				map.put("pyBigGoodsorder", pyBigGoodsorder);
+				map.put("pyMainGoodsorder", pyMainGoodsorder);
+				List<PyChildGoodsorder> pyChildGoodsorders = childGoodsorderService.selectByMainorderIds(pyMainGoodsorder.getTransactionid());
+				BigDecimal sum = new BigDecimal(0);
+				for (PyChildGoodsorder pyChildGoodsorder : pyChildGoodsorders) {
+					sum = pyChildGoodsorder.getGoodsNum().add(sum);
+				}
+				map.put("pyChildGoodsorders", pyChildGoodsorders);
+				map.put("sum", sum);
+			}
+		}
+		return map;
+	}
+	
+	
 	@Override
 	public ResponseInfo saveOrder(JSONObject json) {
 
@@ -139,8 +149,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder) {
+	public ResponseInfo cancelOrder(String orderId) {
 		ResponseInfo responseInfo = new ResponseInfo();
+		PyBigGoodsorder pyBigGoodsorder = new PyBigGoodsorder();
+		pyBigGoodsorder.setIds(orderId);
 		pyBigGoodsorder.setPayStatus(PyBigGoodsorder.PAY_STATUS_CANCLE);
 		pyBigGoodsorder.setStatus(PyBigGoodsorder.STATUS_UNABLE);
 		int count = bigGoodsorderService.update(pyBigGoodsorder);
@@ -161,7 +173,7 @@ public class OrderServiceImpl implements OrderService {
 		PyBigGoodsorder pyBigGoodsorder = new PyBigGoodsorder();
 		pyBigGoodsorder.setIds(orderId);
 		pyBigGoodsorder.setStatus(PyBigGoodsorder.STATUS_UNABLE);
-		pyBigGoodsorder.setPayStatus(PyBigGoodsorder.PAY_STATUS_CANCLE);
+		pyBigGoodsorder.setPayStatus(PyBigGoodsorder.PAY_STATUS_DELETE);
 		int count = bigGoodsorderService.update(pyBigGoodsorder);
 		if (count > 0) {
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -186,11 +198,12 @@ public class OrderServiceImpl implements OrderService {
 			PyChildGoodsorder pyChildGoodsorder = childGoodsorderService.selectByMainorderIds(pyBigGoodsorder.getIds()).get(0);
 			pyChildGoodsorder.setOrderStatus("已付款");
 			childGoodsorderService.save(pyChildGoodsorder);
-			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
-			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 			pyMainGoodsorder.setIds(UUIDUtils.getUuid());
 			pyMainGoodsorder.setPayTime(StringDateUtil.convertDateToLongString(new Date()));
 			mainGoodsorderService.save(pyMainGoodsorder);
+			
+			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
+			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		} catch (Exception e) {
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
