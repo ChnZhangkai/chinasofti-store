@@ -758,7 +758,10 @@
     select 
     <include refid="Base_Column_List" />
     from chn_goodsinfo
-    where 1=1 and TITLE like #{%title% ,jdbcType=VARCHAR}   
+    where 1=1 
+    <if test ="title !=null">
+     and TITLE like #{%title% ,jdbcType=VARCHAR} 
+    </if>
     <if test="goodsClassIds != null">
      and   GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR},
     </if>

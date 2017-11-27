@@ -1,6 +1,9 @@
 package com.chinasofti.app.handler;
 
 public class MyException extends Exception {
+	
+	private static final long serialVersionUID = 98967561L;
+	
 	private String code;
 	
     public String getCode() {

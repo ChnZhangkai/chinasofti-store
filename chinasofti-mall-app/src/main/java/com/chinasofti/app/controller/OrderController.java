@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
@@ -39,9 +40,9 @@ public class OrderController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/del/order", method = RequestMethod.POST)
+	@RequestMapping("/del")
 	@ApiOperation(value = "删除订单", notes = "报文示例：{'orderId':'1001'}")
-	public ResponseInfo deleteOrderById(String orderId, HttpServletResponse response) {
+	public ResponseInfo deleteOrderById(@RequestParam("orderId") String orderId, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
 		ResponseInfo responseInfo = orderFeignClient.deleteOrderById(orderId);
@@ -54,7 +55,7 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value = "/add/order", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ApiOperation(value = "提交商品信息，保存订单", notes = "报文示例：{'userIds':'1001','goodsList':'[PyChildGoodsorder:{ids:'123',','goodsPrice':'10.00'}......]}")
 	public ResponseInfo saveOrder(@RequestBody JSONObject json, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -68,7 +69,7 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value = "/update/order", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ApiOperation(value = "提交商品信息，修改保存订单", notes = "报文示例：{'userIds':'1001','goodsList':'[PyChildGoodsorder:{ids:'123',','goodsPrice':'10.00'}......]}")
 	public ResponseInfo updateOrder(@RequestBody JSONObject json, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -83,7 +84,7 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value = "/pay/order", method = RequestMethod.POST)
+	@RequestMapping(value = "/pay", method = RequestMethod.POST)
 	@ApiOperation(value = "对订单进行支付", notes = "报文示例：{'PyMainGoodsorder':'1001','userId':'chin'}")
 	public ResponseInfo payOrder(@RequestBody PyMainGoodsorder pyMainGoodsorder , HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -98,7 +99,7 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value = "/cancel/order", method = RequestMethod.POST)
+	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
 	@ApiOperation(value = "取消订单", notes = "报文示例：{'orderId':'1001','userId':'chin'}")
 	public ResponseInfo cancelOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -110,12 +111,12 @@ public class OrderController {
 	/**
 	 * 查询订单列表
 	 * 
-	 * @param userids
+	 * @param userId
 	 * @return 修改参数 - 黄佳喜
 	 */
-	@RequestMapping(value = "/query/orderList", method = RequestMethod.POST)
-	@ApiOperation(value = "查询订单", notes = "报文示例：{'userId':'chin'}")
-	public ResponseInfo queryOrderListByUserId(String userId, HttpServletResponse response) {
+	@RequestMapping(value = "/list")
+	@ApiOperation(value = "查询订单", notes = "报文示例：{'userId':'4619f8f622e94f38bb1a6f132c70d0b6'}")
+	public ResponseInfo queryOrderListByUserId(@RequestParam("userId") String userId, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
 		ResponseInfo responseInfo = orderFeignClient.queryOrderListByUserId(userId);
