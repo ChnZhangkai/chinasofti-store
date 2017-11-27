@@ -2,13 +2,12 @@ package com.chinasofti.mall.goodsorder.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
-import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample;
-import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample.Criteria;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.goodsorder.handler.MyException;
 import com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper;
@@ -69,34 +68,16 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	@Override
 	public JSONObject selectByExample(PyMainGoodsorder mainGoodsorder){
 		
-		String compare = "";
-		
 		JSONObject js = new JSONObject();
-		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
-		Criteria criteria = example.createCriteria();
 				
-		if ((mainGoodsorder.getTransactionid()) != null && !(mainGoodsorder.getTransactionid()).equals(compare)) {
-				criteria.andTransactionidLike("%" + mainGoodsorder.getTransactionid() + "%");
-			}
-		
-		if ((mainGoodsorder.getBigorderId()) != null && !(mainGoodsorder.getBigorderId()).equals(compare)) {
-			criteria.andBigorderIdLike("%" + mainGoodsorder.getBigorderId() + "%");
+		if (!StringUtils.isEmpty(mainGoodsorder.getOrderTime())) {
+			mainGoodsorder.setOrderTime(StringDateUtil.convertToSqlFormat(mainGoodsorder.getOrderTime()));
 		}
-		
-		if ((mainGoodsorder.getPayStatus()) != null && !(mainGoodsorder.getPayStatus()).equals(compare)) {
-			criteria.andPayStatusLike("%" + mainGoodsorder.getPayStatus() + "%");
+		if (!StringUtils.isEmpty(mainGoodsorder.getSettleTime())) {
+			mainGoodsorder.setSettleTime(StringDateUtil.convertToSqlFormat(mainGoodsorder.getSettleTime()));
 		}
-		
-		if ((mainGoodsorder.getContName()) != null && !(mainGoodsorder.getContName()).equals(compare)) {
-			criteria.andContNameLike("%" + mainGoodsorder.getContName() + "%");
-		}
-		
-		if ((mainGoodsorder.getPayway()) != null && !(mainGoodsorder.getPayway()).equals(compare)) {
-			criteria.andPaywayLike("%" + mainGoodsorder.getPayway() + "%");
-		}
-
-		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
-		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
+		PageHelper.startPage(mainGoodsorder.getPageNumber(),mainGoodsorder.getPageSize());
+		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(mainGoodsorder);
 
 		js.put("rows", list);
 		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());

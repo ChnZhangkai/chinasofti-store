@@ -127,17 +127,40 @@
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample" >
     select
-    <if test="distinct" >
-      distinct
-    </if>
+   
     <include refid="Base_Column_List" />
     from py_main_goodsorder
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    <if test="ids != null and ids !='' ">
+		and IDS like CONCAT('%',#{ids},'%')
+	</if>
+	<if test="bigorderId != null and bigorderId !='' ">
+		and BIGORDER_ID like CONCAT('%',#{bigorderId},'%')
+	</if>
+	<if test="orderTime != null and orderTime != '' ">
+		and ORDER_TIME &gt;= #{orderTime}
+	</if>
+	<if test="orderTime != null and orderTime != '' ">
+		and ORDER_TIME &lt;= #{orderTime}
+	</if>
+	<if test="payStatus != null and payStatus != '' ">
+		and PAY_STATUS = #{payStatus}
+	</if>
+	<if test="payway != null and payway != '' ">
+		and PAYWAY = #{payway}
+	</if>
+	<if test="status != null and status != '' ">
+		and STATUS = #{status}
+	</if>
+	<if test="contName != null and contName != '' ">
+		and CONT_NAME like CONCAT('%',#{contName},'%')
+	</if>
+	<if test="settleTime != null and settleTime != '' ">
+		and SETTLE_TIME &gt;= #{settleTime}
+	</if>
+		<if test="vendorIds != null and vendorIds != '' ">
+		and VENDOR_IDS = #{vendorIds}
+	</if>
+ 
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

@@ -74,12 +74,6 @@ public class ChnGoodsOnlineServiceImpl implements ChnGoodsOnlineService{
 		 
 	}
 
-
-	@Override
-	public List<ChnGoodsOnline> getGoodsOnlineList(ChnGoodsOnline chnGoodsOnline) {
-		return chnGoodsOnlineMapper.findAll(chnGoodsOnline);
-	}
-
 	
 
 

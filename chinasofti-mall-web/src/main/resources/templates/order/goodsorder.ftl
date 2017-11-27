@@ -21,11 +21,11 @@
 						</td>
 						<td style="width:10%;padding:0 10px 0 0;" align="right">订单开始时间</td>
 						<td style="width:15%" align="left"> 
-							<input class="easyui-datetimebox" id="mainorder-minPayTime" name="minPayTime" data-options="editable:false" />
+							<input class="easyui-datetimebox" id="mainorder-minPayTime" name="orderTime" data-options="editable:false" />
 						</td>
 						<td style="width:10%;padding:0 10px 0 0;" align="right">订单结束时间</td>
 						<td style="width:15%" align="left">
-							<input class="easyui-datetimebox" id="mainorder-maxPayTime" name="maxPayTime" data-options="editable:false" />
+							<input class="easyui-datetimebox" id="mainorder-maxPayTime" name="orderTime" data-options="editable:false" />
 						</td>
 					</tr>
 					<tr>
@@ -79,9 +79,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td align="center" colspan="2">
-							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="mainorderDoSearch()">查询</a>&nbsp;&nbsp;
+						<td align="center" colspan="3">
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="mainorderDoSearch()">查询</a>
 							<a class="easyui-linkbutton" iconCls="icon-edit-clear" plain="false" onclick="mainorderClearAll()">清空</a>
+							<a class="easyui-linkbutton" iconCls="icon-excel" onclick="mainOrderExport()" plain="false">导出Excel</a>
+							<a class="easyui-linkbutton" iconCls="icon-excel" onclick="bigOrderExport()" plain="false">关联子订单导出Excel</a>
 						</td>
 					</tr>
 				</table>
@@ -147,7 +149,6 @@
 							<input name="freight" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
 						</td>
 						<td style="width:10%;padding:0 15px 0 0;" align="right">实付金额</td>
-						<td style="width:40%" align="left">
 							<input name="orderAmt" class="easyui-textbox" style="width:80%;height:30px;" readonly="readonly"/>
 						</td>
 					</tr>
@@ -267,8 +268,9 @@
 					</tr>
 					<tr>
 						<td align="center" colspan="2">
-							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="childorderDoSearch()">查询</a>&nbsp;&nbsp;
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="childorderDoSearch()">查询</a>
 							<a class="easyui-linkbutton" iconCls="icon-edit-clear" plain="false" onclick="childorderClearAll()">清空</a>
+							<a class="easyui-linkbutton" iconCls="icon-excel" onclick="childOrderExport()" plain="false">子订单导出Excel</a>
 						</td>
 					</tr>
 				</table>
