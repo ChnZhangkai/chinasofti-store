@@ -17,7 +17,7 @@ public class PyShoppingCart {
 
     private String payStatus;
 
-    private String checked;
+    private Boolean checked;
 
     private String attr;
 
@@ -47,14 +47,7 @@ public class PyShoppingCart {
         this.payStatus = payStatus == null ? null : payStatus.trim();
     }
 
-    public String getChecked() {
-        return checked;
-    }
-
-    public void setChecked(String checked) {
-        this.checked = checked == null ? null : checked.trim();
-    }
-
+   
     public String getAttr() {
         return attr;
     }
@@ -101,6 +94,14 @@ public class PyShoppingCart {
 
 	public void setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
+	}
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
 	}
 
 	
