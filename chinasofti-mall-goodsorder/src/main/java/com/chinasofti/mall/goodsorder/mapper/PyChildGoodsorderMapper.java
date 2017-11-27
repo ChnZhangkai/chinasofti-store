@@ -4,6 +4,7 @@ import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,10 @@ public interface PyChildGoodsorderMapper {
     int updateByPrimaryKey(PyChildGoodsorder record);
     
     List<PyChildGoodsorder> selectByChildorderCondition(ChildorderCondition childorderCondition);
+    
+    //批量插人子订单
+    int batchInsertPyChildGoodsorder(@Param("childList") List<PyChildGoodsorder> list);
+    
+    BigDecimal selectGoodsNum(String goodsId);
+
 }

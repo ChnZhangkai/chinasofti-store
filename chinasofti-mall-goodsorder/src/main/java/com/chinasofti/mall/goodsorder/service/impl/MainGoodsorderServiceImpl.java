@@ -10,6 +10,7 @@ import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample.Criteria;
 import com.chinasofti.mall.common.utils.StringDateUtil;
+import com.chinasofti.mall.goodsorder.handler.MyException;
 import com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 import com.github.pagehelper.Page;
@@ -31,6 +32,10 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	
 	@Autowired
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
+	
+	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList)throws MyException{
+		return mainGoodsorderMapper.batchInsertPyMainGoodsorder(mainList);
+	}
 
 	@Override
 	public int save(PyMainGoodsorder mainGoodsorder) {

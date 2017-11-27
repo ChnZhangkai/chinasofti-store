@@ -3,11 +3,14 @@ package com.chinasofti.mall.goodsorder.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
@@ -22,13 +25,14 @@ import com.chinasofti.mall.goodsorder.service.OrderService;
  *
  */
 @RestController
-@RequestMapping("/order/V1.0")
+@RequestMapping("/order")
 @Api(value = "OrderController", description = "订单工程-API")
 public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
 	
+	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 	/**
 	 * 删除订单
 	 * @param id
@@ -46,9 +50,10 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value="/add", method = RequestMethod.POST)
-	@ApiOperation(value="提交订单", notes="报文示例：{'userId':'chin','goodsList':{goods:'1001'}}")
 	public ResponseInfo saveOrder(@RequestBody JSONObject json) {
+		logger.info("*******************1*********************");
 		ResponseInfo responseInfo = orderService.saveOrder(json);
 		return responseInfo;
 	}

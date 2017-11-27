@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goodsorder.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample.Criteria;
+import com.chinasofti.mall.goodsorder.handler.MyException;
 import com.chinasofti.mall.goodsorder.mapper.PyChildGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
 import com.github.pagehelper.Page;
@@ -29,6 +31,17 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	
 	@Autowired
 	private PyChildGoodsorderMapper childGoodsorderMapper;
+	
+	
+	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList)throws MyException{
+		return childGoodsorderMapper.batchInsertPyChildGoodsorder(childList);
+		
+	}
+	
+	public BigDecimal selectGoodsNum(String goodsId)throws MyException{
+		return childGoodsorderMapper.selectGoodsNum(goodsId);
+		
+	}
 
 	@Override
 	public int save(PyChildGoodsorder childGoodsorder) {
