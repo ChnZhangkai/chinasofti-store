@@ -15,5 +15,4 @@ public class MyException extends Exception {
         super(message);
         this.code=code;
     }
-
 }
