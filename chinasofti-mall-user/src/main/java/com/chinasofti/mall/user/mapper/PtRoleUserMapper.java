@@ -1,9 +1,11 @@
 package com.chinasofti.mall.user.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.chinasofti.mall.common.entity.ptroleuser.PtRoleUser;
 import com.chinasofti.mall.common.entity.ptroleuser.PtRoleUserExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface PtRoleUserMapper {
     int countByExample(PtRoleUserExample example);
@@ -23,4 +25,7 @@ public interface PtRoleUserMapper {
     int updateByExampleSelective(@Param("record") PtRoleUser record, @Param("example") PtRoleUserExample example);
 
     int updateByExample(@Param("record") PtRoleUser record, @Param("example") PtRoleUserExample example);
+    
+    int updateByUserIds(PtRoleUser ptRoleUser);
+    
 }

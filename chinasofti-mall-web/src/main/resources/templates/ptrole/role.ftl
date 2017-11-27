@@ -15,7 +15,7 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-group-key" onclick="menuTree()" plain="true">角色权限</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-group-key" onclick="menuTree()" plain="true">角色操作</a>
         </div>
 	</div>
     
@@ -455,6 +455,3 @@ $(function(){
 		});
 	}
 </script>
-
-
-

@@ -30,4 +30,7 @@ public interface PyMainGoodsorderMapper {
     int updateByPrimaryKey(PyMainGoodsorder record);
     
     List<PyMainGoodsorder> selectByMainorderCondition(MainorderCondition mainorderCondition);
+    
+    //批量插人主订单
+    int batchInsertPyMainGoodsorder(@Param("mainList") List<PyMainGoodsorder> mainList);
 }

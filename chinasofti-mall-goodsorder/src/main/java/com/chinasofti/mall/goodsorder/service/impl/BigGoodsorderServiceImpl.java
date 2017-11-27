@@ -59,4 +59,9 @@ public class BigGoodsorderServiceImpl implements BigGoodsorderService {
 		return bigGoodsorderMapper.selectByExample(example);
 	}
 
+	@Override
+	public PyBigGoodsorder selectByIds(String ids) {
+		return bigGoodsorderMapper.selectByPrimaryKey(ids);
+	}
+
 }

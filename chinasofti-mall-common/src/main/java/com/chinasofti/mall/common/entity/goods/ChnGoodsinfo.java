@@ -87,7 +87,9 @@ public class ChnGoodsinfo extends PageBean{
     //商品数量指购买
     private BigDecimal goodsNum;
     
-    private String checked;
+    private Boolean checked;
+    //此goodsId主要是用来区分购物车中的序号Id和商品id的（在商品实体中可以忽略）
+    private String goodsId;
 
     public String getIds() {
         return ids;
@@ -417,13 +419,24 @@ public class ChnGoodsinfo extends PageBean{
 		this.goodsNum = goodsNum;
 	}
 
-	public String getChecked() {
+	public Boolean getChecked() {
 		return checked;
 	}
 
-	public void setChecked(String checked) {
+	public void setChecked(Boolean checked) {
 		this.checked = checked;
 	}
+
+	public String getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(String goodsId) {
+		this.goodsId = goodsId;
+	}
+
+
+
 
 	
 }

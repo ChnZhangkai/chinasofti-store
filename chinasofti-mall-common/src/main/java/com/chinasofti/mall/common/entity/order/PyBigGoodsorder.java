@@ -4,45 +4,56 @@ import java.math.BigDecimal;
 
 public class PyBigGoodsorder {
     private String ids;
-
+    /** *  订单流水号 */
     private String transactionid;
-
+    
     private String orderDate;
-
+    /** *  订单的真实收税金额 */
     private BigDecimal orderRealAmt;
-
+    /** *  订单折扣 */
     private BigDecimal discount;
-
+    /** *  订单的全部收税金额 */
     private BigDecimal orderTotalAmt;
-
+    /** *  商品的全部收税金额 */
     private BigDecimal goodsTotalAmt;
-
+    /** *  订单的用户ids */
     private String userIds;
-
+    /** *  订单的状态  0 无效 1 有效*/
     private String status;
-
+    /** *  订单的支付方式 */
     private String payway;
-
+    /** *  订单的支付状态 0 未支付 1 已支付  2 已取消*/
     private String payStatus;
-
+    /** *  订单的检查状态 */
     private String checkingStatus;
-
+    /** *  订单的确认时间 */
     private String checkDate;
-
+    /** *  订单处理的批次 */
     private String checkBatchNo;
-
+    /** *  订单微信手续费 */
     private BigDecimal wxFee;
-
+    /** *  订单付款时间 */
     private String payTime;
-
+    /** *  订单是否开发票 */
     private String isTicket;
-
+    /** *  订单的发票类型 */
     private String invoiceType;
-
+    /** *  订单的发票抬头 */
     private String invoiceTitle;
-
+    /** *  订单的发票地址 */
     private String invoiceAddress;
-
+    /** *  订单状态 1 有效*/
+    public static final String STATUS_ABLE = "1";
+    /** *  订单状态 0 无效*/
+    public static final String STATUS_UNABLE = "0";
+    /** *  订单的支付状态 0 未支付 */
+    public static final String PAY_STATUS_NOT = "0";
+    /** *  订单的支付状态 1 已支付 */
+    public static final String PAY_STATUS_OK = "1";
+    /** *  订单的支付状态 2 已取消 */
+    public static final String PAY_STATUS_CANCLE = "2";
+    
+    
     public String getIds() {
         return ids;
     }
@@ -202,4 +213,7 @@ public class PyBigGoodsorder {
     public void setInvoiceAddress(String invoiceAddress) {
         this.invoiceAddress = invoiceAddress == null ? null : invoiceAddress.trim();
     }
+    
+
+    
 }

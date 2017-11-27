@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.utils.StringDateUtil;
+import com.chinasofti.mall.goodsorder.handler.MyException;
 import com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 import com.github.pagehelper.Page;
@@ -30,6 +31,10 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	
 	@Autowired
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
+	
+	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList)throws MyException{
+		return mainGoodsorderMapper.batchInsertPyMainGoodsorder(mainList);
+	}
 
 	@Override
 	public int save(PyMainGoodsorder mainGoodsorder) {
@@ -101,6 +106,20 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());
 		
 		return js;
+	}
+
+	@Override
+	public PyMainGoodsorder selectBybigorderId(String bigorderId) {
+		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
+		example.createCriteria().andBigorderIdEqualTo(bigorderId);
+		return mainGoodsorderMapper.selectByExample(example).get(0);
+	}
+
+	@Override
+	public List<PyMainGoodsorder> selectByUserIds(String userIds) {
+		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
+		example.createCriteria().andUserIdsEqualTo(userIds);
+		return mainGoodsorderMapper.selectByExample(example);
 	}
 
 }

@@ -67,5 +67,17 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 			}
 			return response;
 		}
+		/**
+	     * 根据关键字查询商品列表
+	     * @param record
+	     * @return
+	     */
+		@Override
+		public ResponseInfo selectByNameOrother(ChnGoodsinfo record) {
+			ResponseInfo  response= new ResponseInfo();
+			List<ChnGoodsinfo> result = goodsinfoMapper.selectByNameOrother(record);
+			response = dealAdResponseData(result);
+			return response;
+		}
 
 }

@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.GoodsClassFeignClient;
 import com.chinasofti.mall.common.utils.ResponseInfo;
-
+/**
+ * 主要查询商品分类的通用接口（一二级分类）
+ * @author gezhenlin
+ * @Date: 2017年11月15日 上午10:38:45
+ */
 @RestController
 @RequestMapping("goodsClass")
 public class GoodsClassController {

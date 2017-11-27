@@ -14,12 +14,15 @@ import com.chinasofti.mall.common.entity.PtOperator;
 import com.chinasofti.mall.common.entity.PtOperatorExample;
 import com.chinasofti.mall.common.entity.PtOperatorExample.Criteria;
 import com.chinasofti.mall.common.entity.PtRole;
+import com.chinasofti.mall.common.entity.PtRoleExample;
 import com.chinasofti.mall.common.entity.PtRoleOperator;
 import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.user.mapper.PtMenuMapper;
 import com.chinasofti.mall.user.mapper.PtOperatorMapper;
 import com.chinasofti.mall.user.mapper.PtRoleMapper;
 import com.chinasofti.mall.user.service.PtRoleService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 import net.sf.json.JSONObject;
 
@@ -75,7 +78,7 @@ public class PtRoleServiceImpl implements PtRoleService {
 		Tree tree = null;
 		List<Tree> list = new ArrayList<Tree>();
 		//一级菜单
-		List<PtMenu> menus = ptMenuMapper.selectByPid("000");
+		List<PtMenu> menus = ptMenuMapper.selectByPid("00");
 		for (PtMenu ptMenu : menus) {
 			tree = getTree(ptMenu);
 			//二级菜单
@@ -83,14 +86,20 @@ public class PtRoleServiceImpl implements PtRoleService {
 			for (PtMenu ptMenu2 : menus2) {
 				Tree tree2 = getTree(ptMenu2);
 				//三级菜单 操作
-				PtOperatorExample example = new PtOperatorExample();
-				Criteria criteria = example.createCriteria();
-				criteria.andMenuidsEqualTo(ptMenu2.getIds());
-				List<PtOperator> operators = ptOperatorMapper.selectByExample(example);
-				for (PtOperator ptOperator : operators) {
-					Tree tree3 = getOperatorTree(ptOperator);
-					if (roleOperators.contains(ptOperator)) {
-						tree3.setChecked(true);
+				List<PtMenu> menus3 = ptMenuMapper.selectByPid(ptMenu2.getIds());
+				for (PtMenu ptMenu3 : menus3) {
+					Tree tree3 = getTree(ptMenu3);
+					PtOperatorExample example = new PtOperatorExample();
+					Criteria criteria = example.createCriteria();
+					criteria.andMenuidsEqualTo(ptMenu3.getIds());
+					//查询对应操作
+					List<PtOperator> operators = ptOperatorMapper.selectByExample(example);
+					for (PtOperator ptOperator : operators) {
+						Tree tree4 = getOperatorTree(ptOperator);
+						if (roleOperators.contains(ptOperator)) {
+							tree4.setChecked(true);
+						}
+						tree3.getChildren().add(tree4);
 					}
 					tree2.getChildren().add(tree3);
 				}
@@ -189,5 +198,23 @@ public class PtRoleServiceImpl implements PtRoleService {
 	@Override
 	public int deleteByPrimaryKey(String ids) {
 		return ptRoleMapper.deleteByPrimaryKey(ids);
+	}
+
+	@Override
+	public JSONObject selectByExample(PtRole ptRole) {
+		
+		JSONObject js = new JSONObject();
+		PtRoleExample example = new PtRoleExample();
+		
+		if (ptRole.getPageNumber() != 0 && ptRole.getPageSize() != 0) {
+			PageHelper.startPage(ptRole.getPageNumber(),ptRole.getPageSize());
+		}else{
+			PageHelper.startPage(ptRole.getPage(), ptRole.getRows());
+		}
+		List<PtRole> list = ptRoleMapper.selectByExample(example);
+		
+		js.put("rows", list);
+		js.put("total", ((Page<PtRole>)list).getTotal());
+		return js;
 	}
 }

@@ -123,10 +123,17 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from chn_goodsinfo
-    where IDS = #{ids,jdbcType=VARCHAR}
+    SELECT 
+    g.`IDS`,g.`VENDORIDS`,g.`TITLE`,g.`COMMON`,g.`PRICE`,g.`DIS_PRICE`,g.`GOODS_CLASS_IDS` ,
+    g.`STANDARD` ,g.`CONTENT`, g.`STORE_NUM`, g.`REVIEW_DESC`, g.`REVIEW_STATUES`, g.`REVIEW_TIME`, 
+    g.`UPDATE_BY`, g.`UPDATE_TIME`,g.`CREATE_BY`, g.`CREATE_TIME`,g.`COLL_NUM` ,g.`STATUS`, g.`IS_DIS_STORE`,
+    g.`START_TIME`, g.`END_TIME`, g.`ONLINE_TIME`, g.`LEAVE_TIME`, g.`BRAND_IDS`, g.`WEIGHT`, g.`DELIVE_WAY`, 
+    g.`IS_DIS_VERDORNAME`, g.`IS_DIS_STANDARD`, g.`LIMIT_ORDER_NUM`,g.`REVIEW_BY`, g.`REVIEW_TIME`, 
+    g.`TOTAL_TRADE`, g.`LIMIT_USER_NUM`, g.`ORG_PRICE`,g.`TYPE`, g.`ISSHOW`, m.`VENDOR_SNM`, m.`PHONE`,
+     m.`VENDER_INTRO`, m.`VENDER_EXPLAIN`, f.`FILEPATH`
+   FROM chn_goodsinfo g ,sp_merchant_user m, goods_file f 
+   WHERE g.`VENDORIDS`=m.`VENDOR_ID` AND g.`IDS`=f.`GOODSIDS` 
+    AND g.ids = #{ids,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from chn_goodsinfo
@@ -754,5 +761,16 @@
     from chn_goodsinfo
     where GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR}
   </select>
-  
+   <select id="selectByNameOrother" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chn_goodsinfo
+    where 1=1 
+    <if test ="title !=null">
+     and TITLE like #{%title% ,jdbcType=VARCHAR} 
+    </if>
+    <if test="goodsClassIds != null">
+     and   GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR},
+    </if>
+  </select>
 </mapper>

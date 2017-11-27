@@ -1,17 +1,27 @@
 <script type="text/javascript" src="js/common.js"></script>
-<div class="easyui-layout" data-options="fit:true" style="padding:4px;">
-    
-    <div style="padding:4px;">
-		<ul id="menuOperator" class="easyui-tree"></ul>
+	<div class="easyui-layout" data-options="fit:true" style="padding:4px;overflow:auto">
+	    
+	    <!-- 角色操作菜单树 -->
+	    <div style="padding:4px;height: 300px">
+			<ul id="menuOperator" class="easyui-tree" style="height: 300px"></ul>
+		</div>
+		
+		<!-- 父节点操作(包含添加) -->
+		<div id="menuOperatorMenu" class="easyui-menu" style="width:120px;" data-options="onClick:menuHandler">
+		    <div data-options="iconCls:'icon-add',name:'add'">添加</div>
+		    <div class="menu-sep"></div>
+		    <div data-options="iconCls:'icon-edit',name:'rename'">重命名</div>
+		    <div class="menu-sep"></div>
+		    <div data-options="iconCls:'icon-remove',name:'delete'">删除</div>
+		</div>
+		
+		<!-- 底层节点操作 -->
+		<div id="menuOperatorMenu2" class="easyui-menu" style="width:120px;" data-options="onClick:menuHandler">
+		    <div data-options="iconCls:'icon-edit',name:'rename'">重命名</div>
+		    <div class="menu-sep"></div>
+		    <div data-options="iconCls:'icon-remove',name:'delete'">删除</div>
+		</div>
 	</div>
-	<div id="menuOperatorMenu" class="easyui-menu" style="width:120px;" data-options="onClick:menuHandler">
-	    <div data-options="iconCls:'icon-add',name:'add'">添加</div>
-	    <div class="menu-sep"></div>
-	    <div data-options="iconCls:'icon-edit',name:'rename'">重命名</div>
-	    <div class="menu-sep"></div>
-	    <div data-options="iconCls:'icon-remove',name:'delete'">删除</div>
-	</div>
-</div>   
 
 <script type="text/javascript">
 	$(function(){
@@ -24,15 +34,24 @@
 			method : "GET",
 			//鼠标右击事件,e为当前事件对象，node为当前点击事件所在的tree节点
 			onContextMenu: function(e,node){
-				//屏蔽系统默认的菜单右键事件
-	            e.preventDefault();
-				//让当前点击的树节点选中---select选中方法
-	            $(this).tree('select',node.target);
-				//让id=menuOperatorMenu的标签显示对应的EasyUI菜单界面,固定当前弹出的菜单坐标
-	            $('#menuOperatorMenu').menu('show',{
-	                left: e.pageX,
-	                top: e.pageY
-	            });
+					//屏蔽系统默认的菜单右键事件
+		            e.preventDefault();
+					//让当前点击的树节点选中---select选中方法
+		            $(this).tree('select',node.target);
+					
+				if($(this).tree('getParent',node.target)!=null && $(this).tree('getChildren',node.target).length>0){
+				
+					//让id=menuOperatorMenu的标签显示对应的EasyUI菜单界面,固定当前弹出的菜单坐标
+		            $('#menuOperatorMenu').menu('show',{
+		                left: e.pageX,
+		                top: e.pageY
+		            });
+				}else{
+					$('#menuOperatorMenu2').menu('show',{
+		                left: e.pageX,
+		                top: e.pageY
+		            });
+				}
 	        },
 	        //编辑完成之后执行如下操作
 	        onAfterEdit : function(node){
