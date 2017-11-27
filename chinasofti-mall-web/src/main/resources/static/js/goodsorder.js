@@ -144,6 +144,7 @@ function venderIdChoose(){
  * 主订单按钮
  */
 function mainBtnFormatter(value, row, index) {
+	alert(index);
 	var lookBtn ='<button style="background:#51A351" onclick="mainorderLook('+ index +')">' 
 					+ '<span style="color: #FFFFFF">查看</span></button><br>'
 					+ '<button style="background:#772953" onclick="checkChildorder('+ index +')">' 
@@ -313,5 +314,59 @@ function approveStatusFormatter(value, row, index) {
 		return '<span>售后成功</span>';
 	}else {
 		return '<span>未申请售后</span>';
+	}
+}
+
+/**
+ * 主订单导出Excel
+ * */
+function mainOrderExport(){
+	var minTime = $('#mainorder-minPayTime').val();
+	var maxTime = $('#mainorder-maxPayTime').val();
+	minTime = minTime.replace(new RegExp("-","gm"),"/");
+	var startTimeHaoMiao = (new Date(minTime)).getTime(); //得到毫秒数
+	maxTime = maxTime.replace(new RegExp("-","gm"),"/");
+	var endTimeHaoMiao =(new Date(maxTime)).getTime(); //得到毫秒数
+	if (minTime > maxTime){
+		$.messager.alert('系统消息','结束时间必须大于开始时间!','info');
+	} else if(minTime == ''){
+		$.messager.alert('系统消息','请选择订单开始时间!','info');
+	}else if((endTimeHaoMiao-startTimeHaoMiao) > 7948827000){
+		$.messager.alert('系统消息','查询时间段不能超过3月,请重新选择开始和结束时间!','info');
+	}else{
+		window.location.href='mainorder/export?model=jxls/mainOrderManage.xls'; 
+	}
+}
+
+/**
+ * 大订单导出Excel
+ * */
+function bigOrderExport(){
+	var minTime = $('#mainorder-minPayTime').val();
+	var maxTime = $('#mainorder-maxPayTime').val();
+	minTime = minTime.replace(new RegExp("-","gm"),"/");
+	var startTimeHaoMiao = (new Date(minTime)).getTime(); //得到毫秒数
+	maxTime = maxTime.replace(new RegExp("-","gm"),"/");
+	var endTimeHaoMiao =(new Date(maxTime)).getTime(); //得到毫秒数
+	if (minTime > maxTime){
+		$.messager.alert('系统消息','结束时间必须大于开始时间!','info');
+	} else if(minTime == ''){
+		$.messager.alert('系统消息','请选择订单开始时间!','info');
+	}else if((endTimeHaoMiao-startTimeHaoMiao) > 7948827000){
+		$.messager.alert('系统消息','查询时间段不能超过3月,请重新选择开始和结束时间!','info');
+	}else{
+		window.location.href='mainorder/export?model=jxls/mainOrderManage.xls'; 
+	}
+}
+
+/**
+ * 子订单导出Excel
+ * */
+function childOrderExport(){
+	var mainOrderIds = $('#childorder-mainorderIds').val();
+	if('' == mainOrderIds){
+		$.messager.alert('系统消息','主订单不能为空!','info');
+	}else{
+		window.location.href='childorder/export?model=jxls/childOrderManage.xls';
 	}
 }

@@ -17,7 +17,7 @@ public interface PyMainGoodsorderMapper {
 
     int insertSelective(PyMainGoodsorder record);
 
-    List<PyMainGoodsorder> selectByExample(PyMainGoodsorderExample example);
+    List<PyMainGoodsorder> selectByExample(PyMainGoodsorder mainGoodsorder);
 
     PyMainGoodsorder selectByPrimaryKey(String ids);
 

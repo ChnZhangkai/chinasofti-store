@@ -1,17 +1,24 @@
 package com.chinasofti.mall.web.entrance.controller;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
+import com.chinasofti.mall.common.utils.JxlsExcelView;
 import com.chinasofti.mall.web.entrance.feign.MainGoodsorderFeign;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -61,7 +68,7 @@ public class MainGoodsorderController {
 	* @return List<PyMainGoodsorder>
 	* @throws
 	*/
-	@RequestMapping(value="list", method = RequestMethod.POST)
+	@RequestMapping(value="/list", method = RequestMethod.POST)
 	public String selectAll(PyMainGoodsorder mainGoodsorder){
 		JSONObject jsonlist = mainGoodsorderFeign.selectByMainorderClass(mainGoodsorder);
 		return jsonlist.toString();
@@ -114,6 +121,71 @@ public class MainGoodsorderController {
 	public String selectByMainorderCondition(MainorderCondition mainorderCondition){
 		JSONObject jsonlist = mainGoodsorderFeign.selectByMainorderCondition(mainorderCondition);
 		return jsonlist.toString();
+	}
+	
+	
+	/**
+	 * 商品主订单导出
+	 * @param PyMainGoodsorder
+	 * @return
+	 * */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/export")
+	 public ModelAndView export(@RequestParam("model") String model, PyMainGoodsorder mainGoodsorder)  { 
+		// 1：准备数据  
+		JSONObject jsonlist = mainGoodsorderFeign.selectByMainorderClass(mainGoodsorder);
+	    //JsonObject格式 转List格式
+	    JSONArray jsonArray = jsonlist.getJSONArray("rows");
+	    List<PyMainGoodsorder> mainOrderList = (List<PyMainGoodsorder>) JSONArray.toCollection(jsonArray, PyMainGoodsorder.class);
+	     System.out.println("订单："+mainOrderList);
+	    for (PyMainGoodsorder order : mainOrderList) {
+	    	   //订单状态
+	        	if ("0".equals(order.getStatus())) {
+	        		order.setStatus("已删除");
+				}else if ("1".equals(order.getStatus())) {
+					order.setStatus("未发货");
+				}else if ("2".equals(order.getStatus())) {
+					order.setStatus("已发货");
+				}else if ("3".equals(order.getStatus())) {
+					order.setStatus("已收货");
+				}
+	        	//支付状态
+	        	if("0".equals(order.getPayStatus())){
+	        		order.setPayStatus("未支付");
+	        	}else if("1".equals(order.getPayStatus())){
+	        		order.setPayStatus("已支付");
+	        	}else if("2".equals(order.getPayStatus())){
+	        		order.setPayStatus("已取消");
+	        	}
+	        	//订单类型
+	        	if("0".equals(order.getPayway())){
+	        		order.setPayStatus("未支付");
+	        	}else if("1".equals(order.getPayStatus())){
+	        		order.setPayStatus("已支付");
+	        	}
+	        	//支付渠道
+	        	if ("1".equals(order.getPayway())) {
+					order.setPayway("微信");
+				}else if("".equals(order.getPayway())){
+					order.setPayway("支付宝");
+				}
+	        	//清算状态
+	        	if ("0".equals(order.getSettleStatues())) {
+	        		order.setSettleStatues("未清算");
+				}else if("1".equals(order.getSettleStatues())){
+					order.setSettleStatues("清算成功");
+				}else if("2".equals(order.getSettleStatues())){
+					order.setSettleStatues("清算失败");
+				}else if("3".equals(order.getSettleStatues())){
+					order.setSettleStatues("清算中...");
+				}
+			}
+	        // 2：数据放置到jxls需要的map中  
+	        Map<String,Object> modal = new HashMap<String,Object>();    
+	        modal.put("mainOders", mainOrderList);
+	          
+	        // 3：导出文件  
+	        return new ModelAndView(new JxlsExcelView(model,"主订单管理"), modal);  	
 	}
 
 }
