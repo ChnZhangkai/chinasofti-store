@@ -41,8 +41,8 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		return pyShoppingCartMapper.insert(t);
 	}
 
-	public int update(PyShoppingCart t) {
-		return pyShoppingCartMapper.updateByPrimaryKey(t);
+	public int update(PyShoppingCart goods) {
+		return pyShoppingCartMapper.updateByPrimaryKey(goods);
 	}
 
 	@Override
@@ -136,14 +136,12 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	}
 
 	@Override
-	public ResponseInfo updatePyShoppingCart(List<PyShoppingCart>goodsList) {
+	public ResponseInfo updatePyShoppingCart(PyShoppingCart goodsInfo) {
 		ResponseInfo responseInfo = new ResponseInfo();
-			if(goodsList.size()>0){
-			for(int i=0;goodsList.size()>i;i++){
-				PyShoppingCart goods = goodsList.get(i);
-				
-				this.update(goods);
-			}
+			if(goodsInfo != null){
+			
+				this.update(goodsInfo);
+				logger.info(goodsInfo.toString());
 				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 				responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 			}else{

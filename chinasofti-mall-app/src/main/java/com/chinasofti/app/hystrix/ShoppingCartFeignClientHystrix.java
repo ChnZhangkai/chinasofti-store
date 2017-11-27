@@ -23,7 +23,7 @@ public class ShoppingCartFeignClientHystrix implements ShoppingCartFeignClient{
 	}
 
 	@Override
-	public ResponseInfo updatePyShoppingCart(List<PyShoppingCart> goodsList) {
+	public ResponseInfo updatePyShoppingCart(PyShoppingCart goodsInfo) {
 		return new ResponseInfo();
 	}
 
