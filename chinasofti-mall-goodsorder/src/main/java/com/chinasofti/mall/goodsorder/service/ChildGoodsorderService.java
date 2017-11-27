@@ -2,12 +2,13 @@ package com.chinasofti.mall.goodsorder.service;
 
 
 
-
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.service.IBaseService;
+import com.chinasofti.mall.goodsorder.handler.MyException;
 
 import net.sf.json.JSONObject;
 
@@ -33,4 +34,7 @@ public interface ChildGoodsorderService extends IBaseService<PyChildGoodsorder> 
 	public JSONObject selectByChildorderCondition(ChildorderCondition childorderCondition);
 	
 	public List<PyChildGoodsorder> selectByMainorderIds(String mainorderIds);
+	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList)throws MyException;
+	
+	public BigDecimal selectGoodsNum(String goodsId)throws MyException;
 }
