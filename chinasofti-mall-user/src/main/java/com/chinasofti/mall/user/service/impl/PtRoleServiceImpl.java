@@ -78,7 +78,7 @@ public class PtRoleServiceImpl implements PtRoleService {
 		Tree tree = null;
 		List<Tree> list = new ArrayList<Tree>();
 		//一级菜单
-		List<PtMenu> menus = ptMenuMapper.selectByPid("000");
+		List<PtMenu> menus = ptMenuMapper.selectByPid("00");
 		for (PtMenu ptMenu : menus) {
 			tree = getTree(ptMenu);
 			//二级菜单
@@ -86,14 +86,20 @@ public class PtRoleServiceImpl implements PtRoleService {
 			for (PtMenu ptMenu2 : menus2) {
 				Tree tree2 = getTree(ptMenu2);
 				//三级菜单 操作
-				PtOperatorExample example = new PtOperatorExample();
-				Criteria criteria = example.createCriteria();
-				criteria.andMenuidsEqualTo(ptMenu2.getIds());
-				List<PtOperator> operators = ptOperatorMapper.selectByExample(example);
-				for (PtOperator ptOperator : operators) {
-					Tree tree3 = getOperatorTree(ptOperator);
-					if (roleOperators.contains(ptOperator)) {
-						tree3.setChecked(true);
+				List<PtMenu> menus3 = ptMenuMapper.selectByPid(ptMenu2.getIds());
+				for (PtMenu ptMenu3 : menus3) {
+					Tree tree3 = getTree(ptMenu3);
+					PtOperatorExample example = new PtOperatorExample();
+					Criteria criteria = example.createCriteria();
+					criteria.andMenuidsEqualTo(ptMenu3.getIds());
+					//查询对应操作
+					List<PtOperator> operators = ptOperatorMapper.selectByExample(example);
+					for (PtOperator ptOperator : operators) {
+						Tree tree4 = getOperatorTree(ptOperator);
+						if (roleOperators.contains(ptOperator)) {
+							tree4.setChecked(true);
+						}
+						tree3.getChildren().add(tree4);
 					}
 					tree2.getChildren().add(tree3);
 				}
