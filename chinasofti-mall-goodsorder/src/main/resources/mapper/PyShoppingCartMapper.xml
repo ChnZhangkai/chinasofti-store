@@ -10,7 +10,7 @@
     <result column="GOODS_NUM" property="goodsNum" jdbcType="DECIMAL" />
     <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
     <result column="PAY_STATUS" property="payStatus" jdbcType="VARCHAR" />
-    <result column="CHECKED" property="checked" jdbcType="VARCHAR" />
+    <result column="CHECKED" property="checked" jdbcType="BOOLEAN" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.mall.common.entity.order.PyShoppingCart" extends="BaseResultMap" >
     <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
@@ -51,7 +51,7 @@
       ATTR)
     values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{vendorId,jdbcType=VARCHAR}, 
       #{goodsId,jdbcType=VARCHAR}, #{goodsPayIds,jdbcType=VARCHAR}, #{goodsNum,jdbcType=DECIMAL}, 
-      #{createTime,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR}, #{checked,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR}, #{checked,jdbcType=BOOLEAN}, 
       #{attr,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
@@ -114,7 +114,7 @@
         #{payStatus,jdbcType=VARCHAR},
       </if>
       <if test="checked != null" >
-        #{checked,jdbcType=VARCHAR},
+        #{checked,jdbcType=BOOLEAN},
       </if>
       <if test="attr != null" >
         #{attr,jdbcType=LONGVARCHAR},
@@ -146,7 +146,7 @@
         PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
       </if>
       <if test="checked != null" >
-        CHECKED = #{checked,jdbcType=VARCHAR},
+        CHECKED = #{checked,jdbcType=BOOLEAN},
       </if>
       <if test="attr != null" >
         ATTR = #{attr,jdbcType=LONGVARCHAR},
@@ -163,7 +163,7 @@
       GOODS_NUM = #{goodsNum,jdbcType=DECIMAL},
       CREATE_TIME = #{createTime,jdbcType=VARCHAR},
       PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
-      CHECKED = #{checked,jdbcType=VARCHAR},
+      CHECKED = #{checked,jdbcType=BOOLEAN},
       ATTR = #{attr,jdbcType=LONGVARCHAR}
     where IDS = #{id,jdbcType=VARCHAR}
   </update>
@@ -176,7 +176,7 @@
       GOODS_NUM = #{goodsNum,jdbcType=DECIMAL},
       CREATE_TIME = #{createTime,jdbcType=VARCHAR},
       PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
-      CHECKED = #{checked,jdbcType=VARCHAR}
+      CHECKED = #{checked,jdbcType=BOOLEAN}
     where IDS = #{id,jdbcType=VARCHAR}
   </update>
  <select id="getPyShoppingCartListByUserId" resultMap="ResultMapWithVendor"
