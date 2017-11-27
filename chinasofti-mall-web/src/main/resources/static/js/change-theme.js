@@ -4,9 +4,10 @@
 function changeTheme(themeName){  
     var themeCSS = $("#easyuiTheme");  
     var url = themeCSS.attr('href');  
-    console.info(url)
+    //console.info(url)
     var href = url.substring(0, url.indexOf('themes')) + 'themes/' + themeName + '/easyui.css';  
-    themeCSS.attr('href', href);  
+    themeCSS.attr('href', href);
+    
     var iframe = $('iframe');  
     if(iframe.length > 0){  
         for(var i = 0; i < iframe.length; i++){  
