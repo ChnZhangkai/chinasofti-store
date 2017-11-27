@@ -78,7 +78,6 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		List<Map<String, List<ChnGoodsinfo>>>vendorList =new ArrayList<Map<String, List<ChnGoodsinfo>>>();
 		
 		
-		
 		String vendorNm =null;
 		for(VendorShoppingcartVO shopgoods :pyShoppingCartList){
 			 vendorNm = shopgoods.getVendorId()+"#"+shopgoods.getVendorSnm();
@@ -87,7 +86,8 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 				 goodsList= new ArrayList<ChnGoodsinfo>();
 			 }	
 			ChnGoodsinfo buyGoods = new ChnGoodsinfo(); 
-			buyGoods.setIds(shopgoods.getGoodsId());
+			buyGoods.setIds(shopgoods.getId());
+			buyGoods.setGoodsId(shopgoods.getGoodsId());
 			buyGoods.setVendorids(shopgoods.getVendorId());
 			buyGoods.setTitle(shopgoods.getGoodsName());
 			buyGoods.setFilepath(Constant.HOST_URL+shopgoods.getFilepath());
