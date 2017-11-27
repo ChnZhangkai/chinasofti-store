@@ -169,15 +169,16 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     update py_shopping_cart
-    set USERIDS = #{userId,jdbcType=VARCHAR},
-      VENDORID = #{vendorId,jdbcType=VARCHAR},
-      GOODS_IDS = #{goodsId,jdbcType=VARCHAR},
-      GOODS_PAY_IDS = #{goodsPayIds,jdbcType=VARCHAR},
-      GOODS_NUM = #{goodsNum,jdbcType=DECIMAL},
-      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
-      PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
-      CHECKED = #{checked,jdbcType=BOOLEAN}
-    where IDS = #{id,jdbcType=VARCHAR}
+    set 
+      GOODS_NUM = #{goodsNum,jdbcType=DECIMAL}
+    where 1=1
+      and IDS = #{id,jdbcType=VARCHAR}
+     <if test="userId != null" >
+      and  USERIDS = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsId != null" >
+      and  GOODS_IDS = #{goodsId,jdbcType=VARCHAR}
+      </if>
   </update>
  <select id="getPyShoppingCartListByUserId" resultMap="ResultMapWithVendor"
 	parameterType="java.lang.String">

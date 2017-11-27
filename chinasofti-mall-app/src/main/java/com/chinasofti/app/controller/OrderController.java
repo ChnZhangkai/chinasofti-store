@@ -5,11 +5,14 @@ import io.swagger.annotations.ApiOperation;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
@@ -32,7 +35,9 @@ public class OrderController {
 
 	@Autowired
 	private OrderFeignClient orderFeignClient;
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+	
 	/**
 	 * 删除订单
 	 * 只做订单状态修改，并没有删除
@@ -54,11 +59,13 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	@ApiOperation(value = "提交商品信息，保存订单", notes = "报文示例：{'userIds':'1001','goodsList':'[PyChildGoodsorder:{ids:'123',','goodsPrice':'10.00'}......]}")
-	public ResponseInfo saveOrder(@RequestBody JSONObject json, HttpServletResponse response) {
+	@ResponseBody
+	@RequestMapping(value="/add", method = RequestMethod.POST)
+	//@ApiOperation(value="提交订单", notes="报文示例：{'userId':'chin','goodsId':'1001'}")
+	public ResponseInfo saveOrder(@RequestBody JSONObject json,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST");
+		response.setHeader("Access-Control-Allow-Methods","POST");
+		logger.info("********************************************");
 		ResponseInfo responseInfo = orderFeignClient.saveOrder(json);
 		return responseInfo;
 	}

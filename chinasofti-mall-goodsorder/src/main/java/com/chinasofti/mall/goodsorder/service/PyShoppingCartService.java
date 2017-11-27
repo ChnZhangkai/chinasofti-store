@@ -12,7 +12,7 @@ public interface PyShoppingCartService  {
 	
 	public ResponseInfo savePyShoppingCart(List<PyShoppingCart>goodsList);
 
-	public ResponseInfo updatePyShoppingCart(List<PyShoppingCart>goodsList);
+	public ResponseInfo updatePyShoppingCart(PyShoppingCart goodsList);
 	
 	public ResponseInfo deletePyShoppingCartById(List<PyShoppingCart> goodsList);
 	

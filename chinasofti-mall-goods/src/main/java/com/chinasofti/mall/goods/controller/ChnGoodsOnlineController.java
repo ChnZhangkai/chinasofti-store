@@ -1,7 +1,5 @@
 package com.chinasofti.mall.goods.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,16 +56,7 @@ public class ChnGoodsOnlineController {
 	}
 	
 	
-	/**
-	 * 列表及条件查询
-	 * @param chnGoodsOnline
-	 * @return
-	 */
-	@RequestMapping(value = "/getList" , method = RequestMethod.POST)
-	public List<ChnGoodsOnline> getGoodsOnlineList(@RequestBody(required = false)ChnGoodsOnline chnGoodsOnline){
-		return chnGoodsOnlineServiceImpl.getGoodsOnlineList(chnGoodsOnline);
- 
-	}
+
 	
 
 }

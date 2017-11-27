@@ -4,7 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <!-- <script type="text/javascript" src="js/login.js"></script> -->
+<script type="text/javascript" src="/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="css/login.css" />
+<script type="text/javascript">
+	$(function(){
+		if(($.cookie("easyuiThemeName")) == null){
+				$.cookie('easyuiThemeName', 'default',{  
+		             //记住cookie的天数  
+		             expires: 7
+		    });
+			
+		}
+	})
+</script>
 </head>
 <body>
 <h1>中信信用卡后台管理中心<sup>2017</sup></h1>

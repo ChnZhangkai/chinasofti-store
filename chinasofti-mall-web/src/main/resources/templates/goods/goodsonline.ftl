@@ -348,14 +348,8 @@
 	
 	// 导出
 	function exportExcel(){
-	    var temp = document.createElement("form");        
-	    temp.action ="goodsOnline/export"; 
-	    temp.method = "post";    
-	    temp.style.display = "none";
-	 
-	    document.body.appendChild(temp); 
-	    temp.submit();        
- 
+	  
+ 		window.location.href='goodsOnline/export?model=jxls/goodsOnline.xls';  
 	}
 	
 		

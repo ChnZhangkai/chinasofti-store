@@ -41,8 +41,8 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		return pyShoppingCartMapper.insert(t);
 	}
 
-	public int update(PyShoppingCart t) {
-		return pyShoppingCartMapper.updateByPrimaryKey(t);
+	public int update(PyShoppingCart goods) {
+		return pyShoppingCartMapper.updateByPrimaryKey(goods);
 	}
 
 	@Override
@@ -78,7 +78,6 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		List<Map<String, List<ChnGoodsinfo>>>vendorList =new ArrayList<Map<String, List<ChnGoodsinfo>>>();
 		
 		
-		
 		String vendorNm =null;
 		for(VendorShoppingcartVO shopgoods :pyShoppingCartList){
 			 vendorNm = shopgoods.getVendorId()+"#"+shopgoods.getVendorSnm();
@@ -87,7 +86,8 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 				 goodsList= new ArrayList<ChnGoodsinfo>();
 			 }	
 			ChnGoodsinfo buyGoods = new ChnGoodsinfo(); 
-			buyGoods.setIds(shopgoods.getGoodsId());
+			buyGoods.setIds(shopgoods.getId());
+			buyGoods.setGoodsId(shopgoods.getGoodsId());
 			buyGoods.setVendorids(shopgoods.getVendorId());
 			buyGoods.setTitle(shopgoods.getGoodsName());
 			buyGoods.setFilepath(Constant.HOST_URL+shopgoods.getFilepath());
@@ -136,14 +136,12 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	}
 
 	@Override
-	public ResponseInfo updatePyShoppingCart(List<PyShoppingCart>goodsList) {
+	public ResponseInfo updatePyShoppingCart(PyShoppingCart goodsInfo) {
 		ResponseInfo responseInfo = new ResponseInfo();
-			if(goodsList.size()>0){
-			for(int i=0;goodsList.size()>i;i++){
-				PyShoppingCart goods = goodsList.get(i);
-				
-				this.update(goods);
-			}
+			if(goodsInfo != null){
+			
+				this.update(goodsInfo);
+				logger.info(goodsInfo.toString());
 				responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 				responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 			}else{

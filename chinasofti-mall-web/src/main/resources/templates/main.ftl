@@ -1,17 +1,20 @@
+<html>
 <head>
 <meta charset="UTF-8">
 <title>后台界面</title>
-<link rel="stylesheet" type="text/css" href="/css/themes/default/easyui.css" />
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/themes/<%=easyuiThemeName%>/easyui.css" id="easyuiTheme"/>
 <link rel="stylesheet" type="text/css" href="/css/zk.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/myicon.css" />
-<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" src="/js/change-theme.js"></script>
 <script type="text/javascript" src="/js/menu.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
 </head>
 
 <body class="easyui-layout" id="mainPanel">
@@ -45,7 +48,28 @@
 					onclick="swicthOperationCenter()">运营中心</div>
 				<div data-options="iconCls:'icon-wechat'"
 					onclick="swicthWechatCenter()">微信平台</div>
-			</div>	
+			</div>
+			<button href="javascript:void(0)" id="controlPanel" class="easyui-menubutton"
+				data-options="menu:'#mm3',iconCls:'icon-setting-blue'"
+				style="background-color: white;">控制面板</button>
+			<div id="mm3" style="width: 150px;">
+				<!-- <div data-options="iconCls:'icon-house'" onclick="switchMain()">皮肤切换</div> -->
+				<div data-options="iconCls:'icon-color'">
+					<span>皮肤切换</span>
+					<div>
+						<div onclick="changeTheme('default');">default</div>  
+				       <div onclick="changeTheme('black');">black</div>  
+				       <div onclick="changeTheme('bootstrap');">bootstrap</div>  
+				       <div onclick="changeTheme('gray');">gray</div>  
+				       <div onclick="changeTheme('metro');">metro</div>  
+				       <div onclick="changeTheme('ui-cupertino');">cupertino</div>  
+				       <div onclick="changeTheme('ui-dark-hive');">dark-hive</div>  
+				       <div onclick="changeTheme('ui-pepper-grinder');">pepper-grinder</div>  
+				       <div onclick="changeTheme('ui-sunny');">sunny</div>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 
@@ -72,3 +96,4 @@
 		后台测试界面, 粤ICP备14024044号-2, All Rights Reserved.</div>
 
 </body>
+</html>
