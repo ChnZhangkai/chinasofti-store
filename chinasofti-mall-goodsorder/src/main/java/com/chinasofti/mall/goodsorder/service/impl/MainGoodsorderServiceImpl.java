@@ -93,6 +93,8 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 
 		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
+		PageHelper.startPage(mainGoodsorder.getPageNumber(),mainGoodsorder.getPageSize());
+		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(null);
 
 		js.put("rows", list);
 		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());

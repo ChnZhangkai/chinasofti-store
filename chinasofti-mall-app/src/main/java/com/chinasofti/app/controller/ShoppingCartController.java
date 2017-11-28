@@ -71,10 +71,10 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="/mod/goods", method = RequestMethod.POST)
 	@ApiOperation(value="修改购物车商品数量", notes="报文示例：{\"goodsList\":{\"goodsList\":[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]}")
-	public ResponseInfo updatePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
+	public ResponseInfo updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods","POST");
-		ResponseInfo responseInfo = shoppingCartFeignClient.updatePyShoppingCart(goodsList);
+		ResponseInfo responseInfo = shoppingCartFeignClient.updatePyShoppingCart(goodsInfo);
 		return responseInfo;
 	}
 	

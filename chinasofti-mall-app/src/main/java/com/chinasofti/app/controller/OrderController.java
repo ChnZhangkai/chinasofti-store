@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.app.feign.OrderFeignClient;
-import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
@@ -106,12 +105,12 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
-	@ApiOperation(value = "取消订单", notes = "报文示例：{'orderId':'1001','userId':'chin'}")
-	public ResponseInfo cancelOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder, HttpServletResponse response) {
+	@RequestMapping(value = "/cancel")
+	@ApiOperation(value = "取消订单", notes = "报文示例：{'orderId':'020d900b821440dab33fc2d0a2615cf6'}")
+	public ResponseInfo cancelOrder(@RequestParam("orderId") String orderId, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
-		ResponseInfo responseInfo = orderFeignClient.cancelOrder(pyBigGoodsorder);
+		ResponseInfo responseInfo = orderFeignClient.cancelOrder(orderId);
 		return responseInfo;
 	}
 
