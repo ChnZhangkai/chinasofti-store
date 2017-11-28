@@ -33,9 +33,12 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	@Autowired
 	private PyChildGoodsorderMapper childGoodsorderMapper;
 	
-	
-	public int insertChildGoodsorders(List<PyChildGoodsorder> childList){
-		return childGoodsorderMapper.batchInsertPyChildGoodsorder(childList);
+	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList){
+		int count = 0;
+		for(PyChildGoodsorder pyChildGoodsorder:childList){
+			count += childGoodsorderMapper.batchInsertPyChildGoodsorder(pyChildGoodsorder);
+		}
+		return count;
 		
 	}
 	public SpSendAddress queryAddress(String addressId){

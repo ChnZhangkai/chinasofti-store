@@ -29,13 +29,11 @@ public class SpUserController {
 	@RequestMapping(value="/signUp" , method = RequestMethod.POST)
 	public ResponseInfo signUp(@RequestBody SpUser spUser,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spUserFeignClient.signUp(spUser); 
 	}
 	@RequestMapping(value="/signIn" , method = RequestMethod.POST)
 	public ResponseInfo signIn(@RequestBody SpUser spUser,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
 		logger.info(spUser.toString());
 		return spUserFeignClient.signIn(spUser);
 		//return null;
