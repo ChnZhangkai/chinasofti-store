@@ -22,6 +22,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
 		</div>
 	</div>
+	
 	<!-- 数据显示datagrid -->
 	<table id="goodsinfo" class="easyui-datagrid" toolbar="#wu-toolbar-2" style="height: 95%">
 		<thead>

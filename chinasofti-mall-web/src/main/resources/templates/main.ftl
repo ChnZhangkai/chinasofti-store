@@ -18,6 +18,7 @@
 </head>
 
 <body class="easyui-layout" id="mainPanel">
+
 	<!--上部展示位置-->
 	<div class="zk-header"
 		data-options="region:'north',border:false,split:true">

@@ -18,6 +18,7 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-group-key" onclick="menuTree()" plain="true">角色操作</a>
         </div>
 	</div>
+    
 	<!-- 数据显示datagrid -->
 	<table id="ptroleinfo" class="easyui-datagrid" title="角色列表"
 			data-options="singleSelect:true,collapsible:true" style="height: 85%">

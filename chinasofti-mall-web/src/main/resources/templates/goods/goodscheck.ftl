@@ -43,6 +43,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-chk-checked" id="doCheck" onclick="doCheck(this)" plain="true">商品审核</a>
 		</div>
 	</div>
+
 	<!-- 数据显示datagrid -->
 	<table id="goodscheck" class="easyui-datagrid" toolbar="#wu-toolbar-3"
 		style="height: 95%">

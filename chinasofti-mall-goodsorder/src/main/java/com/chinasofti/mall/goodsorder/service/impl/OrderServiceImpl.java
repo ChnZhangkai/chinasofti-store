@@ -260,7 +260,7 @@ public class OrderServiceImpl implements OrderService {
 		return responseInfo;
 	}
 	
-	//组装订单信息
+	//组装订单信息 
 	private List<PyChildGoodsorder> getOrderInfo(SpSendAddress address,String orderCreateTime,String bigOrderNo,JSONObject json) throws GoodsNumNotFondException{
 		PyMainGoodsorder mainGoodsorder = new PyMainGoodsorder();//主订单
 		PyChildGoodsorder childorder = new PyChildGoodsorder();//子订单

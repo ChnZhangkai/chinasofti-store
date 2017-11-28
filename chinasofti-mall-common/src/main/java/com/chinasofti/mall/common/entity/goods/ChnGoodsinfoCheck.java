@@ -3,6 +3,7 @@ package com.chinasofti.mall.common.entity.goods;
 import java.math.BigDecimal;
 
 import com.chinasofti.mall.common.utils.PageBean;
+
 public class ChnGoodsinfoCheck extends PageBean{
     private String ids;
 

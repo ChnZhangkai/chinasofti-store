@@ -23,6 +23,7 @@
 		</form>	
 		</div>
 	</div>
+    
 	<!-- 数据显示datagrid -->
 	<table id="spuserinfo" class="easyui-datagrid" title="商户用户列表" 
 			data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'" style="height: 80%">

@@ -583,5 +583,5 @@
     select NAME,MOBILE,ZIPCODE,PRIVINCE,CITY,DISTRICT,STREET,ADDRESS
     where IDS = #{addressId,jdbcType=VARCHAR}
   </select>
-  
+   
 </mapper>

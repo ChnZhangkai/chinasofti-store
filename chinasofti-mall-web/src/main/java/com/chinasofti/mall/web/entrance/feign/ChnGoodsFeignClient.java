@@ -12,6 +12,7 @@ import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.web.entrance.hystrix.SpGoodsClassFeignClientHystrix;
+
 import net.sf.json.JSONObject;
 
 /**

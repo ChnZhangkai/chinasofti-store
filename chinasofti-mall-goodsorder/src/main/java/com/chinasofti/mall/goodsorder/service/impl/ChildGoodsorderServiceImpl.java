@@ -10,6 +10,7 @@ import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample.Criteria;
+import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
 import com.chinasofti.mall.goodsorder.handler.MyException;
 import com.chinasofti.mall.goodsorder.mapper.PyChildGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
@@ -33,12 +34,15 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	private PyChildGoodsorderMapper childGoodsorderMapper;
 	
 	
-	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList)throws MyException{
+	public int insertChildGoodsorders(List<PyChildGoodsorder> childList){
 		return childGoodsorderMapper.batchInsertPyChildGoodsorder(childList);
 		
 	}
+	public SpSendAddress queryAddress(String addressId){
+		return childGoodsorderMapper.selectAddress(addressId);
+	}
 	
-	public BigDecimal selectGoodsNum(String goodsId)throws MyException{
+	public BigDecimal selectGoodsNum(String goodsId){
 		return childGoodsorderMapper.selectGoodsNum(goodsId);
 		
 	}
