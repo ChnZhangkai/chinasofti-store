@@ -33,7 +33,6 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	@Autowired
 	private PyChildGoodsorderMapper childGoodsorderMapper;
 	
-	@Autowired
 	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList){
 		int count = 0;
 		for(PyChildGoodsorder pyChildGoodsorder:childList){
