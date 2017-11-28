@@ -40,7 +40,12 @@ public class GoodsInfoController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		return goodsFeignClient.queryGoodInfo(ids);
 	}
-	
+	/**
+	 * 
+	 * @param goodsInfo
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("queryGoodsInfoList")
 	public ResponseInfo queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo, HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");

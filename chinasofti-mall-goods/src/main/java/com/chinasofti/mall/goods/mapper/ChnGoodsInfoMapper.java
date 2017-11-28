@@ -3,6 +3,7 @@ package com.chinasofti.mall.goods.mapper;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ChnGoodsInfoMapper {

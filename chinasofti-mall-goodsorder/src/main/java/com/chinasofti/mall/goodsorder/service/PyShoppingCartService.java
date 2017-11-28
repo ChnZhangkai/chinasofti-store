@@ -1,8 +1,6 @@
 package com.chinasofti.mall.goodsorder.service;
 
 import java.util.List;
-
-
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 

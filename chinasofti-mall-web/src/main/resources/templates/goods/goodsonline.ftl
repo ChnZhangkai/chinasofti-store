@@ -56,7 +56,6 @@
 			</tr>
 		</thead>
 	</table>
-
 	<!-- 分页工具条 -->
 	<div id="goodsOnlinePagination" style="background:#efefef;border:1px solid #ccc;"></div>
 

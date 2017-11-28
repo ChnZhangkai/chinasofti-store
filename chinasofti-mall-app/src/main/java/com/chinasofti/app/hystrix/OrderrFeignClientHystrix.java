@@ -1,6 +1,5 @@
 package com.chinasofti.app.hystrix;
 
-
 import org.springframework.stereotype.Component;
 import com.chinasofti.app.feign.OrderFeignClient;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;

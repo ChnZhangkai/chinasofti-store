@@ -1,7 +1,6 @@
 package com.chinasofti.mall.common.entity.order;
 
 import java.math.BigDecimal;
-
 public class PyBigGoodsorder {
     private String ids;
     /** *  订单流水号 */

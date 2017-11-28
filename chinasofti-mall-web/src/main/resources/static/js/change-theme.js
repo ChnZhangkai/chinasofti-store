@@ -20,7 +20,6 @@ function changeTheme(themeName){
              expires: 7  
     });
 }  
-
 if($.cookie('easyuiThemeName')){  
     changeTheme($.cookie('easyuiThemeName'));  
 } 

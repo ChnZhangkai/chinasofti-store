@@ -26,7 +26,6 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-key-go" onclick="resetPw()" plain="true">重置密码</a>
         </div>
     </div>
-    
     <!-- 显示数据,数据表格列对齐 -->
     <table id="ptUser" class="easyui-datagrid" title="用户列表" data-options="inline:true" toolbar="#user-toolbar-2" style="height: 95%">
     	<thead>

@@ -148,9 +148,9 @@ public class OrderServiceImpl implements OrderService {
 			List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
 			childList = getOrderInfo(address,orderCreateTime,transactionid,json);
 			if(childList !=null){
-				int child=childGoodsorderService.insertChildGoodsorderList(childList);//保存子订单
+				int child=childGoodsorderService.insertChildGoodsorders(childList);//保存子订单
 				logger.info("***子订单插入成功***="+child);
-				int main=mainGoodsorderService.insertMainGoodsorderList(mainList);//保存主订单
+				int main=mainGoodsorderService.insertMainGoodsorders(mainList);//保存主订单
 				logger.info("***主订单插入成功***="+main);
 				int big=bigGoodsorderService.save(pyBigGoodsorder);//保存大订单
 				logger.info("***大订单插入成功***="+big);

@@ -578,6 +578,7 @@
     where IDS = #{goodsId,jdbcType=VARCHAR}
       and STATUS = '1';
   </select>
+  
   <!--根据地址ID查询邮寄地址信息-->
   <select id="selectAddress" resultMap="com.chinasofti.mall.common.entity.spuser.SpSendAddress" parameterType="java.lang.String" >
     select NAME,MOBILE,ZIPCODE,PRIVINCE,CITY,DISTRICT,STREET,ADDRESS

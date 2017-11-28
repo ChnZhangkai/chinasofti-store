@@ -5,7 +5,6 @@
 	    <div style="padding:4px;height: 300px">
 			<ul id="menuOperator" class="easyui-tree" style="height: 300px"></ul>
 		</div>
-		
 		<!-- 父节点操作(包含添加) -->
 		<div id="menuOperatorMenu" class="easyui-menu" style="width:120px;" data-options="onClick:menuHandler">
 		    <div data-options="iconCls:'icon-add',name:'add'">添加</div>

@@ -1,7 +1,6 @@
 package com.chinasofti.mall.common.entity.order;
 
 import java.math.BigDecimal;
-
 import com.chinasofti.mall.common.utils.PageBean;
 
 /**

@@ -4,7 +4,6 @@ $.parser.onComplete = function () {
     if (pc) clearTimeout(pc);
     pc = setTimeout(closes, 2000);
 } 
-
 function closes() {
     $('#loading').fadeOut('normal', function () {
         $(this).remove();

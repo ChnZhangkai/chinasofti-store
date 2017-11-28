@@ -113,7 +113,6 @@
 			</tr>
 		</thead>
 	</table>
-
 	<!-- 主订单详细信息显示开始 -->
 	<div id="mainorderEditDialog" class="easyui-dialog" data-options="closed:true,draggable:false,inline:true" style="width: 100%; height: 100%">
 		<form id="mainorderEditForm" action="">

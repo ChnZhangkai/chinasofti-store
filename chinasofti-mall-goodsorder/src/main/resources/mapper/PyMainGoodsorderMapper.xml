@@ -57,6 +57,7 @@
     <result column="TYPE" property="afterType" />
     <result column="VENDOR_SNM" property="vendorSnm" jdbcType="DECIMAL" />
   </resultMap>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

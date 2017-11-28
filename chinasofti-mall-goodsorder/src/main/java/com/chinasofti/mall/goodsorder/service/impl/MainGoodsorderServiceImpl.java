@@ -33,7 +33,7 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	@Autowired
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
 	
-	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList){
+	public int insertMainGoodsorders(List<PyMainGoodsorder> mainList){
 		return mainGoodsorderMapper.batchInsertPyMainGoodsorder(mainList);
 	}
 
@@ -97,6 +97,7 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 
 		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
+		PageHelper.startPage(mainGoodsorder.getPageNumber(),mainGoodsorder.getPageSize());
 
 		js.put("rows", list);
 		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());

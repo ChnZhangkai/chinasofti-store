@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
+
 public interface OrderService {
 
 	public ResponseInfo queryOrderListByUserId(String userId);

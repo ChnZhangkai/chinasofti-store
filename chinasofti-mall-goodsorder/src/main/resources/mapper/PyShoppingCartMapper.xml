@@ -25,6 +25,7 @@
     <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
     <result column="TITLE" property="goodsName" jdbcType="VARCHAR" />
   </resultMap>
+  
   <sql id="Base_Column_List" >
     IDS, USERIDS, VENDORID, GOODS_IDS, GOODS_PAY_IDS, GOODS_NUM, CREATE_TIME, PAY_STATUS, 
     CHECKED
