@@ -32,10 +32,6 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	
 	@Autowired
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
-	
-	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList)throws MyException{
-		return mainGoodsorderMapper.batchInsertPyMainGoodsorder(mainList);
-	}
 
 	@Override
 	public int save(PyMainGoodsorder mainGoodsorder) {
@@ -97,6 +93,7 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 
 		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
+		PageHelper.startPage(mainGoodsorder.getPageNumber(),mainGoodsorder.getPageSize());
 
 		js.put("rows", list);
 		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());
@@ -141,4 +138,15 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		return mainGoodsorderMapper.selectByExample(example);
 	}
 
+	@Override
+	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList) throws MyException {
+		int count = 0;
+		for (PyMainGoodsorder pyMainGoodsorder : mainList) {
+			count += mainGoodsorderMapper.insertSelective(pyMainGoodsorder);
+		}
+		return count;
+	}
+
+	
+	
 }

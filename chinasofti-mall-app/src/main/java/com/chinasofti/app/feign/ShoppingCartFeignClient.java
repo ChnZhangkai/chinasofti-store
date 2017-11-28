@@ -26,7 +26,7 @@ public interface ShoppingCartFeignClient {
 	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList);
 
 	@RequestMapping(value="/shoppingCart/mod/goods")
-	public ResponseInfo updatePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList);
+	public ResponseInfo updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo);
 	
 	@RequestMapping(value="/shoppingCart/del/goods")
 	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList);

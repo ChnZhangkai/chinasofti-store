@@ -40,9 +40,15 @@
     from py_shopping_cart
     where IDS = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     delete from py_shopping_cart
-    where IDS = #{id,jdbcType=VARCHAR}
+    where 1=1 and IDS = #{id,jdbcType=VARCHAR}
+    <if test="userId != null" >
+      and  USERIDS = #{userId,jdbcType=VARCHAR}
+      </if> 
+      <if test="goodsId != null" >
+      and  GOODS_IDS = #{goodsId,jdbcType=VARCHAR}
+      </if>
   </delete>
   <insert id="insert" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     insert into py_shopping_cart (IDS, USERIDS, VENDORID, 
@@ -169,15 +175,16 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     update py_shopping_cart
-    set USERIDS = #{userId,jdbcType=VARCHAR},
-      VENDORID = #{vendorId,jdbcType=VARCHAR},
-      GOODS_IDS = #{goodsId,jdbcType=VARCHAR},
-      GOODS_PAY_IDS = #{goodsPayIds,jdbcType=VARCHAR},
-      GOODS_NUM = #{goodsNum,jdbcType=DECIMAL},
-      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
-      PAY_STATUS = #{payStatus,jdbcType=VARCHAR},
-      CHECKED = #{checked,jdbcType=BOOLEAN}
-    where IDS = #{id,jdbcType=VARCHAR}
+    set 
+      GOODS_NUM = #{goodsNum,jdbcType=DECIMAL}
+    where 1=1
+      and IDS = #{id,jdbcType=VARCHAR}
+     <if test="userId != null" >
+      and  USERIDS = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsId != null" >
+      and  GOODS_IDS = #{goodsId,jdbcType=VARCHAR}
+      </if>
   </update>
  <select id="getPyShoppingCartListByUserId" resultMap="ResultMapWithVendor"
 	parameterType="java.lang.String">

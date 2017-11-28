@@ -590,15 +590,7 @@
 	 *数据导出
 	 */ 
 	 function goodsCheckExport(){
-	    var temp = document.createElement("form");        
-	    temp.action ="goodsCheck/export"; 
-	    temp.method = "post";    
-	    temp.id = "goodsChecks"
-	    temp.name = "goodsChecks";
-	 
-	    document.body.appendChild(temp); 
-	    temp.submit();        
- 
+	     window.location.href='goodsCheck/export?model=jxls/goodsCheck.xls';      
 	}
 	
 	/*

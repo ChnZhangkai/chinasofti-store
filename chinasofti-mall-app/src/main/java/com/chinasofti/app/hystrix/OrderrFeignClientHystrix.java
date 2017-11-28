@@ -47,6 +47,12 @@ public class OrderrFeignClientHystrix implements OrderFeignClient{
 		return new ResponseInfo();
 	}
 
+
+	@Override
+	public ResponseInfo cancelOrder(String orderId) {
+		return null;
+	}
+
 	
 
 	

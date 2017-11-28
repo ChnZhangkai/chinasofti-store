@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goodsorder.service.OrderService;
@@ -74,10 +73,10 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value="/cancel", method = RequestMethod.POST)
+	@RequestMapping(value="/cancel")
 	@ApiOperation(value="取消订单", notes="报文示例：{'ids':'1','orderId':'1001','userId':'chin'}")
-	public ResponseInfo cancelOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder) {
-		ResponseInfo responseInfo = orderService.cancelOrder( pyBigGoodsorder);
+	public ResponseInfo cancelOrder(@RequestParam("orderId") String orderId) {
+		ResponseInfo responseInfo = orderService.cancelOrder(orderId);
 		return responseInfo;
 	}
 	

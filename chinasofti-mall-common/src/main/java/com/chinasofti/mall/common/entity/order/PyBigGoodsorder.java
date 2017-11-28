@@ -52,6 +52,8 @@ public class PyBigGoodsorder {
     public static final String PAY_STATUS_OK = "1";
     /** *  订单的支付状态 2 已取消 */
     public static final String PAY_STATUS_CANCLE = "2";
+    /** *  订单的支付状态 3 被删除 */
+    public static final String PAY_STATUS_DELETE = "3";
     
     
     public String getIds() {

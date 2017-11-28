@@ -23,14 +23,14 @@
     <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
     <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
     <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
+    <result column="GOODS_TITLE" property="goodsTitle" />
     <result column="name" property="className" />
-    <result column="title" property="goodsTitle" />
     <result column="standard" property="goodsStandard" />
     <result column="code" property="goodsCode" />
     <result column="type" property="goodsType"  />
     <result column="after_type" property="afterType" jdbcType="DECIMAL" />
     <result column="approve_status" property="approveStatus" />
-    <result column="payway" property="payWay" />
+    <result column="PAY_WAY" property="payWay" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -93,7 +93,7 @@
   <sql id="Base_Column_List" >
     IDS, MAINORDER_IDS, GOODSIDS, CUST_IDS, ORDER_STATUS, GOODS_NUM, GOODS_PRICE, DISCOUNT, 
     ORDER_REAL_AMT, ISEVALUATE, ORDER_REVOKE, REMARK1, REMARK2, REMARK3, TRANSACTIONID, 
-    ORDER_AMT, ORDER_DATE, VENDER_REMARK, ORDER_TYPE, ORDER_REAL_AMT_OLD, FREIGHT
+    ORDER_AMT, ORDER_DATE, VENDER_REMARK, ORDER_TYPE, ORDER_REAL_AMT_OLD, FREIGHT, GOODS_TITLE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample" >
     select
@@ -492,8 +492,7 @@
     <result column="VENDER_REMARK" property="venderRemark" jdbcType="VARCHAR" />
     <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
     <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
-    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
-    
+    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />  
   </resultMap>
   
   <select id="selectByChildorderCondition" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.ChildorderCondition">
