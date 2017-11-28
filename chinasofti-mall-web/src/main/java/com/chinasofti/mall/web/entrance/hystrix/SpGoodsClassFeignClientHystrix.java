@@ -106,10 +106,5 @@ public class SpGoodsClassFeignClientHystrix implements ChnGoodsFeignClient{
 		return null;
 	}
 
-	@Override
-	public List<ChnGoodsOnline> getGoodsOnlineList(ChnGoodsOnline chnGoodsOnline) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

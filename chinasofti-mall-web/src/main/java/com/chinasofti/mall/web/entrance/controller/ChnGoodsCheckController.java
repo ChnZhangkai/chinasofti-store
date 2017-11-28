@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baidu.ueditor.ActionEnter;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.common.entity.goods.GoodsFile;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
@@ -37,6 +37,7 @@ import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
 import com.chinasofti.mall.web.entrance.feign.SpMerchantUserFeignClient;
 import com.chinasofti.mall.web.entrance.service.impl.GoodsFileServiceImpl;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @RestController
@@ -241,10 +242,15 @@ public class ChnGoodsCheckController {
 	 * @return
 	 * */
 	@RequestMapping("/export")
-	 public ModelAndView export(ChnGoodsinfoCheck chnGoodsinfoCheck, HttpServletResponse response) throws Exception {
-		return null;  
+	@SuppressWarnings("unchecked")
+	 public ModelAndView export(@RequestParam("model") String model,ChnGoodsinfoCheck chnGoodsinfoCheck) {
 		// 1：准备数据  
-	/*	List<ChnGoodsinfoCheck> checkList = chnGoodsFeignClient.getGoodsCheckList(chnGoodsinfoCheck); 
+		JSONObject jsonList = chnGoodsFeignClient.selectByGoodsCheck(chnGoodsinfoCheck);
+	    System.out.println("商品审核JsonList:"+jsonList);
+	    //JsonObject格式 转List格式
+	    JSONArray jsonArray = jsonList.getJSONArray("rows");
+	    List<ChnGoodsinfoCheck> checkList = (List<ChnGoodsinfoCheck>) JSONArray.toCollection(jsonArray, ChnGoodsinfoCheck.class);
+	     
 	        for (ChnGoodsinfoCheck goods : checkList) {
 	        	if ("1".equals(goods.getStatus())) {
 					goods.setStatus("已上架");
@@ -265,13 +271,13 @@ public class ChnGoodsCheckController {
 	        		goods .setReviewStatues("待提交审核");
 	        	}
 			}
-	        System.out.println("商品审核管理数据:"+checkList);
+	  
 	        // 2：数据放置到jxls需要的map中  
-	        Map<String,Object> modal = new HashMap<String,Object>();    
-	        modal.put("goodsChecks", checkList);*/
+	       Map<String,Object> modal = new HashMap<String,Object>();    
+	        modal.put("goodsChecks", checkList);
 	          
 	        // 3：导出文件  
-	       // return new ModelAndView(new JxlsExcelView("jxls/goodsCheck.xls","商品审核管理"), modal);  	
+	       return new ModelAndView(new JxlsExcelView(model,"商品审核管理"), modal);  	
 	}
 	
 }

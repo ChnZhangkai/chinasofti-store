@@ -33,7 +33,7 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	@Autowired
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
 	
-	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList)throws MyException{
+	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList){
 		return mainGoodsorderMapper.batchInsertPyMainGoodsorder(mainList);
 	}
 
@@ -141,4 +141,15 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		return mainGoodsorderMapper.selectByExample(example);
 	}
 
+	@Override
+	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList) throws MyException {
+		int count = 0;
+		for (PyMainGoodsorder pyMainGoodsorder : mainList) {
+			count += mainGoodsorderMapper.insertSelective(pyMainGoodsorder);
+		}
+		return count;
+	}
+
+	
+	
 }

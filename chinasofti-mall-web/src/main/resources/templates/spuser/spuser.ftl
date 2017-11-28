@@ -6,6 +6,7 @@
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="spUserOpenAdd()" plain="true">添加</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="spUserOpenEdit()" plain="true">修改</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="spUserRemove()" plain="true">删除</a>
+            			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="exportSpUser()" plain="true">导出</a>
         </div>
        	<div class="spUser-toolbar-search">
 		<form id="spUserSearchForm">
@@ -398,6 +399,14 @@ $(function(){
     		}
     	});
 	}
+	
+	// 导出
+	function exportSpUser(){
+	  window.location.href='goodsOnline/export?model=jxls/goodsOnline.xls';  
+ 		window.location.href='spUser/export?model=jxls/vendorManage.xls';  
+	}
+	
+	
 	
 	/* 
 	*查询
