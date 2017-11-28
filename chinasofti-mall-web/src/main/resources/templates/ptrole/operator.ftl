@@ -122,7 +122,7 @@
 			tree.tree('beginEdit',node.target);
 			//如果当前菜单的name属性=delete，则执行如下删除流程操作
 		}else if(item.name === "delete"){
-			$.messager.confirm('确认','确定删除名为 '+node.text+' 的权限吗？',function(r){
+			$.messager.confirm('确认','确定删除名为 '+node.text+' 的操作吗？',function(r){
 				if(r){
 					$.ajax({
 	     			   type: "POST",
