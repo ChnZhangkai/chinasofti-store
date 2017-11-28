@@ -32,9 +32,9 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 
 
 
-	public int deleteById(PyShoppingCart goods) {
+	public int deleteById(PyShoppingCart goods) { 
 		return pyShoppingCartMapper.deleteByPrimaryKey(goods);
-	}
+	} 
 	
 
 	public int save(PyShoppingCart t) {
@@ -160,7 +160,6 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		try {
 			if (goodsList.size() > 0) {
 				for (PyShoppingCart goods: goodsList) {
-					
 					int row = deleteById(goods);
 					if (row <= 0) {
 						responseInfo.setRetCode(MsgEnum.ERROR.getCode());

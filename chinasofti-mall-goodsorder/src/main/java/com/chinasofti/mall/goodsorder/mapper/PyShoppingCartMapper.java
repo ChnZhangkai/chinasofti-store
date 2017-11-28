@@ -8,7 +8,7 @@ import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
 
 public interface PyShoppingCartMapper {
-	public int deleteByPrimaryKey(PyShoppingCart record);
+	public int deleteByPrimaryKey(PyShoppingCart record); 
 
 	public int insert(PyShoppingCart record);
 

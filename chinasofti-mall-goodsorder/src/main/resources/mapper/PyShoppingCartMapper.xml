@@ -45,7 +45,7 @@
     where 1=1 and IDS = #{id,jdbcType=VARCHAR}
     <if test="userId != null" >
       and  USERIDS = #{userId,jdbcType=VARCHAR}
-      </if>
+      </if> 
       <if test="goodsId != null" >
       and  GOODS_IDS = #{goodsId,jdbcType=VARCHAR}
       </if>
