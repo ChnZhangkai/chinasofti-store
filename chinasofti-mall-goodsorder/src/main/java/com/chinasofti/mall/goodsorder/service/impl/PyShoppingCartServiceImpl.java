@@ -32,8 +32,8 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 
 
 
-	public int deleteById(String id) {
-		return pyShoppingCartMapper.deleteByPrimaryKey(id);
+	public int deleteById(PyShoppingCart goods) {
+		return pyShoppingCartMapper.deleteByPrimaryKey(goods);
 	}
 	
 
@@ -159,9 +159,9 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		ResponseInfo responseInfo = new ResponseInfo();
 		try {
 			if (goodsList.size() > 0) {
-				for (int i = 0; goodsList.size() > i; i++) {
-					PyShoppingCart goods = goodsList.get(i);
-					int row = deleteById(goods.getId());
+				for (PyShoppingCart goods: goodsList) {
+					
+					int row = deleteById(goods);
 					if (row <= 0) {
 						responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 						responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());

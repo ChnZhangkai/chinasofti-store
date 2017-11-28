@@ -40,9 +40,15 @@
     from py_shopping_cart
     where IDS = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     delete from py_shopping_cart
-    where IDS = #{id,jdbcType=VARCHAR}
+    where 1=1 and IDS = #{id,jdbcType=VARCHAR}
+    <if test="userId != null" >
+      and  USERIDS = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsId != null" >
+      and  GOODS_IDS = #{goodsId,jdbcType=VARCHAR}
+      </if>
   </delete>
   <insert id="insert" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     insert into py_shopping_cart (IDS, USERIDS, VENDORID, 
