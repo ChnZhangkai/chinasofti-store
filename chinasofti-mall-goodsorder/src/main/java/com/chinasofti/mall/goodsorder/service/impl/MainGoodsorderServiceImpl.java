@@ -94,7 +94,6 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
 		PageHelper.startPage(mainGoodsorder.getPageNumber(),mainGoodsorder.getPageSize());
-		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(null);
 
 		js.put("rows", list);
 		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());
@@ -139,14 +138,15 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		return mainGoodsorderMapper.selectByExample(example);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.chinasofti.mall.goodsorder.service.MainGoodsorderService#insertMainGoodsorderList(java.util.List)
-	 */
 	@Override
 	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList) throws MyException {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = 0;
+		for (PyMainGoodsorder pyMainGoodsorder : mainList) {
+			count += mainGoodsorderMapper.insertSelective(pyMainGoodsorder);
+		}
+		return count;
 	}
 
+	
 	
 }
