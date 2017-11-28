@@ -144,7 +144,6 @@ function venderIdChoose(){
  * 主订单按钮
  */
 function mainBtnFormatter(value, row, index) {
-	alert(index);
 	var lookBtn ='<button style="background:#51A351" onclick="mainorderLook('+ index +')">' 
 					+ '<span style="color: #FFFFFF">查看</span></button><br>'
 					+ '<button style="background:#772953" onclick="checkChildorder('+ index +')">' 
@@ -363,10 +362,6 @@ function bigOrderExport(){
  * 子订单导出Excel
  * */
 function childOrderExport(){
-	var mainOrderIds = $('#childorder-mainorderIds').val();
-	if('' == mainOrderIds){
-		$.messager.alert('系统消息','主订单不能为空!','info');
-	}else{
-		window.location.href='childorder/export?model=jxls/childOrderManage.xls';
-	}
+	
+	window.location.href='childorder/export?model=jxls/childOrderManage.xls';
 }
