@@ -2,13 +2,13 @@ package com.chinasofti.mall.goodsorder.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.order.MainorderCondition;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample;
+import com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample.Criteria;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.goodsorder.handler.MyException;
 import com.chinasofti.mall.goodsorder.mapper.PyMainGoodsorderMapper;
@@ -32,10 +32,6 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	
 	@Autowired
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
-	
-	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList)throws MyException{
-		return mainGoodsorderMapper.batchInsertPyMainGoodsorder(mainList);
-	}
 
 	@Override
 	public int save(PyMainGoodsorder mainGoodsorder) {
@@ -69,14 +65,34 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	@Override
 	public JSONObject selectByExample(PyMainGoodsorder mainGoodsorder){
 		
+		String compare = "";
+		
 		JSONObject js = new JSONObject();
+		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
+		Criteria criteria = example.createCriteria();
 				
-		if (!StringUtils.isEmpty(mainGoodsorder.getOrderTime())) {
-			mainGoodsorder.setOrderTime(StringDateUtil.convertToSqlFormat(mainGoodsorder.getOrderTime()));
+		if ((mainGoodsorder.getTransactionid()) != null && !(mainGoodsorder.getTransactionid()).equals(compare)) {
+				criteria.andTransactionidLike("%" + mainGoodsorder.getTransactionid() + "%");
+			}
+		
+		if ((mainGoodsorder.getBigorderId()) != null && !(mainGoodsorder.getBigorderId()).equals(compare)) {
+			criteria.andBigorderIdLike("%" + mainGoodsorder.getBigorderId() + "%");
 		}
-		if (!StringUtils.isEmpty(mainGoodsorder.getSettleTime())) {
-			mainGoodsorder.setSettleTime(StringDateUtil.convertToSqlFormat(mainGoodsorder.getSettleTime()));
+		
+		if ((mainGoodsorder.getPayStatus()) != null && !(mainGoodsorder.getPayStatus()).equals(compare)) {
+			criteria.andPayStatusLike("%" + mainGoodsorder.getPayStatus() + "%");
 		}
+		
+		if ((mainGoodsorder.getContName()) != null && !(mainGoodsorder.getContName()).equals(compare)) {
+			criteria.andContNameLike("%" + mainGoodsorder.getContName() + "%");
+		}
+		
+		if ((mainGoodsorder.getPayway()) != null && !(mainGoodsorder.getPayway()).equals(compare)) {
+			criteria.andPaywayLike("%" + mainGoodsorder.getPayway() + "%");
+		}
+
+		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
+		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
 		PageHelper.startPage(mainGoodsorder.getPageNumber(),mainGoodsorder.getPageSize());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(null);
 
@@ -123,4 +139,14 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		return mainGoodsorderMapper.selectByExample(example);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.chinasofti.mall.goodsorder.service.MainGoodsorderService#insertMainGoodsorderList(java.util.List)
+	 */
+	@Override
+	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList) throws MyException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 }

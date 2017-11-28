@@ -492,8 +492,7 @@
     <result column="VENDER_REMARK" property="venderRemark" jdbcType="VARCHAR" />
     <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
     <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
-    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
-    
+    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />  
   </resultMap>
   
   <select id="selectByChildorderCondition" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.ChildorderCondition">

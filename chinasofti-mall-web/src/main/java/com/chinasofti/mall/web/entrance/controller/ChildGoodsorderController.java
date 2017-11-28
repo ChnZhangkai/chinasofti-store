@@ -119,12 +119,12 @@ public class ChildGoodsorderController {
 	 * */
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/export")
-	 public ModelAndView export(@RequestParam("model") String model, ChildorderCondition childorderCondition)  { 
+	 public ModelAndView export(@RequestParam("model") String model, PyChildGoodsorder childGoodsorder)  { 
 		// 1：准备数据  
-		JSONObject jsonlist = childGoodsorderFeign.selectByChildorderCondition(childorderCondition);
+		JSONObject jsonlist = childGoodsorderFeign.selectByChildorderClass(childGoodsorder);
 	    //JsonObject格式 转List格式
 	    JSONArray jsonArray = jsonlist.getJSONArray("rows");
-	    List<ChildorderCondition> childOrderList = (List<ChildorderCondition>) JSONArray.toCollection(jsonArray, ChildorderCondition.class);
+	    List<PyChildGoodsorder> childOrderList = (List<PyChildGoodsorder>) JSONArray.toCollection(jsonArray, PyChildGoodsorder.class);
 	     System.out.println("订单："+childOrderList);
 	    
 	        // 2：数据放置到jxls需要的map中  
