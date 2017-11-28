@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goods.mapper;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoExample;
 import java.util.List;
@@ -18,7 +19,7 @@ public interface ChnGoodsInfoMapper {
 
     List<ChnGoodsinfo> selectByExample(ChnGoodsinfoExample example);
 
-    ChnGoodsinfo selectByPrimaryKey(@Param("ids") String ids);
+    ChnGoodsInfoVo selectByPrimaryKey(@Param("ids") String ids);
 
     int updateByExampleSelective(@Param("record") ChnGoodsinfo record, @Param("example") ChnGoodsinfoExample example);
 

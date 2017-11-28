@@ -42,6 +42,13 @@
     <result column="TYPE" jdbcType="VARCHAR" property="type" />
     <result column="ISSHOW" jdbcType="VARCHAR" property="isshow" />
   </resultMap>
+  <resultMap id="BaseResultMap2" type="com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo" extends="BaseResultMap">
+    <result column="VENDOR_SNM" jdbcType="VARCHAR" property="vendorSnm" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="VENDER_INTRO" jdbcType="VARCHAR" property="venderIntro" />
+    <result column="VENDER_EXPLAIN" jdbcType="VARCHAR" property="venderExplain" />
+    <result column="FILEPATH" jdbcType="VARCHAR" property="filepath" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -122,7 +129,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap2">
     SELECT 
     g.`IDS`,g.`VENDORIDS`,g.`TITLE`,g.`COMMON`,g.`PRICE`,g.`DIS_PRICE`,g.`GOODS_CLASS_IDS` ,
     g.`STANDARD` ,g.`CONTENT`, g.`STORE_NUM`, g.`REVIEW_DESC`, g.`REVIEW_STATUES`, g.`REVIEW_TIME`, 
@@ -132,7 +139,7 @@
     g.`TOTAL_TRADE`, g.`LIMIT_USER_NUM`, g.`ORG_PRICE`,g.`TYPE`, g.`ISSHOW`, m.`VENDOR_SNM`, m.`PHONE`,
      m.`VENDER_INTRO`, m.`VENDER_EXPLAIN`, f.`FILEPATH`
    FROM chn_goodsinfo g ,sp_merchant_user m, goods_file f 
-   WHERE g.`VENDORIDS`=m.`VENDOR_ID` AND g.`IDS`=f.`GOODSIDS` 
+   WHERE g.`IDS`=f.`GOODSIDS` AND g.`VENDORIDS`=m.`VENDOR_ID` 
     AND g.ids = #{ids,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
