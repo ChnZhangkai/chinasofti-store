@@ -18,12 +18,24 @@
 		    </form>
         </div>
         <div class="user-toolbar-button">
+        	<@shiro.hasPermission name="user_add">
             <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openUserAdd()" plain="true">添加</a>
+            </@shiro.hasPermission>
+            <@shiro.hasPermission name="user_upd">
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
+            </@shiro.hasPermission>
+            <@shiro.hasPermission name="user_del">
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="print()" plain="true">导出</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-users" onclick="openRole()" plain="true">用户角色</a>
+            </@shiro.hasPermission>
+            <@shiro.hasPermission name="user_role">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-users" onclick="openRole()" plain="true">修改用户角色</a>
+            </@shiro.hasPermission>
+            <@shiro.hasPermission name="user_deful_pw">
             <a href="#" class="easyui-linkbutton" iconCls="icon-key-go" onclick="resetPw()" plain="true">重置密码</a>
+            </@shiro.hasPermission>
+            <@shiro.hasPermission name="user_query_role">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-user-magnify" onclick="queryRole()" plain="true">查看角色</a>
+            </@shiro.hasPermission>
         </div>
     </div>
     
@@ -47,9 +59,9 @@
 <!-- 内管用户添加表格 -->
 <div id="ptUserAdd" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-add',inline:true"
-	style="width: 520px; padding: 10px;background-color: #FAFAFA">
+	style="width: 520px; padding: 10px;">
 	<form id="ptUserAddForm" method="post">
-		<table id="ptUserAdd" style="margin-top: 15px">
+		<table id="ptUserAdd" style="margin-top: 12px">
 			<tr>
 				<td width="80" align="right">账号:</td>
 				<td><input type="text" id="username" name="username" class="easyui-textbox" data-options="required:'true'"/></td>
@@ -69,7 +81,7 @@
 				<td><input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox" /></td>
 			</tr>
 			<tr>
-			<td align="right">状态:</td>
+				<td align="right">状态:</td>
 				<td><select class="easyui-combobox" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 135px">
 							<option value="0" selected="selected">禁用</option>
 							<option value="1">启用</option>
@@ -79,6 +91,7 @@
 		</table>
 	</form>
 </div>
+
 
 <!-- 修改表格 -->
 <div id="ptUserUpdate" class="easyui-dialog"
@@ -143,6 +156,19 @@
 	</form>
 </div>
 
+<div id="queryRoleDialog" class="easyui-dialog"
+	data-options="closed:true,iconCls:'icon-users',inline:true,title:'用户角色',modal:true"
+	style="width: 260px;height:100px; padding: 10px;">
+	<form id="queryRoleForm" method="post">
+		<table id="queryRoleDg">
+			<tr>
+				<td>当前角色</td>
+				<td><input id="roleName" class="easyui-textbox" readonly="readonly"/></td>
+			</tr>
+		</table> 
+	</form>
+</div>
+
 <script type="text/javascript">
 	$(function(){
 		//获取表格datagrid的ID属性,
@@ -161,6 +187,24 @@
 		});
 		
 	});
+	
+	
+	function queryRole(){
+		var row = $("#ptUser").datagrid('getSelected');
+		if (row) {
+			
+			$.ajax({
+				url:'/user/findRoleName/' + row.ids,
+				type:'POST',
+				success:function(data){
+					$('#roleName').textbox('setValue',data)
+				}
+			})
+			$('#queryRoleDialog').dialog('open');
+		} else {
+			$.messager.alert('信息提示','请选中要修改的用户');
+			}
+		}
 	
 	/*
 	 * 分类状态
