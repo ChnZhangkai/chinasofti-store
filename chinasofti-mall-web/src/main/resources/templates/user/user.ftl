@@ -47,34 +47,26 @@
 <!-- 内管用户添加表格 -->
 <div id="ptUserAdd" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-add',inline:true"
-	style="width: 300px; padding: 10px;background-color: #FAFAFA">
+	style="width: 520px; padding: 10px;background-color: #FAFAFA">
 	<form id="ptUserAddForm" method="post">
-		<table id="ptUserAdd">
+		<table id="ptUserAdd" style="margin-top: 15px">
 			<tr>
 				<td width="80" align="right">账号:</td>
 				<td><input type="text" id="username" name="username" class="easyui-textbox" data-options="required:'true'"/></td>
-			</tr>
-			<tr>
 				<td align="right">密码:</td>
 				<td><input type="text" id="password" name="password" class="easyui-textbox" data-options="required:'true'"/></td>
 			</tr>
 			<tr>
 				<td align="right">姓名:</td>
 				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" data-options="required:'true'"/></td>
-			</tr>
-			<tr>
 				<td align="right">部门编号:</td>
 				<td><input type="text" id="departmentids" name="departmentids" class="easyui-textbox" /></td>
 			</tr>
 			<tr>
+				<td align="right">角色:</td>
+				<td><select class="easyui-combobox" missingMessage="请选择" data-options="panelHeight:'auto',panelMaxHeight:'150px'" id="roleids" name="ids" style="width: 135px;"></select></td>
 				<td align="right">部门名称:</td>
 				<td><input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox" /></td>
-			</tr>
-			<tr>
-				<td align="right">角色:</td>
-				<td>
-					<select class="easyui-combobox" missingMessage="请选择" data-options="panelHeight:'auto',panelMaxHeight:'150px'" id="roleids" name="ids" style="width: 135px;"></select>
-				</td>
 			</tr>
 			<tr>
 			<td align="right">状态:</td>
@@ -91,14 +83,12 @@
 <!-- 修改表格 -->
 <div id="ptUserUpdate" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-edit',inline:true"
-	style="width: 320px; padding: 10px;">
+	style="width: 520px; padding: 10px;">
 	<form id="ptUserUpdateForm" method="post">
-		<table id="update">
+		<table id="update" style="margin-top: 15px">
 			<tr>
 				<td width="80" align="right">用户编号:</td>
 				<td><input type="text" id="ids" name="ids" readonly="readonly"/></td>
-			</tr>
-			<tr>
 				<td align="right">用户账号:</td>
 				<td><input id="updateUsername" name="username" readonly="readonly"/>
 				</td>		
@@ -107,8 +97,6 @@
 				<td align="right">用户密码:</td>
 				<td><input type="text" id="password" name="password" class="easyui-textbox" />
 				</td>		
-			</tr>
-			<tr>
 				<td align="right">用户姓名:</td>
 				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" />
 				</td>		
@@ -117,8 +105,6 @@
 				<td align="right">部门编号:</td>				
 				<td><input type="text" id="departmentids" name="departmentids" class="easyui-textbox" />					
 				</td>				
-			</tr>
-			<tr>
 				<td align="right">部门名字:</td>
 				<td><input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox" /></td>
 			</tr>
@@ -137,7 +123,7 @@
 <!-- 用户关联角色表格 -->
 <div id="userRoleDialog" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-users',inline:true"
-	style="width: 500px; padding: 10px;">
+	style="width: 800px;height:340px; padding: 20px;">
 	<form id="userRoleForm" method="post">
 		<table id="userRoleDg" class="easyui-datagrid" singleSelect="true" style="width: 100%"
 		data-options="url:'ptrole/all',fitColumns:true,pagination:true,pageSize:5,pageList:[5,10,15,20],
@@ -148,8 +134,8 @@
 			</div>
 			<tr>
 				<th field="_ddd" data-options="checkbox:true">选择</th>
-				<th field="ids" width="20%" align="center">角色编号</th>
-				<th field="names" width="30%" align="center">角色名称</th>
+				<th field="ids" width="32%" align="center">角色编号</th>
+				<th field="names" width="20%" align="center">角色名称</th>
 				<th field="description" width="45%" align="center">角色描述</th>
 			</tr>
 		</thead>
@@ -382,7 +368,7 @@
 	            }]
 	        });
 		} else {
-			$.messager.alert('信息提示','请选中要修改的数据');
+			$.messager.alert('信息提示','请选中要修改的用户');
 		}
 	}
 	
