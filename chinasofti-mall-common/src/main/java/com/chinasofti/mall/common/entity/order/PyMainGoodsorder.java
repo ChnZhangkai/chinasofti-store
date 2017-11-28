@@ -6,7 +6,12 @@ import com.chinasofti.mall.common.utils.StringDateUtil;
 
 public class PyMainGoodsorder extends PageBean{
 	
-    /**
+    @Override
+	public String toString() {
+		return "PyMainGoodsorder [ids=" + ids + ", bigorderId=" + bigorderId + ", userIds=" + userIds + ", payStatus="
+				+ payStatus + ", status=" + status + ", transactionid=" + transactionid + "]";
+	}
+	/**
     * @Fields ids : 主键
     */
     private String ids;

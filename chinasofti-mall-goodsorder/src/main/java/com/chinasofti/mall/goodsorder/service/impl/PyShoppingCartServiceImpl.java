@@ -31,7 +31,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 
 
 
-
+ 
 	public int deleteById(PyShoppingCart goods) { 
 		return pyShoppingCartMapper.deleteByPrimaryKey(goods);
 	} 

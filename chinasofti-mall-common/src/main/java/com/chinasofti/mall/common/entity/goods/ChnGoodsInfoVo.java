@@ -31,7 +31,7 @@ public class ChnGoodsInfoVo extends ChnGoodsinfo{
 	public String getVenderIntro() {
 		return venderIntro;
 	}
-
+ 
 	public void setVenderIntro(String venderIntro) {
 		this.venderIntro = venderIntro;
 	}

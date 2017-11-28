@@ -32,6 +32,10 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	
 	@Autowired
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
+	
+	public int insertMainGoodsorders(List<PyMainGoodsorder> mainList){
+		return mainGoodsorderMapper.batchInsertPyMainGoodsorder(mainList);
+	}
 
 	@Override
 	public int save(PyMainGoodsorder mainGoodsorder) {

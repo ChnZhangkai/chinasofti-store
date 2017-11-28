@@ -11,7 +11,7 @@
     <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
     <result column="PAY_STATUS" property="payStatus" jdbcType="VARCHAR" />
     <result column="CHECKED" property="checked" jdbcType="BOOLEAN" />
-  </resultMap>
+  </resultMap> 
   <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.mall.common.entity.order.PyShoppingCart" extends="BaseResultMap" >
     <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
   </resultMap>
