@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.ChnGoodsInfoMapper;
@@ -54,6 +55,7 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 		private ResponseInfo dealResponseData(ChnGoodsInfoVo result) {
 			ResponseInfo  response= new ResponseInfo();
 			if(result !=null){
+				result.setFilepath(Constant.HOST_URL+result.getFilepath());
 				Map<String, Object> data= new HashMap<String, Object>();
 				data.put("ResponseInfo", result);
 				response.setData(data);
