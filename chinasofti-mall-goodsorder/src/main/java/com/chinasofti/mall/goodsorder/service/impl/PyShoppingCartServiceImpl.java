@@ -31,14 +31,14 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 
 
 
-
+ 
 	public int deleteById(PyShoppingCart goods) { 
 		return pyShoppingCartMapper.deleteByPrimaryKey(goods);
 	} 
 	
 
-	public int save(PyShoppingCart t) {
-		return pyShoppingCartMapper.insert(t);
+	public int save(PyShoppingCart goods) {
+		return pyShoppingCartMapper.insert(goods);
 	}
 
 	public int update(PyShoppingCart goods) {
@@ -62,7 +62,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 				responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
 				responseInfo.setRetMsg("购物车内无商品！");
 			}
-
+ 
 		} catch (Exception e) {
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());

@@ -7,7 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.ChnGoodsInfoMapper;
@@ -45,14 +47,15 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 
 	public ResponseInfo selectByGoodsId(String ids) {
 		ResponseInfo  response= new ResponseInfo();
-		ChnGoodsinfo result = goodsinfoMapper.selectByPrimaryKey(ids);
+		ChnGoodsInfoVo result = goodsinfoMapper.selectByPrimaryKey(ids);
 		response =dealResponseData(result);
 		return response;
 	}
 	//封装返回参数
-		private ResponseInfo dealResponseData(ChnGoodsinfo result) {
+		private ResponseInfo dealResponseData(ChnGoodsInfoVo result) {
 			ResponseInfo  response= new ResponseInfo();
 			if(result !=null){
+				result.setFilepath(Constant.HOST_URL+result.getFilepath());
 				Map<String, Object> data= new HashMap<String, Object>();
 				data.put("ResponseInfo", result);
 				response.setData(data);

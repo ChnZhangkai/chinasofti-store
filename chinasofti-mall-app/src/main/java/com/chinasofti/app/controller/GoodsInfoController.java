@@ -1,6 +1,6 @@
 package com.chinasofti.app.controller;
 
-
+ 
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,12 +31,12 @@ public class GoodsInfoController {
 	 * @return
 	 */
 	@RequestMapping("queryGoodsList")
-	public ResponseInfo queryGoodList(@RequestParam String id,HttpServletResponse response){
+	public ResponseInfo queryGoodList(@RequestParam("id") String id,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		return goodsFeignClient.queryGoodList(id);
 	}
 	@RequestMapping("queryGoodsInfo")
-	public ResponseInfo queryGoodsInfo(@RequestParam String ids,HttpServletResponse response){
+	public ResponseInfo queryGoodsInfo(@RequestParam("ids") String ids,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		return goodsFeignClient.queryGoodInfo(ids);
 	}

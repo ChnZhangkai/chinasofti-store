@@ -32,7 +32,7 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	
 	@Autowired
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
-
+	
 	@Override
 	public int save(PyMainGoodsorder mainGoodsorder) {
 		

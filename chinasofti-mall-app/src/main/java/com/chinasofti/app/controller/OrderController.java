@@ -64,8 +64,6 @@ public class OrderController {
 	//@ApiOperation(value="提交订单", notes="报文示例：{'userId':'chin','goodsId':'1001'}")
 	public ResponseInfo saveOrder(@RequestBody JSONObject json,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
-		logger.info("********************************************");
 		ResponseInfo responseInfo = orderFeignClient.saveOrder(json);
 		return responseInfo;
 	}

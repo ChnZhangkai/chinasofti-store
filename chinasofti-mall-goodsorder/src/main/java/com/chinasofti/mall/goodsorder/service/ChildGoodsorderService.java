@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
+import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
 import com.chinasofti.mall.common.service.IBaseService;
 import com.chinasofti.mall.goodsorder.handler.MyException;
 
@@ -34,7 +35,9 @@ public interface ChildGoodsorderService extends IBaseService<PyChildGoodsorder> 
 	public JSONObject selectByChildorderCondition(ChildorderCondition childorderCondition);
 	
 	public List<PyChildGoodsorder> selectByMainorderIds(String mainorderIds);
-	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList)throws MyException;
+	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList);
 	
-	public BigDecimal selectGoodsNum(String goodsId)throws MyException;
+	public BigDecimal selectGoodsNum(String goodsId);
+	
+	public SpSendAddress queryAddress(String addressId);
 }

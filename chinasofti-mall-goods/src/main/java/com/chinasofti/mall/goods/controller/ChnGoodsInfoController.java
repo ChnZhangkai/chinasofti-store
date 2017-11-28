@@ -51,7 +51,7 @@ public class ChnGoodsInfoController {
 			response = goodsInfoService.selectByGoodsId(ids);
 		}else{
 			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("商品Id不能为空！");
+			response.setRetMsg("商品Ids不能为空！");
 		}
 		return response;
 	}

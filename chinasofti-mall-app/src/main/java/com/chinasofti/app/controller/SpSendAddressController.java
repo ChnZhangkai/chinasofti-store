@@ -35,7 +35,6 @@ public class SpSendAddressController {
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public ResponseInfo findSendAddressList(@RequestParam String userId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","GET");
 		return spSendAddressFeignClient.findSendAddressList(userId);
 	}
 	
@@ -47,7 +46,6 @@ public class SpSendAddressController {
 	@RequestMapping(value="/add" , method = RequestMethod.POST)
 	public ResponseInfo addSendAddress(@RequestBody SpSendAddress spSendAddress,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spSendAddressFeignClient.addSendAddress(spSendAddress);
 	}
 	
@@ -58,7 +56,6 @@ public class SpSendAddressController {
 	@RequestMapping(value="/updata" , method = RequestMethod.POST)
 	public ResponseInfo updataSendAddress(@RequestBody SpSendAddress spSendAddress,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spSendAddressFeignClient.updataSendAddress(spSendAddress);
 	}
 	
@@ -69,7 +66,6 @@ public class SpSendAddressController {
 	@RequestMapping(value="/delete" , method = RequestMethod.POST)
 	public ResponseInfo deleteSendAddress(@RequestBody SpSendAddress spSendAddress,HttpServletResponse response){
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
 		return spSendAddressFeignClient.deleteSendAddress(spSendAddress);
 	}
 	
