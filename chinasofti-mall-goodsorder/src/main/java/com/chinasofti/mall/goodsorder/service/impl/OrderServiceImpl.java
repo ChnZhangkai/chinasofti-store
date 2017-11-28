@@ -130,7 +130,7 @@ public class OrderServiceImpl implements OrderService {
 			String addressId = json.getString("addressId");//获取地址ID
 			if(addressId ==null){
 				responseInfo.setRetCode(MsgEnum.ERROR.getCode());
-				responseInfo.setRetMsg("收件地址信不能为空");
+				responseInfo.setRetMsg("收件地址信息不能为空");
 				return responseInfo;
 			}
 			SpSendAddress address  = childGoodsorderService.queryAddress(addressId);//查询邮寄地址信息
@@ -147,9 +147,9 @@ public class OrderServiceImpl implements OrderService {
 			List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
 			childList = getOrderInfo(address,orderCreateTime,transactionid,json);
 			if(childList !=null){
-				int child=childGoodsorderService.insertChildGoodsorders(childList);//保存子订单
+				int child=childGoodsorderService.insertChildGoodsorderList(childList);//保存子订单
 				logger.info("***子订单插入成功***="+child);
-				int main=mainGoodsorderService.insertMainGoodsorders(mainList);//保存主订单
+				int main=mainGoodsorderService.insertMainGoodsorderList(mainList);//保存主订单
 				logger.info("***主订单插入成功***="+main);
 				int big=bigGoodsorderService.save(pyBigGoodsorder);//保存大订单
 				logger.info("***大订单插入成功***="+big);
