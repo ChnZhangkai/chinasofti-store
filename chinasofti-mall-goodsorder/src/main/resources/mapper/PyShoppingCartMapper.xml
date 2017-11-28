@@ -24,6 +24,7 @@
     <result column="ORG_PRICE" property="orgPrice" jdbcType="DECIMAL"/>
     <result column="STANDARD" property="standard" jdbcType="VARCHAR" />
     <result column="TITLE" property="goodsName" jdbcType="VARCHAR" />
+    <result column="FILEPATH" property="filepath" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     IDS, USERIDS, VENDORID, GOODS_IDS, GOODS_PAY_IDS, GOODS_NUM, CREATE_TIME, PAY_STATUS, 
