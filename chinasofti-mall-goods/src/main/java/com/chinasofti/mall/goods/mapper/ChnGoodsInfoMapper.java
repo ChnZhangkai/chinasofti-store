@@ -39,5 +39,5 @@ public interface ChnGoodsInfoMapper {
      * @param record
      * @return
      */
-    List<ChnGoodsinfo> selectByNameOrother(ChnGoodsinfo record);
+    List<ChnGoodsinfo> selectByNameOrother(ChnGoodsinfo goodsInfo);
 }

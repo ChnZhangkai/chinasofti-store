@@ -64,7 +64,7 @@ public class ChnGoodsInfoController {
 	@RequestMapping("queryGoodsInfoList")
 	public ResponseInfo queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo){
 		ResponseInfo response=null;
-		if(StringUtil.isNotEmpty(goodsInfo.toString())){
+		if(goodsInfo != null){
 			response = goodsInfoService.selectByNameOrother(goodsInfo);
 		}else{
 			response.setRetCode(MsgEnum.ERROR.getCode());
