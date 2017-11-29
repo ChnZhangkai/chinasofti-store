@@ -118,7 +118,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	
 	@Override
-	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class,MyException.class})//启动事务
+	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo saveOrder(JSONObject json) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
