@@ -34,25 +34,26 @@ public class ChnGoodsInfoController {
 	public ResponseInfo queryGoodsList(@RequestParam("id") String id){
 		String goodsClassIds = id;
 		ResponseInfo response=null;
-		if(StringUtil.isNotEmpty(goodsClassIds)){
-			response = goodsInfoService.selectByClassId(goodsClassIds);
-		}else{
+		if(StringUtil.isEmpty(goodsClassIds)){
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("分类Id不能为空！");
+			return response;
 		}
+		
+		response = goodsInfoService.selectByClassId(goodsClassIds);
 		return response;
 	} 
 	 
 	@SuppressWarnings("null")
 	@RequestMapping("queryGoodsInfo")
-	public ResponseInfo queryGoodsInfo(@RequestParam("ids") String ids){
-		ResponseInfo response=null;
-		if(StringUtil.isNotEmpty(ids)){
-			response = goodsInfoService.selectByGoodsId(ids);
-		}else{
+	public ResponseInfo queryGoodsInfo(@RequestParam("ids") String ids) {
+		ResponseInfo response = null;
+		if (StringUtil.isEmpty(ids)) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("商品Ids不能为空！");
+			return response;
 		}
+		response = goodsInfoService.selectByGoodsId(ids);
 		return response;
 	}
 	/**
@@ -62,14 +63,16 @@ public class ChnGoodsInfoController {
 	 */
 	@SuppressWarnings("null")
 	@RequestMapping("queryGoodsInfoList")
-	public ResponseInfo queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo){
-		ResponseInfo response=null;
-		if(goodsInfo != null){
-			response = goodsInfoService.selectByNameOrother(goodsInfo);
-		}else{
+	public ResponseInfo queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo) {
+		ResponseInfo response = null;
+		if (StringUtil.isEmpty(goodsInfo.getTitle()) || "".equals(goodsInfo.getTitle())
+				|| StringUtil.isEmpty(goodsInfo.getGoodsClassIds())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("关键字title或goodsClassIds不能为空！");
+			return response;
 		}
+		response = goodsInfoService.selectByNameOrother(goodsInfo);
+
 		return response;
-	} 
+	}
 }
