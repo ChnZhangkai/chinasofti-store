@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
-import com.chinasofti.mall.common.entity.order.PyBigGoodsorderExample;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
@@ -27,7 +26,6 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.goodsorder.handler.GoodsNumNotFondException;
-import com.chinasofti.mall.goodsorder.handler.MyException;
 import com.chinasofti.mall.goodsorder.service.BigGoodsorderService;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
@@ -61,10 +59,8 @@ public class OrderServiceImpl implements OrderService {
 		ResponseInfo info = new ResponseInfo();
 		// 用户的全部订单
 		// 分类1.付款（付款未发货，已发货运输 已到货 已签收） 2.未付款
-		PyBigGoodsorderExample example = new PyBigGoodsorderExample();
-		example.createCriteria().andUserIdsEqualTo(userId);
 		Map<String, Object> data = new HashMap<String, Object>();
-		List<PyBigGoodsorder> list = bigGoodsorderService.selectByExample(example);
+		List<PyBigGoodsorder> list = bigGoodsorderService.selectByUserIds(userId);
 		List<PyMainGoodsorder> pyMainGoodsorders = mainGoodsorderService.selectByUserIds(userId);
 		Map<String, Object> map = null;
 		List<Object> array0 = new ArrayList<Object>();
