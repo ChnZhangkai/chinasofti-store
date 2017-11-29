@@ -36,7 +36,7 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList){
 		int count = 0;
 		for(PyChildGoodsorder pyChildGoodsorder:childList){
-			count += childGoodsorderMapper.batchInsertPyChildGoodsorder(pyChildGoodsorder);
+			count += childGoodsorderMapper.insertSelective(pyChildGoodsorder);
 		}
 		return count;
 		
