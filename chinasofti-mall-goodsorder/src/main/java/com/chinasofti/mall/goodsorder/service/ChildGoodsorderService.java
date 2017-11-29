@@ -35,7 +35,8 @@ public interface ChildGoodsorderService extends IBaseService<PyChildGoodsorder> 
 	public JSONObject selectByChildorderCondition(ChildorderCondition childorderCondition);
 	
 	public List<PyChildGoodsorder> selectByMainorderIds(String mainorderIds);
-	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList);
+	
+	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList) throws MyException;
 	
 	public BigDecimal selectGoodsNum(String goodsId);
 	

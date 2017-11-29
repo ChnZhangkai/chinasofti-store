@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chinasofti.app.hystrix.OrderrFeignClientHystrix;
+import com.chinasofti.app.hystrix.OrderFeignClientHystrix;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -17,7 +17,7 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
  * 服务之间互相访问订单工程
  * 
  */
-@FeignClient(name="goodsorder-service",fallback =OrderrFeignClientHystrix.class)
+@FeignClient(name="goodsorder-service",fallback =OrderFeignClientHystrix.class)
 public interface OrderFeignClient {
 
 	@RequestMapping(value="/order/list")

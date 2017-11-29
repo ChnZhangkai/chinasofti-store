@@ -17,7 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 * @version
  */
 @Component
-public class OrderrFeignClientHystrix implements OrderFeignClient{
+public class OrderFeignClientHystrix implements OrderFeignClient{
 	
 
 	@Override
