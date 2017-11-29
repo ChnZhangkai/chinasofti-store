@@ -64,29 +64,30 @@
 		<table id="ptUserAdd" style="margin-top: 12px">
 			<tr>
 				<td width="80" align="right">账号:</td>
-				<td><input type="text" id="username" name="username" class="easyui-textbox" data-options="required:'true'"/></td>
+				<td><input type="text" id="username" name="username" class="easyui-textbox" data-options="required:true"/></td>
 				<td align="right">密码:</td>
-				<td><input type="text" id="password" name="password" class="easyui-textbox" data-options="required:'true'"/></td>
+				<td><input type="text" id="password" name="password" class="easyui-textbox" data-options="required:true"/></td>
 			</tr>
 			<tr>
 				<td align="right">姓名:</td>
-				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" data-options="required:'true'"/></td>
+				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" data-options="required:true"/></td>
+				<td align="right">角色:</td>
+				<td><select class="easyui-combobox easyui-validatebox" missingMessage="请选择" data-options="panelHeight:'auto',panelMaxHeight:'150px',required:true" id="roleids" name="ids" style="width: 135px;"></select></td>
+				
+			</tr>
+			<tr>
 				<td align="right">部门编号:</td>
 				<td><input type="text" id="departmentids" name="departmentids" class="easyui-textbox" /></td>
-			</tr>
-			<tr>
-				<td align="right">角色:</td>
-				<td><select class="easyui-combobox" missingMessage="请选择" data-options="panelHeight:'auto',panelMaxHeight:'150px'" id="roleids" name="ids" style="width: 135px;"></select></td>
-				<td align="right">部门名称:</td>
-				<td><input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox" /></td>
-			</tr>
-			<tr>
 				<td align="right">状态:</td>
-				<td><select class="easyui-combobox" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 135px">
+				<td><select class="easyui-combobox" missingMessage="请选择" data-options="editable:false,panelHeight:'auto',required:true" id="status" name="status" style="width: 135px">
 							<option value="0" selected="selected">禁用</option>
 							<option value="1">启用</option>
 					</select>
 				</td>
+			</tr>
+			<tr>
+				<td align="right">部门名称:</td>
+				<td><input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox" /></td>
 			</tr>
 		</table>
 	</form>
@@ -108,10 +109,10 @@
 			</tr>
 			<tr>
 				<td align="right">用户密码:</td>
-				<td><input type="text" id="password" name="password" class="easyui-textbox" />
+				<td><input type="text" id="password" name="password" class="easyui-textbox" data-options="required:true"/>
 				</td>		
 				<td align="right">用户姓名:</td>
-				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" />
+				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" data-options="required:true"/>
 				</td>		
 			</tr>
 			<tr>
@@ -188,7 +189,9 @@
 		
 	});
 	
-	
+	/*
+	 * 单独查询角色名称
+	 */
 	function queryRole(){
 		var row = $("#ptUser").datagrid('getSelected');
 		if (row) {
@@ -380,6 +383,7 @@
 			})
 			
 			$('#userRoleDialog').dialog('open').dialog({
+				closable:false,				
 				closed: false,
 				modal:true,
 	            title: "修改用户角色",
@@ -388,7 +392,6 @@
 	                iconCls: 'icon-ok',
 	                handler: function(){
 	                	var param = $("#userRoleDg").datagrid('getSelected');
-	                	//alert(JSON.stringify(param))
 	                	$.ajax({
 	                		url:'user/updateRoleUser',
 	                		data:{'moduleIds':row.ids,'roleIds':param.ids},
@@ -401,13 +404,15 @@
 	                				errorShow();
 	                			}
 	                		}
-	                	})
+	                	});
+	                	$('#userRoleDg').datagrid('clearSelections');
 	                }
 	            }, {
 	                text: '取消',
 	                iconCls: 'icon-cancel',
 	                handler: function () {
-	                    $('#userRoleDialog').dialog('close');                    
+	                    $('#userRoleDialog').dialog('close');
+	                    $('#userRoleDg').datagrid('clearSelections');
 	                }
 	            }]
 	        });
