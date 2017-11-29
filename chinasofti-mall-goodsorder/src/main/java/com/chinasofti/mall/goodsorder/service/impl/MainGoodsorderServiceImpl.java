@@ -131,12 +131,6 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		return mainGoodsorderMapper.selectByExample(example).get(0);
 	}
 
-	@Override
-	public List<PyMainGoodsorder> selectByUserIds(String userIds) {
-		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
-		example.createCriteria().andUserIdsEqualTo(userIds);
-		return mainGoodsorderMapper.selectByExample(example);
-	}
 
 	@Override
 	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList) throws MyException {
@@ -147,6 +141,9 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		return count;
 	}
 
-	
+	@Override
+	public List<PyMainGoodsorder> selectByUserIds(String userIds) {
+		return mainGoodsorderMapper.selectByUserIds(userIds);
+	}
 	
 }
