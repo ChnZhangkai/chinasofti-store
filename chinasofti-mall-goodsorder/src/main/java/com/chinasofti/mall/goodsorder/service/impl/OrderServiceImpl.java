@@ -83,9 +83,9 @@ public class OrderServiceImpl implements OrderService {
 					array2.add(getMap(pyMainGoodsorders, map, pyBigGoodsorder));
 				}
 			}
-			data.put("未付款订单", array0);
-			data.put("已付款订单", array1);
-			data.put("被取消订单", array2);
+			data.put("unpaidOrder", array0);
+			data.put("paymentOrder", array1);
+			data.put("cancelOrder", array2);
 			
 			info.setData(data);
 			info.setRetMsg(MsgEnum.SUCCESS.getMsg());
