@@ -36,7 +36,7 @@
 	</div>
 
 	<!-- 数据显示datagrid -->
-	<table id="ad-datagrid" class="easyui-datagrid" toolbar="#advertise-toolbar"
+	<table id="ad-datagrid" style="height: 100%" class="easyui-datagrid" toolbar="#advertise-toolbar"
 		data-options="url:'/advertise/findByPage',
     				 fitColumns:false,
        				 pagination:true,

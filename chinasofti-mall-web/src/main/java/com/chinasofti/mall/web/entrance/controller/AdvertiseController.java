@@ -33,7 +33,9 @@ public class AdvertiseController {
 
 	@Autowired
 	AdvertiseFeignClient advertiseFeignClient;
-
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
 	private static final Logger logger = LoggerFactory.getLogger(AdvertiseController.class);
 	
 	private static final String basePath = System.getProperty("user.dir")  + "/src/main/resources/static/data/advertise";
@@ -85,8 +87,6 @@ public class AdvertiseController {
 			e.printStackTrace();
 		}
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
 		//存入创建者信息
 		PtUser user = (PtUser) session.getAttribute("user");
 		advertiseContents.setCreateBy(user.getUsername());
@@ -96,7 +96,10 @@ public class AdvertiseController {
 	}
 	
 	@RequestMapping("update")
-	public String update(AdvertiseContents advertiseContents) {
+	public String update(AdvertiseContents advertiseContents,HttpSession session) {
+		PtUser user = (PtUser) session.getAttribute("user");
+		advertiseContents.setUpdateBy(user.getUsername());
+		advertiseContents.setUpdateTime(sdf.format(new Date()));
 		logger.info(">>>>>>>>>>>>>>>>>>>advertiseContents:" + advertiseContents);
 		return advertiseFeignClient.update(advertiseContents);
 	}
