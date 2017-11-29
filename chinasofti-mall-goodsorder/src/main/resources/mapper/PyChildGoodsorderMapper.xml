@@ -32,6 +32,16 @@
     <result column="approve_status" property="approveStatus" />
     <result column="PAY_WAY" property="payWay" />
   </resultMap>
+  <resultMap id="addressMap" type="com.chinasofti.mall.common.entity.spuser.SpSendAddress" >
+ 	<id column="NAME" property="name" jdbcType="VARCHAR" />
+ 	<id column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+ 	<id column="ZIPCODE" property="zipCode" jdbcType="VARCHAR" />
+ 	<id column="PRIVINCE" property="province" jdbcType="VARCHAR" />
+ 	<id column="CITY" property="city" jdbcType="VARCHAR" />
+ 	<id column="DISTRICT" property="district" jdbcType="VARCHAR" />
+ 	<id column="STREET" property="street" jdbcType="VARCHAR" />
+ 	<id column="ADDRESS" property="district" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -660,7 +670,7 @@
       and STATUS = '1';
   </select>
   <!--根据地址ID查询邮寄地址信息-->
-  <select id="selectAddress" resultMap="com.chinasofti.mall.common.entity.spuser.SpSendAddress" parameterType="java.lang.String" >
+  <select id="selectAddress" resultMap="addressMap" parameterType="java.lang.String" >
     select NAME,MOBILE,ZIPCODE,PRIVINCE,CITY,DISTRICT,STREET,ADDRESS
     where IDS = #{addressId,jdbcType=VARCHAR}
   </select>
