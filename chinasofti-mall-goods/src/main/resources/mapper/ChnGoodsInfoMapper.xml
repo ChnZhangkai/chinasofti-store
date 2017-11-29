@@ -774,10 +774,10 @@
     from chn_goodsinfo
     where 1=1 
     <if test ="title !=null">
-     and TITLE like #{%title% ,jdbcType=VARCHAR} 
+     <![CDATA[ AND TITLE like CONCAT('%','${title}','%') ]]>
     </if>
     <if test="goodsClassIds != null">
-     and   GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR},
+     AND   GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR}
     </if>
   </select>
 </mapper>
