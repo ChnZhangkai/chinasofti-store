@@ -39,8 +39,8 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("未找到相关数据！");
 		}else{
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg(MsgEnum.ERROR.getMsg());
+			response.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+			response.setRetMsg(MsgEnum.SERVER_ERROR.getMsg());
 		}
 		return response;
 	}
@@ -76,9 +76,9 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 	     * @return
 	     */
 		@Override
-		public ResponseInfo selectByNameOrother(ChnGoodsinfo record) {
+		public ResponseInfo selectByNameOrother(ChnGoodsinfo goodsInfo) {
 			ResponseInfo  response= new ResponseInfo();
-			List<ChnGoodsinfo> result = goodsinfoMapper.selectByNameOrother(record);
+			List<ChnGoodsinfo> result = goodsinfoMapper.selectByNameOrother(goodsInfo);
 			response = dealAdResponseData(result);
 			return response;
 		}
