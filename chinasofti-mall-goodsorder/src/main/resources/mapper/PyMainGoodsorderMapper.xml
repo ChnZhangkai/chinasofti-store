@@ -1008,10 +1008,16 @@
 	order by ${sort} ${order}
   </select>
    
-   <select id="selectByUserIds" resultMap="BaseResultMap" parameterType="java.lang.String"  >
+	<select id="selectByUserIds" resultMap="BaseResultMap" parameterType="java.lang.String"  >
     select 
     <include refid="Base_Column_List" /> 
     from py_main_goodsorder WHERE USER_IDS = #{userIds,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByBigGoodsorderIds" resultMap="BaseResultMap" parameterType="java.lang.String"  >
+    select 
+    <include refid="Base_Column_List" /> 
+    from py_main_goodsorder WHERE BIGORDER_ID = #{transactionid,jdbcType=VARCHAR}
 	</select>
    
 </mapper>

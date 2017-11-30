@@ -74,7 +74,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value="/cancel")
-	@ApiOperation(value="取消订单", notes="报文示例：{'ids':'1','orderId':'1001','userId':'chin'}")
+	@ApiOperation(value="取消订单", notes="报文示例：{'orderId':'1001','userId':'chin'}")
 	public ResponseInfo cancelOrder(@RequestParam("orderId") String orderId) {
 		ResponseInfo responseInfo = orderService.cancelOrder(orderId);
 		return responseInfo;

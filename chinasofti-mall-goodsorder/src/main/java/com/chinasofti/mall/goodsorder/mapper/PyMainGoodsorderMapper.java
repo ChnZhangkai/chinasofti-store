@@ -32,5 +32,7 @@ public interface PyMainGoodsorderMapper {
     List<PyMainGoodsorder> selectByMainorderCondition(MainorderCondition mainorderCondition);
     
     List<PyMainGoodsorder> selectByUserIds(String userIds);
+
+	List<PyMainGoodsorder> selectByBigGoodsorderIds(String transactionid);
     
 }
