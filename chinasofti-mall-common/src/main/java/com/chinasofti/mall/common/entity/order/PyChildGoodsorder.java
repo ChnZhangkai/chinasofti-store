@@ -41,6 +41,19 @@ public class PyChildGoodsorder extends PageBean {
 	 * @Fields goodsNum : 商品数量
 	 */
 	private BigDecimal goodsNum;
+	
+	/**
+	 * @Fields goodsNum : 商品名称
+	 */
+	private String goodsName;
+
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
 
 	/**
 	 * @Fields goodsPrice : 商品单价
@@ -363,6 +376,12 @@ public class PyChildGoodsorder extends PageBean {
 
 	public void setPayWay(String payWay) {
 		this.payWay = payWay;
+	}
+
+	@Override
+	public String toString() {
+		return "PyChildGoodsorder [ids=" + ids + ", goodsids=" + goodsids + ", custIds=" + custIds + ", goodsNum="
+				+ goodsNum + ", goodsName=" + goodsName + ", goodsPrice=" + goodsPrice + ", orderAmt=" + orderAmt + "]";
 	}
 
 	
