@@ -41,4 +41,6 @@ public interface ChildGoodsorderService extends IBaseService<PyChildGoodsorder> 
 	public BigDecimal selectGoodsNum(String goodsId);
 	
 	public SpSendAddress queryAddress(String addressId);
+	
+	public List<PyChildGoodsorder> selectByUserIds(String userIds);
 }

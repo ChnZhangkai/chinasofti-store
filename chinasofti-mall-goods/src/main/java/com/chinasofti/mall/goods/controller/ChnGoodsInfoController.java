@@ -65,13 +65,13 @@ public class ChnGoodsInfoController {
 	@RequestMapping("queryGoodsInfoList")
 	public ResponseInfo queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo) {
 		ResponseInfo response = null;
-		if (StringUtil.isEmpty(goodsInfo.getTitle()) || "".equals(goodsInfo.getTitle())
-				|| StringUtil.isEmpty(goodsInfo.getGoodsClassIds())) {
+		if (StringUtil.isNotEmpty(goodsInfo.getTitle()) || StringUtil.isNotEmpty(goodsInfo.getGoodsClassIds())) {
+			response = goodsInfoService.selectByNameOrother(goodsInfo);
+		} else {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("关键字title或goodsClassIds不能为空！");
 			return response;
 		}
-		response = goodsInfoService.selectByNameOrother(goodsInfo);
 
 		return response;
 	}
