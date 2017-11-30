@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.chinasofti.app.feign.OrderFeignClient;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyOrderInfo;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.alibaba.fastjson.JSONObject;
 
@@ -27,7 +28,7 @@ public class OrderFeignClientHystrix implements OrderFeignClient{
 	
  
 	@Override
-	public ResponseInfo saveOrder(JSONObject json){
+	public ResponseInfo saveOrder(PyOrderInfo orderInfo){
 		return new ResponseInfo();
 	}
 	

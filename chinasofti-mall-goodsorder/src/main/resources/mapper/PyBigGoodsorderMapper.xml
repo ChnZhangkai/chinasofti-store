@@ -452,5 +452,9 @@
     from py_big_goodsorder 
     where USER_IDS = #{userIds,jdbcType=VARCHAR}
   </select>
+  <select id="selectByUserIds" resultType="java.lang.Integer" parameterType="java.lang.String" >
+  	select count(TRANSACTIONID) from py_big_goodsorder 
+  	 where TRANSACTIONID = #{orderNo,jdbcType=VARCHAR}
+  </select>
   
 </mapper>
