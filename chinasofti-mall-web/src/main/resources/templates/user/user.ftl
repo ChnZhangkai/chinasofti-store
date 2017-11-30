@@ -41,15 +41,16 @@
     </div>
     
     <!-- 显示数据,数据表格列对齐 -->
-    <table id="ptUser" class="easyui-datagrid" title="用户列表" data-options="inline:true" toolbar="#user-toolbar-2" style="height: 95%">
+    <table id="ptUser" class="easyui-datagrid" title="用户列表" data-options="inline:true,sortName:'departmentids',sortOrder:'desc'" toolbar="#user-toolbar-2" style="height: 95%">
     	<thead>
     		<tr>
     			<th field="ids" hidden="true">用户编号</th>
 				<th field="username" width="15%" align="center" >账号</th>
-				<th field="usernames" width="25%" align="center" >姓名</th>
-				<th field="departmentids" width="20%" align="center">部门编号</th>
-				<th field="departmentnames" width="25%" align="center">部门名字</th>
-				<th field="status" width="15%" align="center" data-options="formatter:statesFormatter">状态</th>			
+				<th field="usernames" width="20%" align="center" >姓名</th>
+				<th field="departmentids" width="20%" align="center" data-options="sortable:true">部门编号</th>
+				<th field="departmentnames" width="20%" align="center" data-options="sortable:true">部门名字</th>
+				<th field="status" width="15%" align="center" data-options="formatter:statesFormatter,sortable:true">状态</th>
+				<th field="userOperator" width="10%" align="center" data-options="formatter:userOperatorFormatter">操作</th>			
     		</tr>
     	</thead>
     </table>
@@ -67,18 +68,18 @@
 				<td width="120px" align="right">账号:</td>
 				<td>
 					<input type="text" id="username" name="username" class="easyui-textbox" data-options="required:true" validType="account[6,30]" /><br>
-					<span style="color:gray"><font size="1">请输入6-30位数,可包含_,数字,字母.</font></span>
+					<span style="color:gray"><font size="1">请输入6-30位数,可包含_,数字,字母</font></span>
 				</td>
 				<td align="right">姓名:</td>
 				<td>
-					<input type="text" id="usernames" name="usernames" class="easyui-textbox" data-options="required:true" validType="maxLength[30]"/><br>
-					<span style="color:gray"><font size="1">请输入1-30位数,包含汉字,字母.</font></span>
+					<input type="text" id="usernames" name="usernames" class="easyui-textbox" data-options="required:true,validType:['betweenLength[2,30]','checkUserNames[usernames]']" /><br>
+					<span style="color:gray"><font size="1">请输入2-30位数,可包含汉字,字母</font></span>
 				</td>
 			</tr>
 			<tr>
 				<td align="right" style="line-height: 3">密码:</td>
 				<td>
-					<input type="text" id="password" name="password" class="easyui-passwordbox" data-options="required:true" validType="pwdLength[password]"/><br>
+					<input type="text" id="password" name="password" class="easyui-passwordbox" data-options="required:true" validType="betweenLength[6,12]"/><br>
 					<span style="color:gray"><font size="1">请输入6-12位数</font></span>
 				</td>
 				<td align="right">确认密码:</td>
@@ -90,9 +91,9 @@
 			</tr>
 			<tr>
 				<td align="right">角色:</td>
-				<td><select class="easyui-combobox easyui-validatebox" missingMessage="请选择" data-options="panelHeight:'auto',panelMaxHeight:'150px',required:true" id="roleids" name="ids" style="width: 135px;"></select></td>
+				<td><select class="easyui-combobox validatebox" data-options="editable:false,panelHeight:'auto',panelMaxHeight:'150px',required:true" id="roleids" name="ids" style="width: 135px;"></select></td>
 				<td align="right">状态:</td>
-				<td><select class="easyui-combobox" missingMessage="请选择" data-options="editable:false,panelHeight:'auto',required:true" id="status" name="status" style="width: 135px">
+				<td><select class="easyui-combobox validatebox" data-options="editable:false,panelHeight:'auto',required:true" id="status" name="status" style="width: 135px">
 							<option value="0" selected="selected">禁用</option>
 							<option value="1">启用</option>
 					</select>
@@ -100,9 +101,15 @@
 			</tr>
 			<tr>
 				<td align="right" style="line-height: 3">部门编号:</td>
-				<td><input type="text" id="departmentids" name="departmentids" class="easyui-textbox" /></td>
+				<td>
+					<input type="text" id="departmentids" name="departmentids" class="easyui-textbox validatebox" data-options="required:true,validType:['isNumber','betweenLength[6,32]']"/><br>
+					<span style="color:gray"><font size="1">请输入6-32位数字</font></span>
+				</td>
 				<td align="right">部门名称:</td>
-				<td><input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox" /></td>
+				<td>
+					<input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox validatebox" data-options="required:true,validType:['depName','betweenLength[2,30]']"/><br>
+					<span style="color:gray"><font size="1">请输入2-30位数</font></span>
+				</td>
 			</tr>
 		</table>
 	</form>
@@ -117,33 +124,25 @@
 		<table id="update" style="margin-top: 15px">
 			<tr>
 				<td width="80" align="right">用户编号:</td>
-				<td><input type="text" id="ids" name="ids" readonly="readonly"/></td>
+				<td><input type="text" id="ids" name="ids" style="background-color: #FAFAFA;" readonly="readonly"/></td>
 				<td align="right">用户账号:</td>
-				<td><input id="updateUsername" name="username" readonly="readonly"/>
+				<td><input id="updateUsername" name="username" style="background-color: #FAFAFA;" readonly="readonly"/>
 				</td>		
 			</tr>
 			<tr>
-				<td align="right">用户密码:</td>
-				<td><input type="text" id="password" name="password" class="easyui-textbox" data-options="required:true"/>
+				<td align="right" style="line-height: 3">用户密码:</td>
+				<td><input id="password" name="password" class="easyui-passwordbox validatebox" data-options="required:true,validType:['betweenLength[6,12]']"/>
 				</td>		
 				<td align="right">用户姓名:</td>
-				<td><input type="text" id="usernames" name="usernames" class="easyui-textbox" data-options="required:true"/>
+				<td><input id="usernames" name="usernames" class="easyui-textbox validatebox" data-options="required:true,validType:['betweenLength[2,30]','checkUserNames[usernames]']"/>
 				</td>		
 			</tr>
 			<tr>
 				<td align="right">部门编号:</td>				
-				<td><input type="text" id="departmentids" name="departmentids" class="easyui-textbox" />					
+				<td><input id="departmentids" name="departmentids" class="easyui-textbox validatebox" data-options="required:true,validType:['isNumber','betweenLength[6,32]']"/>					
 				</td>				
 				<td align="right">部门名字:</td>
-				<td><input type="text" id="departmentnames" name="departmentnames" class="easyui-textbox" /></td>
-			</tr>
-			<tr>
-				<td align="right">状态:</td>
-				<td><select class="easyui-combobox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="status" name="status" style="width: 75px">
-							<option value="0">禁用</option>
-							<option value="1">启用</option>
-					</select>
-				</td>
+				<td><input id="departmentnames" name="departmentnames" class="easyui-textbox validatebox" data-options="required:true,validType:['depName','betweenLength[2,30]']"/></td>
 			</tr>
 		</table>
 	</form>

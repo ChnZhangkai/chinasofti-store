@@ -49,6 +49,15 @@
 		}
 	}
 	
+	// 操作栏
+	function userOperatorFormatter(value, row, index) {
+		if (row.status == 0) {
+			return '<button id="allow" style="background-color: #3DADD3" class="easyui-linkbutton" iconCls="icon-tick" onclick="changeStatus(this,'+index+')" plain="true">启用</button>';
+		} else {
+			return '<button id="forbid" class="easyui-linkbutton" iconCls="icon-stop" onclick="changeStatus(this,'+index+')" plain="true">禁用</button>';
+		}
+	}
+	
 	/**
 	* Name 打开添加窗口
 	*/
@@ -121,7 +130,14 @@
 			$.messager.alert('温馨提醒','请选中要删的数据');
 			return ;
 		}
-	
+		if(items[0].status == "1"){
+			$.messager.alert('信息提示','已启用状态用户不可删除,请先禁用该用户');
+			return ;
+		}
+		if(items[0].username == "admin"){
+			$.messager.alert('信息提示','管理员用户不可删除');
+			return ;
+		}
 		$.messager.confirm('信息提示','确定要删除该记录？', function(result){
 			if(result){
 				$(items).each(function(){
@@ -152,7 +168,10 @@
 	function openEdit(){
 		var row = $("#ptUser").datagrid('getSelected');
 		if (row) {
-			//alert(JSON.stringify(row));
+			if(row.status == "1"){
+				$.messager.alert('信息提示','已启用状态用户不可修改,请先禁用该用户');
+				return ;
+			}
 			$('#ptUserUpdate').dialog('open').dialog({
 				closed: false,
 				modal:true,
@@ -196,12 +215,51 @@
 	}
 	
 	/**
+	* 启用/禁用
+	*/
+	function changeStatus(obj,index){
+		var dynamicStatus;
+		$('#ptUser').datagrid('selectRow',index);
+		var row = $("#ptUser").datagrid('getSelected');
+		if(obj.id == "allow"){
+			dynamicStatus = "1";
+		}
+		if(obj.id == "forbid"){
+			dynamicStatus = "0";
+		}
+		if(row){
+			if(row.status == dynamicStatus){
+				$.messager.alert('信息提示','数据状态不符，请重新选择!');
+				return ;
+			}
+			$.ajax({
+				url:'/user/update',
+				type:'POST',
+				data:{'ids':row.ids,'status':dynamicStatus},
+				success:function(data){
+					if(data >0){
+						$('#pagination').pagination('select');
+						successShow();
+					}else{
+						errorShow();
+					}
+				}
+			})
+		}else{
+			$.messager.alert('信息提示','请选中要修改的数据');
+		}
+	}
+	
+	/**
 	* 修改用户所属角色
 	*/
 	function openRole(){
 		var row = $("#ptUser").datagrid('getSelected');
 		if (row) {
-			
+			if(row.status == "1"){
+				$.messager.alert('信息提示','已启用状态用户不可修改,请先禁用该用户');
+				return ;
+			}
 			$.ajax({
 				url:'/user/findRoleName/' + row.ids,
 				type:'POST',
@@ -257,6 +315,11 @@
 		if(items.length < 1){
 			$.messager.alert('温馨提醒','请选中要重置的用户');
 			return ;
+		}else{
+			if(items[0].status == "1"){
+				$.messager.alert('信息提示','已启用状态用户不可重置,请先禁用该用户');
+				return ;
+			}
 		}
 		$.messager.confirm('信息提示','确定要将密码重置为000000吗？',function(data){
 			if(data){
@@ -369,21 +432,21 @@
 	        },    
 	        message: '两次输入密码不一致！'   
 	    },
-	    pwdLength: {    
-	        validator: function(value){
+	    betweenLength: {    
+	        validator: function(value,param){
 	        	var len = $.trim(value).length;
-	            return len >= 6 && len <= 12;    
+	            return len >= param[0] && len <= param[1];    
 	        },    
 	        message: '输入长度必须为6-12之间！'   
 	    },
 	    account: {//param的值为[]中值  
 	        validator: function (value,param) {  
 	            if (value.length < param[0] || value.length > param[1]) {  
-	                $.fn.validatebox.defaults.rules.account.message = "用户名长度必须在" + param[0] + "至" + param[1] + "之间!";  
+	                $.fn.validatebox.defaults.rules.account.message = "账号长度必须在" + param[0] + "至" + param[1] + "之间!";  
 	                return false;  
 	            } else {  
 	                if (!/^[\w]+$/.test(value)) {  
-	                    $.fn.validatebox.defaults.rules.account.message = "用户名只能数字、字母、下划线构成!";  
+	                    $.fn.validatebox.defaults.rules.account.message = "账号只能数字、字母、下划线构成!";  
 	                    return false;  
 	                } else {  
 	                	var v = checkUserName_Exist(value);
@@ -400,9 +463,21 @@
 	        message: ""  
 	    },
 	    checkUserNames: {    
-	        validator: function(value,param){    
-	            return value == $(param[0]).val();    
+	        validator: function(value){    
+	            return /^[A-Za-z\u0391-\uFFE5]+$/.test(value);    
 	        },    
-	        message: '两次输入密码不一致！';   
+	        message: '请输入中文或字母！'
+	    },
+	    isNumber:{
+	    	validator: function(value){    
+	            return /^[0-9]+$/.test(value)    
+	        },    
+	        message: '请输入纯数字！'
+	    },
+	    depName:{
+	    	validator: function(value){    
+	            return /^[A-Za-z0-9\u0391-\uFFE5]+$/.test(value);    
+	        },    
+	        message: '请输入字母、中文、数字！'
 	    }
 	});
