@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private BigGoodsorderService bigGoodsorderService;
 	
-	private List<PyMainGoodsorder> mainList = new LinkedList<PyMainGoodsorder>() ;//主订单集合
+     
 
 	@Override
 	public ResponseInfo queryOrderListByUserId(String userId) {
@@ -127,8 +127,9 @@ public class OrderServiceImpl implements OrderService {
 		return map;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	//@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
+	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo saveOrder(PyOrderInfo orderInfo){
 		ResponseInfo res = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -164,7 +165,12 @@ public class OrderServiceImpl implements OrderService {
 			pyBigGoodsorder.setUserIds(orderInfo.getUserId());//用户ID
 			
 			List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
-			childList = installOrdergetOrderInfo(address,orderCreateTime,transactionid,orderInfo);
+			List<PyMainGoodsorder> mainList = new LinkedList<PyMainGoodsorder>() ;//主订单集合
+			Map<String,Object> orderResult = installOrdergetOrderInfo(address,orderCreateTime,transactionid,orderInfo,mainList);
+			childList = (List<PyChildGoodsorder>) orderResult.get("childList");
+			mainList = (List<PyMainGoodsorder>) orderResult.get("mainList");
+			logger.info("*****childList="+childList);
+			logger.info("*****mainList="+mainList);
 			if(childList !=null){
 				int child=childGoodsorderService.insertChildGoodsorderList(childList);//保存子订单
 				logger.info("***子订单插入成功***="+child);
@@ -193,6 +199,22 @@ public class OrderServiceImpl implements OrderService {
 		return res;
 		
 	}
+
+	/*private List<PyMainGoodsorder> setMainOrderAdress(List<PyMainGoodsorder> mainList,SpSendAddress address) {
+		List<PyMainGoodsorder> resultMainList = new ArrayList<PyMainGoodsorder>();
+		for(PyMainGoodsorder order : mainList){
+			order.setContPostcode(address.getZipCode());//邮编
+			order.setContPhone(address.getMobile());//联系电话
+			order.setContProvince(address.getProvince());//省
+			order.setContCity(address.getCity());//市
+			order.setContDistrict(address.getDistrict());//区
+			order.setContStreet(address.getStreet());//街道
+			order.setContAddress(address.getAddress());//详细地址
+			order.setContName(address.getName());//收件人姓名
+			resultMainList.add(order);
+		}
+		return resultMainList;
+	}*/
 
 	@Override
 	public ResponseInfo cancelOrder(String orderId) {
@@ -283,8 +305,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	//组装订单信息 
-		private List<PyChildGoodsorder> installOrdergetOrderInfo(SpSendAddress address,String orderCreateTime,
-			String bigOrderNo,PyOrderInfo orderInfo) throws GoodsNumNotFondException{
+		private Map<String,Object> installOrdergetOrderInfo(SpSendAddress address,String orderCreateTime,
+			String bigOrderNo,PyOrderInfo orderInfo,List<PyMainGoodsorder> mainList) throws GoodsNumNotFondException{
+			Map<String,Object> orderResult = new HashMap<String,Object>();
 			PyMainGoodsorder mainGoodsorder = new PyMainGoodsorder();//主订单
 			PyChildGoodsorder childorder = new PyChildGoodsorder();//子订单
 			List<PyChildGoodsorder> goodsInfoList = new LinkedList<PyChildGoodsorder>();//单个商户商品信息集合
@@ -312,7 +335,7 @@ public class OrderServiceImpl implements OrderService {
 				mainGoodsorder.setContStreet(address.getStreet());//街道
 				mainGoodsorder.setContAddress(address.getAddress());//详细地址
 				mainGoodsorder.setContName(address.getName());//收件人姓名
-				BigDecimal shoporderAmt = null;//商户订单总金额;
+			    BigDecimal shoporderAmt = null;//商户订单总金额;
 				BigDecimal goodsorderAmt = null;//商品金额;
 				String goodsId = null;//商品ID
 				String goodsName = null;//商品名称
@@ -355,18 +378,16 @@ public class OrderServiceImpl implements OrderService {
 				}
 				mainGoodsorder.setOrderTotalAmt(shoporderAmt);
 				logger.info("************主订单"+i+"*************="+mainGoodsorder.toString());
-				mainList.add(mainGoodsorder);
-				
-			}			
-			return childList;
+			}
+			mainList.add(mainGoodsorder);
+			orderResult.put("childList", childList);
+			orderResult.put("mainList", mainList);
+			return orderResult;
 		}
 	//验证商品库存数量
 	private boolean checkGoods(String goodsId,BigDecimal num) {
-		logger.info("goodsId="+goodsId);
 		if(StringUtil.isNotEmpty(goodsId)){
 			BigDecimal goodsNum = childGoodsorderService.selectGoodsNum(goodsId);
-			logger.info("goodsId="+goodsId);
-			logger.info("goodsNum="+goodsNum);
 			if(goodsNum == null){
 				logger.info("获取商品数量为空或者发生异常");
 				return false;
