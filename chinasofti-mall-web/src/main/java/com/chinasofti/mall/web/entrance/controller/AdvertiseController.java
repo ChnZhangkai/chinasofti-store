@@ -2,12 +2,15 @@ package com.chinasofti.mall.web.entrance.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.bcel.generic.NEW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,9 @@ public class AdvertiseController {
 
 	@Autowired
 	AdvertiseFeignClient advertiseFeignClient;
-
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
 	private static final Logger logger = LoggerFactory.getLogger(AdvertiseController.class);
 	
 	private static final String basePath = System.getProperty("user.dir")  + "/src/main/resources/static/data/advertise";
@@ -81,15 +86,20 @@ public class AdvertiseController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		//存入创建者信息
-		//PtUser user = (PtUser) session.getAttribute("user");
-		//advertiseContents.setCreateBy(user.getUsername());	
+		PtUser user = (PtUser) session.getAttribute("user");
+		advertiseContents.setCreateBy(user.getUsername());
+		advertiseContents.setCreateTime(sdf.format(new Date()));
 		logger.info(">>>>>>>>>>>>>>>>>>>advertiseContents:" + advertiseContents);
 		return advertiseFeignClient.add(advertiseContents);
 	}
 	
 	@RequestMapping("update")
-	public String update(AdvertiseContents advertiseContents) {
+	public String update(AdvertiseContents advertiseContents,HttpSession session) {
+		PtUser user = (PtUser) session.getAttribute("user");
+		advertiseContents.setUpdateBy(user.getUsername());
+		advertiseContents.setUpdateTime(sdf.format(new Date()));
 		logger.info(">>>>>>>>>>>>>>>>>>>advertiseContents:" + advertiseContents);
 		return advertiseFeignClient.update(advertiseContents);
 	}

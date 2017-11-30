@@ -10,15 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
+import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
+import com.github.pagehelper.util.StringUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
  * 购物车工程接口V1.0
- * @author heruilong
+ * @author 葛振淋/heruilong
  *
  */
 @RestController
@@ -56,10 +58,24 @@ public class ShoppingCartController {
 	 * @param t
 	 * @return
 	 */
+	@SuppressWarnings("null")
 	@RequestMapping(value="/mod/goods")
 	@ApiOperation(value="修改购物车商品数量", notes="报文示例：[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]")
 	public ResponseInfo updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo) {
-		return pyShoppingCartService.updatePyShoppingCart(goodsInfo);
+		ResponseInfo response = null;
+		if (StringUtil.isEmpty(goodsInfo.getUserId())) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("userId不能为空！");
+			return response;
+		}
+		if (StringUtil.isEmpty(goodsInfo.getId())) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("Id不能为空！");
+			return response;
+		}
+		
+		response = pyShoppingCartService.updatePyShoppingCart(goodsInfo);
+		return response;
 	}
 	
 	/**
@@ -67,10 +83,21 @@ public class ShoppingCartController {
 	 * @param json
 	 * @return
 	 */
+	@SuppressWarnings("null")
 	@RequestMapping(value="/query/goodsList")
 	@ApiOperation(value="查询购物车商品", notes="报文示例：{\"userId\":\"1\"}")
-	public ResponseInfo queryPyShoppingCartListByUserId(@RequestParam("userId") String userId){
-		return pyShoppingCartService.queryPyShoppingCartListByUserId(userId);
+	public ResponseInfo queryPyShoppingCartListByUserId(@RequestParam("userId") String userId) {
+		
+		ResponseInfo response = null;
+		if (StringUtil.isEmpty(userId)) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("userId不能为空！");
+			return response;
+		}
+
+		response = pyShoppingCartService.queryPyShoppingCartListByUserId(userId);
+
+		return response;
 	}
 
 }

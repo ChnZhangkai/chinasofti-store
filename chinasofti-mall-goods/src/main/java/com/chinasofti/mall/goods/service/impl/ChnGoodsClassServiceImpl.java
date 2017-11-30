@@ -11,14 +11,12 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClassExample.Criteria;
-import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.ChnGoodsClassMapper;
 import com.chinasofti.mall.goods.service.IChnGoodsClassService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.util.StringUtil;
 
 import net.sf.json.JSONObject;
 
@@ -102,7 +100,7 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 	}
   
 	/**
-	 * 查询分类信息
+	 * 查询分类信息(弃用)
 	 */
 	public ResponseInfo selectByIsParent(ResponseInfo response, String isparent) {
 		List<ChnGoodsClass> result = chnGoodsClassMapper.selectByIsParent(isparent);
@@ -127,8 +125,8 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("未找到相关数据！");
 		}else {
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg(MsgEnum.ERROR.getMsg());
+			response.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+			response.setRetMsg(MsgEnum.SERVER_ERROR.getMsg());
 		}
 		return response;
 	}
@@ -142,12 +140,7 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 	public ResponseInfo queryClass(String classId) {
 		ResponseInfo response = new ResponseInfo();
 		String pids = classId;
-		if (StringUtil.isNotEmpty(pids)) {
-			response = selectById(response, pids);
-		} else {
-			String isparent = Constant.IS_PARENT;
-			response = selectByIsParent(response, isparent);
-		}
+		response = selectById(response, pids);
 		return response;
 	}
 

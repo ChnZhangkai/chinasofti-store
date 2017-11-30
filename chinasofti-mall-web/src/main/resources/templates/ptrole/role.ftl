@@ -52,15 +52,15 @@
 		<table id="roleAdd">
 			<tr>
                 <td width="80" align="right">角色名称:</td>
-                <td><input  id="names" name="names" class="easyui-textbox" /></td>
+                <td><input  id="roleNames" name="names" class="easyui-textbox" data-options="required:true"/></td>
             </tr>
             <tr>
              	<td align="right">角色描述:</td>
-                <td><input id="description" name="description" class="easyui-textbox" /></td>
+                <td><input id="description" name="description" class="easyui-textbox" data-options="required:true"/></td>
             </tr>
             <tr>
                 <td align="right">角色数量:</td>
-                <td><input id="numbers" name="numbers" class="easyui-textbox" /></td>
+                <td><input id="numbers" name="numbers" class="easyui-textbox" data-options="required:true"/></td>
             </tr>
 		</table>
 	</form>
@@ -70,27 +70,23 @@
 <!-- 修改表格 -->
 <div id="ptroleUpdateDialog" class="easyui-dialog"
 	data-options="closed:true,iconCls:'icon-edit'"
-	style="width: 470px; padding: 10px;">
+	style="width: 470px;height: 170px;padding: 10px;">
 	<form id="ptroleUpdate" method="post" >
 		<table id="update">
 			<tr>
 				<td><input type="hidden" id="ids" name="ids" /></td>
 			</tr>
 			<tr>
-                <td align="right">角色全称:</td>
-                <td><input  id="names" name="names" class="easyui-textbox" /></td>
-                <td align="right">角色数量:</td>
-                <td><input id="numbers" name="numbers" class="easyui-textbox" /></td>
+                <td align="right">角色名称:</td>
+                <td><input  id="names" name="names" class="easyui-textbox" readonly="readonly"/></td>
+                <td align="right">创建人员:</td>
+                <td><input id="createby" name="createby" class="easyui-textbox" readonly="readonly"/></td>
             </tr>
 			<tr>
-				<td align="right">创建人员:</td>
-                <td><input id="createby" name="createby" class="easyui-textbox" /></td>
-                <td align="right">更新人员:</td>
-                <td><input id="updateby" name="updateby" class="easyui-textbox" /></td>
-            </tr>
-            <tr>
-             <td align="right">角色描述:</td>
-                <td><input id="description" name="description" class="easyui-textbox" /></td>
+               	<td align="right">角色数量:</td>
+                <td><input id="numbers" name="numbers" class="easyui-textbox" data-options="required:true"/></td> 
+                <td align="right">角色描述:</td>
+                <td><input id="description" name="description" class="easyui-textbox" data-options="required:true"/></td>
             </tr>
 		</table>
 	</form>
@@ -389,7 +385,7 @@ $(function(){
 	 */
 	function doClear(){
 		$("#searchForm").form("reset");
-	} 	
+	}
 	
 	
 	/**
