@@ -538,7 +538,8 @@
   </select>
   <!--根据地址ID查询邮寄地址信息-->
   <select id="selectAddress" resultMap="addressMap" parameterType="java.lang.String" >
-    select NAME,MOBILE,ZIPCODE,PRIVINCE,CITY,DISTRICT,STREET,ADDRESS
+    select NAME,MOBILE,ZIPCODE,PROVINCE,CITY,DISTRICT,STREET,ADDRESS
+      from sp_cont_address
     where IDS = #{addressId,jdbcType=VARCHAR}
   </select>
    
