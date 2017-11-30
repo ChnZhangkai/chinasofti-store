@@ -48,6 +48,15 @@ public class PtUserController{
 		return ptRole.getNames();
 	}
 	
+	@RequestMapping("/findByUserName")
+	public String findByUserName(@RequestBody(required = false) String username){
+		String ptUser = ptUserService.selectByUserName(username);
+		if (ptUser != null) {
+			return "1";
+		}
+		return "0";
+	}
+	
 	/**
 	 * 修改用户角色
 	 * @param ptRoleUser

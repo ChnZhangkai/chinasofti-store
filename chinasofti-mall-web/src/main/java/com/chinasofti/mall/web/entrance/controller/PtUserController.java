@@ -51,6 +51,15 @@ public class PtUserController {
 	}
 	
 	/**
+	 * 通过用户名称查询
+	 * @return
+	 */
+	@RequestMapping("/findByUserName")
+	public String findByUserName(String username){
+		return ptUserFeignClient.findByUserName(username);
+	}
+	
+	/**
 	 * 修改用户角色
 	 * @param ptRoleUser
 	 * @return

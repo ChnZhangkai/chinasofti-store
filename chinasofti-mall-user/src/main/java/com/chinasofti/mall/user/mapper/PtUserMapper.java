@@ -24,9 +24,11 @@ public interface PtUserMapper {
     List<PtUser> selectByExample(PtUserExample example);
     
     PtRole selectUserRoleName(String ids);
-
+    
     PtUser selectByPrimaryKey(String ids);
-
+    
+    String selectByUserName(String username);
+    
     int updateByExampleSelective(@Param("record") PtUser record, @Param("example") PtUserExample example);
 
     int updateByExampleWithBLOBs(@Param("record") PtUser record, @Param("example") PtUserExample example);
