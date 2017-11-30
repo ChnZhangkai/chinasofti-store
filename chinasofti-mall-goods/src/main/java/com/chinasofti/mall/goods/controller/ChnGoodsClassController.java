@@ -97,12 +97,12 @@ public class ChnGoodsClassController {
 	@RequestMapping(value = "queryClass")
 	public ResponseInfo queryClass(@RequestParam("classId") String classId){
 		ResponseInfo response=null;
-		if(StringUtil.isNotEmpty(classId)){
-			response = GoodsClassService.queryClass(classId);
-		}else{
+		if(StringUtil.isEmpty(classId)){
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("classId不能为空！");
+			return response;
 		}
+		response = GoodsClassService.queryClass(classId);
 		
 		return response;
 		

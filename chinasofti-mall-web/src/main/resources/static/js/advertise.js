@@ -104,15 +104,18 @@ function editAdvertise() {
 	}
 	$('#ad-edit-dialog').dialog('open').dialog('setTitle', '编辑广告');
 	$('#ad-edit-form').form('load', row);
-	loadClassName();
+	loadClassName2();
+	loadAdPostion2();
 	$("#imghead").attr("src", row.imageurl);
 	url = 'advertise/update';
 }
 // 保存
 function saveAdvertise() {
+	//debugger;
 	var file = $("#file").val();
-	if(file == "" && $('#imghead')[0].src == ""){
-		console.info($('#imghead')[0].src);
+	if(file == ""){
+		console.info($('#imghead')[0]);
+		//console.info($('#imghead')[0].src);
 		$.messager.alert('温馨提醒','请选择一张图片！','question');
 		return false;
 	}
@@ -178,7 +181,7 @@ function showAdvertise() {
 	} else {
 		$('#ad-show-dialog').dialog('open').dialog('setTitle', '广告查看');
 		$('#ad-show-form').form('load', row);
-		alert(JSON.stringify(row));
+		//alert(JSON.stringify(row));
 		$("#showImg").attr("src", row.imageurl);
 	}
 }
@@ -251,34 +254,27 @@ function loadClassName() {
 			})
 		}
 	});
-	
-//	$.ajax({
-//		url : '/goodsCheck/reqGoodsClassName',
-//		type:'GET',
-//		dataType : 'json',
-//		success : function(jsonstr) {
-//			jsonstr.unshift({
-//				'ids' : '',
-//				'name' : '请选择'
-//			});// 向json数组开头添加自定义数据
-//			$('#positionId_').combobox({
-//				data : jsonstr,
-//				valueField : 'name',
-//				textField : 'name',
-//				onLoadSuccess : function() { // 加载完成后,设置选中第一项
-//					var val = $(this).combobox('getData');
-//					for ( var item in val[0]) {
-//						if (item == 'ids') {
-//							$(this).combobox('select', val[0][item]);
-//						}
-//					}
-//				}
-//			});
-//		}
-//	});
-	
-	
 }
+	// 加载分类名称
+	function loadClassName2() {
+		var row = $('#ad-datagrid').datagrid('getSelected');
+		$.ajax({
+			url : '/goodsCheck/reqGoodsClassName',
+			type : "GET",
+			success : function(data) {
+				data = eval("(" + data + ")");
+				$('#_className').combobox({
+					valueField : 'name',
+					textField : 'name',
+					data : data.rows,
+					onLoadSuccess : function() { // 加载完成后,设置选中第一项
+						$('#_className').combobox('select',row.categoryName);
+					}
+				})
+			}
+		});
+	}
+
 
 //加载广告类型
 function loadAdType(){
@@ -292,17 +288,41 @@ function loadAdPostion(){
 		url : '/advertise/findAdPostionAll',
 		dataType : 'json',
 		success : function(jsonstr) {
+			jsonstr.unshift({
+				'ids' : '',
+				'name' : ''
+			});
+			$('#positionId_').combobox({
+				data : jsonstr,
+				valueField : 'ids',
+				textField : 'name',
+//				onLoadSuccess : function() { // 加载完成后,设置选中第一项
+//					var val = $(this).combobox('getData');
+//					for ( var item in val[0]) {
+//						if (item == 'ids') {
+//							$(this).combobox('select', val[0][item]);
+//						}
+//					}
+//				}
+			});
+		}
+	});
+	
+}
+
+//加载修改页面广告位名称
+function loadAdPostion2(){	
+	$.ajax({
+		url : '/advertise/findAdPostionAll',
+		dataType : 'json',
+		success : function(jsonstr) {
 			$('#positionId_').combobox({
 				data : jsonstr,
 				valueField : 'ids',
 				textField : 'name',
 				onLoadSuccess : function() { // 加载完成后,设置选中第一项
-					var val = $(this).combobox('getData');
-					for ( var item in val[0]) {
-						if (item == 'ids') {
-							$(this).combobox('select', val[0][item]);
-						}
-					}
+					var row = $('#ad-datagrid').datagrid('getSelected');
+					$('#positionId_').combobox('select',row.positionId);
 				}
 			});
 		}

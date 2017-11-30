@@ -167,26 +167,26 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 	@SuppressWarnings("null")
 	@RequestMapping("findAdvertiseList")
 	public ResponseInfo findAdvertiseList(@RequestParam("positionId") String positionId) {
-		ResponseInfo response=null;
-		if(StringUtil.isNotEmpty(positionId)){
-			response = advertiseService.queryAdvertiseList(positionId);
-		}else{
+		ResponseInfo response = null;
+		if (StringUtil.isEmpty(positionId)) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("位置Id不能为空！");
+			return response;
 		}
-		
+		response = advertiseService.queryAdvertiseList(positionId);
+
 		return response;
 	}
 	@SuppressWarnings("null")
 	@RequestMapping("findAdvertise")
 	public ResponseInfo findAdvertise(@RequestParam("positionId") String positionId) {
 		ResponseInfo response=null;
-		if(StringUtil.isNotEmpty(positionId)){
-			response = advertiseService.queryAdvertise(positionId);
-		}else{
+		if(StringUtil.isEmpty(positionId)){
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("位置Id不能为空！");
+			return response;
 		}
+		response = advertiseService.queryAdvertise(positionId);
 		return response;
 	}
 

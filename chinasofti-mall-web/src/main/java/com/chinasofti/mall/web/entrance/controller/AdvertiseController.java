@@ -96,7 +96,33 @@ public class AdvertiseController {
 	}
 	
 	@RequestMapping("update")
-	public String update(AdvertiseContents advertiseContents,HttpSession session) {
+	public String update(AdvertiseContents advertiseContents, MultipartFile file,HttpSession session) {
+		JSONObject jsonObject = new JSONObject();
+		if (file.isEmpty()) {
+			return jsonObject.put("errorMsg", "图片为空！！！").toString();
+		}
+		// 获取文件名
+		String fileName = file.getOriginalFilename();
+		logger.info("上传的文件名为：" + fileName);
+		// 获取文件的后缀名
+		String suffixName = fileName.substring(fileName.lastIndexOf("."));
+		logger.info("上传的后缀名为：" + suffixName);
+		// 重命名文件名
+		fileName = UUID.randomUUID().toString().replaceAll("-", "") + suffixName;
+		File dest = new File(basePath + File.separator+ fileName);
+		// 检测是否存在目录
+		if (!dest.getParentFile().exists()) {
+			dest.getParentFile().mkdirs();
+		}
+		try {
+			file.transferTo(dest);
+			advertiseContents.setImageurl("http://192.168.1.244/advertise/"+ fileName);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		PtUser user = (PtUser) session.getAttribute("user");
 		advertiseContents.setUpdateBy(user.getUsername());
 		advertiseContents.setUpdateTime(sdf.format(new Date()));
