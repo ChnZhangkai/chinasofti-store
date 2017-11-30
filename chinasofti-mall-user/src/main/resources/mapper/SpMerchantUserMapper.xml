@@ -133,7 +133,7 @@
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null" >
-      order by ${orderByClause}
+      order by CREATE_TIME desc
     </if>
   </select>
   
