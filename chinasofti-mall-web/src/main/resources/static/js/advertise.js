@@ -97,16 +97,25 @@ function editAdvertise() {
 	var row = $('#ad-datagrid').datagrid('getSelected');
 	if (row <= 0) {
 		$.messager.alert('提示', '请选择要编辑的条目!');
-	} else {
-		$('#ad-edit-dialog').dialog('open').dialog('setTitle', '编辑广告');
-		$('#ad-edit-form').form('load', row);
-		loadClassName();
-		$("#imghead").attr("src", row.imageurl);
-		url = 'advertise/update';
 	}
+	if (row.states == 1) {
+		$.messager.alert('warning', '该广告已发布，无法修改，请先取消发布！', 'info');
+		return;
+	}
+	$('#ad-edit-dialog').dialog('open').dialog('setTitle', '编辑广告');
+	$('#ad-edit-form').form('load', row);
+	loadClassName();
+	$("#imghead").attr("src", row.imageurl);
+	url = 'advertise/update';
 }
 // 保存
 function saveAdvertise() {
+	var file = $("#file").val();
+	if(file == "" && $('#imghead')[0].src == ""){
+		console.info($('#imghead')[0].src);
+		$.messager.alert('温馨提醒','请选择一张图片！','question');
+		return false;
+	}
 	$('#ad-edit-form').form('submit', {
 		url : url,
 		onSubmit : function() {
@@ -115,13 +124,15 @@ function saveAdvertise() {
 		success : function(result) {
 			var result = eval('(' + result + ')');
 			if (result.errorMsg) {
-				$.messager.show({
+				/*$.messager.show({
 					title : 'Error',
 					msg : result.errorMsg
-				});
+				});*/
+				errorShow();
 			} else {
 				$('#ad-edit-dialog').dialog('close'); // close the dialog
 				$('#ad-datagrid').datagrid('reload'); // reload the user data
+				successShow();
 			}
 		}
 	});
@@ -145,11 +156,13 @@ function deleteAdvertise() {
 				}, function(result) {
 					if (result.success) {
 						$('#ad-datagrid').datagrid('reload');
+						successShow();
 					} else {
-						$.messager.show({ // show error message
+						/*$.messager.show({ // show error message
 							title : '错误提示',
 							msg : result.errorMsg
-						});
+						});*/
+						errorShow();
 					}
 				}, 'json');
 			}
@@ -165,6 +178,7 @@ function showAdvertise() {
 	} else {
 		$('#ad-show-dialog').dialog('open').dialog('setTitle', '广告查看');
 		$('#ad-show-form').form('load', row);
+		alert(JSON.stringify(row));
 		$("#showImg").attr("src", row.imageurl);
 	}
 }
@@ -175,6 +189,12 @@ function previewImage(file) {
 	var MAXHEIGHT = 125;
 	var div = document.getElementById('preview');
 	if (file.files && file.files[0]) {
+		if (!/image\/\w+/.test((file.files[0]).type)) {
+			var imgfile = document.getElementById('file');
+			imgfile.value = null;
+			$.messager.alert('信息提示', '请确保文件类型为图像类型', 'info');
+			return false;
+		}
 		div.innerHTML = '<img style="max-width:235px;max-height:125px;width:135;height:75" id=imghead>';
 		var img = document.getElementById('imghead');
 		img.onload = function() {
@@ -220,6 +240,14 @@ function loadClassName() {
 				valueField : 'name',
 				textField : 'name',
 				data : data.rows,
+//				onLoadSuccess : function() { // 加载完成后,设置选中第一项
+//					var val = $(this).combobox('getData');
+//					for ( var item in val[0]) {
+//						if (item == 'name') {
+//							$(this).combobox('select', val[0][item]);
+//						}
+//					}
+//				}
 			})
 		}
 	});
@@ -264,10 +292,6 @@ function loadAdPostion(){
 		url : '/advertise/findAdPostionAll',
 		dataType : 'json',
 		success : function(jsonstr) {
-			jsonstr.unshift({
-				'ids' : '',
-				'name' : '请选择'
-			});// 向json数组开头添加自定义数据
 			$('#positionId_').combobox({
 				data : jsonstr,
 				valueField : 'ids',
@@ -285,6 +309,27 @@ function loadAdPostion(){
 	});
 	
 }
+
+function successShow(){
+	$.messager.show({
+		title:'提示',
+		msg:'<font style="color:green">操作成功</font>',
+		showType:'slide',
+		timeout:3000,
+	});
+}
+
+function errorShow(){
+	$.messager.show({
+		title:'提示',
+		msg:'<font style="color:red">操作失败</font>',
+		showType:'slide',
+		timeout:3000,
+	});
+}
+
+
+
 $(function() {
 	// 加载搜索框广告位名称
 	$.ajax({
@@ -326,6 +371,16 @@ $(function() {
 			},
 			message : '结束日期应大于开始日期!' // 匹配失败消息
 		}
+	});
+	
+	//输入框长度验证
+	$.extend($.fn.validatebox.defaults.rules, {    
+	    maxLength: {    
+	        validator: function(value, param){    
+	            return value.length <= param[0];    
+	        },    
+	        message: '最大只能输入30位！'   
+	    }    
 	});
 
 });

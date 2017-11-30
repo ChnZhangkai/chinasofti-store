@@ -62,7 +62,8 @@ public class OrderServiceImpl implements OrderService {
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<PyBigGoodsorder> list = bigGoodsorderService.selectByUserIds(userId);
 		List<PyMainGoodsorder> pyMainGoodsorders = mainGoodsorderService.selectByUserIds(userId);
-		Map<String, Object> map = null;
+		List<PyChildGoodsorder> pyChildGoodsorders = childGoodsorderService.selectByUserIds(userId);
+
 		List<Object> array0 = new ArrayList<Object>();
 		List<Object> array1 = new ArrayList<Object>();
 		List<Object> array2 = new ArrayList<Object>();
@@ -70,17 +71,16 @@ public class OrderServiceImpl implements OrderService {
 		if (list.size() != 0 && pyMainGoodsorders.size() != 0) {
 			for (PyBigGoodsorder pyBigGoodsorder : list) {
 				// 支付状态 未付款
-				map = new HashMap<String, Object>();
 				if (PyBigGoodsorder.PAY_STATUS_NOT.equals(pyBigGoodsorder.getPayStatus())) {
-					array0.add(getMap(pyMainGoodsorders, map, pyBigGoodsorder));
+					array0.add(getMap(pyChildGoodsorders, pyMainGoodsorders, pyBigGoodsorder));
 				}
 				// 已付款
 				if (PyBigGoodsorder.PAY_STATUS_OK.equals(pyBigGoodsorder.getPayStatus())) {
-					array1.add(getMap(pyMainGoodsorders, map, pyBigGoodsorder));
+					array1.add(getMap(pyChildGoodsorders, pyMainGoodsorders, pyBigGoodsorder));
 				}
 				// 被取消
 				if (PyBigGoodsorder.PAY_STATUS_CANCLE.equals(pyBigGoodsorder.getPayStatus())) {
-					array2.add(getMap(pyMainGoodsorders, map, pyBigGoodsorder));
+					array2.add(getMap(pyChildGoodsorders, pyMainGoodsorders, pyBigGoodsorder));
 				}
 			}
 			data.put("unpaidOrder", array0);
@@ -99,20 +99,28 @@ public class OrderServiceImpl implements OrderService {
 		return info;
 	}
 
-	private Map<String, Object> getMap(List<PyMainGoodsorder> pyMainGoodsorders, Map<String, Object> map, PyBigGoodsorder pyBigGoodsorder) {
+	private Map<String, Object> getMap(List<PyChildGoodsorder> pyChildGoodsorders, List<PyMainGoodsorder> pyMainGoodsorders, PyBigGoodsorder pyBigGoodsorder) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pyBigGoodsorder", pyBigGoodsorder);
+		List<PyMainGoodsorder> mainGoodsorders = new ArrayList<PyMainGoodsorder>();
+		List<PyChildGoodsorder> childGoodsorders = new ArrayList<PyChildGoodsorder>();
+		BigDecimal sum = new BigDecimal(0);
+		String mainId = "";
 		for (PyMainGoodsorder pyMainGoodsorder : pyMainGoodsorders) {
 			if (pyMainGoodsorder.getBigorderId().equals(pyBigGoodsorder.getTransactionid())) {
-				map.put("pyBigGoodsorder", pyBigGoodsorder);
-				map.put("pyMainGoodsorder", pyMainGoodsorder);
-				List<PyChildGoodsorder> pyChildGoodsorders = childGoodsorderService.selectByMainorderIds(pyMainGoodsorder.getTransactionid());
-				BigDecimal sum = new BigDecimal(0);
+				mainGoodsorders.add(pyMainGoodsorder);
+				mainId = pyMainGoodsorder.getTransactionid();
 				for (PyChildGoodsorder pyChildGoodsorder : pyChildGoodsorders) {
-					sum = pyChildGoodsorder.getGoodsNum().add(sum);
+					if (pyChildGoodsorder.getMainorderIds().equals(mainId)) {				
+						sum = pyChildGoodsorder.getGoodsNum().add(sum);
+						childGoodsorders.add(pyChildGoodsorder);
+					}
 				}
-				map.put("pyChildGoodsorders", pyChildGoodsorders);
-				map.put("sum", sum);
 			}
 		}
+		map.put("sum", sum);
+		map.put("pyMainGoodsorder", mainGoodsorders);
+		map.put("pyChildGoodsorder", childGoodsorders);
 		return map;
 	}
 	
