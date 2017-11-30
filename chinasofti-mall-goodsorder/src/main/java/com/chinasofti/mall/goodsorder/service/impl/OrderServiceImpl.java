@@ -32,6 +32,7 @@ import com.chinasofti.mall.goodsorder.service.BigGoodsorderService;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
 import com.chinasofti.mall.goodsorder.service.OrderService;
+import com.github.pagehelper.util.StringUtil;
 /**
  * 调用多个订单服务处理用户订单信息
  * @ClassName: OrderServiceImpl.java
@@ -127,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
+	//@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo saveOrder(PyOrderInfo orderInfo){
 		ResponseInfo res = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -179,9 +180,11 @@ public class OrderServiceImpl implements OrderService {
 			data.put("pyChildGoodsorder", childList);
 			data.put("pyBigGoodsorder", pyBigGoodsorder);
 			res.setData(data);
+			logger.info("*****订单提交成功*****");
 		}catch(GoodsNumNotFondException e){
 			res.setRetCode("900013");
 			res.setRetMsg("您购买的 "+e.getValue()+e.getMessage());
+			logger.error(e.toString());
 		}catch (Exception e) {
 			res.setRetCode(MsgEnum.SERVER_ERROR.getCode());
 			res.setRetMsg(MsgEnum.SERVER_ERROR.getMsg());
@@ -334,7 +337,8 @@ public class OrderServiceImpl implements OrderService {
 					}
 					childorder.setGoodsPrice(goodsPrice);
 					goodsorderAmt = goodsNum.multiply(goodsPrice);//商品金额
-					if(j==1){
+					childorder.setOrderAmt(goodsorderAmt);
+					if(j==0){
 						shoporderAmt = goodsorderAmt; 
 					}else{
 						shoporderAmt = shoporderAmt.add(goodsorderAmt);
@@ -358,13 +362,20 @@ public class OrderServiceImpl implements OrderService {
 		}
 	//验证商品库存数量
 	private boolean checkGoods(String goodsId,BigDecimal num) {
-		BigDecimal goodsNum = childGoodsorderService.selectGoodsNum(goodsId);
-		if(goodsNum == null){
-			logger.info("获取商品数量为空或者发生异常");
-			return false;
-		}
-		int flag = num.compareTo(goodsNum);//购买数量是否小于等于库存
-		if(flag == 1){
+		logger.info("goodsId="+goodsId);
+		if(StringUtil.isNotEmpty(goodsId)){
+			BigDecimal goodsNum = childGoodsorderService.selectGoodsNum(goodsId);
+			logger.info("goodsId="+goodsId);
+			logger.info("goodsNum="+goodsNum);
+			if(goodsNum == null){
+				logger.info("获取商品数量为空或者发生异常");
+				return false;
+			}
+			int flag = num.compareTo(goodsNum);//购买数量是否小于等于库存
+			if(flag == 1){
+				return false;
+			}
+		}else{
 			return false;
 		}
 		return true;
