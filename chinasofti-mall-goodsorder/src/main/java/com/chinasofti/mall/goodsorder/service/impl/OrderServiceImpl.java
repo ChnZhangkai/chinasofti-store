@@ -410,7 +410,6 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return true;
 	}
-	
 	//更新库存
 	private int updateStore(BigDecimal storeNum, String goodsId) throws MyException {
 		ChnGoodsinfo chnGoodsinfo = new ChnGoodsinfo();

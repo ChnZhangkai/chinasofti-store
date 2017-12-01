@@ -51,8 +51,7 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	}
 	
 	public int updateStroe(ChnGoodsinfo chnGoodsinfo){
-		return childGoodsorderMapper.updateStore(chnGoodsinfo);
-		
+		return childGoodsorderMapper.updateStore(chnGoodsinfo);	
 	}
 
 	@Override

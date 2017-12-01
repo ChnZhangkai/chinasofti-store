@@ -45,5 +45,5 @@ public interface ChildGoodsorderService extends IBaseService<PyChildGoodsorder> 
 	
 	public List<PyChildGoodsorder> selectByUserIds(String userIds);
 	
-	public int updateStroe(ChnGoodsinfo chnGoodsinfo)throws MyException;
+	public int updateStroe(ChnGoodsinfo chnGoodsinfo)throws MyException; 
 }

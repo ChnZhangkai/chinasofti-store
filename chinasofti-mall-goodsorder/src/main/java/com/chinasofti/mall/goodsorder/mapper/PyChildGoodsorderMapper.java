@@ -34,11 +34,12 @@ public interface PyChildGoodsorderMapper {
     int updateByPrimaryKey(PyChildGoodsorder record);
     
     List<PyChildGoodsorder> selectByChildorderCondition(ChildorderCondition childorderCondition);
-    
+ 
     //商品库存数量
     BigDecimal selectGoodsNum(String goodsId);
     //收件地址ID
     SpSendAddress selectAddress(String addressId);
+    
     //更新库存
     int updateStore(ChnGoodsinfo chnGoodsinfo);
 
