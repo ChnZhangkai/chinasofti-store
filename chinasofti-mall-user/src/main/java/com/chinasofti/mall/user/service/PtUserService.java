@@ -18,6 +18,8 @@ public interface PtUserService extends IBaseService<PtUser>{
 	
 	JSONObject selectByExample(PtUser ptUser);
 	
+	String selectByUserName(String username);
+	
 	PtRole selectUserRoleName(String ids);
 	
 	int updateByExampleSelective(@Param("record") PtRoleUser record, @Param("example") PtRoleUserExample example);

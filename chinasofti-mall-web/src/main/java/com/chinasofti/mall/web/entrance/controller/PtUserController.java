@@ -1,5 +1,7 @@
 package com.chinasofti.mall.web.entrance.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.ptroleuser.PtRoleUser;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.web.entrance.feign.PtRoleFeignClient;
 import com.chinasofti.mall.web.entrance.feign.PtUserFeignClient;
 
@@ -48,6 +51,15 @@ public class PtUserController {
 	@RequestMapping("/findRoleName/{ids}")
 	public String findUserRoleName(@PathVariable("ids") String ids){
 		return ptUserFeignClient.findUserRoleName(ids);
+	}
+	
+	/**
+	 * 通过用户名称查询
+	 * @return
+	 */
+	@RequestMapping("/findByUserName")
+	public String findByUserName(String username){
+		return ptUserFeignClient.findByUserName(username);
 	}
 	
 	/**
@@ -96,7 +108,8 @@ public class PtUserController {
 	* @throws
 	*/
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String AddPtuser(PtUser ptUser) {
+	public String AddPtuser(PtUser ptUser,HttpSession session) {
+		ptUser.setCreatetime(StringDateUtil.getStringTime());
 		return ptUserFeignClient.add(ptUser);
 	}
 

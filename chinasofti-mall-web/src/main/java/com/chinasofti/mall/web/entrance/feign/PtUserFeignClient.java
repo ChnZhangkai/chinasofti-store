@@ -33,6 +33,9 @@ public interface PtUserFeignClient {
 	@RequestMapping("user/findRoleName/{ids}")
 	public String findUserRoleName(@PathVariable("ids") String ids);
 	
+	@RequestMapping("user/findByUserName")
+	public String findByUserName(String username);
+	
 	@RequestMapping("user/updateRoleUser")
 	public int updateRoleUser(@RequestBody(required=false) PtRoleUser ptRoleUser);
 

@@ -79,7 +79,7 @@ public class StringDateUtil {
 		String longStringDate = sdf.format(date);
 		return longStringDate;
 	}
-	/**Date类型转换为
+	/**获取当前日期转换为
 	 * "yyyy-MM-dd HH:mm:ss"
 	 * @return
 	 */

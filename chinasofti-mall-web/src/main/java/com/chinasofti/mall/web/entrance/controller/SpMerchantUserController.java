@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.common.utils.JxlsExcelView;
 import com.chinasofti.mall.web.entrance.feign.SpMerchantUserFeignClient;
@@ -27,7 +30,7 @@ import net.sf.json.JSONObject;
 
 /**
  * @ClassName: SpUserController.java
- * @Description: TODO
+ * @Description: 商户消费端controller
  * @author zhoushanshan
  * @Date: 2017年11月2日 下午4:51:30
  * @parma <T>
@@ -85,17 +88,20 @@ public class SpMerchantUserController {
 	 * @param spMerchantUser
 	 * @return
 	 */
+
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public int spUserAdd(SpMerchantUser spMerchantUser) {
-		spMerchantUser.setIds(UUID.randomUUID().toString().replace("-", ""));
-		spMerchantUser.setUserIds("009890");
-		spMerchantUser.setCreateOper("admins");
-		spMerchantUser.setModifyOper("admins");
+	public int spUserAdd(SpMerchantUser spMerchantUser,HttpServletRequest request) {
+	   //这里获取当前登录的用户信息
+	   PtUser user=(PtUser)request.getSession().getAttribute("user");
+	   	spMerchantUser.setIds(UUID.randomUUID().toString().replace("-", ""));
+		spMerchantUser.setUserIds(user.getIds());
+		spMerchantUser.setCreateOper(user.getUsername());
+		spMerchantUser.setModifyOper(user.getUsername());
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		spMerchantUser.setCreateDate(date.format(new Date()));
 		SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
 		spMerchantUser.setCreateTime(time.format(new Date()));
-		spMerchantUser.setUpdateby("admins");
+		spMerchantUser.setUpdateby(user.getUsername());
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		spMerchantUser.setUpdatetime(df.format(new Date()));
 		return spUserFeignClient.spUserAdd(spMerchantUser); 
@@ -109,9 +115,12 @@ public class SpMerchantUserController {
 	 * @return
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public int spUserUpdate(SpMerchantUser spMerchantUser) {
-		spMerchantUser.setModifyOper("admins");
-		spMerchantUser.setUpdateby("admins");
+	public int spUserUpdate(SpMerchantUser spMerchantUser,HttpServletRequest request) {
+	  //获取当前操作的用户信息
+	    PtUser user=(PtUser)request.getSession().getAttribute("user");
+	    System.out.println("当前登陆用户:"+user.getUsername());
+		spMerchantUser.setModifyOper(user.getUsername());
+		spMerchantUser.setUpdateby(user.getUsername());
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		spMerchantUser.setUpdatetime(df.format(new Date()));
 		return spUserFeignClient.spUserUpdate(spMerchantUser); 
@@ -136,10 +145,8 @@ public class SpMerchantUserController {
 	        		spUser.setStatus("已启用");
 				}else{
 					spUser.setStatus("未开启");
-				}
-	        	
+				}	
 			}
-	        System.out.println("商户数据:"+list);
 	        // 2：数据放置到jxls需要的map中  
 	        Map<String,Object> modal = new HashMap<String,Object>();    
 	        modal.put("vendors", list);
