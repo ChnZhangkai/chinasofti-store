@@ -68,4 +68,9 @@ public class BigGoodsorderServiceImpl implements BigGoodsorderService {
 	public List<PyBigGoodsorder> selectByUserIds(String userId) {
 		return bigGoodsorderMapper.selectByUserIds(userId);
 	}
+
+	@Override
+	public int updateByMainOrder(String bigorderId) {
+		return bigGoodsorderMapper.updateByMainOrder( bigorderId);
+	}
 }

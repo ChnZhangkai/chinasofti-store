@@ -1011,13 +1011,17 @@
 	<select id="selectByUserIds" resultMap="BaseResultMap" parameterType="java.lang.String"  >
     select 
     <include refid="Base_Column_List" /> 
-    from py_main_goodsorder WHERE USER_IDS = #{userIds,jdbcType=VARCHAR}
+    from py_main_goodsorder WHERE USER_IDS = #{userIds,jdbcType=VARCHAR} 
 	</select>
 	
-	<select id="selectByBigGoodsorderIds" resultMap="BaseResultMap" parameterType="java.lang.String"  >
+	<select id="selectByBigGoodsorderIds" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" /> 
     from py_main_goodsorder WHERE BIGORDER_ID = #{transactionid,jdbcType=VARCHAR}
 	</select>
    
+   <update id="updateByBigGoodsorder" parameterType="java.lang.String">
+   UPDATE py_main_goodsorder SET PAY_STATUS='2' , STATUS='5' WHERE BIGORDER_ID =#{transactionid,jdbcType=VARCHAR}
+   
+   </update>
 </mapper>

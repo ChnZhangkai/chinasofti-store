@@ -41,4 +41,6 @@ public interface MainGoodsorderService extends IBaseService<PyMainGoodsorder> {
     public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList)throws MyException;
 
 	public List<PyMainGoodsorder> selectByBigGoodsorderIds(String transactionid);
+
+	public int updateByBigGoodsorder(String transactionid);
 }

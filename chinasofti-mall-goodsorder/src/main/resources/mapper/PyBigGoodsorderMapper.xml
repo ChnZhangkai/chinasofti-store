@@ -450,7 +450,9 @@
     select 
     <include refid="Base_Column_List" />
     from py_big_goodsorder 
-    where USER_IDS = #{userIds,jdbcType=VARCHAR}
+    where USER_IDS = #{userIds,jdbcType=VARCHAR} 
   </select>
-  
+   <update id="updateByMainOrder" parameterType="java.lang.String">
+   UPDATE py_big_goodsorder SET PAY_STATUS='3' , STATUS='0' WHERE TRANSACTIONID = #{bigorderId,jdbcType=VARCHAR}
+   </update>
 </mapper>

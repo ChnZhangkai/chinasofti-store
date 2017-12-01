@@ -29,4 +29,6 @@ public interface BigGoodsorderService extends IBaseService<PyBigGoodsorder> {
 	PyBigGoodsorder selectByIds(String ids);
 	
 	public List<PyBigGoodsorder> selectByUserIds(String userId);
+
+	public int updateByMainOrder(String bigorderId);
 }
