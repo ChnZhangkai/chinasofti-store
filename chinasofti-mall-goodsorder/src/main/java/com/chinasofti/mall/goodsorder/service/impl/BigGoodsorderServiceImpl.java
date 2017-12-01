@@ -73,4 +73,7 @@ public class BigGoodsorderServiceImpl implements BigGoodsorderService {
 	public int updateByMainOrder(String bigorderId) {
 		return bigGoodsorderMapper.updateByMainOrder( bigorderId);
 	}
+	public int countOrderNO(String orderNo){
+		return bigGoodsorderMapper.countOrderNo(orderNo);
+	}
 }

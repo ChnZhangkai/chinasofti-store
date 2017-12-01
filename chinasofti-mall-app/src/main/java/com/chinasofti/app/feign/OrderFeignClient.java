@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.app.hystrix.OrderFeignClientHystrix;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyOrderInfo;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**
@@ -23,7 +24,7 @@ public interface OrderFeignClient {
 	public ResponseInfo queryOrderListByUserId(@RequestParam("userId") String userId);
 	
 	@RequestMapping(value="/order/add", method = RequestMethod.POST)
-	public ResponseInfo saveOrder(@RequestBody JSONObject json);
+	public ResponseInfo saveOrder(@RequestBody PyOrderInfo orderInfo);
 
 	@RequestMapping(value="/order/pay", method = RequestMethod.POST)
 	public ResponseInfo payOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder);

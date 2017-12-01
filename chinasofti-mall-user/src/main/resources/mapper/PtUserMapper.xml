@@ -135,6 +135,14 @@
     select ro.names from pt_role_user ru , pt_role ro 
     where ru.ROLE_IDS=ro.IDS and ru.MODULE_IDS = #{ids,jdbcType=VARCHAR}
   </select>
+  <select id="selectByUserName" resultType="java.lang.String" parameterType="java.lang.String" >
+    select 
+    	IDS
+    from 
+    	pt_user
+    where 
+    	USERNAME = #{username,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from pt_user
     where IDS = #{ids,jdbcType=VARCHAR}

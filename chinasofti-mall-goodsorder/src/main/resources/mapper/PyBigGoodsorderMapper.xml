@@ -452,7 +452,14 @@
     from py_big_goodsorder 
     where USER_IDS = #{userIds,jdbcType=VARCHAR} 
   </select>
+
    <update id="updateByMainOrder" parameterType="java.lang.String">
    UPDATE py_big_goodsorder SET PAY_STATUS='3' , STATUS='0' WHERE TRANSACTIONID = #{bigorderId,jdbcType=VARCHAR}
    </update>
+
+  <select id="countOrderNo" resultType="java.lang.Integer" parameterType="java.lang.String" >
+  	select count(TRANSACTIONID) from py_big_goodsorder 
+  	 where TRANSACTIONID = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  
 </mapper>
