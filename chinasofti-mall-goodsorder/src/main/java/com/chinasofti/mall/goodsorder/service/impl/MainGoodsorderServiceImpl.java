@@ -150,5 +150,10 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	public List<PyMainGoodsorder> selectByBigGoodsorderIds(String transactionid) {
 		return mainGoodsorderMapper.selectByBigGoodsorderIds(transactionid);
 	}
+
+	@Override
+	public int updateByBigGoodsorder(String transactionid) {
+		return mainGoodsorderMapper.updateByBigGoodsorder(transactionid);
+	}
 	
 }

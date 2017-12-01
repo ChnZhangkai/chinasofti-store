@@ -1,6 +1,7 @@
 package com.chinasofti.mall.goodsorder.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyOrderInfo;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -11,12 +12,14 @@ public interface OrderService {
 	
 	public ResponseInfo saveOrder( PyOrderInfo orderInfo );
 
-	public ResponseInfo cancelOrder(String orderId);
+	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder);
 	
-	public ResponseInfo deleteOrderById(String orderId);
+	public ResponseInfo deleteByBigOrderId(PyBigGoodsorder pyBigGoodsorder);
 
-	public ResponseInfo payOrder(PyMainGoodsorder pyMainGoodsorder);
+	public ResponseInfo payOrder(PyBigGoodsorder pyBigGoodsorder);
 
 	public ResponseInfo updateOrder(JSONObject json);
+
+	public ResponseInfo deleteByMainOrderId(PyMainGoodsorder pyMainGoodsorder);
 }
  
