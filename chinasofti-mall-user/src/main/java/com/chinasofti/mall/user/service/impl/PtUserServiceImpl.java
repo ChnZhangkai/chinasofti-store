@@ -109,6 +109,11 @@ public class PtUserServiceImpl implements PtUserService{
 		ptRoleUser.setModuleIds(null);
 		return ptRoleUserMapper.updateByExampleSelective(ptRoleUser, example);
 	}
+
+	@Override
+	public String selectByUserName(String username) {
+		return PtUserMapper.selectByUserName(username);
+	}
 	
 	
 }

@@ -54,5 +54,11 @@ public class PtUserFeignClientHystrix implements PtUserFeignClient{
 		return 0;
 	}
 
+	@Override
+	public String findByUserName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

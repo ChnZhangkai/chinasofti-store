@@ -534,7 +534,7 @@
   <select id="selectGoodsNum" resultType="java.math.BigDecimal" parameterType="java.lang.String" >
     select STORE_NUM from chn_goodsinfo
     where IDS = #{goodsId,jdbcType=VARCHAR}
-      and STATUS = '1';
+      and STATUS = '1'
   </select>
   <!--根据地址ID查询邮寄地址信息-->
   <select id="selectAddress" resultMap="addressMap" parameterType="java.lang.String" >
