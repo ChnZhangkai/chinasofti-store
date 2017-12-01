@@ -542,5 +542,10 @@
       from sp_cont_address
     where IDS = #{addressId,jdbcType=VARCHAR}
   </select>
-   
+  <!--  更新库存-->
+  <update id="updateStore" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo" >
+  	update chn_goodsinfo
+  		set STORE_NUM=#{storeNum,jdbcType=DECIMAL}
+  	where IDS = #{goodsId,jdbcType=VARCHAR} 	
+  </update> 
 </mapper>

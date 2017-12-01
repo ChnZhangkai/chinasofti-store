@@ -5,6 +5,7 @@ package com.chinasofti.mall.goodsorder.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
@@ -43,4 +44,6 @@ public interface ChildGoodsorderService extends IBaseService<PyChildGoodsorder> 
 	public SpSendAddress queryAddress(String addressId);
 	
 	public List<PyChildGoodsorder> selectByUserIds(String userIds);
+	
+	public int updateStroe(ChnGoodsinfo chnGoodsinfo)throws MyException;
 }

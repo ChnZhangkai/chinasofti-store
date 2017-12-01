@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample;
@@ -46,6 +47,11 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	
 	public BigDecimal selectGoodsNum(String goodsId){
 		return childGoodsorderMapper.selectGoodsNum(goodsId);
+		
+	}
+	
+	public int updateStroe(ChnGoodsinfo chnGoodsinfo){
+		return childGoodsorderMapper.updateStore(chnGoodsinfo);
 		
 	}
 
