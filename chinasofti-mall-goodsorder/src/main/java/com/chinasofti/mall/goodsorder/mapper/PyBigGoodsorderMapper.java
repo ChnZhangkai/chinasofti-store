@@ -29,6 +29,8 @@ public interface PyBigGoodsorderMapper {
     int updateByPrimaryKey(PyBigGoodsorder record);
     
     List<PyBigGoodsorder> selectByUserIds(String userId);
+
+	int updateByMainOrder(String bigorderId);
     
     int countOrderNo(String orderNo);
 }

@@ -34,5 +34,7 @@ public interface PyMainGoodsorderMapper {
     List<PyMainGoodsorder> selectByUserIds(String userIds);
 
 	List<PyMainGoodsorder> selectByBigGoodsorderIds(String transactionid);
+
+	int updateByBigGoodsorder(String transactionid);
     
 }

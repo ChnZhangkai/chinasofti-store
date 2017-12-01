@@ -1,7 +1,7 @@
 package com.chinasofti.app.hystrix;
 
-
 import org.springframework.stereotype.Component;
+
 import com.chinasofti.app.feign.OrderFeignClient;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
@@ -32,14 +32,6 @@ public class OrderFeignClientHystrix implements OrderFeignClient{
 		return new ResponseInfo();
 	}
 	
-	public ResponseInfo payOrder(PyMainGoodsorder pyMainGoodsorder){
-		return new ResponseInfo();
-	}
-	
-	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder){
-		return new ResponseInfo();
-	}
-	
 	public ResponseInfo deleteOrderById(String orderId){
 		return new ResponseInfo();
 	}
@@ -50,9 +42,28 @@ public class OrderFeignClientHystrix implements OrderFeignClient{
 
 
 	@Override
-	public ResponseInfo cancelOrder(String orderId) {
-		return null;
+	public ResponseInfo deleteByBigOrderId(PyBigGoodsorder pyBigGoodsorder) {
+		return new ResponseInfo();
 	}
+
+
+	@Override
+	public ResponseInfo deleteByMainOrderId(PyMainGoodsorder pyMainGoodsorder) {
+		return new ResponseInfo();
+	}
+
+
+	@Override
+	public ResponseInfo payOrder(PyBigGoodsorder pyBigGoodsorder) {
+		return new ResponseInfo();
+	}
+
+
+	@Override
+	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder) {
+		return new ResponseInfo();
+	}
+
 
 	
 
