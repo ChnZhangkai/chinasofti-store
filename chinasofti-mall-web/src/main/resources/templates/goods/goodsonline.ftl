@@ -63,7 +63,7 @@
 	<!-- 商品修改表格表格 -->
 	<div id="updateDl" class="easyui-dialog"
 		data-options="closed:true,iconCls:'icon-add',inline:true"
-		style="width: 100%; height: 100%; padding: 10px;background-image: url(images/goodsdiv.jpg)">
+		style="width: 100%; height: 100%; padding: 10px">
 		<form id="updateGoodsForm"  enctype="multipart/form-data">
 			<table>
 				<tr>
