@@ -109,17 +109,67 @@
                     document.getElementById("showpic").innerHTML = "";
                 }
            
-            }]
+            }],
+            
         });
 	
 	}
 
+	//扩展easyui表单的验证  
+	$.extend($.fn.validatebox.defaults.rules, {  
+	 
+	    //商户编号验证  
+		vendorIds: {//value值为文本框中的值  
+	        validator: function (value) {  
+	            var reg = /^[a-zA-Z0-9]{9}$/;   
+	            return reg.test(value);  
+	        },  
+	        message: '输入商户编号格式不正确.'  
+	    },
+	   
+	    //商户全称验证
+		vendorFnm:{
+			 validator: function (value) {  
+				 var reg= /^[\u0391-\uFFE5a-zA-Z]{4,50}$/;
+				 return reg.test(value);  
+			 },
+			  message: '只能输入汉字和字母，且字符长度在4-50位之间.' 
+		},
+	    
+	    //商户简称验证
+		vendorSnm:{
+			 validator: function (value) {  
+				 var reg= /^[\u0391-\uFFE5a-zA-Z]{4,20}$/;
+				 return reg.test(value);  
+			 },
+			  message: '只能输入汉字和字母，且字符长度在4-20位之间.' 
+		},
+		
+		//商户负责人
+		chargeman:{
+			 validator: function (value) {  
+				 var reg= /^[\u0391-\uFFE5a-zA-Z]{2,15}$/;
+				 return reg.test(value);  
+			 },
+			  message: '只能输入汉字和字母，且字符长度在2-15位之间.' 
+		},
+		
+		//联系手机号
+		 mobile: {//value值为文本框中的值  
+		        validator: function (value) {  
+		            var reg = /^1[3|4|5|8|9]\d{9}$/;  
+		            return reg.test(value);  
+		        },  
+		        message: '输入手机号码格式不准确.'  
+		    }
+	})
+	
 	
 	/**
 	* Name 添加记录
 	*/
 	function add(){
-		 
+	
 		$('#spUserAdd').form('submit', {
 			url:'/spUser/add',
 			type:'POST',

@@ -1,5 +1,6 @@
 package com.chinasofti.mall.goodsorder.mapper;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample;
@@ -33,11 +34,13 @@ public interface PyChildGoodsorderMapper {
     int updateByPrimaryKey(PyChildGoodsorder record);
     
     List<PyChildGoodsorder> selectByChildorderCondition(ChildorderCondition childorderCondition);
-    
+ 
     //商品库存数量
     BigDecimal selectGoodsNum(String goodsId);
     //收件地址ID
     SpSendAddress selectAddress(String addressId);
     
+    //更新库存
+    int updateStore(ChnGoodsinfo chnGoodsinfo);
 
 }
