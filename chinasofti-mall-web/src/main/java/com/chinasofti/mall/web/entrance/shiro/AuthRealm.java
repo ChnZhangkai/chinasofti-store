@@ -41,7 +41,7 @@ public class AuthRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(
             AuthenticationToken token) throws AuthenticationException {
-        try {
+
             UsernamePasswordToken utoken = (UsernamePasswordToken)token;//获取用户输入的token
             String username = utoken.getUsername();
             PtUser user = service.findUserByName(username);
@@ -56,11 +56,6 @@ public class AuthRealm extends AuthorizingRealm {
             }else {
 				throw new UnknownAccountException();//用户不存在
 			}
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
     
     //授权

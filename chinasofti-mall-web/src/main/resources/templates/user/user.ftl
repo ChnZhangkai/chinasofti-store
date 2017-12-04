@@ -28,28 +28,28 @@
             <@shiro.hasPermission name="user_del">
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
             </@shiro.hasPermission>
-            <@shiro.hasPermission name="user_role">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-users" onclick="openRole()" plain="true">修改用户角色</a>
-            </@shiro.hasPermission>
             <@shiro.hasPermission name="user_deful_pw">
             <a href="#" class="easyui-linkbutton" iconCls="icon-key-go" onclick="resetPw()" plain="true">重置密码</a>
             </@shiro.hasPermission>
             <@shiro.hasPermission name="user_query_role">
             <a href="#" class="easyui-linkbutton" iconCls="icon-user-magnify" onclick="queryRole()" plain="true">查看角色</a>
             </@shiro.hasPermission>
+            <@shiro.hasPermission name="user_role">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-users" onclick="openRole()" plain="true">修改用户角色</a>
+            </@shiro.hasPermission>
         </div>
     </div>
     
     <!-- 显示数据,数据表格列对齐 -->
-    <table id="ptUser" class="easyui-datagrid" title="用户列表" data-options="inline:true,sortName:'departmentids',sortOrder:'desc'" toolbar="#user-toolbar-2" style="height: 95%">
+    <table id="ptUser" class="easyui-datagrid" title="用户列表" data-options="inline:true" toolbar="#user-toolbar-2" style="height: 95%">
     	<thead>
     		<tr>
     			<th field="ids" hidden="true">用户编号</th>
 				<th field="username" width="15%" align="center" >账号</th>
 				<th field="usernames" width="20%" align="center" >姓名</th>
-				<th field="departmentids" width="20%" align="center" data-options="sortable:true">部门编号</th>
-				<th field="departmentnames" width="20%" align="center" data-options="sortable:true">部门名字</th>
-				<th field="status" width="15%" align="center" data-options="formatter:statesFormatter,sortable:true">状态</th>
+				<th field="departmentids" width="20%" align="center">部门编号</th>
+				<th field="departmentnames" width="20%" align="center">部门名字</th>
+				<th field="status" width="15%" align="center" data-options="formatter:statesFormatter">状态</th>
 				<th field="userOperator" width="10%" align="center" data-options="formatter:userOperatorFormatter">操作</th>			
     		</tr>
     	</thead>

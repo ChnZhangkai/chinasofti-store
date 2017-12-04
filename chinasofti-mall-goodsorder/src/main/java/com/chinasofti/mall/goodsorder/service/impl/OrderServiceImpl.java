@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
@@ -28,6 +29,7 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.goodsorder.handler.GoodsNumNotFondException;
+import com.chinasofti.mall.goodsorder.handler.MyException;
 import com.chinasofti.mall.goodsorder.service.BigGoodsorderService;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
 import com.chinasofti.mall.goodsorder.service.MainGoodsorderService;
@@ -107,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
 				return res;
 			}
 			PyBigGoodsorder pyBigGoodsorder = new PyBigGoodsorder();//大订单对象
-			String orderCreateTime = mathNum();//订单生成时间 yyyyMMddhhmmss
+			String orderCreateTime = mathTime();//订单生成时间 yyyyMMddhhmmss
 			pyBigGoodsorder.setIds(UUIDUtils.getUuid());
 			pyBigGoodsorder.setOrderDate(orderCreateTime);//订单生成时间
 			//String transactionid = orderCreateTime.concat(getFixLenthString(4));//生成随机数yyyyMMddhhmmss+0000+4位随机数
@@ -254,104 +256,121 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	//组装订单信息 
-		private Map<String,Object> installOrdergetOrderInfo(SpSendAddress address,String orderCreateTime,
-			String bigOrderNo,PyOrderInfo orderInfo,List<PyMainGoodsorder> mainList) throws GoodsNumNotFondException{
-			Map<String,Object> orderResult = new HashMap<String,Object>();
-			PyMainGoodsorder mainGoodsorder = new PyMainGoodsorder();//主订单
-			PyChildGoodsorder childorder = new PyChildGoodsorder();//子订单
-			List<PyChildGoodsorder> goodsInfoList = new LinkedList<PyChildGoodsorder>();//单个商户商品信息集合
-			List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
-			List<PyShoppingCartInfo> shopCart = orderInfo.getShopCart();
+	private Map<String,Object> installOrdergetOrderInfo(SpSendAddress address,String orderCreateTime,
+		String bigOrderNo,PyOrderInfo orderInfo,List<PyMainGoodsorder> mainList) throws GoodsNumNotFondException, MyException{
+		Map<String,Object> orderResult = new HashMap<String,Object>();
+		PyMainGoodsorder mainGoodsorder = new PyMainGoodsorder();//主订单
+		PyChildGoodsorder childorder = new PyChildGoodsorder();//子订单
+		List<PyChildGoodsorder> goodsInfoList = new LinkedList<PyChildGoodsorder>();//单个商户商品信息集合
+		List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
+		List<PyShoppingCartInfo> shopCart = orderInfo.getShopCart();
 			
-			int main_size = shopCart.size();//商户个数
-			String mainTransactionId = null;
-			String childTransactionId = null;
-			for(int i=0;i<main_size;i++){
-				mainGoodsorder.setIds(UUIDUtils.getUuid());//IDS
-				mainGoodsorder.setBigorderId(bigOrderNo);//所属大订单
-				mainTransactionId = "M".concat(orderCreateTime.concat(getFixLenthString(4)));//主订单流水号
-				mainGoodsorder.setTransactionid(mainTransactionId);
-				mainGoodsorder.setVendorIds(shopCart.get(i).getVendorIds());//商户ID
-				mainGoodsorder.setUserIds(orderInfo.getUserId());
-				mainGoodsorder.setOrderTime(orderCreateTime);//订单时间
-				mainGoodsorder.setPayStatus("0");//支付状态  0 未支付 1 已支付  2 取消
-				mainGoodsorder.setStatus("0");//订单状态   0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）；
-				mainGoodsorder.setContPostcode(address.getZipCode());//邮编
-				mainGoodsorder.setContPhone(address.getMobile());//联系电话
-				mainGoodsorder.setContProvince(address.getProvince());//省
-				mainGoodsorder.setContCity(address.getCity());//市
-				mainGoodsorder.setContDistrict(address.getDistrict());//区
-				mainGoodsorder.setContStreet(address.getStreet());//街道
-				mainGoodsorder.setContAddress(address.getAddress());//详细地址
-				mainGoodsorder.setContName(address.getName());//收件人姓名
-			    BigDecimal shoporderAmt = null;//商户订单总金额;
-				BigDecimal goodsorderAmt = null;//商品金额;
-				String goodsId = null;//商品ID
-				String goodsName = null;//商品名称
-				BigDecimal goodsNum = null;//购买数量
-				BigDecimal goodsPrice = null;//商品价格
-				goodsInfoList = shopCart.get(i).getGoodsInfoList();
-				int goods_size = goodsInfoList.size();
-				for(int j=0;j<goods_size;j++){
-					goodsId = goodsInfoList.get(j).getGoodsids();//商品ID
-					goodsName = goodsInfoList.get(j).getGoodsName();//商品名称
-					goodsNum = goodsInfoList.get(j).getGoodsNum();//购买数量
-					goodsPrice = goodsInfoList.get(j).getGoodsPrice();//商品单价
-					childorder.setGoodsids(goodsId);//商品ID
-					childorder.setGoodsNum(goodsInfoList.get(j).getGoodsNum());//购买数量
-					//验证商品上架剩余数量
-					boolean flag = checkGoods(goodsId,goodsNum);
-					//如果数量超出,直接返回
-					if(!flag){
-						childList = null;
-						mainList  = null;
-						throw new GoodsNumNotFondException("数量超过库存",goodsName);
-					}
-					childorder.setGoodsPrice(goodsPrice);
-					goodsorderAmt = goodsNum.multiply(goodsPrice);//商品金额
-					childorder.setOrderAmt(goodsorderAmt);
-					if(j==0){
-						shoporderAmt = goodsorderAmt; 
-					}else{
-						shoporderAmt = shoporderAmt.add(goodsorderAmt);
-					}
-					childorder.setMainorderIds(mainTransactionId);//所属主订单编号
-					childTransactionId = "G".concat(orderCreateTime.concat(getFixLenthString(4)));//子订单流水号
-					childorder.setTransactionid(childTransactionId);
-					childorder.setIds(UUIDUtils.getUuid());//IDS
-					childorder.setCustIds(orderInfo.getUserId());//用户ID
-					
-					logger.info("************子订单"+j+"**************="+childorder.toString());
-					childList.add(childorder);
-					
+		int main_size = shopCart.size();//商户个数
+		String mainTransactionId = null;
+		String childTransactionId = null;
+		for(int i=0;i<main_size;i++){
+			mainGoodsorder.setIds(UUIDUtils.getUuid());//IDS
+			mainGoodsorder.setBigorderId(bigOrderNo);//所属大订单
+			mainTransactionId = "M".concat(orderCreateTime.concat(getFixLenthString(4)));//主订单流水号
+			mainGoodsorder.setTransactionid(mainTransactionId);
+			mainGoodsorder.setVendorIds(shopCart.get(i).getVendorIds());//商户ID
+			mainGoodsorder.setUserIds(orderInfo.getUserId());
+			mainGoodsorder.setOrderTime(orderCreateTime);//订单时间
+			mainGoodsorder.setPayStatus("0");//支付状态  0 未支付 1 已支付  2 取消
+			mainGoodsorder.setStatus("0");//订单状态   0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）；
+			mainGoodsorder.setContPostcode(address.getZipCode());//邮编
+			mainGoodsorder.setContPhone(address.getMobile());//联系电话
+			mainGoodsorder.setContProvince(address.getProvince());//省
+			mainGoodsorder.setContCity(address.getCity());//市
+			mainGoodsorder.setContDistrict(address.getDistrict());//区
+			mainGoodsorder.setContStreet(address.getStreet());//街道
+			mainGoodsorder.setContAddress(address.getAddress());//详细地址
+			mainGoodsorder.setContName(address.getName());//收件人姓名	
+			BigDecimal shoporderAmt = null;//商户订单总金额;
+			BigDecimal goodsorderAmt = null;//商品金额;
+			String goodsId = null;//商品ID
+			String goodsName = null;//商品名称
+			BigDecimal goodsNum = null;//购买数量
+			BigDecimal goodsPrice = null;//商品价格
+			goodsInfoList = shopCart.get(i).getGoodsInfoList();
+			int goods_size = goodsInfoList.size();
+			for(int j=0;j<goods_size;j++){
+				goodsId = goodsInfoList.get(j).getGoodsids();//商品ID
+				goodsName = goodsInfoList.get(j).getGoodsName();//商品名称
+				goodsNum = goodsInfoList.get(j).getGoodsNum();//购买数量
+				goodsPrice = goodsInfoList.get(j).getGoodsPrice();//商品单价
+				childorder.setGoodsids(goodsId);//商品ID
+				childorder.setGoodsNum(goodsInfoList.get(j).getGoodsNum());//购买数量
+				//验证商品上架剩余数量
+				boolean flag = checkGoods(goodsId,goodsNum);
+				//如果数量超出,直接返回
+				if(!flag){
+					childList = null;
+					mainList  = null;
+					throw new GoodsNumNotFondException("数量超过库存",goodsName);
 				}
-				mainGoodsorder.setOrderTotalAmt(shoporderAmt);
-				logger.info("************主订单"+i+"*************="+mainGoodsorder.toString());
-			}
-			mainList.add(mainGoodsorder);
-			orderResult.put("childList", childList);
-			orderResult.put("mainList", mainList);
-			return orderResult;
+				childorder.setGoodsPrice(goodsPrice);
+				goodsorderAmt = goodsNum.multiply(goodsPrice);//商品金额
+				childorder.setOrderAmt(goodsorderAmt);
+				if(j==0){
+					shoporderAmt = goodsorderAmt; 
+				}else{
+					shoporderAmt = shoporderAmt.add(goodsorderAmt);
+				}
+				childorder.setMainorderIds(mainTransactionId);//所属主订单编号
+				childTransactionId = "G".concat(orderCreateTime.concat(getFixLenthString(4)));//子订单流水号
+				childorder.setTransactionid(childTransactionId);
+				childorder.setIds(UUIDUtils.getUuid());//IDS
+				childorder.setCustIds(orderInfo.getUserId());//用户ID
+				
+				logger.info("************子订单"+j+"**************="+childorder.toString());
+				childList.add(childorder);
+				
+			}    
+			mainGoodsorder.setOrderTotalAmt(shoporderAmt);
+			logger.info("************主订单"+i+"*************="+mainGoodsorder.toString());
 		}
+		mainList.add(mainGoodsorder);
+		orderResult.put("childList", childList);
+		orderResult.put("mainList", mainList);
+		return orderResult;
+	}	
 	//验证商品库存数量
-	private boolean checkGoods(String goodsId,BigDecimal num) {
-		if(StringUtil.isNotEmpty(goodsId)){
-			BigDecimal goodsNum = childGoodsorderService.selectGoodsNum(goodsId);
-			if(goodsNum == null){
-				logger.info("获取商品数量为空或者发生异常");
-				return false;
-			}
-			int flag = num.compareTo(goodsNum);//购买数量是否小于等于库存
-			if(flag == 1){
-				return false;
-			}
-		}else{
+	private boolean checkGoods(String goodsId,BigDecimal num) throws MyException {
+		if(StringUtil.isEmpty(goodsId)){
+			return false;
+		}
+		BigDecimal goodsNum = childGoodsorderService.selectGoodsNum(goodsId);
+		if(goodsNum == null){
+			logger.info("获取商品数量为空或者发生异常");
+			return false;
+		}
+		int flag = num.compareTo(goodsNum);//购买数量是否小于等于库存
+		if(flag == 1){
+			logger.info("购买数量大于库存，无法购买");
+			return false;
+		}	
+		//更新库存
+		BigDecimal storeNum = goodsNum.subtract(num);
+		int updateStore = updateStore(storeNum,goodsId);
+		logger.info("updateStore="+updateStore);
+		if(updateStore !=1){
 			return false;
 		}
 		return true;
 	}
+	//更新库存
+	private int updateStore(BigDecimal storeNum, String goodsId) throws MyException {
+		ChnGoodsinfo chnGoodsinfo = new ChnGoodsinfo();
+		chnGoodsinfo.setStoreNum(storeNum);
+		chnGoodsinfo.setGoodsId(goodsId);
+		chnGoodsinfo.setUpdateTime(mathTime());
+		int updateStore=childGoodsorderService.updateStroe(chnGoodsinfo);
+		return updateStore;
+	}
+
 	//生成时间戳
-	private String mathNum(){
+	private String mathTime(){
 		Date date = new Date();
 		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMddHHmmss");
 		String nowTime = sd.format(date);

@@ -20,6 +20,7 @@ import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.goodsorder.mapper.PyShoppingCartMapper;
 import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
+import com.github.pagehelper.util.StringUtil;
 
 @Service
 public class PyShoppingCartServiceImpl implements PyShoppingCartService{
@@ -110,7 +111,14 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 		ResponseInfo responseInfo = new ResponseInfo();
 		if(goodsList.size()>0){
 			for(PyShoppingCart goods:goodsList){
+				if(StringUtil.isEmpty(goods.getUserId())){
+					responseInfo.setRetCode(MsgEnum.ERROR.getCode());
+					responseInfo.setRetMsg("用户Id为空，请登录后再添加！");
+					logger.info("用户Id为空，请登录后再添加！userId:"+goods.getUserId());
+					return responseInfo;
+				}
 				PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
+				//加上商品校验（弄一个通用的）
 				
 				if(shoppingCar != null){
 					goods.setId(shoppingCar.getId());

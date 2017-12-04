@@ -1,7 +1,7 @@
 <script type="text/javascript" src="js/common.js"></script>
 <div class="easyui-layout" data-options="fit:true">
     <!-- Begin of toolbar -->
-    <div id="wu-toolbar-3">
+    <div id="role-toolbar-2">
        	<div class="wu-toolbar-search">
 			<form id="searchForm" style="margin: 0px">
 				<label>角色编号：</label> <input class="easyui-textbox" id="vendorId" name="vendorId"/>
@@ -28,15 +28,15 @@
     
 	<!-- 数据显示datagrid -->
 	<table id="ptroleinfo" class="easyui-datagrid" title="角色列表"
-			data-options="singleSelect:true,collapsible:true" style="height: 85%">
+			data-options="singleSelect:true,collapsible:true,inline:true" toolbar="#role-toolbar-2" style="height: 95%">
 		<thead>
 			<tr>
-				<th field="ids" width="20%" align="center">编号</th>
+				<th field="ids" hidden="true">编号</th>
 				<th field="names" width="20%" align="center">角色全称</th>
 				<th field="numbers" width="10%" align="center">角色数量</th>
 				<th field="createby" width="15%" align="center">创建人员</th>	
-				<th field="createtime" width="15%" align="center">创建时间</th>
-				<th field="description" width="20%" align="center">角色描述</th>
+				<th field="createtime" width="25%" align="center">创建时间</th>
+				<th field="description" width="30%" align="center">角色描述</th>
 			</tr>
 		</thead>
 	</table>
@@ -46,7 +46,7 @@
 
 <!-- 添加表格 -->
 <div id="ptroleAddDialog" class="easyui-dialog"
-	data-options="closed:true,iconCls:'icon-add'"
+	data-options="closed:true,iconCls:'icon-add',inline:true"
 	style="width: 300px; padding: 10px;">
 	<form id="ptroleAdd" method="post" enctype="multipart/form-data">
 		<table id="roleAdd">
@@ -55,7 +55,7 @@
                 <td><input  id="roleNames" name="names" class="easyui-textbox" data-options="required:true"/></td>
             </tr>
             <tr>
-             	<td align="right">角色描述:</td>
+             	<td align="right" style="line-height: 3">角色描述:</td>
                 <td><input id="description" name="description" class="easyui-textbox" data-options="required:true"/></td>
             </tr>
             <tr>
@@ -69,15 +69,15 @@
 
 <!-- 修改表格 -->
 <div id="ptroleUpdateDialog" class="easyui-dialog"
-	data-options="closed:true,iconCls:'icon-edit'"
-	style="width: 470px;height: 170px;padding: 10px;">
+	data-options="closed:true,iconCls:'icon-edit',inline:true"
+	style="width: 500px;height: 200px;padding: 10px;">
 	<form id="ptroleUpdate" method="post" >
 		<table id="update">
 			<tr>
 				<td><input type="hidden" id="ids" name="ids" /></td>
 			</tr>
 			<tr>
-                <td align="right">角色名称:</td>
+                <td align="right" style="line-height: 3">角色名称:</td>
                 <td><input  id="names" name="names" class="easyui-textbox" readonly="readonly"/></td>
                 <td align="right">创建人员:</td>
                 <td><input id="createby" name="createby" class="easyui-textbox" readonly="readonly"/></td>

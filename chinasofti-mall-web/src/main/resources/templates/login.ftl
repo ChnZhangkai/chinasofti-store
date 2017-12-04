@@ -23,13 +23,13 @@
 
 <div class="login" style="margin-top:50px;">
     
-    <div class="header">
+    <!-- <div class="header">
         <div class="switch" id="switch"><a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">快速登录</a><span id="tip"></span>
-			<!-- <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">快速注册</a><div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div> -->
+			<a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">快速注册</a><div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div>
         </div>
-    </div>    
+    </div>  -->   
   
-    <div class="web_qr_login" id="web_qr_login" style="display: block; height: 235px;">    
+    <div class="web_qr_login" id="web_qr_login" style="display: block; height: 300px;">    
    	<!--登录-->
       <div class="web_login" id="web_login">
          <div class="login-box">
@@ -51,9 +51,18 @@
 		                    <input type="password" id="p" name="password" class="inputstyle"/>
 		                </div>
 	                </div>
-               
-	                <div style="padding-left:50px;margin-top:20px;">
-	                	<input type="submit" value="登 录" style="width:150px;" class="button_blue" id="sub"/>
+               		
+               		<div>
+		            	<font style="color: red;padding-left:50px">${message!}</font>        
+	                </div>
+               		
+	                <div style="padding-left:50px;margin-top:10px;">
+	                	<input type="submit" value="登 录" style="width:200px;" class="button_blue" id="sub"/>
+	                </div>
+	                
+	                <div style="margin-top: 80px;border:1px dashed;">
+			                <font style="color: blue;margin-left: 50px">温馨提醒:</font></br>
+		                	<font style="margin-left: 50px">密码连续错误超过6次,用户将被禁用!</font>
 	                </div>
                 </form>
            </div>

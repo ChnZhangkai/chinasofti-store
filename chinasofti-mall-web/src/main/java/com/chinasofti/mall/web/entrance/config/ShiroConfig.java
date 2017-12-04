@@ -1,4 +1,4 @@
-package com.chinasofti.mall.web.entrance.config;
+	package com.chinasofti.mall.web.entrance.config;
 
 import java.util.LinkedHashMap;
 
@@ -43,7 +43,7 @@ public class ShiroConfig {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setCacheManager(redisCacheManager);
         //sessionManager.setSessionDAO(sessionDAO);
-        sessionManager.setGlobalSessionTimeout(1800000);
+        sessionManager.setGlobalSessionTimeout(180000);
         //sessionManager.setSessionValidationSchedulerEnabled(true);
         return sessionManager;
     }
