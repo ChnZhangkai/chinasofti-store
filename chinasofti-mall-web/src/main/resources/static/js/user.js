@@ -380,24 +380,6 @@
 				});    
 			}
 		});
-
-	function successShow(){
-		$.messager.show({
-			title:'提示',
-			msg:'<font style="color:green">操作成功</font>',
-			showType:'slide',
-			timeout:3000,
-		});
-	}
-	
-	function errorShow(){
-		$.messager.show({
-			title:'提示',
-			msg:'<font style="color:red">操作失败</font>',
-			showType:'slide',
-			timeout:3000,
-		});
-	}
 	
 	//异步查询添加用户时输入的用户名
 	function checkUserName_Exist(valueName){
@@ -420,25 +402,6 @@
 	
 	//输入框长度验证
 	$.extend($.fn.validatebox.defaults.rules, {    
-	    maxLength: {    
-	        validator: function(value, param){    
-	            return value.length <= param[0];    
-	        },    
-	        message: '最大只能输入30位！'   
-	    },
-	    checkPwd: {    
-	        validator: function(value,param){    
-	            return value == $(param[0]).val();    
-	        },    
-	        message: '两次输入密码不一致！'   
-	    },
-	    betweenLength: {    
-	        validator: function(value,param){
-	        	var len = $.trim(value).length;
-	            return len >= param[0] && len <= param[1];    
-	        },    
-	        message: '输入长度必须为6-12之间！'   
-	    },
 	    account: {//param的值为[]中值  
 	        validator: function (value,param) {  
 	            if (value.length < param[0] || value.length > param[1]) {  
@@ -461,23 +424,5 @@
 	            }  
 	        },
 	        message: ""  
-	    },
-	    checkUserNames: {    
-	        validator: function(value){    
-	            return /^[A-Za-z\u0391-\uFFE5]+$/.test(value);    
-	        },    
-	        message: '请输入中文或字母！'
-	    },
-	    isNumber:{
-	    	validator: function(value){    
-	            return /^[0-9]+$/.test(value)    
-	        },    
-	        message: '请输入纯数字！'
-	    },
-	    depName:{
-	    	validator: function(value){    
-	            return /^[A-Za-z0-9\u0391-\uFFE5]+$/.test(value);    
-	        },    
-	        message: '请输入字母、中文、数字！'
 	    }
 	});

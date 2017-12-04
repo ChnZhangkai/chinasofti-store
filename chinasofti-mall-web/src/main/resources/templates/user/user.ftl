@@ -1,5 +1,6 @@
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/user.js"></script>
+<script type="text/javascript" src="js/myValidType.js"></script>
 <div class="easyui-layout" data-options="fit:true">
     <!-- Begin of toolbar -->
     <div id="user-toolbar-2">
