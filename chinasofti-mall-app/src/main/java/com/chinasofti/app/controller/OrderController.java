@@ -143,6 +143,20 @@ public class OrderController {
 		ResponseInfo responseInfo = orderFeignClient.queryOrderListByUserId(userId);
 		return responseInfo;
 	}
+	/**
+	 * 查询订单列表
+	 * 
+	 * @param userId
+	 * @return 修改参数 - 黄佳喜
+	 */
+	@RequestMapping(value = "/main", method = RequestMethod.POST)
+	@ApiOperation(value = "查询订单", notes = "报文示例：{'userId':'abc123','pageNum':'1','pageSize':'3'}")
+	public ResponseInfo queryMainOrderList(@RequestBody PyMainGoodsorder pyMainGoodsorder, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "POST");
+		ResponseInfo responseInfo = orderFeignClient.queryMainOrderList(pyMainGoodsorder);
+		return responseInfo;
+	}
 
 	
 }

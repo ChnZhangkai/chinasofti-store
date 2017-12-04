@@ -35,14 +35,14 @@
        					onDblClickRow:showSpUser">
 		<thead>
 		<tr>
-			<th field="vendorId" width="10%" align="center" >商户编号</th>
-			<th field="vendorFnm" width="20%" align="center" >商户全称</th>
-			<th field="vendorSnm" width="15%" align="center" >商户简称</th>
-			<th field="status" width="7%" align="center" data-options="formatter:statesFormatter">状态</th>
-			<th field="chargeman" width="10%" align="center" >商户负责人</th>	
-			<th field="linkman" width="10%" align="center" >商户方联系人</th>	
-			<th field="mobile" width="10%" align="center" >联系手机号</th>
-			<th field="address" width="20%" align="center" >通讯地址</th>
+			<th field="vendorId" width="10%" align="center" data-options="sortable:true">商户编号</th>
+			<th field="vendorFnm" width="20%" align="center" data-options="sortable:true">商户全称</th>
+			<th field="vendorSnm" width="15%" align="center" data-options="sortable:true">商户简称</th>
+			<th field="status" width="7%" align="center" data-options="formatter:statesFormatter,sortable:true">状态</th>
+			<th field="chargeman" width="10%" align="center" data-options="sortable:true">商户负责人</th>	
+			<th field="linkman" width="10%" align="center" data-options="sortable:true">商户方联系人</th>	
+			<th field="mobile" width="10%" align="center" data-options="sortable:true">联系手机号</th>
+			<th field="address" width="20%" align="center" data-options="sortable:true">通讯地址</th>
 		</tr>
 		</thead>
 	</table>

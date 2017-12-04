@@ -118,6 +118,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 					return responseInfo;
 				}
 				PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
+				//加上商品校验（弄一个通用的）
 				
 				if(shoppingCar != null){
 					goods.setId(shoppingCar.getId());

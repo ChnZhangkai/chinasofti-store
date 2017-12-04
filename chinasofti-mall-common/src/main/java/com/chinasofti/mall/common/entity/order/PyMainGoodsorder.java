@@ -1,6 +1,8 @@
 package com.chinasofti.mall.common.entity.order;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import com.chinasofti.mall.common.utils.PageBean;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 
@@ -722,4 +724,14 @@ public class PyMainGoodsorder extends PageBean{
     public void setFreight(BigDecimal freight) {
         this.freight = freight;
     }
+    private List<PyChildGoodsorder> pyChildGoodsorders;
+
+	public List<PyChildGoodsorder> getPyChildGoodsorders() {
+		return pyChildGoodsorders;
+	}
+
+	public void setPyChildGoodsorders(List<PyChildGoodsorder> pyChildGoodsorders) {
+		this.pyChildGoodsorders = pyChildGoodsorders;
+	}
+    
 }

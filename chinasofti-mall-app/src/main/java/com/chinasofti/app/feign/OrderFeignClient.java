@@ -40,4 +40,7 @@ public interface OrderFeignClient {
 
 	@RequestMapping(value="/order/del/main", method = RequestMethod.POST)
 	public ResponseInfo deleteByMainOrderId(@RequestBody PyMainGoodsorder pyMainGoodsorder);
+	
+	@RequestMapping(value="/order/main", method = RequestMethod.POST)
+	public ResponseInfo queryMainOrderList(@RequestBody PyMainGoodsorder pyMainGoodsorder);
 }

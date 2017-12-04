@@ -73,6 +73,7 @@ public class ShoppingCartController {
 			response.setRetMsg("Id不能为空！");
 			return response;
 		}
+		//封装一个参数校验的服务
 		
 		response = pyShoppingCartService.updatePyShoppingCart(goodsInfo);
 		return response;

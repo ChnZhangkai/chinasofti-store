@@ -55,7 +55,7 @@
     <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
     <result column="ORDER_TYPE" property="orderType" />
     <result column="TYPE" property="afterType" />
-    <result column="VENDOR_SNM" property="vendorSnm" jdbcType="DECIMAL" />
+    <result column="VENDOR_SNM" property="vendorSnm"  />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -1007,11 +1007,113 @@
 	</where>
 	order by ${sort} ${order}
   </select>
+   <resultMap type="com.chinasofti.mall.common.entity.order.PyMainGoodsorder" id="main_child_orders">
+		<id column="IDS" property="ids" jdbcType="VARCHAR" />
+		<result column="BIGORDER_ID" property="bigorderId" jdbcType="VARCHAR" />
+	    <result column="VENDOR_IDS" property="vendorIds" jdbcType="VARCHAR" />
+	    <result column="USER_IDS" property="userIds" jdbcType="VARCHAR" />
+	    <result column="CONT_POSTCODE" property="contPostcode" jdbcType="VARCHAR" />
+	    <result column="CONT_ADDRESS" property="contAddress" jdbcType="VARCHAR" />
+	    <result column="CONT_MOBILE" property="contMobile" jdbcType="VARCHAR" />
+	    <result column="CONT_PHONE" property="contPhone" jdbcType="VARCHAR" />
+	    <result column="CONT_PROVINCE" property="contProvince" jdbcType="VARCHAR" />
+	    <result column="CONT_CITY" property="contCity" jdbcType="VARCHAR" />
+	    <result column="CONT_DISTRICT" property="contDistrict" jdbcType="VARCHAR" />
+	    <result column="CONT_STREET" property="contStreet" jdbcType="VARCHAR" />
+	    <result column="DELIVERY_TIME" property="deliveryTime" jdbcType="VARCHAR" />
+	    <result column="DELIVERY_DATE" property="deliveryDate" jdbcType="VARCHAR" />
+	    <result column="DELIVERY_WAY" property="deliveryWay" jdbcType="VARCHAR" />
+	    <result column="BUYERS_MESSAGE" property="buyersMessage" jdbcType="VARCHAR" />
+	    <result column="ORDER_TIME" property="orderTime" jdbcType="VARCHAR" />
+	    <result column="SETTLE_TIME" property="settleTime" jdbcType="VARCHAR" />
+	    <result column="ISEVALUATE" property="isevaluate" jdbcType="VARCHAR" />
+	    <result column="DISCOUNT" property="discount" jdbcType="DECIMAL" />
+	    <result column="ORDER_TOTAL_AMT" property="orderTotalAmt" jdbcType="DECIMAL" />
+	    <result column="ORDER_AMT" property="orderAmt" jdbcType="DECIMAL" />
+	    <result column="SETTLE_AMT" property="settleAmt" jdbcType="DECIMAL" />
+	    <result column="SETTLE_STATUES" property="settleStatues" jdbcType="VARCHAR" />
+	    <result column="PAY_STATUS" property="payStatus" jdbcType="VARCHAR" />
+	    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+	    <result column="PAYWAY" property="payway" jdbcType="VARCHAR" />
+	    <result column="TRANSACTIONID" property="transactionid" jdbcType="VARCHAR" />
+	    <result column="CONT_NAME" property="contName" jdbcType="VARCHAR" />
+	    <result column="SETTLE_BATCH_NO" property="settleBatchNo" jdbcType="VARCHAR" />
+	    <result column="WX_FEE" property="wxFee" jdbcType="DECIMAL" />
+	    <result column="SETTLE_STATUS_FEE" property="settleStatusFee" jdbcType="VARCHAR" />
+	    <result column="SETTLE_TIME_FEE" property="settleTimeFee" jdbcType="VARCHAR" />
+	    <result column="SETTLE_BATCH_NO_FEE" property="settleBatchNoFee" jdbcType="VARCHAR" />
+	    <result column="PAY_TIME" property="payTime" jdbcType="VARCHAR" />
+	    <result column="IS_TICKET" property="isTicket" jdbcType="VARCHAR" />
+	    <result column="EXPRESS_COMPANY_ID" property="expressCompanyId" jdbcType="VARCHAR" />
+	    <result column="EXPRESS_NAME" property="expressName" jdbcType="VARCHAR" />
+	    <result column="EXPRESS_ID" property="expressId" jdbcType="VARCHAR" />
+	    <result column="SENDOUTTIME" property="sendouttime" jdbcType="VARCHAR" />
+	    <result column="UPDATETIME" property="updatetime" jdbcType="VARCHAR" />
+	    <result column="S_LATITUDE" property="sLatitude" jdbcType="VARCHAR" />
+	    <result column="S_LONGITUDE" property="sLongitude" jdbcType="VARCHAR" />
+	    <result column="P_LATITUDE" property="pLatitude" jdbcType="VARCHAR" />
+	    <result column="P_LONGITUDE" property="pLongitude" jdbcType="VARCHAR" />
+	    <result column="SENDDESC" property="senddesc" jdbcType="VARCHAR" />
+	    <result column="FREIGHT_OLD" property="freightOld" jdbcType="DECIMAL" />
+	    <result column="CONT_PROVINCE_CODE" property="contProvinceCode" jdbcType="VARCHAR" />
+	    <result column="CONT_CITY_CODE" property="contCityCode" jdbcType="VARCHAR" />
+	    <result column="CONT_DISTRICT_CODE" property="contDistrictCode" jdbcType="VARCHAR" />
+	    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
+	    <result column="ORDER_TYPE" property="orderType" />
+	    <result column="TYPE" property="afterType" />
+	    <result column="VENDOR_SNM" property="vendorSnm"  />
+	    <collection property="pyChildGoodsorders" ofType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder">
+		    	<id column="MAINORDER_IDS" property="mainorderIds"/>
+		    	<result column="cid" property="ids" jdbcType="VARCHAR" />
+		    	<result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />
+		    <result column="CUST_IDS" property="custIds" jdbcType="VARCHAR" />
+		    <result column="ORDER_STATUS" property="orderStatus" jdbcType="CHAR" />
+		    <result column="GOODS_NUM" property="goodsNum" jdbcType="DECIMAL" />
+		    <result column="GOODS_PRICE" property="goodsPrice" jdbcType="DECIMAL" />
+		    <result column="DISCOUNT" property="discount" jdbcType="DECIMAL" />
+		    <result column="ORDER_REAL_AMT" property="orderRealAmt" jdbcType="DECIMAL" />
+		    <result column="ISEVALUATE" property="isevaluate" jdbcType="CHAR" />
+		    <result column="ORDER_REVOKE" property="orderRevoke" jdbcType="VARCHAR" />
+		    <result column="REMARK1" property="remark1" jdbcType="VARCHAR" />
+		    <result column="REMARK2" property="remark2" jdbcType="VARCHAR" />
+		    <result column="REMARK3" property="remark3" jdbcType="VARCHAR" />
+		    <result column="tid" property="transactionid" jdbcType="VARCHAR" />
+		    <result column="ORDER_AMT" property="orderAmt" jdbcType="DECIMAL" />
+		    <result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR" />
+		    <result column="VENDER_REMARK" property="venderRemark" jdbcType="VARCHAR" />
+		    <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
+		    <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
+		    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
+		    <result column="GOODS_TITLE" property="goodsTitle" />
+		</collection>
+   </resultMap>
    
-	<select id="selectByUserIds" resultMap="BaseResultMap" parameterType="java.lang.String"  >
-    select 
-    <include refid="Base_Column_List" /> 
-    from py_main_goodsorder WHERE USER_IDS = #{userIds,jdbcType=VARCHAR} 
+	<select id="selectByUserIds" resultMap="main_child_orders" parameterType="java.lang.String"  >
+    SELECT 
+		m.IDS, m.BIGORDER_ID, m.VENDOR_IDS, 
+      	m.USER_IDS, m.CONT_POSTCODE, m.CONT_ADDRESS, 
+      	m.CONT_MOBILE, m.CONT_PHONE, m.CONT_PROVINCE, 
+      	m.CONT_CITY, m.CONT_DISTRICT, m.CONT_STREET, 
+      	m.DELIVERY_TIME, m.DELIVERY_DATE, m.DELIVERY_WAY, 
+      	m.BUYERS_MESSAGE, m.ORDER_TIME, m.SETTLE_TIME, 
+      	m.ISEVALUATE, m.DISCOUNT, m.ORDER_TOTAL_AMT, 
+      	m.ORDER_AMT, m.SETTLE_AMT, m.SETTLE_STATUES, 
+      	m.PAY_STATUS, m.STATUS, m.PAYWAY, 
+      	m.TRANSACTIONID, m.CONT_NAME, m.SETTLE_BATCH_NO, 
+      	m.WX_FEE, m.SETTLE_STATUS_FEE, m.SETTLE_TIME_FEE, 
+      	m.SETTLE_BATCH_NO_FEE, m.PAY_TIME, m.IS_TICKET, 
+      	m.EXPRESS_COMPANY_ID, m.EXPRESS_NAME, m.EXPRESS_ID, 
+      	m.SENDOUTTIME, m.UPDATETIME, m.S_LATITUDE, 
+      	m.S_LONGITUDE, m.P_LATITUDE, m.P_LONGITUDE, 
+      	m.SENDDESC, m.FREIGHT_OLD, m.CONT_PROVINCE_CODE, 
+      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, 
+		c.IDS as cid, c.GOODSIDS, c.CUST_IDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, 
+		c.ORDER_REAL_AMT, c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, 
+		c.ORDER_AMT, c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE	
+	FROM 
+		py_main_goodsorder m ,py_child_goodsorder c 
+	WHERE m.TRANSACTIONID = c.MAINORDER_IDS and m.PAY_STATUS='1' and m.STATUS = '1' 
+		  and m.USER_IDS = #{userIds,jdbcType=VARCHAR} ORDER BY m.ORDER_TIME DESC 
 	</select>
 	
 	<select id="selectByBigGoodsorderIds" resultMap="BaseResultMap" parameterType="java.lang.String" >

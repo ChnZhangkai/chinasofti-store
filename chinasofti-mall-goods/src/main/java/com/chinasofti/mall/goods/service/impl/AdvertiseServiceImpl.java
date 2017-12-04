@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertiseContentsExample;
 import com.chinasofti.mall.common.entity.AdvertisePosition;
-import com.chinasofti.mall.common.utils.MsgEnum;
-import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.AdvertiseContentsMapper;
 import com.chinasofti.mall.goods.service.IAdvertiseService;
 import com.github.pagehelper.Page;
@@ -81,57 +79,19 @@ public class AdvertiseServiceImpl implements IAdvertiseService {
 	 * 根据位置Id查找广告列表和单条广告
 	 * @throws Exception 
 	 */
-	public ResponseInfo queryAdvertiseList(String positionId){
-		ResponseInfo  response= new ResponseInfo();
-		List<AdvertiseContents> result = advertiseMapper.selectAdvertiseList(positionId);
-		response = dealAdResponseData(result);
-		return response;
+	public List<AdvertiseContents> queryAdvertiseList(String positionId){
+		return	advertiseMapper.selectAdvertiseList(positionId);
+		
 	} 
 
-	  //处理广告列表返回的数据
-		private ResponseInfo dealAdResponseData(List<AdvertiseContents> result) {
-			ResponseInfo  response= new ResponseInfo();
-			if(result.size()>0){
-				Map<String, Object> data= new HashMap<String, Object>();
-				data.put("responseInfo", result);	
-				response.setData(data);
-				response.setRetCode(MsgEnum.SUCCESS.getCode());
-				response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			}else if(result==null||result.size()==0){
-				response.setRetCode(MsgEnum.ERROR.getCode());
-				response.setRetMsg("未找到相关数据！");
-			}else{
-				response.setRetCode(MsgEnum.ERROR.getCode());
-				response.setRetMsg(MsgEnum.ERROR.getMsg());
-			}
-			return response;
-		}
+	 
 
 	@Override
-	public ResponseInfo queryAdvertise(String positionId){
-		ResponseInfo  response= new ResponseInfo();
-		AdvertiseContents result = advertiseMapper.selectSingleAdvertise(positionId);
-		response = dealResponseData(result);
-		return response;
+	public AdvertiseContents queryAdvertise(String positionId){
+		
+		return advertiseMapper.selectSingleAdvertise(positionId);
 	}
-	//封装返回参数
-		private ResponseInfo dealResponseData(AdvertiseContents result) {
-			ResponseInfo  response= new ResponseInfo();
-			if(result !=null){
-				Map<String, Object> data= new HashMap<String, Object>();
-				data.put("responseInfo", result);
-				response.setData(data);
-				response.setRetCode(MsgEnum.SUCCESS.getCode());
-				response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			}else if("".equals(result)){
-				response.setRetCode(MsgEnum.ERROR.getCode());
-				response.setRetMsg(MsgEnum.ERROR.getMsg());
-			}else{
-				response.setRetCode(MsgEnum.ERROR.getCode());
-				response.setRetMsg("未找到相关数据！");	
-			}
-			return response;
-		}
+	
 	@Override
 	public List<AdvertisePosition> findAdPostionAll() {
 		return advertiseMapper.findAdPostionAll();
