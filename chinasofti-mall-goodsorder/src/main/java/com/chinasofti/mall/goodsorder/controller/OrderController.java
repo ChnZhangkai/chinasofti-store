@@ -113,4 +113,17 @@ public class OrderController {
 		return responseInfo;
 	}
 
+	
+	/**
+	 * 删除主订单 付款之后按照商家陈列删除订单商品信息
+	 * 只做订单状态修改，并没有删除
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/main", method = RequestMethod.POST)
+	@ApiOperation(value="主订单", notes="报文示例：{'orderId':'1001','userId':'1001'}")
+	public ResponseInfo queryMainOrderList(@RequestBody PyMainGoodsorder pyMainGoodsorder) {
+		ResponseInfo responseInfo = orderService.queryMainOrderList(pyMainGoodsorder);
+		return responseInfo;
+	}
 }

@@ -2,7 +2,6 @@ package com.chinasofti.mall.goodsorder.service.impl;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -24,6 +23,7 @@ import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyOrderInfo;
 import com.chinasofti.mall.common.entity.order.PyShoppingCartInfo;
 import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
+import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.StringDateUtil;
@@ -62,76 +62,23 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public ResponseInfo queryOrderListByUserId(String userId) {
 		ResponseInfo info = new ResponseInfo();
-		// 用户的全部订单
-		// 分类1.付款（付款未发货，已发货运输 已到货 已签收） 2.未付款
 		Map<String, Object> data = new HashMap<String, Object>();
+		//先查出用户的未付款订单（大订单展示）
 		List<PyBigGoodsorder> pyBigGoodsorders = bigGoodsorderService.selectByUserIds(userId);
-		List<PyMainGoodsorder> pyMainGoodsorders = mainGoodsorderService.selectByUserIds(userId);
-		List<PyChildGoodsorder> pyChildGoodsorders = childGoodsorderService.selectByUserIds(userId);
-
-		List<Object> unpaidOrderArray = new ArrayList<Object>();
-		List<Object> paymentOrderArray = new ArrayList<Object>();
-		List<Object> cancelOrderArray = new ArrayList<Object>();
-		//只查询出用户下单后未付款和已付款的订单，被删除或者被取消的订单不做展示
-		if (pyBigGoodsorders.size() != 0 && pyMainGoodsorders.size() != 0) {
-			for (PyBigGoodsorder pyBigGoodsorder : pyBigGoodsorders) {
-				//有效的订单
-				if (PyBigGoodsorder.STATUS_ABLE.equals(pyBigGoodsorder.getStatus())) {					
-					// 支付状态 未付款
-					if (PyBigGoodsorder.PAY_STATUS_NOT.equals(pyBigGoodsorder.getPayStatus())) {
-						unpaidOrderArray.add(getMap(pyChildGoodsorders, pyMainGoodsorders, pyBigGoodsorder));
-					}
-					// 已付款
-					if (PyBigGoodsorder.PAY_STATUS_OK.equals(pyBigGoodsorder.getPayStatus())) {
-						paymentOrderArray.add(getMap(pyChildGoodsorders, pyMainGoodsorders, pyBigGoodsorder));
-					}
-				}
-				// 被取消
-				if (PyBigGoodsorder.PAY_STATUS_CANCLE.equals(pyBigGoodsorder.getPayStatus())) {
-					cancelOrderArray.add(getMap(pyChildGoodsorders, pyMainGoodsorders, pyBigGoodsorder));
-				}
-			}
-			
-			data.put("unpaidOrder", unpaidOrderArray);
-			data.put("paymentOrder", paymentOrderArray);
-			data.put("cancelOrder", cancelOrderArray);
-			
-			info.setData(data);
-			info.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			info.setRetCode(MsgEnum.SUCCESS.getCode());
-		}else {
-			data.put("msg", "暂无您的订单信息");
-			info.setData(data);
-			info.setRetCode(MsgEnum.ERROR.getCode());
-			info.setRetMsg(MsgEnum.ERROR.getMsg());
+		//用户已付款订单（主订单展示）
+		List<PyMainGoodsorder> pyMainGoodsorders = mainGoodsorderService.selectByUserIds(userId, 1, 3);
+		if (pyBigGoodsorders.size() < 1 && pyMainGoodsorders.size() < 1) {
+			info.setRetCode("暂无您的订单信息");
+			return info;
 		}
+		data.put("unpaidOrder", pyBigGoodsorders);
+		data.put("paymentOrder", pyMainGoodsorders);
+		info.setData(data);
+		info.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		info.setRetCode(MsgEnum.SUCCESS.getCode());
 		return info;
 	}
 
-	private Map<String, Object> getMap(List<PyChildGoodsorder> pyChildGoodsorders, List<PyMainGoodsorder> pyMainGoodsorders, PyBigGoodsorder pyBigGoodsorder) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pyBigGoodsorder", pyBigGoodsorder);
-		List<PyMainGoodsorder> mainGoodsorders = new ArrayList<PyMainGoodsorder>();
-		List<PyChildGoodsorder> childGoodsorders = new ArrayList<PyChildGoodsorder>();
-		BigDecimal sum = new BigDecimal(0);
-		String mainId = "";
-		for (PyMainGoodsorder pyMainGoodsorder : pyMainGoodsorders) {
-			if (pyMainGoodsorder.getBigorderId().equals(pyBigGoodsorder.getTransactionid())) {
-				mainGoodsorders.add(pyMainGoodsorder);
-				mainId = pyMainGoodsorder.getTransactionid();
-				for (PyChildGoodsorder pyChildGoodsorder : pyChildGoodsorders) {
-					if (pyChildGoodsorder.getMainorderIds().equals(mainId)) {				
-						sum = pyChildGoodsorder.getGoodsNum().add(sum);
-						childGoodsorders.add(pyChildGoodsorder);
-					}
-				}
-			}
-		}
-		map.put("sum", sum);
-		map.put("pyMainGoodsorder", mainGoodsorders);
-		map.put("pyChildGoodsorder", childGoodsorders);
-		return map;
-	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -206,6 +153,7 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	
 	/*private List<PyMainGoodsorder> setMainOrderAdress(List<PyMainGoodsorder> mainList,SpSendAddress address) {
 		List<PyMainGoodsorder> resultMainList = new ArrayList<PyMainGoodsorder>();
 		for(PyMainGoodsorder order : mainList){
@@ -224,13 +172,14 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder) {
+		//减少库存
 		ResponseInfo responseInfo = new ResponseInfo();
-		pyBigGoodsorder.setStatus(PyBigGoodsorder.STATUS_UNABLE);
-		pyBigGoodsorder.setPayStatus(PyBigGoodsorder.PAY_STATUS_CANCLE);
+		pyBigGoodsorder.setStatus(Constant.STATUS_UNABLE);
+		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_CANCLE);
 		//status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
 		int count = bigGoodsorderService.update(pyBigGoodsorder);
-		count += mainGoodsorderService.updateByBigGoodsorder(pyBigGoodsorder.getTransactionid());
-		if (count > 1) {
+		mainGoodsorderService.updateByBigGoodsorder(pyBigGoodsorder.getTransactionid());
+		if (count > 0) {
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		} else {
@@ -248,10 +197,10 @@ public class OrderServiceImpl implements OrderService {
 			responseInfo.setRetMsg("用户信息为空");
 			return responseInfo;
 		}
-		pyBigGoodsorder.setStatus(PyBigGoodsorder.STATUS_UNABLE);
-		pyBigGoodsorder.setPayStatus(PyBigGoodsorder.PAY_STATUS_DELETE);
+		pyBigGoodsorder.setStatus(Constant.STATUS_UNABLE);
+		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_DELETE);
 		int count = bigGoodsorderService.update(pyBigGoodsorder);
-		count += mainGoodsorderService.updateByBigGoodsorder(pyBigGoodsorder.getTransactionid());
+		mainGoodsorderService.updateByBigGoodsorder(pyBigGoodsorder.getTransactionid());
 		if (count > 0) {
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
@@ -267,7 +216,7 @@ public class OrderServiceImpl implements OrderService {
 	public ResponseInfo payOrder(PyBigGoodsorder pyBigGoodsorder) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		try {
-			pyBigGoodsorder.setPayStatus(PyBigGoodsorder.PAY_STATUS_OK);
+			pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_OK);
 			pyBigGoodsorder.setPayTime(StringDateUtil.convertDateToLongString(new Date()));
 			pyBigGoodsorder.setPayway("信用卡支付");
 			bigGoodsorderService.update(pyBigGoodsorder);
@@ -448,8 +397,8 @@ public class OrderServiceImpl implements OrderService {
 		//status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
 		pyMainGoodsorder.setStatus("4");
 		int count = mainGoodsorderService.update(pyMainGoodsorder);
-		count += bigGoodsorderService.updateByMainOrder(pyMainGoodsorder.getBigorderId());
-		if (count > 1) {
+		bigGoodsorderService.updateByMainOrder(pyMainGoodsorder.getBigorderId());
+		if (count > 0) {
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		} else {
@@ -457,6 +406,17 @@ public class OrderServiceImpl implements OrderService {
 			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
 			logger.error("提交删除失败");
 		}
+		return responseInfo;
+	}
+
+
+	@Override
+	public ResponseInfo queryMainOrderList(PyMainGoodsorder pyMainGoodsorder) {
+		ResponseInfo responseInfo = new ResponseInfo();
+		List<PyMainGoodsorder> list = mainGoodsorderService.selectByUserIds(pyMainGoodsorder.getUserIds(), pyMainGoodsorder.getPageNumber(), pyMainGoodsorder.getPageSize());
+		Map<String ,Object> map = new HashMap<String ,Object>();
+		map.put("mainList", list);
+		responseInfo.setData(map);
 		return responseInfo;
 	}
 }
