@@ -51,3 +51,22 @@ function getData(pageNumber, pageSize, tableID, pageId, url) {
 		}
 	});
 };
+
+function successShow(){
+	$.messager.show({
+		title:'提示',
+		msg:'<font style="color:green">操作成功</font>',
+		showType:'slide',
+		timeout:3000,
+	});
+}
+
+function errorShow(){
+	$.messager.show({
+		title:'提示',
+		msg:'<font style="color:red">操作失败</font>',
+		showType:'slide',
+		timeout:3000,
+	});
+}
+

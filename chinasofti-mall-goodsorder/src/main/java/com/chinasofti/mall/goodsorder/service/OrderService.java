@@ -21,5 +21,7 @@ public interface OrderService {
 	public ResponseInfo updateOrder(JSONObject json);
 
 	public ResponseInfo deleteByMainOrderId(PyMainGoodsorder pyMainGoodsorder);
+
+	public ResponseInfo queryMainOrderList(PyMainGoodsorder pyMainGoodsorder);
 }
  
