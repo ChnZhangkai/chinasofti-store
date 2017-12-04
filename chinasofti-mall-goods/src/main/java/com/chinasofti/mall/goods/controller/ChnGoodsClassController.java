@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.common.utils.MsgEnum;
-import com.chinasofti.mall.common.utils.ResponseInfo;
+
 import com.chinasofti.mall.goods.service.IChnGoodsClassService;
-import com.github.pagehelper.util.StringUtil;
 
 import net.sf.json.JSONObject;
 
@@ -93,18 +91,10 @@ public class ChnGoodsClassController {
 	 * @param classId
 	 * @return
 	 */
-	@SuppressWarnings("null")
 	@RequestMapping(value = "queryClass")
-	public ResponseInfo queryClass(@RequestParam("classId") String classId){
-		ResponseInfo response=null;
-		if(StringUtil.isEmpty(classId)){
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("classId不能为空！");
-			return response;
-		}
-		response = GoodsClassService.queryClass(classId);
+	public List<ChnGoodsClass> queryClass(@RequestParam("classId") String classId){
 		
-		return response;
+		return GoodsClassService.queryClass(classId);
 		
 	}
 	

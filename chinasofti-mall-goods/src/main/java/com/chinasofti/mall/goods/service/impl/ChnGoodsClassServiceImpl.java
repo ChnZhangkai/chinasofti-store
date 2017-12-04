@@ -108,11 +108,6 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 		return response;
 	}
 
-	public ResponseInfo selectById(ResponseInfo response, String pids) {
-		List<ChnGoodsClass> result = chnGoodsClassMapper.selectById(pids);
-		response = dealGoodsResponseData(response, result);
-		return response;
-	}
 
 	private ResponseInfo dealGoodsResponseData(ResponseInfo response, List<ChnGoodsClass> result) {
 		if (result.size() > 0) {
@@ -137,11 +132,9 @@ public class ChnGoodsClassServiceImpl implements IChnGoodsClassService{
 	 * @param classId
 	 * @return
 	 */
-	public ResponseInfo queryClass(String classId) {
-		ResponseInfo response = new ResponseInfo();
+	public List<ChnGoodsClass> queryClass(String classId) {
 		String pids = classId;
-		response = selectById(response, pids);
-		return response;
+		return chnGoodsClassMapper.selectById(pids); 
 	}
 
 }

@@ -58,8 +58,8 @@ public class ShoppingCartController {
 	@RequestMapping(value="add/goods", method = RequestMethod.POST)
 	@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]")
 	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
+		/*response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods","POST");*/
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》"+goodsList.toString());
 		return shoppingCartFeignClient.savePyShoppingCart(goodsList);
 	}
