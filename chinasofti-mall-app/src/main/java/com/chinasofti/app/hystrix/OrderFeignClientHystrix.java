@@ -65,6 +65,12 @@ public class OrderFeignClientHystrix implements OrderFeignClient{
 	}
 
 
+	@Override
+	public ResponseInfo queryMainOrderList(PyMainGoodsorder pyMainGoodsorder) {
+		return new ResponseInfo();
+	}
+
+
 	
 
 	

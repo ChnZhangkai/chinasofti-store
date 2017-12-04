@@ -142,7 +142,9 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	}
 
 	@Override
-	public List<PyMainGoodsorder> selectByUserIds(String userIds) {
+	public List<PyMainGoodsorder> selectByUserIds(String userIds,int pageNum, int pageSize) {
+		//分页展示数据
+		PageHelper.startPage(pageNum, pageSize);
 		return mainGoodsorderMapper.selectByUserIds(userIds);
 	}
 

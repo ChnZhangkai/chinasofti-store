@@ -1,6 +1,7 @@
 package com.chinasofti.mall.common.entity.order;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class PyBigGoodsorder {
     private String ids;
@@ -42,21 +43,18 @@ public class PyBigGoodsorder {
     private String invoiceTitle;
     /** *  订单的发票地址 */
     private String invoiceAddress;
-    /** *  订单状态 1 有效*/
-    public static final String STATUS_ABLE = "1";
-    /** *  订单状态 0 无效*/
-    public static final String STATUS_UNABLE = "0";
-    /** *  订单的支付状态 0 未支付 */
-    public static final String PAY_STATUS_NOT = "0";
-    /** *  订单的支付状态 1 已支付 */
-    public static final String PAY_STATUS_OK = "1";
-    /** *  订单的支付状态 2 已取消 */
-    public static final String PAY_STATUS_CANCLE = "2";
-    /** *  订单的支付状态 3 被删除 */
-    public static final String PAY_STATUS_DELETE = "3";
     
-    
-    public String getIds() {
+    private List<PyChildGoodsorder> pyChildGoodsorders;
+
+	public List<PyChildGoodsorder> getPyChildGoodsorders() {
+		return pyChildGoodsorders;
+	}
+
+	public void setPyChildGoodsorders(List<PyChildGoodsorder> pyChildGoodsorders) {
+		this.pyChildGoodsorders = pyChildGoodsorders;
+	}
+
+	public String getIds() {
         return ids;
     }
 
