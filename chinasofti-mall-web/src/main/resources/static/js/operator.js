@@ -1,28 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-
-
-<script type="text/javascript" src="js/common.js"></script>
-<div class="easyui-layout" data-options="fit:true" style="padding:4px;">
-    
-    <div style="padding:4px;">
-		<ul id="menuOperator" class="easyui-tree"></ul>
-	</div>
-	<div id="menuOperatorMenu" class="easyui-menu" style="width:120px;" data-options="onClick:menuHandler">
-	    <div data-options="iconCls:'icon-add',name:'add'">添加</div>
-	    <div data-options="iconCls:'icon-edit',name:'rename'">重命名</div>
-	    <div class="menu-sep"></div>
-	    <div data-options="iconCls:'icon-remove',name:'delete'">删除</div>
-	</div>
-</div>   
-
-<script type="text/javascript">
 	$(function(){
 		//文档对象加载完毕之后，找到id=menuOperator的标签，然后在它上面创建树
 		$("#menuOperator").tree({
@@ -33,54 +8,72 @@
 			method : "GET",
 			//鼠标右击事件,e为当前事件对象，node为当前点击事件所在的tree节点
 			onContextMenu: function(e,node){
-				//屏蔽系统默认的菜单右键事件
-	            e.preventDefault();
-				//让当前点击的树节点选中---select选中方法
-	            $(this).tree('select',node.target);
-				//让id=menuOperatorMenu的标签显示对应的EasyUI菜单界面,固定当前弹出的菜单坐标
-	            $('#menuOperatorMenu').menu('show',{
-	                left: e.pageX,
-	                top: e.pageY
-	            });
+					//屏蔽系统默认的菜单右键事件
+		            e.preventDefault();
+					//让当前点击的树节点选中---select选中方法
+		            $(this).tree('select',node.target);
+					
+				if($(this).tree('getParent',node.target)!=null && $(this).tree('getChildren',node.target).length>0){
+				
+					//让id=menuOperatorMenu的标签显示对应的EasyUI菜单界面,固定当前弹出的菜单坐标
+		            $('#menuOperatorMenu').menu('show',{
+		                left: e.pageX,
+		                top: e.pageY
+		            });
+				}else{
+					$('#menuOperatorMenu2').menu('show',{
+		                left: e.pageX,
+		                top: e.pageY
+		            });
+				}
 	        },
 	        //编辑完成之后执行如下操作
 	        onAfterEdit : function(node){
 		        	//当前节点对象
 		        	var _tree = $(this);
+		        	var nodeTextLength = (node.text).length;
+		        	if(nodeTextLength<2 || nodeTextLength>10){
+		        		$.messager.alert('提示','操作失败!名称长度必须在2-10之间!');
+		        		$('#menuOperator').tree('reload');
+		        		return ;
+		        	}
 		        	//如果说当前节点的id=0，执行如下代码
 		        	if(node.id == 0){
 		        		// 新增节点
 		        		$.ajax({
-		        			type: "POST",
-		        			url: "/operator/add",
-		        			//传到后台的参数，父节点：可以修改父节点状态，如是否是叶子节点,父节点还要为当前新增的节点填充父id
-		        			data: {menuids:node.parentId,names:node.text},
-		        			success: function(msg){
-				     		//刷新_tree(当前节点)节点
-				        		_tree.tree("update",{
-					        		//新增节点说明需要返回当前节点存储到数据库的id
-					        		target : node.target,
-					        		//将返回的节点id更新到当前节点S
-					        		id : msg
-				        		})
+			        		type: "POST",
+			        		url: "/operator/add",
+			        		//传到后台的参数，父节点：可以修改父节点状态，如是否是叶子节点,父节点还要为当前新增的节点填充父id
+			        		data: {menuids:node.parentId,names:node.text},
+			        		success: function(msg){
+					     	//刷新_tree(当前节点)节点
+					     	//alert(msg);
+					        	_tree.tree("update",{
+							    //新增节点说明需要返回当前节点存储到数据库的id
+							    target : node.target,
+							    //将返回的节点id更新到当前节点
+							    id : msg
+					        	})
 						},
 						error: function(){
-		        				$.messager.alert('提示','新增失败!');
+			        			$.messager.alert('提示','新增失败!');
+			        			$('#menuOperator').tree('reload');
 						}
 					});
 		        	}else{
 		        		//如果node.id != 0则执行如下更新代码
 		        		$.ajax({
-						type: "POST",
+		        			type: "POST",
 		        			url: "/operator/update",
 		        			//这儿只更新自己数据，不需要更新父类信息
 		        			data: {ids:node.id,names:node.text},
 		        			error: function(){
-		        				 $.messager.alert('提示','重命名失败!');
+		        				  $.messager.alert('提示','重命名失败!');
+		        				  $('#menuOperator').tree('reload');
 		        			}
-					});
+		        		});
 		        	}
-		     }
+			}
 		});
 	});
 
@@ -111,12 +104,13 @@
 			tree.tree('beginEdit',node.target);
 			//如果当前菜单的name属性=delete，则执行如下删除流程操作
 		}else if(item.name === "delete"){
-			$.messager.confirm('确认','确定删除名为 '+node.text+' 的分类吗？',function(r){
+			$.messager.confirm('确认','确定删除名为 '+node.text+' 的操作吗？',function(r){
 				if(r){
 					$.ajax({
 	     			   type: "POST",
-	     			   url: "/operator/delete" + node.id,
+	     			   url: "/operator/delete",
 	     			   //向后台传输的数据，
+	     			   data : {ids:node.id},
 	     			   success: function(msg){
 	     				  tree.tree("remove",node.target);
 	     			   },
@@ -128,9 +122,3 @@
 			});
 		}
 	}
-</script>
-
-
-
-</body>
-</html>

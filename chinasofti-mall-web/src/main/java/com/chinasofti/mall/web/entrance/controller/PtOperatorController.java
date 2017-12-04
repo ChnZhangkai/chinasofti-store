@@ -55,7 +55,7 @@ public class PtOperatorController {
 	//权限设置的管理页面
 	@RequestMapping("/index")
 	public ModelAndView allMenu() {
-		return new ModelAndView("/ptrole/operator");
+		return new ModelAndView("/operator/operator");
 	}
 	
 }
