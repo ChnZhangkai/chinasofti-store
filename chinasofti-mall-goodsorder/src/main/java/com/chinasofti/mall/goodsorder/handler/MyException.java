@@ -1,6 +1,8 @@
 package com.chinasofti.mall.goodsorder.handler;
 
 public class MyException extends Exception {
+
+	private static final long serialVersionUID = 1L;
 	private String code;
 	
     public String getCode() {

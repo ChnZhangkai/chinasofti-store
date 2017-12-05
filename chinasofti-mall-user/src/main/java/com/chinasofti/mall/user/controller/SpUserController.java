@@ -34,7 +34,7 @@ public class SpUserController {
 	@Autowired
 	SpUserService spUserService;
 	
-	Logger logger = LoggerFactory.getLogger(SpUserController.class);  
+	private static final Logger logger = LoggerFactory.getLogger(SpUserController.class);  
 	
 	@RequestMapping(value="/signUp")
 	public ResponseInfo signUp(@RequestBody SpUser spUser) {
@@ -61,7 +61,21 @@ public class SpUserController {
 		return res;
 	}
 	
-	
+	@RequestMapping(value="/isUserExist")
+	public Boolean isUserExist(@RequestBody SpUser spUser) {
+		try {
+			SpUser user = spUserService.isUserExist(spUser);
+			if (user == null) {
+				logger.info("该用户不存在！");
+				return false;
+			} 
+			
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.info(e.toString());
+		}
+		return true;
+	}
 	
 	
 }

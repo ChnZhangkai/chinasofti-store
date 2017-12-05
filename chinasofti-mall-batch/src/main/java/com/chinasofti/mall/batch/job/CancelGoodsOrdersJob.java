@@ -1,5 +1,7 @@
 package com.chinasofti.mall.batch.job;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -22,11 +24,13 @@ public class CancelGoodsOrdersJob {
 		JobLauncher launcher = (JobLauncher) context.getBean("jobLauncher");
 		Job job = (Job) context.getBean("cancelGoodsOrdersJob");
 		
+		Date now = new Date() ;
+		
 		try {
 			logger.info("CancelGoodsOrdersJob在 "+DateUtils.getCurrentTime()+"开始执行...");
 			/* 运行Job */
 			JobExecution result = launcher.run(job,new JobParametersBuilder()
-									.addString("handleDate", "20171129")
+									.addString("handleDate", DateUtils.getNowDate(now))
 									.toJobParameters());
 			/* 处理结束，控制台打印处理结果 */
 			logger.info(result.toString());

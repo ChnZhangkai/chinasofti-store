@@ -45,6 +45,16 @@ public class PyBigGoodsorder {
     private String invoiceAddress;
     
     private List<PyChildGoodsorder> pyChildGoodsorders;
+    
+    private List<PyMainGoodsorder> pyMainGoodsorders;
+
+	public List<PyMainGoodsorder> getPyMainGoodsorders() {
+		return pyMainGoodsorders;
+	}
+
+	public void setPyMainGoodsorders(List<PyMainGoodsorder> pyMainGoodsorders) {
+		this.pyMainGoodsorders = pyMainGoodsorders;
+	}
 
 	public List<PyChildGoodsorder> getPyChildGoodsorders() {
 		return pyChildGoodsorders;
@@ -214,6 +224,14 @@ public class PyBigGoodsorder {
         this.invoiceAddress = invoiceAddress == null ? null : invoiceAddress.trim();
     }
     
+    private BigDecimal orderTotalNum;
 
+	public BigDecimal getOrderTotalNum() {
+		return orderTotalNum;
+	}
+
+	public void setOrderTotalNum(BigDecimal orderTotalNum) {
+		this.orderTotalNum = orderTotalNum;
+	}
     
 }

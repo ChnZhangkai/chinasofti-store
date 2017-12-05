@@ -270,27 +270,9 @@ public class PyMainGoodsorder extends PageBean{
     */
     private BigDecimal freight;
     
-    private String orderType;
-    
-    private BigDecimal afterType;
     
     private String vendorSnm;
 
-    public String getOrderType() {
-		return orderType;
-	}
-
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
-	}
-
-	public BigDecimal getAfterType() {
-		return afterType;
-	}
-
-	public void setAfterType(BigDecimal afterType) {
-		this.afterType = afterType;
-	}
 
 	public String getVendorSnm() {
 		return vendorSnm;

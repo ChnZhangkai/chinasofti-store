@@ -35,6 +35,7 @@ public class SpSendAddressController {
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public ResponseInfo findSendAddressList(@RequestParam String userId,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
+		logger.info(userId);
 		return spSendAddressFeignClient.findSendAddressList(userId);
 	}
 	

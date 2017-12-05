@@ -13,6 +13,12 @@
 
 	<!-- 项目依赖 -->
 	<dependencies>
+		<dependency>
+			<groupId>com.chinasofti.mall</groupId>
+			<artifactId>chinasofti-mall-common</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+	
 		<!-- springbatch依赖 -->
 		<dependency>
 			<groupId>org.springframework.batch</groupId>

@@ -7,7 +7,6 @@ import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyOrderInfo;
 import com.chinasofti.mall.common.utils.ResponseInfo;
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
@@ -33,10 +32,6 @@ public class OrderFeignClientHystrix implements OrderFeignClient{
 	}
 	
 	public ResponseInfo deleteOrderById(String orderId){
-		return new ResponseInfo();
-	}
-
-	public ResponseInfo updateOrder(JSONObject json){
 		return new ResponseInfo();
 	}
 

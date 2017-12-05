@@ -1,12 +1,9 @@
 package com.chinasofti.app.hystrix;
 
-
 import org.springframework.stereotype.Component;
 import com.chinasofti.app.feign.SpUserFeignClient;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
 import com.chinasofti.mall.common.utils.ResponseInfo;
-
-import net.sf.json.JSONObject;
 
 /**
  * 
