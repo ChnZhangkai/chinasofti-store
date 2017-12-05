@@ -43,7 +43,7 @@ function addMenuAll(pids){
 							id:menudata.ids,
 							title:menudata.menuname,
 							content:childMenuHtml,
-							selected:true
+							selected:false
 						})
 					}
 			}
