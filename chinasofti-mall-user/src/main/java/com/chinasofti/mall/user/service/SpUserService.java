@@ -22,5 +22,7 @@ public interface SpUserService extends IBaseService<SpUser>{
 	ResponseInfo add(SpUser spUser)throws MyException;
 	
 	ResponseInfo select(SpUser spUser)throws MyException;
+	
+	public SpUser isUserExist(SpUser spUser)throws MyException;
 
 }

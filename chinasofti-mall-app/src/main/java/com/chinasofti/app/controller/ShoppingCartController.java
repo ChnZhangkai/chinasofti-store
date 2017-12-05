@@ -1,11 +1,12 @@
 package com.chinasofti.app.controller;
 
 import java.util.List;
-
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.ShoppingCartFeignClient;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
+import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
+import com.chinasofti.mall.common.service.RequestParamService;
+import com.chinasofti.mall.common.utils.DealParamFunctions;
+import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
+
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,8 +51,7 @@ public class ShoppingCartController {
 	@RequestMapping(value="del/goods", method = RequestMethod.POST)
 	@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
 	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,HttpServletRequest req,HttpServletResponse response) {
-	    response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
+	    
 		ResponseInfo responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
 		return responseInfo;
 	}
@@ -57,9 +63,7 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="add/goods", method = RequestMethod.POST)
 	@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]")
-	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList,HttpServletResponse response) {
-		/*response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");*/
+	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList) {
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》"+goodsList.toString());
 		return shoppingCartFeignClient.savePyShoppingCart(goodsList);
 	}
@@ -71,11 +75,16 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="/mod/goods", method = RequestMethod.POST)
 	@ApiOperation(value="修改购物车商品数量", notes="报文示例：{\"goodsList\":{\"goodsList\":[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]}")
-	public ResponseInfo updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
-		ResponseInfo responseInfo = shoppingCartFeignClient.updatePyShoppingCart(goodsInfo);
-		return responseInfo;
+	public ResponseInfo updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo) {
+		ResponseInfo response = null;
+		//参数校验
+		ResponseInfo result = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
+		if(result !=null){
+			return response;
+		}
+		int re = shoppingCartFeignClient.updatePyShoppingCart(goodsInfo);
+		response = DealParamFunctions.dealResponseData(re);
+		return response;
 	}
 	
 	/**
@@ -83,33 +92,22 @@ public class ShoppingCartController {
 	 * @param json
 	 * @return
 	 */
+	@SuppressWarnings("null")
 	@RequestMapping(value="query/goodsList")
 	@ApiOperation(value="查询购物车商品", notes="报文示例：{\"userId\":\"1\"}")
-	public ResponseInfo queryPyShoppingCartListByUserId(@RequestParam("userId") String userId,HttpServletResponse response){
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		ResponseInfo responseInfo = shoppingCartFeignClient.queryPyShoppingCartListByUserId(userId);
-		return responseInfo;
-	}
-/*	*//**
-	 * 统一获取请求参数
-	 * @param req
-	 * @return
-	 *//*
-	public static String getRequestPayload(HttpServletRequest req) {
-		StringBuilder sb = new StringBuilder();
-		try {
-			BufferedReader reader = req.getReader();
-			char[] buff = new char[1024];
-			int len;
-			while ((len = reader.read(buff)) != -1) {
-				sb.append(buff, 0, len);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+	public ResponseInfo queryPyShoppingCartListByUserId(@RequestParam("userId") String userId){
+		ResponseInfo response = null;
+		if (StringUtils.isEmpty(userId)) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("userId不能为空！");
+			return response;
 		}
+		List<VendorShoppingcartVO> res = shoppingCartFeignClient.queryPyShoppingCartListByUserId(userId);
+		//封装前端需要的数据格式
+		List<Map<String, List<ChnGoodsinfo>>> result = DealParamFunctions.pakacgeReponseData(res);
+		response = DealParamFunctions.dealResponseData(result);
+		return response;
+	}
 
-		return sb.toString();
-
-	  }*/
 
 }

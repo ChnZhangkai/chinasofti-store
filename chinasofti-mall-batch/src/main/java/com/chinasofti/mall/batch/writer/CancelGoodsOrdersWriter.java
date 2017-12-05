@@ -22,7 +22,11 @@ public class CancelGoodsOrdersWriter implements ItemWriter<PyBigGoodsorder> {
 	public void write(List<? extends PyBigGoodsorder> items) throws Exception {
 		
 		for (PyBigGoodsorder pyBigGoodsorder : items) {
+			/**
+			 * 更新订单的支付状态
+			 */
 			cancelGoodsOrdersService.updatePaywayStatus(pyBigGoodsorder);
+			
 		}
 	}
 

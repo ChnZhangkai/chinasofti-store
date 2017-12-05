@@ -105,5 +105,10 @@ public class SpUserServiceImp implements SpUserService {
 		return 0;
 	}
 
+	@Override
+	public SpUser isUserExist(SpUser spUser) throws MyException{
+		return spUserMapper.selectByUserId(spUser);
+	}
+
 
 }
