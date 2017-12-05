@@ -1112,8 +1112,9 @@
 		c.ORDER_AMT, c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE	
 	FROM 
 		py_main_goodsorder m ,py_child_goodsorder c 
-	WHERE m.TRANSACTIONID = c.MAINORDER_IDS and m.PAY_STATUS='1' and m.STATUS = '1' 
-		  and m.USER_IDS = #{userIds,jdbcType=VARCHAR} ORDER BY m.ORDER_TIME DESC 
+	WHERE 
+		m.TRANSACTIONID = c.MAINORDER_IDS and m.PAY_STATUS='1' and m.STATUS = '1' 
+		and m.USER_IDS = #{userIds,jdbcType=VARCHAR} ORDER BY m.ORDER_TIME DESC 
 	</select>
 	
 	<select id="selectByBigGoodsorderIds" resultMap="BaseResultMap" parameterType="java.lang.String" >

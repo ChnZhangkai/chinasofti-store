@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyOrderInfo;
@@ -104,12 +103,6 @@ public class OrderController {
 	@ApiOperation(value="查询订单", notes="报文示例：{'userId':'4619f8f622e94f38bb1a6f132c70d0b6'}")
 	public ResponseInfo queryOrderListByUserId(@RequestParam("userId") String userId){
 		ResponseInfo responseInfo = orderService.queryOrderListByUserId(userId);
-		return responseInfo;
-	}
-	
-	@RequestMapping(value="/update", method = RequestMethod.POST)
-	public ResponseInfo updateOrder(JSONObject json) {
-		ResponseInfo responseInfo = orderService.updateOrder(json);
 		return responseInfo;
 	}
 

@@ -43,4 +43,7 @@ public interface PyChildGoodsorderMapper {
     //更新库存
     int updateStore(ChnGoodsinfo chnGoodsinfo);
 
+    List<PyChildGoodsorder> selectByBigOrderIds(String bigOrderIds);
+
+	int updateCancelGoodsNum(PyChildGoodsorder pyChildGoodsorder);
 }

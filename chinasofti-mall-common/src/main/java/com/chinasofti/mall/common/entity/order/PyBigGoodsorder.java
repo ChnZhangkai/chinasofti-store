@@ -214,6 +214,14 @@ public class PyBigGoodsorder {
         this.invoiceAddress = invoiceAddress == null ? null : invoiceAddress.trim();
     }
     
+    private BigDecimal orderTotalNum;
 
+	public BigDecimal getOrderTotalNum() {
+		return orderTotalNum;
+	}
+
+	public void setOrderTotalNum(BigDecimal orderTotalNum) {
+		this.orderTotalNum = orderTotalNum;
+	}
     
 }

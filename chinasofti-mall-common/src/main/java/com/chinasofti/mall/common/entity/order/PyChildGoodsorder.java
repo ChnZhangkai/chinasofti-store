@@ -132,19 +132,6 @@ public class PyChildGoodsorder extends PageBean {
 
 	private String goodsTitle;
 
-	private String goodsStandard;
-
-	private String goodsCode;
-
-	private String goodsType;
-
-	private String className;
-
-	private BigDecimal afterType;
-
-	private String approveStatus;
-
-	private String payWay;
 
 	public String getIds() {
 		return ids;
@@ -322,67 +309,21 @@ public class PyChildGoodsorder extends PageBean {
 		this.goodsTitle = goodsTitle;
 	}
 
-	public String getGoodsStandard() {
-		return goodsStandard;
-	}
-
-	public void setGoodsStandard(String goodsStandard) {
-		this.goodsStandard = goodsStandard;
-	}
-
-	public String getGoodsCode() {
-		return goodsCode;
-	}
-
-	public void setGoodsCode(String goodsCode) {
-		this.goodsCode = goodsCode;
-	}
-
-	public String getGoodsType() {
-		return goodsType;
-	}
-
-	public void setGoodsType(String goodsType) {
-		this.goodsType = goodsType;
-	}
-
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
-	public BigDecimal getAfterType() {
-		return afterType;
-	}
-
-	public void setAfterType(BigDecimal afterType) {
-		this.afterType = afterType;
-	}
-
-	public String getApproveStatus() {
-		return approveStatus;
-	}
-
-	public void setApproveStatus(String approveStatus) {
-		this.approveStatus = approveStatus;
-	}
-
-	public String getPayWay() {
-		return payWay;
-	}
-
-	public void setPayWay(String payWay) {
-		this.payWay = payWay;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "PyChildGoodsorder [ids=" + ids + ", goodsids=" + goodsids + ", custIds=" + custIds + ", goodsNum="
 				+ goodsNum + ", goodsName=" + goodsName + ", goodsPrice=" + goodsPrice + ", orderAmt=" + orderAmt + "]";
 	}
+	
+	private String vendorSnm;
 
+	public String getVendorSnm() {
+		return vendorSnm;
+	}
+
+	public void setVendorSnm(String vendorSnm) {
+		this.vendorSnm = vendorSnm;
+	}
 	
 }
