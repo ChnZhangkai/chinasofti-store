@@ -479,7 +479,18 @@
 		    <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
 		    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
 		    <result column="GOODS_TITLE" property="goodsTitle" />
-		    <result column="VENDOR_SNM" property="vendorSnm" />
+		</collection>
+		<collection property="pyMainGoodsorders" ofType="com.chinasofti.mall.common.entity.order.PyMainGoodsorder">
+			<id column="BIGORDER_ID" property="bigorderId" jdbcType="VARCHAR" />
+			<result column="CONT_POSTCODE" property="contPostcode" jdbcType="VARCHAR" />
+		    <result column="CONT_ADDRESS" property="contAddress" jdbcType="VARCHAR" />
+		    <result column="CONT_MOBILE" property="contMobile" jdbcType="VARCHAR" />
+		    <result column="CONT_PHONE" property="contPhone" jdbcType="VARCHAR" />
+		    <result column="CONT_PROVINCE" property="contProvince" jdbcType="VARCHAR" />
+		    <result column="CONT_CITY" property="contCity" jdbcType="VARCHAR" />
+		    <result column="CONT_DISTRICT" property="contDistrict" jdbcType="VARCHAR" />
+		    <result column="CONT_STREET" property="contStreet" jdbcType="VARCHAR" />
+		    <result column="VENDOR_SNM" property="vendorSnm"  />
 		</collection>
 	</resultMap>
   
@@ -487,7 +498,9 @@
   	SELECT 
 		b.IDS, b.TRANSACTIONID, b.ORDER_DATE, b.ORDER_REAL_AMT, 
 		b.DISCOUNT, b.ORDER_TOTAL_AMT, b.GOODS_TOTAL_AMT, b.USER_IDS, b.ORDER_TOTAL_NUM,
-		c.IDS as cid, c.GOODSIDS, c.CUST_IDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, c.VENDOR_SNM,
+		m.CONT_POSTCODE, m.CONT_ADDRESS, m.CONT_MOBILE, m.CONT_PHONE, m.CONT_PROVINCE, 
+      	m.CONT_CITY, m.CONT_DISTRICT, m.CONT_STREET, m.VENDOR_SNM, 
+		c.IDS as cid, c.GOODSIDS, c.CUST_IDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT,
 		c.ORDER_REAL_AMT, c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, 
 		c.ORDER_AMT, c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE 
 	FROM

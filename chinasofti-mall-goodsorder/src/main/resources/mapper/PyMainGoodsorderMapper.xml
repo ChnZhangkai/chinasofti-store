@@ -1059,8 +1059,6 @@
 	    <result column="CONT_CITY_CODE" property="contCityCode" jdbcType="VARCHAR" />
 	    <result column="CONT_DISTRICT_CODE" property="contDistrictCode" jdbcType="VARCHAR" />
 	    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
-	    <result column="ORDER_TYPE" property="orderType" />
-	    <result column="TYPE" property="afterType" />
 	    <result column="VENDOR_SNM" property="vendorSnm"  />
 	    <collection property="pyChildGoodsorders" ofType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder">
 		    	<id column="MAINORDER_IDS" property="mainorderIds"/>
@@ -1106,7 +1104,7 @@
       	m.SENDOUTTIME, m.UPDATETIME, m.S_LATITUDE, 
       	m.S_LONGITUDE, m.P_LATITUDE, m.P_LONGITUDE, 
       	m.SENDDESC, m.FREIGHT_OLD, m.CONT_PROVINCE_CODE, 
-      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, 
+      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, m.VENDOR_SNM,
 		c.IDS as cid, c.GOODSIDS, c.CUST_IDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, 
 		c.ORDER_REAL_AMT, c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, 
 		c.ORDER_AMT, c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE	

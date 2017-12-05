@@ -316,14 +316,4 @@ public class PyChildGoodsorder extends PageBean {
 				+ goodsNum + ", goodsName=" + goodsName + ", goodsPrice=" + goodsPrice + ", orderAmt=" + orderAmt + "]";
 	}
 	
-	private String vendorSnm;
-
-	public String getVendorSnm() {
-		return vendorSnm;
-	}
-
-	public void setVendorSnm(String vendorSnm) {
-		this.vendorSnm = vendorSnm;
-	}
-	
 }
