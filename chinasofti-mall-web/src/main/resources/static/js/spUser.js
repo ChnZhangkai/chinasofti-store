@@ -130,38 +130,31 @@
 	    //商户全称验证
 		vendorFnm:{
 			 validator: function (value) {  
-				 var reg= /^[\u0391-\uFFE5a-zA-Z]{4,50}$/;
+				 var reg= /^[\u0391-\uFFE5a-zA-Z]{0,50}$/;
 				 return reg.test(value);  
 			 },
-			  message: '只能输入汉字和字母，且字符长度在4-50位之间.' 
+			  message: '只能输入汉字和字母,长度不得超过50字符.' 
 		},
 	    
 	    //商户简称验证
 		vendorSnm:{
 			 validator: function (value) {  
-				 var reg= /^[\u0391-\uFFE5a-zA-Z]{4,20}$/;
+				 var reg= /^[\u0391-\uFFE5a-zA-Z]{0,20}$/;
 				 return reg.test(value);  
 			 },
-			  message: '只能输入汉字和字母，且字符长度在4-20位之间.' 
+			  message: '只能输入汉字和字母,长度不得超过50字符.' 
 		},
 		
 		//商户负责人
 		chargeman:{
 			 validator: function (value) {  
-				 var reg= /^[\u0391-\uFFE5a-zA-Z]{2,15}$/;
+				 var reg= /^[\u0391-\uFFE5a-zA-Z]{0,12}$/;
 				 return reg.test(value);  
 			 },
-			  message: '只能输入汉字和字母，且字符长度在2-15位之间.' 
+			  message: '只能输入汉字和字母,长度不得超过12字符.' 
 		},
 		
-		//联系手机号
-		 mobile: {//value值为文本框中的值  
-		        validator: function (value) {  
-		            var reg = /^1[3|4|5|8|9]\d{9}$/;  
-		            return reg.test(value);  
-		        },  
-		        message: '输入手机号码格式不准确.'  
-		    }
+		
 	})
 	
 	
@@ -292,5 +285,5 @@
 		$("#spUserSearchForm").form("reset");
 	} 	
 	
-	
+
 		

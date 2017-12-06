@@ -25,7 +25,7 @@ public interface SpMerchantUserMapper {
 
 	    int insertSelective(SpMerchantUser record);
 
-	    List<SpMerchantUser> selectByExample(SpMerchantUserExample example);
+	    List<SpMerchantUser> selectByExample(SpMerchantUser spMerchantUser);
 
 	    SpMerchantUser selectByPrimaryKey(String vendorId);
 

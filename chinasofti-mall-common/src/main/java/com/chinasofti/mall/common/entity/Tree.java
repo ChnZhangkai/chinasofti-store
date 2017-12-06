@@ -18,7 +18,14 @@ public class Tree implements Serializable{
 	private String iconCls;
 	private boolean checked;
 	private List<Tree> children;
+	private String states;//启用或禁用的状态
 	
+	public String getStates() {
+		return states;
+	}
+	public void setStates(String states) {
+		this.states = states;
+	}
 	public String getIconCls() {
 		return iconCls;
 	}
