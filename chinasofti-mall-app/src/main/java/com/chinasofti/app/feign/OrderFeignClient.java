@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.app.hystrix.OrderFeignClientHystrix;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
@@ -34,9 +33,6 @@ public interface OrderFeignClient {
 	
 	@RequestMapping(value="/order/del/big", method = RequestMethod.POST)
 	public ResponseInfo deleteByBigOrderId(@RequestBody PyBigGoodsorder pyBigGoodsorder);
-
-	@RequestMapping(value="/order/update", method = RequestMethod.POST)
-	public ResponseInfo updateOrder(@RequestBody JSONObject json);
 
 	@RequestMapping(value="/order/del/main", method = RequestMethod.POST)
 	public ResponseInfo deleteByMainOrderId(@RequestBody PyMainGoodsorder pyMainGoodsorder);

@@ -14,5 +14,7 @@ public interface SpUserMapper {
 	int insert(SpUser spUser); 
 	
 	SpUser select(SpUser spUser);
+	
+    SpUser selectByUserId(SpUser spUser);
 
 }

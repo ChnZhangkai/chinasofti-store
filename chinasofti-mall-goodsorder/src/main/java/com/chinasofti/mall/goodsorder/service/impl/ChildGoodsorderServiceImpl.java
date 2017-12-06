@@ -136,6 +136,15 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 		example.createCriteria().andCustIdsEqualTo(userIds);
 		return childGoodsorderMapper.selectByExample(example );
 	}
+	
+	@Override
+	public List<PyChildGoodsorder> selectByBigOrderIds(String bigOrderIds) {
+		return childGoodsorderMapper.selectByBigOrderIds(bigOrderIds);
+	}
+	@Override
+	public int updateCancelGoodsNum(PyChildGoodsorder pyChildGoodsorder) {
+		return childGoodsorderMapper.updateCancelGoodsNum(pyChildGoodsorder);
+	}
 
 
 	

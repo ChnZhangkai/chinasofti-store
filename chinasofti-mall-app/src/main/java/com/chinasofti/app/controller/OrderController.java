@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.app.feign.OrderFeignClient;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
@@ -82,20 +81,6 @@ public class OrderController {
 	public ResponseInfo saveOrder(@RequestBody PyOrderInfo orderInfo,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		ResponseInfo responseInfo = orderFeignClient.saveOrder(orderInfo);
-		return responseInfo;
-	}
-	/**
-	 * 修改订单
-	 * 修改子订单信息
-	 * @param t
-	 * @return
-	 */
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	@ApiOperation(value = "提交商品信息，修改保存订单", notes = "报文示例：{'userIds':'1001','goodsList':'[PyChildGoodsorder:{ids:'123',','goodsPrice':'10.00'}......]}")
-	public ResponseInfo updateOrder(@RequestBody JSONObject json, HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST");
-		ResponseInfo responseInfo = orderFeignClient.updateOrder(json);
 		return responseInfo;
 	}
 

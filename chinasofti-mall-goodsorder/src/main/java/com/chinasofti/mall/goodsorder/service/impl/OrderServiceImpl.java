@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
@@ -122,6 +121,8 @@ public class OrderServiceImpl implements OrderService {
 			Map<String,Object> orderResult = installOrdergetOrderInfo(address,orderCreateTime,transactionid,orderInfo,mainList);
 			childList = (List<PyChildGoodsorder>) orderResult.get("childList");
 			mainList = (List<PyMainGoodsorder>) orderResult.get("mainList");
+			//添加订单的商品总数（黄佳喜添加的）
+			pyBigGoodsorder.setOrderTotalNum((BigDecimal)orderResult.get("orderNum"));
 			logger.info("*****childList="+childList);
 			logger.info("*****mainList="+mainList);
 			if(childList !=null){
@@ -174,10 +175,16 @@ public class OrderServiceImpl implements OrderService {
 	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder) {
 		//减少库存
 		ResponseInfo responseInfo = new ResponseInfo();
+		List<PyChildGoodsorder> list = childGoodsorderService.selectByBigOrderIds(pyBigGoodsorder.getIds());
+		int count = 0;
+		for (PyChildGoodsorder pyChildGoodsorder : list) {
+			count += childGoodsorderService.updateCancelGoodsNum(pyChildGoodsorder);
+		}
+		logger.info("取消的商品数为：" + count);
 		pyBigGoodsorder.setStatus(Constant.STATUS_UNABLE);
 		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_CANCLE);
 		//status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
-		int count = bigGoodsorderService.update(pyBigGoodsorder);
+		bigGoodsorderService.update(pyBigGoodsorder);
 		mainGoodsorderService.updateByBigGoodsorder(pyBigGoodsorder.getTransactionid());
 		if (count > 0) {
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -197,9 +204,11 @@ public class OrderServiceImpl implements OrderService {
 			responseInfo.setRetMsg("用户信息为空");
 			return responseInfo;
 		}
+		//设置订单状态
 		pyBigGoodsorder.setStatus(Constant.STATUS_UNABLE);
 		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_DELETE);
 		int count = bigGoodsorderService.update(pyBigGoodsorder);
+		//更新订单状态
 		mainGoodsorderService.updateByBigGoodsorder(pyBigGoodsorder.getTransactionid());
 		if (count > 0) {
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -232,28 +241,6 @@ public class OrderServiceImpl implements OrderService {
 		return responseInfo;
 	}
 
-	@Override
-	public ResponseInfo updateOrder(JSONObject json) {
-		ResponseInfo responseInfo = new ResponseInfo();
-		Map<String, Object> data = new HashMap<String, Object>();
-		try {
-			@SuppressWarnings("unchecked")
-			List<PyChildGoodsorder> goodsList = (List<PyChildGoodsorder>) json.get("goodsList");
-			if (null != goodsList) {
-				for (PyChildGoodsorder pyChildGoodsorder : goodsList) {
-					childGoodsorderService.update(pyChildGoodsorder);
-				}
-			}
-			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
-			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			responseInfo.setData(data);
-		} catch (Exception e) {
-			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
-			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
-			logger.error("提交订单失败");
-		} 
-		return responseInfo;
-	}
 	
 	//组装订单信息 
 	private Map<String,Object> installOrdergetOrderInfo(SpSendAddress address,String orderCreateTime,
@@ -268,6 +255,7 @@ public class OrderServiceImpl implements OrderService {
 		int main_size = shopCart.size();//商户个数
 		String mainTransactionId = null;
 		String childTransactionId = null;
+		BigDecimal orderNum = new BigDecimal("0");//订单购买总数（黄佳喜添加的）
 		for(int i=0;i<main_size;i++){
 			mainGoodsorder.setIds(UUIDUtils.getUuid());//IDS
 			mainGoodsorder.setBigorderId(bigOrderNo);//所属大订单
@@ -301,6 +289,7 @@ public class OrderServiceImpl implements OrderService {
 				goodsPrice = goodsInfoList.get(j).getGoodsPrice();//商品单价
 				childorder.setGoodsids(goodsId);//商品ID
 				childorder.setGoodsNum(goodsInfoList.get(j).getGoodsNum());//购买数量
+				orderNum = goodsNum.add(orderNum);//（黄佳喜添加的）
 				//验证商品上架剩余数量
 				boolean flag = checkGoods(goodsId,goodsNum);
 				//如果数量超出,直接返回
@@ -333,6 +322,8 @@ public class OrderServiceImpl implements OrderService {
 		mainList.add(mainGoodsorder);
 		orderResult.put("childList", childList);
 		orderResult.put("mainList", mainList);
+		orderResult.put("orderNum", orderNum);//（黄佳喜添加的）
+		
 		return orderResult;
 	}	
 	//验证商品库存数量
@@ -413,6 +404,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public ResponseInfo queryMainOrderList(PyMainGoodsorder pyMainGoodsorder) {
 		ResponseInfo responseInfo = new ResponseInfo();
+		//分页查询用户已完成交易的订单
 		List<PyMainGoodsorder> list = mainGoodsorderService.selectByUserIds(pyMainGoodsorder.getUserIds(), pyMainGoodsorder.getPageNumber(), pyMainGoodsorder.getPageSize());
 		Map<String ,Object> map = new HashMap<String ,Object>();
 		map.put("mainList", list);
