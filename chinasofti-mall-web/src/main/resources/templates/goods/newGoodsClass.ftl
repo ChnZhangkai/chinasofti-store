@@ -2,7 +2,7 @@
 <script type="text/javascript" src="js/goodsClass.js"></script>
 <script type="text/javascript" src="js/myValidType.js"></script>
 <div id="goodsClassMain" class="easyui-layout" data-options="fit:true">
-	<div><font style="color: red;">左键双击快速修改分类名称,右键单击节点增删改,父节点不可直接删除,子节点可删除</font></div>
+	<div><font style="color: red;">1.左键双击快速修改分类名称<br>2.右键单击节点增删改<br>3.父节点不可直接删除,只可重命名和添加子节点,子节点可删除 <br>4.禁用分类灰字体显示</font></div>
 	
 	<!-- 菜单主体 -->
 	<div>	
@@ -12,7 +12,6 @@
 	<!-- 右键菜单 -->
 	<div id="goodsClassParentMenu" class="easyui-menu" style="width:120px;">    
     	<div name="addGS" id="1" data-options="iconCls:'icon-add'" onclick="openGsAdd()" >添加</div>    
-    	<div name="updateGS" id="2" data-options="iconCls:'icon-edit'" onclick="openGsEdit()">修改</div>    
   	</div>
 	
 	<!-- 右键菜单 -->
@@ -33,18 +32,16 @@
 				</tr>
 				<tr>
 					<td width="60" align="right">分类名称:</td>
-					<td><input type="text" id="name" name="name"
-						class="easyui-textbox" /></td>
+					<td><input id="name" name="name" class="easyui-textbox validatebox" data-options="required:true,validType:['depName','betweenLength[2,10]']"/></td>
 				</tr>
 				<tr>
 					<td align="right">分类描述:</td>
-					<td><input type="text" id="commons" name="commons"
-						class="easyui-textbox" /></td>
+					<td><input id="commons" name="commons" class="easyui-textbox validatebox" data-options="required:true,validType:['depName','betweenLength[2,30]']"/></td>
 				</tr>
 				<tr>
 					<td align="right">分类状态:</td>
 					<td>
-						<select class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择分类状态" data-options="editable:false,panelHeight:'auto'" id="states" name="states" style="width: 75px">
+						<select class="easyui-combobox validatebox" missingMessage="请选择分类状态" data-options="required:true,editable:false,panelHeight:'auto'" id="states" name="states" style="width: 75px">
 								<option value="0">禁用</option>
 								<option value="1">启用</option>
 						</select>
@@ -84,7 +81,7 @@
 					<td><input type="text" id="node" name="node" class="easyui-textbox" disabled="true"/></td>
 				</tr>
 				<tr>
-					<td align="right">分类描述:</td>
+					<td align="right" style="line-height: 3">分类描述:</td>
 					<td><input id="commons" name="commons" class="easyui-textbox validatebox" data-options="required:true,validType:['depName','betweenLength[2,30]']"/></td>
 					<td align="right">分类状态:</td>
 					<td>

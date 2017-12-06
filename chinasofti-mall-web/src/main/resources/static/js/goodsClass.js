@@ -15,9 +15,9 @@
 			formatter:function(node){//渲染节点文本
 				console.info(node.text+"|"+node.states);
 				if(node.states == "0"){
-					return '<font color="red" >'+node.text+'</font>';
+					return '<font color="gray" >'+node.text+'</font>';
 				}
-				return node.text;
+				return '<font style="font-weight:bold">'+node.text+'</font>';;
 			},
 			onDblClick:function(node){  //双击事件
                	var id = node.id;  
@@ -47,6 +47,11 @@
 			
 			//编辑之后
 			onAfterEdit : function(node) { 
+				if((node.text).length > 30){
+					$.messager.alert('温馨提醒','分类名称长度请保持在0-30内','warning');
+					$('#goodsClassTree').tree('reload');
+					return ;
+				}
 				if(node.text != isChange){
 					$.ajax({
 						url:'/goods/updateGoodsClassName',
@@ -96,14 +101,13 @@
 				type:'POST',
 				success:function(data){
 					if(data > 0){
-						$('#goodsClassTree').tree('reload'); 
 						$('#goodsClassAddDialog').dialog('close');
 						document.getElementById("showpic").innerHTML = "";
-						$.messager.alert('信息提示','提交成功！','info');
+						successShow();
 					}
 					else
 					{
-						$.messager.alert('信息提示','提交失败！','info');
+						errorShow();
 					}
 				}
 			});
@@ -133,10 +137,11 @@
 						    		data:$('#goodsClassForm').serialize(),
 						    		success:function(data){
 						    			if(data > 0){
-						    				$.messager.alert('信息提示','提交成功！','info');
+						    				$('#goodsClassTree').tree('reload');
 						    				$('#goodsClassDialog').dialog('close');
+						    				successShow();
 						    			}else{
-						    				$.messager.alert('信息提示','提交失败！','info');
+						    				errorShow();
 						    			}
 						    		}
 						    	});
@@ -174,7 +179,7 @@
 	     				 $('#goodsClassTree').tree("remove",node.target);
 	     			   },
 	     			   error: function(){
-	     				   $.messager.alert('提示','删除失败!');
+	     				  errorShow();
 	     			   }
 	     			});
 				}
