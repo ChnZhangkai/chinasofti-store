@@ -36,5 +36,7 @@ public interface PyMainGoodsorderMapper {
 	List<PyMainGoodsorder> selectByBigGoodsorderIds(String transactionid);
 
 	int updateByBigGoodsorder(String transactionid);
+
+	int updateOrderByPay(String transactionid);
     
 }

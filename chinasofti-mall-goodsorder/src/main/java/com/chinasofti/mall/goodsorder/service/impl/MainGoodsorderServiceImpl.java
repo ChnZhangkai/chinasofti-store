@@ -157,5 +157,10 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	public int updateByBigGoodsorder(String transactionid) {
 		return mainGoodsorderMapper.updateByBigGoodsorder(transactionid);
 	}
+
+	@Override
+	public int updateOrderByPay(String transactionid) {
+		return mainGoodsorderMapper.updateOrderByPay(transactionid);
+	}
 	
 }
