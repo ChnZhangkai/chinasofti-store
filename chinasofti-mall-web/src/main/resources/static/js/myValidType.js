@@ -40,5 +40,13 @@ $.extend($.fn.validatebox.defaults.rules, {
 	            return /^[A-Za-z0-9\u0391-\uFFE5]+$/.test(value);    
 	        },    
 	        message: '请输入字母、中文、数字！'
-	    }
+	    },
+	  //手机号验证
+		 mobile: {//value值为文本框中的值  
+		        validator: function (value) {  
+		            var reg = /^1[3|4|5|8|9]\d{9}$/;  
+		            return reg.test(value);  
+		        },  
+		        message: '输入手机号码格式不准确.'  
+		    }
 	});

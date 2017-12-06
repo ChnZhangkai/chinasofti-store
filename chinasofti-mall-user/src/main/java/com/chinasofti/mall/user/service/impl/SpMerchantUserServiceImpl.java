@@ -2,13 +2,10 @@ package com.chinasofti.mall.user.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
-import com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample;
-import com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample.Criteria;
 import com.chinasofti.mall.user.mapper.SpMerchantUserMapper;
 import com.chinasofti.mall.user.service.SpMerchantUserService;
 import com.github.pagehelper.Page;
@@ -31,6 +28,7 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 
 	@Override
 	public int save(SpMerchantUser spUser) {
+		System.out.println("商户数据:"+spUser);
 		return spUserMapper.insertSelective(spUser);
 	}
 
@@ -60,35 +58,9 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 
 	@Override
 	public JSONObject selectByExample(SpMerchantUser spMerchantUser) {
-		//String compare = "";
 		JSONObject js = new JSONObject();
-		SpMerchantUserExample example = new SpMerchantUserExample();
-		Criteria criteria = example.createCriteria();
-		
-		
-		
-		if (!StringUtils.isEmpty(spMerchantUser.getVendorId())) {
-				criteria.andVendorIdLike("%" + spMerchantUser.getVendorId() + "%");
-			}
-		
-		if (!StringUtils.isEmpty(spMerchantUser.getVendorSnm())) {
-			criteria.andVendorSnmLike("%" + spMerchantUser.getVendorSnm() + "%");
-		}
-		if (!StringUtils.isEmpty(spMerchantUser.getBelongSiteName())) {
-			criteria.andBelongSiteNameLike("%" + spMerchantUser.getBelongSiteName() + "%");
-		}
-		
-		if (!StringUtils.isEmpty(spMerchantUser.getStatus())) {
-			criteria.andStatesEqualTo(spMerchantUser.getStatus());
-		}
-		
-		
-		if(spMerchantUser.getPageNumber() != 0 && spMerchantUser.getPageSize() != 0){
-			PageHelper.startPage(spMerchantUser.getPageNumber(),spMerchantUser.getPageSize());
-		} else {
-			PageHelper.startPage(spMerchantUser.getPage(),spMerchantUser.getRows());
-		}
-		List<SpMerchantUser> list = spUserMapper.selectByExample(example);
+		PageHelper.startPage(spMerchantUser.getPageNumber(),spMerchantUser.getPageSize());
+		List<SpMerchantUser> list = spUserMapper.selectByExample(spMerchantUser);
 
 		js.put("rows", list);
 		js.put("total", ((Page<SpMerchantUser>)list).getTotal());
@@ -96,7 +68,6 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 		return js;
 	}
 
-
-
+	
 
 }
