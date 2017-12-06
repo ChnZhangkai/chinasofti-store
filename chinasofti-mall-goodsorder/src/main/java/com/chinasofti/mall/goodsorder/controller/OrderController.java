@@ -77,7 +77,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value="/pay", method = RequestMethod.POST)
-	@ApiOperation(value="支付订单", notes="报文示例：{'orderId':'1001','userId':'chin'}")
+	@ApiOperation(value="支付订单", notes= "报文示例：{'transactionid':'1001','userId':'abc123','ids':'abc123'}")
 	public ResponseInfo payOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder) {
 		ResponseInfo responseInfo = orderService.payOrder(pyBigGoodsorder);
 		return responseInfo;

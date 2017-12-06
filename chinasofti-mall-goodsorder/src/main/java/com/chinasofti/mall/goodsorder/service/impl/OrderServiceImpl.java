@@ -59,6 +59,7 @@ public class OrderServiceImpl implements OrderService {
      
 
 	@Override
+	@Transactional(readOnly=true)
 	public ResponseInfo queryOrderListByUserId(String userId) {
 		ResponseInfo info = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -172,6 +173,7 @@ public class OrderServiceImpl implements OrderService {
 	}*/
 
 	@Override
+	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder) {
 		//减少库存
 		ResponseInfo responseInfo = new ResponseInfo();
@@ -198,6 +200,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo deleteByBigOrderId(PyBigGoodsorder pyBigGoodsorder) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		if (null == pyBigGoodsorder.getUserIds()) {
@@ -222,14 +225,17 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo payOrder(PyBigGoodsorder pyBigGoodsorder) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		try {
+			//设置大订单支付信息和状态
 			pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_OK);
 			pyBigGoodsorder.setPayTime(StringDateUtil.convertDateToLongString(new Date()));
 			pyBigGoodsorder.setPayway("信用卡支付");
 			bigGoodsorderService.update(pyBigGoodsorder);
-			
+			//根据大订单的流水号更新主订单
+			mainGoodsorderService.updateOrderByPay(pyBigGoodsorder.getTransactionid());
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		} catch (Exception e) {
@@ -379,6 +385,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 	@Override
+	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo deleteByMainOrderId(PyMainGoodsorder pyMainGoodsorder) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		if (null == pyMainGoodsorder.getUserIds()) {
@@ -402,10 +409,15 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
+	@Transactional(readOnly=true)
 	public ResponseInfo queryMainOrderList(PyMainGoodsorder pyMainGoodsorder) {
 		ResponseInfo responseInfo = new ResponseInfo();
 		//分页查询用户已完成交易的订单
 		List<PyMainGoodsorder> list = mainGoodsorderService.selectByUserIds(pyMainGoodsorder.getUserIds(), pyMainGoodsorder.getPageNumber(), pyMainGoodsorder.getPageSize());
+		if (list.size() < 1) {
+			responseInfo.setRetMsg("没有更多的订单信息");
+			return responseInfo;
+		}
 		Map<String ,Object> map = new HashMap<String ,Object>();
 		map.put("mainList", list);
 		responseInfo.setData(map);

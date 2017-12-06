@@ -91,7 +91,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "/pay", method = RequestMethod.POST)
-	@ApiOperation(value = "对订单进行支付", notes = "报文示例：{'PyMainGoodsorder':'1001','userId':'chin'}")
+	@ApiOperation(value = "对订单进行支付", notes = "报文示例：{'transactionid':'1001','userId':'abc123','ids':'abc123'}")
 	public ResponseInfo payOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");

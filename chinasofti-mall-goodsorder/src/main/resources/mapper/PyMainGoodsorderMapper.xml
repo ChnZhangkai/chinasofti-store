@@ -1087,42 +1087,57 @@
    </resultMap>
    
 	<select id="selectByUserIds" resultMap="main_child_orders" parameterType="java.lang.String"  >
-    SELECT 
-		m.IDS, m.BIGORDER_ID, m.VENDOR_IDS, 
-      	m.USER_IDS, m.CONT_POSTCODE, m.CONT_ADDRESS, 
-      	m.CONT_MOBILE, m.CONT_PHONE, m.CONT_PROVINCE, 
-      	m.CONT_CITY, m.CONT_DISTRICT, m.CONT_STREET, 
-      	m.DELIVERY_TIME, m.DELIVERY_DATE, m.DELIVERY_WAY, 
-      	m.BUYERS_MESSAGE, m.ORDER_TIME, m.SETTLE_TIME, 
-      	m.ISEVALUATE, m.DISCOUNT, m.ORDER_TOTAL_AMT, 
-      	m.ORDER_AMT, m.SETTLE_AMT, m.SETTLE_STATUES, 
-      	m.PAY_STATUS, m.STATUS, m.PAYWAY, 
-      	m.TRANSACTIONID, m.CONT_NAME, m.SETTLE_BATCH_NO, 
-      	m.WX_FEE, m.SETTLE_STATUS_FEE, m.SETTLE_TIME_FEE, 
-      	m.SETTLE_BATCH_NO_FEE, m.PAY_TIME, m.IS_TICKET, 
-      	m.EXPRESS_COMPANY_ID, m.EXPRESS_NAME, m.EXPRESS_ID, 
-      	m.SENDOUTTIME, m.UPDATETIME, m.S_LATITUDE, 
-      	m.S_LONGITUDE, m.P_LATITUDE, m.P_LONGITUDE, 
-      	m.SENDDESC, m.FREIGHT_OLD, m.CONT_PROVINCE_CODE, 
-      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, m.VENDOR_SNM,
-		c.IDS as cid, c.GOODSIDS, c.CUST_IDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, 
-		c.ORDER_REAL_AMT, c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, 
-		c.ORDER_AMT, c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE	
-	FROM 
-		py_main_goodsorder m ,py_child_goodsorder c 
-	WHERE 
-		m.TRANSACTIONID = c.MAINORDER_IDS and m.PAY_STATUS='1' and m.STATUS = '1' 
-		and m.USER_IDS = #{userIds,jdbcType=VARCHAR} ORDER BY m.ORDER_TIME DESC 
+	    SELECT 
+			m.IDS, m.BIGORDER_ID, m.VENDOR_IDS, 
+	      	m.USER_IDS, m.CONT_POSTCODE, m.CONT_ADDRESS, 
+	      	m.CONT_MOBILE, m.CONT_PHONE, m.CONT_PROVINCE, 
+	      	m.CONT_CITY, m.CONT_DISTRICT, m.CONT_STREET, 
+	      	m.DELIVERY_TIME, m.DELIVERY_DATE, m.DELIVERY_WAY, 
+	      	m.BUYERS_MESSAGE, m.ORDER_TIME, m.SETTLE_TIME, 
+	      	m.ISEVALUATE, m.DISCOUNT, m.ORDER_TOTAL_AMT, 
+	      	m.ORDER_AMT, m.SETTLE_AMT, m.SETTLE_STATUES, 
+	      	m.PAY_STATUS, m.STATUS, m.PAYWAY, 
+	      	m.TRANSACTIONID, m.CONT_NAME, m.SETTLE_BATCH_NO, 
+	      	m.WX_FEE, m.SETTLE_STATUS_FEE, m.SETTLE_TIME_FEE, 
+	      	m.SETTLE_BATCH_NO_FEE, m.PAY_TIME, m.IS_TICKET, 
+	      	m.EXPRESS_COMPANY_ID, m.EXPRESS_NAME, m.EXPRESS_ID, 
+	      	m.SENDOUTTIME, m.UPDATETIME, m.S_LATITUDE, 
+	      	m.S_LONGITUDE, m.P_LATITUDE, m.P_LONGITUDE, 
+	      	m.SENDDESC, m.FREIGHT_OLD, m.CONT_PROVINCE_CODE, 
+	      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, m.VENDOR_SNM,
+			c.IDS as cid, c.GOODSIDS, c.CUST_IDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, 
+			c.ORDER_REAL_AMT, c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, 
+			c.ORDER_AMT, c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE	
+		FROM 
+			py_main_goodsorder m ,py_child_goodsorder c 
+		WHERE 
+			m.TRANSACTIONID = c.MAINORDER_IDS and m.PAY_STATUS='1' and m.STATUS = '1' 
+			and m.USER_IDS = #{userIds,jdbcType=VARCHAR} ORDER BY m.ORDER_TIME DESC 
 	</select>
 	
 	<select id="selectByBigGoodsorderIds" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" /> 
-    from py_main_goodsorder WHERE BIGORDER_ID = #{transactionid,jdbcType=VARCHAR}
+	    select 
+	    <include refid="Base_Column_List" /> 
+	    from 
+	    		py_main_goodsorder 
+	    	WHERE 
+	    		BIGORDER_ID = #{transactionid,jdbcType=VARCHAR}
 	</select>
    
    <update id="updateByBigGoodsorder" parameterType="java.lang.String">
-   UPDATE py_main_goodsorder SET PAY_STATUS='2' , STATUS='5' WHERE BIGORDER_ID =#{transactionid,jdbcType=VARCHAR}
-   
+	   UPDATE 
+	   		py_main_goodsorder 
+	   SET 
+	   		PAY_STATUS='2' , STATUS='5' 
+	   WHERE 
+	   		BIGORDER_ID =#{transactionid,jdbcType=VARCHAR}
+   </update>
+   <update id="updateOrderByPay" parameterType="java.lang.String">
+	   UPDATE 
+	   		py_main_goodsorder 
+	   	SET 
+	   		PAY_STATUS='1' , STATUS='1' 
+	   	WHERE 
+	   		BIGORDER_ID =#{transactionid,jdbcType=VARCHAR}
    </update>
 </mapper>
