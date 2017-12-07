@@ -18,7 +18,6 @@ import com.chinasofti.mall.goodsorder.service.PyShoppingCartService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-
 public class ShoppingCarTest {
 
 	@Autowired
