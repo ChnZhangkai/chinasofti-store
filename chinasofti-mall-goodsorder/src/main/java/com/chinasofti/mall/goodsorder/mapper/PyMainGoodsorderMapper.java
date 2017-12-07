@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface PyMainGoodsorderMapper {
+	
     int countByExample(PyMainGoodsorderExample example);
 
     int deleteByExample(PyMainGoodsorderExample example);

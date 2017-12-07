@@ -179,11 +179,13 @@ public class OrderServiceImpl implements OrderService {
 		ResponseInfo responseInfo = new ResponseInfo();
 		List<PyChildGoodsorder> list = childGoodsorderService.selectByBigOrderIds(pyBigGoodsorder.getIds());
 		int count = 0;
-		for (PyChildGoodsorder pyChildGoodsorder : list) {
-			count += childGoodsorderService.updateCancelGoodsNum(pyChildGoodsorder);
+		if (list.size() > 0) {
+			for (PyChildGoodsorder pyChildGoodsorder : list) {
+				count += childGoodsorderService.updateCancelGoodsNum(pyChildGoodsorder);
+			}
 		}
 		logger.info("取消的商品数为：" + count);
-		pyBigGoodsorder.setStatus(Constant.STATUS_UNABLE);
+		// 0 未支付 1 已支付  2 已取消 3已删除
 		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_CANCLE);
 		//status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
 		bigGoodsorderService.update(pyBigGoodsorder);
@@ -207,8 +209,9 @@ public class OrderServiceImpl implements OrderService {
 			responseInfo.setRetMsg("用户信息为空");
 			return responseInfo;
 		}
-		//设置订单状态
+		//设置订单状态 无效状态
 		pyBigGoodsorder.setStatus(Constant.STATUS_UNABLE);
+		// 0 未支付 1 已支付  2 已取消 3已删除
 		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_DELETE);
 		int count = bigGoodsorderService.update(pyBigGoodsorder);
 		//更新订单状态
@@ -240,7 +243,7 @@ public class OrderServiceImpl implements OrderService {
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		} catch (Exception e) {
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
-			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
+			responseInfo.setRetMsg("订单支付失败");
 			logger.error("支付订单失败");
 		}
 

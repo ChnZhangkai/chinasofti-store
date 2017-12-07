@@ -456,6 +456,7 @@
 	    <result column="GOODS_TOTAL_AMT" property="goodsTotalAmt" jdbcType="DECIMAL" />
 	    <result column="ORDER_TOTAL_NUM" property="orderTotalNum" jdbcType="DECIMAL" />
 	    <result column="USER_IDS" property="userIds" jdbcType="VARCHAR" />
+	    <result column="PAY_STATUS" property="payStatus" jdbcType="VARCHAR" />
 		<collection property="pyChildGoodsorders" ofType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder">
 		    	<id column="MAINORDER_IDS" property="mainorderIds"/>
 		    	<result column="cid" property="ids" jdbcType="VARCHAR" />
@@ -496,7 +497,7 @@
   
   <select id="selectByUserIds" resultMap="Big_Main_Orders" parameterType="java.lang.String" >
   	SELECT 
-		b.IDS, b.TRANSACTIONID, b.ORDER_DATE, b.ORDER_REAL_AMT, 
+		b.IDS, b.TRANSACTIONID, b.ORDER_DATE, b.ORDER_REAL_AMT, b.PAY_STATUS,
 		b.DISCOUNT, b.ORDER_TOTAL_AMT, b.GOODS_TOTAL_AMT, b.USER_IDS, b.ORDER_TOTAL_NUM,
 		m.CONT_POSTCODE, m.CONT_ADDRESS, m.CONT_MOBILE, m.CONT_PHONE, m.CONT_PROVINCE, 
       	m.CONT_CITY, m.CONT_DISTRICT, m.CONT_STREET, m.VENDOR_SNM, 
@@ -506,12 +507,12 @@
 	FROM
 		py_big_goodsorder b ,py_main_goodsorder m, py_child_goodsorder c 
 	WHERE 
-		b.TRANSACTIONID = m.BIGORDER_ID and m.TRANSACTIONID = c.MAINORDER_IDS and b.PAY_STATUS = '0' 
-	 	and b.STATUS = '1' and b.USER_IDS =  #{userIds,jdbcType=VARCHAR} ORDER BY b.ORDER_DATE DESC
+		b.TRANSACTIONID = m.BIGORDER_ID and m.TRANSACTIONID = c.MAINORDER_IDS and b.STATUS=1 and 
+		b.PAY_STATUS = '0' and b.USER_IDS =  #{userIds,jdbcType=VARCHAR} ORDER BY b.ORDER_DATE DESC
   </select>
 
    <update id="updateByMainOrder" parameterType="java.lang.String">
-   UPDATE py_big_goodsorder SET PAY_STATUS='3' , STATUS='0' WHERE TRANSACTIONID = #{bigorderId,jdbcType=VARCHAR}
+   	UPDATE py_big_goodsorder SET PAY_STATUS='3' , STATUS='0' WHERE TRANSACTIONID = #{bigorderId,jdbcType=VARCHAR}
    </update>
 
   <select id="countOrderNo" resultType="java.lang.Integer" parameterType="java.lang.String" >
