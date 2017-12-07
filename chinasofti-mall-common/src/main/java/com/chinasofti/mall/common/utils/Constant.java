@@ -39,4 +39,26 @@ public class Constant {
     public static final String PAY_STATUS_CANCLE = "2";
     /** *  订单的支付状态 3 被删除 */
     public static final String PAY_STATUS_DELETE = "3";
+    
+    /** *  账号已被注册 */
+    public static final String SPUSERID_EXIST_CODE = "400010";
+    public static final String SPUSERID_EXIST_MSG = "该账号已被注册";
+    
+    /** *  账号或密码错误 */
+    public static final String SPUSERID_PASSWORD_ERROR = "400020";
+    public static final String SPUSERID_PASSWORD_MSG = "账号或密码错误";
+    
+    /** *  请输入正确的手机号码 */
+    public static final String SPADDRESS_MOBILE_ERROR = "600010";
+    public static final String SPADDRESS_MOBILE_MSG = "请输入正确的手机号码";
+    
+    /** *  请输入完整的省市区*/
+    public static final String SPADDRESS_PROVINCECITY_ERROR = "600011";
+    public static final String SPADDRESS_PROVINCECITY_MSG = "请输入完整的省市区";
+    
+    /** *  请输入正确的地址*/
+    public static final String SPADDRESS_INFO_ERROR = "600012";
+    public static final String SPADDRESS_INFO_MSG = "请输入正确的地址";
+    
+   
 }

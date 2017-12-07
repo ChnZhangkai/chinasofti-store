@@ -36,7 +36,7 @@ public interface PyChildGoodsorderMapper {
     List<PyChildGoodsorder> selectByChildorderCondition(ChildorderCondition childorderCondition);
  
     //商品库存数量
-    BigDecimal selectGoodsNum(String goodsId);
+    ChnGoodsinfo selectGoodsInfo(String goodsId);
     //收件地址ID
     SpSendAddress selectAddress(String addressId);
     

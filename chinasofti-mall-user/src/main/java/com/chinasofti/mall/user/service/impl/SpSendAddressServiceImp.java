@@ -9,14 +9,19 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
+import com.chinasofti.mall.common.utils.Constant;
+import com.chinasofti.mall.common.utils.DealParamFunctions;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.UUIDUtils;
+import com.chinasofti.mall.user.controller.SpUserController;
 import com.chinasofti.mall.user.handler.MyException;
 import com.chinasofti.mall.user.mapper.SpSendAddressMapper;
 import com.chinasofti.mall.user.service.SpSendAddressService;
@@ -27,20 +32,27 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 	@Autowired
 	private SpSendAddressMapper spSendAddressMapper;
 	
+	Logger logger = LoggerFactory.getLogger(SpUserController.class);  
+	
 	private String retCode ;
 	private String retMsg ;
 	
 	@Override
-	public ResponseInfo querySentAddressList(String userId) throws MyException{
+	public ResponseInfo querySentAddressList(String userId) {
 		ResponseInfo res = new ResponseInfo();
-		List<SpSendAddress> list = new LinkedList<SpSendAddress>();
-		list = spSendAddressMapper.selectSentAddressList(userId);
-		res = dealResponseData(list);
+		try {
+			List<SpSendAddress>  list = spSendAddressMapper.selectSentAddressList(userId);
+			res = DealParamFunctions.dealResponseData(list);
+		} catch (MyException e) {
+			e.printStackTrace();
+			logger.error(e.toString());
+		}
+		
 		return res;
 	}
 	
 	@Override
-	public ResponseInfo insertSendAddress(SpSendAddress spSendAddress) throws MyException{
+	public ResponseInfo insertSendAddress(SpSendAddress spSendAddress){
 		ResponseInfo res = new ResponseInfo();
 		//验证地址信息
 		if(!checkAddrInfo(spSendAddress)){
@@ -50,65 +62,62 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 		}		
 		spSendAddress.setAddressId(UUIDUtils.getUuid());
 		spSendAddress.setCreateTime(mathNum());
-		int insert = spSendAddressMapper.insert(spSendAddress);
-		res = dealResponseData(insert);
+		try {
+			int insert = spSendAddressMapper.insert(spSendAddress);
+			res = DealParamFunctions.dealResponseData(insert);
+		} catch (MyException e) {
+			logger.error(e.toString());
+			e.printStackTrace();
+		}
 		return res;
 		
 	}
 	
 	@Override
-	public ResponseInfo updateSendAddress(SpSendAddress spSendAddress) throws MyException{
+	public ResponseInfo updateSendAddress(SpSendAddress spSendAddress){
 		ResponseInfo res = new ResponseInfo();
 		if(!"".equals(spSendAddress.getMobile())&&!checkAddrInfo(spSendAddress)){
 			res.setRetCode(retCode);
 			res.setRetMsg(retMsg);
 			return res;
 		}
-		int update = spSendAddressMapper.update(spSendAddress);
-		res = dealResponseData(update);
+		try {
+			int update = spSendAddressMapper.update(spSendAddress);
+			res = DealParamFunctions.dealResponseData(update);
+		} catch (MyException e) {
+			logger.error(e.toString());
+			e.printStackTrace();
+		}
 		return res;
 	}
 	
 	@Override
-	public ResponseInfo deleteSendAddress(SpSendAddress spSendAddress) throws MyException{
+	public ResponseInfo deleteSendAddress(SpSendAddress spSendAddress){
 		ResponseInfo res = new ResponseInfo();
-		
-		int detele = spSendAddressMapper.delete(spSendAddress);
-		res = dealResponseData(detele);
-		return res;
-	}
-
-	//封装返回参数
-	private ResponseInfo dealResponseData(Object obj) {
-		ResponseInfo  response= new ResponseInfo();
-		if(obj !=null){
-			Map<String, Object> data= new HashMap<String, Object>();
-			data.put("responseInfo", obj);
-			response.setData(data);
-			response.setRetCode(MsgEnum.SUCCESS.getCode());
-			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-		}else{
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg(MsgEnum.ERROR.getMsg());
+		try {
+			int detele = spSendAddressMapper.delete(spSendAddress);
+			res = DealParamFunctions.dealResponseData(detele);
+		} catch (MyException e) {
+			logger.error(e.toString());
+			e.printStackTrace();
 		}
-		
-		return response;
+		return res;
 	}
 	
 	private boolean checkAddrInfo(SpSendAddress spSendAddress){
 		if(!checkMobile(spSendAddress)){
-			retCode = "600010";
-			retMsg = "请输入正确的手机号码";
+			retCode = Constant.SPADDRESS_MOBILE_ERROR;
+			retMsg = Constant.SPADDRESS_MOBILE_MSG;
 			return false;
 		}
 		if(!checkWard(spSendAddress)){
-			retCode = "600011";
-			retMsg = "请输入完整的省市区";
+			retCode = Constant.SPADDRESS_PROVINCECITY_ERROR;
+			retMsg = Constant.SPADDRESS_PROVINCECITY_MSG;
 			return false;
 		}
 		if(!checkAddress(spSendAddress)){
-			retCode = "600012";
-			retMsg = "请输入正确的地址";
+			retCode = Constant.SPADDRESS_INFO_ERROR;
+			retMsg = Constant.SPADDRESS_INFO_MSG;
 			return false;
 		}
 		return true;

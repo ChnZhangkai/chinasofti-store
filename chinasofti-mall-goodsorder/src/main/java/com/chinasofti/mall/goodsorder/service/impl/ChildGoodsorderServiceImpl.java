@@ -32,7 +32,7 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	
 	@Autowired
 	private PyChildGoodsorderMapper childGoodsorderMapper;
-	
+	@Override
 	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList){
 		int count = 0;
 		for(PyChildGoodsorder pyChildGoodsorder:childList){
@@ -41,15 +41,16 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 		return count;
 		
 	}
+	@Override
 	public SpSendAddress queryAddress(String addressId){
 		return childGoodsorderMapper.selectAddress(addressId);
 	}
-	
-	public BigDecimal selectGoodsNum(String goodsId){
-		return childGoodsorderMapper.selectGoodsNum(goodsId);
+	@Override
+	public ChnGoodsinfo selectGoodsInfo(String goodsId){
+		return childGoodsorderMapper.selectGoodsInfo(goodsId);
 		
 	}
-	
+	@Override
 	public int updateStroe(ChnGoodsinfo chnGoodsinfo){
 		return childGoodsorderMapper.updateStore(chnGoodsinfo);	
 	}

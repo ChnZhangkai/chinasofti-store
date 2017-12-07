@@ -27,7 +27,7 @@ import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.common.utils.UUIDUtils;
-import com.chinasofti.mall.goodsorder.handler.GoodsNumNotFondException;
+import com.chinasofti.mall.goodsorder.handler.GoodsinfoException;
 import com.chinasofti.mall.goodsorder.handler.MyException;
 import com.chinasofti.mall.goodsorder.service.BigGoodsorderService;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
@@ -80,59 +80,38 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("all")
 	@Override
 	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo saveOrder(PyOrderInfo orderInfo){
 		ResponseInfo res = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
 		try{
-			String transactionid = orderInfo.getOrderNo();//为防止重复提交，前端传有一个流水号进来
-			int count = bigGoodsorderService.countOrderNO(transactionid);
-			if(count !=0){
-				res.setRetCode("900010");
-				res.setRetMsg("该订单已提交过");
+			//验证输入参数
+			res = checkBaseInfo(orderInfo);
+			if(res !=null){
 				return res;
 			}
-			//获取地址ID
-			String addressId = orderInfo.getAddressId();
-			if(addressId ==null){
-				res.setRetCode("900011");
-				res.setRetMsg("收件地址信息不能为空");
-				return res;
-			}
-			//获取收件地址信息
-			SpSendAddress address = childGoodsorderService.queryAddress(addressId);
-			if(address ==null){
-				res.setRetCode("900012");
-				res.setRetMsg("收件地址信息异常");
-				return res;
-			}
-			PyBigGoodsorder pyBigGoodsorder = new PyBigGoodsorder();//大订单对象
 			String orderCreateTime = mathTime();//订单生成时间 yyyyMMddhhmmss
-			pyBigGoodsorder.setIds(UUIDUtils.getUuid());
-			pyBigGoodsorder.setOrderDate(orderCreateTime);//订单生成时间
-			//String transactionid = orderCreateTime.concat(getFixLenthString(4));//生成随机数yyyyMMddhhmmss+0000+4位随机数
-			pyBigGoodsorder.setTransactionid(transactionid);//大订单编号，流水号
-			pyBigGoodsorder.setOrderRealAmt(orderInfo.getOrderRealAmt());//实付总额
-			pyBigGoodsorder.setUserIds(orderInfo.getUserId());//用户ID
+			PyBigGoodsorder pyBigGoodsorder = setBigOrder(orderInfo,orderCreateTime);//大订单对象
+			
 			
 			List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
 			List<PyMainGoodsorder> mainList = new LinkedList<PyMainGoodsorder>() ;//主订单集合
-			Map<String,Object> orderResult = installOrdergetOrderInfo(address,orderCreateTime,transactionid,orderInfo,mainList);
-			childList = (List<PyChildGoodsorder>) orderResult.get("childList");
-			mainList = (List<PyMainGoodsorder>) orderResult.get("mainList");
+			Map<String,Object> orderResult = installOrdergetOrderInfo(orderCreateTime,orderInfo);//主订单、子订单集合
 			//添加订单的商品总数（黄佳喜添加的）
 			pyBigGoodsorder.setOrderTotalNum((BigDecimal)orderResult.get("orderNum"));
+			childList = (List<PyChildGoodsorder>) orderResult.get("childList");
+			mainList = (List<PyMainGoodsorder>) orderResult.get("mainList");
 			logger.info("*****childList="+childList);
 			logger.info("*****mainList="+mainList);
-			if(childList !=null){
+			if(childList.size() !=0&&mainList.size()!=0){
 				int child=childGoodsorderService.insertChildGoodsorderList(childList);//保存子订单
-				logger.info("***子订单插入成功***="+child);
+				logger.info("***子订单插入成功数***="+child);
 				int main=mainGoodsorderService.insertMainGoodsorderList(mainList);//保存主订单
-				logger.info("***主订单插入成功***="+main);
+				logger.info("***主订单插入成功数***="+main);
 				int big=bigGoodsorderService.save(pyBigGoodsorder);//保存大订单
-				logger.info("***大订单插入成功***="+big);
+				logger.info("***大订单插入成功数***="+big);
 				
 			}
 			res.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -142,36 +121,20 @@ public class OrderServiceImpl implements OrderService {
 			data.put("pyBigGoodsorder", pyBigGoodsorder);
 			res.setData(data);
 			logger.info("*****订单提交成功*****");
-		}catch(GoodsNumNotFondException e){
-			res.setRetCode("900013");
-			res.setRetMsg("您购买的 "+e.getValue()+e.getMessage());
+		}catch(GoodsinfoException e){
 			logger.error(e.toString());
+			res.setRetCode("900013");
+			res.setRetMsg("您购买的"+e.getValue()+e.getMessage());
+			return res;
 		}catch (Exception e) {
+			logger.error(e.toString());
 			res.setRetCode(MsgEnum.SERVER_ERROR.getCode());
 			res.setRetMsg(MsgEnum.SERVER_ERROR.getMsg());
-			logger.error(e.toString());
+			return res;
 		}
 		return res;
 		
 	}
-
-	
-	/*private List<PyMainGoodsorder> setMainOrderAdress(List<PyMainGoodsorder> mainList,SpSendAddress address) {
-		List<PyMainGoodsorder> resultMainList = new ArrayList<PyMainGoodsorder>();
-		for(PyMainGoodsorder order : mainList){
-			order.setContPostcode(address.getZipCode());//邮编
-			order.setContPhone(address.getMobile());//联系电话
-			order.setContProvince(address.getProvince());//省
-			order.setContCity(address.getCity());//市
-			order.setContDistrict(address.getDistrict());//区
-			order.setContStreet(address.getStreet());//街道
-			order.setContAddress(address.getAddress());//详细地址
-			order.setContName(address.getName());//收件人姓名
-			resultMainList.add(order);
-		}
-		return resultMainList;
-	}*/
-
 	@Override
 	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder) {
@@ -179,11 +142,13 @@ public class OrderServiceImpl implements OrderService {
 		ResponseInfo responseInfo = new ResponseInfo();
 		List<PyChildGoodsorder> list = childGoodsorderService.selectByBigOrderIds(pyBigGoodsorder.getIds());
 		int count = 0;
-		for (PyChildGoodsorder pyChildGoodsorder : list) {
-			count += childGoodsorderService.updateCancelGoodsNum(pyChildGoodsorder);
+		if (list.size() > 0) {
+			for (PyChildGoodsorder pyChildGoodsorder : list) {
+				count += childGoodsorderService.updateCancelGoodsNum(pyChildGoodsorder);
+			}
 		}
 		logger.info("取消的商品数为：" + count);
-		pyBigGoodsorder.setStatus(Constant.STATUS_UNABLE);
+		// 0 未支付 1 已支付  2 已取消 3已删除
 		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_CANCLE);
 		//status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
 		bigGoodsorderService.update(pyBigGoodsorder);
@@ -207,8 +172,9 @@ public class OrderServiceImpl implements OrderService {
 			responseInfo.setRetMsg("用户信息为空");
 			return responseInfo;
 		}
-		//设置订单状态
+		//设置订单状态 无效状态
 		pyBigGoodsorder.setStatus(Constant.STATUS_UNABLE);
+		// 0 未支付 1 已支付  2 已取消 3已删除
 		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_DELETE);
 		int count = bigGoodsorderService.update(pyBigGoodsorder);
 		//更新订单状态
@@ -240,7 +206,7 @@ public class OrderServiceImpl implements OrderService {
 			responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		} catch (Exception e) {
 			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
-			responseInfo.setRetMsg(MsgEnum.ERROR.getMsg());
+			responseInfo.setRetMsg("订单支付失败");
 			logger.error("支付订单失败");
 		}
 
@@ -248,74 +214,31 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	
-	//组装订单信息 
-	private Map<String,Object> installOrdergetOrderInfo(SpSendAddress address,String orderCreateTime,
-		String bigOrderNo,PyOrderInfo orderInfo,List<PyMainGoodsorder> mainList) throws GoodsNumNotFondException, MyException{
-		Map<String,Object> orderResult = new HashMap<String,Object>();
-		PyMainGoodsorder mainGoodsorder = new PyMainGoodsorder();//主订单
-		PyChildGoodsorder childorder = new PyChildGoodsorder();//子订单
+	private Map<String,Object> installOrdergetOrderInfo(String orderCreateTime,PyOrderInfo orderInfo) throws GoodsinfoException, MyException{
+		Map<String,Object> orderResult = new HashMap<String,Object>();//返回的对象
 		List<PyChildGoodsorder> goodsInfoList = new LinkedList<PyChildGoodsorder>();//单个商户商品信息集合
 		List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
-		List<PyShoppingCartInfo> shopCart = orderInfo.getShopCart();
-			
-		int main_size = shopCart.size();//商户个数
-		String mainTransactionId = null;
-		String childTransactionId = null;
+		List<PyMainGoodsorder> mainList = new LinkedList<PyMainGoodsorder>();//主订单集合
+		List<PyShoppingCartInfo> shopCart = orderInfo.getShopCart();//购物车信息
 		BigDecimal orderNum = new BigDecimal("0");//订单购买总数（黄佳喜添加的）
-		for(int i=0;i<main_size;i++){
-			mainGoodsorder.setIds(UUIDUtils.getUuid());//IDS
-			mainGoodsorder.setBigorderId(bigOrderNo);//所属大订单
-			mainTransactionId = "M".concat(orderCreateTime.concat(getFixLenthString(4)));//主订单流水号
-			mainGoodsorder.setTransactionid(mainTransactionId);
+		for(int i=0;i<shopCart.size();i++){
+			PyMainGoodsorder mainGoodsorder = setMainOrder(orderCreateTime,orderInfo);//主订单
+			mainGoodsorder.setBigorderId(orderInfo.getOrderNo());//所属大订单
 			mainGoodsorder.setVendorIds(shopCart.get(i).getVendorIds());//商户ID
-			mainGoodsorder.setUserIds(orderInfo.getUserId());
-			mainGoodsorder.setOrderTime(orderCreateTime);//订单时间
-			mainGoodsorder.setPayStatus("0");//支付状态  0 未支付 1 已支付  2 取消
-			mainGoodsorder.setStatus("0");//订单状态   0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）；
-			mainGoodsorder.setContPostcode(address.getZipCode());//邮编
-			mainGoodsorder.setContPhone(address.getMobile());//联系电话
-			mainGoodsorder.setContProvince(address.getProvince());//省
-			mainGoodsorder.setContCity(address.getCity());//市
-			mainGoodsorder.setContDistrict(address.getDistrict());//区
-			mainGoodsorder.setContStreet(address.getStreet());//街道
-			mainGoodsorder.setContAddress(address.getAddress());//详细地址
-			mainGoodsorder.setContName(address.getName());//收件人姓名	
+			mainGoodsorder.setUserIds(orderInfo.getUserId());//用户ID
 			BigDecimal shoporderAmt = null;//商户订单总金额;
-			BigDecimal goodsorderAmt = null;//商品金额;
-			String goodsId = null;//商品ID
-			String goodsName = null;//商品名称
 			BigDecimal goodsNum = null;//购买数量
-			BigDecimal goodsPrice = null;//商品价格
-			goodsInfoList = shopCart.get(i).getGoodsInfoList();
-			int goods_size = goodsInfoList.size();
-			for(int j=0;j<goods_size;j++){
-				goodsId = goodsInfoList.get(j).getGoodsids();//商品ID
-				goodsName = goodsInfoList.get(j).getGoodsName();//商品名称
+			goodsInfoList = shopCart.get(i).getGoodsInfoList();//获取当前购买的商品信息
+			for(int j=0;j<goodsInfoList.size();j++){
+				PyChildGoodsorder childorder = setChildOrder(goodsInfoList,j,orderCreateTime);//子订单		
 				goodsNum = goodsInfoList.get(j).getGoodsNum();//购买数量
-				goodsPrice = goodsInfoList.get(j).getGoodsPrice();//商品单价
-				childorder.setGoodsids(goodsId);//商品ID
-				childorder.setGoodsNum(goodsInfoList.get(j).getGoodsNum());//购买数量
 				orderNum = goodsNum.add(orderNum);//（黄佳喜添加的）
-				//验证商品上架剩余数量
-				boolean flag = checkGoods(goodsId,goodsNum);
-				//如果数量超出,直接返回
-				if(!flag){
-					childList = null;
-					mainList  = null;
-					throw new GoodsNumNotFondException("数量超过库存",goodsName);
-				}
-				childorder.setGoodsPrice(goodsPrice);
-				goodsorderAmt = goodsNum.multiply(goodsPrice);//商品金额
-				childorder.setOrderAmt(goodsorderAmt);
 				if(j==0){
-					shoporderAmt = goodsorderAmt; 
+					shoporderAmt = childorder.getOrderRealAmt(); 
 				}else{
-					shoporderAmt = shoporderAmt.add(goodsorderAmt);
+					shoporderAmt = shoporderAmt.add(childorder.getOrderRealAmt());
 				}
-				childorder.setMainorderIds(mainTransactionId);//所属主订单编号
-				childTransactionId = "G".concat(orderCreateTime.concat(getFixLenthString(4)));//子订单流水号
-				childorder.setTransactionid(childTransactionId);
-				childorder.setIds(UUIDUtils.getUuid());//IDS
+				childorder.setMainorderIds(mainGoodsorder.getTransactionid());//所属主订单编号
 				childorder.setCustIds(orderInfo.getUserId());//用户ID
 				
 				logger.info("************子订单"+j+"**************="+childorder.toString());
@@ -323,48 +246,114 @@ public class OrderServiceImpl implements OrderService {
 				
 			}    
 			mainGoodsorder.setOrderTotalAmt(shoporderAmt);
+			mainList.add(mainGoodsorder);
 			logger.info("************主订单"+i+"*************="+mainGoodsorder.toString());
 		}
-		mainList.add(mainGoodsorder);
 		orderResult.put("childList", childList);
 		orderResult.put("mainList", mainList);
 		orderResult.put("orderNum", orderNum);//（黄佳喜添加的）
 		
 		return orderResult;
 	}	
+	//组装大订单
+	private PyBigGoodsorder setBigOrder(PyOrderInfo orderInfo,String orderCreateTime) {
+		PyBigGoodsorder pyBigGoodsorder = new PyBigGoodsorder();
+		pyBigGoodsorder.setIds(UUIDUtils.getUuid());
+		pyBigGoodsorder.setOrderDate(orderCreateTime);//订单生成时间
+		pyBigGoodsorder.setTransactionid(orderInfo.getOrderNo());//大订单编号，流水号
+		pyBigGoodsorder.setOrderTotalAmt(orderInfo.getOrderRealAmt());//商品总金额
+		pyBigGoodsorder.setUserIds(orderInfo.getUserId());//用户ID
+		//黄佳喜添加：大订单的状态
+		pyBigGoodsorder.setStatus(Constant.STATUS_ABLE);
+		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_NOT);
+		return pyBigGoodsorder;
+	}
+	//组装子订单
+	private PyChildGoodsorder setChildOrder(List<PyChildGoodsorder> goodsInfoList, int j, String orderCreateTime) throws MyException, GoodsinfoException {
+		PyChildGoodsorder childorder = new PyChildGoodsorder();
+		String goodsId = goodsInfoList.get(j).getGoodsids();//商品ID
+		String goodsName = goodsInfoList.get(j).getGoodsName();//商品名称
+		BigDecimal goodsNum = goodsInfoList.get(j).getGoodsNum();//购买数量
+		BigDecimal goodsPrice = goodsInfoList.get(j).getGoodsPrice();//商品单价
+		childorder.setGoodsids(goodsId);//商品ID
+		childorder.setGoodsName(goodsName);
+		childorder.setGoodsNum(goodsNum);//购买数量
+		//验证商品并修改库存
+		checkGoods(goodsId,goodsNum,goodsPrice,goodsName);
+		childorder.setGoodsPrice(goodsPrice);
+		BigDecimal goodsorderAmt = goodsNum.multiply(goodsPrice);//商品金额
+		childorder.setOrderAmt(goodsorderAmt);
+		String childTransactionId = "G".concat(orderCreateTime.concat(getFixLenthString(4)));//子订单流水号
+		childorder.setTransactionid(childTransactionId);
+		childorder.setIds(UUIDUtils.getUuid());//IDS
+		return childorder;
+	}
+	//组装主订单
+	private PyMainGoodsorder setMainOrder(String orderCreateTime,PyOrderInfo orderInfo) {
+		//获取收件地址信息
+		SpSendAddress address = childGoodsorderService.queryAddress(orderInfo.getAddressId());
+		PyMainGoodsorder mainGoodsorder = new PyMainGoodsorder();
+		mainGoodsorder.setIds(UUIDUtils.getUuid());//IDS
+		String mainTransactionId = "M".concat(orderCreateTime.concat(getFixLenthString(4)));//主订单流水号
+		mainGoodsorder.setTransactionid(mainTransactionId);
+		mainGoodsorder.setOrderTime(orderCreateTime);//订单时间
+		mainGoodsorder.setPayStatus(Constant.PAY_STATUS);//支付状态  0 未支付 1 已支付  2 取消
+		mainGoodsorder.setStatus(Constant.STATUS_UNABLE);//订单状态   0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）；
+		mainGoodsorder.setContPostcode(address.getZipCode());//邮编
+		mainGoodsorder.setContPhone(address.getMobile());//联系电话
+		mainGoodsorder.setContProvince(address.getProvince());//省
+		mainGoodsorder.setContCity(address.getCity());//市
+		mainGoodsorder.setContDistrict(address.getDistrict());//区
+		mainGoodsorder.setContStreet(address.getStreet());//街道
+		mainGoodsorder.setContAddress(address.getAddress());//详细地址
+		mainGoodsorder.setContName(address.getName());//收件人姓名	
+		// TODO Auto-generated method stub
+		return mainGoodsorder;
+	}
 	//验证商品库存数量
-	private boolean checkGoods(String goodsId,BigDecimal num) throws MyException {
+	private boolean checkGoods(String goodsId,BigDecimal num,BigDecimal goodsPrice,String goodsName) throws GoodsinfoException {
 		if(StringUtil.isEmpty(goodsId)){
-			return false;
+			logger.info("商品ID不能为空");
+			throw new GoodsinfoException("商品ID为空",goodsName);
 		}
-		BigDecimal goodsNum = childGoodsorderService.selectGoodsNum(goodsId);
+		ChnGoodsinfo goodsinfo = childGoodsorderService.selectGoodsInfo(goodsId);//商品详情
+		BigDecimal price = goodsinfo.getPrice();
+		if(price.compareTo(goodsPrice)!=0){
+			logger.info("商品价格发生变动");
+			throw new GoodsinfoException("价格发生变动",goodsName);
+		}
+		BigDecimal goodsNum = goodsinfo.getGoodsNum();
 		if(goodsNum == null){
 			logger.info("获取商品数量为空或者发生异常");
-			return false;
+			throw new GoodsinfoException("数量为空或者发生异常",goodsName);
 		}
 		int flag = num.compareTo(goodsNum);//购买数量是否小于等于库存
 		if(flag == 1){
 			logger.info("购买数量大于库存，无法购买");
-			return false;
+			throw new GoodsinfoException("数量超过库存",goodsName);
 		}	
 		//更新库存
 		BigDecimal storeNum = goodsNum.subtract(num);
+		
 		int updateStore = updateStore(storeNum,goodsId);
 		logger.info("updateStore="+updateStore);
 		if(updateStore !=1){
-			return false;
+			logger.info("更新库存发生异常");
+			throw new GoodsinfoException("更新库存发生异常",goodsName);
 		}
 		return true;
 	}
 	//更新库存
-	private int updateStore(BigDecimal storeNum, String goodsId) throws MyException {
-		ChnGoodsinfo chnGoodsinfo = new ChnGoodsinfo();
-		chnGoodsinfo.setStoreNum(storeNum);
-		chnGoodsinfo.setGoodsId(goodsId);
-		chnGoodsinfo.setUpdateTime(mathTime());
-		int updateStore=childGoodsorderService.updateStroe(chnGoodsinfo);
-		return updateStore;
-	}
+		private int updateStore(BigDecimal storeNum, String goodsId){
+			//增加验证库存值
+			
+			ChnGoodsinfo chnGoodsinfo = new ChnGoodsinfo();
+			chnGoodsinfo.setStoreNum(storeNum);
+			chnGoodsinfo.setGoodsId(goodsId);
+			chnGoodsinfo.setUpdateTime(mathTime());
+			int updateStore=childGoodsorderService.updateStroe(chnGoodsinfo);
+			return updateStore;
+		}
 
 	//生成时间戳
 	private String mathTime(){
@@ -383,6 +372,32 @@ public class OrderServiceImpl implements OrderService {
         // 返回固定的长度的随机数
         return "0000".concat(fixLenthString.substring(1, strLength + 1));
     }
+	
+	private ResponseInfo checkBaseInfo(PyOrderInfo orderInfo) {
+		ResponseInfo res = new ResponseInfo();
+		String transactionid = orderInfo.getOrderNo();//为防止重复提交，前端传有一个流水号进来
+		int count = bigGoodsorderService.countOrderNO(transactionid);
+		if(count !=0){
+			res.setRetCode("900010");
+			res.setRetMsg("该订单已提交过");
+			return res;
+		}
+		//获取地址ID
+		String addressId = orderInfo.getAddressId();
+		if(addressId ==null){
+			res.setRetCode("900011");
+			res.setRetMsg("收件地址信息不能为空");
+			return res;
+		}
+		//获取收件地址信息
+		SpSendAddress address = childGoodsorderService.queryAddress(addressId);
+		if(address ==null){
+			res.setRetCode("900012");
+			res.setRetMsg("收件地址信息异常");
+			return res;
+		}
+		return null;
+	}
 
 	@Override
 	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
