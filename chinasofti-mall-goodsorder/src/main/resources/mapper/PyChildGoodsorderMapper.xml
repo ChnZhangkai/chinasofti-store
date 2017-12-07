@@ -36,6 +36,10 @@
  	<id column="STREET" property="street" jdbcType="VARCHAR" />
  	<id column="ADDRESS" property="district" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="goodsinfoMap" type="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo" >
+ 	<id column="PRICE" property="price" jdbcType="DECIMAL" />
+ 	<id column="STORE_NUM" property="storeNum" jdbcType="DECIMAL" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -525,9 +529,10 @@
 	order by ${sort} ${order}
   </select>
   
-  <select id="selectGoodsNum" resultType="java.math.BigDecimal" parameterType="java.lang.String" >
-    select STORE_NUM from chn_goodsinfo
-    where IDS = #{goodsId,jdbcType=VARCHAR}
+  <select id="selectGoodsInfo" resultMap="goodsinfoMap" parameterType="java.lang.String" >
+    select PRICE,STORE_NUM
+      from chn_goodsinfo
+     where IDS = #{goodsId,jdbcType=VARCHAR}
       and STATUS = '1'
   </select>
   <!--根据地址ID查询邮寄地址信息-->
