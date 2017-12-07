@@ -24,7 +24,6 @@
     <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
     <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
     <result column="GOODS_TITLE" property="goodsTitle" />
-    <result column="VENDOR_SNM" property="vendorSnm" />
   </resultMap>
   <resultMap id="addressMap" type="com.chinasofti.mall.common.entity.spuser.SpSendAddress" >
  	<id column="NAME" property="name" jdbcType="VARCHAR" />

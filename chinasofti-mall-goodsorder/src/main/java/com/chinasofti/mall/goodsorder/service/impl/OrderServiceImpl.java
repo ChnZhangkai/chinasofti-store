@@ -80,7 +80,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("all")
 	@Override
 	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public ResponseInfo saveOrder(PyOrderInfo orderInfo){
@@ -263,6 +263,9 @@ public class OrderServiceImpl implements OrderService {
 		pyBigGoodsorder.setTransactionid(orderInfo.getOrderNo());//大订单编号，流水号
 		pyBigGoodsorder.setOrderTotalAmt(orderInfo.getOrderRealAmt());//商品总金额
 		pyBigGoodsorder.setUserIds(orderInfo.getUserId());//用户ID
+		//黄佳喜添加：大订单的状态
+		pyBigGoodsorder.setStatus(Constant.STATUS_ABLE);
+		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_NOT);
 		return pyBigGoodsorder;
 	}
 	//组装子订单
