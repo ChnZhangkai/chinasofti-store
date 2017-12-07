@@ -1,6 +1,7 @@
 package com.chinasofti.mall.user.mapper;
 
 import com.chinasofti.mall.common.entity.spuser.SpUser;
+import com.chinasofti.mall.user.handler.MyException;
 
 /**
  * @author: xiaozhiliang
@@ -11,9 +12,9 @@ public interface SpUserMapper {
 	
 	String contByUserId(String userId);
 	
-	int insert(SpUser spUser); 
+	int insert(SpUser spUser)throws MyException; 
 	
-	SpUser select(SpUser spUser);
+	SpUser select(SpUser spUser)throws MyException;
 	
     SpUser selectByUserId(SpUser spUser);
 

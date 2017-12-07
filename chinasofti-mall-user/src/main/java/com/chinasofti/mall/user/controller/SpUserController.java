@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
+import com.chinasofti.mall.common.utils.Aes;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.user.handler.MyException;
 import com.chinasofti.mall.user.service.SpUserService;
 
@@ -38,27 +41,12 @@ public class SpUserController {
 	
 	@RequestMapping(value="/signUp")
 	public ResponseInfo signUp(@RequestBody SpUser spUser) {
-		ResponseInfo res = new ResponseInfo();
-		try {
-			res = spUserService.add(spUser);
-		} catch (MyException e1) {
-			res.setRetCode("999999");
-			res.setRetMsg("系统异常");
-		}
-		return res;	
-		
+		return spUserService.add(spUser);		
 	}
 	
 	@RequestMapping(value="/signIn")
 	public ResponseInfo signIn(@RequestBody SpUser spUser) {
-		ResponseInfo res = new ResponseInfo();
-		try {
-			res = spUserService.select(spUser);
-		} catch (MyException e1) {
-			res.setRetCode("999999");
-			res.setRetMsg("系统异常");
-		}
-		return res;
+		return spUserService.select(spUser);
 	}
 	
 	@RequestMapping(value="/isUserExist")

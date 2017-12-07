@@ -3,6 +3,7 @@ package com.chinasofti.mall.user.mapper;
 import java.util.List;
 
 import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
+import com.chinasofti.mall.user.handler.MyException;
 
 
 /**
@@ -12,12 +13,12 @@ import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
  */
 public interface SpSendAddressMapper {
 	
-	List<SpSendAddress> selectSentAddressList(String userId);
+	public List<SpSendAddress> selectSentAddressList(String userId) throws MyException;
 	
-	int insert(SpSendAddress spAddress);
+	public int insert(SpSendAddress spAddress) throws MyException;
 	
-	int delete(SpSendAddress spAddress);
+	public int delete(SpSendAddress spAddress) throws MyException;
 	
-	int update(SpSendAddress spAddress);
+	public int update(SpSendAddress spAddress) throws MyException;
 
 }

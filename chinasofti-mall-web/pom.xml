@@ -62,7 +62,11 @@
 			<artifactId>chinasofti-mall-common</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.3</version>
+		</dependency>
 		<!--UEditor依赖的jar包 -->
 		<dependency>
 			<groupId>org.json</groupId>

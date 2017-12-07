@@ -39,13 +39,13 @@ public interface ChildGoodsorderService extends IBaseService<PyChildGoodsorder> 
 	
 	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList) throws MyException;
 	
-	public BigDecimal selectGoodsNum(String goodsId);
+	public ChnGoodsinfo selectGoodsInfo(String goodsId);
 	
 	public SpSendAddress queryAddress(String addressId);
 	
 	public List<PyChildGoodsorder> selectByUserIds(String userIds);
 	
-	public int updateStroe(ChnGoodsinfo chnGoodsinfo)throws MyException; 
+	public int updateStroe(ChnGoodsinfo chnGoodsinfo); 
 	
 	public List<PyChildGoodsorder> selectByBigOrderIds(String bigOrderIds);
 
