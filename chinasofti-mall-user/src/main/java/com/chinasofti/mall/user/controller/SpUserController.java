@@ -18,6 +18,7 @@ import com.chinasofti.mall.common.entity.spuser.SpUser;
 import com.chinasofti.mall.common.utils.Aes;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.user.handler.MyException;
 import com.chinasofti.mall.user.service.SpUserService;
 
@@ -38,39 +39,14 @@ public class SpUserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SpUserController.class);  
 	
-	@Value("${decryptKey}")
-	private String decryptKey;
-	
 	@RequestMapping(value="/signUp")
 	public ResponseInfo signUp(@RequestBody SpUser spUser) {
-		ResponseInfo res = new ResponseInfo();
-		try {
-			String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);//对该密码进行Aes解密
-			logger.info("key:"+decryptKey);
-			logger.info("解密后的ASE密码:"+password);
-			spUser.setPassword(password);
-			res = spUserService.add(spUser);
-		} catch (Exception e1) {
-			res.setRetCode("999999");
-			res.setRetMsg("系统异常");
-		}
-		return res;	
-		
+		return spUserService.add(spUser);		
 	}
 	
 	@RequestMapping(value="/signIn")
 	public ResponseInfo signIn(@RequestBody SpUser spUser) {
-		ResponseInfo res = new ResponseInfo();
-		try {
-			String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);//对该密码进行Aes解密
-			logger.info("解密后的ASE密码:"+password);
-			spUser.setPassword(password);
-			res = spUserService.select(spUser);
-		} catch (Exception e1) {
-			res.setRetCode("999999");
-			res.setRetMsg("系统异常");
-		}
-		return res;
+		return spUserService.select(spUser);
 	}
 	
 	@RequestMapping(value="/isUserExist")

@@ -44,14 +44,7 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/list")
 	public ResponseInfo findSendAddressList(@RequestParam("userId") String userId) {
-		ResponseInfo res = new ResponseInfo();
-		try{
-			res = spSendAddressService.querySentAddressList(userId);
-		}catch(Exception e){
-			res.setRetCode("999999");
-			res.setRetMsg("系统异常");
-		}
-		return res;
+		return spSendAddressService.querySentAddressList(userId);
 	} 
 	
 	/*
@@ -60,14 +53,7 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/add")
 	public ResponseInfo addSendAddress(@RequestBody SpSendAddress spSendAddress){
-		ResponseInfo res = new ResponseInfo();
-		try{
-			res = spSendAddressService.insertSendAddress(spSendAddress);
-		}catch(Exception e){
-			res.setRetCode("999999");
-			res.setRetMsg("系统异常");
-		}
-		return res;
+		return spSendAddressService.insertSendAddress(spSendAddress);
 		
 	}
 	
@@ -77,14 +63,7 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/updata")
 	public ResponseInfo updataSendAddress(@RequestBody SpSendAddress spSendAddress){
-		ResponseInfo res = new ResponseInfo();
-		try{
-			res = spSendAddressService.updateSendAddress(spSendAddress);
-		}catch(Exception e){
-			res.setRetCode("999999");
-			res.setRetMsg("系统异常");
-		}
-		return res;
+		return spSendAddressService.updateSendAddress(spSendAddress);
 	}
 	
 	/*
@@ -93,14 +72,7 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/delete")
 	public ResponseInfo deleteSendAddress(@RequestBody SpSendAddress spSendAddress){
-		ResponseInfo res = new ResponseInfo();
-		try{
-			res = spSendAddressService.deleteSendAddress(spSendAddress);
-		}catch(Exception e){
-			res.setRetCode("999999");
-			res.setRetMsg("系统异常");
-		}
-		return res;
+		return spSendAddressService.deleteSendAddress(spSendAddress);
 	}	
 	
 }
