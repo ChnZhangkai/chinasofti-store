@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
 import com.chinasofti.mall.common.utils.Aes;
 import com.chinasofti.mall.common.utils.Constant;
+import com.chinasofti.mall.common.utils.DealParamFunctions;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.UUIDUtils;
@@ -33,9 +34,8 @@ public class SpUserServiceImp implements SpUserService {
 	@Override
 	public ResponseInfo add(SpUser spUser) {
 		ResponseInfo res = new ResponseInfo();
-		String password;
 		try {
-			password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
+		    String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
 			logger.info("解密的Key="+decryptKey+"  解密后的ASE密码:"+password);
 			spUser.setPassword(password);
 			spUser.setIds(UUIDUtils.getUuid());
@@ -47,9 +47,9 @@ public class SpUserServiceImp implements SpUserService {
 				return res;
 			}
 			//如果没有 ，进行注册
-			spUserMapper.insert(spUser);
+			int insert=spUserMapper.insert(spUser);
 			res = success(res);
-			logger.info("-------注册成功------------");
+			logger.info("-------注册成功--insert="+insert);
 		} catch (Exception e) {
 			logger.error(e.toString());
 			res = error(res);
@@ -62,13 +62,16 @@ public class SpUserServiceImp implements SpUserService {
 	public ResponseInfo select(SpUser spUser){
 		ResponseInfo res = new ResponseInfo();
 		try {
+			String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
+			logger.info("解密的Key="+decryptKey+"  解密后的ASE密码:"+password);
+			spUser.setPassword(password);
 			SpUser reSpUser = spUserMapper.select(spUser);
-			if(reSpUser ==null){
+			if(reSpUser ==null||reSpUser.getUserId()==null){
 				res.setRetCode(Constant.SPUSERID_PASSWORD_ERROR);
 				res.setRetMsg(Constant.SPUSERID_PASSWORD_MSG);
 			}
-			res = success(res);
-			logger.info("-------注册成功------------");
+			res = DealParamFunctions.dealResponseData(reSpUser);
+			logger.info("-------登录成功----reSpUser="+reSpUser.toString());
 		} catch (Exception e) {
 			logger.error(e.toString());
 			res = error(res);
