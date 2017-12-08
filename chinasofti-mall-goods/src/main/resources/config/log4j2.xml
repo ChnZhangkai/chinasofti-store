@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+    <Appenders>
+        <Console name="SYSOUT" target="SYSTEM_OUT">
+            <PatternLayout patter="%d{yyyy-MM-dd HH:mm:ss.SSS} | [%t] %-5p [%c] - %m%n  "/>
+        </Console>
+
+        <!-- name可以自定义，作用是在Loggers中AppenderRef中使用 -->
+        <!-- fileName定义输出文件名称（当前文件） -->
+        <!-- filePattern定义输出文件名称（文件满足条件后自动截断，生成历史文件） -->
+        <RollingFile name="DEBUG_ROLLING_FILE"
+                     fileName="/opt/app/servermall/logs/chinasofti-mall-goods/logs.logs"
+                     filePattern="/opt/app/servermall/logs/chinasofti-mall-goods/%d{yyyy-MM-dd}-debugs.log">
+            <PatternLayout>
+                <Pattern>%d [%t] %-5p [%c] - %m%n  </Pattern>
+            </PatternLayout>
+
+            <!-- 文件截断的条件，具体参考文档 -->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="24"/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- 同一来源的Appender可以定义多个 -->
+        <RollingFile name="ERROR_ROLLING_FILE"
+                     fileName="/opt/app/servermall/logs/chinasofti-mall-goods/error-logs.logs"
+                     filePattern="/opt/app/servermall/logs/chinasofti-mall-goods/%d{yyyy-MM-dd}-error.log">
+            <!-- 可以通过该参数来设置获取日志的权限 -->
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>%d [%t] %-5p [%c] - %m%n  </Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="24"/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="SYSOUT"/>
+            <AppenderRef ref="DEBUG_ROLLING_FILE"/>
+            <AppenderRef ref="ERROR_ROLLING_FILE"/>
+        </Root>
+    </Loggers>
+</Configuration>

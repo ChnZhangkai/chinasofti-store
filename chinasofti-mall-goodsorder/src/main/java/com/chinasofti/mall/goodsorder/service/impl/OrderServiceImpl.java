@@ -89,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
 		try{
 			//验证输入参数
 			res = checkBaseInfo(orderInfo);
-			if(res !=null){
+			if(!"true".equals(res.getRetMsg())){
 				return res;
 			}
 			String orderCreateTime = mathTime();//订单生成时间 yyyyMMddhhmmss
@@ -122,7 +122,7 @@ public class OrderServiceImpl implements OrderService {
 			res.setData(data);
 			logger.info("*****订单提交成功*****");
 		}catch(GoodsinfoException e){
-			logger.error(e.toString());
+			logger.error("e="+e);
 			res.setRetCode("900013");
 			res.setRetMsg("您购买的"+e.getValue()+e.getMessage());
 			return res;
@@ -396,7 +396,8 @@ public class OrderServiceImpl implements OrderService {
 			res.setRetMsg("收件地址信息异常");
 			return res;
 		}
-		return null;
+		res.setRetMsg("true");
+		return res;
 	}
 
 	@Override
