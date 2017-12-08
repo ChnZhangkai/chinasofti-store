@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.OrderFeignClient;
@@ -75,7 +74,6 @@ public class OrderController {
 	 * @param t
 	 * @return
 	 */
-	@ResponseBody
 	@RequestMapping(value="/add", method = RequestMethod.POST)
 	//@ApiOperation(value="提交订单", notes="报文示例：{'userId':'chin','goodsId':'1001'}")
 	public ResponseInfo saveOrder(@RequestBody PyOrderInfo orderInfo,HttpServletResponse response) {
