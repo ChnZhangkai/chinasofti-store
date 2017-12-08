@@ -33,9 +33,8 @@ public class SpUserServiceImp implements SpUserService {
 	@Override
 	public ResponseInfo add(SpUser spUser) {
 		ResponseInfo res = new ResponseInfo();
-		String password;
 		try {
-			password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
+		    String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
 			logger.info("解密的Key="+decryptKey+"  解密后的ASE密码:"+password);
 			spUser.setPassword(password);
 			spUser.setIds(UUIDUtils.getUuid());
@@ -62,6 +61,9 @@ public class SpUserServiceImp implements SpUserService {
 	public ResponseInfo select(SpUser spUser){
 		ResponseInfo res = new ResponseInfo();
 		try {
+			String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
+			logger.info("解密的Key="+decryptKey+"  解密后的ASE密码:"+password);
+			spUser.setPassword(password);
 			SpUser reSpUser = spUserMapper.select(spUser);
 			if(reSpUser ==null||reSpUser.getUserId()==null){
 				res.setRetCode(Constant.SPUSERID_PASSWORD_ERROR);
