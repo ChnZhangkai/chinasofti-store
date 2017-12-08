@@ -89,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
 		try{
 			//验证输入参数
 			res = checkBaseInfo(orderInfo);
-			if(res !=null){
+			if(!"true".equals(res.getRetMsg())){
 				return res;
 			}
 			String orderCreateTime = mathTime();//订单生成时间 yyyyMMddhhmmss
@@ -122,7 +122,7 @@ public class OrderServiceImpl implements OrderService {
 			res.setData(data);
 			logger.info("*****订单提交成功*****");
 		}catch(GoodsinfoException e){
-			logger.error(e.toString());
+			logger.error("e="+e);
 			res.setRetCode("900013");
 			res.setRetMsg("您购买的"+e.getValue()+e.getMessage());
 			return res;
@@ -148,10 +148,10 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 		logger.info("取消的商品数为：" + count);
-		// 0 未支付 1 已支付  2 已取消 3已删除
+		// 0 未支付 1 已支付  2 已取消  3已删除
 		pyBigGoodsorder.setPayStatus(Constant.PAY_STATUS_CANCLE);
-		//status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
 		bigGoodsorderService.update(pyBigGoodsorder);
+		//status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
 		mainGoodsorderService.updateByBigGoodsorder(pyBigGoodsorder.getTransactionid());
 		if (count > 0) {
 			responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -396,7 +396,8 @@ public class OrderServiceImpl implements OrderService {
 			res.setRetMsg("收件地址信息异常");
 			return res;
 		}
-		return null;
+		res.setRetMsg("true");
+		return res;
 	}
 
 	@Override
@@ -430,6 +431,7 @@ public class OrderServiceImpl implements OrderService {
 		//分页查询用户已完成交易的订单
 		List<PyMainGoodsorder> list = mainGoodsorderService.selectByUserIds(pyMainGoodsorder.getUserIds(), pyMainGoodsorder.getPageNumber(), pyMainGoodsorder.getPageSize());
 		if (list.size() < 1) {
+			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg("没有更多的订单信息");
 			return responseInfo;
 		}

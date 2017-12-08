@@ -8,7 +8,7 @@ public class Constant {
 	//商品选中状态1选中 0未选择
 	public static final Boolean CHECKED = false;
 	//商品图片URL
-	public static final String HOST_URL ="http://192.168.1.244";
+	//public static final String HOST_URL ="http://192.168.1.238";
 	//status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）
 	/** 待付款 */
 	public static final String STATUS_PENDING = "0";

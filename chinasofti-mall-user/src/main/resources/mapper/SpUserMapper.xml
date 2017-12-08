@@ -30,7 +30,7 @@
     	select USERID from sp_user where USERID = #{userId,jdbcType=VARCHAR}
   </select>
   
-  <select id="select" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpUser" >
+  <select id="signIn" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpUser" >
     select 
     <include refid="Base_Column" /> 
     from sp_user

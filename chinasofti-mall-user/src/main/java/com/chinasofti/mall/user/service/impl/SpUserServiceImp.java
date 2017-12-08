@@ -62,16 +62,15 @@ public class SpUserServiceImp implements SpUserService {
 	public ResponseInfo select(SpUser spUser){
 		ResponseInfo res = new ResponseInfo();
 		try {
-			String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
-			logger.info("解密的Key="+decryptKey+"  解密后的ASE密码:"+password);
+			String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);		
 			spUser.setPassword(password);
-			SpUser reSpUser = spUserMapper.select(spUser);
+			SpUser reSpUser = spUserMapper.signIn(spUser);
 			if(reSpUser ==null||reSpUser.getUserId()==null){
 				res.setRetCode(Constant.SPUSERID_PASSWORD_ERROR);
 				res.setRetMsg(Constant.SPUSERID_PASSWORD_MSG);
+				return res;
 			}
 			res = DealParamFunctions.dealResponseData(reSpUser);
-			logger.info("-------登录成功----reSpUser="+reSpUser.toString());
 		} catch (Exception e) {
 			logger.error(e.toString());
 			res = error(res);

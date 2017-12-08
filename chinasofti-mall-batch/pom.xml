@@ -72,7 +72,6 @@
 			<version>1.3.1</version>
 		</dependency>
 		<!-- Mybatis依赖END -->
-
 	</dependencies>
 	<!-- 项目依赖 END -->
 	<!-- 配置打包插件 -->
@@ -124,6 +123,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>

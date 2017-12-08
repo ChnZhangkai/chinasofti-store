@@ -504,15 +504,20 @@
 		c.IDS as cid, c.GOODSIDS, c.CUST_IDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT,
 		c.ORDER_REAL_AMT, c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, 
 		c.ORDER_AMT, c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE 
-	FROM
+	FROM 
 		py_big_goodsorder b ,py_main_goodsorder m, py_child_goodsorder c 
 	WHERE 
-		b.TRANSACTIONID = m.BIGORDER_ID and m.TRANSACTIONID = c.MAINORDER_IDS and b.STATUS=1 and 
-		b.PAY_STATUS = '0' and b.USER_IDS =  #{userIds,jdbcType=VARCHAR} ORDER BY b.ORDER_DATE DESC
+		b.TRANSACTIONID = m.BIGORDER_ID and m.TRANSACTIONID = c.MAINORDER_IDS and b.STATUS = '1' and 
+		b.PAY_STATUS in ('0','2') and b.USER_IDS = #{userIds,jdbcType=VARCHAR} ORDER BY b.ORDER_DATE DESC
   </select>
 
    <update id="updateByMainOrder" parameterType="java.lang.String">
-   	UPDATE py_big_goodsorder SET PAY_STATUS='3' , STATUS='0' WHERE TRANSACTIONID = #{bigorderId,jdbcType=VARCHAR}
+   	UPDATE 
+   		py_big_goodsorder 
+   	SET 
+   		PAY_STATUS='3' 
+   	WHERE 
+   		TRANSACTIONID = #{bigorderId,jdbcType=VARCHAR}
    </update>
 
   <select id="countOrderNo" resultType="java.lang.Integer" parameterType="java.lang.String" >
