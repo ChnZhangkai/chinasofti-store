@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
 import com.chinasofti.mall.common.utils.Aes;
 import com.chinasofti.mall.common.utils.Constant;
+import com.chinasofti.mall.common.utils.DealParamFunctions;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.UUIDUtils;
@@ -69,7 +70,7 @@ public class SpUserServiceImp implements SpUserService {
 				res.setRetCode(Constant.SPUSERID_PASSWORD_ERROR);
 				res.setRetMsg(Constant.SPUSERID_PASSWORD_MSG);
 			}
-			res = success(res);
+			res = DealParamFunctions.dealResponseData(reSpUser);
 			logger.info("-------登录成功----reSpUser="+reSpUser.toString());
 		} catch (Exception e) {
 			logger.error(e.toString());
