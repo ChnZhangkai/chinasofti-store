@@ -64,6 +64,7 @@ public class LogAspect {
 		if (attributes != null) {
 			
 			HttpServletRequest request = attributes.getRequest();
+			//HttpSession session = request.getSession();
 			
 			logOperator.setIds(UUIDUtils.getUuid());
 			logOperator.setUrl(request.getRequestURL().toString());
@@ -71,9 +72,11 @@ public class LogAspect {
 			logOperator.setIp(request.getRemoteAddr());
 			logOperator.setType(request.getMethod());
 			logOperator.setDate(StringDateUtil.getStringTime());
-			
+			if ((joinPoint.getSignature().getName()).equals("loginUser")) {
+				String joinargs = Arrays.toString(joinPoint.getArgs());
+				logOperator.setUsername(joinargs.substring(1, joinargs.indexOf(",")));
+			}
 			logService.insert(logOperator);
-			logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
 			
 			// 记录下请求内容
 //			logger.info("URL:" + request.getRequestURL().toString());
