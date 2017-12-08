@@ -14,7 +14,7 @@ public interface SpUserMapper {
 	
 	int insert(SpUser spUser)throws MyException; 
 	
-	SpUser select(SpUser spUser)throws MyException;
+	SpUser signIn(SpUser spUser)throws MyException;
 	
     SpUser selectByUserId(SpUser spUser);
 
