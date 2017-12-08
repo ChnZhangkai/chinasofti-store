@@ -48,7 +48,7 @@ public class DealParamFunctions {
 			buyGoods.setGoodsId(shopgoods.getGoodsId());
 			buyGoods.setVendorids(shopgoods.getVendorId());
 			buyGoods.setTitle(shopgoods.getGoodsName());
-			buyGoods.setFilepath(Constant.HOST_URL + shopgoods.getFilepath());
+			buyGoods.setFilepath(shopgoods.getFilepath());
 			buyGoods.setGoodsNum(shopgoods.getGoodsNum());
 			buyGoods.setPrice(shopgoods.getPrice());
 			buyGoods.setStandard(shopgoods.getStandard());
