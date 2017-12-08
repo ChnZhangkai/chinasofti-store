@@ -47,9 +47,9 @@ public class SpUserServiceImp implements SpUserService {
 				return res;
 			}
 			//如果没有 ，进行注册
-			spUserMapper.insert(spUser);
+			int insert=spUserMapper.insert(spUser);
 			res = success(res);
-			logger.info("-------注册成功------------");
+			logger.info("-------注册成功--insert="+insert);
 		} catch (Exception e) {
 			logger.error(e.toString());
 			res = error(res);
