@@ -63,12 +63,12 @@ public class SpUserServiceImp implements SpUserService {
 		ResponseInfo res = new ResponseInfo();
 		try {
 			SpUser reSpUser = spUserMapper.select(spUser);
-			if(reSpUser ==null){
+			if(reSpUser ==null||reSpUser.getUserId()==null){
 				res.setRetCode(Constant.SPUSERID_PASSWORD_ERROR);
 				res.setRetMsg(Constant.SPUSERID_PASSWORD_MSG);
 			}
 			res = success(res);
-			logger.info("-------注册成功------------");
+			logger.info("-------登录成功----reSpUser="+reSpUser.toString());
 		} catch (Exception e) {
 			logger.error(e.toString());
 			res = error(res);
