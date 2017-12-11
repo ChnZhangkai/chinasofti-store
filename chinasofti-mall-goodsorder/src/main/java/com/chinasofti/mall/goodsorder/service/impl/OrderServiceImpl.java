@@ -378,25 +378,25 @@ public class OrderServiceImpl implements OrderService {
 		String transactionid = orderInfo.getOrderNo();//为防止重复提交，前端传有一个流水号进来
 		int count = bigGoodsorderService.countOrderNO(transactionid);
 		if(count !=0){
-			res.setRetCode("900010");
-			res.setRetMsg("该订单已提交过");
+			res.setRetCode(Constant.ORDER_EXCITE_CODE);
+			res.setRetMsg(Constant.ORDER_EXCITE_MSG);
 			return res;
 		}
 		//获取地址ID
 		String addressId = orderInfo.getAddressId();
 		if(addressId ==null){
-			res.setRetCode("900011");
-			res.setRetMsg("收件地址信息不能为空");
+			res.setRetCode(Constant.ORDER_ADDRESS_NULL);
+			res.setRetMsg(Constant.ORDER_ADDRESS_MSG);
 			return res;
 		}
 		//获取收件地址信息
 		SpSendAddress address = childGoodsorderService.queryAddress(addressId);
 		if(address ==null){
-			res.setRetCode("900012");
-			res.setRetMsg("收件地址信息异常");
+			res.setRetCode(Constant.ORDER_ADDRESS_ERROR);
+			res.setRetMsg(Constant.ORDER_ADDRESS_ERROR_MSG);
 			return res;
 		}
-		res.setRetMsg("true");
+		res.setRetMsg("true");//该校验通过
 		return res;
 	}
 

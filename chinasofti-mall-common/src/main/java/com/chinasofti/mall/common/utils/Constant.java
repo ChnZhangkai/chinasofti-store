@@ -60,5 +60,15 @@ public class Constant {
     public static final String SPADDRESS_INFO_ERROR = "600012";
     public static final String SPADDRESS_INFO_MSG = "请输入正确的地址";
     
-   
+    /** *  该订单已提交过*/
+    public static final String ORDER_EXCITE_CODE = "900010";
+    public static final String ORDER_EXCITE_MSG = "该订单已提交过";
+    
+    /** *  收件地址信息不能为空*/
+    public static final String ORDER_ADDRESS_NULL = "900011";
+    public static final String ORDER_ADDRESS_MSG = "收件地址信息不能为空";
+    
+    /** *  收件地址信息异常*/
+    public static final String ORDER_ADDRESS_ERROR = "900012";
+    public static final String ORDER_ADDRESS_ERROR_MSG = "收件地址信息异常";
 }
