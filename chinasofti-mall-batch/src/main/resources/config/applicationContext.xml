@@ -17,23 +17,12 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 	<!-- 引入配置文件 -->
 	<context:property-placeholder location="classpath:config/jdbc.properties" />
 
-	<!-- 配置任务启动器 -->
-	<bean id="jobLauncher"
-		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
-		<property name="jobRepository" ref="jobRepository" />
-	</bean>
-
-	<!--作业仓库-->
-	<bean id="jobRepository"
-		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
-	</bean>
-
 	<!-- 事务管理器 -->
-	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		 <property name="dataSource" ref="dataSource" />
 	</bean>
 	
-	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 	
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
