@@ -83,6 +83,8 @@ public class ChnGoodsinfoCheck extends PageBean{
     
     private String name;
     
+    private String vendorFnm;
+    
     private String vendorSnm;
 
 	public String getName() {
@@ -93,12 +95,12 @@ public class ChnGoodsinfoCheck extends PageBean{
 		this.name = name;
 	}
 
-	public String getVendorSnm() {
-		return vendorSnm;
+	public String getVendorFnm() {
+		return vendorFnm;
 	}
 
-	public void setVendorSnm(String vendorSnm) {
-		this.vendorSnm = vendorSnm;
+	public void setVendorFnm(String vendorFnm) {
+		this.vendorFnm = vendorFnm;
 	}
 
 	public String getIds() {
@@ -109,7 +111,15 @@ public class ChnGoodsinfoCheck extends PageBean{
         this.ids = ids == null ? null : ids.trim();
     }
 
-    public String getGoodsids() {
+	public String getVendorSnm() {
+		return vendorSnm;
+	}
+
+	public void setVendorSnm(String vendorSnm) {
+		this.vendorSnm = vendorSnm;
+	}
+
+	public String getGoodsids() {
         return goodsids;
     }
 
