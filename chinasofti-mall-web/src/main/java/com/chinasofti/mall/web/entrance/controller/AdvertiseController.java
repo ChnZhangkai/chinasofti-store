@@ -10,20 +10,22 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.bcel.generic.NEW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertisePosition;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.web.entrance.feign.AdvertiseFeignClient;
+
 import net.sf.json.JSONObject;
 
 
@@ -38,7 +40,14 @@ public class AdvertiseController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdvertiseController.class);
 	
-	private static final String basePath = System.getProperty("user.dir")  + "/src/main/resources/static/data/advertise";
+	@Value("${file.save.path}")
+	private String filePath;
+	
+	@Value("${file.query.url}")
+	private String fileUrl;
+	
+	//private static final String basePath = System.getProperty("user.dir")  + "/src/main/resources/static/data/advertise";
+	
 	@RequestMapping("/index")
 	public ModelAndView index() {
 		return new ModelAndView("/advertise/advertise");
@@ -73,14 +82,14 @@ public class AdvertiseController {
 		logger.info("上传的后缀名为：" + suffixName);
 		// 重命名文件名
 		fileName = UUID.randomUUID().toString().replaceAll("-", "") + suffixName;
-		File dest = new File(basePath + File.separator+ fileName);
+		File dest = new File(filePath + File.separator + "advertise" + File.separator+ fileName);
 		// 检测是否存在目录
 		if (!dest.getParentFile().exists()) {
 			dest.getParentFile().mkdirs();
 		}
 		try {
 			file.transferTo(dest);
-			advertiseContents.setImageurl("http://192.168.1.244/advertise/"+ fileName);
+			advertiseContents.setImageurl(fileUrl + "/advertise/" + fileName);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -109,14 +118,14 @@ public class AdvertiseController {
 		logger.info("上传的后缀名为：" + suffixName);
 		// 重命名文件名
 		fileName = UUID.randomUUID().toString().replaceAll("-", "") + suffixName;
-		File dest = new File(basePath + File.separator+ fileName);
+		File dest = new File(filePath + File.separator+ fileName);
 		// 检测是否存在目录
 		if (!dest.getParentFile().exists()) {
 			dest.getParentFile().mkdirs();
 		}
 		try {
 			file.transferTo(dest);
-			advertiseContents.setImageurl("http://192.168.1.244/advertise/"+ fileName);
+			advertiseContents.setImageurl(fileUrl + "/advertise/" + fileName);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
