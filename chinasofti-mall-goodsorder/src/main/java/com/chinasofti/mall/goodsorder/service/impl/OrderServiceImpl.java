@@ -318,24 +318,26 @@ public class OrderServiceImpl implements OrderService {
 		}
 		ChnGoodsinfo goodsinfo = childGoodsorderService.selectGoodsInfo(goodsId);//商品详情
 		BigDecimal price = goodsinfo.getPrice();
+		logger.info("-----------price="+price);
 		if(price.compareTo(goodsPrice)!=0){
 			logger.info("商品价格发生变动");
 			throw new GoodsinfoException("价格发生变动",goodsName);
 		}
-		BigDecimal goodsNum = goodsinfo.getGoodsNum();
-		if(goodsNum == null){
+		BigDecimal storeNum = goodsinfo.getStoreNum();
+		logger.info("-----------storeNum="+storeNum);
+		if(storeNum == null){
 			logger.info("获取商品数量为空或者发生异常");
 			throw new GoodsinfoException("数量为空或者发生异常",goodsName);
 		}
-		int flag = num.compareTo(goodsNum);//购买数量是否小于等于库存
+		int flag = num.compareTo(storeNum);//购买数量是否小于等于库存
 		if(flag == 1){
 			logger.info("购买数量大于库存，无法购买");
 			throw new GoodsinfoException("数量超过库存",goodsName);
 		}	
 		//更新库存
-		BigDecimal storeNum = goodsNum.subtract(num);
+		BigDecimal updateStoreNum = storeNum.subtract(num);
 		
-		int updateStore = updateStore(storeNum,goodsId);
+		int updateStore = updateStore(updateStoreNum,goodsId);
 		logger.info("updateStore="+updateStore);
 		if(updateStore !=1){
 			logger.info("更新库存发生异常");
