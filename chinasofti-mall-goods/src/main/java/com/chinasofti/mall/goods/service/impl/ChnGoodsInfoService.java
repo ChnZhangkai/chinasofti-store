@@ -70,6 +70,7 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 			List<ChnGoodsinfo>response=new ArrayList<ChnGoodsinfo>();
 			for(ChnGoodsinfo chnGoodsinfo:result){
 				List<String> fileList = new ArrayList<String>();
+				
 				String[] newFilePath = chnGoodsinfo.getFilepath().split(";");
 				for (String file : newFilePath) {
 					fileList.add(file);
