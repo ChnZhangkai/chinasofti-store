@@ -47,6 +47,7 @@ public class ChnGoodsOnlineController{
 	 */
 	@RequestMapping("/list")
 	public String selectByGoodsOnline(ChnGoodsOnline chnGoodsOnline){
+		
 		JSONObject jsonlist = chnGoodsFeignClient.selectByGoodsOnline(chnGoodsOnline);
 		return jsonlist.toString();
 	}

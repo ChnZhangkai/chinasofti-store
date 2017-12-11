@@ -1,21 +1,16 @@
 <script type="text/javascript" src="js/goodsonline.js"></script>
+<script type="text/javascript" src="js/myValidType.js"></script>
 <div id="auditlist" class="easyui-layout" data-options="fit:true">
 	<!-- Begin of toolbar -->
-	<div id="goodonline-toolbar-3" >
-	<div class="goodonline-toolbar-button">
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="onlineEdits()"plain="true">修改</a> 
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="exportExcel()" plain="true">导出</a> 
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="putaway" onclick="putaway(this)" plain="true">上架</a>
-			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="soldOut" onclick="putaway(this)" plain="true">下架</a>
-	</div>
-	
-
-		<div class="goodonline-toolbar-search" id="goodsChooseDialog" style="border-bottom: 1px solid #DDDDDD">
+	<div id="goodonline-toolbar-3">
+		<div class="goodonline-toolbar-search" style="border-bottom: 1px solid #DDDDDD">
 			<form id="searchOnlineForm" style="margin: 0px">
 				<label>商品名称</label> <input type="text" id="title" name="title" class="easyui-textbox"/>
-				<label>商户编号</label> <input type="text" id="vendorId" name="vendorId" class="easyui-textbox"/>
-				<label>商品分类</label> <input type="text" id="classId" name="classId" class="easyui-textbox" readonly="true"/>
-					<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="goodsChoose()">选择</a>
+				<label>商户名称</label><input class="easyui-textbox" id="goodsOnline-vendorFnm" name="vendorFnm" readonly="true" />
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="vendersFnmChoose()">选择</a>
+				<label>商品分类</label> 
+					<input class="easyui-textbox" id="goodsOnline-name" name="name" readonly="true" />
+					<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="classChoose()">选择</a></br>
 				<label>商品类型</label>
 				<select autocomplete="off" class="easyui-combobox"
 					data-options="panelHeight:'auto'" id="goodsType" name="type"
@@ -36,11 +31,17 @@
 				<a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="goodOnlineDoClear()">清除</a>
 			</form>
 		</div>
+		<div class="goodonline-toolbar-button">
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="onlineEdits()"plain="true">修改</a> 
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-excel" onclick="exportExcel()" plain="true">导出</a> 
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-redo" id="putaway" onclick="putaway(this)" plain="true">上架</a>
+			 <a href="#" class="easyui-linkbutton" iconCls="icon-arrow-undo" id="soldOut" onclick="putaway(this)" plain="true">下架</a>
 		
+		</div>
 	</div>
 	<!-- 数据显示datagrid -->
-	<table id="goodsOnlineinfo" class="easyui-datagrid"  title="商品在线列表"  style="height: 95%"
-		data-options="singleSelect:true,
+	<table id="goodsOnlineinfo" class="easyui-datagrid" title="商品在线列表"  style="height: 80%"
+	 	data-options="singleSelect:true,
 						 collapsible:true,
 						 url:'/goodsOnline/list',
 						 fitColumns:false,
@@ -48,8 +49,8 @@
        					 sortOrder:'desc',
        					 iconCls:'icon-man',
        				 	 striped:true,
-       					 onDblClickRow:showGoodsOnline">
-		<thead> 
+				   		 onDblClickRow:showGoodsOnline">
+	   <thead>
 			<tr>
 				<th field="title" width="13%" align="center" data-options="sortable:true">商品名称</th>
 				<th field="img" width="10%" align="center"
@@ -65,12 +66,13 @@
 			</tr>
 		</thead>
 	</table>
-
+	
 	<!-- 分页工具条 -->
 	<div id="goodsOnlinePagination" style="background:#efefef;border:1px solid #ccc;"></div>
+</div>
 
 	<!-- 商品修改表格表格 -->
-	<div id="updateDl" class="easyui-dialog"
+	<div id="goodsOnline_updateDl" class="easyui-dialog"
 		data-options="closed:true,iconCls:'icon-add',inline:true"
 		style="width: 40%; height: 40%; padding: 10px">
 		<form id="updateGoodsForm"  enctype="multipart/form-data">
@@ -230,6 +232,59 @@
 		</form>
 	</div>
 	
+	<div id="ClassTreeDlg" data-options="closed:true,resizable:true,modal:true,buttons:'#ChooseBtns'">
+		<div id="classTree" style="padding:4px;"></div>
+	</div>
+
+	<!-- 商品分类Id查询dialog按钮 -->
+	<div id="ChooseBtns">
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="Choose()">选择</a>
+	</div>
 	
 
+<!-- 商品审核商户id查询dialog -->
+<div id="FnmChooseDialog" class="easyui-dialog" title="商户列表" style="width: 600px; height: 333px;padding:0 0 0 0;"
+	 data-options="closed:true,resizable:true,modal:true,buttons:'#FnmChooseBtns'">
+	<div id="venderToolbar" style="width: 100%">
+		<!-- 商户条件搜索 -->
+		<form id="venderSearchForm" method="post">
+			<div align="left">
+				<table class="" style="width: 95%">
+					<tr>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">商户编号</td>
+						<td style="width:15%" align="left">
+							<input class="easyui-textbox" id="vender-vendorId" name="vendorId" style="width:80%"/>
+						</td>
+						<td style="width:10%;padding:0 10px 0 0;" align="right">商户名称</td>
+						<td style="width:15%" align="left">
+							<input class="easyui-textbox" id="vender-vendorSnm" name="vendorSnm" style="width:80%" />
+						</td>
+					</tr>
+					<tr>
+						<td align="center" colspan="2">
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderDoSearch()">查询</a>&nbsp;&nbsp;
+							<a class="easyui-linkbutton" iconCls="icon-edit-clear" plain="false" onclick="venderClearAll()">清空</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</form>
+	</div>
+	<!-- 商户数据表 -->
+	<table id="venderDatas" class="easyui-datagrid" singleSelect="true" style="width: 97%"
+		data-options="url:'spUser/list',fitColumns:true,pagination:true,pageSize:5,pageList:[5,10,15,20],
+       				 toolbar:'#venderToolbar',striped:true">
+		<thead>
+			<tr>
+				<th field="_ddd" width="15%" data-options="checkbox:true">选择</th>
+				<th field="vendorId" width="20%" align="center">商户编号</th>
+				<th field="vendorFnm" width="50%" align="center">商户全称</th>
+				<th field="vendorSnm" width="20%" align="center">商户简称</th>
+			</tr>
+		</thead>
+	</table>    
+</div>
+<!-- 商户id查询dialog按钮 -->
+<div id="FnmChooseBtns">
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="FnmChoose()">选择</a>
 </div>

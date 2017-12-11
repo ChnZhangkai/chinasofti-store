@@ -3,6 +3,7 @@ package com.chinasofti.mall.goods.service.impl;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.omg.Messaging.SyncScopeHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,7 +94,6 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	public int updateByPrimaryKeySelective(ChnGoodsinfoCheck chnGoodsinfoCheck) {
 		
 		int checkReviewStatus = Integer.valueOf(chnGoodsinfoCheck.getReviewStatues());
-		
 		//若未提交则更改为已提交
 		if (checkReviewStatus == 0) {
 			chnGoodsinfoCheck.setReviewStatues("3");
@@ -105,9 +105,11 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 		
 		if (checkReviewStatus == 1) {
 			ChnGoodsinfoCheck goods = findById(chnGoodsinfoCheck.getIds());
-			goods.setIds(goods.getGoodsids());
+			goods.setIds(goods.getGoodsids());	
 			goods.setGoodsids("");
 			goods.setReviewStatues("1");
+			goods.setStatus("1");
+			
 			chnGoodsinfoCheckMapper.insertGoodsOnlineSelective(goods);
 		}
 		

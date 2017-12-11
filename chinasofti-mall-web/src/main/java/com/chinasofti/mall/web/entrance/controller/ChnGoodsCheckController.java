@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,9 +121,9 @@ public class ChnGoodsCheckController {
 	 */
 	@RequestMapping("/delete/{ids}")
 	public int deleteGoodsCheckById(@PathVariable String ids){
-		
 		//删除图片文件
 		GoodsFile goodsFile = goodsFileService.selectByGoodsIds(ids);
+		System.out.println("图片:"+goodsFile);
 		String filepath = goodsFile.getFilepath();
 		String imgPath = beforePath + File.separator + filepath.substring(filepath.lastIndexOf("/")+1);
 		File file = new File(imgPath);
@@ -157,11 +155,9 @@ public class ChnGoodsCheckController {
 	 * @return
 	 */
 	@RequestMapping("/addGoods")
-	public String addGoods(HttpServletRequest request,ChnGoodsinfoCheck chnGoodsinfoCheck,HttpSession session){
-		
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-		
-		MultipartFile multipartFile = multipartHttpServletRequest.getFile("img");
+	public int addGoods(HttpServletRequest request,ChnGoodsinfoCheck chnGoodsinfoCheck,HttpSession session){
+        MultipartHttpServletRequest multipartRequest =  (MultipartHttpServletRequest) request;  
+		MultipartFile multipartFile = multipartRequest.getFile("img");
 		String imageName = multipartFile.getOriginalFilename();
 		
 		//文件上传
@@ -175,16 +171,16 @@ public class ChnGoodsCheckController {
 			e.printStackTrace();
 		}
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		PtUser user = (PtUser) session.getAttribute("user");
+		
 		
 		chnGoodsinfoCheck.setIds(UUIDUtils.getUuid());
 		chnGoodsinfoCheck.setGoodsids(UUIDUtils.getUuid());
 		chnGoodsinfoCheck.setReviewStatues("0");
 		chnGoodsinfoCheck.setCreateBy(user.getUsername());
-		chnGoodsinfoCheck.setCreateTime(sdf.format(new Date()));
-		chnGoodsinfoCheck.setStartTime(StringDateUtil.convertToSqlFormat(chnGoodsinfoCheck.getStartTime()));
-		chnGoodsinfoCheck.setEndTime(StringDateUtil.convertToSqlFormat(chnGoodsinfoCheck.getEndTime()));
+		chnGoodsinfoCheck.setCreateTime(StringDateUtil.getStringTime());
+		chnGoodsinfoCheck.setStartTime(StringDateUtil.getStringTime());
+		chnGoodsinfoCheck.setEndTime(StringDateUtil.getStringTime());
 		
 		//保存商品信息(goodsCheck表)
 		int goodsCheck = chnGoodsFeignClient.saveGoodsCheck(chnGoodsinfoCheck);
@@ -197,7 +193,50 @@ public class ChnGoodsCheckController {
 		goodsFile.setFiletype(imageName.substring(imageName.lastIndexOf(".")+1));
 		goodsFileService.insert(goodsFile);
 		
-		return String.valueOf(goodsCheck);
+		return goodsCheck;
+	}
+	
+	
+	/**
+	 * 修改商品
+	 * @return
+	 */
+	@RequestMapping("/updateGoods")
+	public int updateGoods(HttpServletRequest request,ChnGoodsinfoCheck chnGoodsinfoCheck,HttpSession session){
+		System.out.println("updateGoods:"+chnGoodsinfoCheck);
+		MultipartHttpServletRequest multipartRequest =  (MultipartHttpServletRequest) request;  
+		MultipartFile multipartFile = multipartRequest.getFile("img");
+		String imageName = multipartFile.getOriginalFilename();
+		
+		//文件上传
+		String fileName = beforePath + File.separator + imageName;
+		File file = new File(fileName);
+		try {
+			multipartFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		PtUser user = (PtUser) session.getAttribute("user");
+		
+		chnGoodsinfoCheck.setReviewStatues("0");
+		chnGoodsinfoCheck.setUpdateBy(user.getUsername());
+		chnGoodsinfoCheck.setUpdateTime(StringDateUtil.getStringTime());
+		chnGoodsinfoCheck.setStartTime(StringDateUtil.getStringTime());
+		chnGoodsinfoCheck.setEndTime(StringDateUtil.getStringTime());
+		
+		//保存商品信息(goodsCheck表)
+		int goodsCheck = chnGoodsFeignClient.updateGoodsCheck(chnGoodsinfoCheck);
+		//保存对应的图片信息(goodsFile表)
+		GoodsFile goodsFile = new GoodsFile();
+		goodsFile.setFilename(imageName);
+		goodsFile.setFilepath("/data/goods/"+ imageName);
+		goodsFile.setFiletype(imageName.substring(imageName.lastIndexOf(".")+1));
+		goodsFileService.updateByPrimaryKeySelective(goodsFile);
+		
+		return goodsCheck;
 	}
 	
 	/**
@@ -206,8 +245,10 @@ public class ChnGoodsCheckController {
 	 * @return
 	 */
 	@RequestMapping("/updateGoodsCheckStatus")
-	public int updateGoodsCheck(ChnGoodsinfoCheck chnGoodsinfoCheck){
-		
+	public int updateGoodsCheck(HttpServletRequest request,ChnGoodsinfoCheck chnGoodsinfoCheck){
+		PtUser user=(PtUser)request.getSession().getAttribute("user");
+		chnGoodsinfoCheck.setReviewBy(user.getUsername());
+		chnGoodsinfoCheck.setReviewTime(StringDateUtil.getStringTime());
 		return chnGoodsFeignClient.updateGoodsCheckReviewStatus(chnGoodsinfoCheck);
 		
 	}
@@ -264,11 +305,11 @@ public class ChnGoodsCheckController {
 	        	}if("1".equals(goods.getReviewStatues())){
 	        		goods.setReviewStatues("审核通过");
 	        	}else if("0".equals(goods.getReviewStatues())){
-	        		goods .setReviewStatues("待提交审核");
+	        		goods .setReviewStatues("待申请审核");
 	        	}else if("2".equals(goods.getReviewStatues())){
 	        		goods .setReviewStatues("审核拒绝");
-	        	}else if("3".equals(goods.getReviewStatues())){
-	        		goods .setReviewStatues("待提交审核");
+	        	}else{
+	        		goods .setReviewStatues("待审核");
 	        	}
 			}
 	  

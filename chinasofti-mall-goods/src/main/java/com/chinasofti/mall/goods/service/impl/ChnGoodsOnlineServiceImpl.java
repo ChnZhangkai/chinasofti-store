@@ -37,7 +37,6 @@ public class ChnGoodsOnlineServiceImpl implements ChnGoodsOnlineService{
 		
 		PageHelper.startPage(chnGoodsOnline.getPageNumber(),chnGoodsOnline.getPageSize());
 		List<ChnGoodsOnline> list = chnGoodsOnlineMapper.findAll(chnGoodsOnline);
-
 		js.put("rows", list);
 		js.put("total", ((Page<ChnGoodsOnline>)list).getTotal());
 		

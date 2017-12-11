@@ -35,6 +35,13 @@ $.extend($.fn.validatebox.defaults.rules, {
 	        },    
 	        message: '请输入纯数字！'
 	    },
+	    //验证整数和小数
+	    intOrFloat:{
+	    	validator: function(value){    
+	            return /^\d+(\.\d{1,3})?$/.test(value);    
+	        },    
+	        message: '请输入数字或小数！'
+	    },
 	    depName:{
 	    	validator: function(value){    
 	            return /^[A-Za-z0-9\u0391-\uFFE5]+$/.test(value);    

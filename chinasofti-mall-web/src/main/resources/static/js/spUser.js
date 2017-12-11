@@ -115,49 +115,6 @@
 	
 	}
 
-	//扩展easyui表单的验证  
-	$.extend($.fn.validatebox.defaults.rules, {  
-	 
-	    //商户编号验证  
-		vendorIds: {//value值为文本框中的值  
-	        validator: function (value) {  
-	            var reg = /^[a-zA-Z0-9]{9}$/;   
-	            return reg.test(value);  
-	        },  
-	        message: '输入商户编号格式不正确.'  
-	    },
-	   
-	    //商户全称验证
-		vendorFnm:{
-			 validator: function (value) {  
-				 var reg= /^[\u0391-\uFFE5a-zA-Z]{0,50}$/;
-				 return reg.test(value);  
-			 },
-			  message: '只能输入汉字和字母,长度不得超过50字符.' 
-		},
-	    
-	    //商户简称验证
-		vendorSnm:{
-			 validator: function (value) {  
-				 var reg= /^[\u0391-\uFFE5a-zA-Z]{0,20}$/;
-				 return reg.test(value);  
-			 },
-			  message: '只能输入汉字和字母,长度不得超过50字符.' 
-		},
-		
-		//商户负责人
-		chargeman:{
-			 validator: function (value) {  
-				 var reg= /^[\u0391-\uFFE5a-zA-Z]{0,12}$/;
-				 return reg.test(value);  
-			 },
-			  message: '只能输入汉字和字母,长度不得超过12字符.' 
-		},
-		
-		
-	})
-	
-	
 	/**
 	* Name 添加记录
 	*/
@@ -285,5 +242,45 @@
 		$("#spUserSearchForm").form("reset");
 	} 	
 	
-
+	//扩展easyui表单的验证  
+	$.extend($.fn.validatebox.defaults.rules, {  
+	 
+	    //商户编号验证  
+		vendorIds: {//value值为文本框中的值  
+	        validator: function (value) {  
+	            var reg = /^[a-zA-Z0-9]{9}$/;   
+	            return reg.test(value);  
+	        },  
+	        message: '输入商户编号格式不正确.'  
+	    },
+	   
+	    //商户全称验证
+		vendorFnm:{
+			 validator: function (value) {  
+				 var reg= /^[\u0391-\uFFE5a-zA-Z]{0,50}$/;
+				 return reg.test(value);  
+			 },
+			  message: '只能输入汉字和字母,长度不得超过50字符.' 
+		},
+	    
+	    //商户简称验证
+		vendorSnm:{
+			 validator: function (value) {  
+				 var reg= /^[\u0391-\uFFE5a-zA-Z]{0,20}$/;
+				 return reg.test(value);  
+			 },
+			  message: '只能输入汉字和字母,长度不得超过50字符.' 
+		},
+		
+		//商户负责人
+		chargeman:{
+			 validator: function (value) {  
+				 var reg= /^[\u0391-\uFFE5a-zA-Z]{0,12}$/;
+				 return reg.test(value);  
+			 },
+			  message: '只能输入汉字和字母,长度不得超过12字符.' 
+		},
+		
+		
+	})
 		
