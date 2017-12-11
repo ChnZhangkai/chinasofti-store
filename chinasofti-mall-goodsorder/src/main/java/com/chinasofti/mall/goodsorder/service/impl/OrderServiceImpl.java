@@ -318,24 +318,26 @@ public class OrderServiceImpl implements OrderService {
 		}
 		ChnGoodsinfo goodsinfo = childGoodsorderService.selectGoodsInfo(goodsId);//商品详情
 		BigDecimal price = goodsinfo.getPrice();
+		logger.info("-----------price="+price);
 		if(price.compareTo(goodsPrice)!=0){
 			logger.info("商品价格发生变动");
 			throw new GoodsinfoException("价格发生变动",goodsName);
 		}
-		BigDecimal goodsNum = goodsinfo.getGoodsNum();
-		if(goodsNum == null){
+		BigDecimal storeNum = goodsinfo.getStoreNum();
+		logger.info("-----------storeNum="+storeNum);
+		if(storeNum == null){
 			logger.info("获取商品数量为空或者发生异常");
 			throw new GoodsinfoException("数量为空或者发生异常",goodsName);
 		}
-		int flag = num.compareTo(goodsNum);//购买数量是否小于等于库存
+		int flag = num.compareTo(storeNum);//购买数量是否小于等于库存
 		if(flag == 1){
 			logger.info("购买数量大于库存，无法购买");
 			throw new GoodsinfoException("数量超过库存",goodsName);
 		}	
 		//更新库存
-		BigDecimal storeNum = goodsNum.subtract(num);
+		BigDecimal updateStoreNum = storeNum.subtract(num);
 		
-		int updateStore = updateStore(storeNum,goodsId);
+		int updateStore = updateStore(updateStoreNum,goodsId);
 		logger.info("updateStore="+updateStore);
 		if(updateStore !=1){
 			logger.info("更新库存发生异常");
@@ -378,25 +380,25 @@ public class OrderServiceImpl implements OrderService {
 		String transactionid = orderInfo.getOrderNo();//为防止重复提交，前端传有一个流水号进来
 		int count = bigGoodsorderService.countOrderNO(transactionid);
 		if(count !=0){
-			res.setRetCode("900010");
-			res.setRetMsg("该订单已提交过");
+			res.setRetCode(Constant.ORDER_EXCITE_CODE);
+			res.setRetMsg(Constant.ORDER_EXCITE_MSG);
 			return res;
 		}
 		//获取地址ID
 		String addressId = orderInfo.getAddressId();
 		if(addressId ==null){
-			res.setRetCode("900011");
-			res.setRetMsg("收件地址信息不能为空");
+			res.setRetCode(Constant.ORDER_ADDRESS_NULL);
+			res.setRetMsg(Constant.ORDER_ADDRESS_MSG);
 			return res;
 		}
 		//获取收件地址信息
 		SpSendAddress address = childGoodsorderService.queryAddress(addressId);
 		if(address ==null){
-			res.setRetCode("900012");
-			res.setRetMsg("收件地址信息异常");
+			res.setRetCode(Constant.ORDER_ADDRESS_ERROR);
+			res.setRetMsg(Constant.ORDER_ADDRESS_ERROR_MSG);
 			return res;
 		}
-		res.setRetMsg("true");
+		res.setRetMsg("true");//该校验通过
 		return res;
 	}
 
