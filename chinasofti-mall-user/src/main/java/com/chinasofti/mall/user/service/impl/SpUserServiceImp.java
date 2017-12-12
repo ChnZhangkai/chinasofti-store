@@ -36,7 +36,6 @@ public class SpUserServiceImp implements SpUserService {
 		ResponseInfo res = new ResponseInfo();
 		try {
 		    String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
-			logger.info("解密的Key="+decryptKey+"  解密后的ASE密码:"+password);
 			spUser.setPassword(password);
 			spUser.setIds(UUIDUtils.getUuid());
 			//如果已经注册，直接返回Y

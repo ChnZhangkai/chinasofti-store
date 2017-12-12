@@ -28,6 +28,15 @@
 			text : '数据正在加载中'
 		});
 
+		//商品分类选择窗口
+		$('#ClassTreeDlg').dialog({
+			title: '菜单树',//窗口标题
+			width: 400,//窗口宽度
+			height: 300,//窗口高度
+			closed: true,//窗口是是否为关闭状态, true：表示关闭
+			modal: true,//模式窗口
+			resizable:true
+		});
 	});
 
 
@@ -94,7 +103,7 @@
 		var row = $("#goodsOnlineinfo").datagrid('getSelected');
 		
 		if (row) {
-			$('#updateDl').dialog('open').dialog({
+			$('#goodsOnline_updateDl').dialog('open').dialog({
 				closed: false,
 				modal:true,
 				closable:false,
@@ -107,7 +116,7 @@
 	                text: '取消',
 	                iconCls: 'icon-cancel',
 	                handler: function () {
-	                    $('#updateDl').dialog('close');
+	                    $('#goodsOnline_updateDl').dialog('close');
 	                    document.getElementById("showGoodsPic").innerHTML = "";
 	                }
 	            }]
@@ -145,7 +154,7 @@
     		success:function(data){
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
-    				$('#updateDl').dialog('close');
+    				$('#goodsOnline_updateDl').dialog('close');
     				$('#goodsOnlinePagination').pagination('select');
     			}else{
     				$.messager.alert('信息提示','提交失败！','info');
@@ -230,7 +239,7 @@
 	//条件查询
 	function goodOnlineDoSearch(){
 		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchOnlineForm').serialize();
-		//console.info(param)
+		console.info(param)
 		$.ajax({ 
 	          type: 'POST', 
 	          url: '/goodsOnline/list', //用户请求数据的URL
@@ -272,9 +281,8 @@
 	        ue.setContent(row.content);  //赋值给UEditor 
 	      	ue.setDisabled('fullscreen');
 	          
-	        images = $.ajax({url:'/goodsOnline/reqGoodsImgPath/' + ids,type:'POST',async:false});
+	      	images = $.ajax({url:'/goodsOnline/reqGoodsImgPath/' + ids,type:'POST',async:false});
 	        var tp=$("#imgUrl").attr("src",images.responseText); 
-	    
 	        });  
 	        
 	    });
@@ -312,3 +320,67 @@
 		}
 		//document.getElementById("showpic").style.display="";
 	}
+	
+	
+	/**
+	 * 打开商品分类窗口
+	 */
+	function classChoose(){
+		//异步请求数据
+        $('#ClassTreeDlg').dialog('open');
+		$('#classTree').tree({
+			url:'/goods/findGoodsClass'
+		});
+	}
+	
+	/**
+	 * 商品分类选择
+	 */
+	function Choose(){
+		var row = $("#classTree").tree('getSelected');
+		if(row){ 
+			$("#goodsOnline-name").textbox('setValue',row.text);	
+			$("#ClassTreeDlg").dialog("close");
+		}else{
+			$.messager.alert('系统消息','请选择一项进行操作!','info');
+		}
+	}
+	
+	/**
+	 * 打开商户列表
+	 */
+	function vendersFnmChoose(){
+		$('#FnmChooseDialog').dialog('open');
+	}
+	
+	/**
+	 * 商户查询
+	 */
+	function venderDoSearch() {
+		$('#venderDataTable').datagrid('load', {
+			vendorId : $('#vender-vendorId').val(),
+			vendorSnm : $('#vender-vendorSnm').val()
+		});
+	}
+
+	/**
+	 * 商户搜索条件清空
+	 */
+	function venderClearAll() {
+		$("#venderSearchForm").form("reset");
+		$('#venderDataTable').datagrid("load", {});
+	}
+
+	/**
+	 * 商户名称选择
+	 */
+	function FnmChoose(){
+		var row = $("#venderDatas").datagrid("getSelected");
+		if(row){
+			$("#goodsOnline-vendorFnm").textbox('setValue',row.vendorFnm);
+			$("#FnmChooseDialog").dialog("close");
+		}else{
+			$.messager.alert('系统消息','请选择一项进行操作!','info');
+		}
+	}
+	

@@ -146,8 +146,8 @@
 		<if test="name != null and name != '' ">
 			and cgs.NAME like CONCAT('%',#{name},'%')
 		</if>
-		<if test="vendorSnm != null and vendorSnm != '' ">
-			and smu.VENDOR_SNM like CONCAT('%',#{vendorSnm},'%')
+		<if test="vendorFnm != null and vendorFnm != '' ">
+			and smu.VENDOR_FNM like CONCAT('%',#{vendorFnm},'%')
 		</if>
 		<if test="type != null and type != '' ">
 			and cg.TYPE = #{type}
