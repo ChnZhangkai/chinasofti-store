@@ -33,27 +33,38 @@ public class JxlsExcelView extends AbstractView {
     protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,  
             HttpServletResponse response) throws Exception {  
           
-        InputStream is = null;    
-        OutputStream os = null;  
-          
-        os = response.getOutputStream();  
-        response.setContentType(getContentType());  
-          
-        // 解决导出文件名中文乱码  
-        String filename = new String(exportFileName.getBytes("gb2312"), "iso8859-1");  
-        response.setHeader("content-disposition", "attachment;filename=" + filename + ".xls");  
-          
-        // 获取excel模板  
-        is = JxlsExcelView.class.getClassLoader().getResourceAsStream(templatePath);  
-          
-        //转换成excel并输出  
-        XLSTransformer transformer = new XLSTransformer();  
-        Workbook workbook = transformer.transformXLS(is, model);  
-          
-        //将内容写入输出流并把缓存的内容全部发出去    
-        workbook.write(os);    
-        os.flush();  
-        os.close();  
-        is.close();  
-    }  
+		InputStream is = null;
+		OutputStream os = null;
+		try {
+			os = response.getOutputStream();
+			response.setContentType(getContentType());
+
+			// 解决导出文件名中文乱码
+			String filename = new String(exportFileName.getBytes("gb2312"), "iso8859-1");
+			response.setHeader("content-disposition", "attachment;filename=" + filename + ".xls");
+
+			// 获取excel模板
+			is = JxlsExcelView.class.getClassLoader().getResourceAsStream(templatePath);
+
+			// 转换成excel并输出
+			XLSTransformer transformer = new XLSTransformer();
+			Workbook workbook = transformer.transformXLS(is, model);
+
+			// 将内容写入输出流并把缓存的内容全部发出去
+			workbook.write(os);
+			os.flush();
+			os.close();
+			is.close();
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (os != null) {
+				os.close();
+			}
+			if (is != null) {
+				is.close();
+			}
+		}
+	}
 }  
