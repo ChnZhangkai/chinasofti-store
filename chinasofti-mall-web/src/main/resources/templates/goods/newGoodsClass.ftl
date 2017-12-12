@@ -1,7 +1,7 @@
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/goodsClass.js"></script>
 <script type="text/javascript" src="js/myValidType.js"></script>
-<div id="goodsClassMain" class="easyui-layout" data-options="fit:true">
+<div id="goodsClassMain" class="easyui-layout" data-options="fit:true" style="overflow-y: auto"">
 	<div><font style="color: red;">1.左键双击快速修改分类名称<br>2.右键单击节点增删改<br>3.父节点不可直接删除,只可重命名和添加子节点,子节点可删除 <br>4.禁用分类灰字体显示</font></div>
 	
 	<!-- 菜单主体 -->
