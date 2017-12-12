@@ -1,15 +1,14 @@
 package com.chinasofti.mall.batch.writer;
 
-import java.util.List;
-
+import com.chinasofti.mall.batch.service.CancelGoodsOrdersService;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.chinasofti.mall.batch.bean.PyBigGoodsorder;
-import com.chinasofti.mall.batch.service.CancelGoodsOrdersService;
+import java.util.List;
 
 @Component("cancelGoodsOrdersWriter")
 public class CancelGoodsOrdersWriter implements ItemWriter<PyBigGoodsorder> {

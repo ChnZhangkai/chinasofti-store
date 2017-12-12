@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.chinasofti.mall.batch.mapper.PyMainGoodsOrderMapper">
-	<resultMap id="BaseResultMap"
-		type="com.chinasofti.mall.common.entity.order.PyMainGoodsorder">
-		<id column="IDS" property="ids" jdbcType="VARCHAR" />
-		<result column="BIGORDER_ID" property="bigorderId" jdbcType="VARCHAR" />
-		<result column="VENDOR_IDS" property="vendorIds" jdbcType="VARCHAR" />
-		<result column="USER_IDS" property="userIds" jdbcType="VARCHAR" />
-		<result column="CONT_POSTCODE" property="contPostcode"
-			jdbcType="VARCHAR" />
-		<result column="CONT_ADDRESS" property="contAddress" jdbcType="VARCHAR" />
-		<result column="CONT_MOBILE" property="contMobile" jdbcType="VARCHAR" />
-		<result column="CONT_PHONE" property="contPhone" jdbcType="VARCHAR" />
-		<result column="CONT_PROVINCE" property="contProvince"
-			jdbcType="VARCHAR" />
-		<result column="CONT_CITY" property="contCity" jdbcType="VARCHAR" />
-		<result column="CONT_DISTRICT" property="contDistrict"
-			jdbcType="VARCHAR" />
-		<result column="CONT_STREET" property="contStreet" jdbcType="VARCHAR" />
-		<result column="DELIVERY_TIME" property="deliveryTime"
-			jdbcType="VARCHAR" />
-		<result column="DELIVERY_DATE" property="deliveryDate"
-			jdbcType="VARCHAR" />
-		<result column="DELIVERY_WAY" property="deliveryWay" jdbcType="VARCHAR" />
-		<result column="BUYERS_MESSAGE" property="buyersMessage"
-			jdbcType="VARCHAR" />
-		<result column="ORDER_TIME" property="orderTime" jdbcType="VARCHAR" />
-		<result column="SETTLE_TIME" property="settleTime" jdbcType="VARCHAR" />
-		<result column="ISEVALUATE" property="isevaluate" jdbcType="VARCHAR" />
-		<result column="DISCOUNT" property="discount" jdbcType="DECIMAL" />
-		<result column="ORDER_TOTAL_AMT" property="orderTotalAmt"
-			jdbcType="DECIMAL" />
-		<result column="ORDER_AMT" property="orderAmt" jdbcType="DECIMAL" />
-		<result column="SETTLE_AMT" property="settleAmt" jdbcType="DECIMAL" />
-		<result column="SETTLE_STATUES" property="settleStatues"
-			jdbcType="VARCHAR" />
-		<result column="PAY_STATUS" property="payStatus" jdbcType="VARCHAR" />
-		<result column="STATUS" property="status" jdbcType="VARCHAR" />
-		<result column="PAYWAY" property="payway" jdbcType="VARCHAR" />
-		<result column="TRANSACTIONID" property="transactionid"
-			jdbcType="VARCHAR" />
-		<result column="CONT_NAME" property="contName" jdbcType="VARCHAR" />
-		<result column="SETTLE_BATCH_NO" property="settleBatchNo"
-			jdbcType="VARCHAR" />
-		<result column="WX_FEE" property="wxFee" jdbcType="DECIMAL" />
-		<result column="SETTLE_STATUS_FEE" property="settleStatusFee"
-			jdbcType="VARCHAR" />
-		<result column="SETTLE_TIME_FEE" property="settleTimeFee"
-			jdbcType="VARCHAR" />
-		<result column="SETTLE_BATCH_NO_FEE" property="settleBatchNoFee"
-			jdbcType="VARCHAR" />
-		<result column="PAY_TIME" property="payTime" jdbcType="VARCHAR" />
-		<result column="IS_TICKET" property="isTicket" jdbcType="VARCHAR" />
-		<result column="EXPRESS_COMPANY_ID" property="expressCompanyId"
-			jdbcType="VARCHAR" />
-		<result column="EXPRESS_NAME" property="expressName" jdbcType="VARCHAR" />
-		<result column="EXPRESS_ID" property="expressId" jdbcType="VARCHAR" />
-		<result column="SENDOUTTIME" property="sendouttime" jdbcType="VARCHAR" />
-		<result column="UPDATETIME" property="updatetime" jdbcType="VARCHAR" />
-		<result column="S_LATITUDE" property="sLatitude" jdbcType="VARCHAR" />
-		<result column="S_LONGITUDE" property="sLongitude" jdbcType="VARCHAR" />
-		<result column="P_LATITUDE" property="pLatitude" jdbcType="VARCHAR" />
-		<result column="P_LONGITUDE" property="pLongitude" jdbcType="VARCHAR" />
-		<result column="SENDDESC" property="senddesc" jdbcType="VARCHAR" />
-		<result column="FREIGHT_OLD" property="freightOld" jdbcType="DECIMAL" />
-		<result column="CONT_PROVINCE_CODE" property="contProvinceCode"
-			jdbcType="VARCHAR" />
-		<result column="CONT_CITY_CODE" property="contCityCode"
-			jdbcType="VARCHAR" />
-		<result column="CONT_DISTRICT_CODE" property="contDistrictCode"
-			jdbcType="VARCHAR" />
-		<result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
-		<result column="ORDER_TYPE" property="orderType" />
-		<result column="TYPE" property="afterType" />
-		<result column="VENDOR_SNM" property="vendorSnm" />
-	</resultMap>
-	<sql id="Base_Column_List">
+    <resultMap id="BaseResultMap"
+               type="com.chinasofti.mall.common.entity.order.PyMainGoodsorder">
+        <id column="IDS" property="ids" jdbcType="VARCHAR"/>
+        <result column="BIGORDER_ID" property="bigorderId" jdbcType="VARCHAR"/>
+        <result column="VENDOR_IDS" property="vendorIds" jdbcType="VARCHAR"/>
+        <result column="USER_IDS" property="userIds" jdbcType="VARCHAR"/>
+        <result column="CONT_POSTCODE" property="contPostcode"
+                jdbcType="VARCHAR"/>
+        <result column="CONT_ADDRESS" property="contAddress" jdbcType="VARCHAR"/>
+        <result column="CONT_MOBILE" property="contMobile" jdbcType="VARCHAR"/>
+        <result column="CONT_PHONE" property="contPhone" jdbcType="VARCHAR"/>
+        <result column="CONT_PROVINCE" property="contProvince"
+                jdbcType="VARCHAR"/>
+        <result column="CONT_CITY" property="contCity" jdbcType="VARCHAR"/>
+        <result column="CONT_DISTRICT" property="contDistrict"
+                jdbcType="VARCHAR"/>
+        <result column="CONT_STREET" property="contStreet" jdbcType="VARCHAR"/>
+        <result column="DELIVERY_TIME" property="deliveryTime"
+                jdbcType="VARCHAR"/>
+        <result column="DELIVERY_DATE" property="deliveryDate"
+                jdbcType="VARCHAR"/>
+        <result column="DELIVERY_WAY" property="deliveryWay" jdbcType="VARCHAR"/>
+        <result column="BUYERS_MESSAGE" property="buyersMessage"
+                jdbcType="VARCHAR"/>
+        <result column="ORDER_TIME" property="orderTime" jdbcType="VARCHAR"/>
+        <result column="SETTLE_TIME" property="settleTime" jdbcType="VARCHAR"/>
+        <result column="ISEVALUATE" property="isevaluate" jdbcType="VARCHAR"/>
+        <result column="DISCOUNT" property="discount" jdbcType="DECIMAL"/>
+        <result column="ORDER_TOTAL_AMT" property="orderTotalAmt"
+                jdbcType="DECIMAL"/>
+        <result column="ORDER_AMT" property="orderAmt" jdbcType="DECIMAL"/>
+        <result column="SETTLE_AMT" property="settleAmt" jdbcType="DECIMAL"/>
+        <result column="SETTLE_STATUES" property="settleStatues"
+                jdbcType="VARCHAR"/>
+        <result column="PAY_STATUS" property="payStatus" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="VARCHAR"/>
+        <result column="PAYWAY" property="payway" jdbcType="VARCHAR"/>
+        <result column="TRANSACTIONID" property="transactionid"
+                jdbcType="VARCHAR"/>
+        <result column="CONT_NAME" property="contName" jdbcType="VARCHAR"/>
+        <result column="SETTLE_BATCH_NO" property="settleBatchNo"
+                jdbcType="VARCHAR"/>
+        <result column="WX_FEE" property="wxFee" jdbcType="DECIMAL"/>
+        <result column="SETTLE_STATUS_FEE" property="settleStatusFee"
+                jdbcType="VARCHAR"/>
+        <result column="SETTLE_TIME_FEE" property="settleTimeFee"
+                jdbcType="VARCHAR"/>
+        <result column="SETTLE_BATCH_NO_FEE" property="settleBatchNoFee"
+                jdbcType="VARCHAR"/>
+        <result column="PAY_TIME" property="payTime" jdbcType="VARCHAR"/>
+        <result column="IS_TICKET" property="isTicket" jdbcType="VARCHAR"/>
+        <result column="EXPRESS_COMPANY_ID" property="expressCompanyId"
+                jdbcType="VARCHAR"/>
+        <result column="EXPRESS_NAME" property="expressName" jdbcType="VARCHAR"/>
+        <result column="EXPRESS_ID" property="expressId" jdbcType="VARCHAR"/>
+        <result column="SENDOUTTIME" property="sendouttime" jdbcType="VARCHAR"/>
+        <result column="UPDATETIME" property="updatetime" jdbcType="VARCHAR"/>
+        <result column="S_LATITUDE" property="sLatitude" jdbcType="VARCHAR"/>
+        <result column="S_LONGITUDE" property="sLongitude" jdbcType="VARCHAR"/>
+        <result column="P_LATITUDE" property="pLatitude" jdbcType="VARCHAR"/>
+        <result column="P_LONGITUDE" property="pLongitude" jdbcType="VARCHAR"/>
+        <result column="SENDDESC" property="senddesc" jdbcType="VARCHAR"/>
+        <result column="FREIGHT_OLD" property="freightOld" jdbcType="DECIMAL"/>
+        <result column="CONT_PROVINCE_CODE" property="contProvinceCode"
+                jdbcType="VARCHAR"/>
+        <result column="CONT_CITY_CODE" property="contCityCode"
+                jdbcType="VARCHAR"/>
+        <result column="CONT_DISTRICT_CODE" property="contDistrictCode"
+                jdbcType="VARCHAR"/>
+        <result column="FREIGHT" property="freight" jdbcType="DECIMAL"/>
+        <result column="ORDER_TYPE" property="orderType"/>
+        <result column="TYPE" property="afterType"/>
+        <result column="VENDOR_SNM" property="vendorSnm"/>
+    </resultMap>
+    <sql id="Base_Column_List">
 		IDS, BIGORDER_ID, VENDOR_IDS, USER_IDS, CONT_POSTCODE,
 		CONT_ADDRESS,
 		CONT_MOBILE,
@@ -99,15 +99,27 @@
 		FREIGHT,
 		VENDOR_SNM
 	</sql>
-	
-	<!-- 更新支付状态 -->
-	<update id="updatePayStatus" parameterType="java.lang.String">
-		update py_main_goodsorder
-		<set>
-			pay_status='2'
-		</set>
-		<where>
-			bigorder_id =#{bigOrderId}
-		</where>
-	</update>
+
+    <select id="findListByMainId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM py_main_goodsorder
+        <where>
+            BIGORDER_ID IN
+            <foreach collection="ids" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+
+    <!-- 更新支付状态 -->
+    <update id="updatePayStatus" parameterType="java.lang.String">
+        update py_main_goodsorder
+        <set>
+            pay_status='2'
+        </set>
+        <where>
+            bigorder_id =#{bigOrderId}
+        </where>
+    </update>
 </mapper>

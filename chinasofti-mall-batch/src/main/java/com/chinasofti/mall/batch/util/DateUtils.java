@@ -1,13 +1,13 @@
 package com.chinasofti.mall.batch.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 日期相关工具类
@@ -61,7 +61,7 @@ public class DateUtils {
 			Date date = sdf.parse(dateStr);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(date);
-			calendar.add(Calendar.DAY_OF_MONTH, -7);
+			calendar.add(Calendar.DAY_OF_MONTH, -700);
 			Date before7Date = calendar.getTime();
 			return sdf.format(before7Date);
 		} catch (ParseException e) {

@@ -1,14 +1,13 @@
 package com.chinasofti.mall.batch.service.impl;
 
+import com.chinasofti.mall.batch.mapper.PyBigGoodsOrderMapper;
+import com.chinasofti.mall.batch.mapper.PyMainGoodsOrderMapper;
+import com.chinasofti.mall.batch.service.CancelGoodsOrdersService;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.chinasofti.mall.batch.bean.PyBigGoodsorder;
-import com.chinasofti.mall.batch.mapper.PyBigGoodsorderMapper;
-import com.chinasofti.mall.batch.mapper.PyMainGoodsOrderMapper;
-import com.chinasofti.mall.batch.service.CancelGoodsOrdersService;
 
 @Service
 public class CancelGoodsOrdersServiceImpl implements CancelGoodsOrdersService {
@@ -16,7 +15,7 @@ public class CancelGoodsOrdersServiceImpl implements CancelGoodsOrdersService {
 	private Logger logger = LoggerFactory.getLogger(CancelGoodsOrdersServiceImpl.class);
 	
 	@Autowired
-	private PyBigGoodsorderMapper pyBigGoodsorderMapper ;
+	private PyBigGoodsOrderMapper pyBigGoodsorderMapper ;
 	
 	@Autowired
 	private PyMainGoodsOrderMapper pyMainGoodsOrderMapper ;
