@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasofti.mall.batch.mapper.ChnGoodsInfoMapper">
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo">
+    <id column="IDS" jdbcType="VARCHAR" property="ids" />
+    <result column="VENDORIDS" jdbcType="VARCHAR" property="vendorids" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="MOUTH_TRADE" jdbcType="DECIMAL" property="mouthTrade" />
+    <result column="SUBTITLE" jdbcType="VARCHAR" property="subtitle" />
+    <result column="COMMON" jdbcType="VARCHAR" property="common" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="DIS_PRICE" jdbcType="DECIMAL" property="disPrice" />
+    <result column="GOODS_CLASS_IDS" jdbcType="VARCHAR" property="goodsClassIds" />
+    <result column="STANDARD" jdbcType="VARCHAR" property="standard" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="STORE_NUM" jdbcType="DECIMAL" property="storeNum" />
+    <result column="REVIEW_DESC" jdbcType="VARCHAR" property="reviewDesc" />
+    <result column="REVIEW_STATUES" jdbcType="CHAR" property="reviewStatues" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="COLL_NUM" jdbcType="DECIMAL" property="collNum" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="START_TIME" jdbcType="VARCHAR" property="startTime" />
+    <result column="END_TIME" jdbcType="VARCHAR" property="endTime" />
+    <result column="ONLINE_TIME" jdbcType="VARCHAR" property="onlineTime" />
+    <result column="LEAVE_TIME" jdbcType="VARCHAR" property="leaveTime" />
+    <result column="BRAND_IDS" jdbcType="VARCHAR" property="brandIds" />
+    <result column="WEIGHT" jdbcType="DECIMAL" property="weight" />
+    <result column="DELIVE_WAY" jdbcType="VARCHAR" property="deliveWay" />
+    <result column="IS_DIS_VERDORNAME" jdbcType="VARCHAR" property="isDisVerdorname" />
+    <result column="IS_DIS_STANDARD" jdbcType="VARCHAR" property="isDisStandard" />
+    <result column="IS_DIS_STORE" jdbcType="VARCHAR" property="isDisStore" />
+    <result column="LIMIT_ORDER_NUM" jdbcType="DECIMAL" property="limitOrderNum" />
+    <result column="REVIEW_BY" jdbcType="VARCHAR" property="reviewBy" />
+    <result column="REVIEW_TIME" jdbcType="VARCHAR" property="reviewTime" />
+    <result column="TOTAL_TRADE" jdbcType="DECIMAL" property="totalTrade" />
+    <result column="LIMIT_USER_NUM" jdbcType="DECIMAL" property="limitUserNum" />
+    <result column="ORG_PRICE" jdbcType="DECIMAL" property="orgPrice" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="ISSHOW" jdbcType="VARCHAR" property="isshow" />
+    <result column="FILEPATH" jdbcType="VARCHAR" property="filepath" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo" extends="BaseResultMap">
+    <result column="VENDOR_SNM" jdbcType="VARCHAR" property="vendorSnm" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="VENDER_INTRO" jdbcType="VARCHAR" property="venderIntro" />
+    <result column="VENDER_EXPLAIN" jdbcType="VARCHAR" property="venderExplain" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    IDS, VENDORIDS, TITLE, MOUTH_TRADE, SUBTITLE, COMMON, PRICE, DIS_PRICE, GOODS_CLASS_IDS, 
+    STANDARD, CODE, CONTENT, STORE_NUM, REVIEW_DESC, REVIEW_STATUES, UPDATE_BY, UPDATE_TIME, 
+    CREATE_BY, CREATE_TIME, COLL_NUM, STATUS, START_TIME, END_TIME, ONLINE_TIME, LEAVE_TIME, 
+    BRAND_IDS, WEIGHT, DELIVE_WAY, IS_DIS_VERDORNAME, IS_DIS_STANDARD, IS_DIS_STORE, 
+    LIMIT_ORDER_NUM, REVIEW_BY, REVIEW_TIME, TOTAL_TRADE, LIMIT_USER_NUM, ORG_PRICE, 
+    TYPE, ISSHOW
+  </sql>
+
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.batch.mapper.PyChildGoodsOrderMapper">
+    <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.order.PyChildGoodsorder">
+        <id column="IDS" property="ids" jdbcType="VARCHAR"/>
+        <result column="MAINORDER_IDS" property="mainorderIds" jdbcType="VARCHAR"/>
+        <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR"/>
+        <result column="CUST_IDS" property="custIds" jdbcType="VARCHAR"/>
+        <result column="ORDER_STATUS" property="orderStatus" jdbcType="CHAR"/>
+        <result column="GOODS_NUM" property="goodsNum" jdbcType="DECIMAL"/>
+        <result column="GOODS_PRICE" property="goodsPrice" jdbcType="DECIMAL"/>
+        <result column="DISCOUNT" property="discount" jdbcType="DECIMAL"/>
+        <result column="ORDER_REAL_AMT" property="orderRealAmt" jdbcType="DECIMAL"/>
+        <result column="ISEVALUATE" property="isevaluate" jdbcType="CHAR"/>
+        <result column="ORDER_REVOKE" property="orderRevoke" jdbcType="VARCHAR"/>
+        <result column="REMARK1" property="remark1" jdbcType="VARCHAR"/>
+        <result column="REMARK2" property="remark2" jdbcType="VARCHAR"/>
+        <result column="REMARK3" property="remark3" jdbcType="VARCHAR"/>
+        <result column="TRANSACTIONID" property="transactionid" jdbcType="VARCHAR"/>
+        <result column="ORDER_AMT" property="orderAmt" jdbcType="DECIMAL"/>
+        <result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR"/>
+        <result column="VENDER_REMARK" property="venderRemark" jdbcType="VARCHAR"/>
+        <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR"/>
+        <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL"/>
+        <result column="FREIGHT" property="freight" jdbcType="DECIMAL"/>
+        <result column="GOODS_TITLE" property="goodsTitle"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    IDS, MAINORDER_IDS, GOODSIDS, CUST_IDS, ORDER_STATUS, GOODS_NUM, GOODS_PRICE, DISCOUNT, 
+    ORDER_REAL_AMT, ISEVALUATE, ORDER_REVOKE, REMARK1, REMARK2, REMARK3, TRANSACTIONID, 
+    ORDER_AMT, ORDER_DATE, VENDER_REMARK, ORDER_TYPE, ORDER_REAL_AMT_OLD, FREIGHT, GOODS_TITLE
+  </sql>
+    <select id="findListByMainId" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorder" resultMap="BaseResultMap">
+       SELECT
+       <include refid="Base_Column_List"  />
+        FROM
+        py_child_goodsorder
+        <where>
+            MAINORDER_IDS IN
+            <foreach collection="list" item="item" open="(" close=")" separator=",">
+                #{item.transactionid}
+            </foreach>
+        </where>
+    </select>
+</mapper>
