@@ -72,7 +72,7 @@
 			<groupId>com.github.ulisesbocchio</groupId>
 			<artifactId>jasypt-spring-boot</artifactId>
 			<version>1.5-java7</version>
-		</dependency>
+		</dependency> 
 		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

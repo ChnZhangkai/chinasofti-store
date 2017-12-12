@@ -6,7 +6,7 @@
         <console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="[%d{yyyyMMdd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
         </console>
-
+ 
         <RollingFile name="RollingFileInfo" fileName="/opt/app/servermall/logs/chinasofti-mall-goodsorder/info.log"
                      filePattern="/opt/app/servermall/logs/chinasofti-mall-goodsorder/info-%d{yyyy-MM-dd}-%i.log">
             <Filters>

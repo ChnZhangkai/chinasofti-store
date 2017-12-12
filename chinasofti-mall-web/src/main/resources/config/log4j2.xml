@@ -31,7 +31,7 @@
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
-        </RollingFile>
+        </RollingFile> 
 
         <RollingFile name="RollingFileError" fileName="$/opt/app/servermall/logs/chinasofti-mall-web/error.log"
                      filePattern="/opt/app/servermall/logs/chinasofti-mall-web/error-%d{yyyy-MM-dd}-%i.log">

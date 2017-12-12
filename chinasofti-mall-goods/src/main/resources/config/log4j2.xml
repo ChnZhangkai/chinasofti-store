@@ -32,7 +32,7 @@
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
         </RollingFile>
-
+ 
         <RollingFile name="RollingFileError" fileName="$/opt/app/servermall/logs/chinasofti-mall-goods/error.log"
                      filePattern="/opt/app/servermall/logs/chinasofti-mall-goods/error-%d{yyyy-MM-dd}-%i.log">
             <ThresholdFilter level="ERROR"/>
