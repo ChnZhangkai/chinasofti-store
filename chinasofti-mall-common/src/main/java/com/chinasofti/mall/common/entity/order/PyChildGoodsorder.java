@@ -41,6 +41,19 @@ public class PyChildGoodsorder extends PageBean {
 	 * @Fields goodsNum : 商品数量
 	 */
 	private BigDecimal goodsNum;
+	
+	/**
+	 * @Fields goodsNum : 商品名称
+	 */
+	private String goodsName;
+
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
 
 	/**
 	 * @Fields goodsPrice : 商品单价
@@ -119,90 +132,13 @@ public class PyChildGoodsorder extends PageBean {
 
 	private String goodsTitle;
 
-	private String goodsStandard;
-
-	private String goodsCode;
-
-	private String goodsType;
-
-	private String className;
-
-	private BigDecimal afterType;
-
-	private String approveStatus;
-
-	private String payWay;
-
-	public String getPayWay() {
-		return payWay;
-	}
-
-	public void setPayWay(String payWay) {
-		this.payWay = payWay;
-	}
-
-	public BigDecimal getAfterType() {
-		return afterType;
-	}
-
-	public void setAfterType(BigDecimal afterType) {
-		this.afterType = afterType;
-	}
-
-	public String getApproveStatus() {
-		return approveStatus;
-	}
-
-	public void setApproveStatus(String approveStatus) {
-		this.approveStatus = approveStatus;
-	}
-
-	public String getGoodsTitle() {
-		return goodsTitle;
-	}
-
-	public void setGoodsTitle(String goodsTitle) {
-		this.goodsTitle = goodsTitle == null ? null : goodsTitle.trim();
-	}
-
-	public String getGoodsStandard() {
-		return goodsStandard;
-	}
-
-	public void setGoodsStandard(String goodsStandard) {
-		this.goodsStandard = goodsStandard == null ? null : goodsStandard.trim();
-	}
-
-	public String getGoodsCode() {
-		return goodsCode;
-	}
-
-	public void setGoodsCode(String goodsCode) {
-		this.goodsCode = goodsCode == null ? null : goodsCode.trim();
-	}
-
-	public String getGoodsType() {
-		return goodsType;
-	}
-
-	public void setGoodsType(String goodsType) {
-		this.goodsType = goodsType == null ? null : goodsType.trim();
-	}
-
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className == null ? null : className.trim();
-	}
 
 	public String getIds() {
 		return ids;
 	}
 
 	public void setIds(String ids) {
-		this.ids = ids == null ? null : ids.trim();
+		this.ids = ids;
 	}
 
 	public String getMainorderIds() {
@@ -210,7 +146,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setMainorderIds(String mainorderIds) {
-		this.mainorderIds = mainorderIds == null ? null : mainorderIds.trim();
+		this.mainorderIds = mainorderIds;
 	}
 
 	public String getGoodsids() {
@@ -218,7 +154,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setGoodsids(String goodsids) {
-		this.goodsids = goodsids == null ? null : goodsids.trim();
+		this.goodsids = goodsids;
 	}
 
 	public String getCustIds() {
@@ -226,7 +162,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setCustIds(String custIds) {
-		this.custIds = custIds == null ? null : custIds.trim();
+		this.custIds = custIds;
 	}
 
 	public String getOrderStatus() {
@@ -234,7 +170,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus == null ? null : orderStatus.trim();
+		this.orderStatus = orderStatus;
 	}
 
 	public BigDecimal getGoodsNum() {
@@ -274,7 +210,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setIsevaluate(String isevaluate) {
-		this.isevaluate = isevaluate == null ? null : isevaluate.trim();
+		this.isevaluate = isevaluate;
 	}
 
 	public String getOrderRevoke() {
@@ -282,7 +218,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setOrderRevoke(String orderRevoke) {
-		this.orderRevoke = orderRevoke == null ? null : orderRevoke.trim();
+		this.orderRevoke = orderRevoke;
 	}
 
 	public String getRemark1() {
@@ -290,7 +226,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setRemark1(String remark1) {
-		this.remark1 = remark1 == null ? null : remark1.trim();
+		this.remark1 = remark1;
 	}
 
 	public String getRemark2() {
@@ -298,7 +234,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setRemark2(String remark2) {
-		this.remark2 = remark2 == null ? null : remark2.trim();
+		this.remark2 = remark2;
 	}
 
 	public String getRemark3() {
@@ -306,7 +242,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setRemark3(String remark3) {
-		this.remark3 = remark3 == null ? null : remark3.trim();
+		this.remark3 = remark3;
 	}
 
 	public String getTransactionid() {
@@ -314,7 +250,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setTransactionid(String transactionid) {
-		this.transactionid = transactionid == null ? null : transactionid.trim();
+		this.transactionid = transactionid;
 	}
 
 	public BigDecimal getOrderAmt() {
@@ -330,7 +266,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate == null ? null : orderDate.trim();
+		this.orderDate = orderDate;
 	}
 
 	public String getVenderRemark() {
@@ -338,7 +274,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setVenderRemark(String venderRemark) {
-		this.venderRemark = venderRemark == null ? null : venderRemark.trim();
+		this.venderRemark = venderRemark;
 	}
 
 	public String getOrderType() {
@@ -346,7 +282,7 @@ public class PyChildGoodsorder extends PageBean {
 	}
 
 	public void setOrderType(String orderType) {
-		this.orderType = orderType == null ? null : orderType.trim();
+		this.orderType = orderType;
 	}
 
 	public BigDecimal getOrderRealAmtOld() {
@@ -364,4 +300,20 @@ public class PyChildGoodsorder extends PageBean {
 	public void setFreight(BigDecimal freight) {
 		this.freight = freight;
 	}
+
+	public String getGoodsTitle() {
+		return goodsTitle;
+	}
+
+	public void setGoodsTitle(String goodsTitle) {
+		this.goodsTitle = goodsTitle;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "PyChildGoodsorder [ids=" + ids + ", goodsids=" + goodsids + ", custIds=" + custIds + ", goodsNum="
+				+ goodsNum + ", goodsName=" + goodsName + ", goodsPrice=" + goodsPrice + ", orderAmt=" + orderAmt + "]";
+	}
+	
 }

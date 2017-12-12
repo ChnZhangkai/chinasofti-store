@@ -17,6 +17,7 @@
 		<module>chinasofti-mall-goods</module>
 		<module>chinasofti-mall-zuul</module>
 		<module>chinasofti-mall-user</module>
+		<module>chinasofti-mall-batch</module>
 	</modules>
 
 	<properties>

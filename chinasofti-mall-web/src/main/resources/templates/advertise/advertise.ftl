@@ -22,7 +22,7 @@
 				<label>广告标题：</label> 
 				<input id="ad_search_title" name="title" data-options="prompt:'请输入标题名称'" class="easyui-textbox" style="width: 120px" /> 
 				<label>广告类型：</label>
-				 <select id="ad_search_type" class="easyui-combobox" style="width: 100px">
+				 <select id="ad_search_type" class="easyui-combobox" style="width: 100px" data-options="panelHeight:'auto'">
 					<option value="">请选择</option>
 					<option value="1">正常</option>
 					<option value="0">备用</option>
@@ -36,19 +36,20 @@
 	</div>
 
 	<!-- 数据显示datagrid -->
-	<table id="ad-datagrid" class="easyui-datagrid" toolbar="#advertise-toolbar"
+	<table id="ad-datagrid" style="height: 100%" class="easyui-datagrid" toolbar="#advertise-toolbar"
 		data-options="url:'/advertise/findByPage',
-    				 	 fitColumns:false,
+    				 fitColumns:false,
        				 pagination:true,
-       				 sortName:'ids',
-       				 sortOrder:'asc',
-        				 title:'广告列表',
+       				 sortName:'CREATE_TIME',
+       				 sortOrder:'desc',
+        			 title:'广告列表',
        				 iconCls:'icon-man',
        				 striped:true,
        				 singleSelect:true,
        				 collapsible:true,
        				 pageSize:15,
-       				  pageList: [15, 25, 50, 100]">
+       				 pageList: [15, 25, 50, 100],
+       				 onDblClickRow:showAdvertise">
 		<thead>
 			<tr>
 				<th field="title"  width="10%" align="center" data-options="sortable:true">标题</th>
@@ -64,78 +65,72 @@
 		</thead>
 	</table>
 	<!-- 编辑框 -->
-	<div id="ad-edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save',inline:true" style="width: 100%;height: 100%;padding:10px" buttons="#ad-edit-dialog-button">
+	<div id="ad-edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save',inline:true" style="width: 820px;height: 420px;padding:10px" buttons="#ad-edit-dialog-button">
 		<form id="ad-edit-form" method="post" enctype="multipart/form-data" >
 			<input name="ids" type="hidden">
 			<table >
 				<tr>
-					<th nowrap="nowrap" >标题*:</th>
+					<th align="right">标题*:</th>
 					<td >
-						<input style="width: 180px" type="text" required="required"  name="title" class="easyui-textbox" />
-						<span style="color:gray"><font size="1">1-100位任意字符</font></span>
+						<input style="width: 180px" type="text" required="required"  name="title" class="easyui-textbox validatebox" data-options="validType:'maxLength[30]'"/>
+						<span style="color:gray"><font size="1">任意1-30位</font></span>
 					</td>
-					<th nowrap="nowrap">链接URL*:</th>
+					<th align="right" nowrap="nowrap">链接URL*:</th>
 					<td>
 					<input style="width: 180px" data-options="required:true,validType:'url'" name="url" class="easyui-textbox easyui-validatebox" />
 						<span style="color:gray"><font size="1">请填完整链接</font></span>
 					</td>
 				</tr>
-				<tr>
-					<th nowrap="nowrap" style="padding:10px">广告类型*:</th>
+				<tr  style="line-height: 3">
+					<th align="right" nowrap="nowrap">广告类型*:</th>
 					<td>
-					<select id="_type" name="type" class="easyui-combobox" style="width: 180px">
-						<option value="" >请选择</option>
-						<option value="1">正常</option>
-						<option value="0">备用</option>
-					</select>
-			
-						<!--  <select id="" name="type" style="width: 180px" class="easyui-combobox" data-options="required:true"  >
-							<option value="" >请选择</option>
-							<option value="1">正常</option>
+						<select id="_type" name="type" class="easyui-combobox" style="width: 180px" required="required" data-options="panelHeight:'auto',limitToList:true">
+							<option value="1" selected="selected">正常</option>
 							<option value="0">备用</option>
-						</select>-->
+						</select>
 						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
-					<th nowrap="nowrap">广告位名称*:</th>
+					<th align="right" nowrap="nowrap">排序*:</th>
 					<td>
-						<input id="positionId_" name="positionId" style="width: 180px" class="easyui-combobox" required="required">
-						<span style="color:gray"><font size="1">必选</font></span>
+						<input type="text" name="descs" class="easyui-numberbox" data-options="required:true,min:0,max:9999999999" style="width: 180px" />
+						<span style="color:gray"><font size="1">1-10位任意数字</font></span>
 					</td>
 				</tr>
 				<tr>
-					<th  style="padding:10px">分类名称*:</th>
+					<th align="right" nowrap="nowrap">分类名称*:</th>
 					<td>
-						<input id="_className" name="categoryName" style="width: 180px" required="required" class="easyui-combobox">
+						<input id="_className" name="categoryName" style="width: 180px" required="required" class="easyui-combobox" data-options="limitToList:true">
+						<span style="color:gray"><font size="1">必选</font></span>
+					</td>
+					<th align="right" nowrap="nowrap">有效开始日期*:</th>
+					<td>
+						<input type="text" id="startDateTime" data-options="prompt:'请输入日期',required:'true',editable:false " name="beginTime" class="easyui-datetimebox"  style="width: 180px" />
+						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
 					
-					<th nowrap="nowrap">有效开始日期*:</th>
-					<td>
-						<input type="text" id="startDateTime" data-options="prompt:'请输入日期',required:'true'" name="beginTime" class="easyui-datetimebox"  style="width: 180px" />
-					</td>
 				</tr>
-				<tr>
-					<th nowrap="nowrap" style="padding:10px">有效结束日期*:</th>
+				<tr style="line-height: 3">
+					<th align="right" nowrap="nowrap">广告位名称*:</th>
 					<td>
-						<input type="text" id="startEndTime" data-options="prompt:'请输入日期',required:'true',validType:'equaldDate[\'#startDateTime\']'" name="endTime" class="easyui-datetimebox" style="width: 180px" />
+						<select id="positionId_" name="positionId" style="width: 180px" class="easyui-combobox" required="required" data-options="panelHeight:'auto',limitToList:true"></select>
 						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
-					<th nowrap="nowrap">排序*:</th>
+					<th align="right" nowrap="nowrap">有效结束日期*:</th>
 					<td>
-						<input type="text" name="descs" class="easyui-textbox" data-options="required:true" style="width: 180px" />
-						<span style="color:gray"><font size="1">1-10位任意字符</font></span>
+						<input type="text" id="startEndTime" data-options="prompt:'请输入日期',required:'true',editable:false ,validType:'equaldDate[\'#startDateTime\']'" name="endTime" class="easyui-datetimebox" style="width: 180px" />
+						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
 				</tr>
-				<tr>
-					<th nowrap="nowrap">图片:</th>
-					<td>
-						<input name="file" type="file" onchange="previewImage(this)"/>
+				<tr  style="padding:10px">
+					<th align="right">图片:</th>
+					<td colspan="3">
+						<input id="file" name="file" type="file" required="required" onchange="previewImage(this)"/>
 						<div id="preview">  
 			    				<img id="imghead"  style="max-width:235px;max-height:175px;width:135;height:75;" src=''>  
 						</div>
 						<span style="color:gray" ><font size="1">请务必上传比例为宽750*高180的图片，
-						以避免前端图片展现失真或形变;图片格式必须为jpg,png,gif,jpeg中的一种
+						以避免前端</br>图片展现失真或形变;图片格式必须为jpg,png,gif,jpeg中的一种
 						</font></span>
-						<span style="color:gray"><font size="1">必选</font></span>
 					</td>
 				</tr>	
 				
@@ -174,7 +169,7 @@
 				<td align="left"><img id="showImg" style="width:180px"/></td>
 				<th align="right">广告类型</th>
 				<td align="left">
-				<select id="" name="type" disabled="disabled" class="easyui-combobox" style="width:180px">
+				<select id="" name="type" readonly="readonly" class="easyui-combobox" style="width:180px">
 						<option value="">请选择</option>
 						<option value="1">正常</option>
 						<option value="0">备用</option>
@@ -193,14 +188,14 @@
 			</tr>
 			<tr>
 				<th align="right">广告尺寸提示</th>
-				<td><textarea rows="5px" cols="50px" placeholder="上传图片 请务必上传比例为宽750*高180的图片，以避免前端图片展现失真或形变;图片格式必须为jpg,png,gif,jpeg中的一种" disabled="disabled"></textarea></td>
+				<td><font style="color: gray;font-size: 10px">上传图片 请务必上传比例为宽750*高180的图片，以避免前端图片展现失真或形变;图片格式必须为jpg,png,gif,jpeg中的一种</font></td>
 				<th align="right" >广告排序</th>
 				<td><input name="descs" readonly="readonly" style="width:180px" class="easyui-textbox" /></td>
 			</tr>
 			<tr>
 				<th align="right" >前台展示状态</th>
 				<td>
-					<select name="states" disabled="disabled" class="easyui-combobox" style="width:180px">
+					<select name="states" readonly="readonly" class="easyui-combobox" style="width:180px">
 						<option value="0">未显示</option>
 						<option value="1">已显示</option>
 					</select>
@@ -225,5 +220,5 @@
 			</tr>
 			</table>
 		</form>
-</div>
+	</div>
 </div>

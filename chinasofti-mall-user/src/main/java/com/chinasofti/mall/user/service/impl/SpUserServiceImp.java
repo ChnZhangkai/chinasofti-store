@@ -6,9 +6,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.spuser.SpUser;
+import com.chinasofti.mall.common.utils.Aes;
+import com.chinasofti.mall.common.utils.Constant;
+import com.chinasofti.mall.common.utils.DealParamFunctions;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.common.utils.UUIDUtils;
@@ -24,34 +28,53 @@ public class SpUserServiceImp implements SpUserService {
 	private SpUserMapper spUserMapper;
 	
 	Logger logger = LoggerFactory.getLogger(SpUserController.class);  
+	@Value("${decryptKey}")
+	private String decryptKey;
 	
 	@Override
-	public ResponseInfo add(SpUser spUser) throws MyException{
+	public ResponseInfo add(SpUser spUser) {
 		ResponseInfo res = new ResponseInfo();
-		String userId = spUser.getUserId();
-		spUser.setIds(UUIDUtils.getUuid());
-		String countStr = countStr(userId);	
+		try {
+		    String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
+			spUser.setPassword(password);
+			spUser.setIds(UUIDUtils.getUuid());
 			//如果已经注册，直接返回Y
-		if( countStr != null){
-			logger.info("-------该账号已被注册------------");
-			res.setRetCode("400010");
-			res.setRetMsg("该账号已被注册");
-			return res;
+			if( countStr(spUser.getUserId()) != null){
+				logger.info("---该账号已被注册--");
+				res.setRetCode(Constant.SPUSERID_EXIST_CODE);
+				res.setRetMsg(Constant.SPUSERID_EXIST_MSG);
+				return res;
+			}
+			//如果没有 ，进行注册
+			int insert=spUserMapper.insert(spUser);
+			res = success(res);
+			logger.info("-------注册成功--insert="+insert);
+		} catch (Exception e) {
+			logger.error(e.toString());
+			res = error(res);
 		}
-		//如果没有 ，进行注册
-		int retIn = spUserMapper.insert(spUser);
-		res = dealResponseData(retIn);
-		logger.info("-------注册成功------------");
 		return res;
 		
 	}
 	
 	@Override
-	public ResponseInfo select(SpUser spUser) throws MyException{
+	public ResponseInfo select(SpUser spUser){
 		ResponseInfo res = new ResponseInfo();
-		SpUser user = new SpUser();
-		user = spUserMapper.select(spUser);
-		res = dealResponseData(user);
+		try {
+			String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);		
+			spUser.setPassword(password);
+			SpUser reSpUser = spUserMapper.signIn(spUser);
+			if(reSpUser ==null||reSpUser.getUserId()==null){
+				res.setRetCode(Constant.SPUSERID_PASSWORD_ERROR);
+				res.setRetMsg(Constant.SPUSERID_PASSWORD_MSG);
+				return res;
+			}
+			res = DealParamFunctions.dealResponseData(reSpUser);
+		} catch (Exception e) {
+			logger.error(e.toString());
+			res = error(res);
+		
+		}
 		return res;
 	}
 	//查询账号是否被注册
@@ -59,21 +82,6 @@ public class SpUserServiceImp implements SpUserService {
 		return spUserMapper.contByUserId(userId);
 	}
 	
-	//封装返回参数
-	private ResponseInfo dealResponseData(Object obj) {
-		ResponseInfo  response= new ResponseInfo();
-		if(obj !=null){
-			Map<String, Object> data= new HashMap<String, Object>();
-			data.put("responseInfo", obj);
-			response.setData(data);
-			response.setRetCode(MsgEnum.SUCCESS.getCode());
-			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-		}else{
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg(MsgEnum.ERROR.getMsg());
-		}
-		return response;
-	}
 	
 	@Override
 	public int save(SpUser t) {
@@ -105,5 +113,21 @@ public class SpUserServiceImp implements SpUserService {
 		return 0;
 	}
 
+	@Override
+	public SpUser isUserExist(SpUser spUser) throws MyException{
+		return spUserMapper.selectByUserId(spUser);
+	}
+	
+	
+	private ResponseInfo success(ResponseInfo res){
+		res.setRetCode(MsgEnum.SUCCESS.getCode());
+		res.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		return res;
+	}
+	private ResponseInfo error(ResponseInfo res){
+		res.setRetCode(MsgEnum.ERROR.getCode());
+		res.setRetMsg(MsgEnum.ERROR.getMsg());
+		return res;
+	}
 
 }

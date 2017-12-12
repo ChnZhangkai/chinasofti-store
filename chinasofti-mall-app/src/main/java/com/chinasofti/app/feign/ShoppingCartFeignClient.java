@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.app.hystrix.ShoppingCartFeignClientHystrix;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
+import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**
@@ -20,13 +21,13 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 public interface ShoppingCartFeignClient {
 
 	@RequestMapping(value="/shoppingCart/query/goodsList")
-	public ResponseInfo queryPyShoppingCartListByUserId(@RequestParam("userId") String userId);
+	public List<VendorShoppingcartVO> queryPyShoppingCartListByUserId(@RequestParam("userId") String userId);
 	
 	@RequestMapping(value="/shoppingCart/add/goods")
 	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList);
 
 	@RequestMapping(value="/shoppingCart/mod/goods")
-	public ResponseInfo updatePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList);
+	public int updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo);
 	
 	@RequestMapping(value="/shoppingCart/del/goods")
 	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList);

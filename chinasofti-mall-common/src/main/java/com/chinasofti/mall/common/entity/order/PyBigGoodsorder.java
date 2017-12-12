@@ -1,6 +1,7 @@
 package com.chinasofti.mall.common.entity.order;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class PyBigGoodsorder {
     private String ids;
@@ -42,19 +43,28 @@ public class PyBigGoodsorder {
     private String invoiceTitle;
     /** *  订单的发票地址 */
     private String invoiceAddress;
-    /** *  订单状态 1 有效*/
-    public static final String STATUS_ABLE = "1";
-    /** *  订单状态 0 无效*/
-    public static final String STATUS_UNABLE = "0";
-    /** *  订单的支付状态 0 未支付 */
-    public static final String PAY_STATUS_NOT = "0";
-    /** *  订单的支付状态 1 已支付 */
-    public static final String PAY_STATUS_OK = "1";
-    /** *  订单的支付状态 2 已取消 */
-    public static final String PAY_STATUS_CANCLE = "2";
     
+    private List<PyChildGoodsorder> pyChildGoodsorders;
     
-    public String getIds() {
+    private List<PyMainGoodsorder> pyMainGoodsorders;
+
+	public List<PyMainGoodsorder> getPyMainGoodsorders() {
+		return pyMainGoodsorders;
+	}
+
+	public void setPyMainGoodsorders(List<PyMainGoodsorder> pyMainGoodsorders) {
+		this.pyMainGoodsorders = pyMainGoodsorders;
+	}
+
+	public List<PyChildGoodsorder> getPyChildGoodsorders() {
+		return pyChildGoodsorders;
+	}
+
+	public void setPyChildGoodsorders(List<PyChildGoodsorder> pyChildGoodsorders) {
+		this.pyChildGoodsorders = pyChildGoodsorders;
+	}
+
+	public String getIds() {
         return ids;
     }
 
@@ -214,6 +224,14 @@ public class PyBigGoodsorder {
         this.invoiceAddress = invoiceAddress == null ? null : invoiceAddress.trim();
     }
     
+    private BigDecimal orderTotalNum;
 
+	public BigDecimal getOrderTotalNum() {
+		return orderTotalNum;
+	}
+
+	public void setOrderTotalNum(BigDecimal orderTotalNum) {
+		this.orderTotalNum = orderTotalNum;
+	}
     
 }

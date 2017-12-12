@@ -1,12 +1,13 @@
+<html>
 <head>
 <meta charset="UTF-8">
 <title>后台界面</title>
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/themes/<%=easyuiThemeName%>/easyui.css" id="easyuiTheme"/>
 <link rel="stylesheet" type="text/css" href="/css/zk.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/myicon.css" />
-<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
@@ -35,7 +36,6 @@
 				data-options="menu:'#mm',iconCls:'icon-personal'"
 				style="background-color: white;">${user.username}</button>
 			<div id="mm" style="width: 150px;">
-				<div data-options="iconCls:'icon-undo'">密码设置</div>
 				<div data-options="iconCls:'icon-redo'"><a href="/logOut">退出系统</a></div>
 			</div>
 			<button href="javascript:void(0)" id="mb" class="easyui-menubutton"
@@ -49,7 +49,7 @@
 					onclick="swicthWechatCenter()">微信平台</div>
 			</div>
 			<button href="javascript:void(0)" id="controlPanel" class="easyui-menubutton"
-				data-options="menu:'#mm3',iconCls:'icon-settings32'"
+				data-options="menu:'#mm3',iconCls:'icon-setting-blue'"
 				style="background-color: white;">控制面板</button>
 			<div id="mm3" style="width: 150px;">
 				<!-- <div data-options="iconCls:'icon-house'" onclick="switchMain()">皮肤切换</div> -->
@@ -95,3 +95,4 @@
 		后台测试界面, 粤ICP备14024044号-2, All Rights Reserved.</div>
 
 </body>
+</html>

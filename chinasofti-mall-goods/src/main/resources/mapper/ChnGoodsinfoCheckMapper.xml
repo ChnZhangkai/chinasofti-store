@@ -41,7 +41,8 @@
     <result column="ORG_PRICE" jdbcType="DECIMAL" property="orgPrice" />
     <result column="TYPE" jdbcType="VARCHAR" property="type" />
     <result column="NAME" jdbcType="VARCHAR" property="name"/>
-    <result column="VENDOR_SNM" jdbcType="VARCHAR" property="vendorSnm"/>
+    <result column="VENDOR_SNM" jdbcType="VARCHAR" property="vendorSnm"/>   
+    <result column="VENDOR_FNM" jdbcType="VARCHAR" property="vendorFnm"/>
   </resultMap>
   
   <sql id="Example_Where_Clause">
@@ -113,7 +114,7 @@
   
    <select id="findAll" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck" resultMap="BaseResultMap">
 
-	select cgc.*, cg.`NAME`, smu.VENDOR_SNM
+	select cgc.*, cg.`NAME`, smu.VENDOR_FNM
 	from chn_goodsinfo_check cgc, chn_goods_class cg, sp_merchant_user smu
 	<where>
 		cgc.GOODS_CLASS_IDS = cg.IDS and cgc.VENDORIDS = smu.VENDOR_ID
@@ -132,8 +133,8 @@
 		<if test="name != null and name != '' ">
 			and NAME like CONCAT('%',#{name},'%')
 		</if>
-		<if test="vendorSnm != null and vendorSnm != '' ">
-			and VENDOR_SNM like CONCAT('%',#{vendorSnm},'%')
+		<if test="vendorFnm != null and vendorFnm != '' ">
+			and VENDOR_FNM like CONCAT('%',#{vendorFnm},'%')
 		</if>
 		<if test="type != null and type != '' ">
 			and TYPE = #{type}
@@ -142,7 +143,21 @@
 			and REVIEW_STATUES = #{reviewStatues}
 		</if>
 	</where>
-  
+  		<if test="sort == 'startTime'">
+			order by START_TIME  ${order}
+		</if>
+		<if test="sort == 'endTime'">
+			order by END_TIME ${order}
+		</if>
+		<if test="sort == 'title'">
+			order by TITLE ${order}
+		</if>
+		<if test="sort == 'vendorFnm'">
+			order by VENDOR_FNM ${order}
+		</if>
+		<if test="sort != null and sort != '' and order != null and order != '' and sort != 'startTime' and sort != 'endTime' and sort != 'title' and sort != 'vendorFnm'">
+			order by ${sort} ${order}
+		</if>
   </select>
   
   <select id="selectByExample" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheckExample" resultMap="BaseResultMap">
@@ -167,7 +182,7 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from chn_goodsinfo_check
-    where IDS = #{ids,jdbcType=VARCHAR}
+    where GOODSIDS = #{goodsids,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheckExample">
     delete from chn_goodsinfo_check

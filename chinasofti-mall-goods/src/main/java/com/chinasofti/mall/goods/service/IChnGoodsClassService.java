@@ -4,7 +4,6 @@ package com.chinasofti.mall.goods.service;
 import java.util.List;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.common.utils.ResponseInfo;
 
 import net.sf.json.JSONObject;
 
@@ -22,5 +21,5 @@ public interface IChnGoodsClassService{
 	
 	public int deleteById(String ids);
 	
-	public ResponseInfo queryClass(String classId);
+	public List<ChnGoodsClass> queryClass(String classId);
 }

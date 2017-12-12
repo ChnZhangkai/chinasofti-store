@@ -9,6 +9,7 @@ import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorderExample;
 import com.chinasofti.mall.goodsorder.mapper.PyBigGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.BigGoodsorderService;
+import com.github.pagehelper.PageHelper;
 
 
 /**
@@ -32,7 +33,8 @@ public class BigGoodsorderServiceImpl implements BigGoodsorderService {
 
 	@Override
 	public List<PyBigGoodsorder> findAll() {
-		return null;
+		PageHelper.startPage(1, 20);
+		return bigGoodsorderMapper.selectByExample(null);
 	}
 
 	@Override
@@ -63,5 +65,17 @@ public class BigGoodsorderServiceImpl implements BigGoodsorderService {
 	public PyBigGoodsorder selectByIds(String ids) {
 		return bigGoodsorderMapper.selectByPrimaryKey(ids);
 	}
+	
+	@Override
+	public List<PyBigGoodsorder> selectByUserIds(String userId) {
+		return bigGoodsorderMapper.selectByUserIds(userId);
+	}
 
+	@Override
+	public int updateByMainOrder(String bigorderId) {
+		return bigGoodsorderMapper.updateByMainOrder( bigorderId);
+	}
+	public int countOrderNO(String orderNo){
+		return bigGoodsorderMapper.countOrderNo(orderNo);
+	}
 }

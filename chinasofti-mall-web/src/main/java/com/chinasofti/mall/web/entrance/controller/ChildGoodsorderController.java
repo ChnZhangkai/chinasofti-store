@@ -1,16 +1,24 @@
 package com.chinasofti.mall.web.entrance.controller;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
+import com.chinasofti.mall.common.utils.JxlsExcelView;
 import com.chinasofti.mall.web.entrance.feign.ChildGoodsorderFeign;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -102,6 +110,29 @@ public class ChildGoodsorderController {
 	public String selectByChildorderCondition(ChildorderCondition childorderCondition){
 		JSONObject jsonlist = childGoodsorderFeign.selectByChildorderCondition(childorderCondition);
 		return jsonlist.toString();
+	}
+	
+	/**
+	 * 商品子订单导出
+	 * @param ChildorderCondition
+	 * @return
+	 * */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/export")
+	 public ModelAndView export(@RequestParam("model") String model, PyChildGoodsorder childGoodsorder)  { 
+		// 1：准备数据  
+		JSONObject jsonlist = childGoodsorderFeign.selectByChildorderClass(childGoodsorder);
+	    //JsonObject格式 转List格式
+	    JSONArray jsonArray = jsonlist.getJSONArray("rows");
+	    List<PyChildGoodsorder> childOrderList = (List<PyChildGoodsorder>) JSONArray.toCollection(jsonArray, PyChildGoodsorder.class);
+	     System.out.println("订单："+childOrderList);
+	    
+	        // 2：数据放置到jxls需要的map中  
+	        Map<String,Object> modal = new HashMap<String,Object>();    
+	        modal.put("childOrders", childOrderList);
+	          
+	        // 3：导出文件  
+	        return new ModelAndView(new JxlsExcelView(model,"子订单管理"), modal);  	
 	}
 
 }

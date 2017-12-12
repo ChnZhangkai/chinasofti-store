@@ -1,4 +1,4 @@
-package com.chinasofti.mall.web.entrance.config;
+	package com.chinasofti.mall.web.entrance.config;
 
 import java.util.LinkedHashMap;
 

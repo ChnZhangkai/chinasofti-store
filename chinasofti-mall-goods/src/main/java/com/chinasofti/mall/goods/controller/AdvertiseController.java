@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chinasofti.mall.common.controller.BaseController;
 import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.AdvertisePosition;
-import com.chinasofti.mall.common.utils.MsgEnum;
-import com.chinasofti.mall.common.utils.ResponseInfo;
+
 import com.chinasofti.mall.goods.service.IAdvertiseService;
-import com.github.pagehelper.util.StringUtil;
 
 import net.sf.json.JSONObject;
 
@@ -164,30 +162,16 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
  * @param advertiseContents
  * @return
  */
-	@SuppressWarnings("null")
+	
 	@RequestMapping("findAdvertiseList")
-	public ResponseInfo findAdvertiseList(@RequestParam("positionId") String positionId) {
-		ResponseInfo response=null;
-		if(StringUtil.isNotEmpty(positionId)){
-			response = advertiseService.queryAdvertiseList(positionId);
-		}else{
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("位置Id不能为空！");
-		}
+	public List<AdvertiseContents> findAdvertiseList(@RequestParam("positionId") String positionId) {
 		
-		return response;
+		return advertiseService.queryAdvertiseList(positionId);	
 	}
-	@SuppressWarnings("null")
+	
 	@RequestMapping("findAdvertise")
-	public ResponseInfo findAdvertise(@RequestParam("positionId") String positionId) {
-		ResponseInfo response=null;
-		if(StringUtil.isNotEmpty(positionId)){
-			response = advertiseService.queryAdvertise(positionId);
-		}else{
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("位置Id不能为空！");
-		}
-		return response;
+	public AdvertiseContents findAdvertise(@RequestParam("positionId") String positionId) {
+		return advertiseService.queryAdvertise(positionId);
 	}
 
 }

@@ -1,15 +1,14 @@
 package com.chinasofti.mall.goods.service.impl;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
-import com.chinasofti.mall.common.utils.MsgEnum;
-import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goods.mapper.ChnGoodsInfoMapper;
 import com.chinasofti.mall.goods.service.IChnGoodsInfoService;
 
@@ -19,64 +18,66 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 	@Autowired
 	private ChnGoodsInfoMapper goodsinfoMapper;
 	
-	public ResponseInfo selectByClassId(String goodsClassIds) {
-		ResponseInfo  response= new ResponseInfo();
-		List<ChnGoodsinfo> result =goodsinfoMapper.selectByClassId(goodsClassIds);
-		response = dealAdResponseData(result);
-		return response;
-	}
-	private ResponseInfo dealAdResponseData(List<ChnGoodsinfo> result) {
-		ResponseInfo  response= new ResponseInfo();
-		if(result.size()>0){
-			Map<String, Object> data= new HashMap<String, Object>();
-			data.put("ResponseInfo", result);			
-			response.setData(data);
-			response.setRetCode(MsgEnum.SUCCESS.getCode());
-			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-		}else if(result==null||result.size()==0){
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("未找到相关数据！");
-		}else{
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg(MsgEnum.ERROR.getMsg());
+	public List<ChnGoodsinfo> selectByClassId(String goodsClassIds) {
+		List<ChnGoodsinfo>result = goodsinfoMapper.selectByClassId(goodsClassIds);
+		if(result==null){
+			return result;
 		}
-		return response;
+		List<ChnGoodsinfo>responseLis =dealResultData(result);
+		return responseLis;
+		
+	}
+	
+	public ChnGoodsInfoVo selectByGoodsId(String ids) {
+		ChnGoodsInfoVo result= goodsinfoMapper.selectByPrimaryKey(ids);
+		if(result==null){
+			return result;
+		}
+		ChnGoodsInfoVo responseVo = dealResultData(result);
+		
+		return responseVo;
+		
+	}
+    //处理多个图片路径用；号分隔的情况
+	private ChnGoodsInfoVo dealResultData(ChnGoodsInfoVo result) {
+		List<String> fileList = new ArrayList<String>();
+
+		String[] newFilePath = result.getFilepath().split(";");
+		for (String file : newFilePath) {
+			fileList.add(file);
+		}
+		result.setFilepath(fileList.toString());
+		return result;
 	}
 
-	public ResponseInfo selectByGoodsId(String ids) {
-		ResponseInfo  response= new ResponseInfo();
-		ChnGoodsinfo result = goodsinfoMapper.selectByPrimaryKey(ids);
-		response =dealResponseData(result);
-		return response;
-	}
-	//封装返回参数
-		private ResponseInfo dealResponseData(ChnGoodsinfo result) {
-			ResponseInfo  response= new ResponseInfo();
-			if(result !=null){
-				Map<String, Object> data= new HashMap<String, Object>();
-				data.put("ResponseInfo", result);
-				response.setData(data);
-				response.setRetCode(MsgEnum.SUCCESS.getCode());
-				response.setRetMsg(MsgEnum.SUCCESS.getMsg());
-			}else if("".equals(result)){
-				response.setRetCode(MsgEnum.ERROR.getCode());
-				response.setRetMsg(MsgEnum.ERROR.getMsg());
-			}else{
-				response.setRetCode(MsgEnum.ERROR.getCode());
-				response.setRetMsg("未找到相关数据！");	
-			}
-			return response;
-		}
 		/**
 	     * 根据关键字查询商品列表
 	     * @param record
 	     * @return
 	     */
 		@Override
-		public ResponseInfo selectByNameOrother(ChnGoodsinfo record) {
-			ResponseInfo  response= new ResponseInfo();
-			List<ChnGoodsinfo> result = goodsinfoMapper.selectByNameOrother(record);
-			response = dealAdResponseData(result);
+		public List<ChnGoodsinfo> selectByNameOrother(ChnGoodsinfo goodsInfo) {
+			List<ChnGoodsinfo>result = goodsinfoMapper.selectByNameOrother(goodsInfo);
+			if(result==null){
+				return result;
+			}
+			List<ChnGoodsinfo>responseLis =dealResultData(result);
+			return responseLis;
+			
+		}
+		//处理多个图片路径用；号分隔的情况
+		private List<ChnGoodsinfo> dealResultData(List<ChnGoodsinfo> result) {	
+			List<ChnGoodsinfo>response=new ArrayList<ChnGoodsinfo>();
+			for(ChnGoodsinfo chnGoodsinfo:result){
+				List<String> fileList = new ArrayList<String>();
+				
+				String[] newFilePath = chnGoodsinfo.getFilepath().split(";");
+				for (String file : newFilePath) {
+					fileList.add(file);
+				}
+				chnGoodsinfo.setFilepath(fileList.get(0));
+				response.add(chnGoodsinfo);
+			}
 			return response;
 		}
 

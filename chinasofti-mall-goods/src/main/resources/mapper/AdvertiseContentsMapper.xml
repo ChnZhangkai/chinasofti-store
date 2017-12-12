@@ -517,8 +517,20 @@
 				and TYPE = #{type,jdbcType=CHAR}
 			</if>
 		</where>
-			<if test="sort != null and sort != '' and order != null and order != ''">
+			<if test="sort == 'beginTime'">
+				order by BEGIN_TIME ${order}
+			</if>
+			<if test="sort == 'endTime'">
+				order by END_TIME ${order}
+			</if>
+			<if test="sort == 'positionName'">
+				order by POSITION_NAME ${order}
+			</if>
+			<if test="sort == 'categoryName'">
+				order by CATEGORY_NAME ${order}
+			</if>
+			<if test="sort != null and sort != '' and order != null and order != '' and sort != 'beginTime' and sort != 'endTime' and sort != 'positionName' and sort != 'categoryName'">
 				order by ${sort} ${order}
-			</if>	
+			</if>
 	</select>
 </mapper>

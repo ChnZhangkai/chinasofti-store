@@ -6,11 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorderExample.Criteria;
-import com.chinasofti.mall.goodsorder.handler.MyException;
+import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
 import com.chinasofti.mall.goodsorder.mapper.PyChildGoodsorderMapper;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
 import com.github.pagehelper.Page;
@@ -31,16 +32,27 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	
 	@Autowired
 	private PyChildGoodsorderMapper childGoodsorderMapper;
-	
-	
-	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList)throws MyException{
-		return childGoodsorderMapper.batchInsertPyChildGoodsorder(childList);
+	@Override
+	public int insertChildGoodsorderList(List<PyChildGoodsorder> childList){
+		int count = 0;
+		for(PyChildGoodsorder pyChildGoodsorder:childList){
+			count += childGoodsorderMapper.insertSelective(pyChildGoodsorder);
+		}
+		return count;
 		
 	}
-	
-	public BigDecimal selectGoodsNum(String goodsId)throws MyException{
-		return childGoodsorderMapper.selectGoodsNum(goodsId);
+	@Override
+	public SpSendAddress queryAddress(String addressId){
+		return childGoodsorderMapper.selectAddress(addressId);
+	}
+	@Override
+	public ChnGoodsinfo selectGoodsInfo(String goodsId){
+		return childGoodsorderMapper.selectGoodsInfo(goodsId);
 		
+	}
+	@Override
+	public int updateStroe(ChnGoodsinfo chnGoodsinfo){
+		return childGoodsorderMapper.updateStore(chnGoodsinfo);	
 	}
 
 	@Override
@@ -117,7 +129,22 @@ public class ChildGoodsorderServiceImpl implements ChildGoodsorderService {
 	public List<PyChildGoodsorder> selectByMainorderIds(String mainorderIds) {
 		PyChildGoodsorderExample example = new PyChildGoodsorderExample();
 		example.createCriteria().andMainorderIdsEqualTo(mainorderIds);
-		return childGoodsorderMapper.selectByExample(example);
+		return childGoodsorderMapper.selectByExample(example );
+	}
+	@Override
+	public List<PyChildGoodsorder> selectByUserIds(String userIds) {
+		PyChildGoodsorderExample example = new PyChildGoodsorderExample();
+		example.createCriteria().andCustIdsEqualTo(userIds);
+		return childGoodsorderMapper.selectByExample(example );
+	}
+	
+	@Override
+	public List<PyChildGoodsorder> selectByBigOrderIds(String bigOrderIds) {
+		return childGoodsorderMapper.selectByBigOrderIds(bigOrderIds);
+	}
+	@Override
+	public int updateCancelGoodsNum(PyChildGoodsorder pyChildGoodsorder) {
+		return childGoodsorderMapper.updateCancelGoodsNum(pyChildGoodsorder);
 	}
 
 

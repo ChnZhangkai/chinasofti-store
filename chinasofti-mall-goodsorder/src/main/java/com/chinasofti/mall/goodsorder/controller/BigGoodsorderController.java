@@ -23,15 +23,17 @@ import com.chinasofti.mall.goodsorder.service.BigGoodsorderService;
 * @date 		2017年11月3日 上午11:30:17 
 */
 @RestController
-@RequestMapping("bigorder")
+@RequestMapping("/bigorder")
 public class BigGoodsorderController implements BaseController<PyBigGoodsorder> {
 	
 	@Autowired
 	private BigGoodsorderService bigGoodsorderService;
 	
 	@Override
+	@RequestMapping("/all")
 	public List<PyBigGoodsorder> findAll() {
-		return null;
+		
+		return bigGoodsorderService.findAll();
 	}
 
 	@Override

@@ -1,9 +1,11 @@
 package com.chinasofti.app.controller;
 
+ 
+
+import java.util.List;
 
 
-import javax.servlet.http.HttpServletResponse;
-
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.GoodsInfoFeignClient;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.utils.DealParamFunctions;
+import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 /**
  * 主要查询商品列表、商品详情、和关键字查询
@@ -30,15 +35,31 @@ public class GoodsInfoController {
 	 * @param classId(ids)
 	 * @return
 	 */
+	@SuppressWarnings("null")
 	@RequestMapping("queryGoodsList")
-	public ResponseInfo queryGoodList(@RequestParam String id,HttpServletResponse response){
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		return goodsFeignClient.queryGoodList(id);
+	public ResponseInfo queryGoodList(@RequestParam("id") String id){
+		ResponseInfo response=null;
+		if(StringUtils.isEmpty(id)){
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("分类Id不能为空！");
+			return response;
+		}
+		List<ChnGoodsinfo> result =goodsFeignClient.queryGoodList(id);
+		response = DealParamFunctions.dealResponseData(result);
+		return response;
 	}
+	@SuppressWarnings("null")
 	@RequestMapping("queryGoodsInfo")
-	public ResponseInfo queryGoodsInfo(@RequestParam String ids,HttpServletResponse response){
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		return goodsFeignClient.queryGoodInfo(ids);
+	public ResponseInfo queryGoodsInfo(@RequestParam("ids") String ids){
+		ResponseInfo response = null;
+		if (StringUtils.isEmpty(ids)) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("商品Ids不能为空！");
+			return response;
+		}
+		ChnGoodsInfoVo result = goodsFeignClient.queryGoodInfo(ids);
+		response = DealParamFunctions.dealResponseData(result);
+		return response;
 	}
 	/**
 	 * 
@@ -46,10 +67,17 @@ public class GoodsInfoController {
 	 * @param response
 	 * @return
 	 */
+	@SuppressWarnings("null")
 	@RequestMapping("queryGoodsInfoList")
-	public ResponseInfo queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo, HttpServletResponse response){
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods","POST");
-		return goodsFeignClient.queryGoodsInfoList(goodsInfo);
+	public ResponseInfo queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo){
+		ResponseInfo response = null;
+		if ((StringUtils.isEmpty(goodsInfo.getTitle())&& StringUtils.isEmpty(goodsInfo.getGoodsClassIds()))||(StringUtils.isNotEmpty(goodsInfo.getTitle()) && StringUtils.isNotEmpty(goodsInfo.getGoodsClassIds()))) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("关键字title或goodsClassIds不能同时为空！");
+			return response;
+		} 
+		List<ChnGoodsinfo>result = goodsFeignClient.queryGoodsInfoList(goodsInfo);
+		response = DealParamFunctions.dealResponseData(result);
+		return response;
 	}
 }

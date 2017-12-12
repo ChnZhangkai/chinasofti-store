@@ -1,12 +1,12 @@
 package com.chinasofti.app.hystrix;
 
-
 import org.springframework.stereotype.Component;
+
 import com.chinasofti.app.feign.OrderFeignClient;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyOrderInfo;
 import com.chinasofti.mall.common.utils.ResponseInfo;
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
@@ -17,7 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 * @version
  */
 @Component
-public class OrderrFeignClientHystrix implements OrderFeignClient{
+public class OrderFeignClientHystrix implements OrderFeignClient{
 	
 
 	@Override
@@ -27,15 +27,7 @@ public class OrderrFeignClientHystrix implements OrderFeignClient{
 	
  
 	@Override
-	public ResponseInfo saveOrder(JSONObject json){
-		return new ResponseInfo();
-	}
-	
-	public ResponseInfo payOrder(PyMainGoodsorder pyMainGoodsorder){
-		return new ResponseInfo();
-	}
-	
-	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder){
+	public ResponseInfo saveOrder(PyOrderInfo orderInfo){
 		return new ResponseInfo();
 	}
 	
@@ -43,9 +35,36 @@ public class OrderrFeignClientHystrix implements OrderFeignClient{
 		return new ResponseInfo();
 	}
 
-	public ResponseInfo updateOrder(JSONObject json){
+
+	@Override
+	public ResponseInfo deleteByBigOrderId(PyBigGoodsorder pyBigGoodsorder) {
 		return new ResponseInfo();
 	}
+
+
+	@Override
+	public ResponseInfo deleteByMainOrderId(PyMainGoodsorder pyMainGoodsorder) {
+		return new ResponseInfo();
+	}
+
+
+	@Override
+	public ResponseInfo payOrder(PyBigGoodsorder pyBigGoodsorder) {
+		return new ResponseInfo();
+	}
+
+
+	@Override
+	public ResponseInfo cancelOrder(PyBigGoodsorder pyBigGoodsorder) {
+		return new ResponseInfo();
+	}
+
+
+	@Override
+	public ResponseInfo queryMainOrderList(PyMainGoodsorder pyMainGoodsorder) {
+		return new ResponseInfo();
+	}
+
 
 	
 

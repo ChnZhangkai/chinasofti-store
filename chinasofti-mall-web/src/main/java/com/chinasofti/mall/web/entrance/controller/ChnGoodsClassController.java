@@ -92,6 +92,7 @@ public class ChnGoodsClassController {
 					tree3.setId(chnGoodsClass3.getIds());
 					tree3.setText(chnGoodsClass3.getName());
 					tree3.setIconCls(chnGoodsClass3.getLogo());
+					tree3.setStates(chnGoodsClass3.getStates());
 					treeList3.add(tree3);
 				}
 				Tree tree2 = new Tree();
@@ -99,12 +100,14 @@ public class ChnGoodsClassController {
 				tree2.setText(chnGoodsClass2.getName());
 				tree2.setIconCls(chnGoodsClass2.getLogo());
 				tree2.setChildren(treeList3);
+				tree2.setStates(chnGoodsClass2.getStates());
 				treeList2.add(tree2);
 			}
 			tree.setId(chnGoodsClass.getIds());
 			tree.setText(chnGoodsClass.getName());
 			tree.setIconCls(chnGoodsClass.getLogo());
 			tree.setChildren(treeList2);
+			tree.setStates(chnGoodsClass.getStates());
 			treeList.add(tree);
 		}
 		
@@ -197,11 +200,13 @@ public class ChnGoodsClassController {
 	public int deleteGoodsClassById(@PathVariable String ids){
 		ChnGoodsClass delImg = chnGoodsClassFeignClient.selectGoodsClassById(ids);
 		String relWay = delImg.getImg();
-		String imageName = relWay.substring(relWay.lastIndexOf("/")+1);
-		String imgUrl = beforePath + File.separator + imageName;
-		File file = new File(imgUrl);
-		if (file.exists()) {
-			file.delete();
+		if (relWay != null) {
+			String imageName = relWay.substring(relWay.lastIndexOf("/")+1);
+			String imgUrl = beforePath + File.separator + imageName;
+			File file = new File(imgUrl);
+			if (file.exists()) {
+				file.delete();
+			}
 		}
 		int delById = chnGoodsClassFeignClient.deleteGoodsClassById(ids);
 		return delById;

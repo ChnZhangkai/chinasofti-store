@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface PyMainGoodsorderMapper {
+	
     int countByExample(PyMainGoodsorderExample example);
 
     int deleteByExample(PyMainGoodsorderExample example);
@@ -31,6 +32,12 @@ public interface PyMainGoodsorderMapper {
     
     List<PyMainGoodsorder> selectByMainorderCondition(MainorderCondition mainorderCondition);
     
-    //批量插人主订单
-    int batchInsertPyMainGoodsorder(@Param("mainList") List<PyMainGoodsorder> mainList);
+    List<PyMainGoodsorder> selectByUserIds(String userIds);
+
+	List<PyMainGoodsorder> selectByBigGoodsorderIds(String transactionid);
+
+	int updateByBigGoodsorder(String transactionid);
+
+	int updateOrderByPay(String transactionid);
+    
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.chinasofti.mall.common.entity.PtRole;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.Tree;
+import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.web.entrance.feign.PtRoleFeignClient;
 
 /**
@@ -58,6 +59,7 @@ public class PtRoleController {
 	public int add(PtRole ptRole,HttpSession session) {
 		PtUser user = (PtUser) session.getAttribute("user");
 		ptRole.setCreateby(user.getUsername());
+		ptRole.setCreatetime(StringDateUtil.getStringTime());
 		return ptRoleFeignClient.add(ptRole);
 	}
 	
@@ -76,7 +78,10 @@ public class PtRoleController {
 	 * @return
 	 */
 	@PostMapping("/update")
-	public int update(PtRole ptRole) {
+	public int update(PtRole ptRole,HttpSession session) {
+		PtUser user = (PtUser) session.getAttribute("user");
+		ptRole.setUpdateby(user.getUsername());
+		ptRole.setUpdatetime(StringDateUtil.getStringTime());
 		return ptRoleFeignClient.update(ptRole);
 	}
 	

@@ -146,8 +146,8 @@
 		<if test="name != null and name != '' ">
 			and cgs.NAME like CONCAT('%',#{name},'%')
 		</if>
-		<if test="vendorSnm != null and vendorSnm != '' ">
-			and smu.VENDOR_SNM like CONCAT('%',#{vendorSnm},'%')
+		<if test="vendorFnm != null and vendorFnm != '' ">
+			and smu.VENDOR_FNM like CONCAT('%',#{vendorFnm},'%')
 		</if>
 		<if test="type != null and type != '' ">
 			and cg.TYPE = #{type}
@@ -156,6 +156,21 @@
 			and cg.STATUS = #{status}
 		</if>
 	</where>
+	<if test="sort == 'startTime'">
+			order by START_TIME  ${order}
+		</if>
+		<if test="sort == 'endTime'">
+			order by END_TIME ${order}
+		</if>
+		<if test="sort == 'title'">
+			order by cg.TITLE ${order}
+		</if>
+		<if test="sort == 'storeNum'">
+			order by cg.STORE_NUM ${order}
+		</if>
+		<if test="sort != null and sort != '' and order != null and order != '' and sort != 'startTime' and sort != 'endTime' and sort != 'title' and sort != 'storeNum'">
+			order by ${sort} ${order}
+		</if>
   </select>
   
   <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsOnline" >

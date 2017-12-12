@@ -122,19 +122,39 @@
     BELONG_SITE_NAME, FREZEN_INTERVAL, SERVICE_PHONE, UPDATETIME, UPDATEBY,
     VENDER_INTRO, VENDER_EXPLAIN
   </sql>
-    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUser" >
+    select 
     <include refid="Base_Column_List" />
     from sp_merchant_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+   <where> 
+   	 <if test="vendorId != null and vendorId !='' ">
+			and VENDOR_ID like CONCAT('%',#{vendorId},'%')
+		</if>
+		<if test="vendorSnm != null and vendorSnm !='' ">
+			and VENDOR_SNM like CONCAT('%',#{vendorSnm},'%')
+		</if>
+		<if test="chargeman != null and chargeman != '' ">
+			and CHARGEMAN like CONCAT('%',#{chargeman},'%')
+		</if>
+		<if test="status != null and status != '' ">
+			and STATUS = #{status}
+		</if>
+   </where>
+   		<if test="sort == 'createTime'">
+			order by CREATE_TIME  desc
+		</if>
+		<if test="sort == 'modifyTime'">
+			order by MODIFY_TIME ${order}
+		</if>
+		<if test="sort == 'vendorId'">
+			order by VENDOR_ID ${order}
+		</if>
+		<if test="sort == 'vendorFnm'">
+			order by VENDOR_FNM ${order}
+		</if>
+		<if test="sort != null and sort != '' and order != null and order != '' and sort != 'createTime' and sort != 'modifyTime' and sort != 'vendorId' and sort != 'vendorFnm'">
+			order by ${sort} ${order}
+		</if>
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

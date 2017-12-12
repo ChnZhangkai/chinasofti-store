@@ -1,7 +1,10 @@
 package com.chinasofti.app.controller;
 
 
-import javax.servlet.http.HttpServletResponse;
+
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.AdvertiseFeignClient;
+import com.chinasofti.mall.common.entity.AdvertiseContents;
+import com.chinasofti.mall.common.utils.DealParamFunctions;
+import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 @RestController
@@ -22,17 +28,34 @@ public class AdvertiseController {
 
 
 
+	@SuppressWarnings("null")
 	@RequestMapping(value="findAdvertiseList")
-	public ResponseInfo findAdvertiseList(@RequestParam String positionId,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
+	public ResponseInfo findAdvertiseList(@RequestParam("positionId") String positionId) {
+		ResponseInfo response = null;
+		if (StringUtils.isEmpty(positionId)) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("位置Id不能为空！");
+			return response;
+		}
 		logger.info(positionId);
-		return advertiseFeignClient.findAdvertiseList(positionId);
+		 //处理广告列表返回的数据
+		List<AdvertiseContents> result = advertiseFeignClient.findAdvertiseList(positionId);
+		response = DealParamFunctions.dealResponseData(result);
+		return response;
 	}
+	@SuppressWarnings("null")
 	@RequestMapping(value="findAdvertise")
-	public ResponseInfo findAdvertise(@RequestParam String positionId,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
+	public ResponseInfo findAdvertise(@RequestParam("positionId") String positionId) {
+		ResponseInfo response=null;
+		if(StringUtils.isEmpty(positionId)){
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("位置Id不能为空！");
+			return response;
+		}
 		logger.info("查询位置ID"+positionId);
-		return advertiseFeignClient.findAdvertise(positionId);
+		AdvertiseContents result = advertiseFeignClient.findAdvertise(positionId);
+		response = DealParamFunctions.dealResponseData(result);
+		return response;
 	}
    
 

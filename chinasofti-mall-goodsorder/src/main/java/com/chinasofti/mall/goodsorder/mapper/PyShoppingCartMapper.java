@@ -1,14 +1,14 @@
 package com.chinasofti.mall.goodsorder.mapper;
 
 import java.util.List;
-
+ 
 import org.apache.ibatis.annotations.Param;
 
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
 
 public interface PyShoppingCartMapper {
-	public int deleteByPrimaryKey(String ids);
+	public int deleteByPrimaryKey(PyShoppingCart record); 
 
 	public int insert(PyShoppingCart record);
 

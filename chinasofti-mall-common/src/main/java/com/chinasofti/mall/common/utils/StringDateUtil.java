@@ -79,12 +79,33 @@ public class StringDateUtil {
 		String longStringDate = sdf.format(date);
 		return longStringDate;
 	}
-	/**Date类型转换为
+	/**获取当前日期转换为
 	 * "yyyy-MM-dd HH:mm:ss"
 	 * @return
 	 */
 	public static String getStringTime() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat(pageFormat);
+		return format.format(new Date());
+	}
+	
+	
+	/**
+	 * 获取当前日期转换为
+	 * "yyyy-MM-dd" 
+	 * @return
+	 * */
+	public static String getCurrentDate() {
+		SimpleDateFormat format = new SimpleDateFormat(pageShortFormat);
+		return format.format(new Date());
+	}
+	
+	/**
+	 * 获取当前日期转换为
+	 * "HH:mm:ss" 
+	 * @return
+	 * */
+	public static String getCurrentTime() {
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 		return format.format(new Date());
 	}
 }

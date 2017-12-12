@@ -15,7 +15,7 @@
     <result column="CREATETIME" property="createTime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column" >
-    IDS, USER_IDS, NAME, MOBILE,ZIPCODE,PROVINCE,CITY,DISTRICT,STREET,ADDRESS,CREATETIME
+    IDS,USER_IDS,NAME,MOBILE,ZIPCODE,PROVINCE,CITY,DISTRICT,STREET,ADDRESS,CREATETIME
   </sql>
   
   <select id="selectSentAddressList" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -26,7 +26,7 @@
   </select>
 
   <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.chinasofti.mall.common.entity.spuser.SpSendAddress" >
-    insert into sp_cont_address 
+ insert into sp_cont_address 
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="addressId != null" >
         IDS,
@@ -136,6 +136,4 @@
     where user_ids = #{userId,jdbcType=VARCHAR} 
       and ids = #{addressId,jdbcType=VARCHAR}
   </update>
-  
-  
 </mapper>

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
-import com.chinasofti.mall.common.utils.ResponseInfo;
+
 import com.chinasofti.mall.goods.service.IChnGoodsClassService;
 
 import net.sf.json.JSONObject;
@@ -92,7 +92,8 @@ public class ChnGoodsClassController {
 	 * @return
 	 */
 	@RequestMapping(value = "queryClass")
-	public ResponseInfo queryClass(@RequestParam("classId") String classId){
+	public List<ChnGoodsClass> queryClass(@RequestParam("classId") String classId){
+		
 		return GoodsClassService.queryClass(classId);
 		
 	}

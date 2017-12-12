@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyOrderInfo;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 import com.chinasofti.mall.goodsorder.service.OrderService;
 
@@ -34,14 +34,27 @@ public class OrderController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 	/**
-	 * 删除订单
+	 * 删除大订单 未付款前的订单删除
+	 * 只做订单状态修改，并没有删除
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/del")
-	@ApiOperation(value="删除订单", notes="报文示例：{'orderId':'1001'}")
-	public ResponseInfo deleteOrderById(@RequestParam("orderId") String orderId) {
-		ResponseInfo responseInfo = orderService.deleteOrderById(orderId);
+	@RequestMapping(value = "/del/big", method = RequestMethod.POST)
+	@ApiOperation(value="删除订单", notes="报文示例：{'orderId':'1001','userId':'1001'}")
+	public ResponseInfo deleteByBigOrderId(@RequestBody PyBigGoodsorder pyBigGoodsorder) {
+		ResponseInfo responseInfo = orderService.deleteByBigOrderId(pyBigGoodsorder);
+		return responseInfo;
+	}
+	/**
+	 * 删除主订单 付款之后按照商家陈列删除订单商品信息
+	 * 只做订单状态修改，并没有删除
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/del/main", method = RequestMethod.POST)
+	@ApiOperation(value="删除订单", notes="报文示例：{'orderId':'1001','userId':'1001'}")
+	public ResponseInfo deleteByMainOrderId(@RequestBody PyMainGoodsorder pyMainGoodsorder) {
+		ResponseInfo responseInfo = orderService.deleteByMainOrderId(pyMainGoodsorder);
 		return responseInfo;
 	}
 	
@@ -52,9 +65,9 @@ public class OrderController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/add", method = RequestMethod.POST)
-	public ResponseInfo saveOrder(@RequestBody JSONObject json) {
+	public ResponseInfo saveOrder(@RequestBody PyOrderInfo orderInfo) {
 		logger.info("*******************1*********************");
-		ResponseInfo responseInfo = orderService.saveOrder(json);
+		ResponseInfo responseInfo = orderService.saveOrder(orderInfo);
 		return responseInfo;
 	}
 
@@ -64,9 +77,9 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value="/pay", method = RequestMethod.POST)
-	@ApiOperation(value="支付订单", notes="报文示例：{'orderId':'1001','userId':'chin'}")
-	public ResponseInfo payOrder(@RequestBody PyMainGoodsorder pyMainGoodsorder) {
-		ResponseInfo responseInfo = orderService.payOrder(pyMainGoodsorder);
+	@ApiOperation(value="支付订单", notes= "报文示例：{'transactionid':'1001','userId':'abc123','ids':'abc123'}")
+	public ResponseInfo payOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder) {
+		ResponseInfo responseInfo = orderService.payOrder(pyBigGoodsorder);
 		return responseInfo;
 	}
 	/**
@@ -75,9 +88,9 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value="/cancel", method = RequestMethod.POST)
-	@ApiOperation(value="取消订单", notes="报文示例：{'ids':'1','orderId':'1001','userId':'chin'}")
+	@ApiOperation(value="取消订单", notes="报文示例：{'bigorderId': '2016081117540600001332','ids': '2bd9c1371f3740e68d44ca4704bb153b','userIds': '2ece18eab354480b928ce91d5f3813f0'}")
 	public ResponseInfo cancelOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder) {
-		ResponseInfo responseInfo = orderService.cancelOrder( pyBigGoodsorder);
+		ResponseInfo responseInfo = orderService.cancelOrder(pyBigGoodsorder);
 		return responseInfo;
 	}
 	
@@ -92,11 +105,18 @@ public class OrderController {
 		ResponseInfo responseInfo = orderService.queryOrderListByUserId(userId);
 		return responseInfo;
 	}
+
 	
-	@RequestMapping(value="/update", method = RequestMethod.POST)
-	public ResponseInfo updateOrder(JSONObject json) {
-		ResponseInfo responseInfo = orderService.updateOrder(json);
+	/**
+	 * 删除主订单 付款之后按照商家陈列删除订单商品信息
+	 * 只做订单状态修改，并没有删除
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/main", method = RequestMethod.POST)
+	@ApiOperation(value="主订单", notes="报文示例：{'orderId':'1001','userId':'1001'}")
+	public ResponseInfo queryMainOrderList(@RequestBody PyMainGoodsorder pyMainGoodsorder) {
+		ResponseInfo responseInfo = orderService.queryMainOrderList(pyMainGoodsorder);
 		return responseInfo;
 	}
-
 }

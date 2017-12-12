@@ -1,12 +1,19 @@
 package com.chinasofti.mall.common.entity.order;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import com.chinasofti.mall.common.utils.PageBean;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 
 public class PyMainGoodsorder extends PageBean{
 	
-    /**
+    @Override
+	public String toString() {
+		return "PyMainGoodsorder [ids=" + ids + ", bigorderId=" + bigorderId + ", userIds=" + userIds + ", payStatus="
+				+ payStatus + ", status=" + status + ", transactionid=" + transactionid + "]";
+	}
+	/**
     * @Fields ids : 主键
     */
     private String ids;
@@ -263,27 +270,9 @@ public class PyMainGoodsorder extends PageBean{
     */
     private BigDecimal freight;
     
-    private String orderType;
-    
-    private BigDecimal afterType;
     
     private String vendorSnm;
 
-    public String getOrderType() {
-		return orderType;
-	}
-
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
-	}
-
-	public BigDecimal getAfterType() {
-		return afterType;
-	}
-
-	public void setAfterType(BigDecimal afterType) {
-		this.afterType = afterType;
-	}
 
 	public String getVendorSnm() {
 		return vendorSnm;
@@ -717,4 +706,14 @@ public class PyMainGoodsorder extends PageBean{
     public void setFreight(BigDecimal freight) {
         this.freight = freight;
     }
+    private List<PyChildGoodsorder> pyChildGoodsorders;
+
+	public List<PyChildGoodsorder> getPyChildGoodsorders() {
+		return pyChildGoodsorders;
+	}
+
+	public void setPyChildGoodsorders(List<PyChildGoodsorder> pyChildGoodsorders) {
+		this.pyChildGoodsorders = pyChildGoodsorders;
+	}
+    
 }

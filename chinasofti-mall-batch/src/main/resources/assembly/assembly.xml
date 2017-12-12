@@ -1,0 +1,46 @@
+<assembly>
+	<id>make-assembly</id>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	<!--tar.gz压缩包下是否生成和项目名相同的根目录 -->
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<!--是否把本项目添加到依赖文件夹下 -->
+			<useProjectArtifact>true</useProjectArtifact>
+			<outputDirectory>lib</outputDirectory>
+			<!--将scope为runtime的依赖包打包 -->
+			<scope>runtime</scope>
+			<!--指定最后生成依赖的名称格式，解决snapshot版本依赖引用不到的问题 -->
+			<outputFileNameMapping>${artifact.artifactId}-${artifact.baseVersion}.${artifact.extension}
+			</outputFileNameMapping>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+		<!-- 打包配置文件 -->
+		<fileSet>
+			<directory>src/main/resources/config</directory>
+			<includes>
+				<include>*.xml</include>
+				<include>*.properties</include>
+			</includes>
+			<outputDirectory>config</outputDirectory>
+		</fileSet>
+		<!-- 打包启动脚本 -->
+		<fileSet>
+			<directory>src/main/resources/bin</directory>
+			<outputDirectory>bin</outputDirectory>
+		</fileSet>
+		<!-- 打包mapper -->
+		<fileSet>
+			<directory>src/main/resources/mapper</directory>
+			<outputDirectory>mapper</outputDirectory>
+		</fileSet>
+		<!-- 打包job -->
+		<fileSet>
+			<directory>src/main/resources/job</directory>
+			<outputDirectory>job</outputDirectory>
+		</fileSet>
+	</fileSets>
+</assembly>

@@ -103,5 +103,4 @@ public class MainorderCondition extends PageBean {
 	public void setSettleTimeFee(String settleTimeFee) {
 		this.settleTimeFee = settleTimeFee;
 	}
-
 }

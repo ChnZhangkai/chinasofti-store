@@ -33,10 +33,6 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	@Autowired
 	private PyMainGoodsorderMapper mainGoodsorderMapper;
 	
-	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList)throws MyException{
-		return mainGoodsorderMapper.batchInsertPyMainGoodsorder(mainList);
-	}
-
 	@Override
 	public int save(PyMainGoodsorder mainGoodsorder) {
 		
@@ -97,6 +93,7 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 
 		PageHelper.startPage(mainGoodsorder.getPage(),mainGoodsorder.getRows());
 		List<PyMainGoodsorder> list = mainGoodsorderMapper.selectByExample(example);
+		PageHelper.startPage(mainGoodsorder.getPageNumber(),mainGoodsorder.getPageSize());
 
 		js.put("rows", list);
 		js.put("total", ((Page<PyMainGoodsorder>)list).getTotal());
@@ -134,11 +131,36 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 		return mainGoodsorderMapper.selectByExample(example).get(0);
 	}
 
+
 	@Override
-	public List<PyMainGoodsorder> selectByUserIds(String userIds) {
-		PyMainGoodsorderExample example = new PyMainGoodsorderExample();
-		example.createCriteria().andUserIdsEqualTo(userIds);
-		return mainGoodsorderMapper.selectByExample(example);
+	public int insertMainGoodsorderList(List<PyMainGoodsorder> mainList) throws MyException {
+		int count = 0;
+		for (PyMainGoodsorder pyMainGoodsorder : mainList) {
+			count += mainGoodsorderMapper.insertSelective(pyMainGoodsorder);
+		}
+		return count;
 	}
 
+	@Override
+	public List<PyMainGoodsorder> selectByUserIds(String userIds,int pageNum, int pageSize) {
+		//分页展示数据
+		PageHelper.startPage(pageNum, pageSize);
+		return mainGoodsorderMapper.selectByUserIds(userIds);
+	}
+
+	@Override
+	public List<PyMainGoodsorder> selectByBigGoodsorderIds(String transactionid) {
+		return mainGoodsorderMapper.selectByBigGoodsorderIds(transactionid);
+	}
+
+	@Override
+	public int updateByBigGoodsorder(String transactionid) {
+		return mainGoodsorderMapper.updateByBigGoodsorder(transactionid);
+	}
+
+	@Override
+	public int updateOrderByPay(String transactionid) {
+		return mainGoodsorderMapper.updateOrderByPay(transactionid);
+	}
+	
 }

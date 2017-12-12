@@ -1,29 +1,3 @@
-<script type="text/javascript" src="js/common.js"></script>
-	<div class="easyui-layout" data-options="fit:true" style="padding:4px;overflow:auto">
-	    
-	    <!-- 角色操作菜单树 -->
-	    <div style="padding:4px;height: 300px">
-			<ul id="menuOperator" class="easyui-tree" style="height: 300px"></ul>
-		</div>
-		
-		<!-- 父节点操作(包含添加) -->
-		<div id="menuOperatorMenu" class="easyui-menu" style="width:120px;" data-options="onClick:menuHandler">
-		    <div data-options="iconCls:'icon-add',name:'add'">添加</div>
-		    <div class="menu-sep"></div>
-		    <div data-options="iconCls:'icon-edit',name:'rename'">重命名</div>
-		    <div class="menu-sep"></div>
-		    <div data-options="iconCls:'icon-remove',name:'delete'">删除</div>
-		</div>
-		
-		<!-- 底层节点操作 -->
-		<div id="menuOperatorMenu2" class="easyui-menu" style="width:120px;" data-options="onClick:menuHandler">
-		    <div data-options="iconCls:'icon-edit',name:'rename'">重命名</div>
-		    <div class="menu-sep"></div>
-		    <div data-options="iconCls:'icon-remove',name:'delete'">删除</div>
-		</div>
-	</div>
-
-<script type="text/javascript">
 	$(function(){
 		//文档对象加载完毕之后，找到id=menuOperator的标签，然后在它上面创建树
 		$("#menuOperator").tree({
@@ -57,6 +31,12 @@
 	        onAfterEdit : function(node){
 		        	//当前节点对象
 		        	var _tree = $(this);
+		        	var nodeTextLength = (node.text).length;
+		        	if(nodeTextLength<2 || nodeTextLength>10){
+		        		$.messager.alert('提示','操作失败!名称长度必须在2-10之间!');
+		        		$('#menuOperator').tree('reload');
+		        		return ;
+		        	}
 		        	//如果说当前节点的id=0，执行如下代码
 		        	if(node.id == 0){
 		        		// 新增节点
@@ -77,6 +57,7 @@
 						},
 						error: function(){
 			        			$.messager.alert('提示','新增失败!');
+			        			$('#menuOperator').tree('reload');
 						}
 					});
 		        	}else{
@@ -88,6 +69,7 @@
 		        			data: {ids:node.id,names:node.text},
 		        			error: function(){
 		        				  $.messager.alert('提示','重命名失败!');
+		        				  $('#menuOperator').tree('reload');
 		        			}
 		        		});
 		        	}
@@ -122,7 +104,7 @@
 			tree.tree('beginEdit',node.target);
 			//如果当前菜单的name属性=delete，则执行如下删除流程操作
 		}else if(item.name === "delete"){
-			$.messager.confirm('确认','确定删除名为 '+node.text+' 的权限吗？',function(r){
+			$.messager.confirm('确认','确定删除名为 '+node.text+' 的操作吗？',function(r){
 				if(r){
 					$.ajax({
 	     			   type: "POST",
@@ -140,4 +122,3 @@
 			});
 		}
 	}
-</script>
