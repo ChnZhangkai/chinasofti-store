@@ -272,7 +272,8 @@
 	</div>
 	<!-- 商户数据表 -->
 	<table id="venderDatas" class="easyui-datagrid" singleSelect="true" style="width: 97%"
-		data-options="url:'spUser/list',fitColumns:true,pagination:true,pageSize:5,pageList:[5,10,15,20],
+		data-options="url:'/spUser/list',
+				fitColumns:true,pagination:true,pageSize:5,pageList:[5,10,15,20],
        				 toolbar:'#venderToolbar',striped:true">
 		<thead>
 			<tr>
