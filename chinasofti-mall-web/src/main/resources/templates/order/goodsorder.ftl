@@ -90,9 +90,8 @@
 			</div>
 		</form>
 	</div>
-
 	<!-- 主订单数据表格 -->
-	<table id="mainorderDataGrid" class="easyui-datagrid" singleSelect="true"
+	<table id="mainorderDataGrid" class="easyui-datagrid" style="min-height:500px" singleSelect="true"
 		data-options="url:'mainorder/selectall',fitColumns:true,pagination:true,sortName:'transactionid',
        				 sortOrder:'asc',toolbar:'#mainorderToolbar',title:'主订单列表',iconCls:'icon-man',striped:true,
        				 collapsible:true,checkOnSelect: false,selectOnCheck: true">
@@ -279,7 +278,7 @@
 	</div>
 
 	<!-- 子订单模块数据表 -->
-	<table id="childorderDataGrid" class="easyui-datagrid" singleSelect="true" 
+	<table id="childorderDataGrid" class="easyui-datagrid" style="min-height:500px" singleSelect="true" 
 		   data-options="url:'childorder/selectall',fitColumns:true,pagination:true,sortName:'TRANSACTIONID',sortOrder:'asc',
        				 toolbar:'#childorderToolbar',title:'子订单列表',iconCls:'icon-man',striped:true,collapsible:true">
 		<thead>

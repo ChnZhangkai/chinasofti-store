@@ -767,20 +767,20 @@
 	SELECT
 	g.`IDS`,g.`VENDORIDS`,g.`TITLE`,g.`PRICE`,g.`GOODS_CLASS_IDS`,g.`DIS_PRICE`,g.`COMMON`,g.`STANDARD`,g.`CONTENT`,g.`STORE_NUM`,g.`REVIEW_DESC`,g.`REVIEW_STATUES`,g.`STATUS`,g.`START_TIME`,g.`END_TIME`,f.`FILEPATH`
 	FROM chn_goodsinfo g,goods_file f
-	WHERE 1=1 AND g.`IDS`=f.`GOODSIDS`
-	and GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR}
+	WHERE 1=1 AND g.`IDS`=f.`GOODSIDS`AND g.`STATUS`="1" AND g.`REVIEW_STATUES`="1"
+	AND g.`GOODS_CLASS_IDS` = #{goodsClassIds,jdbcType=VARCHAR}
   </select>
    <select id="selectByNameOrother" parameterType="com.chinasofti.mall.common.entity.goods.ChnGoodsinfo" resultMap="BaseResultMap">
 	SELECT
 	g.`IDS`,g.`VENDORIDS`,g.`TITLE`,g.`PRICE`,g.`GOODS_CLASS_IDS`,g.`DIS_PRICE`,g.`COMMON`,g.`STANDARD`,g.`CONTENT`,g.`STORE_NUM`,
 	g.`REVIEW_DESC`,g.`REVIEW_STATUES`,g.`STATUS`,g.`START_TIME`,g.`END_TIME`,f.`FILEPATH`
 	FROM chn_goodsinfo g,goods_file f
-	WHERE 1=1 AND g.`IDS`=f.`GOODSIDS`
+	WHERE 1=1 AND g.`IDS`=f.`GOODSIDS`AND g.`STATUS`="1" AND g.`REVIEW_STATUES`="1"
 	<if test="title !=null">
-     <![CDATA[ AND TITLE like CONCAT('%','${title}','%') ]]>
+     <![CDATA[ AND g.TITLE like CONCAT('%','${title}','%') ]]>
 	</if>
 	<if test="goodsClassIds != null">
-		AND GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR}
+		AND g.GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR}
 	</if>
   </select>
 </mapper>

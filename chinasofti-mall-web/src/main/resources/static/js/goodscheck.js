@@ -511,6 +511,8 @@
 	function vendersChoose(){
 		var row = $("#venderDataTable").datagrid("getSelected");
 		if(row){
+			$("#add-vendorFnm").textbox('setValue',row.vendorFnm);
+			$("#update-vendorFnm").textbox('setValue',row.vendorFnm);
 			$("#goodsCheck-vendorFnm").textbox('setValue',row.vendorFnm);
 			$("#vendersChooseDialog").dialog("close");
 		}else{

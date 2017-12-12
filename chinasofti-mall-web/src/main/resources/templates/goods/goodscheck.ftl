@@ -92,7 +92,10 @@
 							<option value="1">活动商品</option>
 					</select></td>
 					<td align="right">商户名称</td>
-					<td><select style="width: 180px;" class="easyui-combobox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto',panelMaxHeight:'200px'" id="vendorids" name="vendorids"></select></td>
+					<td>
+					<input class="easyui-textbox" id="add-vendorFnm" name="vendorFnm" readonly="true" />
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+					</td>
 				</tr>
 				<tr>
 					<td align="right">开始日期</td>
@@ -192,7 +195,10 @@
 							<option value="1">活动商品</option>
 					</select></td>
 					<td align="right">商户名称</td>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto',panelMaxHeight:'200px'" id="vendorids" name="vendorids"></select></td>
+					<td>
+					<input class="easyui-textbox" id="update-vendorFnm" name="vendorFnm" readonly="true" />
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+					</td>
 				</tr>
 				<tr>
 					<td align="right">开始日期</td>
@@ -286,9 +292,14 @@
 					<td><select style="width: 180px;" class="easyui-combobox" readonly="true" data-options="panelHeight:'auto'" id="type" name="type">
 							<option value="0">普通商品</option>
 							<option value="1">活动商品</option>
-					</select></td>
+						</select>
+					</td>
+					
 					<td align="right">商户名称</td>
-					<td><select style="width: 180px;" class="easyui-combobox" readonly="true" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="vendorids" name="vendorids"></select></td>
+					<td>
+						<input class="easyui-textbox" id="update-vendorFnm" name="vendorFnm" readonly="true" />
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+					</td>
 				</tr>
 				<tr>
 					<td align="right">开始日期</td>
@@ -427,8 +438,12 @@
 	</div>
 	<!-- 商户数据表 -->
 	<table id="venderDataTable" class="easyui-datagrid" singleSelect="true" style="width: 97%"
-		data-options="url:'spUser/list',fitColumns:true,pagination:true,pageSize:5,pageList:[5,10,15,20],
-       				 toolbar:'#venderToolbar',striped:true">
+		data-options="url:'/spUser/list',
+					fitColumns:true,
+					pagination:true,
+					pageSize:5,
+					pageList:[5,10,15,20],
+       			 toolbar:'#venderToolbar',striped:true">
 		<thead>
 			<tr>
 				<th field="_ddd" width="15%" data-options="checkbox:true">选择</th>
