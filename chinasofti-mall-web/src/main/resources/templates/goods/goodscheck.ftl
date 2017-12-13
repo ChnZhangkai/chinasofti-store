@@ -64,8 +64,8 @@
 		</thead>
 	</table>
 	<!-- 分页工具条 -->
-	<div id="goodsCheckPagination"
-		style="background: #efefef; border: 1px solid #ccc;"></div>
+	<div id="goodsCheckPagination" style="background: #efefef; border: 1px solid #ccc;"></div>
+</div>
 
 	<!-- 商品添加表格 -->
 	<div id="addDl" class="easyui-dialog"

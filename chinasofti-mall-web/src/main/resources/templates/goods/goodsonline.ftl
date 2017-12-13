@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<!-- 数据显示datagrid -->
-	<table id="goodsOnlineinfo" class="easyui-datagrid" title="商品在线列表"  style="height: 80%"
+	<table id="goodsOnlineinfo" class="easyui-datagrid" title="商品在线列表"  style="height: 95%" toolbar="#goodonline-toolbar-3"
 	 	data-options="singleSelect:true,
 						 collapsible:true,
 						 url:'/goodsOnline/list',

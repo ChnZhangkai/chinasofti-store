@@ -333,10 +333,6 @@
 		seachId = '#searchCheckForm';
 		//调用初始化方法	
 		tdload(tableID, pageId, url);
-
-		$.messager.progress({
-			text : '数据正在加载中'
-		});
 		
 		//商品分类选择窗口
 		$('#goodsClassTreeDlg').dialog({
