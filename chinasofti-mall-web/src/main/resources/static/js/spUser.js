@@ -1,31 +1,5 @@
 	
-	/**
-	 * 全局加载数据
-	 */
-	$(function() {
-		$.messager.show({
-			title : '提示',
-			msg : '该充值智商了!'
-		});
-
-		//获取表格datagrid的ID属性,
-		var tableID = "spuserinfo";
-		//获取分页工具条元素
-		var pageId = $('#spUserPagination');
-		//此处设置自己的url地址
-		var url = '/spUser/list';
-		//分页查询时传递查询条件
-		seachId = '#spUserSearchForm';
-		//调用初始化方法	
-		tdload(tableID, pageId, url);
-
-		$.messager.progress({
-			text : '数据正在加载中'
-		});
-
-	});
-	
-	/**
+/**
 	 * 编辑器
 	 * */
 	var ue = UE.getEditor('containeSpuser',{
@@ -68,8 +42,7 @@
 					success:function(data){
 						if(data){
 							$.messager.alert('信息提示','删除成功！','info');
-							//$('#spuserinfo').datagrid('reload')
-							$('#spUserPagination').pagination('select');
+							$('#spuserinfo').datagrid('reload')
 						}
 						else
 						{
@@ -93,7 +66,7 @@
 			closed: false,
 			closable:false,
 			modal:true,
-            title: "添加商户用户",
+            title: "添加商户",
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
@@ -125,9 +98,9 @@
 			type:'POST',
 			success:function(data){
 				if(data > 0){
-					$('#spUserPagination').pagination('select');
-					$('#spUserAddDialog').dialog('close');
 					$.messager.alert('信息提示','提交成功！','info');
+					$('#spUserAddDialog').dialog('close');
+					$('#spuserinfo').datagrid('reload');
 				}
 				else
 				{
@@ -149,7 +122,7 @@
 				closed: false,
 				modal:true,
 				closable:false,
-	            title: "修改商户用户",
+	            title: "修改商户",
 	            buttons: [{
 	                text: '确定',
 	                iconCls: 'icon-ok',
@@ -181,7 +154,7 @@
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
     				$('#spUserUpdateDialog').dialog('close');
-    				$('#spUserPagination').pagination('select');
+    				$('#spuserinfo').datagrid('reload');
     			}else{
     				$.messager.alert('信息提示','提交失败！','info');
     			}
@@ -210,29 +183,12 @@
 	*模糊查询
 	*/
 	function spUserDoSearch(){
-		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#spUserSearchForm').serialize();
-		console.info(param)
-		$.ajax({ 
-	          type: 'POST', 
-	          url: '/spUser/list', //用户请求数据的URL
-	          data: param, 
-	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
-	              alert("没有查询到数据"); 
-	          }, 
-	          success: function (data) { 
-	        	  
-	        	  data =eval("("+data+")");
-	        	  
-	        	  if(data.total == 0){
-	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
-	        	  }
-	        	  
-	              $('#spuserinfo').datagrid('loadData', data.rows);
-	               $('#spUserPagination').pagination({ 
-			    	  total:data.total
-			    	  });
-	          }
-	       });
+		$("#spuserinfo").datagrid("load", {
+			'vendorId' : $('#spuser-vendorId').val(),
+			'vendorSnm' : $('#spuser-vendorSnm').val(),
+			'chargeman' : $('#spuser-chargeman').val(),
+			'status':$('#classstates').val()
+		});
 	}
 	
 	/*
@@ -282,5 +238,6 @@
 		},
 		
 		
-	})
+	}) 
+	
 		

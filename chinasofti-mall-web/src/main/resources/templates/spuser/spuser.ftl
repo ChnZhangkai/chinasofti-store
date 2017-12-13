@@ -12,9 +12,9 @@
         </div>
        	<div class="spUser-toolbar-search">
 		<form id="spUserSearchForm">
-			<label>商户编号：</label> <input type="text" id="vendorId" name="vendorId" class="easyui-textbox"/>
-			<label>商户名称：</label> <input type="text" id="vendorSnm" name="vendorSnm" class="easyui-textbox"/>
-			<label>商户负责人：</label> <input type="text" id="chargeman" name="chargeman" class="easyui-textbox"/>
+			<label>商户编号：</label> <input type="text" id="spuser-vendorId" name="vendorId" class="easyui-textbox"/>
+			<label>商户简称：</label> <input type="text" id="spuser-vendorSnm" name="vendorSnm" class="easyui-textbox"/>
+			<label>商户负责人：</label> <input type="text" id="spuser-chargeman" name="chargeman" class="easyui-textbox"/>
 			<label>状态：</label> <select autocomplete="off" class="easyui-combobox" data-options="panelHeight:'auto'" id="classstates" name="status" style="width: 125px">
 									<option value=""  selected="selected">请选择</option>
 									<option value="0" >未开启</option>
@@ -27,15 +27,19 @@
 	</div>
     
 	<!-- 数据显示datagrid -->
-	<table id="spuserinfo" class="easyui-datagrid" title="商户用户列表"  style="height: 80%"
-			data-options="singleSelect:true,
-						 collapsible:true,
-						 url:'/spUser/list',
+	<table id="spuserinfo" class="easyui-datagrid"  style="height:85%" toolbar="SpUser-toolbar-2"
+			data-options="url:'/spUser/findByPage',
 						 fitColumns:false,
+       					 pagination:true,
        					 sortName:'CREATE_TIME',
        					 sortOrder:'desc',
-       					 iconCls:'icon-man',
-       				 	 striped:true,
+       					 title:'商户列表',
+       				 	 iconCls:'icon-man',
+		   				 striped:true,
+		   				 singleSelect:true,
+						 collapsible:true,
+		   				 pageSize:20,
+		   				 pageList: [20, 40, 60, 100],
        					onDblClickRow:showSpUser">
 		<thead>
 		<tr>
@@ -49,8 +53,7 @@
 		</tr>
 		</thead>
 	</table>
-	<!-- 分页工具条 -->
-	<div id="spUserPagination" style="background:#efefef;border:1px solid #ccc;"></div>
+
 </div>
 
 <!-- 添加表格 -->
@@ -125,10 +128,14 @@
             
             <tr>
                 <td align="right">商户介绍:</td>
-                <td><textarea id="venderIntro" name="venderIntro" class="wu-textarea"  data-options="validType:['length[0,500]']" missingMessage="长度不能超过500"/></textarea></td>
+                <td><textarea id="venderIntro" name="venderIntro" class="easyui-validatebox"  
+                style="width:300px; border-radius: 5px 5px 5px 5px;height:100px;    border: 1px solid #D3D3D3;"
+                 data-options="validType:['length[0,200]']" missingMessage="长度不能超过200"/></textarea></td>
                 
                 <td align="right">售后说明:</td>
-                <td><textarea id="venderExplain" name="venderExplain" class="wu-textarea" data-options="validType:['length[0,500]']" missingMessage="长度不能超过500"/></textarea></td>
+                <td><textarea id="venderExplain" name="venderExplain" class="easyui-validatebox" 
+                 style="width:300px; border-radius: 5px 5px 5px 5px;height:100px;    border: 1px solid #D3D3D3;"
+                data-options="validType:['length[0,200]']" missingMessage="长度不能超过200"/></textarea></td>
 
             </tr>
 			
@@ -145,7 +152,7 @@
 			<tr>
 				<td align="right">商户编号:</td>
 				<td><input id="vendorId" name="vendorId"
-				 class="easyui-textbox" readonly="true" style="width:180px"/></td>
+				 class="easyui-textbox" disabled="true" style="width:180px"/></td>
 				
 				<td align="right">商户全称:</td>
                 <td><input id="vendorFnm" name="vendorFnm"  class="easyui-textbox" style="width:180px"
@@ -189,35 +196,40 @@
                 <td><input id="belongSiteName" name="belongSiteName" class="easyui-textbox" style="width:180px" /></td>
                 
                 <td align="right">创建人:</td>
-                <td><input id="createOper" name="createOper" class="easyui-textbox" style="width:180px" /></td>
+                <td><input id="createOper" name="createOper" class="easyui-textbox" style="width:180px;" disabled="true" /></td>
             </tr>
              <tr>
                 <td align="right">创建时间:</td>
                 <td><input id="createTime" name="createTime" 
-                   class="easyui-datebox" style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" readonly="readonly"/>
+                   class="easyui-datebox" style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" disabled="true"/>
                 </td>
                 
                 <td align="right">更新时间:</td>
                 <td><input id="updatetime" name="updatetime" 
-				class="easyui-datetimebox" style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" readonly="readonly"/>
+				class="easyui-datetimebox" style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" disabled="true"/>
                 </td>
             </tr>
             <tr>
             	
                 <td align="right">更新人:</td>
-                <td><input id="updateby" name="updateby" class="easyui-textbox" style="width:180px" readonly="true"/>
+                <td><input id="updateby" name="updateby" class="easyui-textbox" style="width:180px" disabled="true"/>
                 </td>
                 
                 <td align="right">售后服务电话:</td>
                 <td><input id="servicePhone" name="servicePhone" class="easyui-textbox" style="width:180px"/></td>
             </tr>
             
-           <tr>
+            
+            <tr>
                 <td align="right">商户介绍:</td>
-                <td><textarea id="venderIntro" name="venderIntro" class="wu-textarea" /></textarea></td>
+                <td><textarea id="venderIntro" name="venderIntro" class="easyui-validatebox"  
+                style="width:300px; border-radius: 5px 5px 5px 5px;height:100px;    border: 1px solid #D3D3D3;"
+                 data-options="validType:['length[0,200]']" missingMessage="长度不能超过200"/></textarea></td>
                 
                 <td align="right">售后说明:</td>
-                <td><textarea id="venderExplain" name="venderExplain" class="wu-textarea" /></textarea></td>
+                <td><textarea id="venderExplain" name="venderExplain" class="easyui-validatebox" 
+                 style="width:300px; border-radius: 5px 5px 5px 5px;height:100px;    border: 1px solid #D3D3D3;"
+                data-options="validType:['length[0,200]']" missingMessage="长度不能超过200"/></textarea></td>
 
             </tr>
 			
@@ -231,21 +243,21 @@
 			<tr>
 				<td  align="right">商户编号:</td>
 				<td><input id="vendorId" name="vendorId"
-				 class="easyui-textbox" readonly="true" style="width:180px"/></td>
+				 class="easyui-textbox" disabled="true" style="width:180px"/></td>
 				
 				<td align="right">商户全称:</td>
                 <td><input id="vendorFnm" name="vendorFnm" 
-                class="easyui-textbox" readonly="readonly" style="width:180px" /></td>
+                class="easyui-textbox" disabled="true" style="width:180px" /></td>
 			</tr>
 			<tr>
 				<td align="right">商户简称:</td>
                 <td><input id="vendorSnm" name="vendorSnm" 
-                class="easyui-textbox" readonly="readonly" style="width:180px" /></td>
+                class="easyui-textbox" disabled="true" style="width:180px" /></td>
                 
                 <td align="right">状态:</td>
 				<td>
 					<select id="status" name="status"
-					 style="width: 75px;" class="easyui-combobox" data-options="panelHeight:'auto'" readonly="true" >
+					 style="width: 75px;" class="easyui-combobox" data-options="panelHeight:'auto'" disabled="true" >
 							<option value="0">未开启</option>
 							<option value="1">已启用</option>
 					</select>
@@ -254,11 +266,11 @@
 			<tr>
 				<td align="right">商户负责人:</td>
                 <td><input id="chargeman" name="chargeman" 
-                 class="easyui-textbox" readonly="readonly" style="width:180px"class="wu-text" /></td>
+                 class="easyui-textbox" disabled="true" style="width:180px"class="wu-text" /></td>
                  
            		<td align="right">联系手机号:</td>
                 <td><input id="mobile" name="mobile" 
-                 class="easyui-textbox" readonly="readonly" style="width:180px" /></td>
+                 class="easyui-textbox" disabled="true" style="width:180px" /></td>
                 
 			</tr>
 			
@@ -266,49 +278,53 @@
 			 <tr>
                 <td align="right">通讯地址:</td>
                 <td><input id="address" name="address" 
-                 class="easyui-textbox" readonly="readonly" style="width:180px" /></td>
+                 class="easyui-textbox" disabled="true" style="width:180px" /></td>
                  
                 <td align="right">邮箱:</td>
                 <td><input id="email" name="email"
-               class="easyui-textbox" readonly="readonly" style="width:180px" /></td>
+               class="easyui-textbox" disabled="true" style="width:180px" /></td>
                 
             </tr>
             <tr>
                 <td align="right">拓展网点名称:</td>
                 <td><input id="belongSiteName" name="belongSiteName"
-                  class="easyui-textbox" readonly="readonly" style="width:180px" /></td>
+                  class="easyui-textbox" disabled="true" style="width:180px" /></td>
                 
                  <td align="right">创建人:</td>
-                <td><input id="createOper" name="createOper" class="easyui-textbox" style="width:180px" /></td>
+                <td><input id="createOper" name="createOper" class="easyui-textbox" style="width:180px" disabled="true"/></td>
             </tr>
              <tr>
                 <td align="right">创建时间:</td>
                 <td><input id="createTime" name="createTime" 
-                   class="easyui-datebox" style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" readonly="readonly"/>
+                   class="easyui-datebox" style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" disabled="true"/>
                 </td>
                 
                 <td align="right">更新时间:</td>
                 <td><input id="updatetime" name="updatetime" 
-				class="easyui-datetimebox" style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" readonly="readonly"/>
+				class="easyui-datetimebox" style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" disabled="true"/>
                 </td>
             </tr>
                <tr>
                 <td align="right">更新人:</td>
                 <td><input id="updateby" name="updateby"
- 					class="easyui-textbox" readonly="readonly" style="width:180px"/>
+ 					class="easyui-textbox" disabled="true" style="width:180px"/>
                 </td>
                 
                 <td align="right">售后服务电话:</td>
                 <td><input id="servicePhone" name="servicePhone" 
-                class="easyui-textbox" readonly="readonly" style="width:180px" /></td>
+                class="easyui-textbox" disabled="true" style="width:180px" /></td>
             </tr>
             
             <tr>
                 <td align="right">商户介绍:</td>
-                <td><textarea id="venderIntro" name="venderIntro" class="wu-textarea" readonly="readonly"/></textarea></td>
+                <td><textarea id="venderIntro" name="venderIntro" class="easyui-validatebox"  
+                style="width:300px; border-radius: 5px 5px 5px 5px;height:100px;    border: 1px solid #D3D3D3;"
+                 disabled="true" /></textarea></td>
                 
                 <td align="right">售后说明:</td>
-                <td><textarea id="venderExplain" name="venderExplain" class="wu-textarea"  readonly="readonly"/></textarea></td>
+                <td><textarea id="venderExplain" name="venderExplain" class="easyui-validatebox" 
+                 style="width:300px; border-radius: 5px 5px 5px 5px;height:100px;    border: 1px solid #D3D3D3;"
+                 disabled="true"/></textarea></td>
 
             </tr>
 			
