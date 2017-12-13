@@ -1,8 +1,10 @@
 package com.chinasofti.mall.user.mapper;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample;
 
@@ -36,4 +38,10 @@ public interface SpMerchantUserMapper {
 	    int updateByPrimaryKeySelective(SpMerchantUser record);
 
 	    int updateByPrimaryKey(SpMerchantUser record);
+
+		/**
+		 * @param paramMap
+		 * @return
+		 */
+		List<AdvertiseContents> findByPage(Map<String, Object> paramMap);
 }

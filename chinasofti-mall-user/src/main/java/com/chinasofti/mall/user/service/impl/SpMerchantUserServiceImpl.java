@@ -1,10 +1,13 @@
 package com.chinasofti.mall.user.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
 import com.chinasofti.mall.user.mapper.SpMerchantUserMapper;
 import com.chinasofti.mall.user.service.SpMerchantUserService;
@@ -66,6 +69,20 @@ public class SpMerchantUserServiceImpl implements SpMerchantUserService {
 		js.put("total", ((Page<SpMerchantUser>)list).getTotal());
 		
 		return js;
+	}
+
+
+
+	@Override
+	public Map<String, Object> findByPage(Map<String, Object> paramMap) {
+		// 执行分页查询
+		PageHelper.startPage(Integer.parseInt(paramMap.get("page").toString()),
+				Integer.parseInt(paramMap.get("rows").toString()));
+		List<AdvertiseContents> list = spUserMapper.findByPage(paramMap);
+		Map<String,Object> map = new HashMap<>();
+		map.put("rows", list);
+		map.put("total", ((Page<AdvertiseContents>) list).getTotal());
+		return map;
 	}
 
 	

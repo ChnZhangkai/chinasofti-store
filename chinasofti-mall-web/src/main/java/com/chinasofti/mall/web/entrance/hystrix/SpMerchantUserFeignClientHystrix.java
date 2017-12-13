@@ -4,6 +4,7 @@
 package com.chinasofti.mall.web.entrance.hystrix;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -54,6 +55,11 @@ public class SpMerchantUserFeignClientHystrix implements SpMerchantUserFeignClie
 	@Override
 	public int spUserUpdate(SpMerchantUser spMerchantUser) {
 		return 0;
+	}
+
+	@Override
+	public String findByPage(Map<String, Object> paramMap) {
+		return "服务已断开";
 	}
 
 }

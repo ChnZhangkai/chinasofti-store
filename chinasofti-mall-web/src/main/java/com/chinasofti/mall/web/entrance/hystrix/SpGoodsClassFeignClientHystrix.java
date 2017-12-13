@@ -2,6 +2,7 @@ package com.chinasofti.mall.web.entrance.hystrix;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -104,6 +105,12 @@ public class SpGoodsClassFeignClientHystrix implements ChnGoodsFeignClient{
 	public List<ChnGoodsClass> findGoodsClass(String ids) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	
+	@Override
+	public String findByPage(Map<String, Object> map) {
+		return "服务已断开";
 	}
 
 
