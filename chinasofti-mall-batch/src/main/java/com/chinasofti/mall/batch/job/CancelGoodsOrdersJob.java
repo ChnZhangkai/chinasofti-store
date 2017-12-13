@@ -11,7 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CancelGoodsOrdersJob {
@@ -24,11 +23,9 @@ public class CancelGoodsOrdersJob {
 		JobLauncher launcher = (JobLauncher) context.getBean("jobLauncher");
 		Job job = (Job) context.getBean("cancelGoodsOrdersJob");
 		
-//		Date now = new Date() ;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd") ;
+		Date now = new Date() ;
 
 		try {
-			Date now = sdf.parse("20171114");
 			logger.info("CancelGoodsOrdersJob在 "+DateUtils.getCurrentTime()+"开始执行...");
 			/* 运行Job */
 			JobExecution result = launcher.run(job,new JobParametersBuilder()

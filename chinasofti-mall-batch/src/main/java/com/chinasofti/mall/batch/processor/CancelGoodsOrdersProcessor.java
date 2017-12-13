@@ -14,8 +14,19 @@ public class CancelGoodsOrdersProcessor implements ItemProcessor<PyBigGoodsorder
 	@Override
 	public PyBigGoodsorder process(PyBigGoodsorder item) throws Exception {
 		logger.info("当前处理的订单号是: "+item.getTransactionid());
-		
-		//修改订单状态为 已取消-2
+
+		/**
+		 * 变更商品信息
+		 */
+
+
+		/**
+		 * 变更主订单信息
+		 */
+
+		/**
+		 * 变更大订单信息
+		 */
 		item.setPayStatus(Constants.PAY_STATUS_2);
 		
 		return item;

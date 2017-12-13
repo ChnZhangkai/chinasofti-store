@@ -73,7 +73,6 @@
         <result column="FREIGHT" property="freight" jdbcType="DECIMAL"/>
         <result column="ORDER_TYPE" property="orderType"/>
         <result column="TYPE" property="afterType"/>
-        <result column="VENDOR_SNM" property="vendorSnm"/>
     </resultMap>
     <sql id="Base_Column_List">
 		IDS, BIGORDER_ID, VENDOR_IDS, USER_IDS, CONT_POSTCODE,
@@ -96,30 +95,28 @@
 		UPDATETIME, S_LATITUDE, S_LONGITUDE, P_LATITUDE,
 		P_LONGITUDE, SENDDESC,
 		FREIGHT_OLD, CONT_PROVINCE_CODE, CONT_CITY_CODE, CONT_DISTRICT_CODE,
-		FREIGHT,
-		VENDOR_SNM
+		FREIGHT
 	</sql>
 
-    <select id="findListByMainId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="findListByMainId" parameterType="com.chinasofti.mall.common.entity.order.PyBigGoodsorder" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM py_main_goodsorder
         <where>
-            BIGORDER_ID IN
-            <foreach collection="ids" item="item" open="(" separator="," close=")">
-                #{item}
-            </foreach>
+            BIGORDER_ID ='${pyBigGoodsorder.transactionid}'
         </where>
     </select>
 
-    <!-- 更新支付状态 -->
-    <update id="updatePayStatus" parameterType="java.lang.String">
+    <!-- 更新主订单 -->
+    <update id="updateMainGoodsOrder" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorder">
         update py_main_goodsorder
         <set>
-            pay_status='2'
+            pay_status=${pyMainGoodsorder.payStatus}
+            ,
+            UPDATETIME='${pyMainGoodsorder.updatetime}'
         </set>
         <where>
-            bigorder_id =#{bigOrderId}
+            bigorder_id =${pyMainGoodsorder.bigorderId}
         </where>
     </update>
 </mapper>

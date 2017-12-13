@@ -1,20 +1,24 @@
 package com.chinasofti.mall.batch.mapper;
 
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface PyMainGoodsOrderMapper {
+
 	/**
-	 * 根据大订单号更新
-	 * @param bigOrderIds
+	 * 更新主订单表
+	 * @param pyMainGoodsorder
 	 */
-	void updatePayStatus(@Param("bigOrderId") String bigOrderIds) ;
+	void updateMainGoodsOrder(@Param("pyMainGoodsorder") PyMainGoodsorder pyMainGoodsorder) ;
+
 
 	/**
 	 * 根据大订单号检索出相应的主订单
+	 * @param pyBigGoodsorder
 	 * @return
 	 */
-	List<PyMainGoodsorder> findListByMainId(@Param("ids") List<String> ids) ;
+	List<PyMainGoodsorder> findListByMainId(@Param("pyBigGoodsorder")PyBigGoodsorder pyBigGoodsorder) ;
 }
