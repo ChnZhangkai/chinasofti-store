@@ -42,21 +42,33 @@
     </div>
     
     <!-- 显示数据,数据表格列对齐 -->
-    <table id="ptUser" class="easyui-datagrid" title="用户列表" data-options="inline:true" toolbar="#user-toolbar-2" style="height: 95%">
+    <table id="ptUser" class="easyui-datagrid" title="用户列表" toolbar="#user-toolbar-2" style="height: 100%"
+    				   data-options="url:'/user/list',
+    				   				 inline:true,
+    				   				 fitColumns:false,
+    				   				 singleSelect:true,
+    				   				 collapsible:true,
+    				   				 sortName:'createtime',
+       				 				 sortOrder:'desc',
+       				 				 striped:true,
+       				 				 pagination:true,
+       				 				 pageSize:15,
+       					 			 pageList: [15, 25, 50, 100],">
     	<thead>
     		<tr>
     			<th field="ids" hidden="true">用户编号</th>
 				<th field="username" width="15%" align="center" >账号</th>
-				<th field="usernames" width="20%" align="center" >姓名</th>
-				<th field="departmentids" width="20%" align="center">部门编号</th>
-				<th field="departmentnames" width="20%" align="center">部门名字</th>
-				<th field="status" width="15%" align="center" data-options="formatter:statesFormatter">状态</th>
+				<th field="usernames" width="15%" align="center" >姓名</th>
+				<th field="departmentids" width="15%" align="center">部门编号</th>
+				<th field="departmentnames" width="15%" align="center">部门名字</th>
+				<th field="status" width="10%" align="center" data-options="formatter:statesFormatter,sortable:true">状态</th>
+				<th field="createtime" width="20%" align="center" data-options="sortable:true">创建日期</th>
 				<th field="userOperator" width="10%" align="center" data-options="formatter:userOperatorFormatter">操作</th>			
     		</tr>
     	</thead>
     </table>
     <!-- 分页工具条 -->
-	<div id="pagination" style="background:#efefef;border:1px solid #ccc;"></div>
+	<!-- <div id="pagination" style="background:#efefef;border:1px solid #ccc;"></div> -->
 </div>
 
 <!-- 内管用户添加表格 -->
@@ -103,8 +115,8 @@
 			<tr>
 				<td align="right" style="line-height: 3">部门编号:</td>
 				<td>
-					<input type="text" id="departmentids" name="departmentids" class="easyui-textbox validatebox" data-options="required:true,validType:['isNumber','betweenLength[6,32]']"/><br>
-					<span style="color:gray"><font size="1">请输入6-32位数字</font></span>
+					<input type="text" id="departmentids" name="departmentids" class="easyui-textbox validatebox" data-options="required:true,validType:['isNumOrLet','betweenLength[6,32]']"/><br>
+					<span style="color:gray"><font size="1">请输入6-32位数字或字母</font></span>
 				</td>
 				<td align="right">部门名称:</td>
 				<td>

@@ -109,19 +109,24 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PtUserExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.PtUser" >
+    	  select
     <include refid="Base_Column_List" />
-    from pt_user
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+    	  from pt_user
+    <where>
+	    <if test="username != null and username != ''" >
+	      and USERNAME LIKE CONCAT('%',#{username},'%')
+	    </if>
+	    <if test="usernames != null and usernames != ''" >
+	      and USERNAMES LIKE CONCAT('%',#{usernames},'%')
+	    </if>
+	    <if test="status != null and status != ''" >
+	      and STATUS = #{status,jdbcType=VARCHAR}
+	    </if>
+    </where>
+    <if test="sort != null and sort != '' and order != null and order != ''">
+		  order by ${sort} ${order}
+	</if>
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 

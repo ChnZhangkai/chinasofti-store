@@ -21,7 +21,7 @@ public interface PtUserMapper {
 
     List<PtUser> selectByExampleWithBLOBs(PtUserExample example);
 
-    List<PtUser> selectByExample(PtUserExample example);
+    List<PtUser> selectByExample(PtUser ptUser);
     
     PtRole selectUserRoleName(String ids);
     
