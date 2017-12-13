@@ -22,7 +22,7 @@ public class CancelGoodsOrdersJob {
 		
 		JobLauncher launcher = (JobLauncher) context.getBean("jobLauncher");
 		Job job = (Job) context.getBean("cancelGoodsOrdersJob");
-		
+
 		Date now = new Date() ;
 
 		try {
