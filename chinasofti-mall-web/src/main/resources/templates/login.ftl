@@ -39,7 +39,7 @@
               		<input type="hidden" name="to" value="log"/>
               		
 		            <div class="uinArea" id="uinArea">
-		                <label class="input-tips" for="u">帐号：</label>
+		                <label class="input-tips" for="u">账号：</label>
 		                <div class="inputOuter" id="uArea">
 	                    	<input type="text" id="u" name="username" class="inputstyle"/>
 	               		</div>

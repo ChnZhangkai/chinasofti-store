@@ -7,12 +7,6 @@ import com.chinasofti.mall.common.utils.PageBean;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 
 public class PyMainGoodsorder extends PageBean{
-	
-    @Override
-	public String toString() {
-		return "PyMainGoodsorder [ids=" + ids + ", bigorderId=" + bigorderId + ", userIds=" + userIds + ", payStatus="
-				+ payStatus + ", status=" + status + ", transactionid=" + transactionid + "]";
-	}
 	/**
     * @Fields ids : 主键
     */
@@ -715,5 +709,15 @@ public class PyMainGoodsorder extends PageBean{
 	public void setPyChildGoodsorders(List<PyChildGoodsorder> pyChildGoodsorders) {
 		this.pyChildGoodsorders = pyChildGoodsorders;
 	}
+
+	@Override
+	public String toString() {
+		return "PyMainGoodsorder [ids=" + ids + ", bigorderId=" + bigorderId + ", vendorIds=" + vendorIds
+				+ ", vendorSnm=" + vendorSnm + ", userIds=" + userIds + ", contAddress=" + contAddress + ", contMobile="
+				+ contMobile + ", contPhone=" + contPhone + ", contProvince=" + contProvince + ", contCity=" + contCity
+				+ ", contDistrict=" + contDistrict + ", orderTotalAmt=" + orderTotalAmt + ", status=" + status
+				+ ", payway=" + payway + "]";
+	}
+	
     
 }

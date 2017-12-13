@@ -171,6 +171,9 @@
       <if test="goodsNum != null" >
         GOODS_NUM,
       </if>
+      <if test="goodsName != null" >
+        GOODS_TITLE,
+      </if>
       <if test="goodsPrice != null" >
         GOODS_PRICE,
       </if>
@@ -235,6 +238,9 @@
       </if>
       <if test="goodsNum != null" >
         #{goodsNum,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
       </if>
       <if test="goodsPrice != null" >
         #{goodsPrice,jdbcType=DECIMAL},

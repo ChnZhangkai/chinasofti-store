@@ -55,5 +55,11 @@ $.extend($.fn.validatebox.defaults.rules, {
 		            return reg.test(value);  
 		        },  
 		        message: '输入手机号码格式不准确.'  
-		    }
+		},
+		isNumOrLet:{
+	    	validator: function(value){    
+	            return /^[A-Za-z0-9]+$/.test(value);    
+	        },    
+	        message: '请输入数字或字母！'
+	    }
 	});
