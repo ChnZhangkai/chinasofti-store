@@ -276,10 +276,7 @@ function loadClassName() {
 	}
 
 
-//加载广告类型
-function loadAdType(){
-	
-}
+
 
 
 //加载添加页面广告位名称

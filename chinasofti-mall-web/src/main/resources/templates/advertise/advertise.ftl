@@ -47,8 +47,8 @@
        				 striped:true,
        				 singleSelect:true,
        				 collapsible:true,
-       				 pageSize:15,
-       				 pageList: [15, 25, 50, 100],
+       				 pageSize:20,
+       				 pageList: [20, 40, 60, 100],
        				 onDblClickRow:showAdvertise">
 		<thead>
 			<tr>
@@ -138,7 +138,7 @@
 		</form>
 	</div>
 	<div id="ad-edit-dialog-button">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveAdvertise()">保存</a> 
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveAdvertise()">确定</a> 
 		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#ad-edit-dialog').dialog('close')">取消</a>
 	</div>
 
@@ -147,27 +147,27 @@
 		<form id="ad-show-form" method="post" enctype="multipart/form-data">
 			<table>
 			<tr>
-				<th style="width:180px" align="right">标题</th>
+				<th style="width:180px" align="right" nowrap="nowrap">标题</th>
 				<td style="width:180px" align="left" align="left">
 					<input type="text" id="" name="title" class="easyui-textbox" readonly="readonly" style="width:180px"/>
 				</td>
-				<th style="width:10%;padding:0 15px 0 0;" align="right">链接URL</th>
+				<th style="width:10%;padding:0 15px 0 0;" align="right" nowrap="nowrap">链接URL</th>
 				<td style="width:40%" align="left" align="left">
 				<input type="text" id="" name="url" class="easyui-textbox" readonly="readonly" style="width:180px"/>
 				</th>
 			</tr>
 			<tr>
-				<th style="width:10%;padding:0 15px 0 0;" align="right" >有效开始日期</th>
+				<th style="width:10%;padding:0 15px 0 0;" align="right" nowrap="nowrap">有效开始日期</th>
 				<td style="width:40%" align="left" align="left">
 				<input type="text" id="" name="beginTime" readonly="readonly"  class="easyui-textbox" style="width:180px"/>
 				</td>
-				<th align="right">有效结束日期</th>
+				<th align="right" nowrap="nowrap">有效结束日期</th>
 				<td><input type="text" id="" name="endTime" readonly="readonly"  class="easyui-textbox" style="width:180px"/></td>
 			</tr>
 			<tr>
-				<th align="right">图片</th>
+				<th align="right" nowrap="nowrap">图片</th>
 				<td align="left"><img id="showImg" style="width:180px"/></td>
-				<th align="right">广告类型</th>
+				<th align="right" nowrap="nowrap">广告类型</th>
 				<td align="left">
 				<select id="" name="type" readonly="readonly" class="easyui-combobox" style="width:180px">
 						<option value="">请选择</option>
@@ -177,46 +177,41 @@
 				</td>
 			</tr>
 			<tr>
-				<th align="right" >广告位名称</th>
+				<th align="right" nowrap="nowrap">广告位名称</th>
 				<td>
-					<input name="positionName" readonly="readonly" class="easyui-textbox" style="width:180px"/>
+					<input name="positionName" readonly="readonly"  class="easyui-textbox" style="width:180px"/>
 				</td>
-				<th align="right">分类名称</th>
+				<th align="right" nowrap="nowrap">分类名称</th>
 				<td>
 					<input id="" name="categoryName" readonly="readonly" class="easyui-textbox" style="width:180px">
 				</td>
 			</tr>
 			<tr>
-				<th align="right">广告尺寸提示</th>
-				<td><font style="color: gray;font-size: 10px">上传图片 请务必上传比例为宽750*高180的图片，以避免前端图片展现失真或形变;图片格式必须为jpg,png,gif,jpeg中的一种</font></td>
-				<th align="right" >广告排序</th>
+				<th align="right" nowrap="nowrap">广告排序</th>
 				<td><input name="descs" readonly="readonly" style="width:180px" class="easyui-textbox" /></td>
-			</tr>
-			<tr>
-				<th align="right" >前台展示状态</th>
+				<th align="right" nowrap="nowrap">前台展示状态</th>
 				<td>
 					<select name="states" readonly="readonly" class="easyui-combobox" style="width:180px">
 						<option value="0">未显示</option>
 						<option value="1">已显示</option>
 					</select>
 				</td>
-				<th align="right" >创建者</th>
+			</tr>
+			<tr>			
+				<th align="right" nowrap="nowrap">创建者</th>
 				<td><input name="createBy" readonly="readonly" class="easyui-textbox" style="width:180px"/>
+				</td>
+				<th align="right" nowrap="nowrap">创建时间</th>
+				<td><input name="createTime" readonly="readonly" class="easyui-textbox"  style="width:180px"/>
 				</td>
 			</tr>
 			
-			<tr>
-				<th align="right">创建时间</th>
-				<td><input name="createTime" readonly="readonly" class="easyui-textbox"  style="width:180px"/>
-				</td>
-				<th align="right">更新者</th>
-				<td><input name="updateBy" readonly="readonly" class="easyui-textbox" style="width:180px"/></td>
-				
-			</tr>
-			<tr>
-				<th align="right">更新时间</th>
+			<tr>		
+				<th align="right" nowrap="nowrap">更新者</th>
+				<td><input name="updateBy" readonly="readonly"  class="easyui-textbox" style="width:180px"/></td>
+				<th align="right" nowrap="nowrap">更新时间</th>
 				<td><input name="updateTime" readonly="readonly" class="easyui-textbox" style="width:180px" />
-				</td>
+				</td>	
 			</tr>
 			</table>
 		</form>
