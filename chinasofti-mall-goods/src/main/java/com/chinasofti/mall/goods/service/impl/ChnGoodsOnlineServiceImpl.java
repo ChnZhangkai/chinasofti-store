@@ -2,14 +2,15 @@ package com.chinasofti.mall.goods.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
-import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.goods.mapper.ChnGoodsOnlineMapper;
 import com.chinasofti.mall.goods.service.ChnGoodsOnlineService;
 import com.github.pagehelper.Page;
@@ -27,14 +28,7 @@ public class ChnGoodsOnlineServiceImpl implements ChnGoodsOnlineService{
 	@Override
 	public JSONObject selectByExample(ChnGoodsOnline chnGoodsOnline) {
 		JSONObject js = new JSONObject();
-		
-		if (!StringUtils.isEmpty(chnGoodsOnline.getStartTime())) {
-			chnGoodsOnline.setStartTime(StringDateUtil.convertToSqlFormat(chnGoodsOnline.getStartTime()));
-		}
-		if (!StringUtils.isEmpty(chnGoodsOnline.getEndTime())) {
-			chnGoodsOnline.setEndTime(StringDateUtil.convertToSqlFormat(chnGoodsOnline.getEndTime()));
-		}
-		
+	
 		PageHelper.startPage(chnGoodsOnline.getPageNumber(),chnGoodsOnline.getPageSize());
 		List<ChnGoodsOnline> list = chnGoodsOnlineMapper.findAll(chnGoodsOnline);
 		js.put("rows", list);
@@ -71,6 +65,19 @@ public class ChnGoodsOnlineServiceImpl implements ChnGoodsOnlineService{
 	public int update(ChnGoodsOnline chnGoodsOnline) {
 		return chnGoodsOnlineMapper.update(chnGoodsOnline);
 		 
+	}
+
+	
+	@Override
+	public Map<String, Object> findByPage(Map<String, Object> paramMap) {
+	// 执行分页查询
+		PageHelper.startPage(Integer.parseInt(paramMap.get("page").toString()),
+				Integer.parseInt(paramMap.get("rows").toString()));
+		List<AdvertiseContents> list = chnGoodsOnlineMapper.findByPage(paramMap);
+		Map<String,Object> map = new HashMap<>();
+		map.put("rows", list);
+		map.put("total", ((Page<AdvertiseContents>) list).getTotal());
+		return map;
 	}
 
 	

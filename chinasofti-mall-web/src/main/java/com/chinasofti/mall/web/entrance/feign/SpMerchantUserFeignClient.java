@@ -3,6 +3,8 @@
  */
 package com.chinasofti.mall.web.entrance.feign;
 
+import java.util.Map;
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,5 +62,15 @@ public interface SpMerchantUserFeignClient {
 	 */
 	@RequestMapping("/spUser/update")
 	int spUserUpdate(SpMerchantUser spMerchantUser);
+	
+	/**
+	* @Title: findByPage
+	* @Description: 分页查询
+	* @param paramMap
+	* @return: String
+	* @throws:
+	 */
+	@RequestMapping(value = "/spUser/findByPage")
+	String findByPage(@RequestParam Map<String,Object> paramMap);
 
 }

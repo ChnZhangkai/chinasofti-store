@@ -52,6 +52,18 @@ public class ChnGoodsOnlineController{
 		return jsonlist.toString();
 	}
 	
+	
+	/**
+	 * 分页查询
+	 * @param　pageSize
+	 * @return
+	 */
+	@RequestMapping("/findByPage")
+	public String findByPage(@RequestParam Map<String, Object> map) {
+		System.out.println("findByPage:"+map.toString());
+		return chnGoodsFeignClient.findByPage(map);
+	}
+	
 	/**
 	 * 商品页面查询商品图片
 	 * @return

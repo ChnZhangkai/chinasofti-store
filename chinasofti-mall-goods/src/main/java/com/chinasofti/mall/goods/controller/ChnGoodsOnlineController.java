@@ -1,9 +1,12 @@
 package com.chinasofti.mall.goods.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
@@ -31,6 +34,20 @@ public class ChnGoodsOnlineController {
 	public JSONObject selectByGoodsOnline(@RequestBody(required = false)ChnGoodsOnline chnGoodsOnline){
 		return chnGoodsOnlineServiceImpl.selectByExample(chnGoodsOnline);
  
+	}
+	
+	
+	/**
+	 * @Title: findByPage
+	 * @Description: 分页查询
+	 * @param map
+	 * @return: String
+	 * @throws:
+	 */
+	@RequestMapping("findByPage")
+	public Map<String, Object> findByPage(@RequestParam Map<String, Object> map) {
+		return chnGoodsOnlineServiceImpl.findByPage(map);
+		
 	}
 	
 	/**

@@ -40,16 +40,21 @@
 		</div>
 	</div>
 	<!-- 数据显示datagrid -->
-	<table id="goodsOnlineinfo" class="easyui-datagrid" title="商品在线列表"  style="height: 95%" toolbar="#goodonline-toolbar-3"
-	 	data-options="singleSelect:true,
-						 collapsible:true,
-						 url:'/goodsOnline/list',
+	<table id="goodsOnlineinfo" class="easyui-datagrid"  style="height: 80%"
+	 toolbar="goodonline-toolbar-3"	data-options="url:'/goodsOnline/findByPage',
 						 fitColumns:false,
+       					 pagination:true,
        					 sortName:'CREATE_TIME',
        					 sortOrder:'desc',
-       					 iconCls:'icon-man',
-       				 	 striped:true,
-				   		 onDblClickRow:showGoodsOnline">
+       					 title:'商品在线列表',
+       				 	 iconCls:'icon-man',
+		   				 striped:true,
+		   				 singleSelect:true,
+						 collapsible:true,
+		   				 pageSize:20,
+		   				 pageList: [20, 40, 60, 100],
+		   				 onDblClickRow:showGoodsOnline">
+		   				 
 	   <thead>
 			<tr>
 				<th field="title" width="13%" align="center" data-options="sortable:true">商品名称</th>
