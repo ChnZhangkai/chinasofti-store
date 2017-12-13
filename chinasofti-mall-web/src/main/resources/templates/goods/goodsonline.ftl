@@ -40,8 +40,8 @@
 		</div>
 	</div>
 	<!-- 数据显示datagrid -->
-	<table id="goodsOnlineinfo" class="easyui-datagrid"  style="height: 80%"
-	 toolbar="goodonline-toolbar-3"	data-options="url:'/goodsOnline/findByPage',
+	<table id="goodsOnlineinfo" class="easyui-datagrid"  style="height: 100%"
+	 toolbar="#goodonline-toolbar-3"	data-options="url:'/goodsOnline/findByPage',
 						 fitColumns:false,
        					 pagination:true,
        					 sortName:'CREATE_TIME',

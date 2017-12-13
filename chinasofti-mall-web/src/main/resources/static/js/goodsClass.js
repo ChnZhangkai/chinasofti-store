@@ -101,6 +101,7 @@
 				type:'POST',
 				success:function(data){
 					if(data > 0){
+						$('#goodsClassTree').tree('reload');
 						$('#goodsClassAddDialog').dialog('close');
 						document.getElementById("showpic").innerHTML = "";
 						successShow();

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +52,11 @@ public class ChnGoodsCheckController {
 	@Autowired
 	GoodsFileServiceImpl goodsFileService;
 	
-	private static final String beforePath = System.getProperty("user.dir")  + "\\src\\main\\resources\\static\\data\\goods";
+	@Value("${file.save.path}")
+	private String filePath;
+	
+	@Value("${file.query.url}")
+	private String fileUrl;
 	
 	/**
 	 * 返回主界面
@@ -125,7 +130,7 @@ public class ChnGoodsCheckController {
 		GoodsFile goodsFile = goodsFileService.selectByGoodsIds(ids);
 		System.out.println("图片:"+goodsFile);
 		String filepath = goodsFile.getFilepath();
-		String imgPath = beforePath + File.separator + filepath.substring(filepath.lastIndexOf("/")+1);
+		String imgPath = filePath + File.separator + "goods" + File.separator + filepath.substring(filepath.lastIndexOf("/")+1);
 		File file = new File(imgPath);
 		if (file.exists()) {
 			file.delete();
@@ -161,7 +166,7 @@ public class ChnGoodsCheckController {
 		String imageName = multipartFile.getOriginalFilename();
 		
 		//文件上传
-		String fileName = beforePath + File.separator + imageName;
+		String fileName = filePath + File.separator + "goods" + File.separator + imageName;
 		File file = new File(fileName);
 		try {
 			multipartFile.transferTo(file);
@@ -189,7 +194,7 @@ public class ChnGoodsCheckController {
 		goodsFile.setIds(UUIDUtils.getUuid());
 		goodsFile.setGoodsids(chnGoodsinfoCheck.getGoodsids());
 		goodsFile.setFilename(imageName);
-		goodsFile.setFilepath("/data/goods/"+ imageName);
+		goodsFile.setFilepath(fileUrl + "/goods/"+ imageName);
 		goodsFile.setFiletype(imageName.substring(imageName.lastIndexOf(".")+1));
 		goodsFileService.insert(goodsFile);
 		
@@ -210,7 +215,7 @@ public class ChnGoodsCheckController {
 		String imageName = multipartFile.getOriginalFilename();
 		
 		//文件上传
-		String fileName = beforePath + File.separator + imageName;
+		String fileName = filePath + File.separator + "goods" + File.separator + imageName;
 		File file = new File(fileName);
 		try {
 			multipartFile.transferTo(file);
@@ -233,7 +238,7 @@ public class ChnGoodsCheckController {
 		//保存对应的图片信息(goodsFile表)
 		GoodsFile goodsFile = new GoodsFile();
 		goodsFile.setFilename(imageName);
-		goodsFile.setFilepath("/data/goods/"+ imageName);
+		goodsFile.setFilepath(fileUrl + "/goods/"+ imageName);
 		goodsFile.setFiletype(imageName.substring(imageName.lastIndexOf(".")+1));
 		goodsFileService.updateByPrimaryKeySelective(goodsFile);
 		
