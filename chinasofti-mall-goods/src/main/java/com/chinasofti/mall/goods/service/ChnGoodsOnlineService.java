@@ -1,5 +1,7 @@
 package com.chinasofti.mall.goods.service;
 
+import java.util.Map;
+
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 
 import net.sf.json.JSONObject;
@@ -23,5 +25,11 @@ public interface ChnGoodsOnlineService {
 	 * @return
 	 */
 	int update(ChnGoodsOnline chnGoodsOnline);
+
+	/**
+	 * @param map
+	 * @return
+	 */
+	Map<String, Object> findByPage(Map<String, Object> map);
 
 }

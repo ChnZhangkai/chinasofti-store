@@ -48,4 +48,6 @@ public class GoodsFileServiceImpl implements GoodsFileService{
 		return goodsFileMapper.selectByGoodsIds(ids);
 	}
 
+	
+
 }
