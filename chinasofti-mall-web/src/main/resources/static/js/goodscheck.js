@@ -334,10 +334,6 @@
 		//调用初始化方法	
 		tdload(tableID, pageId, url);
 
-		$.messager.progress({
-			text : '数据正在加载中'
-		});
-		
 		//商品分类选择窗口
 		$('#goodsClassTreeDlg').dialog({
 			title: '菜单树',//窗口标题
@@ -511,8 +507,8 @@
 	function vendersChoose(){
 		var row = $("#venderDataTable").datagrid("getSelected");
 		if(row){
-			$("#add-vendorFnm").textbox('setValue',row.vendorFnm);
-			$("#update-vendorFnm").textbox('setValue',row.vendorFnm);
+			$("#add-vendorFnm").textbox('setValue',row.vendorId);
+			$("#update-vendorFnm").textbox('setValue',row.vendorId);
 			$("#goodsCheck-vendorFnm").textbox('setValue',row.vendorFnm);
 			$("#vendersChooseDialog").dialog("close");
 		}else{

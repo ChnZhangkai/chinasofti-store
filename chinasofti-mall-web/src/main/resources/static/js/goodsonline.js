@@ -8,26 +8,6 @@
 	 * 全局加载数据
 	 */
 	$(function() {
-		$.messager.show({
-			title : '提示',
-			msg : '该充值智商了!'
-		});
-
-		//获取表格datagrid的ID属性,
-		var tableID = "goodsOnlineinfo";
-		//获取分页工具条元素
-		var pageId = $('#goodsOnlinePagination');
-		//此处设置自己的url地址
-		var url = '/goodsOnline/list';
-		//分页查询时传递查询条件
-		seachId = '#searchOnlineForm';
-		//调用初始化方法	
-		tdload(tableID, pageId, url);
-
-		$.messager.progress({
-			text : '数据正在加载中'
-		});
-
 		//商品分类选择窗口
 		$('#ClassTreeDlg').dialog({
 			title: '菜单树',//窗口标题
@@ -93,9 +73,7 @@
 	})
 	
 	
-
-	
-/**
+	/**
 	* Name 打开修改窗口
 	*/
 	function onlineEdits(){
@@ -123,21 +101,7 @@
 	        });
 	 
 				$('#updateGoodsForm').form('load',row);//加载数据
-				var ids = row.ids;
-				$(document).ready(function(){  
-		        var ue = UE.getEditor('containeGoods');  
-		        
-		        ue.ready(function() {//编辑器初始化完成再赋值  
-		        ue.setContent(row.content);  //赋值给UEditor 
-		      	ue.setDisabled('fullscreen');
-		          
-		        images = $.ajax({url:'/goodsOnline/reqGoodsImgPath/' + ids,type:'POST',async:false});
-		        var tp=$("#imgUrl").attr("src",images.responseText); 
-		    
-		        });  
-		        
-		    });
-			
+				
 		} else {
 			$.messager.alert('信息提示','请选中要修改的数据');
 		}
@@ -154,8 +118,9 @@
     		success:function(data){
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
+    				$('#goodsOnlineinfo').datagrid('reload');
     				$('#goodsOnline_updateDl').dialog('close');
-    				$('#goodsOnlinePagination').pagination('select');
+    				
     			}else{
     				$.messager.alert('信息提示','提交失败！','info');
     			}
@@ -204,7 +169,7 @@
 				success:function(data){
 					if(data){
 						$.messager.alert('信息提示','提交成功！','info');
-						$('#goodsOnlinePagination').pagination('select');
+						$('#goodsOnlineinfo').datagrid('reload');
 					}
 					else
 					{
@@ -224,7 +189,7 @@
 				success:function(data){
 					if(data){
 						$.messager.alert('信息提示','提交成功！','info');
-						$('#goodsOnlinePagination').pagination('select');
+						$('#goodsOnlineinfo').datagrid('reload');
 					}
 					else
 					{
@@ -238,29 +203,14 @@
 
 	//条件查询
 	function goodOnlineDoSearch(){
-		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchOnlineForm').serialize();
-		console.info(param)
-		$.ajax({ 
-	          type: 'POST', 
-	          url: '/goodsOnline/list', //用户请求数据的URL
-	          data: param, 
-	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
-	              alert("没有查询到数据"); 
-	          }, 
-	          success: function (data) { 
-	        	  
-	        	  data =eval("("+data+")");
-	        	  
-	        	  if(data.total == 0){
-	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
-	        	  }
-	        	  
-	              $('#goodsOnlineinfo').datagrid('loadData', data.rows);
-	               $('#goodsOnlinePagination').pagination({ 
-			    	  total:data.total
-			    	  });
-	          }
-	       });
+		$("#goodsOnlineinfo").datagrid("load", {
+			'title' : $('#goodsOnline-title').val(),
+			'vendorFnm' : $('#goodsOnline-vendorFnm').val(),
+			'name' : $('#goodsOnline-name').val(),
+			'type':$('#goodsOnline-goodsType').val(),
+			'status':$('#goodsOnline-status').val()
+			
+		});
 	}
 	
 	/*
@@ -357,7 +307,7 @@
 	 * 商户查询
 	 */
 	function venderDoSearch() {
-		$('#venderDataTable').datagrid('load', {
+		$('#venderDatas').datagrid('load', {
 			vendorId : $('#vender-vendorId').val(),
 			vendorSnm : $('#vender-vendorSnm').val()
 		});
@@ -368,7 +318,7 @@
 	 */
 	function venderClearAll() {
 		$("#venderSearchForm").form("reset");
-		$('#venderDataTable').datagrid("load", {});
+		$('#venderDatas').datagrid("load", {});
 	}
 
 	/**

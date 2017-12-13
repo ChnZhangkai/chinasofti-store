@@ -5,7 +5,7 @@
 	<div id="goodonline-toolbar-3">
 		<div class="goodonline-toolbar-search" style="border-bottom: 1px solid #DDDDDD">
 			<form id="searchOnlineForm" style="margin: 0px">
-				<label>商品名称</label> <input type="text" id="title" name="title" class="easyui-textbox"/>
+				<label>商品名称</label> <input type="text" id="goodsOnline-title" name="title" class="easyui-textbox"/>
 				<label>商户名称</label><input class="easyui-textbox" id="goodsOnline-vendorFnm" name="vendorFnm" readonly="true" />
 							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="vendersFnmChoose()">选择</a>
 				<label>商品分类</label> 
@@ -13,7 +13,7 @@
 					<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="classChoose()">选择</a></br>
 				<label>商品类型</label>
 				<select autocomplete="off" class="easyui-combobox"
-					data-options="panelHeight:'auto'" id="goodsType" name="type"
+					data-options="panelHeight:'auto'" id="goodsOnline-goodsType" name="type"
 					style="width: 135px">
 					<option selected="selected" value="">请选择</option>
 					<option value="0">普通商品</option>
@@ -21,7 +21,7 @@
 				</select>
 				<label>商品状态</label>
 				<select autocomplete="off" class="easyui-combobox"
-					data-options="panelHeight:'auto'" id="status" name="status"
+					data-options="panelHeight:'auto'" id="goodsOnline-status" name="status"
 					style="width: 135px">
 					<option selected="selected" value="">请选择</option>
 					<option value="1">已上架</option>
@@ -40,16 +40,21 @@
 		</div>
 	</div>
 	<!-- 数据显示datagrid -->
-	<table id="goodsOnlineinfo" class="easyui-datagrid" title="商品在线列表"  style="height: 80%"
-	 	data-options="singleSelect:true,
-						 collapsible:true,
-						 url:'/goodsOnline/list',
+	<table id="goodsOnlineinfo" class="easyui-datagrid"  style="height: 80%"
+	 toolbar="goodonline-toolbar-3"	data-options="url:'/goodsOnline/findByPage',
 						 fitColumns:false,
+       					 pagination:true,
        					 sortName:'CREATE_TIME',
        					 sortOrder:'desc',
-       					 iconCls:'icon-man',
-       				 	 striped:true,
-				   		 onDblClickRow:showGoodsOnline">
+       					 title:'商品在线列表',
+       				 	 iconCls:'icon-man',
+		   				 striped:true,
+		   				 singleSelect:true,
+						 collapsible:true,
+		   				 pageSize:20,
+		   				 pageList: [20, 40, 60, 100],
+		   				 onDblClickRow:showGoodsOnline">
+				   		 
 	   <thead>
 			<tr>
 				<th field="title" width="13%" align="center" data-options="sortable:true">商品名称</th>
@@ -67,8 +72,6 @@
 		</thead>
 	</table>
 	
-	<!-- 分页工具条 -->
-	<div id="goodsOnlinePagination" style="background:#efefef;border:1px solid #ccc;"></div>
 </div>
 
 	<!-- 商品修改表格表格 -->
@@ -93,6 +96,7 @@
 			</table>
 		</form>
 	</div>
+
 	
 	<!-- 商品在线查看表格 -->
 	<div id="goodsOnline-show-dialog" class="easyui-dialog"
@@ -272,9 +276,12 @@
 	</div>
 	<!-- 商户数据表 -->
 	<table id="venderDatas" class="easyui-datagrid" singleSelect="true" style="width: 97%"
-		data-options="url:'/spUser/list',
-				fitColumns:true,pagination:true,pageSize:5,pageList:[5,10,15,20],
-       				 toolbar:'#venderToolbar',striped:true">
+	data-options="url:'/spUser/findByPage',
+					fitColumns:true,
+					pagination:true,
+					pageSize:5,
+					pageList:[5,10,15,20],
+       			 toolbar:'#venderToolbar',striped:true">
 		<thead>
 			<tr>
 				<th field="_ddd" width="15%" data-options="checkbox:true">选择</th>
