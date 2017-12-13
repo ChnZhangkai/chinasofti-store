@@ -11,6 +11,11 @@ public class PyShoppingCartInfo extends PageBean{
     private String vendorIds;
     
     /**
+     * @Fields vendorIds : 商户名称
+     */
+     private String vendorSnm;
+    
+    /**
 	* 商品信息
     */
 	private List<PyChildGoodsorder> goodsInfoList;
@@ -29,6 +34,14 @@ public class PyShoppingCartInfo extends PageBean{
 
 	public void setGoodsInfoList(List<PyChildGoodsorder> goodsInfoList) {
 		this.goodsInfoList = goodsInfoList;
+	}
+
+	public String getVendorSnm() {
+		return vendorSnm;
+	}
+
+	public void setVendorSnm(String vendorSnm) {
+		this.vendorSnm = vendorSnm;
 	}
 	
 	

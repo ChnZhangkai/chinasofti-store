@@ -228,6 +228,9 @@
       <if test="vendorIds != null" >
         VENDOR_IDS,
       </if>
+      <if test="vendorSnm != null" >
+        VENDOR_SNM,
+      </if>
       <if test="userIds != null" >
         USER_IDS,
       </if>
@@ -385,6 +388,9 @@
       </if>
       <if test="userIds != null" >
         #{userIds,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorSnm != null" >
+        #{vendorSnm,jdbcType=VARCHAR},
       </if>
       <if test="contPostcode != null" >
         #{contPostcode,jdbcType=VARCHAR},
