@@ -213,27 +213,27 @@ public class OrderServiceImpl implements OrderService {
 		return responseInfo;
 	}
 
-	
+ 	
 	private Map<String,Object> installOrdergetOrderInfo(String orderCreateTime,PyOrderInfo orderInfo) throws GoodsinfoException, MyException{
 		Map<String,Object> orderResult = new HashMap<String,Object>();//返回的对象
 		List<PyChildGoodsorder> goodsInfoList = new LinkedList<PyChildGoodsorder>();//单个商户商品信息集合
 		List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
 		List<PyMainGoodsorder> mainList = new LinkedList<PyMainGoodsorder>();//主订单集合
 		List<PyShoppingCartInfo> shopCart = orderInfo.getShopCart();//购物车信息
-		BigDecimal orderNum = new BigDecimal("0");//订单购买总数（黄佳喜添加的）
+		int orderNum = 0;//订单购买总数（黄佳喜添加的）
 		for(int i=0;i<shopCart.size();i++){
 			PyMainGoodsorder mainGoodsorder = setMainOrder(orderCreateTime,orderInfo);//主订单
 			mainGoodsorder.setBigorderId(orderInfo.getOrderNo());//所属大订单
 			mainGoodsorder.setVendorIds(shopCart.get(i).getVendorIds());//商户ID
-			mainGoodsorder.setVendorSnm(shopCart.get(i).getVendorSnm());//商户名称
+			//mainGoodsorder.setVendorSnm(shopCart.get(i).getVendorSnm());//商户名称
 			mainGoodsorder.setUserIds(orderInfo.getUserId());//用户ID
 			BigDecimal shoporderAmt = null;//商户订单总金额;
-			BigDecimal goodsNum = null;//购买数量
+			int goodsNum = 0;//购买数量
 			goodsInfoList = shopCart.get(i).getGoodsInfoList();//获取当前购买的商品信息
 			for(int j=0;j<goodsInfoList.size();j++){
 				PyChildGoodsorder childorder = setChildOrder(goodsInfoList,j,orderCreateTime);//子订单		
 				goodsNum = goodsInfoList.get(j).getGoodsNum();//购买数量
-				orderNum = goodsNum.add(orderNum);//（黄佳喜添加的）
+				orderNum = goodsNum+orderNum;//（黄佳喜添加的）
 				if(j==0){
 					shoporderAmt = childorder.getOrderRealAmt(); 
 				}else{
@@ -274,15 +274,15 @@ public class OrderServiceImpl implements OrderService {
 		PyChildGoodsorder childorder = new PyChildGoodsorder();
 		String goodsId = goodsInfoList.get(j).getGoodsids();//商品ID
 		String goodsName = goodsInfoList.get(j).getGoodsName();//商品名称
-		BigDecimal goodsNum = goodsInfoList.get(j).getGoodsNum();//购买数量
+		int goodsNum = goodsInfoList.get(j).getGoodsNum();//购买数量
 		BigDecimal goodsPrice = goodsInfoList.get(j).getGoodsPrice();//商品单价
 		childorder.setGoodsids(goodsId);//商品ID
 		childorder.setGoodsName(goodsName);
 		childorder.setGoodsNum(goodsNum);//购买数量
 		//验证商品并修改库存
-		checkGoods(goodsId,goodsNum,goodsPrice,goodsName);
+		checkGoods(goodsId,new BigDecimal(goodsNum),goodsPrice,goodsName);
 		childorder.setGoodsPrice(goodsPrice);
-		BigDecimal goodsorderAmt = goodsNum.multiply(goodsPrice);//商品金额
+		BigDecimal goodsorderAmt = new BigDecimal(goodsNum).multiply(goodsPrice);//商品金额
 		childorder.setOrderAmt(goodsorderAmt);
 		String childTransactionId = "G".concat(orderCreateTime.concat(getFixLenthString(4)));//子订单流水号
 		childorder.setTransactionid(childTransactionId);
