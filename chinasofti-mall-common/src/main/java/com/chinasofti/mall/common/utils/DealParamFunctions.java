@@ -48,7 +48,8 @@ public class DealParamFunctions {
 			buyGoods.setGoodsId(shopgoods.getGoodsId());
 			buyGoods.setVendorids(shopgoods.getVendorId());
 			buyGoods.setTitle(shopgoods.getGoodsName());
-			buyGoods.setFilepath(shopgoods.getFilepath());
+			List<String> fileList =dealWithFilePath(shopgoods.getFilepath());
+			buyGoods.setFilepath(fileList.get(0));
 			buyGoods.setGoodsNum(shopgoods.getGoodsNum());
 			buyGoods.setPrice(shopgoods.getPrice());
 			buyGoods.setStandard(shopgoods.getStandard());
@@ -61,4 +62,14 @@ public class DealParamFunctions {
 		vendorList.add(vendorMap);
 		return vendorList;
 	}
+
+	private static List<String> dealWithFilePath(String filepath) {
+		List<String> fileList = new ArrayList<String>();
+		String[] newFilePath = filepath.split(";");
+		for (String file : newFilePath) {
+			fileList.add(file);
+		}		
+		return fileList;
+	}
+	
 }
