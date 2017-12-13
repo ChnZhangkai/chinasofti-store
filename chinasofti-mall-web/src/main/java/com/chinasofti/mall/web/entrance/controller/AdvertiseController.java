@@ -83,6 +83,7 @@ public class AdvertiseController {
 		// 重命名文件名
 		fileName = UUID.randomUUID().toString().replaceAll("-", "") + suffixName;
 		File dest = new File(filePath + File.separator + "advertise" + File.separator+ fileName);
+		logger.info("上传的path：" + dest.getPath());
 		// 检测是否存在目录
 		if (!dest.getParentFile().exists()) {
 			dest.getParentFile().mkdirs();
