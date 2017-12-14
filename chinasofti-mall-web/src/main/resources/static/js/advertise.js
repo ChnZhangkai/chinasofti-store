@@ -77,7 +77,7 @@ function cancleAdvertise(id, states) {
 // 清空搜索框
 function ad_clear() {
 	$("#searchForm").form('reset');
-	$('#ad-datagrid').datagrid('load', {});
+	$('#ad-datagrid').datagrid('load', {sort:''});
 	loadAdPosition();
 }
 
@@ -111,9 +111,10 @@ function editAdvertise() {
 }
 // 保存
 function saveAdvertise() {
-	//debugger;
+	debugger;
 	var file = $("#file").val();
-	if(file == ""){
+	var imgUrl =$("#imgUrl").val();
+	if(file == "" && imgUrl ==''){
 		console.info($('#imghead')[0]);
 		//console.info($('#imghead')[0].src);
 		$.messager.alert('温馨提醒','请选择一张图片！','question');

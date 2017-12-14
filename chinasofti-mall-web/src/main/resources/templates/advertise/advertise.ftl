@@ -124,6 +124,7 @@
 				<tr  style="padding:10px">
 					<th align="right">图片:</th>
 					<td colspan="3">
+						<input name="imageurl" id="imgUrl" type="hidden">
 						<input id="file" name="file" type="file" required="required" onchange="previewImage(this)"/>
 						<div id="preview">  
 			    				<img id="imghead"  style="max-width:235px;max-height:175px;width:135;height:75;" src=''>  
