@@ -1,23 +1,4 @@
-	
-	//全局初始化
-	$(function(){
-		//获取表格datagrid的ID属性,
-		var tableID = "ptUser";
-		//获取分页工具条元素
-		var pageId = $('#pagination');
-		//此处设置自己的url地址
-		var url = '/user/list';
-		//分页查询时传递查询条件
-		seachId = '#searchPtUserForm';
-		//调用初始化方法	
-		tdload(tableID, pageId, url);
-		
-		$.messager.progress({
-			text:'数据正在加载中'
-		});
-		
-	});
-	
+
 	/*
 	 * 单独查询角色名称
 	 */
@@ -105,7 +86,7 @@
 			type:'POST',
 			success:function(data){
 				if(data > 0){
-					$('#pagination').pagination('select');
+					$('#ptUser').datagrid('reload');
 					$('#ptUserAdd').dialog('close');
 					successShow();
 				}
@@ -149,7 +130,7 @@
 					type:'POST',
 					success:function(data){
 						if(data){
-							$('#pagination').pagination('select');
+							$('#ptUser').datagrid('reload');
 							successShow();
 						}
 						else
@@ -204,8 +185,8 @@
     		data:$('#ptUserUpdateForm').serialize(),
     		success:function(data){
     			if(data > 0){
+    				$('#ptUser').datagrid('reload');
     				$('#ptUserUpdate').dialog('close');
-    				$('#pagination').pagination('select');
     				successShow();
     			}else{
     				errorShow();
@@ -218,9 +199,19 @@
 	* 启用/禁用
 	*/
 	function changeStatus(obj,index){
+		debugger;
+		var userNow = document.getElementById('userOperation').innerText;
 		var dynamicStatus;
 		$('#ptUser').datagrid('selectRow',index);
 		var row = $("#ptUser").datagrid('getSelected');
+		if(row.username == $.trim(userNow)){
+			$.messager.alert('warning','不能禁用当前登录账号!','info');
+			return ;
+		}
+		if(row.username == "admin"){
+			$.messager.alert('warning','超级管理员不可禁用!','info');
+			return ;
+		}
 		if(obj.id == "allow"){
 			dynamicStatus = "1";
 		}
@@ -238,7 +229,7 @@
 				data:{'ids':row.ids,'status':dynamicStatus},
 				success:function(data){
 					if(data >0){
-						$('#pagination').pagination('select');
+						$('#ptUser').datagrid('reload');
 						successShow();
 					}else{
 						errorShow();
@@ -368,6 +359,7 @@
 	*/
 	function doClear(){
 		$('#searchPtUserForm').form('reset');
+		$('#ptUser').datagrid('reload');
 	}
 	
 	$('#ids,#updateUsername').tooltip({    

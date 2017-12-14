@@ -58,7 +58,7 @@ public class LoginController {
 			session = (HttpSession) subject.getSession(true);
 			return "main";
 		} catch (IncorrectCredentialsException e) {
-			msg = "登录密码错误,请核对密码后重试";
+			msg = "账号或密码错误,请核对后重试";
 			model.addAttribute("message", msg);
 			System.out.println(msg);
 		} catch (ExcessiveAttemptsException e) {
@@ -66,19 +66,19 @@ public class LoginController {
 			model.addAttribute("message", msg);
 			System.out.println(msg);
 		} catch (LockedAccountException e) {
-			msg = "帐号已被锁定. The account for username " + token.getPrincipal() + " was locked.";
+			msg = "账号已被锁定. The account for username " + token.getPrincipal() + " was locked.";
 			model.addAttribute("message", msg);
 			System.out.println(msg);
 		} catch (DisabledAccountException e) {
-			msg = "帐号已被禁用,请联系管理员.";
+			msg = "账号已被禁用,请联系管理员.";
 			model.addAttribute("message", msg);
 			System.out.println(msg);
 		} catch (ExpiredCredentialsException e) {
-			msg = "帐号已过期. the account for username " + token.getPrincipal() + "  was expired.";
+			msg = "账号已过期. the account for username " + token.getPrincipal() + "  was expired.";
 			model.addAttribute("message", msg);
 			System.out.println(msg);
 		} catch (UnknownAccountException e) {
-			msg = "该帐号不存在,请核对账号或联系管理员.";
+			msg = "账号有误,请联系管理员.";
 			model.addAttribute("message", msg);
 			System.out.println(msg);
 		} catch (UnauthorizedException e) {

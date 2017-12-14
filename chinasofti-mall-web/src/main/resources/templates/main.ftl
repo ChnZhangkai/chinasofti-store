@@ -32,13 +32,13 @@
 		</div>
 
 		<div class="zk-header-right">
-			<button href="javascript:void(0)" id="mb" class="easyui-menubutton"
+			<button href="javascript:void(0)" id="userOperation" class="easyui-menubutton"
 				data-options="menu:'#mm',iconCls:'icon-personal'"
 				style="background-color: white;">${user.username}</button>
 			<div id="mm" style="width: 150px;">
 				<div data-options="iconCls:'icon-redo'"><a href="/logOut">退出系统</a></div>
 			</div>
-			<button href="javascript:void(0)" id="mb" class="easyui-menubutton"
+			<button href="javascript:void(0)" id="switchSystem" class="easyui-menubutton"
 				data-options="menu:'#mm2',iconCls:'icon-settings32'"
 				style="background-color: white;">系统切换</button>
 			<div id="mm2" style="width: 150px;">

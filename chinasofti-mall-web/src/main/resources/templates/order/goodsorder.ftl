@@ -1,10 +1,7 @@
 <script type="text/javascript" src="js/goodsorder.js"></script>
-<div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#DDDDDB;text-align :center;padding-top:20%;">
-     <h1><font color="#15428B">页面加载中....</font></h1>
-</div> 
 <div class="easyui-layout" data-options="" >
 	<!-- 主订单模块开始 -->
-	<!-- 主订单工具栏 -->
+	<!-- 主订单工具栏 --> 
 	<div id="mainorderToolbar">
 		<!-- 主订单条件搜索 -->
 		<form id="mainorderSearchForm" method="post">
@@ -90,9 +87,8 @@
 			</div>
 		</form>
 	</div>
-
 	<!-- 主订单数据表格 -->
-	<table id="mainorderDataGrid" class="easyui-datagrid" singleSelect="true"
+	<table id="mainorderDataGrid" class="easyui-datagrid" style="min-height:400px" singleSelect="true"
 		data-options="url:'mainorder/selectall',fitColumns:true,pagination:true,sortName:'transactionid',
        				 sortOrder:'asc',toolbar:'#mainorderToolbar',title:'主订单列表',iconCls:'icon-man',striped:true,
        				 collapsible:true,checkOnSelect: false,selectOnCheck: true">
@@ -279,7 +275,7 @@
 	</div>
 
 	<!-- 子订单模块数据表 -->
-	<table id="childorderDataGrid" class="easyui-datagrid" singleSelect="true" 
+	<table id="childorderDataGrid" class="easyui-datagrid" style="min-height:400px" singleSelect="true" 
 		   data-options="url:'childorder/selectall',fitColumns:true,pagination:true,sortName:'TRANSACTIONID',sortOrder:'asc',
        				 toolbar:'#childorderToolbar',title:'子订单列表',iconCls:'icon-man',striped:true,collapsible:true">
 		<thead>

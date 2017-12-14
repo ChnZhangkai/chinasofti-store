@@ -124,24 +124,40 @@
   </sql>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUser" >
     select 
+	<include refid="Base_Column_List" />
+	from sp_merchant_user
+
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_merchant_user
+    where VENDOR_ID = #{vendorId,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 分页查询 -->
+ <select id="findByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select 
     <include refid="Base_Column_List" />
     from sp_merchant_user
    <where> 
    	 <if test="vendorId != null and vendorId !='' ">
-			and VENDOR_ID like CONCAT('%',#{vendorId},'%')
+			and VENDOR_ID like CONCAT('%','${vendorId}','%')
 		</if>
 		<if test="vendorSnm != null and vendorSnm !='' ">
-			and VENDOR_SNM like CONCAT('%',#{vendorSnm},'%')
+			and VENDOR_SNM like CONCAT('%','${vendorSnm}','%')
 		</if>
 		<if test="chargeman != null and chargeman != '' ">
-			and CHARGEMAN like CONCAT('%',#{chargeman},'%')
+			and CHARGEMAN like CONCAT('%','${chargeman}','%')
 		</if>
 		<if test="status != null and status != '' ">
-			and STATUS = #{status}
+			and STATUS = ${status}
 		</if>
    </where>
+
    		<if test="sort == 'createTime'">
-			order by CREATE_TIME  desc
+			order by CREATE_TIME  ${order}
 		</if>
 		<if test="sort == 'modifyTime'">
 			order by MODIFY_TIME ${order}
@@ -157,12 +173,8 @@
 		</if>
   </select>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from sp_merchant_user
-    where VENDOR_ID = #{vendorId,jdbcType=VARCHAR}
-  </select>
+  
+  
   
   <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.spuser.SpMerchantUserExample" >
     delete from sp_merchant_user

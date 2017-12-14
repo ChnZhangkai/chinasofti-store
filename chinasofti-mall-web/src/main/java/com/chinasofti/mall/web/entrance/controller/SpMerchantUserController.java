@@ -63,6 +63,17 @@ public class SpMerchantUserController {
 	}
 	
 	/**
+	 * 分页查询
+	 * @param　pageSize
+	 * @return
+	 */
+	@RequestMapping("/findByPage")
+	public String findByPage(@RequestParam Map<String, Object> map) {
+		System.out.println("findByPage:"+map.toString());
+		return spUserFeignClient.findByPage(map);
+	}
+	
+	/**
 	 * 根据商户ID查询
 	 * @param ids
 	 * @return

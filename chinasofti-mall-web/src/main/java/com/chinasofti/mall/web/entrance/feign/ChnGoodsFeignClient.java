@@ -1,12 +1,14 @@
 package com.chinasofti.mall.web.entrance.feign;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
@@ -137,6 +139,16 @@ public interface ChnGoodsFeignClient {
 	 */
 	@RequestMapping(value = "/goodsOnline/update" ,method = RequestMethod.POST)
 	public int updateStore(@RequestBody(required = false) ChnGoodsOnline chnGoodsOnline);
+
+	/**
+	* @Title: findByPage
+	* @Description: 商品在线分页查询
+	* @param paramMap
+	* @return: String
+	* @throws:
+	 */
+	@RequestMapping(value = "/goodsOnline/findByPage")
+	public String findByPage(@RequestParam Map<String,Object> paramMap);
 
 
 

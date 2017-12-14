@@ -7,16 +7,10 @@ import com.chinasofti.mall.common.utils.PageBean;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 
 public class PyMainGoodsorder extends PageBean{
-	
-    @Override
-	public String toString() {
-		return "PyMainGoodsorder [ids=" + ids + ", bigorderId=" + bigorderId + ", userIds=" + userIds + ", payStatus="
-				+ payStatus + ", status=" + status + ", transactionid=" + transactionid + "]";
-	}
 	/**
     * @Fields ids : 主键
     */
-    private String ids;
+    private String ids; 
 
     /**
     * @Fields bigorderId : 大订单号
@@ -270,9 +264,21 @@ public class PyMainGoodsorder extends PageBean{
     */
     private BigDecimal freight;
     
-    
+    /**
+     * @Fields 商户名
+     */
     private String vendorSnm;
-
+    
+    /**
+     * @Fields 售后类型
+     */
+    private String afterType;
+    
+    /**
+     * @Fields 订单类型
+     */
+    private String orderType;
+    
 
 	public String getVendorSnm() {
 		return vendorSnm;
@@ -715,5 +721,32 @@ public class PyMainGoodsorder extends PageBean{
 	public void setPyChildGoodsorders(List<PyChildGoodsorder> pyChildGoodsorders) {
 		this.pyChildGoodsorders = pyChildGoodsorders;
 	}
+
+	public String getAfterType() {
+		return afterType;
+	}
+
+	public void setAfterType(String afterType) {
+		this.afterType = afterType;
+	}
+
+
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+
+	@Override
+	public String toString() {
+		return "PyMainGoodsorder [ids=" + ids + ", bigorderId=" + bigorderId + ", vendorIds=" + vendorIds
+				+ ", vendorSnm=" + vendorSnm + ", userIds=" + userIds + ", contAddress=" + contAddress + ", contMobile="
+				+ contMobile + ", contPhone=" + contPhone + ", contProvince=" + contProvince + ", contCity=" + contCity
+				+ ", contDistrict=" + contDistrict + ", orderTotalAmt=" + orderTotalAmt + ", status=" + status
+				+ ", payway=" + payway + "]";
+	}
+	
     
 }

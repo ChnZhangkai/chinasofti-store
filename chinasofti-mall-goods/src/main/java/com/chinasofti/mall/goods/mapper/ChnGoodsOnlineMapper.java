@@ -4,7 +4,9 @@
 package com.chinasofti.mall.goods.mapper;
  
 import java.util.List;
+import java.util.Map;
 
+import com.chinasofti.mall.common.entity.AdvertiseContents;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 
 /**
@@ -34,5 +36,11 @@ public interface ChnGoodsOnlineMapper {
 	 * @return
 	 */
 	int update(ChnGoodsOnline chnGoodsOnline);
+
+	/**
+	 * @param paramMap
+	 * @return
+	 */
+	List<AdvertiseContents> findByPage(Map<String, Object> paramMap);
 
 }

@@ -40,7 +40,7 @@ public class PyChildGoodsorder extends PageBean {
 	/**
 	 * @Fields goodsNum : 商品数量
 	 */
-	private BigDecimal goodsNum;
+	private int goodsNum; 
 	
 	/**
 	 * @Fields goodsNum : 商品名称
@@ -173,11 +173,11 @@ public class PyChildGoodsorder extends PageBean {
 		this.orderStatus = orderStatus;
 	}
 
-	public BigDecimal getGoodsNum() {
+	public int getGoodsNum() {
 		return goodsNum;
 	}
 
-	public void setGoodsNum(BigDecimal goodsNum) {
+	public void setGoodsNum(int goodsNum) {
 		this.goodsNum = goodsNum;
 	}
 

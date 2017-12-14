@@ -1,6 +1,8 @@
 package com.chinasofti.mall.user.controller;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +38,20 @@ public class SpMerchantUserController {
 	@RequestMapping(value = "/list" , method = RequestMethod.POST)
 	public JSONObject selectByGoodsClass(@RequestBody(required = false)SpMerchantUser spMerchantUser){
 		return spUserService.selectByExample(spMerchantUser);
+		
+	}
+	
+	/**
+	 * 
+	 * @Title: findByPage
+	 * @Description: 分页查询
+	 * @param map
+	 * @return: String
+	 * @throws:
+	 */
+	@RequestMapping("/findByPage")
+	public Map<String, Object> findByPage(@RequestParam Map<String, Object> map) {
+		return spUserService.findByPage(map);
 		
 	}
 	
