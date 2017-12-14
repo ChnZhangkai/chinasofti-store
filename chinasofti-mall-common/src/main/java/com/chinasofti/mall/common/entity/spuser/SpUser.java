@@ -82,6 +82,8 @@ public class SpUser {
 	 * 绑定手机号时间
 	 * */
 	private String bindPhoneTime;
+	
+	private boolean flag; 
 	public String getIds() {
 		return ids;
 	}
@@ -201,6 +203,14 @@ public class SpUser {
 	}
 	public void setBindPhoneTime(String bindPhoneTime) {
 		this.bindPhoneTime = bindPhoneTime;
+	}
+	
+	
+	public boolean isFlag() {
+		return flag;
+	}
+	public void setFlag(boolean flag) {
+		this.flag = flag;
 	}
 	@Override
 	public String toString() {

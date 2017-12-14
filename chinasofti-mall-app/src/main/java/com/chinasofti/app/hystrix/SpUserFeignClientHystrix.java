@@ -17,14 +17,14 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 public class SpUserFeignClientHystrix implements SpUserFeignClient{
 
 	@Override
-	public ResponseInfo signUp(SpUser spUser) {
-		return new ResponseInfo();
+	public int signUp(SpUser spUser) {
+		return 0;
 	}
 	
  
 	@Override
-	public ResponseInfo signIn(SpUser spUser) {
-		return new ResponseInfo();
+	public SpUser signIn(SpUser spUser) {
+		return new SpUser();
 	}
 
 	

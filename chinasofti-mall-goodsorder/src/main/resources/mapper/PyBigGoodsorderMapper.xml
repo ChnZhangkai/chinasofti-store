@@ -195,6 +195,9 @@
       <if test="invoiceAddress != null" >
         INVOICE_ADDRESS,
       </if>
+      <if test="orderTotalNum != null" >
+        ORDER_TOTAL_NUM,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="ids != null" >
@@ -256,6 +259,9 @@
       </if>
       <if test="invoiceAddress != null" >
         #{invoiceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTotalNum != null" >
+      #{orderTotalNum,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>

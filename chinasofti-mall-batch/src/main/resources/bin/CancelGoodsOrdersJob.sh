@@ -28,7 +28,7 @@ export CLASSPATH=$dir:../$temp
   
 echo $CLASSPATH  
   
-${JAVA_HOME}/bin/java -classpath ${CLASSPATH} ${MAIN_CLASS}  
+${JAVA_HOME}/bin/java -classpath ${CLASSPATH} ${MAIN_CLASS} "$1"
   
   
 echo "finished at `date '+%Y-%m-%d %H:%M:%S'` ..."  

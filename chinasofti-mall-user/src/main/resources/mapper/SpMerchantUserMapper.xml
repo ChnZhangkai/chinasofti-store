@@ -143,16 +143,16 @@
     from sp_merchant_user
    <where> 
    	 <if test="vendorId != null and vendorId !='' ">
-			and VENDOR_ID like CONCAT('%',#{vendorId},'%')
+			and VENDOR_ID like CONCAT('%','${vendorId}','%')
 		</if>
 		<if test="vendorSnm != null and vendorSnm !='' ">
-			and VENDOR_SNM like CONCAT('%',#{vendorSnm},'%')
+			and VENDOR_SNM like CONCAT('%','${vendorSnm}','%')
 		</if>
 		<if test="chargeman != null and chargeman != '' ">
-			and CHARGEMAN like CONCAT('%',#{chargeman},'%')
+			and CHARGEMAN like CONCAT('%','${chargeman}','%')
 		</if>
 		<if test="status != null and status != '' ">
-			and STATUS = #{status}
+			and STATUS = ${status}
 		</if>
    </where>
 

@@ -1,19 +1,24 @@
 package com.chinasofti.mall.common.service;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
+import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 public class RequestParamService {
 
 	private static final Logger logger = LoggerFactory.getLogger(RequestParamService.class);
-	@SuppressWarnings("null")
+
 	public static ResponseInfo packageWithShoppingCartRequestParam(PyShoppingCart goodsInfo){
-		ResponseInfo response = null;
+		ResponseInfo response = new ResponseInfo();
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("userId不能为空！");
@@ -37,9 +42,8 @@ public class RequestParamService {
 		return response;
 	}
 	
-	@SuppressWarnings("null")
 	public static ResponseInfo packageWithAddShoppingCartParam(PyShoppingCart goodsInfo){
-		ResponseInfo response = null;
+		ResponseInfo response = new ResponseInfo();
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("userId不能为空！");
@@ -54,6 +58,37 @@ public class RequestParamService {
 		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsId不能为空！");
+			return response;
+		}
+		return response;
+	}
+
+	/**
+	 * 商品信息校验
+	 * 
+	 * @param shopCar
+	 * @param storegoodsInfo
+	 * @return
+	 */
+	public static ResponseInfo packageWithGoodsInfoRequest(PyShoppingCart shopCar, ChnGoodsinfo storegoodsInfo) {
+		ResponseInfo response = new ResponseInfo();
+		String goodsStatus = storegoodsInfo.getStatus();
+		if (!goodsStatus.equals(Constant.GOODS_STATUS)) {
+			response.setRetCode("500001");
+			response.setRetMsg("该商品已下架或已删除");
+			return response;
+		}
+		BigDecimal userBuyNum = shopCar.getGoodsNum();
+		BigDecimal storeNum = storegoodsInfo.getStoreNum();
+		if (userBuyNum.compareTo(storeNum) == 1) {
+			response.setRetCode("600001");
+			response.setRetMsg("库存不足");
+			return response;
+		}
+		BigDecimal limitOrderNum = storegoodsInfo.getLimitOrderNum();
+		if (userBuyNum.compareTo(limitOrderNum) == 1) {
+			response.setRetCode("700001");
+			response.setRetMsg("数量已超出单位限制！");
 			return response;
 		}
 		return response;

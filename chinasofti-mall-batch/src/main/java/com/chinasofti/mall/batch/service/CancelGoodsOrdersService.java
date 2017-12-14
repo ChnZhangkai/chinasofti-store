@@ -1,6 +1,6 @@
 package com.chinasofti.mall.batch.service;
 
-import com.chinasofti.mall.batch.bean.PyBigGoodsorder;
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 
 public interface CancelGoodsOrdersService {
 	/**

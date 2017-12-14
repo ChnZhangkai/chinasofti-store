@@ -783,4 +783,10 @@
 		AND g.GOODS_CLASS_IDS = #{goodsClassIds,jdbcType=VARCHAR}
 	</if>
   </select>
+  <select id="selectByGoodsId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+   FROM chn_goodsinfo 
+   WHERE  IDS = #{ids,jdbcType=VARCHAR}
+  </select>
 </mapper>

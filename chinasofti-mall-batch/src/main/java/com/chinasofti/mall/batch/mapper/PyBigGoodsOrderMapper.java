@@ -1,16 +1,15 @@
 package com.chinasofti.mall.batch.mapper;
 
-import java.util.List;
-
+import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import org.apache.ibatis.annotations.Param;
 
-import com.chinasofti.mall.batch.bean.PyBigGoodsorder;
+import java.util.List;
 
-public interface PyBigGoodsorderMapper {
+public interface PyBigGoodsOrderMapper {
 	/**
 	 * 查询7天内未支付的订单
-	 * @param beginDate
-	 * @param endDate
+	 * @param beginTime
+	 * @param endTime
 	 * @return
 	 */
 	List<PyBigGoodsorder> selectOrderNotPay(@Param("beginTime") String beginTime , @Param("endTime")String endTime) ;

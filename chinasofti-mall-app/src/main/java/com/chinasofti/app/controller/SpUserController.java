@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  
 import com.chinasofti.app.feign.SpUserFeignClient;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
+import com.chinasofti.mall.common.utils.Constant;
+import com.chinasofti.mall.common.utils.DealParamFunctions;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 
@@ -28,15 +30,25 @@ public class SpUserController {
 
 	@RequestMapping(value="/signUp" , method = RequestMethod.POST)
 	public ResponseInfo signUp(@RequestBody SpUser spUser,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		return spUserFeignClient.signUp(spUser); 
+		ResponseInfo res = new ResponseInfo() ;
+		int result=spUserFeignClient.signUp(spUser); 
+		if(result == 0 ){
+			res.setRetCode(Constant.SPUSERID_EXIST_CODE);
+			res.setRetMsg(Constant.SPUSERID_EXIST_MSG);
+			return res;
+		}
+		return DealParamFunctions.dealResponseData(result);
 	}
 	@RequestMapping(value="/signIn" , method = RequestMethod.POST)
 	public ResponseInfo signIn(@RequestBody SpUser spUser,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		logger.info(spUser.toString());
-		return spUserFeignClient.signIn(spUser);
-		//return null;
+		ResponseInfo res = new ResponseInfo() ;
+		SpUser reSpUser = spUserFeignClient.signIn(spUser);
+		if(reSpUser.isFlag()&&reSpUser.getUserId()==null){
+			res.setRetCode(Constant.SPUSERID_PASSWORD_ERROR);
+			res.setRetMsg(Constant.SPUSERID_PASSWORD_MSG);
+			return res;
+		}
+		return DealParamFunctions.dealResponseData(reSpUser);
 	}
 
 

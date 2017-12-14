@@ -28,10 +28,9 @@ public class AdvertiseController {
 
 
 
-	@SuppressWarnings("null")
 	@RequestMapping(value="findAdvertiseList")
 	public ResponseInfo findAdvertiseList(@RequestParam("positionId") String positionId) {
-		ResponseInfo response = null;
+		ResponseInfo response = new ResponseInfo();
 		if (StringUtils.isEmpty(positionId)) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("位置Id不能为空！");
@@ -43,10 +42,9 @@ public class AdvertiseController {
 		response = DealParamFunctions.dealResponseData(result);
 		return response;
 	}
-	@SuppressWarnings("null")
 	@RequestMapping(value="findAdvertise")
 	public ResponseInfo findAdvertise(@RequestParam("positionId") String positionId) {
-		ResponseInfo response=null;
+		ResponseInfo response = new ResponseInfo();
 		if(StringUtils.isEmpty(positionId)){
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("位置Id不能为空！");

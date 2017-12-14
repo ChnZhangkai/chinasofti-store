@@ -32,54 +32,47 @@ public class SpUserServiceImp implements SpUserService {
 	private String decryptKey;
 	
 	@Override
-	public ResponseInfo add(SpUser spUser) {
-		ResponseInfo res = new ResponseInfo();
+	public int add(SpUser spUser) {
 		try {
-		    String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);
+		    String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);//进行Aes解密
 			spUser.setPassword(password);
 			spUser.setIds(UUIDUtils.getUuid());
-			//如果已经注册，直接返回Y
-			if( countStr(spUser.getUserId()) != null){
-				logger.info("---该账号已被注册--");
-				res.setRetCode(Constant.SPUSERID_EXIST_CODE);
-				res.setRetMsg(Constant.SPUSERID_EXIST_MSG);
-				return res;
-			}
-			//如果没有 ，进行注册
+			spUser.setCreateTime(UUIDUtils.nowTime());//创建时间
+			spUser.setStatus("1");//创建时默认启用   1：启用
 			int insert=spUserMapper.insert(spUser);
-			res = success(res);
-			logger.info("-------注册成功--insert="+insert);
+			return insert;
 		} catch (Exception e) {
 			logger.error(e.toString());
-			res = error(res);
+			return 0;
 		}
-		return res;
-		
 	}
 	
 	@Override
-	public ResponseInfo select(SpUser spUser){
-		ResponseInfo res = new ResponseInfo();
+	public SpUser select(SpUser spUser){
+		SpUser reSpUser = new SpUser();
 		try {
 			String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);		
 			spUser.setPassword(password);
-			SpUser reSpUser = spUserMapper.signIn(spUser);
+			reSpUser = spUserMapper.signIn(spUser);
 			if(reSpUser ==null||reSpUser.getUserId()==null){
-				res.setRetCode(Constant.SPUSERID_PASSWORD_ERROR);
-				res.setRetMsg(Constant.SPUSERID_PASSWORD_MSG);
-				return res;
+				reSpUser.setFlag(true);
 			}
-			res = DealParamFunctions.dealResponseData(reSpUser);
+			return reSpUser;
+			//res = DealParamFunctions.dealResponseData(reSpUser);
 		} catch (Exception e) {
 			logger.error(e.toString());
-			res = error(res);
+			return reSpUser;
 		
 		}
-		return res;
 	}
 	//查询账号是否被注册
-	private String countStr(String userId){
-		return spUserMapper.contByUserId(userId);
+	@Override
+	public boolean countStr(String userId){
+		String countStr = spUserMapper.contByUserId(userId);
+		if(countStr == null){
+			return true;
+		}
+		return false;
 	}
 	
 	
@@ -116,18 +109,6 @@ public class SpUserServiceImp implements SpUserService {
 	@Override
 	public SpUser isUserExist(SpUser spUser) throws MyException{
 		return spUserMapper.selectByUserId(spUser);
-	}
-	
-	
-	private ResponseInfo success(ResponseInfo res){
-		res.setRetCode(MsgEnum.SUCCESS.getCode());
-		res.setRetMsg(MsgEnum.SUCCESS.getMsg());
-		return res;
-	}
-	private ResponseInfo error(ResponseInfo res){
-		res.setRetCode(MsgEnum.ERROR.getCode());
-		res.setRetMsg(MsgEnum.ERROR.getMsg());
-		return res;
 	}
 
 }

@@ -1,8 +1,7 @@
 package com.cn.test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 
@@ -25,14 +24,12 @@ public class ShoppingCarTest {
 	
 	@Test
 	public void addShoppingCar(){
-		List<PyShoppingCart>goodsList = new ArrayList<PyShoppingCart>();
 		PyShoppingCart goods= new PyShoppingCart();
 		goods.setId("650cdf8142684ef5b0d713bdaa48aebd");
 		goods.setGoodsId("1003");
 		goods.setUserId("chin2");
 		goods.setVendorId("8888");
 		goods.setGoodsNum(new BigDecimal("2"));
-		goodsList.add(goods);
-		shoppingCartService.savePyShoppingCart(goodsList);
+		shoppingCartService.savePyShoppingCart(goods);
 	}
 }

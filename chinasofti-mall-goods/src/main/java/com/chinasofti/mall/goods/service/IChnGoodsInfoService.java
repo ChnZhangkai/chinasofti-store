@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
-import com.chinasofti.mall.common.utils.ResponseInfo;
+
 
 public interface IChnGoodsInfoService{
 	
@@ -23,5 +23,12 @@ public interface IChnGoodsInfoService{
     * @return
     */
    public List<ChnGoodsinfo> selectByNameOrother(ChnGoodsinfo record);
+   
+   /**
+    * 根据商品Id查询商品信息
+    * @param ids
+    * @return
+    */
+   public ChnGoodsinfo checkGoodsInfoById(String ids);
 
 }

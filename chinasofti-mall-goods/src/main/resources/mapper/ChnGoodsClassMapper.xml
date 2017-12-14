@@ -370,6 +370,6 @@
     select 
     <include refid="Base_Column_List" />
     from chn_goods_class
-    where PIDS = #{pids,jdbcType=VARCHAR}
+    where STATES ="1" and PIDS = #{pids,jdbcType=VARCHAR}
   </select>
 </mapper>
