@@ -61,11 +61,11 @@ public class ShoppingCartController {
 	
 	/**
 	 * 加入购物车
-	 * @param t
+	 * @param PyShoppingCart
 	 * @return
 	 */
 	@RequestMapping(value="add/goods", method = RequestMethod.POST)
-	@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"},{\"goodsId\":\"1002\",\"userId\":\"chin\",\"goodsNum\":\"2\"}]")
+	@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"}")
 	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goods) {
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》"+goods.toString());
 		ResponseInfo response = new ResponseInfo();
@@ -74,13 +74,13 @@ public class ShoppingCartController {
 			//商品信息校验
 			ResponseInfo result = RequestParamService.packageWithGoodsInfoRequest(goods,storegoodsInfo);
 			if(result.getRetCode() !=null){
-				return response;
+				return result;
 			}
 		response = shoppingCartFeignClient.savePyShoppingCart(goods);
 		
 		return response;
 	}
-
+	
 	/**
 	 * 更新购物车
 	 * @param t
@@ -93,7 +93,7 @@ public class ShoppingCartController {
 		//参数校验
 		ResponseInfo result = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
 		if(result.getRetCode() !=null){
-			return response;
+			return result;
 		}
 		int re = shoppingCartFeignClient.updatePyShoppingCart(goodsInfo);
 		response = DealParamFunctions.dealResponseData(re);
@@ -120,5 +120,29 @@ public class ShoppingCartController {
 		return response;
 	}
 
-
+	/**
+	 * 立即购买
+	 * 之校验商品信息是否有效
+	 * @param PyShoppingCart
+	 * @return
+	 */
+	@RequestMapping(value ="checkGoodsInfo", method =RequestMethod.POST)
+	public ResponseInfo checkGoodsInfo(@RequestBody List<PyShoppingCart> shoppingCartList){
+		ResponseInfo response = new ResponseInfo();
+		for(PyShoppingCart goods :shoppingCartList){
+			String id = goods.getGoodsId();
+			ChnGoodsinfo storegoodsInfo = goodsInfoFeignClient.checkGoodsInfoById(id);
+			//商品信息校验
+			ResponseInfo result = RequestParamService.packageWithGoodsInfoRequest(goods,storegoodsInfo);
+			if(result.getRetCode() !=null){
+				return result;
+			}
+			
+		}
+		
+		response.setRetCode(MsgEnum.SUCCESS.getCode());
+	    response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		return response;
+		
+	}
 }
