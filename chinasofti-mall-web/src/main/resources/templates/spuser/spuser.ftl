@@ -152,7 +152,7 @@
 			<tr>
 				<td align="right">商户编号:</td>
 				<td><input id="vendorId" name="vendorId"
-				 class="easyui-textbox" disabled="true" style="width:180px"/></td>
+				 class="easyui-textbox" readonly="true"  style="width:180px"/></td>
 				
 				<td align="right">商户全称:</td>
                 <td><input id="vendorFnm" name="vendorFnm"  class="easyui-textbox" style="width:180px"

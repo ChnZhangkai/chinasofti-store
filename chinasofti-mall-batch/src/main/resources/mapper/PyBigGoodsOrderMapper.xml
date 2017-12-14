@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.chinasofti.mall.batch.mapper.PyBigGoodsorderMapper" >
-  <resultMap id="BaseResultMap" type="com.chinasofti.mall.batch.bean.PyBigGoodsorder" >
+<mapper namespace="com.chinasofti.mall.batch.mapper.PyBigGoodsOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.order.PyBigGoodsorder" >
     <id column="IDS" property="ids" jdbcType="VARCHAR" />
     <result column="TRANSACTIONID" property="transactionid" jdbcType="VARCHAR" />
     <result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR" />
@@ -43,7 +43,7 @@
   </select>
   
   <!-- 更新7天内未支付的订单为: 已取消-2 -->
-  <update id="updatePaywayStatus" parameterType="com.chinasofti.mall.batch.bean.PyBigGoodsorder" >
+  <update id="updatePaywayStatus" parameterType="com.chinasofti.mall.common.entity.order.PyBigGoodsorder" >
   	 UPDATE py_big_goodsorder
   	 <set>
   	 	PAY_STATUS = ${order.payStatus}

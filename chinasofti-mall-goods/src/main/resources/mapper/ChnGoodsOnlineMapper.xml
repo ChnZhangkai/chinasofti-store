@@ -131,28 +131,28 @@
 		cg.VENDORIDS=smu.VENDOR_ID AND cg.GOODS_CLASS_IDS=cgs.ids 
 		AND cg.REVIEW_STATUES='1'
 		<if test="ids != null and ids !='' ">
-			and cg.IDS like CONCAT('%',#{ids},'%')
+			and cg.IDS like CONCAT('%','${ids}','%')
 		</if>
 		<if test="title != null and title !='' ">
-			and cg.TITLE like CONCAT('%',#{title},'%')
+			and cg.TITLE like CONCAT('%','${title}','%')
 		</if>
 			<if test="startTime != null and startTime != '' ">
-			and START_TIME &gt;= #{startTime}
+			and START_TIME &gt;= ${startTime}
 		</if>
 		<if test="endTime != null and endTime != '' ">
-			and END_TIME &lt;= #{endTime}
+			and END_TIME &lt;= ${endTime}
 		</if>
 		<if test="name != null and name != '' ">
-			and cgs.NAME like CONCAT('%',#{name},'%')
+			and cgs.NAME like CONCAT('%','${name}','%')
 		</if>
 		<if test="vendorFnm != null and vendorFnm != '' ">
-			and smu.VENDOR_FNM like CONCAT('%',#{vendorFnm},'%')
+			and smu.VENDOR_FNM like CONCAT('%','${vendorFnm}','%')
 		</if>
 		<if test="type != null and type != '' ">
-			and cg.TYPE = #{type}
+			and cg.TYPE = ${type}
 		</if>
 		<if test="status != null and status != '' ">
-			and cg.STATUS = #{status}
+			and cg.STATUS = ${status}
 		</if>
 	</where>
   </select>
@@ -167,28 +167,28 @@
 		cg.VENDORIDS=smu.VENDOR_ID AND cg.GOODS_CLASS_IDS=cgs.ids 
 		AND cg.REVIEW_STATUES='1'
 		<if test="ids != null and ids !='' ">
-			and cg.IDS like CONCAT('%',#{ids},'%')
+			and cg.IDS like CONCAT('%','${ids}','%')
 		</if>
 		<if test="title != null and title !='' ">
-			and cg.TITLE like CONCAT('%',#{title},'%')
+			and cg.TITLE like CONCAT('%','${title}','%')
 		</if>
 			<if test="startTime != null and startTime != '' ">
-			and START_TIME &gt;= #{startTime}
+			and START_TIME &gt;= ${startTime}
 		</if>
 		<if test="endTime != null and endTime != '' ">
-			and END_TIME &lt;= #{endTime}
+			and END_TIME &lt;= ${endTime}
 		</if>
 		<if test="name != null and name != '' ">
-			and cgs.NAME like CONCAT('%',#{name},'%')
+			and cgs.NAME like CONCAT('%','${name}','%')
 		</if>
 		<if test="vendorFnm != null and vendorFnm != '' ">
-			and smu.VENDOR_FNM like CONCAT('%',#{vendorFnm},'%')
+			and smu.VENDOR_FNM like CONCAT('%','${vendorFnm}','%')
 		</if>
 		<if test="type != null and type != '' ">
-			and cg.TYPE = #{type}
+			and cg.TYPE = ${type}
 		</if>
 		<if test="status != null and status != '' ">
-			and cg.STATUS = #{status}
+			and cg.STATUS = ${status}
 		</if>
 	</where>
 	<if test="sort == 'startTime'">
