@@ -38,9 +38,9 @@
 	<!-- 数据显示datagrid -->
 	<table id="ad-datagrid" style="height: 100%" class="easyui-datagrid" toolbar="#advertise-toolbar"
 		data-options="url:'/advertise/findByPage',
+					remoteSort:true, 
     				 fitColumns:false,
        				 pagination:true,
-       				 sortName:'CREATE_TIME',
        				 sortOrder:'desc',
         			 title:'广告列表',
        				 iconCls:'icon-man',
@@ -52,12 +52,12 @@
        				 onDblClickRow:showAdvertise">
 		<thead>
 			<tr>
-				<th field="title"  width="10%" align="center" data-options="sortable:true">标题</th>
-				<th field="url"   width="15%" align="center" data-options="sortable:true">链接URL</th>
-				<th field="type"  width="8%" align="center" data-options="formatter:typeFormatter,sortable:true">广告类型</th>
-				<th field="states"  width="10%" align="center" data-options="formatter:statesFormatter,sortable:true">前台状态</th>
-				<th field="positionName"  width="10%" align="center" data-options="sortable:true">广告位名称</th>
-				<th field="categoryName"  width="10%" align="center" data-options="sortable:true">分类广告名称</th>
+				<th field="title"  width="10%" align="center" >标题</th>
+				<th field="url"   width="15%" align="center" >链接URL</th>
+				<th field="type"  width="8%" align="center" data-options="formatter:typeFormatter">广告类型</th>
+				<th field="states"  width="10%" align="center" data-options="formatter:statesFormatter">前台状态</th>
+				<th field="positionName"  width="10%" align="center" >广告位名称</th>
+				<th field="categoryName"  width="10%" align="center" >分类广告名称</th>
 				<th field="beginTime"  width="15%" align="center" data-options="sortable:true">有效开始日期</th>
 				<th field="endTime" width="15%" align="center" data-options="sortable:true">有效结束日期</th>
 				<th field="_operator"  width="10%" align="center" data-options="formatter:OperatorFormatter">操作</th>  
@@ -124,6 +124,7 @@
 				<tr  style="padding:10px">
 					<th align="right">图片:</th>
 					<td colspan="3">
+						<input name="imageurl" id="imgUrl" type="hidden">
 						<input id="file" name="file" type="file" required="required" onchange="previewImage(this)"/>
 						<div id="preview">  
 			    				<img id="imghead"  style="max-width:235px;max-height:175px;width:135;height:75;" src=''>  
@@ -141,6 +142,7 @@
 		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveAdvertise()">确定</a> 
 		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#ad-edit-dialog').dialog('close')">取消</a>
 	</div>
+	
 
 	<!-- 广告查看框  -->
 	<div id="ad-show-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save',inline:true" style="width: 100%;height:100%; padding: 50px;">

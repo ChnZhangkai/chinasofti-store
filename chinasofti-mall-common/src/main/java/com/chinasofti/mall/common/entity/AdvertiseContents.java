@@ -1,6 +1,5 @@
 package com.chinasofti.mall.common.entity;
 
-import java.math.BigDecimal;
 
 public class AdvertiseContents{
     private String ids;
@@ -35,7 +34,7 @@ public class AdvertiseContents{
 
     private String positionId;
 
-    private BigDecimal descs;
+    private Integer descs;
 
     private String isOuturl;
    
@@ -168,11 +167,11 @@ public class AdvertiseContents{
         this.positionId = positionId == null ? null : positionId.trim();
     }
 
-    public BigDecimal getDescs() {
+    public Integer getDescs() {
         return descs;
     }
 
-    public void setDescs(BigDecimal descs) {
+    public void setDescs(Integer descs) {
         this.descs = descs;
     }
 
