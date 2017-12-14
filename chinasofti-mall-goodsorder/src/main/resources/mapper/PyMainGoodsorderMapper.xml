@@ -53,9 +53,9 @@
     <result column="CONT_CITY_CODE" property="contCityCode" jdbcType="VARCHAR" />
     <result column="CONT_DISTRICT_CODE" property="contDistrictCode" jdbcType="VARCHAR" />
     <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
-    <result column="ORDER_TYPE" property="orderType" />
-    <result column="TYPE" property="afterType" />
-    <result column="VENDOR_SNM" property="vendorSnm" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR"/>
+    <result column="TYPE" property="afterType" jdbcType="VARCHAR"/>
+    <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where > 
