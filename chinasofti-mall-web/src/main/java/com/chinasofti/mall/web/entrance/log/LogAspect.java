@@ -39,7 +39,7 @@ public class LogAspect {
 	@Autowired
 	private LogService logService;
 	
-	private LogOperator logOperator = new LogOperator();
+	private LogOperator logOperator = null;
 
 	/**
 	 * 切点
@@ -58,6 +58,8 @@ public class LogAspect {
 	public void doBefore(JoinPoint joinPoint) {
 
 		startTime.set(System.currentTimeMillis());
+		
+		logOperator = new LogOperator();
 		
 		// 接收到请求,用于获取类方法
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();

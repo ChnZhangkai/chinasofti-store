@@ -8,26 +8,6 @@
 	 * 全局加载数据
 	 */
 	$(function() {
-		$.messager.show({
-			title : '提示',
-			msg : '该充值智商了!'
-		});
-
-		//获取表格datagrid的ID属性,
-		var tableID = "goodsOnlineinfo";
-		//获取分页工具条元素
-		var pageId = $('#goodsOnlinePagination');
-		//此处设置自己的url地址
-		var url = '/goodsOnline/list';
-		//分页查询时传递查询条件
-		seachId = '#searchOnlineForm';
-		//调用初始化方法	
-		tdload(tableID, pageId, url);
-
-		$.messager.progress({
-			text : '数据正在加载中'
-		});
-
 		//商品分类选择窗口
 		$('#ClassTreeDlg').dialog({
 			title: '菜单树',//窗口标题

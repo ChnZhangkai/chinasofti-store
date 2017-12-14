@@ -55,10 +55,10 @@
     <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
     <result column="ORDER_TYPE" property="orderType" />
     <result column="TYPE" property="afterType" />
-    <result column="VENDOR_SNM" property="vendorSnm"  />
+    <result column="VENDOR_SNM" property="vendorSnm" />
   </resultMap>
   <sql id="Example_Where_Clause" >
-    <where >
+    <where > 
       <foreach collection="oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >
@@ -123,7 +123,7 @@
     PAYWAY, TRANSACTIONID, CONT_NAME, SETTLE_BATCH_NO, WX_FEE, SETTLE_STATUS_FEE, SETTLE_TIME_FEE, 
     SETTLE_BATCH_NO_FEE, PAY_TIME, IS_TICKET, EXPRESS_COMPANY_ID, EXPRESS_NAME, EXPRESS_ID, 
     SENDOUTTIME, UPDATETIME, S_LATITUDE, S_LONGITUDE, P_LATITUDE, P_LONGITUDE, SENDDESC, 
-    FREIGHT_OLD, CONT_PROVINCE_CODE, CONT_CITY_CODE, CONT_DISTRICT_CODE, FREIGHT, VENDOR_SNM
+    FREIGHT_OLD, CONT_PROVINCE_CODE, CONT_CITY_CODE, CONT_DISTRICT_CODE, FREIGHT 
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.order.PyMainGoodsorderExample" >
     select
@@ -227,9 +227,6 @@
       </if>
       <if test="vendorIds != null" >
         VENDOR_IDS,
-      </if>
-      <if test="vendorSnm != null" >
-        VENDOR_SNM,
       </if>
       <if test="userIds != null" >
         USER_IDS,
@@ -388,9 +385,6 @@
       </if>
       <if test="userIds != null" >
         #{userIds,jdbcType=VARCHAR},
-      </if>
-      <if test="vendorSnm != null" >
-        #{vendorSnm,jdbcType=VARCHAR},
       </if>
       <if test="contPostcode != null" >
         #{contPostcode,jdbcType=VARCHAR},
@@ -1065,11 +1059,10 @@
 	    <result column="CONT_CITY_CODE" property="contCityCode" jdbcType="VARCHAR" />
 	    <result column="CONT_DISTRICT_CODE" property="contDistrictCode" jdbcType="VARCHAR" />
 	    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
-	    <result column="VENDOR_SNM" property="vendorSnm"  />
 	    <collection property="pyChildGoodsorders" ofType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder">
-		    	<id column="MAINORDER_IDS" property="mainorderIds"/>
-		    	<result column="cid" property="ids" jdbcType="VARCHAR" />
-		    	<result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />
+		    <id column="MAINORDER_IDS" property="mainorderIds"/>
+		    <result column="cid" property="ids" jdbcType="VARCHAR" />
+		    <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />
 		    <result column="CUST_IDS" property="custIds" jdbcType="VARCHAR" />
 		    <result column="ORDER_STATUS" property="orderStatus" jdbcType="CHAR" />
 		    <result column="GOODS_NUM" property="goodsNum" jdbcType="DECIMAL" />
@@ -1110,7 +1103,7 @@
 	      	m.SENDOUTTIME, m.UPDATETIME, m.S_LATITUDE, 
 	      	m.S_LONGITUDE, m.P_LATITUDE, m.P_LONGITUDE, 
 	      	m.SENDDESC, m.FREIGHT_OLD, m.CONT_PROVINCE_CODE, 
-	      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, m.VENDOR_SNM,
+	      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, 
 			c.IDS as cid, c.GOODSIDS, c.CUST_IDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, 
 			c.ORDER_REAL_AMT, c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, 
 			c.ORDER_AMT, c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE	

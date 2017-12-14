@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,10 +37,14 @@ import net.sf.json.JSONObject;
 @RequestMapping("/goods")
 public class ChnGoodsClassController {
 	
-	private static final String beforePath = System.getProperty("user.dir")  + "\\src\\main\\resources\\static\\data\\goods";
-	
 	@Autowired
 	private ChnGoodsFeignClient chnGoodsClassFeignClient;
+	
+	@Value("${file.save.path}")
+	private String filePath;
+	
+	@Value("${file.query.url}")
+	private String fileUrl;
 	
 	/**
 	 * 返回主界面
@@ -146,7 +151,7 @@ public class ChnGoodsClassController {
 
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("uimg");
 		String imageName = multipartFile.getOriginalFilename();
-		String fileName = beforePath + File.separator + imageName;
+		String fileName = filePath + File.separator + "goodsclass" + File.separator + imageName;
 		File fileSave = new File(fileName);
 		
 		if (!StringUtils.isEmpty(multipartFile.getOriginalFilename())) {
@@ -162,13 +167,13 @@ public class ChnGoodsClassController {
 			//若选择了图片则删除旧图片
 			String delImg = chnGoodsClass.getImg();
 			String delImgname = delImg.substring(delImg.lastIndexOf("/")+1);
-			String delImgUrl = beforePath + File.separator + delImgname;
+			String delImgUrl = filePath + File.separator + "goodsclass" + File.separator + delImgname;
 			File file = new File(delImgUrl);
 			if (file.exists()) {
 				file.delete();
 			}
 			//存储新图片路径
-			chnGoodsClass.setImg("/data/goods/" + imageName);
+			chnGoodsClass.setImg(fileUrl +"/goodsclass/" + imageName);
 		}
 		
 		PtUser user = (PtUser) session.getAttribute("user");
@@ -202,7 +207,7 @@ public class ChnGoodsClassController {
 		String relWay = delImg.getImg();
 		if (relWay != null) {
 			String imageName = relWay.substring(relWay.lastIndexOf("/")+1);
-			String imgUrl = beforePath + File.separator + imageName;
+			String imgUrl = filePath + File.separator + "goodsclass" + File.separator + imageName;
 			File file = new File(imgUrl);
 			if (file.exists()) {
 				file.delete();
@@ -223,7 +228,7 @@ public class ChnGoodsClassController {
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("img"); 
 		String imageName = multipartFile.getOriginalFilename();
 		
-		String fileName = beforePath + File.separator + imageName;
+		String fileName = filePath + File.separator + "goodsclass" + File.separator + imageName;
 		File file = new File(fileName);
 		try {
 			multipartFile.transferTo(file);
@@ -240,7 +245,7 @@ public class ChnGoodsClassController {
 		chnGoodsClass.setName(multipartHttpServletRequest.getParameter("name"));
 		chnGoodsClass.setCommons(multipartHttpServletRequest.getParameter("commons"));
 		chnGoodsClass.setStates(multipartHttpServletRequest.getParameter("states"));
-		chnGoodsClass.setImg("/data/goods/" + imageName);
+		chnGoodsClass.setImg(fileUrl + "/goodsclass/" + imageName);
 		chnGoodsClass.setCreateBy(user.getUsername());
 		chnGoodsClass.setCreateTime(StringDateUtil.convertDateToLongString(new Date()));
 		int chngoodsClass = chnGoodsClassFeignClient.saveGoodsClass(chnGoodsClass);

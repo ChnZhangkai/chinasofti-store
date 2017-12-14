@@ -64,8 +64,8 @@
 		</thead>
 	</table>
 	<!-- 分页工具条 -->
-	<div id="goodsCheckPagination"
-		style="background: #efefef; border: 1px solid #ccc;"></div>
+	<div id="goodsCheckPagination" style="background: #efefef; border: 1px solid #ccc;"></div>
+</div>
 
 	<!-- 商品添加表格 -->
 	<div id="addDl" class="easyui-dialog"
@@ -91,9 +91,9 @@
 							<option value="0">普通商品</option>
 							<option value="1">活动商品</option>
 					</select></td>
-					<td align="right">商户名称</td>
+					<td align="right">商户编号</td>
 					<td>
-					<input class="easyui-textbox" id="add-vendorFnm" name="vendorFnm" readonly="true" />
+					<input class="easyui-textbox" id="add-vendorFnm" name="vendorids" readonly="true" />
 							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
 					</td>
 				</tr>
@@ -194,9 +194,9 @@
 							<option value="0">普通商品</option>
 							<option value="1">活动商品</option>
 					</select></td>
-					<td align="right">商户名称</td>
+					<td align="right">商户编号</td>
 					<td>
-					<input class="easyui-textbox" id="update-vendorFnm" name="vendorFnm" readonly="true" />
+					<input class="easyui-textbox" id="update-vendorFnm" name="vendorids" readonly="true" />
 							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
 					</td>
 				</tr>
@@ -438,7 +438,7 @@
 	</div>
 	<!-- 商户数据表 -->
 	<table id="venderDataTable" class="easyui-datagrid" singleSelect="true" style="width: 97%"
-		data-options="url:'/spUser/list',
+		data-options="url:'/spUser/findByPage',
 					fitColumns:true,
 					pagination:true,
 					pageSize:5,
