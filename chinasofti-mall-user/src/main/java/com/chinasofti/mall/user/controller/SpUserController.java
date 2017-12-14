@@ -40,12 +40,17 @@ public class SpUserController {
 	private static final Logger logger = LoggerFactory.getLogger(SpUserController.class);  
 	
 	@RequestMapping(value="/signUp")
-	public ResponseInfo signUp(@RequestBody SpUser spUser) {
+	public int signUp(@RequestBody SpUser spUser) {
+		//首先验证该客户是否存在
+		boolean flag = spUserService.countStr(spUser.getUserId());
+		if(!flag){
+			return 0;
+		}
 		return spUserService.add(spUser);		
 	}
 	
 	@RequestMapping(value="/signIn")
-	public ResponseInfo signIn(@RequestBody SpUser spUser) {
+	public SpUser signIn(@RequestBody SpUser spUser) {
 		return spUserService.select(spUser);
 	}
 	

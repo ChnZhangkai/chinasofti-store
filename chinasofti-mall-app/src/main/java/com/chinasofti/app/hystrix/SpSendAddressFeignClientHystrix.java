@@ -1,5 +1,8 @@
 package com.chinasofti.app.hystrix;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.chinasofti.app.feign.SpSendAddressFeignClient;
@@ -18,23 +21,23 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 public class SpSendAddressFeignClientHystrix implements SpSendAddressFeignClient{
 
 	@Override
-	public ResponseInfo findSendAddressList(String userId) {
-		return new ResponseInfo();
+	public List<SpSendAddress> findSendAddressList(String userId) {
+		return new ArrayList<SpSendAddress>();
 	}
  
 	@Override
-	public ResponseInfo addSendAddress(SpSendAddress spSendAddress) {
-		return new ResponseInfo();
+	public int addSendAddress(SpSendAddress spSendAddress) {
+		return 0;
 	}
 	
 	@Override
-	public ResponseInfo updataSendAddress(SpSendAddress spSendAddress) {
-		return new ResponseInfo();
+	public int updataSendAddress(SpSendAddress spSendAddress) {
+		return 0;
 	}
 	
 	@Override
-	public ResponseInfo deleteSendAddress(SpSendAddress spSendAddress) {
-		return new ResponseInfo();
+	public int deleteSendAddress(SpSendAddress spSendAddress) {
+		return 0;
 	}
 
 	
