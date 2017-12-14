@@ -40,4 +40,11 @@ public interface ChnGoodsInfoMapper {
      * @return
      */
     List<ChnGoodsinfo> selectByNameOrother(ChnGoodsinfo goodsInfo);
+    /**
+     * 根据商品Id查询商品信息
+     * @param goodsClassIds
+     * @return
+     */
+    ChnGoodsinfo selectByGoodsId(@Param("ids") String ids);
+    
 }

@@ -52,38 +52,36 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 
 
 	@Override
-	public ResponseInfo savePyShoppingCart(List<PyShoppingCart>goodsList) {
+	public ResponseInfo savePyShoppingCart(PyShoppingCart goods) {
 		ResponseInfo response = new ResponseInfo();
-		if (goodsList.size() == 0 || "".equals(goodsList)) {
+		if (goods.getGoodsId() == null || "".equals(goods)) {
 			response.setRetCode(MsgEnum.SERVER_ERROR.getCode());
 			response.setRetMsg("请选择要添加购物车的商品！");
 			return response;
 		}
-		for (PyShoppingCart goods : goodsList) {
-			// 参数校验
-			ResponseInfo result = RequestParamService.packageWithAddShoppingCartParam(goods);
-			if (result != null) {
-				return result;
-			}
-			// 加上商品校验（弄一个通用的）
-
-			PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
-
-			if (shoppingCar != null) {
-				goods.setId(shoppingCar.getId());
-				goods.setGoodsNum(goods.getGoodsNum().add(shoppingCar.getGoodsNum()));
-				pyShoppingCartMapper.updateByPrimaryKeySelective(goods);
-			} else {
-				goods.setId(UUIDUtils.getUuid());
-				goods.setPayStatus(Constant.PAY_STATUS);
-				goods.setChecked(Constant.CHECKED);
-				goods.setCreateTime(StringDateUtil.getStringTime());
-				this.save(goods);
-			}
-
-			response.setRetCode(MsgEnum.SUCCESS.getCode());
-			response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		// 参数校验
+		ResponseInfo result = RequestParamService.packageWithAddShoppingCartParam(goods);
+		if (result.getRetCode() != null) {
+			return result;
 		}
+		// 加上商品校验（弄一个通用的）
+
+		PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
+
+		if (shoppingCar != null) {
+			goods.setId(shoppingCar.getId());
+			goods.setGoodsNum(goods.getGoodsNum().add(shoppingCar.getGoodsNum()));
+			pyShoppingCartMapper.updateByPrimaryKeySelective(goods);
+		} else {
+			goods.setId(UUIDUtils.getUuid());
+			goods.setPayStatus(Constant.PAY_STATUS);
+			goods.setChecked(Constant.CHECKED);
+			goods.setCreateTime(StringDateUtil.getStringTime());
+			this.save(goods);
+		}
+
+		response.setRetCode(MsgEnum.SUCCESS.getCode());
+		response.setRetMsg(MsgEnum.SUCCESS.getMsg());
 
 		return response;
 	}

@@ -51,4 +51,14 @@ public class ChnGoodsInfoController {
 	
 		return goodsInfoService.selectByNameOrother(goodsInfo);
 	}
+	/**
+	 * 根据商品Id查询商品信息
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	public ChnGoodsinfo checkGoodsInfoById(@RequestParam("ids")String ids) {
+		return goodsInfoService.checkGoodsInfoById(ids);
+		
+	}
 }

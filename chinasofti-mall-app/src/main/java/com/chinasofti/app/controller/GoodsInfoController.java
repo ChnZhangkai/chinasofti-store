@@ -35,10 +35,9 @@ public class GoodsInfoController {
 	 * @param classId(ids)
 	 * @return
 	 */
-	@SuppressWarnings("null")
 	@RequestMapping("queryGoodsList")
 	public ResponseInfo queryGoodList(@RequestParam("id") String id){
-		ResponseInfo response=null;
+		ResponseInfo response = new ResponseInfo();
 		if(StringUtils.isEmpty(id)){
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("分类Id不能为空！");
@@ -48,10 +47,9 @@ public class GoodsInfoController {
 		response = DealParamFunctions.dealResponseData(result);
 		return response;
 	}
-	@SuppressWarnings("null")
 	@RequestMapping("queryGoodsInfo")
 	public ResponseInfo queryGoodsInfo(@RequestParam("ids") String ids){
-		ResponseInfo response = null;
+		ResponseInfo response = new ResponseInfo();
 		if (StringUtils.isEmpty(ids)) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("商品Ids不能为空！");
@@ -67,10 +65,9 @@ public class GoodsInfoController {
 	 * @param response
 	 * @return
 	 */
-	@SuppressWarnings("null")
 	@RequestMapping("queryGoodsInfoList")
 	public ResponseInfo queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo){
-		ResponseInfo response = null;
+		ResponseInfo response = new ResponseInfo();
 		if ((StringUtils.isEmpty(goodsInfo.getTitle())&& StringUtils.isEmpty(goodsInfo.getGoodsClassIds()))||(StringUtils.isNotEmpty(goodsInfo.getTitle()) && StringUtils.isNotEmpty(goodsInfo.getGoodsClassIds()))) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("关键字title或goodsClassIds不能同时为空！");

@@ -34,5 +34,11 @@ public class GoodsFeignClientHystrix implements GoodsInfoFeignClient{
 		return new ArrayList<ChnGoodsinfo>();
 	}
 
+	@Override
+	public ChnGoodsinfo checkGoodsInfoById(String ids) {
+		
+		return new ChnGoodsinfo();
+	}
+
 	
 }
