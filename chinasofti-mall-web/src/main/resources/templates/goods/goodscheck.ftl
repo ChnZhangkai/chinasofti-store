@@ -38,7 +38,7 @@
 	</div>
 
 	<!-- 数据显示datagrid -->
-	<table id="goodscheck" class="easyui-datagrid" toolbar="#wu-toolbar-3" style="height: 95%"
+	<table id="goodscheck" class="easyui-datagrid" title="商品审核列表" toolbar="#wu-toolbar-3" style="height: 95%"
 		data-options="singleSelect:true,
 						 collapsible:true,
 						 url:'/goodsCheck/list',
@@ -69,7 +69,7 @@
 
 	<!-- 商品添加表格 -->
 	<div id="addDl" class="easyui-dialog"
-		data-options="closed:true,iconCls:'icon-add',inline:true"
+		data-options="closed:true,iconCls:'icon-add',inline:true,closable:false"
 		style="width: 100%; height: 100%; padding: 10px;">
 		<form id="addGoodsForm"  enctype="multipart/form-data">
 			<table>

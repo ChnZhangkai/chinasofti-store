@@ -399,8 +399,9 @@
 	 */
 	function readGoodsPicture(_obj) {
 		//easyui-filebox封装input标签
+		debugger;
 		var fileId = $("input[type='file']").attr('id');
-		//console.info(fileId);
+		console.info(fileId);
 		// 检查是否为图像类型
 		var simpleFile = document.getElementById(fileId).files[0];
 		//console.info(simpleFile);
@@ -423,6 +424,7 @@
 	
 	// 商品审核详情查看
 	function showGoodsCheck() {
+	debugger;
 	var row = $('#goodscheck').datagrid('getSelected');
 	var ids = row.goodsids;
 	$(document).ready(function(){  
@@ -444,7 +446,7 @@
 	if (row <= 0) {
 		$.messager.alert('提示', '请选择查看的条目!');
 	} else {
-		$('#goodsCheck-show').dialog('open').dialog('setTitle', '商品在线详情');
+		$('#goodsCheck-show').dialog('open').dialog('setTitle', '商品详情');
 		$('#goodsCheck-show-data').form('load', row);
 	}
 }
