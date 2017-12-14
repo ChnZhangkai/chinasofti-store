@@ -44,7 +44,7 @@ public class CancelGoodsOrdersReader implements ItemReader<PyBigGoodsorder> {
     }
 
     public void setHandleDate(String handleDate) {
-        this.handleDate = handleDate;
+        this.handleDate = DateUtils.transFormatToyyyyMMdd(handleDate);
     }
 
 }
