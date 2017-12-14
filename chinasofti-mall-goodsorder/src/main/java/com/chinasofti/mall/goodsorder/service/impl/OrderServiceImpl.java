@@ -99,8 +99,8 @@ public class OrderServiceImpl implements OrderService {
 			List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
 			List<PyMainGoodsorder> mainList = new LinkedList<PyMainGoodsorder>() ;//主订单集合
 			Map<String,Object> orderResult = installOrdergetOrderInfo(orderCreateTime,orderInfo);//主订单、子订单集合
-			//添加订单的商品总数（黄佳喜添加的）
-			pyBigGoodsorder.setOrderTotalNum((BigDecimal)orderResult.get("orderNum"));
+			//添加订单的商品总数（黄佳喜添加的） 
+			pyBigGoodsorder.setOrderTotalNum((int) orderResult.get("orderNum"));
 			childList = (List<PyChildGoodsorder>) orderResult.get("childList");
 			mainList = (List<PyMainGoodsorder>) orderResult.get("mainList");
 			logger.info("*****childList="+childList);
@@ -235,7 +235,7 @@ public class OrderServiceImpl implements OrderService {
 				goodsNum = goodsInfoList.get(j).getGoodsNum();//购买数量
 				orderNum = goodsNum+orderNum;//（黄佳喜添加的）
 				if(j==0){
-					shoporderAmt = childorder.getOrderRealAmt(); 
+					shoporderAmt = childorder.getOrderAmt(); 
 				}else{
 					shoporderAmt = shoporderAmt.add(childorder.getOrderRealAmt());
 				}
@@ -283,6 +283,7 @@ public class OrderServiceImpl implements OrderService {
 		checkGoods(goodsId,new BigDecimal(goodsNum),goodsPrice,goodsName);
 		childorder.setGoodsPrice(goodsPrice);
 		BigDecimal goodsorderAmt = new BigDecimal(goodsNum).multiply(goodsPrice);//商品金额
+		System.out.println(">>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<goodsorderAmt="+goodsorderAmt);
 		childorder.setOrderAmt(goodsorderAmt);
 		String childTransactionId = "G".concat(orderCreateTime.concat(getFixLenthString(4)));//子订单流水号
 		childorder.setTransactionid(childTransactionId);
