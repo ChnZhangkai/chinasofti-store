@@ -79,7 +79,7 @@ public class DateUtils {
             Date date = sdf.parse(dateStr);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
-            calendar.add(Calendar.DAY_OF_MONTH, -700);
+            calendar.add(Calendar.DAY_OF_MONTH, -7);
             Date before7Date = calendar.getTime();
             return sdf.format(before7Date);
         } catch (ParseException e) {
