@@ -1,3 +1,10 @@
+
+//缓冲分类数据
+var categoryData ='';
+//缓冲广告位名称数据
+var adPositonData ='';
+
+
 // 搜索
 function ad_search() {
 	$("#ad-datagrid").datagrid("load", {
@@ -81,10 +88,16 @@ function ad_clear() {
 	loadAdPosition();
 }
 
+function addAdvertise(){
+$('#ad-datagrid').datagrid('reload'); 
+addAdvertise_();
+}
+
 // 添加
-function addAdvertise() {
+function addAdvertise_() {
 	$('#ad-edit-dialog').dialog('open').dialog('setTitle', '添加广告');
 	$('#ad-edit-form').form('clear');
+	$('#ad-edit-form').form('reset');
 	loadClassName();
 	loadAdPostion();
 	// 清空预览图片
@@ -111,7 +124,6 @@ function editAdvertise() {
 }
 // 保存
 function saveAdvertise() {
-	debugger;
 	var file = $("#file").val();
 	var imgUrl =$("#imgUrl").val();
 	if(file == "" && imgUrl ==''){
@@ -141,6 +153,8 @@ function saveAdvertise() {
 		}
 	});
 }
+
+
 // 删除
 function deleteAdvertise() {
 	var row = $('#ad-datagrid').datagrid('getSelected');
@@ -235,96 +249,59 @@ function previewImage(file) {
 
 // 加载分类名称
 function loadClassName() {
-	$.ajax({
-		url : '/goodsCheck/reqGoodsClassName',
-		type : "GET",
-		success : function(data) {
-			data = eval("(" + data + ")");
 			$('#_className').combobox({
+				data : categoryData.rows,
 				valueField : 'name',
-				textField : 'name',
-				data : data.rows,
-//				onLoadSuccess : function() { // 加载完成后,设置选中第一项
-//					var val = $(this).combobox('getData');
-//					for ( var item in val[0]) {
-//						if (item == 'name') {
-//							$(this).combobox('select', val[0][item]);
-//						}
-//					}
-//				}
+				textField : 'name'
 			})
-		}
-	});
 }
 	// 加载分类名称
 	function loadClassName2() {
-		var row = $('#ad-datagrid').datagrid('getSelected');
-		$.ajax({
-			url : '/goodsCheck/reqGoodsClassName',
-			type : "GET",
-			success : function(data) {
-				data = eval("(" + data + ")");
+		
+//		$.ajax({
+//			url : '/goodsCheck/reqGoodsClassName',
+//			type : "GET",
+//			success : function(data) {
+//				data = eval("(" + data + ")");
 				$('#_className').combobox({
 					valueField : 'name',
 					textField : 'name',
-					data : data.rows,
+					data : categoryData.rows,
 					onLoadSuccess : function() { // 加载完成后,设置选中第一项
+						var row = $('#ad-datagrid').datagrid('getSelected');
 						$('#_className').combobox('select',row.categoryName);
 					}
 				})
-			}
-		});
+//			}
+//		});
 	}
-
-
-
-
 
 //加载添加页面广告位名称
 function loadAdPostion(){	
-	$.ajax({
-		url : '/advertise/findAdPostionAll',
-		dataType : 'json',
-		success : function(jsonstr) {
-			jsonstr.unshift({
-				'ids' : '',
-				'name' : ''
-			});
 			$('#positionId_').combobox({
-				data : jsonstr,
+				data : adPositonData,
 				valueField : 'ids',
 				textField : 'name',
-//				onLoadSuccess : function() { // 加载完成后,设置选中第一项
-//					var val = $(this).combobox('getData');
-//					for ( var item in val[0]) {
-//						if (item == 'ids') {
-//							$(this).combobox('select', val[0][item]);
-//						}
-//					}
-//				}
 			});
-		}
-	});
-	
 }
 
 //加载修改页面广告位名称
 function loadAdPostion2(){	
-	$.ajax({
-		url : '/advertise/findAdPostionAll',
-		dataType : 'json',
-		success : function(jsonstr) {
+//	$.ajax({
+//		url : '/advertise/findAdPostionAll',
+//		dataType : 'json',
+//		success : function(jsonstr) {
 			$('#positionId_').combobox({
-				data : jsonstr,
+				data : adPositonData,
 				valueField : 'ids',
 				textField : 'name',
-				onLoadSuccess : function() { // 加载完成后,设置选中第一项
+				onLoadSuccess : function() { // 加载完成后,设置默认选中
 					var row = $('#ad-datagrid').datagrid('getSelected');
 					$('#positionId_').combobox('select',row.positionId);
 				}
 			});
-		}
-	});
+//		}
+//	});
 	
 }
 
@@ -358,6 +335,7 @@ $(function() {
 				'ids' : '',
 				'name' : '请选择'
 			});// 向json数组开头添加自定义数据
+			adPositonData = jsonstr;
 			$('#_positionId').combobox({
 				data : jsonstr,
 				valueField : 'ids',
@@ -374,12 +352,22 @@ $(function() {
 		}
 	});
 	
-//	$('#positionId_').combobox({
-//		url : '/advertise/findAdPostionAll',
-//		method : 'GET',
-//		valueField : 'ids',
-//		textField : 'name'
-//	});
+	// 加载分类名称
+		$.ajax({
+			url : '/goodsCheck/reqGoodsClassName',
+			type : "GET",
+			success : function(data) {
+				data = eval("(" + data + ")");
+//				data.rows.unshift({
+//					'name' : '',
+//					'name' : '请选择'
+//				});// 向json数组开头添加自定义数据
+				categoryData = data;
+			}
+		});
+
+	
+	
 	// 日期验证
 	$.extend($.fn.validatebox.defaults.rules, {
 		equaldDate : {

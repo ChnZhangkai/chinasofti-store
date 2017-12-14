@@ -61,6 +61,7 @@ public class AdvertiseController {
 	@RequestMapping("findByPage")
 	public String findByPage(@RequestParam Map<String, Object> map) {
 		String findByPage = advertiseFeignClient.findByPage(map);
+		
 		return findByPage;
 	}
 
@@ -108,7 +109,7 @@ public class AdvertiseController {
 	
 	@RequestMapping("update")
 	public String update(AdvertiseContents advertiseContents, MultipartFile file,HttpSession session) {
-		JSONObject jsonObject = new JSONObject();
+		//JSONObject jsonObject = new JSONObject();
 		if (!file.isEmpty()) {
 			//return jsonObject.put("errorMsg", "图片为空！！！").toString();
 			// 获取文件名

@@ -18,7 +18,7 @@
 		<result column="BEGIN_TIME" property="beginTime" jdbcType="VARCHAR" />
 		<result column="END_TIME" property="endTime" jdbcType="VARCHAR" />
 		<result column="POSITION_ID" property="positionId" jdbcType="VARCHAR" />
-		<result column="DESCS" property="descs" jdbcType="DECIMAL" />
+		<result column="DESCS" property="descs" jdbcType="INTEGER" />
 		<result column="IS_OUTURL" property="isOuturl" jdbcType="CHAR" />
 	</resultMap>
 	<resultMap id="BaseResultMap2" type="com.chinasofti.mall.common.entity.AdvertiseContents" extends="BaseResultMap">
@@ -178,7 +178,7 @@
 		#{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR},
 		#{updateTime,jdbcType=VARCHAR}, #{beginTime,jdbcType=VARCHAR},
 		#{endTime,jdbcType=VARCHAR},
-		#{positionId,jdbcType=VARCHAR}, #{descs,jdbcType=DECIMAL}, #{isOuturl,jdbcType=CHAR}
+		#{positionId,jdbcType=VARCHAR}, #{descs,jdbcType=INTEGER}, #{isOuturl,jdbcType=CHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.AdvertiseContents">
@@ -289,7 +289,7 @@
 				#{positionId,jdbcType=VARCHAR},
 			</if>
 			<if test="descs != null">
-				#{descs,jdbcType=DECIMAL},
+				#{descs,jdbcType=INTEGER},
 			</if>
 			<if test="isOuturl != null">
 				#{isOuturl,jdbcType=CHAR},
@@ -356,7 +356,7 @@
 				POSITION_ID = #{record.positionId,jdbcType=VARCHAR},
 			</if>
 			<if test="record.descs != null">
-				DESCS = #{record.descs,jdbcType=DECIMAL},
+				DESCS = #{record.descs,jdbcType=INTEGER},
 			</if>
 			<if test="record.isOuturl != null">
 				IS_OUTURL = #{record.isOuturl,jdbcType=CHAR},
@@ -384,7 +384,7 @@
 		BEGIN_TIME = #{record.beginTime,jdbcType=VARCHAR},
 		END_TIME = #{record.endTime,jdbcType=VARCHAR},
 		POSITION_ID = #{record.positionId,jdbcType=VARCHAR},
-		DESCS = #{record.descs,jdbcType=DECIMAL},
+		DESCS = #{record.descs,jdbcType=INTEGER},
 		IS_OUTURL = #{record.isOuturl,jdbcType=CHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -439,7 +439,7 @@
 				POSITION_ID = #{positionId,jdbcType=VARCHAR},
 			</if>
 			<if test="descs != null">
-				DESCS = #{descs,jdbcType=DECIMAL},
+				DESCS = #{descs,jdbcType=INTEGER},
 			</if>
 			<if test="isOuturl != null">
 				IS_OUTURL = #{isOuturl,jdbcType=CHAR},
@@ -464,7 +464,7 @@
 		BEGIN_TIME = #{beginTime,jdbcType=VARCHAR},
 		END_TIME = #{endTime,jdbcType=VARCHAR},
 		POSITION_ID = #{positionId,jdbcType=VARCHAR},
-		DESCS = #{descs,jdbcType=DECIMAL},
+		DESCS = #{descs,jdbcType=INTEGER},
 		IS_OUTURL = #{isOuturl,jdbcType=CHAR}
 		where IDS = #{ids,jdbcType=VARCHAR}
 
