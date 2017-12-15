@@ -25,61 +25,31 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 	
 	Logger logger = LoggerFactory.getLogger(SpUserController.class);  
 	
-	
-	
 	@Override
-	public List<SpSendAddress> querySentAddressList(String userId) {
+	public List<SpSendAddress> querySentAddressList(String userId) throws MyException{
 		List<SpSendAddress> list = new ArrayList<SpSendAddress>();
-		try {
-			list = spSendAddressMapper.selectSentAddressList(userId);
-		} catch (MyException e) {
-			e.printStackTrace();
-			logger.error(e.toString());
-			return list;
-		}
-		return list;
+		list = spSendAddressMapper.selectSentAddressList(userId);
+		return list;	
 	}
 	
 	@Override
-	public int insertSendAddress(SpSendAddress spSendAddress){
-		int result = 0;	
+	public int insertSendAddress(SpSendAddress spSendAddress) throws MyException{
 		spSendAddress.setAddressId(UUIDUtils.getUuid());
 		spSendAddress.setCreateTime(UUIDUtils.nowTime());
-		try {
-			result = spSendAddressMapper.insert(spSendAddress);
-		} catch (MyException e) {
-			logger.error(e.toString());
-			e.printStackTrace();
-			return result;
-		}
+	    int result = spSendAddressMapper.insert(spSendAddress);
 		return result;
 		
 	}
 	
 	@Override
-	public int updateSendAddress(SpSendAddress spSendAddress){
-		int result = 0;
-		try {
-			result = spSendAddressMapper.update(spSendAddress);
-			//res = DealParamFunctions.dealResponseData(update);
-		} catch (MyException e) {
-			logger.error(e.toString());
-			e.printStackTrace();
-			return result;
-		}
+	public int updateSendAddress(SpSendAddress spSendAddress) throws MyException{
+		int result = spSendAddressMapper.update(spSendAddress);
 		return result;
 	}
 	
 	@Override
-	public int deleteSendAddress(SpSendAddress spSendAddress){
-		int result = 0;
-		try {
-			result = spSendAddressMapper.delete(spSendAddress);
-		} catch (MyException e) {
-			logger.error(e.toString());
-			e.printStackTrace();
-			return result;
-		}
+	public int deleteSendAddress(SpSendAddress spSendAddress) throws MyException{
+		int result = spSendAddressMapper.delete(spSendAddress);
 		return result;
 	}
 	

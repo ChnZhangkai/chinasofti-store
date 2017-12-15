@@ -212,11 +212,5 @@ public class SpUser {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
-	@Override
-	public String toString() {
-		return "SpUser [userId=" + userId + ", name=" + name + ", nickName=" + nickName + ", sex=" + sex + "]";
-	}
-	
-	
 	
 }

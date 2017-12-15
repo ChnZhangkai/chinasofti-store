@@ -19,11 +19,11 @@ public interface SpUserService extends IBaseService<SpUser>{
 	 * @return ResponseInfo
 	 */
 	
-	public boolean countStr(String userId);
+	public boolean countStr(String userId)throws Exception;
 	
-	public int add(SpUser spUser);
+	public int add(SpUser spUser)throws Exception;
 	
-	public SpUser select(SpUser spUser);
+	public SpUser select(SpUser spUser)throws Exception;
 	
 	public SpUser isUserExist(SpUser spUser)throws MyException;
 

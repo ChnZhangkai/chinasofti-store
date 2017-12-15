@@ -73,4 +73,7 @@ public class Constant {
     /** *  收件地址信息异常*/
     public static final String ORDER_ADDRESS_ERROR = "900012";
     public static final String ORDER_ADDRESS_ERROR_MSG = "收件地址信息异常";
+    
+    /** *  商品信息异常*/
+    public static final String GOODS_INFO_ERROR = "900013";
 }

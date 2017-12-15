@@ -1,5 +1,6 @@
 package com.chinasofti.mall.user.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
+import com.chinasofti.mall.user.handler.MyException;
 import com.chinasofti.mall.user.service.SpSendAddressService;
 
 /**
@@ -35,7 +37,15 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/list")
 	public List<SpSendAddress> findSendAddressList(@RequestParam("userId") String userId) {
-		return spSendAddressService.querySentAddressList(userId);
+		List<SpSendAddress> list = new ArrayList<SpSendAddress>();
+		try {
+			list = spSendAddressService.querySentAddressList(userId);
+		} catch (MyException e) {
+			e.printStackTrace();
+			logger.error(e.toString());
+			return list;
+		}
+		return list;
 	} 
 	
 	/*
@@ -44,8 +54,15 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/add")
 	public int addSendAddress(@RequestBody SpSendAddress spSendAddress){
-		return spSendAddressService.insertSendAddress(spSendAddress);
-		
+		int result=0;
+		try{
+			result = spSendAddressService.insertSendAddress(spSendAddress);
+		} catch (MyException e) {
+			logger.error(e.toString());
+			e.printStackTrace();
+			return result;
+		}
+		return result;
 	}
 	
 	/*
@@ -54,7 +71,15 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/updata")
 	public int updataSendAddress(@RequestBody SpSendAddress spSendAddress){
-		return spSendAddressService.updateSendAddress(spSendAddress);
+		int result=0;
+		try{
+			result = spSendAddressService.updateSendAddress(spSendAddress);
+		} catch (MyException e) {
+			logger.error(e.toString());
+			e.printStackTrace();
+			return result;
+		}
+		return result;	
 	}
 	
 	/*
@@ -63,7 +88,15 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/delete")
 	public int deleteSendAddress(@RequestBody SpSendAddress spSendAddress){
-		return spSendAddressService.deleteSendAddress(spSendAddress);
+		int result=0;
+		try{
+			result = spSendAddressService.deleteSendAddress(spSendAddress);
+		} catch (MyException e) {
+			logger.error(e.toString());
+			e.printStackTrace();
+			return result;
+		}
+		return result;
 	}	
 	
 }
