@@ -55,8 +55,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private BigGoodsorderService bigGoodsorderService;
-	
-     
 
 	@Override
 	@Transactional(readOnly=true)
@@ -308,7 +306,6 @@ public class OrderServiceImpl implements OrderService {
 		mainGoodsorder.setContStreet(address.getStreet());//街道
 		mainGoodsorder.setContAddress(address.getAddress());//详细地址
 		mainGoodsorder.setContName(address.getName());//收件人姓名	
-		// TODO Auto-generated method stub
 		return mainGoodsorder;
 	}
 	//验证商品库存数量
@@ -433,11 +430,12 @@ public class OrderServiceImpl implements OrderService {
 		ResponseInfo responseInfo = new ResponseInfo();
 		//分页查询用户已完成交易的订单
 		List<PyMainGoodsorder> list = mainGoodsorderService.selectByUserIds(pyMainGoodsorder.getUserIds(), pyMainGoodsorder.getPageNumber(), pyMainGoodsorder.getPageSize());
+		System.out.println(list);
 		if (list.size() < 1) {
-			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg("没有更多的订单信息");
 			return responseInfo;
 		}
+		responseInfo.setRetMsg("success");
 		Map<String ,Object> map = new HashMap<String ,Object>();
 		map.put("mainList", list);
 		responseInfo.setData(map);

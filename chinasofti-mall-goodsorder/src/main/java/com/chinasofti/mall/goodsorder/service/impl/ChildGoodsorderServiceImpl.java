@@ -1,6 +1,5 @@
 package com.chinasofti.mall.goodsorder.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
