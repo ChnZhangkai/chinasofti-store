@@ -134,8 +134,8 @@
     		success:function(data){
     			if(data > 0){
     				$.messager.alert('信息提示','提交成功！','info');
+    				$('#goodsOnlineinfo').datagrid('reload');
     				$('#goodsOnline_updateDl').dialog('close');
-    				$('#goodsOnlinePagination').pagination('select');
     			}else{
     				$.messager.alert('信息提示','提交失败！','info');
     			}
@@ -184,7 +184,7 @@
 				success:function(data){
 					if(data){
 						$.messager.alert('信息提示','提交成功！','info');
-						$('#goodsOnlinePagination').pagination('select');
+						$('#goodsOnlineinfo').datagrid('reload');
 					}
 					else
 					{
@@ -204,7 +204,7 @@
 				success:function(data){
 					if(data){
 						$.messager.alert('信息提示','提交成功！','info');
-						$('#goodsOnlinePagination').pagination('select');
+						$('#goodsOnlineinfo').datagrid('reload');
 					}
 					else
 					{
@@ -218,29 +218,14 @@
 
 	//条件查询
 	function goodOnlineDoSearch(){
-		var param = $.param({'pageNumber':1,'pageSize':10}) + '&' + $('#searchOnlineForm').serialize();
-		console.info(param)
-		$.ajax({ 
-	          type: 'POST', 
-	          url: '/goodsOnline/list', //用户请求数据的URL
-	          data: param, 
-	          error: function (XMLHttpRequest, textStatus, errorThrown) { 
-	              alert("没有查询到数据"); 
-	          }, 
-	          success: function (data) { 
-	        	  
-	        	  data =eval("("+data+")");
-	        	  
-	        	  if(data.total == 0){
-	        		  $.messager.alert('信息提示','</br>未检索到数据！请检查查询条件','info');
-	        	  }
-	        	  
-	              $('#goodsOnlineinfo').datagrid('loadData', data.rows);
-	               $('#goodsOnlinePagination').pagination({ 
-			    	  total:data.total
-			    	  });
-	          }
-	       });
+		$("#goodsOnlineinfo").datagrid("load", {
+			'title' : $('#goodsOnline-title').val(),
+			'vendorFnm' : $('#goodsOnline-vendorFnm').val(),
+			'name' : $('#goodsOnline-name').val(),
+			'type':$('#goodsOnline-goodsType').val(),
+			'status':$('#goodsOnline-status').val()
+			
+		});
 	}
 	
 	/*
