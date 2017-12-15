@@ -1,14 +1,13 @@
 package com.chinasofti.mall.batch.validate;
 
-import java.util.Map;
-
+import com.chinasofti.mall.batch.constants.Constants;
+import com.chinasofti.mall.batch.util.DateUtils;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
 
-import com.chinasofti.mall.batch.constants.Constants;
-import com.chinasofti.mall.batch.util.DateUtils;
+import java.util.Map;
 
 public class CancelGoodsOrdersJobParamsValidate extends DefaultJobParametersValidator {
 	
@@ -26,7 +25,7 @@ public class CancelGoodsOrdersJobParamsValidate extends DefaultJobParametersVali
 		 */
 		if(paramsMap.get(Constants.PARAM_1)!=null){
 			String handleDate = (String) paramsMap.get(Constants.PARAM_1).getValue();
-			Boolean validateResult = DateUtils.isValidDate(handleDate);
+			Boolean validateResult = DateUtils.isValidDate2(handleDate);
 			if(!validateResult){
 				throw new JobParametersInvalidException(handleDate+" 格式不对!");
 			}

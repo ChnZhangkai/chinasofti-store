@@ -81,4 +81,15 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 			return response;
 		}
 
+	/**
+	 * 根据商品Id查询商品信息
+	 * 
+	 * @param ids
+	 * @return ChnGoodsinfo
+	 */
+	@Override
+	public ChnGoodsinfo checkGoodsInfoById(String ids) {
+		return goodsinfoMapper.selectByGoodsId(ids);
+	}
+
 }

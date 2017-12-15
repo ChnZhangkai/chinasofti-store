@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bean:beans xmlns="http://www.springframework.org/schema/batch"
+            xmlns:bean="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/batch
+http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+    <!-- 引入applicationContext.xml-->
+    <bean:import resource="./applicationContext.xml"/>
+
+    <!--作业仓库-->
+    <job-repository id="jobRepository" data-source="dataSource"
+                    transaction-manager="transactionManager" isolation-level-for-create="SERIALIZABLE"
+                    table-prefix="BATCH_" max-varchar-length="1000"
+    />
+
+    <!-- 配置任务启动器 -->
+    <bean:bean id="jobLauncher"
+          class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <bean:property name="jobRepository" ref="jobRepository" />
+    </bean:bean>
+
+</bean:beans>

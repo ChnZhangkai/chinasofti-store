@@ -24,7 +24,7 @@ public interface ShoppingCartFeignClient {
 	public List<VendorShoppingcartVO> queryPyShoppingCartListByUserId(@RequestParam("userId") String userId);
 	
 	@RequestMapping(value="/shoppingCart/add/goods")
-	public ResponseInfo savePyShoppingCart(@RequestBody List<PyShoppingCart> goodsList);
+	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goods);
 
 	@RequestMapping(value="/shoppingCart/mod/goods")
 	public int updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo);

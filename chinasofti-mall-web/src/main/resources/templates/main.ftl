@@ -1,6 +1,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="refresh" content="1800" />
 <title>后台界面</title>
 <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/js/jquery.cookie.js"></script>

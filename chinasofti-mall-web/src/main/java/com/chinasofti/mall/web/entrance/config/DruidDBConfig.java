@@ -22,9 +22,6 @@ public class DruidDBConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);
 	
-	@Autowired
-	private StringEncryptor stringEncryptor;
-
 	@Value("${spring.datasource.url}")
 	private String dbUrl;
 

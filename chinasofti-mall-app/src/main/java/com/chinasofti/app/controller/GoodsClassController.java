@@ -37,11 +37,10 @@ public class GoodsClassController {
 	 * @param classId(ids)
 	 * @return
 	 */
-	@SuppressWarnings("null")
 	@RequestMapping("queryClass")
 	public ResponseInfo queryClass(@RequestParam(defaultValue ="000000") String classId){
 		logger.info(classId);
-		ResponseInfo response=null;
+		ResponseInfo response = new ResponseInfo();
 		if(StringUtils.isEmpty(classId)){
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("classId不能为空！");

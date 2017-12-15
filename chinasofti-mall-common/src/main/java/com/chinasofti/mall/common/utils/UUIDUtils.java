@@ -1,5 +1,7 @@
 package com.chinasofti.mall.common.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
@@ -30,5 +32,13 @@ public class UUIDUtils {
 	       }  
 	      }  
 	      return pwd.toString();  
-	    }  
+	    } 
+		//时间戳
+	    public static String nowTime(){
+			Date date = new Date();
+			SimpleDateFormat sd = new SimpleDateFormat("yyyyMMddHHmmss");
+			String nowTime = sd.format(date);
+			return nowTime;
+		}
+	
 }

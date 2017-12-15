@@ -1,5 +1,7 @@
 package com.chinasofti.app.feign;
 
+import java.util.List;
+
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +32,7 @@ public interface SpSendAddressFeignClient {
 	* @throws:
 	 */
 	@RequestMapping(value = "/address/list")
-	public ResponseInfo findSendAddressList(@RequestParam("userId") String userId);
+	public List<SpSendAddress> findSendAddressList(@RequestParam("userId") String userId);
 	
 	
 	/**
@@ -41,7 +43,7 @@ public interface SpSendAddressFeignClient {
 	* @throws
 	*/
 	@RequestMapping(value = "/address/add")
-	public ResponseInfo addSendAddress(@RequestBody SpSendAddress spSendAddress);
+	public int addSendAddress(@RequestBody SpSendAddress spSendAddress);
 	
 	/**
 	* @Title: address
@@ -51,7 +53,7 @@ public interface SpSendAddressFeignClient {
 	* @throws
 	*/
 	@RequestMapping(value = "/address/updata")
-	public ResponseInfo updataSendAddress(@RequestBody SpSendAddress spSendAddress);
+	public int updataSendAddress(@RequestBody SpSendAddress spSendAddress);
 	
 	/**
 	* @Title: address
@@ -61,7 +63,7 @@ public interface SpSendAddressFeignClient {
 	* @throws
 	*/
 	@RequestMapping(value = "/address/delete")
-	public ResponseInfo deleteSendAddress(@RequestBody SpSendAddress spSendAddress);
+	public int deleteSendAddress(@RequestBody SpSendAddress spSendAddress);
 	
 	
 }

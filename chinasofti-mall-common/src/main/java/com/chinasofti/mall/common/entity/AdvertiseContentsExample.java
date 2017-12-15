@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.models.auth.In;
+
 public class AdvertiseContentsExample {
     protected String orderByClause;
     
@@ -1235,42 +1237,42 @@ public class AdvertiseContentsExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescsEqualTo(BigDecimal value) {
+        public Criteria andDescsEqualTo(Integer value) {
             addCriterion("DESCS =", value, "descs");
             return (Criteria) this;
         }
 
-        public Criteria andDescsNotEqualTo(BigDecimal value) {
+        public Criteria andDescsNotEqualTo(Integer value) {
             addCriterion("DESCS <>", value, "descs");
             return (Criteria) this;
         }
 
-        public Criteria andDescsGreaterThan(BigDecimal value) {
+        public Criteria andDescsGreaterThan(Integer value) {
             addCriterion("DESCS >", value, "descs");
             return (Criteria) this;
         }
 
-        public Criteria andDescsGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andDescsGreaterThanOrEqualTo(Integer value) {
             addCriterion("DESCS >=", value, "descs");
             return (Criteria) this;
         }
 
-        public Criteria andDescsLessThan(BigDecimal value) {
+        public Criteria andDescsLessThan(Integer value) {
             addCriterion("DESCS <", value, "descs");
             return (Criteria) this;
         }
 
-        public Criteria andDescsLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andDescsLessThanOrEqualTo(Integer value) {
             addCriterion("DESCS <=", value, "descs");
             return (Criteria) this;
         }
 
-        public Criteria andDescsIn(List<BigDecimal> values) {
+        public Criteria andDescsIn(List<Integer> values) {
             addCriterion("DESCS in", values, "descs");
             return (Criteria) this;
         }
 
-        public Criteria andDescsNotIn(List<BigDecimal> values) {
+        public Criteria andDescsNotIn(List<Integer> values) {
             addCriterion("DESCS not in", values, "descs");
             return (Criteria) this;
         }
@@ -1280,7 +1282,7 @@ public class AdvertiseContentsExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescsNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andDescsNotBetween(Integer value1, Integer value2) {
             addCriterion("DESCS not between", value1, value2, "descs");
             return (Criteria) this;
         }

@@ -29,7 +29,7 @@ public interface SpUserFeignClient {
 	* @throws:
 	 */
 	@RequestMapping(value = "/spUser/signUp")
-	public ResponseInfo signUp(@RequestBody SpUser spUser);
+	public int signUp(@RequestBody SpUser spUser);
     
 	
 	/**
@@ -40,7 +40,7 @@ public interface SpUserFeignClient {
 	* @throws
 	*/
 	@RequestMapping(value = "/spUser/signIn")
-	public ResponseInfo signIn(@RequestBody SpUser spUser);
+	public SpUser signIn(@RequestBody SpUser spUser);
 	
 	
 }

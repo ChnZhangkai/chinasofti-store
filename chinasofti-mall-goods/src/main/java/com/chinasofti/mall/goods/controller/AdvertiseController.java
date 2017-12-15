@@ -142,7 +142,7 @@ public class AdvertiseController implements BaseController<AdvertiseContents> {
 			t.setImageurl("data/advertise/0c3dd0f09b824d419764943285659512.jpg");
 			t.setIds(String.valueOf(i));
 			t.setUrl("www.huateng.com");
-			t.setDescs(BigDecimal.valueOf(i));
+			t.setDescs(i);
 			t.setContens("单广告");
 			t.setCategoryName("生鲜水果");
 			t.setPositionName("首页轮播");
