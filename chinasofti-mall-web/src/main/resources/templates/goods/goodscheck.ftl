@@ -179,7 +179,9 @@
 		style="width: 100%; height: 100%; padding: 10px;">
 		<form id="goodsCheckUpdateForm"  enctype="multipart/form-data">
 			<table>
-			<td align="right">商品名称</td>
+				<tr>
+					<div><input type="hidden" name="ids" id="ids"><input type="hidden" name="goodsids" id="goodsids"></div>
+					<td align="right">商品名称</td>
 					<td><input type="text" style="width: 180px;" class="easyui-textbox" id="title" name="title"  
 							data-options="required:true,validType:['depName','length[1,100]']" /></td>
 					
