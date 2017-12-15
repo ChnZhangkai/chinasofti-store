@@ -252,7 +252,7 @@
 					<td align="right">商品图片:</td>
 					<td><input id="img" name="img" class="easyui-filebox"
 						style="width: 180px;"
-						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
+						data-options="onChange:function(){readUGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
 					<td align="right">商品价格</td>
 					<td><input type="text" style="width: 180px;"  data-options="required:true,validType:['intOrFloat','length[1,12]']"
 						class="easyui-textbox" id="price" name="price"/></td>
@@ -260,7 +260,7 @@
 				<tr>
 					<td></td>
 					<td>
-						<div id="showGoodsPic"></div>
+						<div id="showUGoodsPic"></div>
 					</td>
 				</tr>
 				
