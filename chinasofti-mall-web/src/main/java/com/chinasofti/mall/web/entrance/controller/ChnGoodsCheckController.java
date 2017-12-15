@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -214,15 +215,25 @@ public class ChnGoodsCheckController {
 		MultipartFile multipartFile = multipartRequest.getFile("img");
 		String imageName = multipartFile.getOriginalFilename();
 		
-		//文件上传
-		String fileName = filePath + File.separator + "goods" + File.separator + imageName;
-		File file = new File(fileName);
-		try {
-			multipartFile.transferTo(file);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		//如果修改了图片
+		if (!StringUtils.isEmpty(imageName)) {
+			//文件上传
+			String fileName = filePath + File.separator + "goods" + File.separator + imageName;
+			File file = new File(fileName);
+			try {
+				multipartFile.transferTo(file);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//保存对应的图片信息(goodsFile表)
+			GoodsFile goodsFile = new GoodsFile();
+			goodsFile.setGoodsids(chnGoodsinfoCheck.getGoodsids());
+			goodsFile.setFilename(imageName);
+			goodsFile.setFilepath(fileUrl + "/goods/"+ imageName);
+			goodsFile.setFiletype(imageName.substring(imageName.lastIndexOf(".")+1));
+			goodsFileService.updateByPrimaryKeySelective(goodsFile);
 		}
 		
 		PtUser user = (PtUser) session.getAttribute("user");
@@ -235,12 +246,7 @@ public class ChnGoodsCheckController {
 		
 		//保存商品信息(goodsCheck表)
 		int goodsCheck = chnGoodsFeignClient.updateGoodsCheck(chnGoodsinfoCheck);
-		//保存对应的图片信息(goodsFile表)
-		GoodsFile goodsFile = new GoodsFile();
-		goodsFile.setFilename(imageName);
-		goodsFile.setFilepath(fileUrl + "/goods/"+ imageName);
-		goodsFile.setFiletype(imageName.substring(imageName.lastIndexOf(".")+1));
-		goodsFileService.updateByPrimaryKeySelective(goodsFile);
+		
 		
 		return goodsCheck;
 	}

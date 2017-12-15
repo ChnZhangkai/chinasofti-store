@@ -61,6 +61,10 @@
 	function openEdit(){
 		$('#goodsCheckUpdateForm').form('clear');
 		var row = $("#goodscheck").datagrid('getSelected');
+		if(row.reviewStatues=='1' || row.reviewStatues=='2'){
+			$.messager.alert('温馨提醒','已审核的数据不能修改,请重新选择！');
+			return ;
+		}
 		if (row) {
 			$('#goodsCheckUpdateDl').dialog('open').dialog({
 				draggable : false,			
@@ -78,7 +82,8 @@
 						$('#goodsCheckUpdateDl').dialog('close');
 						$('#goodsCheckUpdateForm').form('reset');
 						ue.setContent('');
-						document.getElementById("showGoodsPic").innerHTML = "";
+						document.getElementById("showUGoodsPic").innerHTML = "";
+						//$("#readUGoodsPic").attr('src','');
 					}
 				}]
 			});
@@ -399,7 +404,6 @@
 	 */
 	function readGoodsPicture(_obj) {
 		//easyui-filebox封装input标签
-		debugger;
 		var fileId = $("input[type='file']").attr('id');
 		console.info(fileId);
 		if(typeof(fileId) != "undefined"){
@@ -429,7 +433,6 @@
 	 */
 	function readUGoodsPicture(_obj) {
 		//easyui-filebox封装input标签
-		debugger;
 		var fileId = $("#goodsCheckUpdateDl input[type='file']").attr('id');
 		console.info(fileId);
 		if(typeof(fileId) != "undefined"){
@@ -448,7 +451,7 @@
 				var result = document.getElementById("showUGoodsPic");
 				var src = "data:" + simpleFile.type + ";base64,"
 				+ window.btoa(this.result);
-				result.innerHTML = '<img id="readGoodsPic" style="height: 130px;width: 180px;" src ="' + src + '"/>';
+				result.innerHTML = '<img id="readUGoodsPic" style="height: 130px;width: 180px;" src ="' + src + '"/>';
 			}
 			//document.getElementById("showpic").style.display="";
 		}
