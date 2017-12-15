@@ -399,30 +399,35 @@
 	 */
 	function readGoodsPicture(_obj) {
 		//easyui-filebox封装input标签
+		debugger;
 		var fileId = $("input[type='file']").attr('id');
-		//console.info(fileId);
-		// 检查是否为图像类型
-		var simpleFile = document.getElementById(fileId).files[0];
-		//console.info(simpleFile);
-		if (!/image\/\w+/.test(simpleFile.type)) {
-			$.messager.alert('信息提示', '请确保文件类型为图像类型', 'info')
-			return false;
+		console.info(fileId);
+		if(typeof(fileId) != "undefined"){
+			
+			// 检查是否为图像类型
+			var simpleFile = document.getElementById(fileId).files[0];
+			//console.info(simpleFile);
+			if (!/image\/\w+/.test(simpleFile.type)) {
+				$.messager.alert('信息提示', '请确保文件类型为图像类型', 'info')
+				return false;
+			}
+			var reader = new FileReader();
+			// 将文件以二进制文件读入页面中
+			reader.readAsBinaryString(simpleFile);
+			reader.onload = function(f) {
+				var result = document.getElementById("showGoodsPic");
+				var src = "data:" + simpleFile.type + ";base64,"
+				+ window.btoa(this.result);
+				result.innerHTML = '<img id="readGoodsPic" style="height: 130px;width: 180px;" src ="' + src + '"/>';
+			}
+			//document.getElementById("showpic").style.display="";
 		}
-		var reader = new FileReader();
-		// 将文件以二进制文件读入页面中
-		reader.readAsBinaryString(simpleFile);
-		reader.onload = function(f) {
-			var result = document.getElementById("showGoodsPic");
-			var src = "data:" + simpleFile.type + ";base64,"
-					+ window.btoa(this.result);
-			result.innerHTML = '<img id="readGoodsPic" style="height: 130px;width: 180px;" src ="' + src + '"/>';
-		}
-		//document.getElementById("showpic").style.display="";
 	}
 	
 	
 	// 商品审核详情查看
 	function showGoodsCheck() {
+	debugger;
 	var row = $('#goodscheck').datagrid('getSelected');
 	var ids = row.goodsids;
 	$(document).ready(function(){  
@@ -444,7 +449,7 @@
 	if (row <= 0) {
 		$.messager.alert('提示', '请选择查看的条目!');
 	} else {
-		$('#goodsCheck-show').dialog('open').dialog('setTitle', '商品在线详情');
+		$('#goodsCheck-show').dialog('open').dialog('setTitle', '商品详情');
 		$('#goodsCheck-show-data').form('load', row);
 	}
 }
@@ -508,8 +513,8 @@
 	function vendersChoose(){
 		var row = $("#venderDataTable").datagrid("getSelected");
 		if(row){
-			$("#add-vendorFnm").textbox('setValue',row.vendorFnm);
-			$("#update-vendorFnm").textbox('setValue',row.vendorFnm);
+			$("#add-vendorFnm").textbox('setValue',row.vendorId);
+			$("#update-vendorFnm").textbox('setValue',row.vendorId);
 			$("#goodsCheck-vendorFnm").textbox('setValue',row.vendorFnm);
 			$("#vendersChooseDialog").dialog("close");
 		}else{

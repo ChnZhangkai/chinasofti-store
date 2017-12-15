@@ -1063,7 +1063,6 @@
 		    <id column="MAINORDER_IDS" property="mainorderIds"/>
 		    <result column="cid" property="ids" jdbcType="VARCHAR" />
 		    <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />
-		    <result column="CUST_IDS" property="custIds" jdbcType="VARCHAR" />
 		    <result column="ORDER_STATUS" property="orderStatus" jdbcType="CHAR" />
 		    <result column="GOODS_NUM" property="goodsNum" jdbcType="DECIMAL" />
 		    <result column="GOODS_PRICE" property="goodsPrice" jdbcType="DECIMAL" />
@@ -1081,7 +1080,8 @@
 		    <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
 		    <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
 		    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
-		    <result column="GOODS_TITLE" property="goodsTitle" />
+		    <result column="GOODS_TITLE" property="goodsTitle"  jdbcType="VARCHAR"/>
+		    <result column="gs" property="status"  jdbcType="VARCHAR"/>
 		</collection>
    </resultMap>
    
@@ -1104,13 +1104,13 @@
 	      	m.S_LONGITUDE, m.P_LATITUDE, m.P_LONGITUDE, 
 	      	m.SENDDESC, m.FREIGHT_OLD, m.CONT_PROVINCE_CODE, 
 	      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, 
-			c.IDS as cid, c.GOODSIDS, c.CUST_IDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, 
-			c.ORDER_REAL_AMT, c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, 
-			c.ORDER_AMT, c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE	
+			c.IDS as cid, c.GOODSIDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, c.ORDER_REAL_AMT, 
+			c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, c.ORDER_AMT, 
+			c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE,g.STATUS as gs 
 		FROM 
-			py_main_goodsorder m ,py_child_goodsorder c 
+			py_main_goodsorder m ,py_child_goodsorder c ,chn_goodsinfo g 
 		WHERE 
-			m.TRANSACTIONID = c.MAINORDER_IDS and m.PAY_STATUS='1' and m.STATUS = '1' 
+			m.TRANSACTIONID = c.MAINORDER_IDS and m.PAY_STATUS='1' and m.STATUS = '1' and c.GOODSIDS=g.IDS 
 			and m.USER_IDS = #{userIds,jdbcType=VARCHAR} ORDER BY m.ORDER_TIME DESC 
 	</select>
 	

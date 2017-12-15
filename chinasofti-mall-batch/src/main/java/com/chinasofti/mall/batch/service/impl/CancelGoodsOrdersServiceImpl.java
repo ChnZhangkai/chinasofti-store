@@ -84,17 +84,17 @@ public class CancelGoodsOrdersServiceImpl implements CancelGoodsOrdersService {
                          */
                         if (chnGoodsinfo != null) {
                             //原库存
-                            BigDecimal orignStoreNum = chnGoodsinfo.getStoreNum() ;
+//                            int orignStoreNum = chnGoodsinfo.getStoreNum() ;
                             //原总销量
                             BigDecimal orignTotalTrade = chnGoodsinfo.getTotalTrade() ;
 
                             //当前子订单的商品数量
-                            BigDecimal goodsNum = pyChildGoodsorder.getGoodsNum()==null?new BigDecimal(0):pyChildGoodsorder.getGoodsNum() ;
+                            int goodsNum = pyChildGoodsorder.getGoodsNum() ;
 
                             //新库存
-                            BigDecimal newStoreNum = orignStoreNum.add(goodsNum) ;
+//                            int newStoreNum = orignStoreNum + goodsNum ;
                             //新总销量
-                            BigDecimal newTotalTrade = orignTotalTrade.subtract(goodsNum) ;
+                            BigDecimal newTotalTrade = orignTotalTrade.subtract(new BigDecimal(goodsNum)) ;
                             /**
                              * newTotalTrade < 0
                              * 设为 0
@@ -104,12 +104,12 @@ public class CancelGoodsOrdersServiceImpl implements CancelGoodsOrdersService {
                                 newTotalTrade = new BigDecimal(0) ;
                             }
 
-                            chnGoodsinfo.setStoreNum(newStoreNum);
+//                            chnGoodsinfo.setStoreNum(newStoreNum);
                             chnGoodsinfo.setTotalTrade(newTotalTrade);
                             chnGoodsinfo.setUpdateBy("CancelGoodsOrdersJob");
                             chnGoodsinfo.setUpdateTime(updateTime);
 
-                            this.chnGoodsInfoMapper.updateChnGoodsInfo(chnGoodsinfo);
+//                            this.chnGoodsInfoMapper.updateChnGoodsInfo(chnGoodsinfo);
                         }
                     }
                 }

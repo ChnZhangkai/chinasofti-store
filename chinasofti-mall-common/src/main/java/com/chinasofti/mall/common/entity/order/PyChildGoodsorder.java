@@ -132,6 +132,16 @@ public class PyChildGoodsorder extends PageBean {
 
 	private String goodsTitle;
 
+	/** *  商品的状态  0 无效 1 有效*/
+    private String status;
+    
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getIds() {
 		return ids;
