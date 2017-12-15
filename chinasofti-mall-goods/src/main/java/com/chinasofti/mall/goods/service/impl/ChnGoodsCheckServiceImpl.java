@@ -3,7 +3,6 @@ package com.chinasofti.mall.goods.service.impl;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.omg.Messaging.SyncScopeHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -108,7 +107,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 			goods.setIds(goods.getGoodsids());	
 			goods.setGoodsids("");
 			goods.setReviewStatues("1");
-			goods.setStatus("1");
+			goods.setStatus("2");
 			
 			chnGoodsinfoCheckMapper.insertGoodsOnlineSelective(goods);
 		}
