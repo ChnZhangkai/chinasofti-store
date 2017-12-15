@@ -15,8 +15,7 @@
   <resultMap id="ResultMapWithBLOBs" type="com.chinasofti.mall.common.entity.order.PyShoppingCart" extends="BaseResultMap" >
     <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithVendor" type="com.chinasofti.mall.common.entity.order.VendorShoppingcartVO" extends="BaseResultMap" >
-    <result column="ATTR" property="attr" jdbcType="LONGVARCHAR" />
+  <resultMap id="ResultMapWithVendor" type="com.chinasofti.mall.common.entity.order.VendorShoppingcartVO" extends="ResultMapWithBLOBs" >
     <result column="VENDOR_FNM" property="vendorFnm" jdbcType="VARCHAR" />
     <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR" />
     <result column="PRICE" property="price" jdbcType="DECIMAL" />

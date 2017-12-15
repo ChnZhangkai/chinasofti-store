@@ -32,38 +32,23 @@ public class SpUserServiceImp implements SpUserService {
 	private String decryptKey;
 	
 	@Override
-	public int add(SpUser spUser) {
-		try {
-		    String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);//进行Aes解密
-			spUser.setPassword(password);
-			spUser.setIds(UUIDUtils.getUuid());
-			spUser.setCreateTime(UUIDUtils.nowTime());//创建时间
-			spUser.setStatus("1");//创建时默认启用   1：启用
-			int insert=spUserMapper.insert(spUser);
-			return insert;
-		} catch (Exception e) {
-			logger.error(e.toString());
-			return 0;
-		}
+	public int add(SpUser spUser) throws Exception{
+		String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);//进行Aes解密
+		spUser.setPassword(password);
+		spUser.setIds(UUIDUtils.getUuid());
+		spUser.setCreateTime(UUIDUtils.nowTime());//创建时间
+		spUser.setStatus("1");//创建时默认启用   1：启用
+		int insert=spUserMapper.insert(spUser);
+		return insert;
 	}
 	
 	@Override
-	public SpUser select(SpUser spUser){
+	public SpUser select(SpUser spUser) throws Exception{
 		SpUser reSpUser = new SpUser();
-		try {
-			String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);		
-			spUser.setPassword(password);
-			reSpUser = spUserMapper.signIn(spUser);
-			if(reSpUser ==null||reSpUser.getUserId()==null){
-				reSpUser.setFlag(true);
-			}
-			return reSpUser;
-			//res = DealParamFunctions.dealResponseData(reSpUser);
-		} catch (Exception e) {
-			logger.error(e.toString());
-			return reSpUser;
-		
-		}
+		String password = Aes.aesDecrypt(spUser.getPassword(), decryptKey);	
+		spUser.setPassword(password);
+		reSpUser = spUserMapper.signIn(spUser);
+		return reSpUser;
 	}
 	//查询账号是否被注册
 	@Override

@@ -400,11 +400,10 @@
 	}
 	
 	/**
-	 * 上传图片回显
+	 * 新增上传图片回显
 	 */
 	function readGoodsPicture(_obj) {
 		//easyui-filebox封装input标签
-		debugger;
 		var fileId = $("input[type='file']").attr('id');
 		console.info(fileId);
 		if(typeof(fileId) != "undefined"){
@@ -429,10 +428,39 @@
 		}
 	}
 	
+	/**
+	 * 修改上传图片回显
+	 */
+	function readUGoodsPicture(_obj) {
+		//easyui-filebox封装input标签
+		var fileId = $("#goodsCheckUpdateDl input[type='file']").attr('id');
+		console.info(fileId);
+		if(typeof(fileId) != "undefined"){
+			
+			// 检查是否为图像类型
+			var simpleFile = document.getElementById(fileId).files[0];
+			//console.info(simpleFile);
+			if (!/image\/\w+/.test(simpleFile.type)) {
+				$.messager.alert('信息提示', '请确保文件类型为图像类型', 'info')
+				return false;
+			}
+			var reader = new FileReader();
+			// 将文件以二进制文件读入页面中
+			reader.readAsBinaryString(simpleFile);
+			reader.onload = function(f) {
+				var result = document.getElementById("showUGoodsPic");
+				var src = "data:" + simpleFile.type + ";base64,"
+				+ window.btoa(this.result);
+				result.innerHTML = '<img id="readUGoodsPic" style="height: 130px;width: 180px;" src ="' + src + '"/>';
+			}
+			//document.getElementById("showpic").style.display="";
+		}
+	}
+	
 	
 	// 商品审核详情查看
 	function showGoodsCheck() {
-	debugger;
+	//debugger;
 	var row = $('#goodscheck').datagrid('getSelected');
 	var ids = row.goodsids;
 	$(document).ready(function(){  

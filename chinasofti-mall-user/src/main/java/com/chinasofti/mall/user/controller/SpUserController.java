@@ -41,17 +41,28 @@ public class SpUserController {
 	
 	@RequestMapping(value="/signUp")
 	public int signUp(@RequestBody SpUser spUser) {
-		//首先验证该客户是否存在
-		boolean flag = spUserService.countStr(spUser.getUserId());
-		if(!flag){
-			return 0;
+		try {
+			//首先验证该客户是否存在
+			boolean flag = spUserService.countStr(spUser.getUserId());
+			if(!flag){
+				return 0;
+			}
+			return spUserService.add(spUser);	
+			} catch (Exception e) {
+				logger.error(e.toString());
+				return 0;
 		}
-		return spUserService.add(spUser);		
 	}
 	
 	@RequestMapping(value="/signIn")
 	public SpUser signIn(@RequestBody SpUser spUser) {
-		return spUserService.select(spUser);
+		SpUser reSpUser = new SpUser();
+		try {
+			reSpUser = spUserService.select(spUser);
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		return reSpUser;	
 	}
 	
 	@RequestMapping(value="/isUserExist")
