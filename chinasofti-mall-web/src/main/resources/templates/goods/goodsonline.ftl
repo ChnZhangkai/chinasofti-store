@@ -5,15 +5,15 @@
 	<div id="goodonline-toolbar-3">
 		<div class="goodonline-toolbar-search" style="border-bottom: 1px solid #DDDDDD">
 			<form id="searchOnlineForm" style="margin: 0px">
-				<label>商品名称</label> <input type="text" id="title" name="title" class="easyui-textbox"/>
-				<label>商户名称</label><input class="easyui-textbox" id="goodsOnline-vendorFnm" name="vendorFnm" readonly="true" />
+				<label>商品名称</label> <input type="text" id="goodsOnline-title" name="title" class="easyui-textbox"/>
+				<label>商户名称</label><input class="easyui-textbox" id="goodsOnline-vendorFnm" name="vendorFnm" data-options="editable:false" />
 							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="vendersFnmChoose()">选择</a>
 				<label>商品分类</label> 
-					<input class="easyui-textbox" id="goodsOnline-name" name="name" readonly="true" />
+					<input class="easyui-textbox" id="goodsOnline-name" name="name" data-options="editable:false" />
 					<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="classChoose()">选择</a></br>
 				<label>商品类型</label>
 				<select autocomplete="off" class="easyui-combobox"
-					data-options="panelHeight:'auto'" id="goodsType" name="type"
+					data-options="editable:false,panelHeight:'auto'" id="goodsOnline-goodsType" name="type"
 					style="width: 135px">
 					<option selected="selected" value="">请选择</option>
 					<option value="0">普通商品</option>
@@ -21,7 +21,7 @@
 				</select>
 				<label>商品状态</label>
 				<select autocomplete="off" class="easyui-combobox"
-					data-options="panelHeight:'auto'" id="status" name="status"
+					data-options="editable:false,panelHeight:'auto'" id="goodsOnline-status" name="status"
 					style="width: 135px">
 					<option selected="selected" value="">请选择</option>
 					<option value="1">已上架</option>
@@ -111,48 +111,48 @@
 				<tr>
 					<td align="right">商品名称</td>
 					<td><input type="text" id="title" name="title" style=" width: 180px;background-color:#F4F4F4"
-				class="easyui-textbox"  readonly="true"/></td>
+				class="easyui-textbox"  disabled="true"/></td>
 					<td align="right">分类名称</td>
 					<td><input type="text" class="easyui-textbox" id="name" name="name" 
-					style=" width: 180px;background-color:#F4F4F4" title="不可修改" readonly="true" /></td>
+					style=" width: 180px;background-color:#F4F4F4" title="不可修改" disabled="true" /></td>
 				</tr>
 				<tr>
 					<td align="right">商品类型</td>
 					<td><select style="width: 180px;" class="easyui-combobox " data-options="panelHeight:'auto'" id="type" name="type"
-					style=" width: 180px;background-color:#F4F4F4" readonly="true">
+					style=" width: 180px;background-color:#F4F4F4" disabled="true">
 							<option value="0">普通商品</option>
 							<option value="1">活动商品</option>
 					</select></td>
 					<td align="right">商户名称</td>
 					<td>
 						<input type="text" id="vendorFnm" name="vendorFnm" class="easyui-textbox"
-						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" readonly="true"/>
+						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" disabled="true"/>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">开始日期</td>
 					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="startTime" name="startTime" readonly="true"/></td>
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="startTime" name="startTime" disabled="true"/></td>
 					<td align="right">结束日期</td>
 					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime" readonly="true"/></td>
+						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime" disabled="true"/></td>
 				</tr>
 				
 				
 				<tr>
 					<td align="right">规格</td>
 					<td><input type="text" id="standard" name="standard" class="easyui-textbox"
-						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" readonly="true" /></td>
+						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" disabled="true" /></td>
 					<td align="right">重量</td>
 					<td><input type="text" id="weight" name="weight" class="easyui-textbox"
-						 title="不可修改" style="width: 180px;background-color: #F4F4F4" readonly="true"  /> <span><font
+						 title="不可修改" style="width: 180px;background-color: #F4F4F4" disabled="true"  /> <span><font
 							style="color: #CCCCCC; font-size: 10px;">重量单位:KG</font></span></td>
 				</tr>
 				
 				<tr>
 					<td align="right">审核状态</td>
 					<td><select style="width: 180px;" class="easyui-combobox " data-options="panelHeight:'auto'" id="reviewStatues" name="reviewStatues"
-					style=" width: 180px;background-color:#F4F4F4" readonly="true">
+					style=" width: 180px;background-color:#F4F4F4" disabled="true">
 							<option value="0">待提交审核</option>
 							<option value="3">已提交审核</option>
 							<option value="1">审核通过</option>
@@ -160,7 +160,7 @@
 				
 					<td align="right">商品状态</td>
 					<td><select style="width: 180px;" class="easyui-combobox " data-options="panelHeight:'auto'" id="status" name="status"
-					style=" width: 180px;background-color:#F4F4F4" readonly="true">
+					style=" width: 180px;background-color:#F4F4F4" disabled="true">
 						<option value="1">已上架</option>
 						<option value="2">已下架</option>
 					</select></td>
@@ -168,34 +168,34 @@
 				</tr>
 				<tr>
 					<td align="right">前台是否显示商户名</td>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisVerdorname" name="isDisVerdorname" readonly="true">
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisVerdorname" name="isDisVerdorname" disabled="true">
 							<option value="1">是</option>
 							<option value="0">否</option>
 					</select></td>
 					<td align="right">前台是否显示规格</td>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStandard" name="isDisStandard" readonly="true">
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStandard" name="isDisStandard" disabled="true">
 							<option value="1">是</option>
 							<option value="0">否</option>
 					</select></td>
 				</tr>
 				<tr>
 					<td align="right">前台是否显示库存</td>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStore" name="isDisStore" readonly="true">
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="panelHeight:'auto'" id="isDisStore" name="isDisStore" disabled="true">
 							<option value="1">是</option>
 							<option value="0">否</option>
 					</select></td>
 					<td align="right">每个用户限购数量</td>
 				<td><input type="text" style="width: 180px;"
-					class="easyui-textbox" id="limitUserNum" name="limitUserNum" readonly="true"/> <span><font
+					class="easyui-textbox" id="limitUserNum" name="limitUserNum" disabled="true"/> <span><font
 						style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
 				</tr>
 				<tr>
 					<td align="right">每笔订单限购数量</td>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum" readonly="true"/></td>
+						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum" disabled="true"/></td>
 					<td align="right">商品价格</td>
 					<td><input type="text" id="price" name="price" class="easyui-textbox"
-						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" readonly="true" />
+						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" disabled="true" />
 					</td>
 				</tr>
 				<tr>
@@ -214,13 +214,13 @@
 					<tr>
 					<td align="right">售后电话</td>
 					<td><input type="text" id="servicePhone" name="servicePhone" class="easyui-textbox"
-						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" readonly="true" />
+						 title="不可修改" style=" width: 180px;background-color: #F4F4F4" disabled="true" />
 					</td>
 				
 					<td align="right">当前库存数量</td>
 					<td>
 						<input type="text" style="width: 180px;"
-						class="easyui-textbox" id="storeNum" name="storeNum"  readonly="readonly"/>
+						class="easyui-textbox" id="storeNum" name="storeNum"  disabled="true"/>
 					</td>
 				</tr>
 				

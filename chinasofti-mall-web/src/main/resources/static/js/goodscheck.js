@@ -464,7 +464,6 @@
 	 * 打开商品分类窗口
 	 */
 	function ClassTree(obj_){
-		alert(obj_.id);
 		//异步请求数据
 		$('#classChooseBtns a').attr('name',obj_.id);
         $('#goodsClassTreeDlg').dialog('open');

@@ -846,7 +846,7 @@
         VENDER_EXPLAIN = #{venderExplain,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where VENDOR_ID = #{vendorId,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
   </update>
   <update id="updateByExample" parameterType="map" >
     update sp_merchant_user

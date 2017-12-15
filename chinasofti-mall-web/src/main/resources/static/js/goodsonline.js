@@ -306,6 +306,7 @@
 		if(row){ 
 			$("#goodsOnline-name").textbox('setValue',row.text);	
 			$("#ClassTreeDlg").dialog("close");
+			$('#classTree').tree('clearSelections');
 		}else{
 			$.messager.alert('系统消息','请选择一项进行操作!','info');
 		}
@@ -344,6 +345,7 @@
 		if(row){
 			$("#goodsOnline-vendorFnm").textbox('setValue',row.vendorFnm);
 			$("#FnmChooseDialog").dialog("close");
+			$('#venderDatas').datagrid('clearSelections');
 		}else{
 			$.messager.alert('系统消息','请选择一项进行操作!','info');
 		}

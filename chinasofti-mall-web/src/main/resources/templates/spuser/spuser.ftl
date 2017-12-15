@@ -149,9 +149,10 @@
  data-options="closed:true,iconCls:'icon-save',inline:true" style="width: 80%;height:80%; padding: 10px;">
 	<form id="spUserUpdate" method="post" enctype="multipart/form-data">
 		<table id="update">
+			<tr><td><input id="ids" name="ids" type="hidden"/></td></tr>
 			<tr>
 				<td align="right">商户编号:</td>
-				<td><input id="vendorId" name="vendorId"
+				<td><input id="vendorId" name="vendorId" disabled="true" 
 				 class="easyui-textbox" readonly="true"  style="width:180px"/></td>
 				
 				<td align="right">商户全称:</td>
