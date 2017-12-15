@@ -81,57 +81,44 @@ public class OrderServiceImpl implements OrderService {
 	@SuppressWarnings("all")
 	@Override
 	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
-	public ResponseInfo saveOrder(PyOrderInfo orderInfo){
+	public ResponseInfo saveOrder(PyOrderInfo orderInfo) throws Exception{
 		ResponseInfo res = new ResponseInfo();
 		Map<String, Object> data = new HashMap<String, Object>();
-		try{
-			//验证输入参数
-			res = checkBaseInfo(orderInfo);
-			if(!"true".equals(res.getRetMsg())){
-				return res;
-			}
-			String orderCreateTime = mathTime();//订单生成时间 yyyyMMddhhmmss
-			PyBigGoodsorder pyBigGoodsorder = setBigOrder(orderInfo,orderCreateTime);//大订单对象
-			
-			
-			List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
-			List<PyMainGoodsorder> mainList = new LinkedList<PyMainGoodsorder>() ;//主订单集合
-			Map<String,Object> orderResult = installOrdergetOrderInfo(orderCreateTime,orderInfo);//主订单、子订单集合
-			//添加订单的商品总数（黄佳喜添加的） 
-			pyBigGoodsorder.setOrderTotalNum((int) orderResult.get("orderNum"));
-			childList = (List<PyChildGoodsorder>) orderResult.get("childList");
-			mainList = (List<PyMainGoodsorder>) orderResult.get("mainList");
-			logger.info("*****childList="+childList);
-			logger.info("*****mainList="+mainList);
-			if(childList.size() !=0&&mainList.size()!=0){
-				int child=childGoodsorderService.insertChildGoodsorderList(childList);//保存子订单
-				logger.info("***子订单插入成功数***="+child);
-				int main=mainGoodsorderService.insertMainGoodsorderList(mainList);//保存主订单
-				logger.info("***主订单插入成功数***="+main);
-				int big=bigGoodsorderService.save(pyBigGoodsorder);//保存大订单
-				logger.info("***大订单插入成功数***="+big);
-				
-			}
-			res.setRetCode(MsgEnum.SUCCESS.getCode());
-			res.setRetMsg("订单提交成功");
-			data.put("pyMainGoodsorder", mainList);
-			data.put("pyChildGoodsorder", childList);
-			data.put("pyBigGoodsorder", pyBigGoodsorder);
-			res.setData(data);
-			logger.info("*****订单提交成功*****");
-		}catch(GoodsinfoException e){
-			logger.error("e="+e);
-			res.setRetCode("900013");
-			res.setRetMsg("您购买的"+e.getValue()+e.getMessage());
-			return res;
-		}catch (Exception e) {
-			logger.error(e.toString());
-			res.setRetCode(MsgEnum.SERVER_ERROR.getCode());
-			res.setRetMsg(MsgEnum.SERVER_ERROR.getMsg());
+		//验证输入参数
+		res = checkBaseInfo(orderInfo);
+		if(!"true".equals(res.getRetMsg())){
 			return res;
 		}
-		return res;
+		String orderCreateTime = mathTime();//订单生成时间 yyyyMMddhhmmss
+		PyBigGoodsorder pyBigGoodsorder = setBigOrder(orderInfo,orderCreateTime);//大订单对象
 		
+		
+		List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
+		List<PyMainGoodsorder> mainList = new LinkedList<PyMainGoodsorder>() ;//主订单集合
+		Map<String,Object> orderResult = installOrdergetOrderInfo(orderCreateTime,orderInfo);//主订单、子订单集合
+		//添加订单的商品总数（黄佳喜添加的） 
+		pyBigGoodsorder.setOrderTotalNum((Integer) orderResult.get("orderNum"));
+		childList = (List<PyChildGoodsorder>) orderResult.get("childList");
+		mainList = (List<PyMainGoodsorder>) orderResult.get("mainList");
+		logger.info("*****childList="+childList);
+		logger.info("*****mainList="+mainList);
+		if(childList.size() !=0&&mainList.size()!=0){
+			int child=childGoodsorderService.insertChildGoodsorderList(childList);//保存子订单
+			logger.info("***子订单插入成功数***="+child);
+			int main=mainGoodsorderService.insertMainGoodsorderList(mainList);//保存主订单
+			logger.info("***主订单插入成功数***="+main);
+			int big=bigGoodsorderService.save(pyBigGoodsorder);//保存大订单
+			logger.info("***大订单插入成功数***="+big);
+			
+		}
+		res.setRetCode(MsgEnum.SUCCESS.getCode());
+		res.setRetMsg("订单提交成功");
+		data.put("pyMainGoodsorder", mainList);
+		data.put("pyChildGoodsorder", childList);
+		data.put("pyBigGoodsorder", pyBigGoodsorder);
+		res.setData(data);
+		logger.info("*****订单提交成功*****");
+		return res;
 	}
 	@Override
 	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
@@ -316,6 +303,10 @@ public class OrderServiceImpl implements OrderService {
 			throw new GoodsinfoException("商品ID为空",goodsName);
 		}
 		ChnGoodsinfo goodsinfo = childGoodsorderService.selectGoodsInfo(goodsId);//商品详情
+		if(goodsinfo == null){
+			logger.info("商品异常或已下架");
+			throw new GoodsinfoException("商品异常或已下架",goodsName);
+		}
 		BigDecimal price = goodsinfo.getPrice();
 		logger.info("-----------price="+price);
 		if(price.compareTo(goodsPrice)!=0){

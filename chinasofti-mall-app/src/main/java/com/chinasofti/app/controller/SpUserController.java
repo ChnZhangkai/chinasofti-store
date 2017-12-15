@@ -43,7 +43,7 @@ public class SpUserController {
 	public ResponseInfo signIn(@RequestBody SpUser spUser,HttpServletResponse response) {
 		ResponseInfo res = new ResponseInfo() ;
 		SpUser reSpUser = spUserFeignClient.signIn(spUser);
-		if(reSpUser.isFlag()&&reSpUser.getUserId()==null){
+		if(reSpUser==null){
 			res.setRetCode(Constant.SPUSERID_PASSWORD_ERROR);
 			res.setRetMsg(Constant.SPUSERID_PASSWORD_MSG);
 			return res;

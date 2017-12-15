@@ -92,7 +92,7 @@ public class AdvertiseController {
 		}
 		try {
 			file.transferTo(dest);
-			advertiseContents.setImageurl(fileUrl + "/advertise/" + fileName);
+			advertiseContents.setImageurl(fileUrl + File.separator+"advertise"+File.separator + fileName);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -120,7 +120,7 @@ public class AdvertiseController {
 			logger.info("上传的后缀名为：" + suffixName);
 			// 重命名文件名
 			fileName = UUID.randomUUID().toString().replaceAll("-", "") + suffixName;
-			File dest = new File(filePath + File.separator+ fileName);
+			File dest = new File(filePath + File.separator+"advertise"+File.separator+ fileName);
 			// 检测是否存在目录
 			if (!dest.getParentFile().exists()) {
 				dest.getParentFile().mkdirs();

@@ -143,13 +143,13 @@ public class Aes {
     /**
      * 测试
      */
-    public static void main(String[] args) throws Exception {  
-        String content = "ABCDEFGH";  
+   /* public static void main(String[] args) throws Exception {  
+        String content = "ABCDEFGK";  
         System.out.println("加密前：" + content);  
         System.out.println("加密密钥和解密密钥：" + KEY);  
         String encrypt = aesEncrypt(content, KEY);  
         System.out.println("加密后：" + encrypt);  
         String decrypt = aesDecrypt(encrypt, KEY);  
         System.out.println("解密后：" + decrypt);  
-    } 
+    } */
 }

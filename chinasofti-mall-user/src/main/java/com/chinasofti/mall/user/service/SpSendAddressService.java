@@ -20,13 +20,13 @@ public interface SpSendAddressService extends IBaseService<SpSendAddress>{
 	 * @return
 	 */
 	
-	public List<SpSendAddress> querySentAddressList(String userId);
+	public List<SpSendAddress> querySentAddressList(String userId) throws MyException;
 	
-	public int insertSendAddress(SpSendAddress spSendAddress);
+	public int insertSendAddress(SpSendAddress spSendAddress) throws MyException;
 	
-	public int updateSendAddress(SpSendAddress spSendAddress);
+	public int updateSendAddress(SpSendAddress spSendAddress) throws MyException;
 	
-	public int deleteSendAddress(SpSendAddress spSendAddress);
+	public int deleteSendAddress(SpSendAddress spSendAddress) throws MyException;
 	
 
 }
