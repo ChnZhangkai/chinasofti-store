@@ -70,9 +70,7 @@ public class SpMerchantUserController {
 
 	@RequestMapping(value="update" , method = RequestMethod.POST)
 	public int update(@RequestBody(required=false) SpMerchantUser spMerchantUser) {
-		int test = spUserService.update(spMerchantUser);
-		System.out.println("test:"+test);
-		return test;
+		return spUserService.update(spMerchantUser);
 		
 	}
 
