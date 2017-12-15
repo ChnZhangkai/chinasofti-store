@@ -7,7 +7,7 @@
         <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR"/>
         <result column="CUST_IDS" property="custIds" jdbcType="VARCHAR"/>
         <result column="ORDER_STATUS" property="orderStatus" jdbcType="CHAR"/>
-        <result column="GOODS_NUM" property="goodsNum" jdbcType="DECIMAL"/>
+        <result column="GOODS_NUM" property="goodsNum" jdbcType="int"/>
         <result column="GOODS_PRICE" property="goodsPrice" jdbcType="DECIMAL"/>
         <result column="DISCOUNT" property="discount" jdbcType="DECIMAL"/>
         <result column="ORDER_REAL_AMT" property="orderRealAmt" jdbcType="DECIMAL"/>
