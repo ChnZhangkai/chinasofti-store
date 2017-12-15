@@ -67,17 +67,24 @@ public class ShoppingCartController {
 	@RequestMapping(value="add/goods", method = RequestMethod.POST)
 	@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"}")
 	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goods) {
-		logger.info("请求参数《《《《《《《《《》》》》》》》》》》"+goods.toString());
+		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goods.toString());
 		ResponseInfo response = new ResponseInfo();
-			String id = goods.getGoodsId();
-			ChnGoodsinfo storegoodsInfo = goodsInfoFeignClient.checkGoodsInfoById(id);
-			//商品信息校验
-			ResponseInfo result = RequestParamService.packageWithGoodsInfoRequest(goods,storegoodsInfo);
-			if(result.getRetCode() !=null){
-				return result;
-			}
+		// 参数校验
+		ResponseInfo result = RequestParamService.packageWithAddShoppingCartParam(goods);
+		if (result.getRetCode() != null) {
+			return result;
+		}
+
+		String id = goods.getGoodsId();
+		ChnGoodsinfo storegoodsInfo = goodsInfoFeignClient.checkGoodsInfoById(id);
+		// 商品信息校验
+		logger.info("库存商品信息：【【【【【【【" + storegoodsInfo.toString());
+		ResponseInfo result2 = RequestParamService.packageWithGoodsInfoRequest(goods, storegoodsInfo);
+		if (result2.getRetCode() != null) {
+			return result2;
+		}
 		response = shoppingCartFeignClient.savePyShoppingCart(goods);
-		
+
 		return response;
 	}
 	

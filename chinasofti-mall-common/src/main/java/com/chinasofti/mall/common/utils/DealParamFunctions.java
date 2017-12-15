@@ -54,6 +54,12 @@ public class DealParamFunctions {
 			buyGoods.setPrice(shopgoods.getPrice());
 			buyGoods.setStandard(shopgoods.getStandard());
 			buyGoods.setOrgPrice(shopgoods.getOrgPrice());
+			buyGoods.setLimitOrderNum(shopgoods.getLimitOrderNum());
+			buyGoods.setLimitUserNum(shopgoods.getLimitUserNum());
+			buyGoods.setTotalTrade(shopgoods.getTotalTrade());
+			buyGoods.setStoreNum(shopgoods.getStoreNum());
+			buyGoods.setCollNum(shopgoods.getCollNum());
+			buyGoods.setStatus(shopgoods.getStatus());
 			buyGoods.setChecked(shopgoods.getChecked());
 			goodsList.add(buyGoods);
 			vendorMap.put(vendorNm, goodsList);
