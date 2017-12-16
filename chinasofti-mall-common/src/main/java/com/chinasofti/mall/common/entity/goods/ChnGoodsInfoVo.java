@@ -1,5 +1,6 @@
 package com.chinasofti.mall.common.entity.goods;
 
+
 public class ChnGoodsInfoVo extends ChnGoodsinfo{
 
 	private String vendorSnm;
@@ -9,6 +10,7 @@ public class ChnGoodsInfoVo extends ChnGoodsinfo{
 	private String venderIntro;
 
     private String venderExplain;
+    
     
 	private String filepath;
 
@@ -51,4 +53,5 @@ public class ChnGoodsInfoVo extends ChnGoodsinfo{
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
 	}
+
 }

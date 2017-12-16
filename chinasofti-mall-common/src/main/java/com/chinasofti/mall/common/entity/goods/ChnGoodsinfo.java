@@ -411,13 +411,6 @@ public class ChnGoodsinfo extends PageBean{
 		this.filepath = filepath;
 	}
 
-	public BigDecimal getGoodsNum() {
-		return goodsNum;
-	}
-
-	public void setGoodsNum(BigDecimal goodsNum) {
-		this.goodsNum = goodsNum;
-	}
 
 	public Boolean getChecked() {
 		return checked;
@@ -433,6 +426,14 @@ public class ChnGoodsinfo extends PageBean{
 
 	public void setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
+	}
+
+	public BigDecimal getGoodsNum() {
+		return goodsNum;
+	}
+
+	public void setGoodsNum(BigDecimal goodsNum) {
+		this.goodsNum = goodsNum;
 	}
 
 
