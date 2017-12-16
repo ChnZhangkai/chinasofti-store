@@ -34,7 +34,7 @@ public interface GoodsInfoFeignClient {
 	@RequestMapping(value = "/goodsInfo/queryGoodsInfoList")
 	public List<ChnGoodsinfo> queryGoodsInfoList(@RequestBody ChnGoodsinfo goodsInfo);
 	
-	@RequestMapping(value = "/goodsInfo/queryGoodsInfo")
+	@RequestMapping(value = "/goodsInfo/checkGoodsInfoById")
 	public ChnGoodsinfo checkGoodsInfoById(@RequestParam("ids")String ids);
   
 }

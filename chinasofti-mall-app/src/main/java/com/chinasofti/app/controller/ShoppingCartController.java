@@ -1,5 +1,6 @@
 package com.chinasofti.app.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,18 +71,17 @@ public class ShoppingCartController {
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goods.toString());
 		ResponseInfo response = new ResponseInfo();
 		// 参数校验
-		ResponseInfo result = RequestParamService.packageWithAddShoppingCartParam(goods);
-		if (result.getRetCode() != null) {
-			return result;
+		response = RequestParamService.packageWithAddShoppingCartParam(goods);
+		if (response.getRetCode() != null) {
+			return response;
 		}
-
 		String id = goods.getGoodsId();
 		ChnGoodsinfo storegoodsInfo = goodsInfoFeignClient.checkGoodsInfoById(id);
 		// 商品信息校验
 		logger.info("库存商品信息：【【【【【【【" + storegoodsInfo.toString());
-		ResponseInfo result2 = RequestParamService.packageWithGoodsInfoRequest(goods, storegoodsInfo);
-		if (result2.getRetCode() != null) {
-			return result2;
+		response = RequestParamService.packageWithGoodsInfoRequest2(goods, storegoodsInfo);
+		if (response.getRetCode() != null) {
+			return response;
 		}
 		response = shoppingCartFeignClient.savePyShoppingCart(goods);
 
@@ -134,22 +134,13 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value ="checkGoodsInfo", method =RequestMethod.POST)
-	public ResponseInfo checkGoodsInfo(@RequestBody List<PyShoppingCart> shoppingCartList){
+	public ResponseInfo checkGoodsInfo(@RequestBody PyShoppingCart shoppingCartList) {
 		ResponseInfo response = new ResponseInfo();
-		for(PyShoppingCart goods :shoppingCartList){
-			String id = goods.getGoodsId();
-			ChnGoodsinfo storegoodsInfo = goodsInfoFeignClient.checkGoodsInfoById(id);
-			//商品信息校验
-			ResponseInfo result = RequestParamService.packageWithGoodsInfoRequest(goods,storegoodsInfo);
-			if(result.getRetCode() !=null){
-				return result;
-			}
-			
-		}
-		
-		response.setRetCode(MsgEnum.SUCCESS.getCode());
-	    response.setRetMsg(MsgEnum.SUCCESS.getMsg());
+		String id = shoppingCartList.getGoodsId();
+		ChnGoodsinfo storegoodsInfo = goodsInfoFeignClient.checkGoodsInfoById(id);
+		// 商品信息校验
+		response = RequestParamService.packageWithGoodsInfoRequest(shoppingCartList, storegoodsInfo);
 		return response;
-		
+
 	}
 }
