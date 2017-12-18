@@ -3,6 +3,7 @@ package com.chinasofti.app.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -50,22 +51,20 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value="del/goods", method = RequestMethod.POST)
-	@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
-	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList) {
+	//@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
+	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,
+			HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "POST");
 		ResponseInfo responseInfo = new ResponseInfo();
-		if (goodsList.size() == 0 || "".equals(goodsList)) {
-			responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
-			responseInfo.setRetMsg("请选择要删除的商品！");
-			return responseInfo;
-		}
 		for (PyShoppingCart goods : goodsList) {
-
-			 responseInfo = RequestParamService.packageWithAddShoppingCartParam(goods);
+			// 空参校验
+			responseInfo = RequestParamService.packageWithAddShoppingCartParam(goods);
 			if (responseInfo.getRetCode() != null) {
 				return responseInfo;
 			}
 		}
-	    responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
+		responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
 		return responseInfo;
 	}
 	
@@ -75,23 +74,27 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value="add/goods", method = RequestMethod.POST)
-	@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"}")
-	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart shoppingCart) {
+	//@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"}")
+	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart shoppingCart,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "POST");
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + shoppingCart.toString());
-		ResponseInfo response = new ResponseInfo();
+		ResponseInfo responseInfo = new ResponseInfo();
 		// 参数校验
-		response = RequestParamService.packageWithAddShoppingCartParam(shoppingCart);
-		if (response.getRetCode() != null) {
-			return response;
+		responseInfo = RequestParamService.packageWithAddShoppingCartParam(shoppingCart);
+		if (responseInfo.getRetCode() != null) {
+			return responseInfo;
 		}
+		logger.info("空参校验结果《《《《《《《《《》》》》》》》》》》" + responseInfo);
 		//调用本类中校验商品信息是否可行
-		response = this.checkGoodsInfo(shoppingCart);
-		if (!MsgEnum.SUCCESS.getCode().equals(response.getRetCode())) {
-			return response;
+		responseInfo = this.checkGoodsInfo(shoppingCart);
+		if (!MsgEnum.SUCCESS.getCode().equals(responseInfo.getRetCode())) {
+			return responseInfo;
 		}
-		response = shoppingCartFeignClient.savePyShoppingCart(shoppingCart);
+		logger.info("商品校验结果《《《《《《《《《》》》》》》》》》》" + response);
+		responseInfo = shoppingCartFeignClient.savePyShoppingCart(shoppingCart);
 
-		return response;
+		return responseInfo;
 	}
 	
 	/**
@@ -100,17 +103,20 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value="/mod/goods", method = RequestMethod.POST)
-	@ApiOperation(value="修改购物车商品数量", notes="报文示例：{\"goodsList\":{\"goodsList\":[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]}")
-	public ResponseInfo updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo) {
-		ResponseInfo response = new ResponseInfo();
+	//@ApiOperation(value="修改购物车商品数量", notes="报文示例：{\"goodsList\":{\"goodsList\":[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]}")
+	public ResponseInfo updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "POST");
+		ResponseInfo responseInfo = new ResponseInfo();
 		//参数校验
-		ResponseInfo result = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
-		if(result.getRetCode() !=null){
-			return result;
+		responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
+		if(responseInfo.getRetCode() !=null){
+			return responseInfo;
 		}
+		logger.info("空参校验结果+++++++++++===========" + response);
 		int re = shoppingCartFeignClient.updatePyShoppingCart(goodsInfo);
-		response = DealParamFunctions.dealResponseData(re);
-		return response;
+		responseInfo = DealParamFunctions.dealResponseData(re);
+		return responseInfo;
 	}
 	/**
 	 * 查询购物车商品列表
