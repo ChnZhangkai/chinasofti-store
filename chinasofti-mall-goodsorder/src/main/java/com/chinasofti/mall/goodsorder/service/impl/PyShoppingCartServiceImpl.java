@@ -54,18 +54,7 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	@Override
 	public ResponseInfo savePyShoppingCart(PyShoppingCart goods) {
 		ResponseInfo response = new ResponseInfo();
-		if (goods.getGoodsId() == null || "".equals(goods)) {
-			response.setRetCode(MsgEnum.SERVER_ERROR.getCode());
-			response.setRetMsg("请选择要添加购物车的商品！");
-			return response;
-		}
-		// 参数校验
-		ResponseInfo result = RequestParamService.packageWithAddShoppingCartParam(goods);
-		if (result.getRetCode() != null) {
-			return result;
-		}
-		// 加上商品校验（弄一个通用的）
-
+		
 		PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
 
 		if (shoppingCar != null) {

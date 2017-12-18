@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyOrderInfo;
+import com.chinasofti.mall.common.utils.Constant;
+import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
+import com.chinasofti.mall.goodsorder.handler.GoodsinfoException;
 import com.chinasofti.mall.goodsorder.service.OrderService;
 
 /**
@@ -66,9 +69,21 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value="/add", method = RequestMethod.POST)
 	public ResponseInfo saveOrder(@RequestBody PyOrderInfo orderInfo) {
-		logger.info("*******************1*********************");
-		ResponseInfo responseInfo = orderService.saveOrder(orderInfo);
-		return responseInfo;
+		ResponseInfo res = new ResponseInfo();
+		try{
+			res = orderService.saveOrder(orderInfo);
+		}catch(GoodsinfoException e){
+			logger.error("e="+e);
+			res.setRetCode(Constant.GOODS_INFO_ERROR);
+			res.setRetMsg("您购买的"+e.getValue()+e.getMessage());
+			return res;
+		}catch (Exception e) {
+			logger.error(e.toString());
+			res.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+			res.setRetMsg(MsgEnum.SERVER_ERROR.getMsg());
+			return res;
+		}
+		return res;
 	}
 
 	/**

@@ -1,7 +1,8 @@
 package com.chinasofti.mall.common.service;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -73,9 +74,12 @@ public class RequestParamService {
 	public static ResponseInfo packageWithGoodsInfoRequest(PyShoppingCart shopCar, ChnGoodsinfo storegoodsInfo) {
 		ResponseInfo response = new ResponseInfo();
 		String goodsStatus = storegoodsInfo.getStatus();
+		Map<String, Object> data = new HashMap<String, Object>();
 		if (!goodsStatus.equals(Constant.GOODS_STATUS)) {
 			response.setRetCode("500001");
 			response.setRetMsg("该商品已下架或已删除");
+			data.put("responseInfo", shopCar);
+			response.setData(data);
 			return response;
 		}
 		BigDecimal userBuyNum = shopCar.getGoodsNum();
@@ -83,15 +87,54 @@ public class RequestParamService {
 		if (userBuyNum.compareTo(storeNum) == 1) {
 			response.setRetCode("600001");
 			response.setRetMsg("库存不足");
+			data.put("responseInfo", shopCar);
+			response.setData(data);
 			return response;
 		}
 		BigDecimal limitOrderNum = storegoodsInfo.getLimitOrderNum();
 		if (userBuyNum.compareTo(limitOrderNum) == 1) {
 			response.setRetCode("700001");
 			response.setRetMsg("数量已超出单位限制！");
+			data.put("responseInfo", shopCar);
+			response.setData(data);
 			return response;
 		}
+		data.put("responseInfo", shopCar);
+		response.setData(data);
+		response.setRetCode(MsgEnum.SUCCESS.getCode());
+	    response.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		return response;
 	}
 
+	public static ResponseInfo packageWithGoodsInfoRequest2(PyShoppingCart shopCar, ChnGoodsinfo storegoodsInfo) {
+		ResponseInfo response = new ResponseInfo();
+		String goodsStatus = storegoodsInfo.getStatus();
+		Map<String, Object> data = new HashMap<String, Object>();
+		if (!goodsStatus.equals(Constant.GOODS_STATUS)) {
+			response.setRetCode("500001");
+			response.setRetMsg("该商品已下架或已删除");
+			data.put("responseInfo", shopCar);
+			response.setData(data);
+			return response;
+		}
+		BigDecimal userBuyNum = shopCar.getGoodsNum();
+		BigDecimal storeNum = storegoodsInfo.getStoreNum();
+		if (userBuyNum.compareTo(storeNum) == 1) {
+			response.setRetCode("600001");
+			response.setRetMsg("库存不足");
+			data.put("responseInfo", shopCar);
+			response.setData(data);
+			return response;
+		}
+		BigDecimal limitOrderNum = storegoodsInfo.getLimitOrderNum();
+		if (userBuyNum.compareTo(limitOrderNum) == 1) {
+			response.setRetCode("700001");
+			response.setRetMsg("数量已超出单位限制！");
+			data.put("responseInfo", shopCar);
+			response.setData(data);
+			return response;
+		}
+	
+		return response;
+	}
 }

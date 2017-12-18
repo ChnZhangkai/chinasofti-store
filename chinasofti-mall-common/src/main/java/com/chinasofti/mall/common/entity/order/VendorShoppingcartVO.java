@@ -25,6 +25,18 @@ public class VendorShoppingcartVO extends PyShoppingCart{
 	    
 	    private String standard;
 	    
+	    private BigDecimal limitOrderNum;
+	    
+	    private BigDecimal limitUserNum;
+	    
+	    private BigDecimal collNum;
+	    
+	    private BigDecimal storeNum;
+	    
+	    private BigDecimal totalTrade;
+	    
+	    private String status;
+	    
 	    private String filepath;
 
 
@@ -90,5 +102,53 @@ public class VendorShoppingcartVO extends PyShoppingCart{
 
 		public void setFilepath(String filepath) {
 			this.filepath = filepath;
+		}
+
+		public BigDecimal getLimitOrderNum() {
+			return limitOrderNum;
+		}
+
+		public void setLimitOrderNum(BigDecimal limitOrderNum) {
+			this.limitOrderNum = limitOrderNum;
+		}
+
+		public BigDecimal getLimitUserNum() {
+			return limitUserNum;
+		}
+
+		public void setLimitUserNum(BigDecimal limitUserNum) {
+			this.limitUserNum = limitUserNum;
+		}
+
+		public BigDecimal getCollNum() {
+			return collNum;
+		}
+
+		public void setCollNum(BigDecimal collNum) {
+			this.collNum = collNum;
+		}
+
+		public BigDecimal getStoreNum() {
+			return storeNum;
+		}
+
+		public void setStoreNum(BigDecimal storeNum) {
+			this.storeNum = storeNum;
+		}
+
+		public BigDecimal getTotalTrade() {
+			return totalTrade;
+		}
+
+		public void setTotalTrade(BigDecimal totalTrade) {
+			this.totalTrade = totalTrade;
+		}
+
+		public String getStatus() {
+			return status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
 		}
 }

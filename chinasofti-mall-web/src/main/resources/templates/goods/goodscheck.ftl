@@ -7,10 +7,10 @@
 			<form id="searchCheckForm" style="margin: 0px">
 				<label>商品名称</label> <input type="text" id="goodstitle" name="title" class="easyui-textbox" style="width: 160px"/>
 				<label>商户名称</label> <input class="easyui-textbox" id="goodsCheck-vendorFnm" name="vendorFnm" readonly="true" />
-							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="like-choose" onclick="venderFnmChoose(this)">选择</a>
 				<label>商品分类</label> 
 					<input type="text" id="goodsclassname" name="name" class="easyui-textbox" style="width: 160px" data-options="editable:false"/>
-					<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="ClassTree()">选择</a>
+					<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="goodscheck_like" onclick="ClassTree(this)">选择</a>
 				<label>审核状态</label>
 				<select autocomplete="off" class="easyui-combobox"
 					data-options="panelHeight:'auto'" id="goodsReviewStates" name="reviewStatues"
@@ -82,7 +82,7 @@
 							
 					<td align="right">商品分类</td>
 					<td><input type="text" id="goodsClassIds" name="goodsClassIds" class="easyui-textbox" required="true" missingMessage="请选择" style="width: 160px" data-options="editable:false"/>
-					<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="ClassTree()">选择</a>
+					<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="goodscheck_add"  onclick="ClassTree(this)">选择</a>
 					</td>
 				</tr>
 				<tr>
@@ -94,7 +94,7 @@
 					<td align="right">商户编号</td>
 					<td>
 					<input class="easyui-textbox" id="add-vendorFnm" name="vendorids" readonly="true" />
-							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="add-choose" onclick="venderFnmChoose(this)">选择</a>
 					</td>
 				</tr>
 				<tr>
@@ -179,13 +179,15 @@
 		style="width: 100%; height: 100%; padding: 10px;">
 		<form id="goodsCheckUpdateForm"  enctype="multipart/form-data">
 			<table>
-			<td align="right">商品名称</td>
+				<tr>
+					<div><input type="hidden" name="ids" id="ids"><input type="hidden" name="goodsids" id="goodsids"></div>
+					<td align="right">商品名称</td>
 					<td><input type="text" style="width: 180px;" class="easyui-textbox" id="title" name="title"  
 							data-options="required:true,validType:['depName','length[1,100]']" /></td>
 					
 					<td align="right">商品分类</td>
-					<td><input type="text" id="name" name="name" class="easyui-textbox"  style="width: 160px" data-options="editable:false"/>
-						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="ClassTree()">选择</a>
+					<td><input type="text" id="goodsClassIds" name="goodsClassIds" class="easyui-textbox"  style="width: 160px" data-options="editable:false"/>
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="goodscheck_upd"  onclick="ClassTree(this)">选择</a>
 					</td>
 				</tr>
 				<tr>
@@ -197,7 +199,7 @@
 					<td align="right">商户编号</td>
 					<td>
 					<input class="easyui-textbox" id="update-vendorFnm" name="vendorids" readonly="true" />
-							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="upd-choose" onclick="venderFnmChoose(this)">选择</a>
 					</td>
 				</tr>
 				<tr>
@@ -252,7 +254,7 @@
 					<td align="right">商品图片:</td>
 					<td><input id="img" name="img" class="easyui-filebox"
 						style="width: 180px;"
-						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
+						data-options="onChange:function(){readUGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
 					<td align="right">商品价格</td>
 					<td><input type="text" style="width: 180px;"  data-options="required:true,validType:['intOrFloat','length[1,12]']"
 						class="easyui-textbox" id="price" name="price"/></td>
@@ -260,7 +262,7 @@
 				<tr>
 					<td></td>
 					<td>
-						<div id="showGoodsPic"></div>
+						<div id="showUGoodsPic"></div>
 					</td>
 				</tr>
 				
@@ -403,7 +405,7 @@
 
 	<!-- 商品分类Id查询dialog按钮 -->
 	<div id="classChooseBtns">
-		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="classIdChoose()">选择</a>
+		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="classIdChoose(name)">选择</a>
 	</div>
 	
 	
@@ -456,5 +458,5 @@
 </div>
 <!-- 商户id查询dialog按钮 -->
 <div id="vendersChooseBtns">
-	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="vendersChoose()">选择</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="vendersChoose(name)">选择</a>
 </div>

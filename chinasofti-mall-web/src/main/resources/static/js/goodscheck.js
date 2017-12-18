@@ -61,6 +61,10 @@
 	function openEdit(){
 		$('#goodsCheckUpdateForm').form('clear');
 		var row = $("#goodscheck").datagrid('getSelected');
+		if(row.reviewStatues=='1' || row.reviewStatues=='2'){
+			$.messager.alert('温馨提醒','已审核的数据不能修改,请重新选择！');
+			return ;
+		}
 		if (row) {
 			$('#goodsCheckUpdateDl').dialog('open').dialog({
 				draggable : false,			
@@ -78,7 +82,8 @@
 						$('#goodsCheckUpdateDl').dialog('close');
 						$('#goodsCheckUpdateForm').form('reset');
 						ue.setContent('');
-						document.getElementById("showGoodsPic").innerHTML = "";
+						document.getElementById("showUGoodsPic").innerHTML = "";
+						//$("#readUGoodsPic").attr('src','');
 					}
 				}]
 			});
@@ -395,11 +400,10 @@
 	}
 	
 	/**
-	 * 上传图片回显
+	 * 新增上传图片回显
 	 */
 	function readGoodsPicture(_obj) {
 		//easyui-filebox封装input标签
-		debugger;
 		var fileId = $("input[type='file']").attr('id');
 		console.info(fileId);
 		if(typeof(fileId) != "undefined"){
@@ -424,10 +428,39 @@
 		}
 	}
 	
+	/**
+	 * 修改上传图片回显
+	 */
+	function readUGoodsPicture(_obj) {
+		//easyui-filebox封装input标签
+		var fileId = $("#goodsCheckUpdateDl input[type='file']").attr('id');
+		console.info(fileId);
+		if(typeof(fileId) != "undefined"){
+			
+			// 检查是否为图像类型
+			var simpleFile = document.getElementById(fileId).files[0];
+			//console.info(simpleFile);
+			if (!/image\/\w+/.test(simpleFile.type)) {
+				$.messager.alert('信息提示', '请确保文件类型为图像类型', 'info')
+				return false;
+			}
+			var reader = new FileReader();
+			// 将文件以二进制文件读入页面中
+			reader.readAsBinaryString(simpleFile);
+			reader.onload = function(f) {
+				var result = document.getElementById("showUGoodsPic");
+				var src = "data:" + simpleFile.type + ";base64,"
+				+ window.btoa(this.result);
+				result.innerHTML = '<img id="readUGoodsPic" style="height: 130px;width: 180px;" src ="' + src + '"/>';
+			}
+			//document.getElementById("showpic").style.display="";
+		}
+	}
+	
 	
 	// 商品审核详情查看
 	function showGoodsCheck() {
-	debugger;
+	//debugger;
 	var row = $('#goodscheck').datagrid('getSelected');
 	var ids = row.goodsids;
 	$(document).ready(function(){  
@@ -458,8 +491,9 @@
 	/**
 	 * 打开商品分类窗口
 	 */
-	function ClassTree(){
+	function ClassTree(obj_){
 		//异步请求数据
+		$('#classChooseBtns a').attr('name',obj_.id);
         $('#goodsClassTreeDlg').dialog('open');
 		$('#goodsClassTree').tree({
 			url:'/goods/findGoodsClass'
@@ -469,14 +503,18 @@
 	/**
 	 * 商品分类选择
 	 */
-	function classIdChoose(){
+	function classIdChoose(name){
 		var row = $("#goodsClassTree").tree('getSelected');
-		console.info(row);
-		if(row){
-			$("#goodsClassIds").textbox('setValue',row.id);
-			$("#update-goodsClassIds").textbox('setValue',row.id);
-			$("#goodsclassname").textbox('setValue',row.text);
+		if(row){	
+			if(name == "goodscheck_like"){
+				$("#goodsclassname").textbox('setValue',row.text);
+			}else if(name == "goodscheck_add"){
+				$("#goodsClassIds").textbox('setValue',row.id);
+			}else if(name == "goodscheck_upd"){
+				$("#update-goodsClassIds").textbox('setValue',row.id);
+			}
 			$("#goodsClassTreeDlg").dialog("close");
+			$('#goodsClassTree').tree('clearSelections');
 		}else{
 			$.messager.alert('系统消息','请选择一项进行操作!','info');
 		}
@@ -485,8 +523,10 @@
 	/**
 	 * 打开商户列表
 	 */
-	function venderFnmChoose(){
+	function venderFnmChoose(obj_){
+		$('#vendersChooseBtns a').attr('name',obj_.id);
 		$('#vendersChooseDialog').dialog('open');
+	
 	}
 	
 	/**
@@ -510,13 +550,18 @@
 	/**
 	 * 商户名称选择
 	 */
-	function vendersChoose(){
+	function vendersChoose(name){
 		var row = $("#venderDataTable").datagrid("getSelected");
 		if(row){
-			$("#add-vendorFnm").textbox('setValue',row.vendorId);
-			$("#update-vendorFnm").textbox('setValue',row.vendorId);
-			$("#goodsCheck-vendorFnm").textbox('setValue',row.vendorFnm);
+			if(name == "like-choose"){
+				$("#goodsCheck-vendorFnm").textbox('setValue',row.vendorFnm);
+			}else if(name == "add-choose"){
+				$("#add-vendorFnm").textbox('setValue',row.vendorId);
+			}else if(name == "upd-choose"){
+				$("#update-vendorFnm").textbox('setValue',row.vendorId);
+			}
 			$("#vendersChooseDialog").dialog("close");
+			$('#venderDataTable').datagrid('clearSelections');
 		}else{
 			$.messager.alert('系统消息','请选择一项进行操作!','info');
 		}

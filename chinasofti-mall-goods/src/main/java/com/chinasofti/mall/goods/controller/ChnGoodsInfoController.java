@@ -57,6 +57,7 @@ public class ChnGoodsInfoController {
 	 * @param ids
 	 * @return
 	 */
+	@RequestMapping("checkGoodsInfoById")
 	public ChnGoodsinfo checkGoodsInfoById(@RequestParam("ids")String ids) {
 		return goodsInfoService.checkGoodsInfoById(ids);
 		
