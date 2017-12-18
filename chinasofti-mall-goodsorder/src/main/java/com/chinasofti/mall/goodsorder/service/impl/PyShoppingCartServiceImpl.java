@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
-import com.chinasofti.mall.common.service.RequestParamService;
 import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
