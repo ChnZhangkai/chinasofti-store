@@ -1,11 +1,8 @@
 package com.chinasofti.app.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -54,9 +51,21 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="del/goods", method = RequestMethod.POST)
 	@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
-	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,HttpServletRequest req,HttpServletResponse response) {
-	    
-		ResponseInfo responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
+	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList) {
+		ResponseInfo responseInfo = new ResponseInfo();
+		if (goodsList.size() == 0 || "".equals(goodsList)) {
+			responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+			responseInfo.setRetMsg("请选择要删除的商品！");
+			return responseInfo;
+		}
+		for (PyShoppingCart goods : goodsList) {
+
+			 responseInfo = RequestParamService.packageWithAddShoppingCartParam(goods);
+			if (responseInfo.getRetCode() != null) {
+				return responseInfo;
+			}
+		}
+	    responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
 		return responseInfo;
 	}
 	
@@ -67,23 +76,20 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="add/goods", method = RequestMethod.POST)
 	@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"}")
-	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goods) {
-		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goods.toString());
+	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart shoppingCart) {
+		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + shoppingCart.toString());
 		ResponseInfo response = new ResponseInfo();
 		// 参数校验
-		response = RequestParamService.packageWithAddShoppingCartParam(goods);
+		response = RequestParamService.packageWithAddShoppingCartParam(shoppingCart);
 		if (response.getRetCode() != null) {
 			return response;
 		}
-		String id = goods.getGoodsId();
-		ChnGoodsinfo storegoodsInfo = goodsInfoFeignClient.checkGoodsInfoById(id);
-		// 商品信息校验
-		logger.info("库存商品信息：【【【【【【【" + storegoodsInfo.toString());
-		response = RequestParamService.packageWithGoodsInfoRequest2(goods, storegoodsInfo);
-		if (response.getRetCode() != null) {
+		//调用本类中校验商品信息是否可行
+		response = this.checkGoodsInfo(shoppingCart);
+		if (!MsgEnum.SUCCESS.getCode().equals(response.getRetCode())) {
 			return response;
 		}
-		response = shoppingCartFeignClient.savePyShoppingCart(goods);
+		response = shoppingCartFeignClient.savePyShoppingCart(shoppingCart);
 
 		return response;
 	}
@@ -134,12 +140,12 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value ="checkGoodsInfo", method =RequestMethod.POST)
-	public ResponseInfo checkGoodsInfo(@RequestBody PyShoppingCart shoppingCartList) {
+	public ResponseInfo checkGoodsInfo(@RequestBody PyShoppingCart shoppingCart) {
 		ResponseInfo response = new ResponseInfo();
-		String id = shoppingCartList.getGoodsId();
+		String id = shoppingCart.getGoodsId();
 		ChnGoodsinfo storegoodsInfo = goodsInfoFeignClient.checkGoodsInfoById(id);
 		// 商品信息校验
-		response = RequestParamService.packageWithGoodsInfoRequest(shoppingCartList, storegoodsInfo);
+		response = RequestParamService.packageWithGoodsInfoRequest(shoppingCart, storegoodsInfo);
 		return response;
 
 	}

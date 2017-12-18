@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.app.hystrix.SpSendAddressFeignClientHystrix;
 import com.chinasofti.mall.common.entity.spuser.SpSendAddress;
-import com.chinasofti.mall.common.utils.ResponseInfo;
 
 
 /**
