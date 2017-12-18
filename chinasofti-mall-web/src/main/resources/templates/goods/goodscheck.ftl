@@ -76,7 +76,7 @@
 				<tr>
 					<td align="right">商品名称</td>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" id="title" name="title"  
+						class="easyui-textbox validatebox" id="title" name="title"  
 							data-options="required:true,validType:['depName','length[1,100]']" />
 						 <span><font style="color: red; font-size: 10px;">*</font></span></td>
 							
