@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
-import com.chinasofti.mall.common.service.RequestParamService;
 import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -86,17 +85,8 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	public ResponseInfo deletePyShoppingCartById(List<PyShoppingCart> goodsList) {
 		ResponseInfo responseInfo = new ResponseInfo();
 
-		if (goodsList.size() == 0 || "".equals(goodsList)) {
-			responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
-			responseInfo.setRetMsg("请选择要删除的商品！");
-			return responseInfo;
-		}
 		for (PyShoppingCart goods : goodsList) {
 			
-			ResponseInfo result = RequestParamService.packageWithAddShoppingCartParam(goods);
-			if (result != null) {
-				return result;
-			}
 			int row = deleteById(goods);
 			if (row <= 0) {
 				responseInfo.setRetCode(MsgEnum.ERROR.getCode());
