@@ -48,7 +48,7 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.order.PyShoppingCart" >
     delete from py_shopping_cart
-    where 1=1 and IDS = #{id,jdbcType=VARCHAR}
+    where  IDS = #{id,jdbcType=VARCHAR}
     <if test="userId != null" >
       and  USERIDS = #{userId,jdbcType=VARCHAR}
       </if> 
@@ -183,8 +183,7 @@
     update py_shopping_cart
     set 
       GOODS_NUM = #{goodsNum,jdbcType=DECIMAL}
-    where 1=1
-      and IDS = #{id,jdbcType=VARCHAR}
+    where  IDS = #{id,jdbcType=VARCHAR}
      <if test="userId != null" >
       and  USERIDS = #{userId,jdbcType=VARCHAR}
       </if>
