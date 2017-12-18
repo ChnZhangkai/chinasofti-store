@@ -1,6 +1,5 @@
 package com.chinasofti.app.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,9 +53,21 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="del/goods", method = RequestMethod.POST)
 	@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
-	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,HttpServletRequest req,HttpServletResponse response) {
-	    
-		ResponseInfo responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
+	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList) {
+		ResponseInfo responseInfo = new ResponseInfo();
+		if (goodsList.size() == 0 || "".equals(goodsList)) {
+			responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
+			responseInfo.setRetMsg("请选择要删除的商品！");
+			return responseInfo;
+		}
+		for (PyShoppingCart goods : goodsList) {
+
+			 responseInfo = RequestParamService.packageWithAddShoppingCartParam(goods);
+			if (responseInfo.getRetCode() != null) {
+				return responseInfo;
+			}
+		}
+	    responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
 		return responseInfo;
 	}
 	
