@@ -3,6 +3,7 @@ package com.chinasofti.mall.web.entrance.log;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -17,6 +18,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.chinasofti.mall.common.entity.LogOperator;
+import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.web.entrance.service.LogService;
@@ -66,7 +68,7 @@ public class LogAspect {
 		if (attributes != null) {
 			
 			HttpServletRequest request = attributes.getRequest();
-			//HttpSession session = request.getSession();
+			HttpSession session = request.getSession();
 			
 			logOperator.setIds(UUIDUtils.getUuid());
 			logOperator.setUrl(request.getRequestURL().toString());
@@ -74,19 +76,15 @@ public class LogAspect {
 			logOperator.setIp(request.getRemoteAddr());
 			logOperator.setType(request.getMethod());
 			logOperator.setDate(StringDateUtil.getStringTime());
-			if ((joinPoint.getSignature().getName()).equals("loginUser")) {
+			if ((joinPoint.getSignature().getName()).equals("login")) {
+				logOperator.setUsername("");
+			}else if ((joinPoint.getSignature().getName()).equals("loginUser") ) {
 				String joinargs = Arrays.toString(joinPoint.getArgs());
 				logOperator.setUsername(joinargs.substring(1, joinargs.indexOf(",")));
+			}else {
+				logOperator.setUsername((((PtUser)session.getAttribute("user")).getUsername()));
 			}
 			logService.insert(logOperator);
-			
-			// 记录下请求内容
-//			logger.info("URL:" + request.getRequestURL().toString());
-//			logger.info("HTTP_METHOD:" + request.getMethod());
-//			logger.info("IP:" + request.getRemoteAddr());
-//			logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "."
-//					+ joinPoint.getSignature().getName());
-//			logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
 			
 		} else {
 			logger.info("attributes为" + attributes);
