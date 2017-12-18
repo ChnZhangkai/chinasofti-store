@@ -137,17 +137,16 @@ public class PyChildGoodsorder extends PageBean {
     
     /** *  商品的规格  0 无效 1 有效*/
     private String standard;
-    
+
     private String filepath;
     
- 	public String getFilepath() {
- 		return filepath;
- 	}
+	public String getFilepath() {
+		return filepath;
+	}
 
- 	public void setFilepath(String filepath) {
- 		this.filepath = filepath;
- 	}
-    
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
 	public String getStatus() {
 		return status;
 	}
