@@ -1059,6 +1059,7 @@
 	    <result column="CONT_CITY_CODE" property="contCityCode" jdbcType="VARCHAR" />
 	    <result column="CONT_DISTRICT_CODE" property="contDistrictCode" jdbcType="VARCHAR" />
 	    <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
+	    <result column="vs" property="vendorSnm" jdbcType="VARCHAR" />
 	    <collection property="pyChildGoodsorders" ofType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder">
 		    <id column="MAINORDER_IDS" property="mainorderIds"/>
 		    <result column="cid" property="ids" jdbcType="VARCHAR" />
@@ -1104,13 +1105,13 @@
 	      	m.SENDOUTTIME, m.UPDATETIME, m.S_LATITUDE, 
 	      	m.S_LONGITUDE, m.P_LATITUDE, m.P_LONGITUDE, 
 	      	m.SENDDESC, m.FREIGHT_OLD, m.CONT_PROVINCE_CODE, 
-	      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, 
+	      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT,
 			c.IDS as cid, c.GOODSIDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, c.ORDER_REAL_AMT, 
 			c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, c.ORDER_AMT, 
 			c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE,
-			g.STATUS as gs, f.FILEPATH 
+			g.STATUS as gs, f.FILEPATH ,u.VENDOR_SNM as vs 
 		FROM 
-			py_main_goodsorder m ,py_child_goodsorder c ,chn_goodsinfo g ,goods_file f 
+			py_main_goodsorder m ,py_child_goodsorder c ,chn_goodsinfo g ,goods_file f ,sp_merchant_user u 
 		WHERE 
 			m.TRANSACTIONID = c.MAINORDER_IDS and m.PAY_STATUS = '1' and m.STATUS = '1' and c.GOODSIDS = g.IDS 
 			and g.IDS = f.GOODSIDS and m.USER_IDS = #{userIds,jdbcType=VARCHAR} ORDER BY m.ORDER_TIME DESC 
