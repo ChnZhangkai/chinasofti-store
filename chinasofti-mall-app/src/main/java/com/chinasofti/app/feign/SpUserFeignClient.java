@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.chinasofti.app.hystrix.SpUserFeignClientHystrix;
 import com.chinasofti.mall.common.entity.spuser.SpUser;
+import com.chinasofti.mall.common.utils.ResponseInfo;
 
 
 /**
