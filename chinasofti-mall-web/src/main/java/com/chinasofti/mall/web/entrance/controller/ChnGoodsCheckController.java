@@ -250,6 +250,8 @@ public class ChnGoodsCheckController {
 		//保存商品信息(goodsCheck表)
 		int goodsCheck = chnGoodsFeignClient.updateGoodsCheck(chnGoodsinfoCheck);
 		
+		//修改商品在线表的商品审核状态为0(待申请),在线状态改为2(已下架)
+		
 		
 		return goodsCheck;
 	}
