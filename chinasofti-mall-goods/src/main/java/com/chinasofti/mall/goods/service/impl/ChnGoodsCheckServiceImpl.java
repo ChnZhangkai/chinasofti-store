@@ -51,7 +51,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 			chnGoodsinfoCheck.setEndTime(StringDateUtil.convertToSqlFormat(chnGoodsinfoCheck.getEndTime()));
 		}
 
-		PageHelper.startPage(chnGoodsinfoCheck.getPageNumber(),chnGoodsinfoCheck.getPageSize());
+		PageHelper.startPage(chnGoodsinfoCheck.getPage(),chnGoodsinfoCheck.getRows());
 		List<ChnGoodsinfoCheck> list = chnGoodsinfoCheckMapper.findAll(chnGoodsinfoCheck);
 		
 		js.put("rows", list);
@@ -106,8 +106,10 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 			ChnGoodsinfoCheck goods = findById(chnGoodsinfoCheck.getIds());
 			goods.setIds(goods.getGoodsids());	
 			goods.setGoodsids("");
+			//审核通过
 			goods.setReviewStatues("1");
-			goods.setStatus("2");
+			//上架
+			goods.setStatus("1");
 			
 			chnGoodsinfoCheckMapper.insertGoodsOnlineSelective(goods);
 		}

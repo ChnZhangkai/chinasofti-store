@@ -1,3 +1,4 @@
+<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/goodscheck.js"></script>
 <script type="text/javascript" src="js/myValidType.js"></script>
 <div id="auditlist" class="easyui-layout" data-options="fit:true">
@@ -38,33 +39,38 @@
 	</div>
 
 	<!-- 数据显示datagrid -->
-	<table id="goodscheck" class="easyui-datagrid" title="商品审核列表" toolbar="#wu-toolbar-3" style="height: 95%"
-		data-options="singleSelect:true,
-						 collapsible:true,
-						 url:'/goodsCheck/list',
-						 fitColumns:false,
-       					 sortName:'CREATE_TIME',
-       					 sortOrder:'desc',
-       					 iconCls:'icon-man',
-       				 	 striped:true,
-       				 	 onDblClickRow:showGoodsCheck">
+	<table id="goodscheck" class="easyui-datagrid" title="商品审核列表" toolbar="#wu-toolbar-3" style="height: 100%"
+		data-options="url:'/goodsCheck/list',
+					  inline:true,
+    				  fitColumns:false,
+					  singleSelect:true,
+					  collapsible:true,
+      				  sortName:'CREATE_TIME',
+       				  sortOrder:'desc',
+       				  striped:true,
+       				  pagination:true,
+       				  pageSize:15,
+       				  pageList: [15, 25, 50, 100],
+       				  onDblClickRow:showGoodsCheck">
 		<thead>
 			<tr>
 				<th field="title" width="20%" align="center" data-options="sortable:true">商品名称</th>
 				<th field="img" width="10%" align="center"
 					data-options="formatter:imgFormatter,sortable:true">商品图片</th>
-				<th field="price" width="15%" align="center" data-options="sortable:true">商品价格</th>
+				<th field="price" width="10%" align="center" data-options="sortable:true">商品价格</th>
 				<th field="vendorFnm" width="15%" align="center" data-options="sortable:true">商户名称</th>
-				<th field="name" width="20%" align="center" data-options="sortable:true">商品分类</th>
+				<th field="name" width="10%" align="center" data-options="sortable:true">商品分类</th>
 				<th field="type" width="10%" align="center"
 					data-options="formatter:typeFormatter,sortable:true">商品类型</th>
+				<th field="createTime" width="15%" align="center"
+					data-options="sortable:true">创建时间</th>
 				<th field="reviewStatues" width="10%" align="center"
 					data-options="formatter:statesFormatter,sortable:true">审核状态</th>
 			</tr>
 		</thead>
 	</table>
 	<!-- 分页工具条 -->
-	<div id="goodsCheckPagination" style="background: #efefef; border: 1px solid #ccc;"></div>
+	<!-- <div id="goodsCheckPagination" style="background: #efefef; border: 1px solid #ccc;"></div> -->
 </div>
 
 	<!-- 商品添加表格 -->
@@ -268,16 +274,17 @@
 	
 	<!-- 商品审核详情表格 -->
 	<div id="goodsCheck-show" class="easyui-dialog"
-		data-options="closed:true,iconCls:'icon-add',inline:true"
-		style="width: 100%; height: 100%; padding: 10px;">
+		data-options="closed:true,iconCls:'icon-add',inline:true,fit:true" padding: 10px;">
 		<form id="goodsCheck-show-data"  enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td align="right">商品名称</td>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox easyui-validatebox" id="title" name="title" readonly="true"/> 
+						class="easyui-textbox validatebox" id="title" name="title" readonly="true"/> 
 					<td align="right">商品分类</td>
-					<td><select style="width: 180px;" class="easyui-combobox" readonly="true" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="name" name="name"></select></td>
+					<td><select style="width: 180px;" class="easyui-textbox" readonly="true" id="name" name="name"></select>
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+					</td>
 				</tr>
 				<tr>
 					<td align="right">商品类型</td>
@@ -289,8 +296,8 @@
 					
 					<td align="right">商户名称</td>
 					<td>
-						<input class="easyui-textbox" id="update-vendorFnm" name="vendorFnm" readonly="true" />
-							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+						<input style="width: 180px;" class="easyui-textbox" id="update-vendorFnm" name="vendorFnm" readonly="true" />
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
 					</td>
 				</tr>
 				<tr>
