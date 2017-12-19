@@ -86,11 +86,11 @@ public class ShoppingCartController {
 			return responseInfo;
 		}
 		logger.info("空参校验结果《《《《《《《《《》》》》》》》》》》" + responseInfo);
-		//调用本类中校验商品信息是否可行
+	/*	//调用本类中校验商品信息是否可行
 		responseInfo = this.checkGoodsInfo(shoppingCart);
 		if (!MsgEnum.SUCCESS.getCode().equals(responseInfo.getRetCode())) {
 			return responseInfo;
-		}
+		}*/
 		logger.info("商品校验结果《《《《《《《《《》》》》》》》》》》" + response);
 		responseInfo = shoppingCartFeignClient.savePyShoppingCart(shoppingCart);
 

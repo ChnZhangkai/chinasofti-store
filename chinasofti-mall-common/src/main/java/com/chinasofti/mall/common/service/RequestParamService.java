@@ -30,11 +30,11 @@ public class RequestParamService {
 			response.setRetMsg("Id不能为空！");
 			return response;
 		}
-		if (StringUtils.isEmpty(goodsInfo.getGoodsNum().toString())) {
+		/*if (StringUtils.isEmpty(goodsInfo.getGoodsNum().toString())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsNum不能为空！");
 			return response;
-		}
+		}*/
 		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsId不能为空！");
@@ -51,11 +51,11 @@ public class RequestParamService {
 			logger.info("用户Id为空，请登录后再添加！userId:"+goodsInfo.getUserId());
 			return response;
 		}
-		if (StringUtils.isEmpty(goodsInfo.getGoodsNum().toString())) {
+		/*if (goodsInfo.getGoodsNum().compareTo(new BigDecimal("1"))==1) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("goodsNum不能为空！");
+			response.setRetMsg("goodsNum不能小于1！");
 			return response;
-		}
+		}*/
 		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsId不能为空！");

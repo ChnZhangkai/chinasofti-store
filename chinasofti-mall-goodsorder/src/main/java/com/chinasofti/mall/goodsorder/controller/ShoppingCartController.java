@@ -3,6 +3,7 @@ package com.chinasofti.mall.goodsorder.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +62,6 @@ public class ShoppingCartController {
 	//@ApiOperation(value="修改购物车商品数量", notes="报文示例：[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]")
 	public int updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo) {
 		return pyShoppingCartService.updatePyShoppingCart(goodsInfo);
-		 
 	}
 	
 	/**
