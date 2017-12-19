@@ -74,9 +74,12 @@
 		<form id="addGoodsForm"  enctype="multipart/form-data" method="post">
 			<table>
 				<tr>
+				
 					<td align="right">商品名称</td>
-					<td><input style="width: 180px;" class="easyui-textbox validatebox" id="title" name="title" data-options="required:true,validType:['depName','length[1,100]']" />
-						<span><font style="color: red; font-size: 10px;">*</font></span></td>
+					<td><input type="text" style="width: 180px;"
+						class="easyui-textbox validatebox" id="title" name="title"  
+							data-options="required:true,validType:['depName','length[1,100]']" />
+						 <span><font style="color: red; font-size: 10px;">*</font></span></td>
 							
 					<td align="right">商品分类</td>
 					<td><input id="goodsClassIds" name="goodsClassIds" class="easyui-textbox validatebox" style="width: 180px" data-options="required:true,editable:false"/>

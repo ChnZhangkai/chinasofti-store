@@ -122,6 +122,7 @@ public class ChildGoodsorderController {
 	 public ModelAndView export(@RequestParam("model") String model, PyChildGoodsorder childGoodsorder)  { 
 		// 1：准备数据  
 		JSONObject jsonlist = childGoodsorderFeign.selectByChildorderClass(childGoodsorder);
+		System.out.println("子订单管理:"+jsonlist.toString());
 	    //JsonObject格式 转List格式
 	    JSONArray jsonArray = jsonlist.getJSONArray("rows");
 	    List<PyChildGoodsorder> childOrderList = (List<PyChildGoodsorder>) JSONArray.toCollection(jsonArray, PyChildGoodsorder.class);

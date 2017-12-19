@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.models.auth.In;
 
 public class AdvertiseContentsExample {
     protected String orderByClause;
