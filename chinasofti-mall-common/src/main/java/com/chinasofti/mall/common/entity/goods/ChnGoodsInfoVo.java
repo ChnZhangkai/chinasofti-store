@@ -5,7 +5,7 @@ public class ChnGoodsInfoVo extends ChnGoodsinfo{
 
 	private String vendorSnm;
 	
-	private String phone;
+	private String servicePhone;
 	
 	private String venderIntro;
 
@@ -22,13 +22,6 @@ public class ChnGoodsInfoVo extends ChnGoodsinfo{
 		this.vendorSnm = vendorSnm;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
 
 	public String getVenderIntro() {
 		return venderIntro;
@@ -52,6 +45,14 @@ public class ChnGoodsInfoVo extends ChnGoodsinfo{
 
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
+	}
+
+	public String getServicePhone() {
+		return servicePhone;
+	}
+
+	public void setServicePhone(String servicePhone) {
+		this.servicePhone = servicePhone;
 	}
 
 }
