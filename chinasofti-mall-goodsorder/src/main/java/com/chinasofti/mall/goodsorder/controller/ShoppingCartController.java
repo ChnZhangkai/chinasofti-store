@@ -49,8 +49,8 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value="/add/goods")
 	@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"vendorId\":\"8888\",\"userId\":\"chin\",\"goodsNum\":\"1\"}]")
-	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goods) {
-		return pyShoppingCartService.savePyShoppingCart(goods);
+	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goodsInfo) {
+		return pyShoppingCartService.savePyShoppingCart(goodsInfo);
 	}
 
 	/**

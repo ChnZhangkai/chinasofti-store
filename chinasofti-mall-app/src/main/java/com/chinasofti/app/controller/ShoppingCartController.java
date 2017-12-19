@@ -56,11 +56,13 @@ public class ShoppingCartController {
 			HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
+		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goodsList);
 		ResponseInfo responseInfo = new ResponseInfo();
 		for (PyShoppingCart goods : goodsList) {
 			// 空参校验
 			responseInfo = RequestParamService.packageWithAddShoppingCartParam(goods);
 			if (responseInfo.getRetCode() != null) {
+				
 				return responseInfo;
 			}
 		}
@@ -78,7 +80,7 @@ public class ShoppingCartController {
 	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart shoppingCart,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
-		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + shoppingCart.toString());
+		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + shoppingCart);
 		ResponseInfo responseInfo = new ResponseInfo();
 		// 参数校验
 		responseInfo = RequestParamService.packageWithAddShoppingCartParam(shoppingCart);
@@ -86,11 +88,11 @@ public class ShoppingCartController {
 			return responseInfo;
 		}
 		logger.info("空参校验结果《《《《《《《《《》》》》》》》》》》" + responseInfo);
-		//调用本类中校验商品信息是否可行
+		/*//调用本类中校验商品信息是否可行
 		responseInfo = this.checkGoodsInfo(shoppingCart);
 		if (!MsgEnum.SUCCESS.getCode().equals(responseInfo.getRetCode())) {
 			return responseInfo;
-		}
+		}*/
 		logger.info("商品校验结果《《《《《《《《《》》》》》》》》》》" + response);
 		responseInfo = shoppingCartFeignClient.savePyShoppingCart(shoppingCart);
 
