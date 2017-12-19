@@ -488,7 +488,7 @@
 		a.`TYPE`,a.`CREATE_BY`,a.`CREATE_TIME`,a.`UPDATE_BY`,a.`UPDATE_TIME`,a.`BEGIN_TIME`,
 		a.`END_TIME`,a.`POSITION_ID`,a.`DESCS`,a.`IS_OUTURL`
 		from advertise_contents a,advertise_position b
-		where a.`POSITION_ID` = b.`IDS` AND POSITION_ID = #{positionId,jdbcType=VARCHAR}
+		where a.`POSITION_ID` = b.`IDS` AND STATES = "1" AND TYPE ="1" AND POSITION_ID = #{positionId,jdbcType=VARCHAR}
 		
 	</select>
 	<select id="selectSingleAdvertise" resultMap="BaseResultMap"

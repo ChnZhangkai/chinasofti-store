@@ -32,30 +32,52 @@
 	}
 	
 	//商品添加
+//	function addGoods(){
+//		var formData = new FormData($("#addGoodsForm")[0]); 
+//		console.info(formData);
+//		 $.ajax({ 
+//		     url:'/goodsCheck/addGoods',
+//		     type: 'POST', 
+//		     data: formData, 
+//		     async: false, 
+//		     cache: false, 
+//		     contentType: false, 
+//		     processData: false, 
+//		     success: function(data) {
+//				if(data > 0){
+//					$('#addDl').dialog('close');
+//					$('#addGoodsForm').form('reset');
+//					UE.getEditor('container').setContent("");
+//					$.messager.alert('信息提示','添加成功！','info');
+//					$('#goodsCheckPagination').pagination('select');
+//				}else{
+//					$.messager.alert('信息提示','提交失败！','info');
+//				}
+//		     }
+//		   }); 
+//	}
 	function addGoods(){
-		var formData = new FormData($("#addGoodsForm")[0]); 
-		console.info(formData);
-		 $.ajax({ 
-		     url:'/goodsCheck/addGoods',
-		     type: 'POST', 
-		     data: formData, 
-		     async: false, 
-		     cache: false, 
-		     contentType: false, 
-		     processData: false, 
-		     success: function(data) {
+		
+		$('#addGoodsForm').form('submit', {
+			url:'/goodsCheck/addGoods',
+			type:'POST',
+			success:function(data){
 				if(data > 0){
 					$('#addDl').dialog('close');
 					$('#addGoodsForm').form('reset');
 					UE.getEditor('container').setContent("");
 					$.messager.alert('信息提示','添加成功！','info');
+					document.getElementById("showGoodsPic").innerHTML = "";
 					$('#goodsCheckPagination').pagination('select');
-				}else{
+				}
+				else
+				{
 					$.messager.alert('信息提示','提交失败！','info');
 				}
-		     }
-		   }); 
+			}
+		});
 	}
+	
 	
 	//打开修改窗口
 	function openEdit(){
@@ -108,26 +130,47 @@
 	*修改
 	*/
 	function edit(){
-			var formData = new FormData($("#goodsCheckUpdateForm")[0]); 
-			console.info(formData);
-			 $.ajax({ 
+//			var formData = new FormData($("#goodsCheckUpdateForm")[0]); 
+//			console.info(formData);
+//			 $.ajax({ 
+//				url:'/goodsCheck/updateGoods',
+//			     type: 'POST', 
+//			     data: formData, 
+//			     async: false, 
+//			     cache: false, 
+//			     contentType: false, 
+//			     processData: false, 
+//			success:function(data){
+//				if(data > 0){
+//					$.messager.alert('信息提示','提交成功！','info');
+//					$('#goodsCheckUpdateDl').dialog('close');
+//					$('#goodsCheckUpdateForm').form('reset');
+//					ue.setContent('');
+//					document.getElementById("showUGoodsPic").innerHTML = "";
+//					$('#goodsCheckPagination').pagination('select');
+//				}else{
+//					$.messager.alert('信息提示','提交失败！','info');
+//				}
+//			}
+//		});
+			$('#goodsCheckUpdateForm').form('submit', {
 				url:'/goodsCheck/updateGoods',
-			     type: 'POST', 
-			     data: formData, 
-			     async: false, 
-			     cache: false, 
-			     contentType: false, 
-			     processData: false, 
-			success:function(data){
-				if(data > 0){
-					$.messager.alert('信息提示','提交成功！','info');
-					$('#goodsCheckUpdateDl').dialog('close');
-					$('#goodsCheckPagination').pagination('select');
-				}else{
-					$.messager.alert('信息提示','提交失败！','info');
+				type:'POST',
+				success:function(data){
+					if(data > 0){
+						$('#goodsCheckUpdateDl').dialog('close');
+						$('#goodsCheckUpdateForm').form('reset');
+						UE.getEditor('container').setContent("");
+						$.messager.alert('信息提示','添加成功！','info');
+						document.getElementById("showGoodsPic").innerHTML = "";
+						$('#goodsCheckPagination').pagination('select');
+					}
+					else
+					{
+						$.messager.alert('信息提示','提交失败！','info');
+					}
 				}
-			}
-		});
+			});
 	}
 	
 	
@@ -404,12 +447,12 @@
 	 */
 	function readGoodsPicture(_obj) {
 		//easyui-filebox封装input标签
-		var fileId = $("input[type='file']").attr('id');
-		console.info(fileId);
-		if(typeof(fileId) != "undefined"){
-			
+		//var fileId = $("input[type='file']").attr('id');
+		//console.info(fileId);
+		//if(typeof(fileId) != "undefined"){
+		
 			// 检查是否为图像类型
-			var simpleFile = document.getElementById(fileId).files[0];
+			var simpleFile = document.getElementById("img").files[0];
 			//console.info(simpleFile);
 			if (!/image\/\w+/.test(simpleFile.type)) {
 				$.messager.alert('信息提示', '请确保文件类型为图像类型', 'info')
@@ -425,7 +468,7 @@
 				result.innerHTML = '<img id="readGoodsPic" style="height: 130px;width: 180px;" src ="' + src + '"/>';
 			}
 			//document.getElementById("showpic").style.display="";
-		}
+		//}
 	}
 	
 	/**

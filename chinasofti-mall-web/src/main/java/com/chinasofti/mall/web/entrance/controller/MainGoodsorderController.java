@@ -134,6 +134,7 @@ public class MainGoodsorderController {
 	 public ModelAndView export(@RequestParam("model") String model, PyMainGoodsorder mainGoodsorder)  { 
 		// 1：准备数据  
 		JSONObject jsonlist = mainGoodsorderFeign.selectByMainorderClass(mainGoodsorder);
+		System.out.println("商品主订单:"+jsonlist.toString());
 	    //JsonObject格式 转List格式
 	    JSONArray jsonArray = jsonlist.getJSONArray("rows");
 	    List<PyMainGoodsorder> mainOrderList = (List<PyMainGoodsorder>) JSONArray.toCollection(jsonArray, PyMainGoodsorder.class);
