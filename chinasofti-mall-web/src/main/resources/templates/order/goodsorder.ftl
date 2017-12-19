@@ -286,7 +286,7 @@
 				<th field="orderType" width="8%" align="center"
 					data-options="formatter:orderTypeFormatter">订单类型</th>
 				<th field="goodsTitle" width="15%" align="center">商品名称</th>
-				<th field="goodsStandard" width="8%" align="center">商品规格</th>
+				<th field="standard" width="8%" align="center">商品规格</th>
 				<th field="goodsNum" width="5%" align="center">购买数量</th>
 				<th field="orderAmt" width="5%" align="center">商品总价</th>
 				<th field="afterType" width="8%" align="center" 

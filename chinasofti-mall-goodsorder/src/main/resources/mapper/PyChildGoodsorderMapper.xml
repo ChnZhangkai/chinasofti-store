@@ -23,6 +23,7 @@
     <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
     <result column="ORDER_REAL_AMT_OLD" property="orderRealAmtOld" jdbcType="DECIMAL" />
     <result column="FREIGHT" property="freight" jdbcType="DECIMAL" />
+    <result column="STANDARD" jdbcType="VARCHAR" property="standard" />
     <result column="GOODS_TITLE" property="goodsTitle" />
   </resultMap>
   <resultMap id="addressMap" type="com.chinasofti.mall.common.entity.spuser.SpSendAddress" >

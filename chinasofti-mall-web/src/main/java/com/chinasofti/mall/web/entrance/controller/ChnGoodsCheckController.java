@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baidu.ueditor.ActionEnter;
@@ -162,7 +164,9 @@ public class ChnGoodsCheckController {
 	 */
 	@RequestMapping("/addGoods")
 	public int addGoods(HttpServletRequest request,ChnGoodsinfoCheck chnGoodsinfoCheck,HttpSession session){
-        MultipartHttpServletRequest multipartRequest =  (MultipartHttpServletRequest) request;  
+        //MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        //MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request);
+		MultipartHttpServletRequest multipartRequest =  (MultipartHttpServletRequest) request;  
 		MultipartFile multipartFile = multipartRequest.getFile("img");
 		String imageName = multipartFile.getOriginalFilename();
 		
@@ -210,7 +214,6 @@ public class ChnGoodsCheckController {
 	 */
 	@RequestMapping("/updateGoods")
 	public int updateGoods(HttpServletRequest request,ChnGoodsinfoCheck chnGoodsinfoCheck,HttpSession session){
-		System.out.println("updateGoods:"+chnGoodsinfoCheck);
 		MultipartHttpServletRequest multipartRequest =  (MultipartHttpServletRequest) request;  
 		MultipartFile multipartFile = multipartRequest.getFile("img");
 		String imageName = multipartFile.getOriginalFilename();
@@ -246,6 +249,8 @@ public class ChnGoodsCheckController {
 		
 		//保存商品信息(goodsCheck表)
 		int goodsCheck = chnGoodsFeignClient.updateGoodsCheck(chnGoodsinfoCheck);
+		
+		//修改商品在线表的商品审核状态为0(待申请),在线状态改为2(已下架)
 		
 		
 		return goodsCheck;

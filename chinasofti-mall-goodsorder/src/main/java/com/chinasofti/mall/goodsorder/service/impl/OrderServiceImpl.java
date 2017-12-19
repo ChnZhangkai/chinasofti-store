@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 		//用户已付款订单（主订单展示）
 		List<PyMainGoodsorder> pyMainGoodsorders = mainGoodsorderService.selectByUserIds(userId, 1, 3);
 		if (pyBigGoodsorders.size() < 1 && pyMainGoodsorders.size() < 1) {
-			info.setRetCode(MsgEnum.ERROR.getCode());
+			info.setRetCode("暂无您的订单信息");
 			return info;
 		}
 		data.put("unpaidOrder", pyBigGoodsorders);
@@ -91,6 +91,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		String orderCreateTime = mathTime();//订单生成时间 yyyyMMddhhmmss
 		PyBigGoodsorder pyBigGoodsorder = setBigOrder(orderInfo,orderCreateTime);//大订单对象
+		
 		
 		List<PyChildGoodsorder> childList = new LinkedList<PyChildGoodsorder>();//子订单集合
 		List<PyMainGoodsorder> mainList = new LinkedList<PyMainGoodsorder>() ;//主订单集合
@@ -421,16 +422,15 @@ public class OrderServiceImpl implements OrderService {
 		ResponseInfo responseInfo = new ResponseInfo();
 		//分页查询用户已完成交易的订单
 		List<PyMainGoodsorder> list = mainGoodsorderService.selectByUserIds(pyMainGoodsorder.getUserIds(), pyMainGoodsorder.getPageNumber(), pyMainGoodsorder.getPageSize());
+		System.out.println(list);
 		if (list.size() < 1) {
-			responseInfo.setRetCode(MsgEnum.ERROR.getCode());
 			responseInfo.setRetMsg("没有更多的订单信息");
 			return responseInfo;
 		}
+		responseInfo.setRetMsg("success");
 		Map<String ,Object> map = new HashMap<String ,Object>();
 		map.put("mainList", list);
 		responseInfo.setData(map);
-		responseInfo.setRetCode(MsgEnum.SUCCESS.getCode());
-		responseInfo.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		return responseInfo;
 	}
 }

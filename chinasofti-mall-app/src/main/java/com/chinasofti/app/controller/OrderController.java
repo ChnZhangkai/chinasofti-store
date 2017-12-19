@@ -46,7 +46,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "/del/big", method = RequestMethod.POST)
-	@ApiOperation(value = "删除大订单(未支付前删除)", notes = "报文示例：{'ids':'615effad51604988920e1da779ff19e3','userIds': '2ece18eab354480b928ce91d5f3813f0','transactionid':'2016081816222600001390'}")
+	@ApiOperation(value = "删除大订单(未支付前删除)", notes = "报文示例：{'orderId':'615effad51604988920e1da779ff19e3','userIds': '2ece18eab354480b928ce91d5f3813f0','transactionid':'2016081816222600001390'}")
 	public ResponseInfo deleteByBigOrderId(@RequestBody PyBigGoodsorder pyBigGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
@@ -88,7 +88,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value="/add", method = RequestMethod.POST)
-	@ApiOperation(value="提交订单", notes="报文示例：{'userIds':'chin','goodsId':'1001'}")
+	//@ApiOperation(value="提交订单", notes="报文示例：{'userId':'chin','goodsId':'1001'}")
 	public ResponseInfo saveOrder(@RequestBody PyOrderInfo orderInfo,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		ResponseInfo responseInfo = orderFeignClient.saveOrder(orderInfo);
@@ -123,7 +123,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
-	@ApiOperation(value = "取消订单（未支付取消）", notes = "报文示例：{'ids':'6cd0db1b21884651950b1c9b236bd3d0','transactionid':'2016081011311100001307','userIds':'2ece18eab354480b928ce91d5f3813f0'}")
+	@ApiOperation(value = "取消订单（未支付取消）", notes = "报文示例：{'orderId':'6cd0db1b21884651950b1c9b236bd3d0','transactionid':'2016081011311100001307','userIds':'2ece18eab354480b928ce91d5f3813f0'}")
 	public ResponseInfo cancelOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
@@ -164,7 +164,7 @@ public class OrderController {
 	 * @return 修改参数 - 黄佳喜
 	 */
 	@RequestMapping(value = "/main", method = RequestMethod.POST)
-	@ApiOperation(value = "查询订单", notes = "报文示例：{'userIds':'abc123','pageNumber':'1','pageSize':'3'}")
+	@ApiOperation(value = "查询订单", notes = "报文示例：{'userId':'abc123','pageNum':'1','pageSize':'3'}")
 	public ResponseInfo queryMainOrderList(@RequestBody PyMainGoodsorder pyMainGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");

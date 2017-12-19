@@ -1,3 +1,4 @@
+<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/goodscheck.js"></script>
 <script type="text/javascript" src="js/myValidType.js"></script>
 <div id="auditlist" class="easyui-layout" data-options="fit:true">
@@ -38,121 +39,122 @@
 	</div>
 
 	<!-- 数据显示datagrid -->
-	<table id="goodscheck" class="easyui-datagrid" title="商品审核列表" toolbar="#wu-toolbar-3" style="height: 95%"
-		data-options="singleSelect:true,
-						 collapsible:true,
-						 url:'/goodsCheck/list',
-						 fitColumns:false,
-       					 sortName:'CREATE_TIME',
-       					 sortOrder:'desc',
-       					 iconCls:'icon-man',
-       				 	 striped:true,
-       				 	 onDblClickRow:showGoodsCheck">
+	<table id="goodscheck" class="easyui-datagrid" title="商品审核列表" toolbar="#wu-toolbar-3" style="height: 100%"
+		data-options="url:'/goodsCheck/list',
+					  inline:true,
+    				  fitColumns:false,
+					  singleSelect:true,
+					  collapsible:true,
+      				  sortName:'CREATE_TIME',
+       				  sortOrder:'desc',
+       				  striped:true,
+       				  pagination:true,
+       				  pageSize:15,
+       				  pageList: [15, 25, 50, 100],
+       				  onDblClickRow:showGoodsCheck">
 		<thead>
 			<tr>
 				<th field="title" width="20%" align="center" data-options="sortable:true">商品名称</th>
 				<th field="img" width="10%" align="center"
 					data-options="formatter:imgFormatter,sortable:true">商品图片</th>
-				<th field="price" width="15%" align="center" data-options="sortable:true">商品价格</th>
+				<th field="price" width="10%" align="center" data-options="sortable:true">商品价格</th>
 				<th field="vendorFnm" width="15%" align="center" data-options="sortable:true">商户名称</th>
-				<th field="name" width="20%" align="center" data-options="sortable:true">商品分类</th>
+				<th field="name" width="10%" align="center" data-options="sortable:true">商品分类</th>
 				<th field="type" width="10%" align="center"
 					data-options="formatter:typeFormatter,sortable:true">商品类型</th>
+				<th field="createTime" width="15%" align="center"
+					data-options="sortable:true">创建时间</th>
 				<th field="reviewStatues" width="10%" align="center"
 					data-options="formatter:statesFormatter,sortable:true">审核状态</th>
 			</tr>
 		</thead>
 	</table>
 	<!-- 分页工具条 -->
-	<div id="goodsCheckPagination" style="background: #efefef; border: 1px solid #ccc;"></div>
+	<!-- <div id="goodsCheckPagination" style="background: #efefef; border: 1px solid #ccc;"></div> -->
 </div>
 
 	<!-- 商品添加表格 -->
 	<div id="addDl" class="easyui-dialog"
 		data-options="closed:true,iconCls:'icon-add',inline:true,closable:false"
 		style="width: 100%; height: 100%; padding: 10px;">
-		<form id="addGoodsForm"  enctype="multipart/form-data">
+		<form id="addGoodsForm"  enctype="multipart/form-data" method="post">
 			<table>
 				<tr>
+				
 					<td align="right">商品名称</td>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" id="title" name="title"  
+						class="easyui-textbox validatebox" id="title" name="title"  
 							data-options="required:true,validType:['depName','length[1,100]']" />
 						 <span><font style="color: red; font-size: 10px;">*</font></span></td>
 							
 					<td align="right">商品分类</td>
-					<td><input type="text" id="goodsClassIds" name="goodsClassIds" class="easyui-textbox" required="true" missingMessage="请选择" style="width: 160px" data-options="editable:false"/>
-					<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="goodscheck_add"  onclick="ClassTree(this)">选择</a>
+					<td><input id="goodsClassIds" name="goodsClassIds" class="easyui-textbox validatebox" style="width: 180px" data-options="required:true,editable:false"/>
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="goodscheck_add"  onclick="ClassTree(this)">选择</a>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">商品类型</td>
-					<td><select style="width: 180px;" class="easyui-combobox easyui-validatebox" required="true" missingMessage="请选择" data-options="editable:false,panelHeight:'auto'" id="type" name="type">
-							<option value="0">普通商品</option>
-							<option value="1">活动商品</option>
-					</select></td>
+					<td>
+						<select style="width: 180px;" class="easyui-combobox validatebox" data-options="required:true,editable:false,panelHeight:'auto'" id="type" name="type">
+								<option value="0">普通商品</option>
+								<option value="1">活动商品</option>
+						</select>
+					</td>
 					<td align="right">商户编号</td>
 					<td>
-					<input class="easyui-textbox" id="add-vendorFnm" name="vendorids" readonly="true" />
-							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="add-choose" onclick="venderFnmChoose(this)">选择</a>
+						<input class="easyui-textbox validatebox" id="add-vendorFnm" name="vendorids" data-options="required:true,editable:false" style="width: 180px;"/>
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="add-choose" onclick="venderFnmChoose(this)">选择</a>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">开始日期</td>
-					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="startTime" name="startTime"/></td>
+					<td><input class="easyui-datetimebox" style="width: 180px;" data-options="required:true,prompt:'请选择日期',editable:'false'" id="startTime" name="startTime"/></td>
 					<td align="right">结束日期</td>
-					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="prompt:'请选择日期',editable:'false'" id="endTime" name="endTime"/></td>
+					<td><input class="easyui-datetimebox" style="width: 180px;" data-options="required:true,prompt:'请选择日期',editable:'false'" id="endTime" name="endTime"/></td>
 				</tr>
 				<tr>
 					<td align="right">规格</td>
-					<td><input type="text" style="width: 180px;" data-options="validType:['length[0,20]']"
-						class="easyui-textbox" id="standard" name="standard"/></td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="required:true,validType:['length[0,20]']" id="standard" name="standard"/></td>
 					<td align="right">重量</td>
-					<td><input type="text" style="width: 180px;" data-options="required:true,validType:['intOrFloat','length[1,9]']"
-						class="easyui-textbox" id="weight" name="weight"/> <span><font
-							style="color: #CCCCCC; font-size: 10px;">重量单位:KG</font></span></td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="required:true,validType:['intOrFloat','length[1,9]']" id="weight" name="weight"/>
+						<span><font style="color: #CCCCCC; font-size: 10px;">重量单位:KG</font></span></td>
 				</tr>
 				<tr>
+					<td align="right">首次录入库存数量</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="required:true,validType:['isNumber','length[1,9]']" id="storeNum" name="storeNum"/></td>
+					<td align="right">商品价格</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="required:true,validType:['intOrFloat','length[1,12]']" id="price" name="price"/></td>
+				</tr>
+				<tr>
+					<td align="right">每笔订单限购数量</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="validType:['isNumber','length[0,5]']" id="limitOrderNum" name="limitOrderNum"/>
+						<span><font style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span>
+					</td>
 					<td align="right">前台是否显示商户名</td>
 					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="isDisVerdorname" name="isDisVerdorname">
 							<option value="1">是</option>
 							<option value="0">否</option>
 					</select></td>
-					<td align="right">前台是否显示规格</td>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="isDisStandard" name="isDisStandard">
-							<option value="1">是</option>
-							<option value="0">否</option>
-					</select></td>
 				</tr>
 				<tr>
+					<td align="right">每个用户限购数量</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="validType:['isNumber','length[1,5]']" id="limitUserNum" name="limitUserNum"/>
+						<span><font style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
 					<td align="right">前台是否显示库存</td>
 					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="isDisStore" name="isDisStore">
 							<option value="1">是</option>
 							<option value="0">否</option>
 					</select></td>
-					<td align="right">首次录入库存数量</td>
-					<td><input type="text" style="width: 180px;"  data-options="required:true,validType:['isNumber','length[1,9]']"
-						class="easyui-textbox" id="storeNum" name="storeNum"/></td>
-				</tr>
-				<tr>
-					<td align="right">每个用户限购数量</td>
-					<td><input type="text" style="width: 180px;" data-options="required:true,validType:['isNumber','length[1,5]']"
-						class="easyui-textbox" id="limitUserNum" name="limitUserNum"/> <span><font
-							style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
-					<td align="right">每笔订单限购数量</td>
-					<td><input type="text" style="width: 180px;"  data-options="validType:['isNumber','length[0,5]']"
-						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum"/></td>
 				</tr>
 				<tr>
 					<td align="right">商品图片:</td>
-					<td><input id="img" name="img" class="easyui-filebox"
-						style="width: 180px;"
-						data-options="onChange:function(){readGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
-					<td align="right">商品价格</td>
-					<td><input type="text" style="width: 180px;"  data-options="required:true,validType:['intOrFloat','length[1,12]']"
-						class="easyui-textbox" id="price" name="price"/></td>
+					<td><input type="file" id="img" name="img"
+						style="width: 180px;" onChange="readGoodsPicture()" required="required" /></td>
+					<td align="right">前台是否显示规格</td>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="isDisStandard" name="isDisStandard">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -177,87 +179,81 @@
 	<div id="goodsCheckUpdateDl" class="easyui-dialog"
 		data-options="closed:true,iconCls:'icon-add',inline:true"
 		style="width: 100%; height: 100%; padding: 10px;">
-		<form id="goodsCheckUpdateForm"  enctype="multipart/form-data">
+		<form id="goodsCheckUpdateForm"  enctype="multipart/form-data" method="post">
 			<table>
 				<tr>
 					<div><input type="hidden" name="ids" id="ids"><input type="hidden" name="goodsids" id="goodsids"></div>
 					<td align="right">商品名称</td>
-					<td><input type="text" style="width: 180px;" class="easyui-textbox" id="title" name="title"  
-							data-options="required:true,validType:['depName','length[1,100]']" /></td>
-					
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" id="title" name="title" data-options="required:true,validType:['depName','length[1,100]']" /></td>
 					<td align="right">商品分类</td>
-					<td><input type="text" id="goodsClassIds" name="goodsClassIds" class="easyui-textbox"  style="width: 160px" data-options="editable:false"/>
+					<td><input type="text" id="goodsClassIds" name="goodsClassIds" class="easyui-textbox"  style="width: 180px" data-options="editable:false"/>
 						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="goodscheck_upd"  onclick="ClassTree(this)">选择</a>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">商品类型</td>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="type" name="type">
-							<option value="0">普通商品</option>
-							<option value="1">活动商品</option>
-					</select></td>
+					<td>
+						<select style="width: 180px;" class="easyui-combobox validatebox" data-options="required:true,editable:false,panelHeight:'auto'" id="type" name="type">
+								<option value="0">普通商品</option>
+								<option value="1">活动商品</option>
+						</select>
+					</td>
 					<td align="right">商户编号</td>
 					<td>
-					<input class="easyui-textbox" id="update-vendorFnm" name="vendorids" readonly="true" />
-							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="upd-choose" onclick="venderFnmChoose(this)">选择</a>
+						<input class="easyui-textbox validatebox" id="add-vendorFnm" name="vendorids" data-options="required:true,editable:false" style="width: 180px;"/>
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" id="add-choose" onclick="venderFnmChoose(this)">选择</a>
 					</td>
 				</tr>
 				<tr>
 					<td align="right">开始日期</td>
-					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="editable:false,prompt:'请选择日期'" id="startTime" name="startTime"/></td>
+					<td><input class="easyui-datetimebox" style="width: 180px;" data-options="required:true,prompt:'请选择日期',editable:'false'" id="startTime" name="startTime"/></td>
 					<td align="right">结束日期</td>
-					<td><input type="text" class="easyui-datetimebox"
-						style="width: 180px;" data-options="editable:false,prompt:'请选择日期'" id="endTime" name="endTime"/></td>
-				</tr>
-					<tr>
-					<td align="right">每个用户限购数量</td>
-					<td><input type="text" style="width: 180px;" data-options="required:true,validType:['isNumber','length[1,5]']"
-						class="easyui-textbox" id="limitUserNum" name="limitUserNum"/> <span><font
-							style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
-					<td align="right">每笔订单限购数量</td>
-					<td><input type="text" style="width: 180px;"  data-options="validType:['isNumber','length[0,5]']"
-						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum"/></td>
+					<td><input class="easyui-datetimebox" style="width: 180px;" data-options="required:true,prompt:'请选择日期',editable:'false'" id="endTime" name="endTime"/></td>
 				</tr>
 				<tr>
+					<td align="right">规格</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="required:true,validType:['length[0,20]']" id="standard" name="standard"/></td>
+					<td align="right">重量</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="required:true,validType:['intOrFloat','length[1,9]']" id="weight" name="weight"/>
+						<span><font style="color: #CCCCCC; font-size: 10px;">重量单位:KG</font></span></td>
+				</tr>
+				<tr>
+					<td align="right">首次录入库存数量</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="required:true,validType:['isNumber','length[1,9]']" id="storeNum" name="storeNum"/></td>
+					<td align="right">商品价格</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="required:true,validType:['intOrFloat','length[1,12]']" id="price" name="price"/></td>
+				</tr>
+				<tr>
+					<td align="right">每笔订单限购数量</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="validType:['isNumber','length[0,5]']" id="limitOrderNum" name="limitOrderNum"/>
+						<span><font style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span>
+					</td>
 					<td align="right">前台是否显示商户名</td>
 					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="isDisVerdorname" name="isDisVerdorname">
 							<option value="1">是</option>
 							<option value="0">否</option>
 					</select></td>
-					<td align="right">前台是否显示规格</td>
-					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="isDisStandard" name="isDisStandard">
-							<option value="1">是</option>
-							<option value="0">否</option>
-					</select></td>
 				</tr>
 				<tr>
+					<td align="right">每个用户限购数量</td>
+					<td><input style="width: 180px;" class="easyui-textbox validatebox" data-options="validType:['isNumber','length[1,5]']" id="limitUserNum" name="limitUserNum"/>
+						<span><font style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
 					<td align="right">前台是否显示库存</td>
 					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="isDisStore" name="isDisStore">
 							<option value="1">是</option>
 							<option value="0">否</option>
 					</select></td>
-					<td align="right">首次录入库存数量</td>
-					<td><input type="text" style="width: 180px;" readonly="true"
-						class="easyui-textbox" id="storeNum" name="storeNum"/></td>
-				</tr>
-				<tr>
-					<td align="right">每个用户限购数量</td>
-					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" id="limitUserNum" name="limitUserNum"/> <span><font
-							style="color: #CCCCCC; font-size: 10px;">空值时不限购</font></span></td>
-					<td align="right">每笔订单限购数量</td>
-					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox" id="limitOrderNum" name="limitOrderNum"/></td>
 				</tr>
 				<tr>
 					<td align="right">商品图片:</td>
 					<td><input id="img" name="img" class="easyui-filebox"
 						style="width: 180px;"
 						data-options="onChange:function(){readUGoodsPicture(this)},prompt:'请选择一张图片'" /></td>
-					<td align="right">商品价格</td>
-					<td><input type="text" style="width: 180px;"  data-options="required:true,validType:['intOrFloat','length[1,12]']"
-						class="easyui-textbox" id="price" name="price"/></td>
+					<td align="right">前台是否显示规格</td>
+					<td><select style="width: 180px;" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'" id="isDisStandard" name="isDisStandard">
+							<option value="1">是</option>
+							<option value="0">否</option>
+					</select></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -278,16 +274,17 @@
 	
 	<!-- 商品审核详情表格 -->
 	<div id="goodsCheck-show" class="easyui-dialog"
-		data-options="closed:true,iconCls:'icon-add',inline:true"
-		style="width: 100%; height: 100%; padding: 10px;">
+		data-options="closed:true,iconCls:'icon-add',inline:true,fit:true" padding: 10px;">
 		<form id="goodsCheck-show-data"  enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td align="right">商品名称</td>
 					<td><input type="text" style="width: 180px;"
-						class="easyui-textbox easyui-validatebox" id="title" name="title" readonly="true"/> 
+						class="easyui-textbox validatebox" id="title" name="title" readonly="true"/> 
 					<td align="right">商品分类</td>
-					<td><select style="width: 180px;" class="easyui-combobox" readonly="true" data-options="panelHeight:'auto',panelMaxHeight:'200px'" id="name" name="name"></select></td>
+					<td><select style="width: 180px;" class="easyui-textbox" readonly="true" id="name" name="name"></select>
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+					</td>
 				</tr>
 				<tr>
 					<td align="right">商品类型</td>
@@ -299,8 +296,8 @@
 					
 					<td align="right">商户名称</td>
 					<td>
-						<input class="easyui-textbox" id="update-vendorFnm" name="vendorFnm" readonly="true" />
-							<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
+						<input style="width: 180px;" class="easyui-textbox" id="update-vendorFnm" name="vendorFnm" readonly="true" />
+						<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onclick="venderFnmChoose()">选择</a>
 					</td>
 				</tr>
 				<tr>

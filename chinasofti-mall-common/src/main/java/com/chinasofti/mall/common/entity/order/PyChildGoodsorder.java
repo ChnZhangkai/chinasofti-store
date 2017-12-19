@@ -135,6 +135,9 @@ public class PyChildGoodsorder extends PageBean {
 	/** *  商品的状态  0 无效 1 有效*/
     private String status;
     
+    /** *  商品的规格  0 无效 1 有效*/
+    private String standard;
+
     private String filepath;
     
 	public String getFilepath() {
@@ -144,7 +147,6 @@ public class PyChildGoodsorder extends PageBean {
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
 	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -329,11 +331,27 @@ public class PyChildGoodsorder extends PageBean {
 		this.goodsTitle = goodsTitle;
 	}
 
-	
+	public String getStandard() {
+		return standard;
+	}
+
+	public void setStandard(String standard) {
+		this.standard = standard;
+	}
+
+
 	@Override
 	public String toString() {
-		return "PyChildGoodsorder [ids=" + ids + ", goodsids=" + goodsids + ", custIds=" + custIds + ", goodsNum="
-				+ goodsNum + ", goodsName=" + goodsName + ", goodsPrice=" + goodsPrice + ", orderAmt=" + orderAmt + "]";
+		return "PyChildGoodsorder [ids=" + ids + ", mainorderIds=" + mainorderIds + ", goodsids=" + goodsids
+				+ ", custIds=" + custIds + ", orderStatus=" + orderStatus + ", goodsNum=" + goodsNum + ", goodsName="
+				+ goodsName + ", goodsPrice=" + goodsPrice + ", discount=" + discount + ", orderRealAmt=" + orderRealAmt
+				+ ", isevaluate=" + isevaluate + ", orderRevoke=" + orderRevoke + ", remark1=" + remark1 + ", remark2="
+				+ remark2 + ", remark3=" + remark3 + ", transactionid=" + transactionid + ", orderAmt=" + orderAmt
+				+ ", orderDate=" + orderDate + ", venderRemark=" + venderRemark + ", orderType=" + orderType
+				+ ", orderRealAmtOld=" + orderRealAmtOld + ", freight=" + freight + ", goodsTitle=" + goodsTitle
+				+ ", status=" + status + ", standard=" + standard + "]";
 	}
+
+	
 	
 }
