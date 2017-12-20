@@ -123,6 +123,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 					e.printStackTrace();
 				}
 				//若商品表存在数据,则修改
+				goodsOnline.setIds(goods.getGoodsids());
 				goodsOnline.setReviewStatues("1");
 				goodsOnline.setStatus("1");
 				chnGoodsOnlineMapper.updateByPrimaryKeySelective(goodsOnline);
