@@ -114,7 +114,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 			ChnGoodsinfoCheck goods = findById(chnGoodsinfoCheck.getIds());
 			ChnGoodsOnline goodsOnline = chnGoodsOnlineMapper.selectByPrimaryKey(goods.getGoodsids());
 			if (goodsOnline != null) {
-				ChnGoodsOnline chnGoodsOnline2 = new ChnGoodsOnline();
+				//ChnGoodsOnline chnGoodsOnline2 = new ChnGoodsOnline();
 				try {
 					BeanUtils.copyProperties(goodsOnline, goods);
 				} catch (IllegalAccessException e) {
@@ -125,7 +125,7 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 				//若商品表存在数据,则修改
 				goodsOnline.setReviewStatues("1");
 				goodsOnline.setStatus("1");
-				chnGoodsOnlineMapper.updateByPrimaryKeySelective(chnGoodsOnline2);
+				chnGoodsOnlineMapper.updateByPrimaryKeySelective(goodsOnline);
 			}else{
 				//若不存在,则插入
 				goods.setIds(goods.getGoodsids());
