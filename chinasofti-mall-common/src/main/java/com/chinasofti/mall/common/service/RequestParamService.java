@@ -97,7 +97,8 @@ public class RequestParamService {
 			return response;
 		}
 		BigDecimal limitOrderNum = storegoodsInfo.getLimitOrderNum();
-		if (userBuyNum.compareTo(limitOrderNum) == 1) {
+		//空值不限购
+		if (limitOrderNum != null && userBuyNum.compareTo(limitOrderNum) == 1) {
 			response.setRetCode("700001");
 			response.setRetMsg("数量已超出单位限制！");
 			data.put("responseInfo", shoppingCart);
