@@ -80,6 +80,23 @@ public class ChnGoodsOnlineServiceImpl implements ChnGoodsOnlineService{
 		return map;
 	}
 
+	/* 
+	 * 修改商品审核状态和在线状态
+	 */
+	@Override
+	public int updateGoodsReviewStatusAndStatus(ChnGoodsOnline chnGoodsOnline) {
+		
+		return chnGoodsOnlineMapper.updateByPrimaryKeySelective(chnGoodsOnline);
+	}
+
+	/* 
+	 * 通过Ids查询
+	 */
+	@Override
+	public ChnGoodsOnline selectByPrimaryKey(String ids) {
+		return chnGoodsOnlineMapper.selectByPrimaryKey(ids);
+	}
+
 	
 
 

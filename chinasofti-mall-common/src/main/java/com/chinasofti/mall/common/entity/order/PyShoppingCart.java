@@ -104,6 +104,4 @@ public class PyShoppingCart {
 		this.checked = checked;
 	}
 
-	
-   
 }

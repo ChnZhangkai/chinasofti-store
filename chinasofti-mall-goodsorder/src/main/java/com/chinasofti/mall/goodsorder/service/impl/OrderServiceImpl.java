@@ -273,6 +273,8 @@ public class OrderServiceImpl implements OrderService {
 		String childTransactionId = "G".concat(orderCreateTime.concat(getFixLenthString(4)));//子订单流水号
 		childorder.setTransactionid(childTransactionId);
 		childorder.setIds(UUIDUtils.getUuid());//IDS
+		childorder.setIsevaluate(Constant.ISEAVLUATE);//是否已评价
+		childorder.setOrderDate(orderCreateTime);
 		return childorder;
 	}
 	//组装主订单

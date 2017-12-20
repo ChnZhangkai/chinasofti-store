@@ -72,7 +72,16 @@ public class ChnGoodsOnlineController {
  
 	}
 	
-	
+	/**
+	 * 修改审核状态与在线状态
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/updateGoodsOnlineReviewStatusAndStatus" , method = RequestMethod.POST)
+	public int updateGoodsOnlineReviewStatusAndStatus(@RequestBody(required = false)ChnGoodsOnline chnGoodsOnline){
+		return chnGoodsOnlineServiceImpl.updateGoodsReviewStatusAndStatus(chnGoodsOnline);
+ 
+	}
 
 	
 
