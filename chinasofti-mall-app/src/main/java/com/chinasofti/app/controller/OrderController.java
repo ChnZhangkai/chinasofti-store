@@ -18,6 +18,7 @@ import com.chinasofti.app.feign.OrderFeignClient;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyMainGoodsorder;
 import com.chinasofti.mall.common.entity.order.PyOrderInfo;
+import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
 
 /**
@@ -49,6 +50,12 @@ public class OrderController {
 	public ResponseInfo deleteByBigOrderId(@RequestBody PyBigGoodsorder pyBigGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
+		if (null == pyBigGoodsorder.getUserIds() || pyBigGoodsorder.getUserIds().trim().equals("")) {
+			ResponseInfo info = new ResponseInfo();
+			info.setRetCode(MsgEnum.ERROR.getCode());
+			info.setRetMsg("userId不能为空");
+			return info;
+		}
 		ResponseInfo responseInfo = orderFeignClient.deleteByBigOrderId(pyBigGoodsorder);
 		logger.debug("delete" + pyBigGoodsorder.getIds());
 		return responseInfo;
@@ -64,6 +71,12 @@ public class OrderController {
 	public ResponseInfo deleteByMainOrderId(@RequestBody PyMainGoodsorder pyMainGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
+		if (null == pyMainGoodsorder.getUserIds() || pyMainGoodsorder.getUserIds().trim().equals("")) {
+			ResponseInfo info = new ResponseInfo();
+			info.setRetCode(MsgEnum.ERROR.getCode());
+			info.setRetMsg("userId不能为空");
+			return info;
+		}
 		ResponseInfo responseInfo = orderFeignClient.deleteByMainOrderId(pyMainGoodsorder);
 		return responseInfo;
 	}
@@ -93,6 +106,12 @@ public class OrderController {
 	public ResponseInfo payOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
+		if (null == pyBigGoodsorder.getUserIds() || pyBigGoodsorder.getUserIds().trim().equals("")) {
+			ResponseInfo info = new ResponseInfo();
+			info.setRetCode(MsgEnum.ERROR.getCode());
+			info.setRetMsg("userId不能为空");
+			return info;
+		}
 		ResponseInfo responseInfo = orderFeignClient.payOrder(pyBigGoodsorder);
 		return responseInfo;
 	}
@@ -108,6 +127,12 @@ public class OrderController {
 	public ResponseInfo cancelOrder(@RequestBody PyBigGoodsorder pyBigGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
+		if (null == pyBigGoodsorder.getUserIds() || pyBigGoodsorder.getUserIds().trim().equals("")) {
+			ResponseInfo info = new ResponseInfo();
+			info.setRetCode(MsgEnum.ERROR.getCode());
+			info.setRetMsg("userId不能为空");
+			return info;
+		}
 		ResponseInfo responseInfo = orderFeignClient.cancelOrder(pyBigGoodsorder);
 		return responseInfo;
 	}
@@ -123,6 +148,12 @@ public class OrderController {
 	public ResponseInfo queryOrderListByUserId(@RequestParam("userId") String userId, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
+		if (null == userId || userId.trim().equals("")) {
+			ResponseInfo info = new ResponseInfo();
+			info.setRetCode(MsgEnum.ERROR.getCode());
+			info.setRetMsg("userId不能为空");
+			return info;
+		}
 		ResponseInfo responseInfo = orderFeignClient.queryOrderListByUserId(userId);
 		return responseInfo;
 	}
@@ -137,6 +168,12 @@ public class OrderController {
 	public ResponseInfo queryMainOrderList(@RequestBody PyMainGoodsorder pyMainGoodsorder, HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
+		if (null == pyMainGoodsorder.getUserIds() || pyMainGoodsorder.getUserIds().trim().equals("")) {
+			ResponseInfo info = new ResponseInfo();
+			info.setRetCode(MsgEnum.ERROR.getCode());
+			info.setRetMsg("userId不能为空");
+			return info;
+		}
 		ResponseInfo responseInfo = orderFeignClient.queryMainOrderList(pyMainGoodsorder);
 		return responseInfo;
 	}

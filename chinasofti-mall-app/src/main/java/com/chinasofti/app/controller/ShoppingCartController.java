@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiOperation;
  *
  */
 @RestController
-@RequestMapping("shoppingCart")
+@RequestMapping("/shoppingCart")
 @Api(value = "ShoppingCartController", description = "购物车-API")
 public class ShoppingCartController {
 	
@@ -55,12 +55,13 @@ public class ShoppingCartController {
 	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,
 			HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST");
+		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goodsList);
 		ResponseInfo responseInfo = new ResponseInfo();
 		for (PyShoppingCart goods : goodsList) {
 			// 空参校验
 			responseInfo = RequestParamService.packageWithAddShoppingCartParam(goods);
 			if (responseInfo.getRetCode() != null) {
+				
 				return responseInfo;
 			}
 		}
@@ -78,10 +79,9 @@ public class ShoppingCartController {
 	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart shoppingCart,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
-		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + shoppingCart.toString());
-		ResponseInfo responseInfo = new ResponseInfo();
+		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + shoppingCart);
 		// 参数校验
-		responseInfo = RequestParamService.packageWithAddShoppingCartParam(shoppingCart);
+		 ResponseInfo responseInfo = RequestParamService.packageWithAddShoppingCartParam(shoppingCart);
 		if (responseInfo.getRetCode() != null) {
 			return responseInfo;
 		}
@@ -107,9 +107,8 @@ public class ShoppingCartController {
 	public ResponseInfo updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo,HttpServletResponse response) {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST");
-		ResponseInfo responseInfo = new ResponseInfo();
 		//参数校验
-		responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
+		ResponseInfo responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
 		if(responseInfo.getRetCode() !=null){
 			return responseInfo;
 		}

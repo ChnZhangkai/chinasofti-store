@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
-import com.chinasofti.mall.common.service.RequestParamService;
 import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -52,21 +51,21 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 
 
 	@Override
-	public ResponseInfo savePyShoppingCart(PyShoppingCart goods) {
+	public ResponseInfo savePyShoppingCart(PyShoppingCart goodsInfo) {
 		ResponseInfo response = new ResponseInfo();
 		
-		PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goods);
+		PyShoppingCart shoppingCar = pyShoppingCartMapper.IsUserExistGoods(goodsInfo);
 
 		if (shoppingCar != null) {
-			goods.setId(shoppingCar.getId());
-			goods.setGoodsNum(goods.getGoodsNum().add(shoppingCar.getGoodsNum()));
-			pyShoppingCartMapper.updateByPrimaryKeySelective(goods);
+			goodsInfo.setId(shoppingCar.getId());
+			goodsInfo.setGoodsNum(goodsInfo.getGoodsNum().add(shoppingCar.getGoodsNum()));
+			pyShoppingCartMapper.updateByPrimaryKey(goodsInfo);
 		} else {
-			goods.setId(UUIDUtils.getUuid());
-			goods.setPayStatus(Constant.PAY_STATUS);
-			goods.setChecked(Constant.CHECKED);
-			goods.setCreateTime(StringDateUtil.getStringTime());
-			this.save(goods);
+			goodsInfo.setId(UUIDUtils.getUuid());
+			goodsInfo.setPayStatus(Constant.PAY_STATUS);
+			goodsInfo.setChecked(Constant.CHECKED);
+			goodsInfo.setCreateTime(StringDateUtil.getStringTime());
+			this.save(goodsInfo);
 		}
 
 		response.setRetCode(MsgEnum.SUCCESS.getCode());
@@ -86,17 +85,8 @@ public class PyShoppingCartServiceImpl implements PyShoppingCartService{
 	public ResponseInfo deletePyShoppingCartById(List<PyShoppingCart> goodsList) {
 		ResponseInfo responseInfo = new ResponseInfo();
 
-		if (goodsList.size() == 0 || "".equals(goodsList)) {
-			responseInfo.setRetCode(MsgEnum.SERVER_ERROR.getCode());
-			responseInfo.setRetMsg("请选择要删除的商品！");
-			return responseInfo;
-		}
 		for (PyShoppingCart goods : goodsList) {
 			
-			ResponseInfo result = RequestParamService.packageWithAddShoppingCartParam(goods);
-			if (result != null) {
-				return result;
-			}
 			int row = deleteById(goods);
 			if (row <= 0) {
 				responseInfo.setRetCode(MsgEnum.ERROR.getCode());

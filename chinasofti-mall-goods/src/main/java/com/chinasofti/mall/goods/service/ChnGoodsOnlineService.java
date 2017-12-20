@@ -31,5 +31,20 @@ public interface ChnGoodsOnlineService {
 	 * @return
 	 */
 	Map<String, Object> findByPage(Map<String, Object> map);
-
+	
+	
+	/**
+	 * 修改商品在线表审核状态与在线状态
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	int updateGoodsReviewStatusAndStatus(ChnGoodsOnline chnGoodsOnline);
+	
+	/**
+	 * 通过IDS查询
+	 * @param ids
+	 * @return
+	 */
+	ChnGoodsOnline selectByPrimaryKey(String ids);
+	
 }

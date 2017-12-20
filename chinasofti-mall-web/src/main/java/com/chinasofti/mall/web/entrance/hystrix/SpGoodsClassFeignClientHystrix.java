@@ -113,5 +113,11 @@ public class SpGoodsClassFeignClientHystrix implements ChnGoodsFeignClient{
 		return "服务已断开";
 	}
 
+	@Override
+	public int updateGoodsOnlineReviewStatusAndStatus(ChnGoodsOnline chnGoodsOnline) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

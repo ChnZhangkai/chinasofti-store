@@ -182,7 +182,10 @@
 		<form id="goodsCheckUpdateForm"  enctype="multipart/form-data" method="post">
 			<table>
 				<tr>
-					<div><input type="hidden" name="ids" id="ids"><input type="hidden" name="goodsids" id="goodsids"></div>
+					<div><input type="hidden" name="ids" id="ids">
+						 <input type="hidden" name="goodsids" id="goodsids">
+						 <input type="hidden" name="reviewStatues" id="reviewStatues">
+					</div>
 					<td align="right">商品名称</td>
 					<td><input style="width: 180px;" class="easyui-textbox validatebox" id="title" name="title" data-options="required:true,validType:['depName','length[1,100]']" /></td>
 					<td align="right">商品分类</td>

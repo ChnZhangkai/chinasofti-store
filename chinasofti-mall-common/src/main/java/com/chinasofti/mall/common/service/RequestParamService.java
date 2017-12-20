@@ -30,11 +30,11 @@ public class RequestParamService {
 			response.setRetMsg("Id不能为空！");
 			return response;
 		}
-		/*if (StringUtils.isEmpty(goodsInfo.getGoodsNum().toString())) {
+		if (StringUtils.isEmpty(goodsInfo.getGoodsNum().toString())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsNum不能为空！");
 			return response;
-		}*/
+		}
 		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsId不能为空！");
@@ -51,11 +51,16 @@ public class RequestParamService {
 			logger.info("用户Id为空，请登录后再添加！userId:"+goodsInfo.getUserId());
 			return response;
 		}
-		/*if (goodsInfo.getGoodsNum().compareTo(new BigDecimal("1"))==1) {
+		if (StringUtils.isEmpty(goodsInfo.getVendorId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("goodsNum不能小于1！");
+			response.setRetMsg("vendorId不能为空！");
 			return response;
-		}*/
+		}
+		if (StringUtils.isEmpty(goodsInfo.getGoodsNum().toString())) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("goodsNum不能为空！");
+			return response;
+		}
 		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsId不能为空！");
@@ -71,23 +76,23 @@ public class RequestParamService {
 	 * @param storegoodsInfo
 	 * @return
 	 */
-	public static ResponseInfo packageWithGoodsInfoRequest(PyShoppingCart shopCar, ChnGoodsinfo storegoodsInfo) {
+	public static ResponseInfo packageWithGoodsInfoRequest(PyShoppingCart shoppingCart, ChnGoodsinfo storegoodsInfo) {
 		ResponseInfo response = new ResponseInfo();
 		String goodsStatus = storegoodsInfo.getStatus();
 		Map<String, Object> data = new HashMap<String, Object>();
 		if (!goodsStatus.equals(Constant.GOODS_STATUS)) {
 			response.setRetCode("500001");
 			response.setRetMsg("该商品已下架或已删除");
-			data.put("responseInfo", shopCar);
+			data.put("responseInfo", shoppingCart);
 			response.setData(data);
 			return response;
 		}
-		BigDecimal userBuyNum = shopCar.getGoodsNum();
+		BigDecimal userBuyNum = shoppingCart.getGoodsNum();
 		BigDecimal storeNum = storegoodsInfo.getStoreNum();
 		if (userBuyNum.compareTo(storeNum) == 1) {
 			response.setRetCode("600001");
 			response.setRetMsg("库存不足");
-			data.put("responseInfo", shopCar);
+			data.put("responseInfo", shoppingCart);
 			response.setData(data);
 			return response;
 		}
@@ -95,46 +100,16 @@ public class RequestParamService {
 		if (userBuyNum.compareTo(limitOrderNum) == 1) {
 			response.setRetCode("700001");
 			response.setRetMsg("数量已超出单位限制！");
-			data.put("responseInfo", shopCar);
+			data.put("responseInfo", shoppingCart);
 			response.setData(data);
 			return response;
 		}
-		data.put("responseInfo", shopCar);
+		data.put("responseInfo", shoppingCart);
 		response.setData(data);
 		response.setRetCode(MsgEnum.SUCCESS.getCode());
 	    response.setRetMsg(MsgEnum.SUCCESS.getMsg());
 		return response;
 	}
 
-	public static ResponseInfo packageWithGoodsInfoRequest2(PyShoppingCart shopCar, ChnGoodsinfo storegoodsInfo) {
-		ResponseInfo response = new ResponseInfo();
-		String goodsStatus = storegoodsInfo.getStatus();
-		Map<String, Object> data = new HashMap<String, Object>();
-		if (!goodsStatus.equals(Constant.GOODS_STATUS)) {
-			response.setRetCode("500001");
-			response.setRetMsg("该商品已下架或已删除");
-			data.put("responseInfo", shopCar);
-			response.setData(data);
-			return response;
-		}
-		BigDecimal userBuyNum = shopCar.getGoodsNum();
-		BigDecimal storeNum = storegoodsInfo.getStoreNum();
-		if (userBuyNum.compareTo(storeNum) == 1) {
-			response.setRetCode("600001");
-			response.setRetMsg("库存不足");
-			data.put("responseInfo", shopCar);
-			response.setData(data);
-			return response;
-		}
-		BigDecimal limitOrderNum = storegoodsInfo.getLimitOrderNum();
-		if (userBuyNum.compareTo(limitOrderNum) == 1) {
-			response.setRetCode("700001");
-			response.setRetMsg("数量已超出单位限制！");
-			data.put("responseInfo", shopCar);
-			response.setData(data);
-			return response;
-		}
 	
-		return response;
-	}
 }

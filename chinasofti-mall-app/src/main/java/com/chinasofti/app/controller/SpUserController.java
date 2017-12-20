@@ -35,6 +35,7 @@ public class SpUserController {
 		if(result == 0 ){
 			res.setRetCode(Constant.SPUSERID_EXIST_CODE);
 			res.setRetMsg(Constant.SPUSERID_EXIST_MSG);
+			logger.info("123");
 			return res;
 		}
 		return DealParamFunctions.dealResponseData(result);
