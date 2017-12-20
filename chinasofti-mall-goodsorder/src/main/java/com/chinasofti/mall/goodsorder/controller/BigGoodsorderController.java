@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goodsorder.controller;
+/*package com.chinasofti.mall.goodsorder.controller;
 
 import java.util.List;
 
@@ -15,13 +15,13 @@ import com.chinasofti.mall.common.entity.order.PyBigGoodsorderExample;
 import com.chinasofti.mall.goodsorder.service.BigGoodsorderService;
 
 
-/**
+*//**
 * @ClassName: 	BigGoodsorderController
 * @Description: 大订单controller
 * @author 		tanjl
 * @Version 		V1.0
 * @date 		2017年11月3日 上午11:30:17 
-*/
+*//*
 @RestController
 @RequestMapping("/bigorder")
 public class BigGoodsorderController implements BaseController<PyBigGoodsorder> {
@@ -64,13 +64,13 @@ public class BigGoodsorderController implements BaseController<PyBigGoodsorder> 
 		return "add";
 	}
 	
-	/**
+	*//**
 	* @Title: selectByExample
 	* @Description: 条件查询
 	* @param bigGoodsorder
 	* @return List<PyBigGoodsorder>
 	* @throws
-	*/
+	*//*
 	@RequestMapping(value="list" , method = RequestMethod.POST)
 	public List<PyBigGoodsorder> selectByExample(@RequestBody(required=false) PyBigGoodsorder bigGoodsorder){
 		
@@ -80,3 +80,4 @@ public class BigGoodsorderController implements BaseController<PyBigGoodsorder> 
 	}
 
 }
+*/

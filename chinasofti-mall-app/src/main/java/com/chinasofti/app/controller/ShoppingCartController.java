@@ -43,6 +43,7 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private GoodsInfoFeignClient goodsInfoFeignClient;
+	
 	private static final Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
 	
 	/**
@@ -59,9 +60,8 @@ public class ShoppingCartController {
 		ResponseInfo responseInfo = new ResponseInfo();
 		for (PyShoppingCart goods : goodsList) {
 			// 空参校验
-			responseInfo = RequestParamService.packageWithAddShoppingCartParam(goods);
+			responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goods);
 			if (responseInfo.getRetCode() != null) {
-				
 				return responseInfo;
 			}
 		}
