@@ -1,13 +1,17 @@
 package com.chinasofti.mall.goods.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.common.utils.StringDateUtil;
+import com.chinasofti.mall.goods.mapper.ChnGoodsOnlineMapper;
 import com.chinasofti.mall.goods.mapper.ChnGoodsinfoCheckMapper;
 import com.chinasofti.mall.goods.service.ChnGoodsCheckService;
 import com.github.pagehelper.Page;
@@ -25,6 +29,9 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 	
 	@Autowired
 	private ChnGoodsinfoCheckMapper chnGoodsinfoCheckMapper;
+	
+	@Autowired
+	private ChnGoodsOnlineMapper chnGoodsOnlineMapper;
 	
 	/* 
 	 * 增加
@@ -103,15 +110,30 @@ public class ChnGoodsCheckServiceImpl implements ChnGoodsCheckService{
 		}
 		
 		if (checkReviewStatus == 1) {
+			//审核表ID查询对应商品
 			ChnGoodsinfoCheck goods = findById(chnGoodsinfoCheck.getIds());
-			goods.setIds(goods.getGoodsids());	
-			goods.setGoodsids("");
-			//审核通过
-			goods.setReviewStatues("1");
-			//上架
-			goods.setStatus("1");
-			
-			chnGoodsinfoCheckMapper.insertGoodsOnlineSelective(goods);
+			ChnGoodsOnline goodsOnline = chnGoodsOnlineMapper.selectByPrimaryKey(goods.getGoodsids());
+			if (goodsOnline != null) {
+				ChnGoodsOnline chnGoodsOnline2 = new ChnGoodsOnline();
+				try {
+					BeanUtils.copyProperties(goodsOnline, goods);
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
+				//若商品表存在数据,则修改
+				goodsOnline.setReviewStatues("1");
+				goodsOnline.setStatus("1");
+				chnGoodsOnlineMapper.updateByPrimaryKeySelective(chnGoodsOnline2);
+			}else{
+				//若不存在,则插入
+				goods.setIds(goods.getGoodsids());
+				goods.setGoodsids("");
+				goods.setReviewStatues("1");
+				goods.setStatus("1");
+				chnGoodsinfoCheckMapper.insertGoodsOnlineSelective(goods);
+			}
 		}
 		
 		return chnGoodsinfoCheckMapper.updateByPrimaryKeySelective(chnGoodsinfoCheck);
