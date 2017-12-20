@@ -173,12 +173,12 @@
 					type:'POST',
 					success:function(data){
 						if(data){
-							$.messager.alert('信息提示','删除成功！','info');
+							successShow();
 							$('#goodscheck').datagrid('reload');
 						}
 						else
 						{
-							$.messager.alert('信息提示','删除失败！','info');		
+							errorShow();		
 						}
 					}	
 				});
@@ -221,12 +221,12 @@
 				data: {'ids':ids,'reviewStatues':reviewStatues},
 				success:function(data){
 					if(data){
-						$.messager.alert('信息提示','操作成功！','info');
+						successShow();
 						$('#goodscheck').datagrid('reload');
 					}
 					else
 					{
-						$.messager.alert('信息提示','操作失败！','info');		
+						errorShow();		
 					}
 				}	
 			});
@@ -274,12 +274,12 @@
 								if(data){
 									$('#checkDialog').dialog('close');
 									$('#checkForm').form('reset');
-									$.messager.alert('信息提示','操作成功！','info');
+									successShow();
 									$('#goodscheck').datagrid('reload');
 								}
 								else
 								{
-									$.messager.alert('信息提示','操作失败！','info');		
+									errorShow();		
 								}
 							}	
 						});
