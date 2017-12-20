@@ -57,7 +57,7 @@
     <result column="TYPE" property="afterType" jdbcType="VARCHAR"/>
     <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR"/>
   </resultMap>
-  <resultMap id="mainChilOrderResultMap" type="com.chinasofti.mall.common.entity.order.PyMainGoodsorder" extends="BaseResultMap">
+  <resultMap id="mainChildOrderResultMap" type="com.chinasofti.mall.common.entity.order.PyMainGoodsorder" extends="BaseResultMap">
 	    <collection property="pyChildGoodsorders" ofType="com.chinasofti.mall.common.entity.order.PyChildGoodsorder">
 		    <id column="MAINORDER_IDS" property="mainorderIds"/>
 		    <result column="cid" property="ids" jdbcType="VARCHAR" />
@@ -1005,9 +1005,8 @@
 		</if>
 	</where>
 	order by ${sort} ${order}
-  </select>
-    
-	<select id="selectByUserIds" resultMap="mainChilOrderResultMap" parameterType="java.lang.String"  >
+  </select> 
+	<select id="selectByUserIds" resultMap="mainChildOrderResultMap" parameterType="java.lang.String">
 	    SELECT 
 			m.IDS, m.BIGORDER_ID, m.VENDOR_IDS, 
 	      	m.USER_IDS, m.CONT_POSTCODE, m.CONT_ADDRESS, 
@@ -1025,7 +1024,7 @@
 	      	m.SENDOUTTIME, m.UPDATETIME, m.S_LATITUDE, 
 	      	m.S_LONGITUDE, m.P_LATITUDE, m.P_LONGITUDE, 
 	      	m.SENDDESC, m.FREIGHT_OLD, m.CONT_PROVINCE_CODE, 
-	      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT, 
+	      	m.CONT_CITY_CODE, m.CONT_DISTRICT_CODE, m.FREIGHT,
 			c.IDS as cid, c.GOODSIDS, c.ORDER_STATUS, c.GOODS_NUM, c.GOODS_PRICE, c.DISCOUNT, c.ORDER_REAL_AMT, 
 			c.ISEVALUATE, c.ORDER_REVOKE, c.REMARK1, c.REMARK2, c.REMARK3,c.TRANSACTIONID as tid, c.ORDER_AMT, 
 			c.ORDER_DATE, c.VENDER_REMARK, c.ORDER_TYPE, c.ORDER_REAL_AMT_OLD, c.FREIGHT, c.GOODS_TITLE,

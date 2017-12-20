@@ -22,13 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baidu.ueditor.ActionEnter;
 import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
+import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
 import com.chinasofti.mall.common.entity.goods.GoodsFile;
 import com.chinasofti.mall.common.entity.spuser.SpMerchantUser;
@@ -241,6 +240,18 @@ public class ChnGoodsCheckController {
 		
 		PtUser user = (PtUser) session.getAttribute("user");
 		
+		//若修改前商品为审核通过状态,则修改商品在线表的商品审核状态为0(待申请),在线状态改为2(已下架)
+		if (chnGoodsinfoCheck.getReviewStatues().equals("1")) {
+			ChnGoodsOnline chnGoodsOnline = new ChnGoodsOnline();
+			chnGoodsOnline.setIds(chnGoodsinfoCheck.getGoodsids());
+			chnGoodsOnline.setReviewStatues("0");
+			chnGoodsOnline.setStatus("2");
+			chnGoodsOnline.setUpdateBy(user.getUsername());
+			chnGoodsOnline.setUpdateTime(StringDateUtil.getStringTime());
+			chnGoodsFeignClient.updateGoodsOnlineReviewStatusAndStatus(chnGoodsOnline);
+		}
+		
+		//修改商品审核表(goodsinfo)的商品状态为待申请状态
 		chnGoodsinfoCheck.setReviewStatues("0");
 		chnGoodsinfoCheck.setUpdateBy(user.getUsername());
 		chnGoodsinfoCheck.setUpdateTime(StringDateUtil.getStringTime());
@@ -249,9 +260,6 @@ public class ChnGoodsCheckController {
 		
 		//保存商品信息(goodsCheck表)
 		int goodsCheck = chnGoodsFeignClient.updateGoodsCheck(chnGoodsinfoCheck);
-		
-		//修改商品在线表的商品审核状态为0(待申请),在线状态改为2(已下架)
-		
 		
 		return goodsCheck;
 	}

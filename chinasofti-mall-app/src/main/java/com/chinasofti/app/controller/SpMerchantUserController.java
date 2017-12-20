@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.chinasofti.app.controller;
 
 import javax.servlet.http.HttpServletResponse;

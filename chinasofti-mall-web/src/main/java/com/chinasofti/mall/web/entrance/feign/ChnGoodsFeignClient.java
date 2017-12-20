@@ -150,7 +150,13 @@ public interface ChnGoodsFeignClient {
 	@RequestMapping(value = "/goodsOnline/findByPage")
 	public String findByPage(@RequestParam Map<String,Object> paramMap);
 
-
+	/**
+	 * 修改审核状态和在线状态(下架)
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	@RequestMapping(value = "/goodsOnline/updateGoodsOnlineReviewStatusAndStatus" ,method = RequestMethod.POST)
+	public int updateGoodsOnlineReviewStatusAndStatus(@RequestBody(required = false) ChnGoodsOnline chnGoodsOnline);
 
 	
 }

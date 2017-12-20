@@ -42,5 +42,18 @@ public interface ChnGoodsOnlineMapper {
 	 * @return
 	 */
 	List<AdvertiseContents> findByPage(Map<String, Object> paramMap);
-
+	
+	/**
+	 * 修改,过滤空字段
+	 * @param chnGoodsOnline
+	 * @return
+	 */
+	int updateByPrimaryKeySelective(ChnGoodsOnline chnGoodsOnline);
+	
+	/**
+	 * 通过id查询
+	 * @param ids
+	 * @return
+	 */
+	ChnGoodsOnline selectByPrimaryKey(String ids);
 }

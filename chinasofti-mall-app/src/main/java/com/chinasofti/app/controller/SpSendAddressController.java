@@ -1,7 +1,6 @@
 package com.chinasofti.app.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -71,6 +70,7 @@ public class SpSendAddressController {
 			return errorRes();
 		}
 		res = DealParamFunctions.dealResponseData(result);
+		logger.info("123");
 		return res;
 	}
 	

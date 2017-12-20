@@ -10,25 +10,15 @@ import org.springframework.stereotype.Component;
 public class CancelGoodsOrdersProcessor implements ItemProcessor<PyBigGoodsorder, PyBigGoodsorder> {
 	
 	private Logger logger = LoggerFactory.getLogger(CancelGoodsOrdersProcessor.class);
-	
-	@Override
+
 	public PyBigGoodsorder process(PyBigGoodsorder item) throws Exception {
 		logger.info("当前处理的订单号是: "+item.getTransactionid());
-
-		/**
-		 * 变更商品信息
-		 */
-
-
-		/**
-		 * 变更主订单信息
-		 */
 
 		/**
 		 * 变更大订单信息
 		 */
 		item.setPayStatus(Constants.PAY_STATUS_2);
-		
+
 		return item;
 	}
 

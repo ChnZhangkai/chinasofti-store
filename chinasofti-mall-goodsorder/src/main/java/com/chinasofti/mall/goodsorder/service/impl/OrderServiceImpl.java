@@ -210,7 +210,7 @@ public class OrderServiceImpl implements OrderService {
 			PyMainGoodsorder mainGoodsorder = setMainOrder(orderCreateTime,orderInfo);//主订单
 			mainGoodsorder.setBigorderId(orderInfo.getOrderNo());//所属大订单
 			mainGoodsorder.setVendorIds(shopCart.get(i).getVendorIds());//商户ID
-			//mainGoodsorder.setVendorSnm(shopCart.get(i).getVendorSnm());//商户名称
+			mainGoodsorder.setVendorSnm(shopCart.get(i).getVendorSnm());//商户名称
 			mainGoodsorder.setUserIds(orderInfo.getUserId());//用户ID
 			BigDecimal shoporderAmt = null;//商户订单总金额;
 			int goodsNum = 0;//购买数量
@@ -273,6 +273,8 @@ public class OrderServiceImpl implements OrderService {
 		String childTransactionId = "G".concat(orderCreateTime.concat(getFixLenthString(4)));//子订单流水号
 		childorder.setTransactionid(childTransactionId);
 		childorder.setIds(UUIDUtils.getUuid());//IDS
+		childorder.setIsevaluate(Constant.ISEAVLUATE);//是否已评价
+		childorder.setOrderDate(orderCreateTime);
 		return childorder;
 	}
 	//组装主订单
