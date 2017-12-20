@@ -14,7 +14,7 @@
         <result column="STANDARD" jdbcType="VARCHAR" property="standard"/>
         <result column="CODE" jdbcType="VARCHAR" property="code"/>
         <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
-        <result column="STORE_NUM" jdbcType="int" property="storeNum"/>
+        <result column="STORE_NUM" jdbcType="DECIMAL" property="storeNum"/>
         <result column="REVIEW_DESC" jdbcType="VARCHAR" property="reviewDesc"/>
         <result column="REVIEW_STATUES" jdbcType="CHAR" property="reviewStatues"/>
         <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy"/>

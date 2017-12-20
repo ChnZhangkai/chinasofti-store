@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
  *
  */
 @RestController
-@RequestMapping("shoppingCart")
+@RequestMapping("/shoppingCart")
 @Api(value = "ShoppingCartController", description = "购物车工程接口V1.0-API")
 public class ShoppingCartController {
 	
@@ -36,7 +37,7 @@ public class ShoppingCartController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/del/goods")
+	@RequestMapping(value="/del/goods", method = RequestMethod.POST)
 	@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
 	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList) {
 		return pyShoppingCartService.deletePyShoppingCartById(goodsList);
@@ -47,7 +48,7 @@ public class ShoppingCartController {
 	 * @param tt
 	 * @return
 	 */
-	@RequestMapping(value="/add/goods")
+	@RequestMapping(value="/add/goods", method = RequestMethod.POST)
 	@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"vendorId\":\"8888\",\"userId\":\"chin\",\"goodsNum\":\"1\"}]")
 	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goodsInfo) {
 		return pyShoppingCartService.savePyShoppingCart(goodsInfo);
@@ -58,7 +59,7 @@ public class ShoppingCartController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value="/mod/goods")
+	@RequestMapping(value="/mod/goods", method = RequestMethod.POST)
 	@ApiOperation(value="修改购物车商品数量", notes="报文示例：[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]")
 	public int updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo) {
 		return pyShoppingCartService.updatePyShoppingCart(goodsInfo);
