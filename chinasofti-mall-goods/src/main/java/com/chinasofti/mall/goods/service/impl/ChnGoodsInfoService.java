@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.entity.goods.SkuGoodsVo;
 import com.chinasofti.mall.goods.mapper.ChnGoodsInfoMapper;
+import com.chinasofti.mall.goods.mapper.SpGoodsSkuMapper;
 import com.chinasofti.mall.goods.service.IChnGoodsInfoService;
 
 @Service
@@ -17,6 +19,8 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 
 	@Autowired
 	private ChnGoodsInfoMapper goodsinfoMapper;
+	
+	private SpGoodsSkuMapper spGoodsSkuMapper;
 	
 	public List<ChnGoodsinfo> selectByClassId(String goodsClassIds) {
 		List<ChnGoodsinfo>result = goodsinfoMapper.selectByClassId(goodsClassIds);
@@ -92,4 +96,10 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 		return goodsinfoMapper.selectByGoodsId(ids);
 	}
 
+	@Override
+	public SkuGoodsVo findSkuByGoodsIds(String ids) {
+		return spGoodsSkuMapper.findSkuByGoodsIds(ids);
+	}
+
+	
 }

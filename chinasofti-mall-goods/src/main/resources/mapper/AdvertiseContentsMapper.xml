@@ -473,10 +473,10 @@
 		update advertise_contents
 		<set>
 			<if test="states != null and states == 0">
-				STATES = '1',
+				STATES = '1',TYPE='1'
 			</if>
 			<if test="states != null and states == 1">
-				STATES = '0',
+				STATES = '0'
 			</if>
 		</set>
 		where IDS = #{ids,jdbcType=VARCHAR}

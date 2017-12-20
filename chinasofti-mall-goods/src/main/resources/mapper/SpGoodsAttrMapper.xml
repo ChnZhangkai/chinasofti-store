@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.goods.mapper.SpGoodsAttrMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.SpGoodsAttr" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="commom" property="commom" jdbcType="VARCHAR" />
+    <result column="class_value" property="classValue" jdbcType="VARCHAR" />
+    <result column="needpic" property="needpic" jdbcType="CHAR" />
+    <result column="states" property="states" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="order_value" property="orderValue" jdbcType="INTEGER" />
+    <result column="delete_status" property="deleteStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    IDS, name, commom, class_value, needpic, states, create_user, create_time, update_user, 
+    update_time, order_value, delete_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_goods_attr
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sp_goods_attr
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.SpGoodsAttr" >
+    insert into sp_goods_attr (IDS, name, commom, 
+      class_value, needpic, states, 
+      create_user, create_time, update_user, 
+      update_time, order_value, delete_status
+      )
+    values (#{ids,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{commom,jdbcType=VARCHAR}, 
+      #{classValue,jdbcType=VARCHAR}, #{needpic,jdbcType=CHAR}, #{states,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=VARCHAR}, #{orderValue,jdbcType=INTEGER}, #{deleteStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.SpGoodsAttr" >
+    insert into sp_goods_attr
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="commom != null" >
+        commom,
+      </if>
+      <if test="classValue != null" >
+        class_value,
+      </if>
+      <if test="needpic != null" >
+        needpic,
+      </if>
+      <if test="states != null" >
+        states,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="orderValue != null" >
+        order_value,
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="commom != null" >
+        #{commom,jdbcType=VARCHAR},
+      </if>
+      <if test="classValue != null" >
+        #{classValue,jdbcType=VARCHAR},
+      </if>
+      <if test="needpic != null" >
+        #{needpic,jdbcType=CHAR},
+      </if>
+      <if test="states != null" >
+        #{states,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderValue != null" >
+        #{orderValue,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null" >
+        #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.SpGoodsAttr" >
+    update sp_goods_attr
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="commom != null" >
+        commom = #{commom,jdbcType=VARCHAR},
+      </if>
+      <if test="classValue != null" >
+        class_value = #{classValue,jdbcType=VARCHAR},
+      </if>
+      <if test="needpic != null" >
+        needpic = #{needpic,jdbcType=CHAR},
+      </if>
+      <if test="states != null" >
+        states = #{states,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderValue != null" >
+        order_value = #{orderValue,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status = #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.SpGoodsAttr" >
+    update sp_goods_attr
+    set name = #{name,jdbcType=VARCHAR},
+      commom = #{commom,jdbcType=VARCHAR},
+      class_value = #{classValue,jdbcType=VARCHAR},
+      needpic = #{needpic,jdbcType=CHAR},
+      states = #{states,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      order_value = #{orderValue,jdbcType=INTEGER},
+      delete_status = #{deleteStatus,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>

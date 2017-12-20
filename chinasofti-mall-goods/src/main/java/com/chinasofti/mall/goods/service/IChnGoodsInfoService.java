@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.entity.goods.SkuGoodsVo;
 
 
 public interface IChnGoodsInfoService{
@@ -30,5 +31,16 @@ public interface IChnGoodsInfoService{
     * @return
     */
    public ChnGoodsinfo checkGoodsInfoById(String ids);
+   
+   
+   /**
+    
+   * @Title: findSkuByGoodsIds
+   * @Description: 查询sku商品信息
+   * @param  ids
+   * @return SkuGoodsVo
+   * @throws
+    */
+   SkuGoodsVo findSkuByGoodsIds(String ids);
 
 }
