@@ -17,7 +17,7 @@ public class CancelGoodsOrdersWriter implements ItemWriter<PyBigGoodsorder> {
 	private CancelGoodsOrdersService cancelGoodsOrdersService ;
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW,rollbackFor=Exception.class)
-	@Override
+
 	public void write(List<? extends PyBigGoodsorder> items) throws Exception {
 		
 		for (PyBigGoodsorder pyBigGoodsorder : items) {

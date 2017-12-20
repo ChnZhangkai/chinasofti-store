@@ -23,7 +23,6 @@ public class CancelGoodsOrdersReader implements ItemReader<PyBigGoodsorder> {
 
     private String handleDate;
 
-    @Override
     public PyBigGoodsorder read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
         logger.info("handleDate的值为: " + handleDate);
 
