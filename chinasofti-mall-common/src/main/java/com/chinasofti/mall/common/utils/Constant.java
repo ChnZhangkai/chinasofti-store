@@ -76,4 +76,6 @@ public class Constant {
     
     /** *  商品信息异常*/
     public static final String GOODS_INFO_ERROR = "900013";
+    
+    public static final String ISEAVLUATE="0";
 }
