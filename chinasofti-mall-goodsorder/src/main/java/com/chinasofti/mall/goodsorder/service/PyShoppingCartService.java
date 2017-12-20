@@ -11,9 +11,9 @@ public interface PyShoppingCartService  {
 
 	public List<VendorShoppingcartVO> queryPyShoppingCartListByUserId(String userId);
 	
-	public ResponseInfo savePyShoppingCart(PyShoppingCart goods);
+	public ResponseInfo savePyShoppingCart(PyShoppingCart goodsInfo);
 
-	public int updatePyShoppingCart(PyShoppingCart goodsList);
+	public int updatePyShoppingCart(PyShoppingCart goodsInfo);
 	
 	public ResponseInfo deletePyShoppingCartById(List<PyShoppingCart> goodsList);
 	
