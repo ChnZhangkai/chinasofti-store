@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
  *
  */
 @RestController
-@RequestMapping("shoppingCart")
+@RequestMapping("/shoppingCart")
 @Api(value = "ShoppingCartController", description = "购物车工程接口V1.0-API")
 public class ShoppingCartController {
 	
