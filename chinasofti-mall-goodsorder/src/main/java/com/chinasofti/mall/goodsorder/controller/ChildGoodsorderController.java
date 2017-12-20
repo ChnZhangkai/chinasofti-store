@@ -1,6 +1,5 @@
 package com.chinasofti.mall.goodsorder.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinasofti.mall.common.controller.BaseController;
 import com.chinasofti.mall.common.entity.order.ChildorderCondition;
 import com.chinasofti.mall.common.entity.order.PyChildGoodsorder;
 import com.chinasofti.mall.goodsorder.service.ChildGoodsorderService;
@@ -26,38 +24,34 @@ import net.sf.json.JSONObject;
 */
 @RestController
 @RequestMapping("childorder")
-public class ChildGoodsorderController implements BaseController<PyChildGoodsorder> {
+public class ChildGoodsorderController {
 	
 	@Autowired
 	private ChildGoodsorderService childGoodsorderService;
 	
-	@Override
-	public List<PyChildGoodsorder> findAll() {
-		return null;
-	}
+	
 
-	@Override
 	@RequestMapping("select/{ids}")
 	public PyChildGoodsorder findById(@PathVariable("ids") String id) {
 		
 		return childGoodsorderService.findById(id);
 	}
 
-	@Override
+
 	@RequestMapping("delete/{ids}")
 	public String deleteById(@PathVariable("ids") String id) {
 		childGoodsorderService.deleteById(id);
 		return "delete";
 	}
 
-	@Override
+
 	@RequestMapping(value="update" , method = RequestMethod.POST)
 	public String update(@RequestBody(required=false) PyChildGoodsorder childGoodsorder) {
 		childGoodsorderService.update(childGoodsorder);
 		return "update";
 	}
 
-	@Override
+
 	@RequestMapping(value="add" , method = RequestMethod.POST)
 	public String add(@RequestBody(required=false) PyChildGoodsorder childGoodsorder) {
 		childGoodsorderService.save(childGoodsorder);

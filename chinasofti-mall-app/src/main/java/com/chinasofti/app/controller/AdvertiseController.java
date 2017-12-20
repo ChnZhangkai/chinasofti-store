@@ -23,7 +23,7 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 @RequestMapping("advertise")
 public class AdvertiseController {
 	@Autowired
-	AdvertiseFeignClient advertiseFeignClient;
+	private AdvertiseFeignClient advertiseFeignClient;
 	private static final Logger logger = LoggerFactory.getLogger(AdvertiseController.class);
 
 

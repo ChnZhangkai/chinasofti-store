@@ -43,7 +43,7 @@ public class MainGoodsorderServiceImpl implements MainGoodsorderService {
 	public List<PyMainGoodsorder> findAll() {
 		return null;
 	}
-
+    //通过ID查询主订单
 	@Override
 	public PyMainGoodsorder findById(String id) {
 		

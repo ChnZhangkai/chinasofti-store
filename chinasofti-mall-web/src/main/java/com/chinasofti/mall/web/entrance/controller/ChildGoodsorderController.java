@@ -106,7 +106,7 @@ public class ChildGoodsorderController {
 
 	}
 	
-	@RequestMapping(value="selectall", method = RequestMethod.POST)
+	@RequestMapping(value="selectbycondition", method = RequestMethod.POST)
 	public String selectByChildorderCondition(ChildorderCondition childorderCondition){
 		JSONObject jsonlist = childGoodsorderFeign.selectByChildorderCondition(childorderCondition);
 		return jsonlist.toString();

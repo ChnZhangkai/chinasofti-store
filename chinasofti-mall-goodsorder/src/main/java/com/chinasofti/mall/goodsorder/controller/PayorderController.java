@@ -1,4 +1,4 @@
-package com.chinasofti.mall.goodsorder.controller;
+/*package com.chinasofti.mall.goodsorder.controller;
 
 import java.util.List;
 
@@ -15,13 +15,13 @@ import com.chinasofti.mall.common.entity.order.PyPayorderExample;
 import com.chinasofti.mall.goodsorder.service.PayorderService;
 
 
-/**
+*//**
 * @ClassName: 	PayorderController
 * @Description: 支付订单controller
 * @author 		tanjl
 * @Version 		V1.0
 * @date 		2017年11月3日 下午2:21:10 
-*/
+*//*
 @RestController
 @RequestMapping("payorder")
 public class PayorderController implements BaseController<PyPayorder> {
@@ -62,13 +62,13 @@ public class PayorderController implements BaseController<PyPayorder> {
 		return "add";
 	}
 	
-	/**
+	*//**
 	* @Title: selectByExample
 	* @Description: 条件查询
 	* @param payorder
 	* @return List<PyPayorder>
 	* @throws
-	*/
+	*//*
 	@RequestMapping(value="list" , method = RequestMethod.POST)
 	public List<PyPayorder> selectByExample(@RequestBody(required=false) PyPayorder payorder){
 		
@@ -78,3 +78,4 @@ public class PayorderController implements BaseController<PyPayorder> {
 	}
 
 }
+*/
