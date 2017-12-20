@@ -4,8 +4,7 @@ import com.chinasofti.mall.batch.constants.Constants;
 import com.chinasofti.mall.batch.mapper.PyBigGoodsOrderMapper;
 import com.chinasofti.mall.batch.util.DateUtils;
 import com.chinasofti.mall.common.entity.order.PyBigGoodsorder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class CancelGoodsOrdersReader implements ItemReader<PyBigGoodsorder> {
 
-    private Logger logger = LoggerFactory.getLogger(CancelGoodsOrdersReader.class);
+    private Logger logger = Logger.getLogger(CancelGoodsOrdersReader.class);
 
     @Autowired
     private PyBigGoodsOrderMapper pyBigGoodsorderMapper;
