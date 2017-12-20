@@ -13,6 +13,48 @@
 			<groupId>com.chinasofti.mall</groupId>
 			<artifactId>chinasofti-mall-common</artifactId>
 			<version>0.0.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.json-lib</groupId>
+					<artifactId>json-lib</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.jxls</groupId>
+					<artifactId>jxls-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.alibaba</groupId>
+					<artifactId>fastjson</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.jxls</groupId>
+					<artifactId>jxls-reader</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-dependencies</artifactId>
+				</exclusion>
+				<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-devtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.springfox</groupId>
+					<artifactId>springfox-swagger-ui</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.springfox</groupId>
+					<artifactId>springfox-swagger2</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-parent</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- springbatch依赖 -->
@@ -20,7 +62,24 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-batch</artifactId>
 			<version>1.5.3.RELEASE</version>
+			<exclusions>
+				<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
         </dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
 
 		<!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
 		<dependency>
