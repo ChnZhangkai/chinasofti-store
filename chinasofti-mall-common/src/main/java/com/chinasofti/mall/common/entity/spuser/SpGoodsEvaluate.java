@@ -167,6 +167,14 @@ public class SpGoodsEvaluate extends PageBean{
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
 	}
+
+	@Override 
+	public String toString() {
+		return "SpGoodsEvaluate [ids=" + ids + ", userid=" + userid + ", isEvaluate=" + isEvaluate + ", transactionId="
+				+ transactionId + ", goodsids=" + goodsids + ", imagepath=" + imagepath + ", goodspath=" + goodspath
+				+ ", goodsfile=" + goodsfile + ", count=" + count + ", content=" + content + ", nickname=" + nickname
+				+ ", createtime=" + createtime + "]";
+	}
 	
 
 }

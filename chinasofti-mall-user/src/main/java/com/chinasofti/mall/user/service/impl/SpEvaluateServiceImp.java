@@ -15,14 +15,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate;
 import com.chinasofti.mall.common.utils.UUIDUtils;
 import com.chinasofti.mall.user.mapper.SpEvaluateMapper;
-import com.chinasofti.mall.user.service.SpEvaluateServince;
+import com.chinasofti.mall.user.service.SpEvaluateService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
 import net.sf.json.JSONObject;
 
 
-public class SpEvaluateServiceImp implements SpEvaluateServince{
+public class SpEvaluateServiceImp implements SpEvaluateService{
 	
 	Logger logger = LoggerFactory.getLogger(SpEvaluateServiceImp.class);
 	
@@ -54,7 +54,6 @@ public class SpEvaluateServiceImp implements SpEvaluateServince{
 	}
 	
 	//评论
-	@Override
 	/*public int insertSelective(SpGoodsEvaluate spGoodsEvaluate,MultipartFile file)throws Exception{
 		String imagepath = saveImage(file);
 		if(imagepath !=null){//图片保存成功
@@ -65,11 +64,14 @@ public class SpEvaluateServiceImp implements SpEvaluateServince{
 		return 0;
 	}*/
 	
+	@Override 
 	@Transactional(readOnly=false,rollbackFor={RuntimeException.class, Exception.class})//启动事务
 	public int insertSelective(SpGoodsEvaluate spGoodsEvaluate)throws Exception{
 		spGoodsEvaluate.setCreatetime(UUIDUtils.nowTime());//评论时间
 		spGoodsEvaluate.setIds(UUIDUtils.getUuid());
+		logger.info("<<<<<<<<<<<<<2>>>>>>>>>>"+spGoodsEvaluate.toString());
 		int result = spEvaluateMapper.insertSelective(spGoodsEvaluate);//插人评论
+		logger.info("<<<<<<<<<<<<<3>>>>>>>>>>result ="+result);
 		updateIsEvaluate(spGoodsEvaluate.getTransactionId());//修改评论状态
 		return result;
 	}
