@@ -55,7 +55,7 @@
       GOODS_IDS, GOODS_PAY_IDS, GOODS_NUM, 
       CREATE_TIME, PAY_STATUS, CHECKED, 
       ATTR)
-    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{vendorId,jdbcTytpe=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},#{vendorId,jdbcType=VARCHAR}, 
       #{goodsId,jdbcType=VARCHAR}, #{goodsPayIds,jdbcType=VARCHAR}, #{goodsNum,jdbcType=DECIMAL}, 
       #{createTime,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR}, #{checked,jdbcType=BOOLEAN}, 
       #{attr,jdbcType=LONGVARCHAR})
