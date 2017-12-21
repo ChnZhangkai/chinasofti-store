@@ -48,8 +48,9 @@
     <result column="SERVICE_PHONE" jdbcType="VARCHAR" property="servicePhone" />
     <result column="VENDER_INTRO" jdbcType="VARCHAR" property="venderIntro" />
     <result column="VENDER_EXPLAIN" jdbcType="VARCHAR" property="venderExplain" />
-   
   </resultMap>
+  
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

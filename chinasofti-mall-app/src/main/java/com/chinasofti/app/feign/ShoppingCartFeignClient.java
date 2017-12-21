@@ -18,7 +18,7 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
  * @author heruilong
  *
  */
-@FeignClient(name="goodsorder-service",fallback = ShoppingCartFeignClientHystrix.class)
+@FeignClient(name="goodsorder-service",url="http//localhost:7601",fallback = ShoppingCartFeignClientHystrix.class)
 public interface ShoppingCartFeignClient {
 
 	@RequestMapping(value="/shoppingCart/query/goodsList")
