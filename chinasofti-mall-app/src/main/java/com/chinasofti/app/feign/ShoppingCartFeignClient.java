@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinasofti.app.hystrix.ShoppingCartFeignClientHystrix;
@@ -23,12 +24,12 @@ public interface ShoppingCartFeignClient {
 	@RequestMapping(value="/shoppingCart/query/goodsList")
 	public List<VendorShoppingcartVO> queryPyShoppingCartListByUserId(@RequestParam("userId") String userId);
 	
-	@RequestMapping(value="/shoppingCart/add/goods")
+	@RequestMapping(value="/shoppingCart/add/goods", method = RequestMethod.POST)
 	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goodsInfo);
 
-	@RequestMapping(value="/shoppingCart/mod/goods")
+	@RequestMapping(value="/shoppingCart/mod/goods", method = RequestMethod.POST)
 	public int updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo);
 	
-	@RequestMapping(value="/shoppingCart/del/goods")
+	@RequestMapping(value="/shoppingCart/del/goods", method = RequestMethod.POST)
 	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList);
 }

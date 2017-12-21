@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.user.mapper.SpEvaluateMapper" >
+  <resultMap id="BaseEvaResultMap" type="com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate" >
+    <result column="TRANSACTIONID" property="transactionid" jdbcType="VARCHAR" />
+    <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />
+    <result column="GOODS_TITLE" property="goodsfile" jdbcType="VARCHAR" />
+    <result column="IMAGEPATH" property="imagepath" jdbcType="VARCHAR" />
+    <result column="FILEPATH" property="goodspath" jdbcType="VARCHAR" />
+    <result column="COUNT" property="count" jdbcType="DECIMAL" />
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createtime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectNonEvaluteList" resultMap="BaseEvaResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate" >
+    select a.TRANSACTIONID,a.GOODSIDS,a.GOODS_TITLE,b.FILEPATH
+    from py_child_goodsorder a
+    left join goods_file b
+      on a.GOODSIDS=b.GOODSIDS 
+    where a.CUST_IDS = #{userId,jdbcType=VARCHAR}
+      and a.isEvaluate = '0'
+    order by a.ORDER_DATE ${order} 
+  </select>
+  <select id="selectEvaluateList" resultMap="BaseEvaResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate" >
+    select a.GOODSIDS,a.GOODS_TITLE,a.IMAGEPATH,a.COUNT,a.CONTENT,a.CREATE_TIME,b.FILEPATH
+      from sp_evaluate a
+      left join goods_file b
+        on a.GOODSIDS=b.GOODSIDS
+     where a.CUST_IDS = #{userId,jdbcType=VARCHAR}  
+     order by a.CREATE_TIME ${order} 
+  </select>
+  <select id="selectEvaluateAllList" resultMap="BaseEvaResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate" >
+    select a.USERID,a.NICKNAME,a.COUNT,a.CONTENT,a.CREATE_TIME
+      from sp_evaluate a
+     where a.GOODSIDS = #{goodsids,jdbcType=VARCHAR}  
+     order by a.CREATE_TIME ${order} 
+  </select>
+  
+  <insert id="insertEvaluate" parameterType="com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate" >
+  	insert into sp_evaluate
+  	 <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >IDS,</if>
+      <if test="goodsids != null" >GOODSIDS,</if>
+      <if test="imagepath != null" >IMAGEPATH,</if>
+      <if test="count != null" >COUNT,</if>
+      <if test="content != null" >CONTENT,</if>
+      <if test="nickname != null" >NICKNAME,</if>
+      <if test="userid != null" >USERID,</if>
+      <if test="createtime != null" >CREATE_TIME,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >#{ids,jdbcType=VARCHAR},</if>
+      <if test="goodsids != null" >#{goodsids,jdbcType=VARCHAR},</if>
+      <if test="imagepath != null" >#{imagepath,jdbcType=VARCHAR},</if>
+      <if test="count != null" >#{count,jdbcType=VARCHAR},</if>
+      <if test="content != null" >#{content,jdbcType=VARCHAR},</if>
+      <if test="nickname != null" >#{nickname,jdbcType=VARCHAR},</if>
+      <if test="userid != null" >#{userid,jdbcType=VARCHAR},</if>
+      <if test="createtime != null" >#{createtime,jdbcType=VARCHAR},</if>
+    </trim>
+  </insert>  
+  
+  <update id="updateIsEvaluate" parameterType="java.lang.String" >
+  	update chn_goodsinfo
+  		set ISEVALUATE='1'
+  	where TRANSACTIONID = #{transactionid,jdbcType=VARCHAR} 	
+  </update>
+
+</mapper>

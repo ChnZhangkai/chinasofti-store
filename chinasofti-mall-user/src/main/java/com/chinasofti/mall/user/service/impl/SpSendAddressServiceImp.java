@@ -23,7 +23,7 @@ public class SpSendAddressServiceImp implements SpSendAddressService {
 	@Autowired
 	private SpSendAddressMapper spSendAddressMapper;
 	
-	Logger logger = LoggerFactory.getLogger(SpUserController.class);  
+	Logger logger = LoggerFactory.getLogger(SpSendAddressServiceImp.class);  
 	
 	@Override
 	public List<SpSendAddress> querySentAddressList(String userId) throws MyException{

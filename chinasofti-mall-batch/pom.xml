@@ -1,13 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.chinasofti.mall</groupId>
-		<artifactId>chinasofti-mall</artifactId>
-		<version>0.0.1</version>
-	</parent>
 	<groupId>com.chinasofti.mall.batch</groupId>
 	<artifactId>chinasofti-mall-batch</artifactId>
+	<version>0.0.1</version>
 	<name>chinasofti-mall-batch</name>
 	<packaging>jar</packaging>
 
@@ -17,40 +13,84 @@
 			<groupId>com.chinasofti.mall</groupId>
 			<artifactId>chinasofti-mall-common</artifactId>
 			<version>0.0.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.json-lib</groupId>
+					<artifactId>json-lib</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.jxls</groupId>
+					<artifactId>jxls-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.alibaba</groupId>
+					<artifactId>fastjson</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.jxls</groupId>
+					<artifactId>jxls-reader</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-dependencies</artifactId>
+				</exclusion>
+				<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-devtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.springfox</groupId>
+					<artifactId>springfox-swagger-ui</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.springfox</groupId>
+					<artifactId>springfox-swagger2</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-parent</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- springbatch依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-batch</artifactId>
+			<version>1.5.3.RELEASE</version>
+			<exclusions>
+				<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+        </dependency>
+
 		<dependency>
-			<groupId>org.springframework.batch</groupId>
-			<artifactId>spring-batch-core</artifactId>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
-
 		<dependency>
-			<groupId>org.springframework.batch</groupId>
-			<artifactId>spring-batch-infrastructure</artifactId>
-			<version>3.0.0.RELEASE</version>
-		</dependency>
-
-		<!-- springbatch依赖 END -->
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
 		</dependency>
 
 		<!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
 		</dependency>
 		<!-- END -->
 
@@ -59,10 +99,6 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.1.41</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
 		<!-- Mybatis依赖 -->

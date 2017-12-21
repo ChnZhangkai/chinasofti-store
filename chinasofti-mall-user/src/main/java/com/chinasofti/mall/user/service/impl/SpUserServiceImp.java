@@ -27,7 +27,7 @@ public class SpUserServiceImp implements SpUserService {
 	@Autowired
 	private SpUserMapper spUserMapper;
 	
-	Logger logger = LoggerFactory.getLogger(SpUserController.class);  
+	Logger logger = LoggerFactory.getLogger(SpUserServiceImp.class);  
 	@Value("${decryptKey}")
 	private String decryptKey;
 	

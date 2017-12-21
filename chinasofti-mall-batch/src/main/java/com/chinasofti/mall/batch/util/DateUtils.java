@@ -1,7 +1,6 @@
 package com.chinasofti.mall.batch.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -16,7 +15,7 @@ import java.util.Date;
  */
 public class DateUtils {
 
-    private static Logger logger = LoggerFactory.getLogger(DateUtils.class);
+    private static Logger logger = Logger.getLogger(DateUtils.class);
 
     private final static String DATE_FORMAT_1 = "yyyyMMdd";
     private final static String TIME_FORMAT_1 = "HHmmssSSS";

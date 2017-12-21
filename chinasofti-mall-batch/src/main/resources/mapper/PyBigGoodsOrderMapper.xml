@@ -22,11 +22,12 @@
         <result column="INVOICE_TYPE" property="invoiceType" jdbcType="VARCHAR" />
         <result column="INVOICE_TITLE" property="invoiceTitle" jdbcType="VARCHAR" />
         <result column="INVOICE_ADDRESS" property="invoiceAddress" jdbcType="VARCHAR" />
+        <result column="ORDER_TOTAL_NUM" property="orderTotalNum" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List" >
         IDS, TRANSACTIONID, ORDER_DATE, ORDER_REAL_AMT, DISCOUNT, ORDER_TOTAL_AMT, GOODS_TOTAL_AMT,
         USER_IDS, STATUS, PAYWAY, PAY_STATUS, CHECKING_STATUS, CHECK_DATE, CHECK_BATCH_NO,
-        WX_FEE, PAY_TIME, IS_TICKET, INVOICE_TYPE, INVOICE_TITLE, INVOICE_ADDRESS
+        WX_FEE, PAY_TIME, IS_TICKET, INVOICE_TYPE, INVOICE_TITLE, INVOICE_ADDRESS,ORDER_TOTAL_NUM
     </sql>
 
     <select id="selectOrderNotPay" resultMap="BaseResultMap">
