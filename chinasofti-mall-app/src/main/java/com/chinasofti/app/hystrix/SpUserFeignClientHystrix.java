@@ -24,7 +24,7 @@ public class SpUserFeignClientHystrix implements SpUserFeignClient{
  
 	@Override
 	public SpUser signIn(SpUser spUser) {
-		return new SpUser();
+		return null;
 	}
 
 	

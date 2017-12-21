@@ -11,14 +11,12 @@ public class SpEvaluateFeignClientHystrix implements SpEvaluateFeignClient{
 	
 	@Override
 	public JSONObject selectEvaluateList(SpGoodsEvaluate spGoodsEvaluate) {
-		JSONObject js = new JSONObject();
-		return js;
+		return null;
 	}
 	
 	@Override
 	public JSONObject selectEvaluateAllList(SpGoodsEvaluate spGoodsEvaluate) {
-		JSONObject js = new JSONObject();
-		return js;
+		return null;
 	}
 	
  

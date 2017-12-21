@@ -37,13 +37,12 @@ public class SpSendAddressController {
 	 * */
 	@RequestMapping(value="/list")
 	public List<SpSendAddress> findSendAddressList(@RequestParam("userId") String userId) {
-		List<SpSendAddress> list = new ArrayList<SpSendAddress>();
+		List<SpSendAddress> list = null;
 		try {
 			list = spSendAddressService.querySentAddressList(userId);
 		} catch (MyException e) {
 			e.printStackTrace();
 			logger.error(e.toString());
-			return list;
 		}
 		return list;
 	} 

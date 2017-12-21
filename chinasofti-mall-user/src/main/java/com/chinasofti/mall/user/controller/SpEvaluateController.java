@@ -28,10 +28,11 @@ public class SpEvaluateController {
 	
 	@RequestMapping(value="/evaList")
 	public JSONObject selectEvaluateList(@RequestBody SpGoodsEvaluate spGoodsEvaluate) {
-		JSONObject js = new JSONObject();
+		JSONObject js = null;
 		try {
+				logger.info("=======1========"+spGoodsEvaluate.toString());
 				js = spEvaluateService.selectEvaluateList(spGoodsEvaluate);
-
+				logger.info("=======2========"+js.toString());
 			} catch (Exception e) {
 				logger.info(e.getMessage());
 				logger.info(e.toString());
@@ -41,10 +42,10 @@ public class SpEvaluateController {
 	
 	@RequestMapping(value="/evaAllList")
 	public JSONObject selectEvaluateAllList(@RequestBody SpGoodsEvaluate spGoodsEvaluate) {
-		JSONObject js = new JSONObject();
-		try {
+		JSONObject js = null;
+		try {	logger.info("=======11========"+spGoodsEvaluate.toString());
 				js = spEvaluateService.selectEvaluateAllList(spGoodsEvaluate);
-
+				logger.info("=======22========"+js.toString());
 			} catch (Exception e) {
 				logger.info(e.getMessage());
 				logger.info(e.toString());
