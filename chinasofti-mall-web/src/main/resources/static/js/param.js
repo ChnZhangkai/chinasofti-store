@@ -1,9 +1,13 @@
 //初始化页面
 $(document).ready(function(){
+	
+	var firstID = "1";
+	
 	$('#ParamTable').treegrid({
-		url:'/param/list',
+		url:'/param/list/1',
 		idField: 'id',
 	    treeField: 'text',
+//	    queryParams:{firstId:"1"},
 		rownumbers: true,
 		pagination:true,
 		pageSize:10,
@@ -23,6 +27,14 @@ $(document).ready(function(){
 			{field:'operator',title:'操作',width:'20%',align:'center',formatter:function(value){
 				
 			}}
-		]]
+		]],
+		onBeforeExpand:function(row){
+			$('#ParamTable').treegrid('options').url = "/param/list/" + row.id;
+			alert(row.id);
+		},
+		onLoadSuccess:function(){
+            //每次数据加载完成以后，还原查询URL
+            $("#ParamTable").treegrid('options').url = "/param/list/1";
+        },
 	})
 });

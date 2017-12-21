@@ -14,8 +14,8 @@ public class Param extends PageBean{
     private String cearttime;
 
     private String status;
-
-    public Integer getId() {
+    
+	public Integer getId() {
 		return id;
 	}
 

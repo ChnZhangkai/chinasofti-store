@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.SpEvaluateFeignClient;
@@ -24,19 +23,19 @@ public class SpEvaluateController {
 	SpEvaluateFeignClient spEvaluateFeignClient;
 	
 	
-	@RequestMapping(value = "/evaList" , method = RequestMethod.POST)
+	@RequestMapping(value = "/evaList")
 	public ResponseInfo selectEvaluateList(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		JSONObject obj = spEvaluateFeignClient.selectEvaluateList(spGoodsEvaluate);
 		return DealParamFunctions.dealResponseData(obj);
 	}
 	
-	@RequestMapping(value = "/evllaAList" , method = RequestMethod.POST)
+	@RequestMapping(value = "/evllaAList")
 	public ResponseInfo selectEvaluateAllList(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		JSONObject obj = spEvaluateFeignClient.selectEvaluateAllList(spGoodsEvaluate);
 		return DealParamFunctions.dealResponseData(obj);
 	}
 	
-	@RequestMapping(value = "/evaAdd" , method = RequestMethod.POST)
+	@RequestMapping(value = "/evaAdd")
 	public ResponseInfo insertSelective(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		ResponseInfo res = new ResponseInfo() ;
 		int result=spEvaluateFeignClient.insertSelective(spGoodsEvaluate); 

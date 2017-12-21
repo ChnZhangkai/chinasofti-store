@@ -13,7 +13,7 @@ public interface SpEvaluateMapper {
 	
 	List<SpGoodsEvaluate> selectEvaluateAllList(SpGoodsEvaluate spGoodsEvaluate)throws Exception;
 	
-	int insertSelective(SpGoodsEvaluate SpGoodsEvaluate)throws Exception;
+	int insertEvaluate(SpGoodsEvaluate SpGoodsEvaluate)throws Exception;
 
 	int updateIsEvaluate(String transactionid)throws Exception;
 }

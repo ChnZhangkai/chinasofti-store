@@ -14,12 +14,12 @@
     <result column="CREATE_TIME" property="createtime" jdbcType="VARCHAR" />
   </resultMap>
   
-  <select id="selectNonEvaluteList" resultMap="BaseEvaResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate" >
+  <select id="selectNonEvaluateList" resultMap="BaseEvaResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate" >
     select a.TRANSACTIONID,a.GOODSIDS,a.GOODS_TITLE,b.FILEPATH
     from py_child_goodsorder a
     left join goods_file b
       on a.GOODSIDS=b.GOODSIDS 
-    where a.CUST_IDS = #{userId,jdbcType=VARCHAR}
+    where a.CUST_IDS = #{userid,jdbcType=VARCHAR}
       and a.isEvaluate = '0'
     order by a.ORDER_DATE ${order} 
   </select>
@@ -28,7 +28,7 @@
       from sp_evaluate a
       left join goods_file b
         on a.GOODSIDS=b.GOODSIDS
-     where a.CUST_IDS = #{userId,jdbcType=VARCHAR}  
+     where a.CUST_IDS = #{userid,jdbcType=VARCHAR}  
      order by a.CREATE_TIME ${order} 
   </select>
   <select id="selectEvaluateAllList" resultMap="BaseEvaResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate" >
@@ -63,7 +63,7 @@
   </insert>  
   
   <update id="updateIsEvaluate" parameterType="java.lang.String" >
-  	update chn_goodsinfo
+  	update py_child_goodsorder
   		set ISEVALUATE='1'
   	where TRANSACTIONID = #{transactionid,jdbcType=VARCHAR} 	
   </update>
