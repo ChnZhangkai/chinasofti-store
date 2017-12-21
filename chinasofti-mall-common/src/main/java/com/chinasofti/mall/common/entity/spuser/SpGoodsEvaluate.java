@@ -168,7 +168,7 @@ public class SpGoodsEvaluate extends PageBean{
 		this.transactionId = transactionId;
 	}
 
-	@Override
+	@Override 
 	public String toString() {
 		return "SpGoodsEvaluate [ids=" + ids + ", userid=" + userid + ", isEvaluate=" + isEvaluate + ", transactionId="
 				+ transactionId + ", goodsids=" + goodsids + ", imagepath=" + imagepath + ", goodspath=" + goodspath

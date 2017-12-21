@@ -2,7 +2,7 @@ package com.chinasofti.mall.user.service;
 
 import com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate;
 
-import net.sf.json.JSONObject;
+import net.sf.json.JSONObject; 
 
 public interface SpEvaluateService {
 	/*

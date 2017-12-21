@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate;
-import com.chinasofti.mall.user.service.SpEvaluateService;
+import com.chinasofti.mall.user.service.SpEvaluateService; 
 
 import net.sf.json.JSONObject;
 

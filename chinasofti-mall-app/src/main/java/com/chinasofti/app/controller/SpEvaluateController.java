@@ -40,7 +40,6 @@ public class SpEvaluateController {
 	public ResponseInfo insertSelective(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		ResponseInfo res = new ResponseInfo() ;
 		int result=spEvaluateFeignClient.insertSelective(spGoodsEvaluate); 
-		System.out.println("<<<<<<<<<<<<<3>>>>>>>>>>result ="+result);
 		if(result == 0 ){
 			res.setRetCode("999999");
 			res.setRetMsg("评论功能异常");

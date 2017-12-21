@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @MapperScan("com.chinasofti.mall.user.mapper")
 @EnableDiscoveryClient
-@EnableTransactionManagement //开启事务支持
+@EnableTransactionManagement //开启事务支持 
 public class UserApplication {
 
 	public static void main(String[] args) throws Exception {
