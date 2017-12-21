@@ -22,7 +22,7 @@ public class SpSendAddressFeignClientHystrix implements SpSendAddressFeignClient
 
 	@Override
 	public List<SpSendAddress> findSendAddressList(String userId) {
-		return new ArrayList<SpSendAddress>();
+		return null;
 	}
  
 	@Override

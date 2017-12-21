@@ -22,19 +22,25 @@ public class SpEvaluateController {
 	@Autowired
 	SpEvaluateFeignClient spEvaluateFeignClient;
 	
-	
+	/*
+	 * 评论列表(已评论，未评论)
+	 * */
 	@RequestMapping(value = "/evaList")
 	public ResponseInfo selectEvaluateList(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		JSONObject obj = spEvaluateFeignClient.selectEvaluateList(spGoodsEvaluate);
 		return DealParamFunctions.dealResponseData(obj);
 	}
-	
-	@RequestMapping(value = "/evllaAList")
+	/*
+	 * 评论列表(针对商品)
+	 * */
+	@RequestMapping(value = "/evaAllList")
 	public ResponseInfo selectEvaluateAllList(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		JSONObject obj = spEvaluateFeignClient.selectEvaluateAllList(spGoodsEvaluate);
 		return DealParamFunctions.dealResponseData(obj);
 	}
-	
+	/*
+	 * 进行评论
+	 * */
 	@RequestMapping(value = "/evaAdd")
 	public ResponseInfo insertSelective(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		ResponseInfo res = new ResponseInfo() ;
