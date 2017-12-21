@@ -37,9 +37,9 @@ public class ShoppingCartController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/del/goods", method = RequestMethod.POST)
+	@RequestMapping(value="/deleteShoppingGoods", method = RequestMethod.POST)
 	@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
-	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList) {
+	public ResponseInfo deleteShoppingGoods(@RequestBody List<PyShoppingCart> goodsList) {
 		return pyShoppingCartService.deletePyShoppingCartById(goodsList);
 	}
 	
@@ -48,9 +48,9 @@ public class ShoppingCartController {
 	 * @param tt
 	 * @return
 	 */
-	@RequestMapping(value="/add/goods", method = RequestMethod.POST)
+	@RequestMapping(value="/addShoppingCartGoods", method = RequestMethod.POST)
 	@ApiOperation(value="添加购物车商品", notes="报文示例：[{\"goodsId\":\"1001\",\"vendorId\":\"8888\",\"userId\":\"chin\",\"goodsNum\":\"1\"}]")
-	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goodsInfo) {
+	public ResponseInfo addShoppingCartGoods(@RequestBody PyShoppingCart goodsInfo) {
 		return pyShoppingCartService.savePyShoppingCart(goodsInfo);
 	}
 
@@ -59,9 +59,9 @@ public class ShoppingCartController {
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value="/mod/goods", method = RequestMethod.POST)
+	@RequestMapping(value="/updateShoppingCartGoods", method = RequestMethod.POST)
 	@ApiOperation(value="修改购物车商品数量", notes="报文示例：[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]")
-	public int updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo) {
+	public int updateShoppingCartGoods(@RequestBody PyShoppingCart goodsInfo) {
 		return pyShoppingCartService.updatePyShoppingCart(goodsInfo);
 	}
 	

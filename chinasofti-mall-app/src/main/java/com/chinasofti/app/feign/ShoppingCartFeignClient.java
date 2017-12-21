@@ -18,18 +18,18 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
  * @author heruilong
  *
  */
-@FeignClient(name="goodsorder-service",url="http//localhost:7601",fallback = ShoppingCartFeignClientHystrix.class)
+@FeignClient(name="goodsorder-service",fallback = ShoppingCartFeignClientHystrix.class)
 public interface ShoppingCartFeignClient {
 
 	@RequestMapping(value="/shoppingCart/query/goodsList")
 	public List<VendorShoppingcartVO> queryPyShoppingCartListByUserId(@RequestParam("userId") String userId);
 	
-	@RequestMapping(value="/shoppingCart/add/goods", method = RequestMethod.POST)
-	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goodsInfo);
+	@RequestMapping(value="/shoppingCart/addShoppingCartGoods", method = RequestMethod.POST)
+	public ResponseInfo addShoppingCartGoods(@RequestBody PyShoppingCart goodsInfo);
 
-	@RequestMapping(value="/shoppingCart/mod/goods", method = RequestMethod.POST)
-	public int updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo);
+	@RequestMapping(value="/shoppingCart/updateShoppingCartGoods", method = RequestMethod.POST)
+	public int updateShoppingCartGoods(@RequestBody PyShoppingCart goodsInfo);
 	
-	@RequestMapping(value="/shoppingCart/del/goods", method = RequestMethod.POST)
-	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList);
+	@RequestMapping(value="/shoppingCart/deleteShoppingGoods", method = RequestMethod.POST)
+	public ResponseInfo deleteShoppingGoods(@RequestBody List<PyShoppingCart> goodsList);
 }
