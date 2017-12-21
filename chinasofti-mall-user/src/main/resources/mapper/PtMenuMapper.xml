@@ -92,6 +92,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pt_menu
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.chinasofti.mall.common.entity.PtMenu" >
     insert into pt_menu (IDS, MENUNAME, URL, 
       PIDS, CERATETIME, CREATEBY, 
@@ -207,6 +212,34 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.PtMenu" >
+    update pt_menu
+    <set >
+      <if test="menuname != null" >
+        MENUNAME = #{menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="pids != null" >
+        PIDS = #{pids,jdbcType=VARCHAR},
+      </if>
+      <if test="ceratetime != null" >
+        CERATETIME = #{ceratetime,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null" >
+        CREATEBY = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        UPDATETIME = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      </if>
+    </set>
+      where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  
   <select id="selectByPrimaryKey" parameterType="string" resultType="com.chinasofti.mall.common.entity.PtMenu">
   	select IDS,MENUNAME,PIDS,URL from pt_menu where IDS=#{id}
   </select>

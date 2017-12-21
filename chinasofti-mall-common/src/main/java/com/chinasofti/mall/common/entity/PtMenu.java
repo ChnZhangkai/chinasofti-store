@@ -19,10 +19,19 @@ public class PtMenu {
 
     private String updateby;
     
+    private String logo;
+    
     private List<PtMenu> childMenu;
     
+	public String getLogo() {
+		return logo;
+	}
 
-    public List<PtMenu> getChildMenu() {
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public List<PtMenu> getChildMenu() {
 		return childMenu;
 	}
 
