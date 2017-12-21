@@ -8,7 +8,9 @@ import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,11 +23,11 @@ import com.github.pagehelper.PageHelper;
 
 import net.sf.json.JSONObject;
 
-
+@Service
 public class SpEvaluateServiceImp implements SpEvaluateService{
 	
 	Logger logger = LoggerFactory.getLogger(SpEvaluateServiceImp.class);
-	
+	@Autowired
 	private SpEvaluateMapper spEvaluateMapper;
 	
 	@Value("${file.save.path}")
@@ -42,6 +44,8 @@ public class SpEvaluateServiceImp implements SpEvaluateService{
 		List<SpGoodsEvaluate> list = new ArrayList<SpGoodsEvaluate>();
 		PageHelper.startPage(spGoodsEvaluate.getPage(),spGoodsEvaluate.getRows());
 		String isEvaluate = spGoodsEvaluate.getIsEvaluate();//0:未评论 1：已评论
+		logger.info("<<<<<<<<<<<<<>>>>>>>>>>"+spGoodsEvaluate.toString());
+		logger.info("<<<<<<<<<<<<<isEvaluate>>>>>>>>>>"+isEvaluate);
 		if("0".equals(isEvaluate)){
 			list = spEvaluateMapper.selectNonEvaluateList(spGoodsEvaluate);
 		}else if("1".equals(isEvaluate)){
@@ -69,10 +73,8 @@ public class SpEvaluateServiceImp implements SpEvaluateService{
 	public int insertSelective(SpGoodsEvaluate spGoodsEvaluate)throws Exception{
 		spGoodsEvaluate.setCreatetime(UUIDUtils.nowTime());//评论时间
 		spGoodsEvaluate.setIds(UUIDUtils.getUuid());
-		logger.info("<<<<<<<<<<<<<2>>>>>>>>>>"+spGoodsEvaluate.toString());
-		int result = spEvaluateMapper.insertSelective(spGoodsEvaluate);//插人评论
-		logger.info("<<<<<<<<<<<<<3>>>>>>>>>>result ="+result);
-		updateIsEvaluate(spGoodsEvaluate.getTransactionId());//修改评论状态
+		int result = spEvaluateMapper.insertEvaluate(spGoodsEvaluate);//插人评论
+		updateIsEvaluate(spGoodsEvaluate.getTransactionid());//修改评论状态
 		return result;
 	}
 	
@@ -125,5 +127,4 @@ public class SpEvaluateServiceImp implements SpEvaluateService{
 			return null;
 		}
 	}
-
 }

@@ -2,6 +2,7 @@ package com.chinasofti.mall.user.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +20,12 @@ import net.sf.json.JSONObject;
 @RestController
 @RequestMapping("/evaluate")
 public class SpEvaluateController {
+	
+	@Autowired
+	SpEvaluateService spEvaluateService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(SpEvaluateController.class);
 	
-	SpEvaluateService spEvaluateService;
 	@RequestMapping(value="/evaList")
 	public JSONObject selectEvaluateList(@RequestBody SpGoodsEvaluate spGoodsEvaluate) {
 		JSONObject js = new JSONObject();
@@ -52,9 +56,7 @@ public class SpEvaluateController {
 	public int insertSelective(@RequestBody SpGoodsEvaluate spGoodsEvaluate) {
 		int result = 0;
 		try {
-				logger.info("<<<<<<<<<<<<<1>>>>>>>>>>"+spGoodsEvaluate.toString());
 				result = spEvaluateService.insertSelective(spGoodsEvaluate);
-
 			} catch (Exception e) {
 				logger.info(e.getMessage());
 				logger.info(e.toString());

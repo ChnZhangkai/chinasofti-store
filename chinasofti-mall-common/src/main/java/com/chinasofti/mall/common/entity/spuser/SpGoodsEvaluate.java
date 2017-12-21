@@ -11,7 +11,7 @@ public class SpGoodsEvaluate extends PageBean{
 	
 	private String isEvaluate;//0:未评论 1：已评论
 	
-	private String transactionId;//订单号
+	private String transactionid;//订单号
 
 	private String goodsids;//商品ID
 
@@ -160,18 +160,18 @@ public class SpGoodsEvaluate extends PageBean{
 	public void setIsEvaluate(String isEvaluate) {
 		this.isEvaluate = isEvaluate;
 	}
-	public String getTransactionId() {
-		return transactionId;
+	public String getTransactionid() {
+		return transactionid;
 	}
 
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
+	public void setTransactionid(String transactionid) {
+		this.transactionid = transactionid;
 	}
 
 	@Override 
 	public String toString() {
-		return "SpGoodsEvaluate [ids=" + ids + ", userid=" + userid + ", isEvaluate=" + isEvaluate + ", transactionId="
-				+ transactionId + ", goodsids=" + goodsids + ", imagepath=" + imagepath + ", goodspath=" + goodspath
+		return "SpGoodsEvaluate [ids=" + ids + ", userid=" + userid + ", isEvaluate=" + isEvaluate + ", transactionid="
+				+ transactionid + ", goodsids=" + goodsids + ", imagepath=" + imagepath + ", goodspath=" + goodspath
 				+ ", goodsfile=" + goodsfile + ", count=" + count + ", content=" + content + ", nickname=" + nickname
 				+ ", createtime=" + createtime + "]";
 	}
