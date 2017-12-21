@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.entity.goods.SkuGoodsVo;
 import com.chinasofti.mall.goods.service.IChnGoodsInfoService;
 
 /**
@@ -61,5 +63,18 @@ public class ChnGoodsInfoController {
 	public ChnGoodsinfo checkGoodsInfoById(@RequestParam("ids")String ids) {
 		return goodsInfoService.checkGoodsInfoById(ids);
 		
+	}
+	
+	/**
+	 * 
+	* @Title: findSkuByGoodsIds
+	* @Description: 根据商品id查询sku信息
+	* @param  ids
+	* @return List<SkuGoodsVo> 
+	* @throws
+	 */
+	@RequestMapping(value="findSkuByGoodsIds",method=RequestMethod.GET)
+	public List<SkuGoodsVo> findSkuByGoodsIds(@RequestParam("ids") String ids){
+		return goodsInfoService.findSkuByGoodsIds(ids);		
 	}
 }

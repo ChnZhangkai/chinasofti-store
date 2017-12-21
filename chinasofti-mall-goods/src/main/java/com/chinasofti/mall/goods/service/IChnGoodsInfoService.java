@@ -41,6 +41,6 @@ public interface IChnGoodsInfoService{
    * @return SkuGoodsVo
    * @throws
     */
-   SkuGoodsVo findSkuByGoodsIds(String ids);
+   List<SkuGoodsVo> findSkuByGoodsIds(String ids);
 
 }

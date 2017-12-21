@@ -29,31 +29,53 @@
 	<!-- 商品详情页sku属性 -->
 	<resultMap id="skuGoodsInfoResultMap" type="com.chinasofti.mall.common.entity.goods.SkuGoodsVo">
 		<id column="IDS" jdbcType="VARCHAR" property="skuIds" />
-		<result column="attrName" jdbcType="VARCHAR" property="attrName" />
-		<result column="attrValue" jdbcType="VARCHAR" property="attrValue" />
 		<result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
 		<result column="sku_sale_Price" jdbcType="DOUBLE" property="skuSalePrice" />
+		<result column="sku_option_ids" jdbcType="VARCHAR" property="skuOptionIds" />
 		<result column="sku_market_price" jdbcType="DOUBLE" property="skuMarketPrice" />
 		<result column="sku_stock" jdbcType="INTEGER" property="skuStock" />
 		<result column="sku_sales" jdbcType="INTEGER" property="skuSales" />
 		<result column="FILEPATH" jdbcType="VARCHAR" property="filePath" />
 	</resultMap>
-	<select id="findSkuByGoodsIds" parameterType="java.lang.String" resultMap="skuGoodsInfoResultMap">
-		select
-		sgs.sku_code,sgs.sku_market_price,sgs.sku_sale_Price,sgs.sku_sales,sgs.sku_stock,sga.name
-		as attrName,sgav.name as attrValue,gf.FILEPATH from
-		sp_goods_option_sku sgos, sp_goods_sku sgs, sp_goods_attr sga, sp_goods_attr_value sgav, goods_file gf
-		where
-		sgos.ids = sgs.sku_option_ids
-		and
-		sgos.attr_ids = sga.IDS
-		and
-		sgos.attr_val_ids = sgav.IDS
-		and
+	<!-- 属性resultMap -->
+	<resultMap type="com.chinasofti.mall.common.entity.goods.AttrVo"
+		id="AttrMap">
+		<result column="attrName" jdbcType="VARCHAR" property="attrName" />
+		<result column="attrValue" jdbcType="VARCHAR" property="attrValue" />
+	</resultMap>
+	<!-- 查询sku -->
+	<select id="findSkuByGoodsIds" parameterType="java.lang.String"
+		resultMap="skuGoodsInfoResultMap">
+		select * from sp_goods_sku sgs
+		left join
+		goods_file gf
+		on
 		sgs.IDS = gf.SKUIDS
-		and
-		sgos.goods_id = #{ids,jdbcType=VARCHAR};
+		where goods_id =
+		#{ids,jdbcType=VARCHAR}
 	</select>
+	<!-- sku属性查询 -->
+	<select id="findSkuByOptionIds" parameterType="java.lang.String"
+		resultMap="AttrMap">
+		select
+		attr.sname as attrName,attr.svname as attrValue
+		from
+		sp_goods_option_sku sgos join
+		(select sga.IDS sids,sga.name as
+		sname,sgav.IDS as svids,sgav.name as svname
+		from
+		sp_goods_attr sga
+		join
+		sp_goods_attr_value sgav
+		on
+		sga.IDS = sgav.attr_id) as attr
+		on sgos.attr_ids = attr.sids
+		and
+		sgos.attr_val_ids = attr.svids
+		where
+		sgos.IDS = #{ids,jdbcType=VARCHAR}
+	</select>
+
 
 
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chinasofti.app.feign.GoodsInfoFeignClient;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.entity.goods.SkuGoodsVo;
 import com.chinasofti.mall.common.utils.DealParamFunctions;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -77,4 +78,28 @@ public class GoodsInfoController {
 		response = DealParamFunctions.dealResponseData(result);
 		return response;
 	}
+	/**
+	* @Title: findSkuByGoodsIds
+	* @Description: 查询sku商品
+	* @param  ids
+	* @param   参数
+	* @return ResponseInfo    返回类型
+	* @throws
+	 */
+	@RequestMapping("findSkuByGoodsIds")
+	public ResponseInfo  findSkuByGoodsIds(@RequestParam("ids") String ids) {
+		ResponseInfo response = new ResponseInfo();
+		if (StringUtils.isEmpty(ids)) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("商品Ids不能为空！");
+			return response;
+		}
+		List<SkuGoodsVo> skuList = goodsFeignClient.findSkuByGoodsIds(ids);
+		response = DealParamFunctions.dealResponseData(skuList);
+		return response;
+		
+	
+		
+	}
+	
 }

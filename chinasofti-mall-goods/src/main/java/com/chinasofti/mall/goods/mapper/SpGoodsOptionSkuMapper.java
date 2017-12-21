@@ -14,4 +14,6 @@ public interface SpGoodsOptionSkuMapper {
     int updateByPrimaryKeySelective(SpGoodsOptionSku record);
 
     int updateByPrimaryKey(SpGoodsOptionSku record);
+    
+   
 }

@@ -19,6 +19,7 @@
     IDS, goods_id, attr_name, pic_url, order_value, attr_ids, attr_val_ids, create_user, 
     create_time, modify_user, modify_time, delete_status
   </sql>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

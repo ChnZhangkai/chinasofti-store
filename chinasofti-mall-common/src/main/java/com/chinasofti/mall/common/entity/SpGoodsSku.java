@@ -1,5 +1,9 @@
 package com.chinasofti.mall.common.entity;
 
+import java.util.List;
+
+import com.chinasofti.mall.common.entity.goods.AttrVo;
+
 public class SpGoodsSku {
     private String ids;
 
@@ -47,7 +51,7 @@ public class SpGoodsSku {
 
     private String inventorys;
 
-    public String getIds() {
+	public String getIds() {
         return ids;
     }
 

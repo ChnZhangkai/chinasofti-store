@@ -1,4 +1,9 @@
 package com.chinasofti.mall.common.entity.goods;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 
 * @ClassName: SkuGoodsVo
@@ -19,16 +24,16 @@ public class SkuGoodsVo {
 
 	private Integer skuStock;//库存
 	
-	private String attrName;//属性名
-	
-	private String attrValue;//属性值
-	
 	private Integer skuSales;//销量
 	
 	private String filePath;//图片路径
 	
+	private String skuOptionIds;
 	
-
+	private List<AttrVo> attrList = new ArrayList<>();//属性集合
+	
+	
+	
 	public String getSkuIds() {
 		return skuIds;
 	}
@@ -53,21 +58,6 @@ public class SkuGoodsVo {
 		this.skuSales = skuSales;
 	}
 
-	public String getAttrName() {
-		return attrName;
-	}
-
-	public void setAttrName(String attrName) {
-		this.attrName = attrName;
-	}
-
-	public String getAttrValue() {
-		return attrValue;
-	}
-
-	public void setAttrValue(String attrValue) {
-		this.attrValue = attrValue;
-	}
 
 	
 	public String getSkuCode() {
@@ -102,6 +92,32 @@ public class SkuGoodsVo {
 	public void setSkuStock(Integer skuStock) {
 		this.skuStock = skuStock;
 	}
+
+	public List<AttrVo> getAttrList() {
+		return attrList;
+	}
+
+	public void setAttrList(List<AttrVo> attrList) {
+		this.attrList = attrList;
+	}
+
+	public String getSkuOptionIds() {
+		return skuOptionIds;
+	}
+
+	public void setSkuOptionIds(String skuOptionIds) {
+		this.skuOptionIds = skuOptionIds;
+	}
+
+	@Override
+	public String toString() {
+		return "SkuGoodsVo [skuIds=" + skuIds + ", skuCode=" + skuCode + ", skuSalePrice=" + skuSalePrice
+				+ ", skuMarketPrice=" + skuMarketPrice + ", skuStock=" + skuStock + ", skuSales=" + skuSales
+				+ ", filePath=" + filePath + ", skuOptionIds=" + skuOptionIds + ", attrList=" + attrList + "]";
+	}
+	
+	
+	
 	
 	
 }
