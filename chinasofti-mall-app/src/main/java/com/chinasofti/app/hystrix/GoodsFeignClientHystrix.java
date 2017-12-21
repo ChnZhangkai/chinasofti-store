@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.chinasofti.app.feign.GoodsInfoFeignClient;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.entity.goods.SkuGoodsVo;
 
 /**
  * 熔断类
@@ -40,5 +41,12 @@ public class GoodsFeignClientHystrix implements GoodsInfoFeignClient{
 		return new ChnGoodsinfo();
 	}
 
+	@Override
+	public List<SkuGoodsVo> findSkuByGoodsIds(String ids) {
+		
+		return new ArrayList<>();
+	}
+
+	
 	
 }

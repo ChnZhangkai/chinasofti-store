@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.goods.mapper.SpGoodsOptionSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.SpGoodsOptionSku" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="attr_name" property="attrName" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="order_value" property="orderValue" jdbcType="INTEGER" />
+    <result column="attr_ids" property="attrIds" jdbcType="VARCHAR" />
+    <result column="attr_val_ids" property="attrValIds" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="modify_user" property="modifyUser" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+    <result column="delete_status" property="deleteStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    IDS, goods_id, attr_name, pic_url, order_value, attr_ids, attr_val_ids, create_user, 
+    create_time, modify_user, modify_time, delete_status
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_goods_option_sku
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sp_goods_option_sku
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.SpGoodsOptionSku" >
+    insert into sp_goods_option_sku (IDS, goods_id, attr_name, 
+      pic_url, order_value, attr_ids, 
+      attr_val_ids, create_user, create_time, 
+      modify_user, modify_time, delete_status
+      )
+    values (#{ids,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{attrName,jdbcType=VARCHAR}, 
+      #{picUrl,jdbcType=VARCHAR}, #{orderValue,jdbcType=INTEGER}, #{attrIds,jdbcType=VARCHAR}, 
+      #{attrValIds,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.SpGoodsOptionSku" >
+    insert into sp_goods_option_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="attrName != null" >
+        attr_name,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="orderValue != null" >
+        order_value,
+      </if>
+      <if test="attrIds != null" >
+        attr_ids,
+      </if>
+      <if test="attrValIds != null" >
+        attr_val_ids,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName != null" >
+        #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="orderValue != null" >
+        #{orderValue,jdbcType=INTEGER},
+      </if>
+      <if test="attrIds != null" >
+        #{attrIds,jdbcType=VARCHAR},
+      </if>
+      <if test="attrValIds != null" >
+        #{attrValIds,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null" >
+        #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.SpGoodsOptionSku" >
+    update sp_goods_option_sku
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName != null" >
+        attr_name = #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="orderValue != null" >
+        order_value = #{orderValue,jdbcType=INTEGER},
+      </if>
+      <if test="attrIds != null" >
+        attr_ids = #{attrIds,jdbcType=VARCHAR},
+      </if>
+      <if test="attrValIds != null" >
+        attr_val_ids = #{attrValIds,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status = #{deleteStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.SpGoodsOptionSku" >
+    update sp_goods_option_sku
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      attr_name = #{attrName,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      order_value = #{orderValue,jdbcType=INTEGER},
+      attr_ids = #{attrIds,jdbcType=VARCHAR},
+      attr_val_ids = #{attrValIds,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=VARCHAR},
+      delete_status = #{deleteStatus,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>

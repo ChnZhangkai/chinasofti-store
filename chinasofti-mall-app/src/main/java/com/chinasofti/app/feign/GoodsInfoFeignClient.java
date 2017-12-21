@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.chinasofti.app.hystrix.GoodsFeignClientHystrix;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.entity.goods.SkuGoodsVo;
 
 /**分类消费类
  * 
@@ -36,5 +37,8 @@ public interface GoodsInfoFeignClient {
 	
 	@RequestMapping(value = "/goodsInfo/checkGoodsInfoById")
 	public ChnGoodsinfo checkGoodsInfoById(@RequestParam("ids")String ids);
+	
+	@RequestMapping(value = "/goodsInfo/findSkuByGoodsIds")
+	public List<SkuGoodsVo> findSkuByGoodsIds(@RequestParam("ids")String ids);
   
 }

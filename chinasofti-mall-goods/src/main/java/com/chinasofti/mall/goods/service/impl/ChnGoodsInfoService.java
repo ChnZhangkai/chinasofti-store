@@ -1,15 +1,22 @@
 package com.chinasofti.mall.goods.service.impl;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chinasofti.mall.common.entity.SpGoodsOptionSku;
+import com.chinasofti.mall.common.entity.SpGoodsSku;
+import com.chinasofti.mall.common.entity.goods.AttrVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsInfoVo;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
+import com.chinasofti.mall.common.entity.goods.SkuGoodsVo;
 import com.chinasofti.mall.goods.mapper.ChnGoodsInfoMapper;
+import com.chinasofti.mall.goods.mapper.SpGoodsOptionSkuMapper;
+import com.chinasofti.mall.goods.mapper.SpGoodsSkuMapper;
 import com.chinasofti.mall.goods.service.IChnGoodsInfoService;
 
 @Service
@@ -17,7 +24,9 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 
 	@Autowired
 	private ChnGoodsInfoMapper goodsinfoMapper;
-	
+	@Autowired
+	private SpGoodsSkuMapper spGoodsSkuMapper;
+
 	public List<ChnGoodsinfo> selectByClassId(String goodsClassIds) {
 		List<ChnGoodsinfo>result = goodsinfoMapper.selectByClassId(goodsClassIds);
 		if(result==null){
@@ -92,4 +101,20 @@ public class ChnGoodsInfoService implements IChnGoodsInfoService{
 		return goodsinfoMapper.selectByGoodsId(ids);
 	}
 
+	@Override
+	public List<SkuGoodsVo> findSkuByGoodsIds(String ids) {
+		List<SkuGoodsVo> skuList = spGoodsSkuMapper.findSkuByGoodsIds(ids);
+		for(SkuGoodsVo sku:skuList) {
+			String optionIds = sku.getSkuOptionIds();
+			String[] idsList = optionIds.split(";");
+			for(String ids2:idsList) {
+				AttrVo attrVo = spGoodsSkuMapper.findSkuByOptionIds(ids2);
+				sku.getAttrList().add(attrVo);
+			}
+		}
+		return skuList;		
+	}
+
+	
+	
 }

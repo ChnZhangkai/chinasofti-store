@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasofti.mall.goods.mapper.SpGoodsSkuMapper">
+	<resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.SpGoodsSku">
+		<id column="IDS" jdbcType="VARCHAR" property="ids" />
+		<result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+		<result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
+		<result column="sku_sale_Price" jdbcType="DOUBLE" property="skuSalePrice" />
+		<result column="sku_market_price" jdbcType="DOUBLE" property="skuMarketPrice" />
+		<result column="sku_cost_price" jdbcType="DOUBLE" property="skuCostPrice" />
+		<result column="sku_option_ids" jdbcType="VARCHAR" property="skuOptionIds" />
+		<result column="sku_option_names" jdbcType="VARCHAR" property="skuOptionNames" />
+		<result column="sku_stock" jdbcType="INTEGER" property="skuStock" />
+		<result column="sku_sales" jdbcType="INTEGER" property="skuSales" />
+		<result column="create_user" jdbcType="VARCHAR" property="createUser" />
+		<result column="create_time" jdbcType="VARCHAR" property="createTime" />
+		<result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+		<result column="modify_time" jdbcType="VARCHAR" property="modifyTime" />
+		<result column="delete_status" jdbcType="VARCHAR" property="deleteStatus" />
+		<result column="CREATER" jdbcType="VARCHAR" property="creater" />
+		<result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
+		<result column="MYSKU_CODE" jdbcType="VARCHAR" property="myskuCode" />
+		<result column="TITLE" jdbcType="VARCHAR" property="title" />
+		<result column="CONTENTS" jdbcType="VARCHAR" property="contents" />
+		<result column="PARAMS" jdbcType="VARCHAR" property="params" />
+		<result column="FILES" jdbcType="VARCHAR" property="files" />
+		<result column="INVENTORYS" jdbcType="VARCHAR" property="inventorys" />
+	</resultMap>
+	<!-- 商品详情页sku属性 -->
+	<resultMap id="skuGoodsInfoResultMap" type="com.chinasofti.mall.common.entity.goods.SkuGoodsVo">
+		<id column="IDS" jdbcType="VARCHAR" property="skuIds" />
+		<result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
+		<result column="sku_sale_Price" jdbcType="DOUBLE" property="skuSalePrice" />
+		<result column="sku_option_ids" jdbcType="VARCHAR" property="skuOptionIds" />
+		<result column="sku_market_price" jdbcType="DOUBLE" property="skuMarketPrice" />
+		<result column="sku_stock" jdbcType="INTEGER" property="skuStock" />
+		<result column="sku_sales" jdbcType="INTEGER" property="skuSales" />
+		<result column="FILEPATH" jdbcType="VARCHAR" property="filePath" />
+	</resultMap>
+	<!-- 属性resultMap -->
+	<resultMap type="com.chinasofti.mall.common.entity.goods.AttrVo"
+		id="AttrMap">
+		<result column="attrName" jdbcType="VARCHAR" property="attrName" />
+		<result column="attrValue" jdbcType="VARCHAR" property="attrValue" />
+	</resultMap>
+	<!-- 查询sku -->
+	<select id="findSkuByGoodsIds" parameterType="java.lang.String"
+		resultMap="skuGoodsInfoResultMap">
+		select * from sp_goods_sku sgs
+		left join
+		goods_file gf
+		on
+		sgs.IDS = gf.SKUIDS
+		where goods_id =
+		#{ids,jdbcType=VARCHAR}
+	</select>
+	<!-- sku属性查询 -->
+	<select id="findSkuByOptionIds" parameterType="java.lang.String"
+		resultMap="AttrMap">
+		select
+		attr.sname as attrName,attr.svname as attrValue
+		from
+		sp_goods_option_sku sgos join
+		(select sga.IDS sids,sga.name as
+		sname,sgav.IDS as svids,sgav.name as svname
+		from
+		sp_goods_attr sga
+		join
+		sp_goods_attr_value sgav
+		on
+		sga.IDS = sgav.attr_id) as attr
+		on sgos.attr_ids = attr.sids
+		and
+		sgos.attr_val_ids = attr.svids
+		where
+		sgos.IDS = #{ids,jdbcType=VARCHAR}
+	</select>
+
+
+
+
+</mapper>
