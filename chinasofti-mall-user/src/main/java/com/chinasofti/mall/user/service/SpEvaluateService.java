@@ -4,7 +4,7 @@ import com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate;
 
 import net.sf.json.JSONObject;
 
-public interface SpEvaluateServince {
+public interface SpEvaluateService {
 	/*
 	 * 查询已评论列表   未评论列表
 	 * */
