@@ -56,11 +56,11 @@ public class SpUserController {
 	
 	@RequestMapping(value="/signIn")
 	public SpUser signIn(@RequestBody SpUser spUser) {
-		SpUser reSpUser = new SpUser();
+		SpUser reSpUser = null;
 		try {
-			reSpUser = spUserService.select(spUser);
+			reSpUser = spUserService.select(spUser);	
 		} catch (Exception e) {
-			logger.error(e.toString());
+			logger.error(e.toString());	
 		}
 		return reSpUser;	
 	}

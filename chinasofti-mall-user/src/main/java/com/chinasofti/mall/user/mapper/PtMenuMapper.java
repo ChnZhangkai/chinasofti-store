@@ -23,4 +23,8 @@ public interface PtMenuMapper {
 	PtMenu selectByPrimaryKey(String id);
 	
 	List<PtMenu> selectByPid(String pid);
+
+	int updateByPrimaryKeySelective(PtMenu ptMenu);
+
+	int deleteByPrimaryKey(String ids);
 }

@@ -1,8 +1,8 @@
 	$(function(){
-		//文档对象加载完毕之后，找到id=menuOperator的标签，然后在它上面创建树
-		$("#menuOperator").tree({
+		//文档对象加载完毕之后，找到id=menuTree的标签，然后在它上面创建树
+		$("#menuTree").tree({
 			//树节点内容远程调用地址
-			url : '/menu/tree',
+			url : '/menu/menuTree',
 			animate: true,
 			//提交方式为get
 			method : "GET",
@@ -15,13 +15,13 @@
 					
 				if($(this).tree('getParent',node.target)!=null && $(this).tree('getChildren',node.target).length>0){
 				
-					//让id=menuOperatorMenu的标签显示对应的EasyUI菜单界面,固定当前弹出的菜单坐标
-		            $('#menuOperatorMenu').menu('show',{
+					//让id=menuTreeToParent的标签显示对应的EasyUI菜单界面,固定当前弹出的菜单坐标
+		            $('#menuTreeToParent').menu('show',{
 		                left: e.pageX,
 		                top: e.pageY
 		            });
 				}else{
-					$('#menuOperatorMenu2').menu('show',{
+					$('#menuTreeToChild').menu('show',{
 		                left: e.pageX,
 		                top: e.pageY
 		            });
@@ -34,7 +34,7 @@
 		        	var nodeTextLength = (node.text).length;
 		        	if(nodeTextLength<2 || nodeTextLength>10){
 		        		$.messager.alert('提示','操作失败!名称长度必须在2-10之间!');
-		        		$('#menuOperator').tree('reload');
+		        		$('#menuTree').tree('reload');
 		        		return ;
 		        	}
 		        	//如果说当前节点的id=0，执行如下代码
@@ -42,9 +42,9 @@
 		        		// 新增节点
 		        		$.ajax({
 			        		type: "POST",
-			        		url: "/operator/add",
+			        		url: "/menu/add",
 			        		//传到后台的参数，父节点：可以修改父节点状态，如是否是叶子节点,父节点还要为当前新增的节点填充父id
-			        		data: {menuids:node.parentId,names:node.text},
+			        		data: {pids:node.parentId,menuname:node.text},
 			        		success: function(msg){
 					     	//刷新_tree(当前节点)节点
 					     	alert(msg);
@@ -57,19 +57,19 @@
 						},
 						error: function(){
 			        			$.messager.alert('提示','新增失败!');
-			        			$('#menuOperator').tree('reload');
+			        			$('#menuTree').tree('reload');
 						}
 					});
 		        	}else{
 		        		//如果node.id != 0则执行如下更新代码
 		        		$.ajax({
 		        			type: "POST",
-		        			url: "/operator/update",
+		        			url: "/menu/update",
 		        			//这儿只更新自己数据，不需要更新父类信息
-		        			data: {ids:node.id,names:node.text},
+		        			data: {ids:node.id,menuname:node.text},
 		        			error: function(){
 		        				  $.messager.alert('提示','重命名失败!');
-		        				  $('#menuOperator').tree('reload');
+		        				  $('#menuTree').tree('reload');
 		        			}
 		        		});
 		        	}
@@ -78,9 +78,9 @@
 	});
 
 	//菜单点击事件，item是当前点击的菜单对象
-	function menuHandler(item){
+	function buttonHandler(item){
 		//获得树节点对象
-		var tree = $("#menuOperator");
+		var tree = $("#menuTree");
 		//获取树节点被选中的对象
 		var node = tree.tree("getSelected");
 		//当前点击的获取菜单的name属性，如果属性值=add，则执行如下代码
@@ -108,7 +108,7 @@
 				if(r){
 					$.ajax({
 	     			   type: "POST",
-	     			   url: "/operator/delete",
+	     			   url: "/menu/delete",
 	     			   //向后台传输的数据，
 	     			   data : {ids:node.id},
 	     			   success: function(msg){

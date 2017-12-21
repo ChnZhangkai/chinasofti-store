@@ -489,8 +489,8 @@
 		a.`END_TIME`,a.`POSITION_ID`,a.`DESCS`,a.`IS_OUTURL`
 		FROM advertise_contents a,advertise_position b
 		WHERE a.`POSITION_ID` = b.`IDS` AND STATES = "1" AND 
-		<![CDATA[ STR_TO_DATE(a.`BEGIN_TIME`, '%Y-%m-%d %h:%i:%s')< NOW()
-		 AND  STR_TO_DATE(a.`END_TIME`, '%Y-%m-%d %h:%i:%s')> NOW() ]]> 
+		<![CDATA[ STR_TO_DATE(a.`BEGIN_TIME`, '%Y-%m-%d %H:%i:%s')< NOW()
+		 AND  STR_TO_DATE(a.`END_TIME`, '%Y-%m-%d %H:%i:%s')> NOW() ]]> 
 		 AND POSITION_ID = #{positionId,jdbcType=VARCHAR}
 	</select>
 	<select id="selectSingleAdvertise" resultMap="BaseResultMap"

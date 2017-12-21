@@ -3,7 +3,6 @@ package com.chinasofti.app.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -34,7 +33,7 @@ import io.swagger.annotations.ApiOperation;
  *
  */
 @RestController
-@RequestMapping("/shoppingCart")
+@RequestMapping("shoppingCart")
 @Api(value = "ShoppingCartController", description = "购物车-API")
 public class ShoppingCartController {
 	private static final Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
@@ -43,18 +42,14 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private GoodsInfoFeignClient goodsInfoFeignClient;
-	
-	
 	/**
 	 * 删除购物车商品
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="del/goods", method = RequestMethod.POST)
-	//@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
-	public ResponseInfo deletePyShoppingCartById(@RequestBody List<PyShoppingCart> goodsList,
-			HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
+	@RequestMapping(value="deleteShoppingGoods",method=RequestMethod.POST)
+	@ApiOperation(value="删除购物车商品", notes="报文示例：[{\"id\":\"1001\"},{\"id\":\"1002\"}]")
+	public ResponseInfo deleteShoppingGoods(@RequestBody List<PyShoppingCart> goodsList) {
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goodsList);
 		ResponseInfo responseInfo = new ResponseInfo();
 		for (PyShoppingCart goods : goodsList) {
@@ -65,20 +60,17 @@ public class ShoppingCartController {
 				return responseInfo;
 			}
 		}	
-		responseInfo = shoppingCartFeignClient.deletePyShoppingCartById(goodsList);
+		responseInfo = shoppingCartFeignClient.deleteShoppingGoods(goodsList);
 		return responseInfo;
 	}
-	
 	/**
 	 * 加入购物车
 	 * @param PyShoppingCart
 	 * @return
 	 */
-	@RequestMapping(value="add/goods", method = RequestMethod.POST)
-	//@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"}")
-	public ResponseInfo savePyShoppingCart(@RequestBody PyShoppingCart goodsInfo,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST");
+	@RequestMapping(value="addShoppingCartGoods", method = RequestMethod.POST)
+	@ApiOperation(value="添加购物车商品", notes="报文示例：{\"goodsId\":\"1001\",\"userId\":\"chin\",\"goodsNum\":\"1\"}")
+	public ResponseInfo addShoppingCartGoods(@RequestBody PyShoppingCart goodsInfo) {
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goodsInfo);
 		// 参数校验
 		 ResponseInfo responseInfo = RequestParamService.packageWithAddShoppingCartParam(goodsInfo);
@@ -92,21 +84,18 @@ public class ShoppingCartController {
 			return responseInfo;
 		}
 		logger.info("商品校验结果《《《《《《《《《》》》》》》》》》》" + responseInfo.getRetMsg());
-		responseInfo = shoppingCartFeignClient.savePyShoppingCart(goodsInfo);
+		responseInfo = shoppingCartFeignClient.addShoppingCartGoods(goodsInfo);
 
 		return responseInfo;
 	}
-	
 	/**
 	 * 更新购物车
 	 * @param t
 	 * @return
 	 */
-	@RequestMapping(value="/mod/goods", method = RequestMethod.POST)
-	//@ApiOperation(value="修改购物车商品数量", notes="报文示例：{\"goodsList\":{\"goodsList\":[{\"ids\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"},{\"ids\":\"1\",\"goodsId\":\"1002\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}]}")
-	public ResponseInfo updatePyShoppingCart(@RequestBody PyShoppingCart goodsInfo,HttpServletResponse response) {
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST");
+	@RequestMapping(value="updateShoppingCartGoods", method = RequestMethod.POST)
+	@ApiOperation(value="修改购物车商品数量", notes="报文示例：{\"id\":\"1\",\"goodsId\":\"1001\",\"userId\":\"chinasofti\",\"goodsNum\":\"3\"}")
+	public ResponseInfo updateShoppingCartGoods(@RequestBody PyShoppingCart goodsInfo) {
 		//参数校验
 		logger.info("updatePyShopping+++++++++++===========" + goodsInfo.getId());
 		ResponseInfo responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
@@ -114,7 +103,7 @@ public class ShoppingCartController {
 			return responseInfo;
 		}
 		logger.info("空参校验结果+++++++++++===========" + responseInfo.getRetMsg());
-		int re = shoppingCartFeignClient.updatePyShoppingCart(goodsInfo);
+		int re = shoppingCartFeignClient.updateShoppingCartGoods(goodsInfo);
 		responseInfo = DealParamFunctions.dealResponseData(re);
 		return responseInfo;
 	}

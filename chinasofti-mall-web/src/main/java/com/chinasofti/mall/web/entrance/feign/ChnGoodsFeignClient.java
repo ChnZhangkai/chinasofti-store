@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
+import com.chinasofti.mall.common.entity.goods.SpEvaluate;
 import com.chinasofti.mall.web.entrance.hystrix.SpGoodsClassFeignClientHystrix;
 
 import net.sf.json.JSONObject;
@@ -157,6 +158,34 @@ public interface ChnGoodsFeignClient {
 	 */
 	@RequestMapping(value = "/goodsOnline/updateGoodsOnlineReviewStatusAndStatus" ,method = RequestMethod.POST)
 	public int updateGoodsOnlineReviewStatusAndStatus(@RequestBody(required = false) ChnGoodsOnline chnGoodsOnline);
+
+	/**
+	* @Title: findByPage
+	* @Description: 商品评论分页查询
+	* @param map
+	* @return: String
+	* @throws:
+	 */
+	@RequestMapping(value = "/comments/findByPage")
+	public String findByCommentPage(@RequestParam Map<String, Object> map);
+
+	/**
+	 * @Title: deleteById
+	 *  @Description: 通过主键删除商品评论
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/comments/delete/{ids}" , method =RequestMethod.POST)
+	public int deleteById(@PathVariable("ids") String ids);
+
+	/**
+	 * @Title: selectByCommentsIds
+	 * @Description: 通过主键查询商品评论
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/comments/reqCommentsImgPath/{ids}" , method = RequestMethod.POST)
+	public SpEvaluate selectByCommentsIds(@PathVariable("ids") String ids);
 
 	
 }

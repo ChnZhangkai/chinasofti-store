@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsClass;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsinfoCheck;
+import com.chinasofti.mall.common.entity.goods.SpEvaluate;
 import com.chinasofti.mall.web.entrance.feign.ChnGoodsFeignClient;
 
 import net.sf.json.JSONObject;
@@ -117,6 +118,23 @@ public class SpGoodsClassFeignClientHystrix implements ChnGoodsFeignClient{
 	public int updateGoodsOnlineReviewStatusAndStatus(ChnGoodsOnline chnGoodsOnline) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String findByCommentPage(Map<String, Object> map) {
+		return "服务已断开";
+	}
+
+
+	@Override
+	public int deleteById(String ids) {
+		return 0;
+	}
+
+
+	@Override
+	public SpEvaluate selectByCommentsIds(String ids) {
+		return null;
 	}
 
 
