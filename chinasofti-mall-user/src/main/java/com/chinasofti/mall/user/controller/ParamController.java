@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class ParamController {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/list")
-	public JSONObject findAll(Param param){
+	public JSONObject findAll(@RequestBody(required = false)Param param){
 		JSONObject js = new JSONObject();
 		ParentParam pp = new ParentParam();
 		List list = paramServiceImpl.findAll(param);

@@ -88,6 +88,14 @@
     select
     <include refid="Base_Column_List" />
     from param
+    <where>
+    	<if test="id != null">
+    		id = #{id,jdbcType=INTEGER}
+    	</if>
+    	<if test="_parentId != null">
+    		_parentId = #{_parentId,jdbcType=INTEGER}
+    	</if>
+    </where>
   </select>
   <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.param.ParamExample" >
     delete from param
