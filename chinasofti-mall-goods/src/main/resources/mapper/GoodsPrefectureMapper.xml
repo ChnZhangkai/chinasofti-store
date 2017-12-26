@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chinasofti.mall.goods.mapper.GoodsPrefectureMapper" >
+  <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.GoodsPrefecture" >
+    <id column="IDS" property="ids" jdbcType="VARCHAR" />
+    <result column="GOODSIDS" property="goodsids" jdbcType="VARCHAR" />
+    <result column="STATES" property="states" jdbcType="CHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="COMMONS" property="commons" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="CHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="CHAR" />
+    <result column="IMG" property="img" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap1" type="com.chinasofti.mall.common.entity.goods.ChnGoodsOnline">
+    <id column="IDS" jdbcType="VARCHAR" property="ids" />
+    <result column="VENDORIDS" jdbcType="VARCHAR" property="vendorids" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="MOUTH_TRADE" jdbcType="DECIMAL" property="mouthTrade" />
+    <result column="SUBTITLE" jdbcType="VARCHAR" property="subtitle" />
+    <result column="COMMON" jdbcType="VARCHAR" property="common" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="DIS_PRICE" jdbcType="DECIMAL" property="disPrice" />
+    <result column="STANDARD" jdbcType="VARCHAR" property="standard" />
+    <result column="GOODS_CLASS_IDS" jdbcType="VARCHAR" property="goodsClassIds" />
+    <result column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="STORE_NUM" jdbcType="DECIMAL" property="storeNum" />
+    <result column="REVIEW_DESC" jdbcType="VARCHAR" property="reviewDesc" />
+    <result column="REVIEW_STATUES" jdbcType="CHAR" property="reviewStatues" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="COLL_NUM" jdbcType="DECIMAL" property="collNum" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="START_TIME" jdbcType="VARCHAR" property="startTime" />
+    <result column="END_TIME" jdbcType="VARCHAR" property="endTime" />
+    <result column="ONLINE_TIME" jdbcType="VARCHAR" property="onlineTime" />
+    <result column="LEAVE_TIME" jdbcType="VARCHAR" property="leaveTime" />
+    <result column="BRAND_IDS" jdbcType="VARCHAR" property="brandIds" />
+    <result column="WEIGHT" jdbcType="DECIMAL" property="weight" />
+    <result column="DELIVE_WAY" jdbcType="VARCHAR" property="deliveWay" />
+    <result column="IS_DIS_VERDORNAME" jdbcType="VARCHAR" property="isDisVerdorname" />
+    <result column="IS_DIS_STANDARD" jdbcType="VARCHAR" property="isDisStandard" />
+    <result column="IS_DIS_STORE" jdbcType="VARCHAR" property="isDisStore" />
+    <result column="LIMIT_ORDER_NUM" jdbcType="DECIMAL" property="limitOrderNum" />
+    <result column="REVIEW_BY" jdbcType="VARCHAR" property="reviewBy" />
+    <result column="REVIEW_TIME" jdbcType="VARCHAR" property="reviewTime" />
+    <result column="LIMIT_USER_NUM" jdbcType="DECIMAL" property="limitUserNum" />
+    <result column="ORG_PRICE" jdbcType="DECIMAL" property="orgPrice" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="NAME" jdbcType="VARCHAR" property="name"/>
+    <result column="FILEPATH" jdbcType="VARCHAR" property="img"/>
+    <result column="VENDOR_FNM" property="vendorFnm" jdbcType="VARCHAR" />
+    <result column="VENDOR_SNM" property="vendorSnm" jdbcType="VARCHAR" />
+    <result column="CHARGEMAN" property="chargeman" jdbcType="VARCHAR" />  
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />  
+    <result column="BELONG_SITE_NAME" property="belongSiteName" jdbcType="VARCHAR" />
+    <result column="SERVICE_PHONE" property="servicePhone" jdbcType="VARCHAR" />
+    <result column="VENDER_INTRO" property="venderIntro" jdbcType="LONGVARCHAR" />
+    <result column="VENDER_EXPLAIN" property="venderExplain" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IDS, GOODSIDS, STATES, NAME, COMMONS, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+    IMG
+  </sql>
+   <sql id="Base_Column_List1">
+	cg.IDS, cg.VENDORIDS, cg.TITLE,cg.MOUTH_TRADE, cg.SUBTITLE,cg.COMMON, cg.PRICE, cg.DIS_PRICE, 
+    cg.STANDARD, cg.GOODS_CLASS_IDS, cg.CODE, cg.CONTENT, cg.STORE_NUM, cg.REVIEW_DESC, cg.REVIEW_STATUES, 
+    cg.UPDATE_BY, cg.UPDATE_TIME, cg.CREATE_BY, cg.CREATE_TIME, cg.COLL_NUM, cg.STATUS, cg.START_TIME, cg.END_TIME, 
+    cg.ONLINE_TIME, cg.LEAVE_TIME, cg.BRAND_IDS, cg.WEIGHT, cg.DELIVE_WAY, cg.IS_DIS_VERDORNAME, cg.IS_DIS_STANDARD, 
+    cg.IS_DIS_STORE, cg.LIMIT_ORDER_NUM, cg.REVIEW_BY, cg.REVIEW_TIME, cg.LIMIT_USER_NUM, cg.ORG_PRICE, 
+    cg.TYPE,cgs.NAME,smu.VENDOR_FNM,
+    smu.VENDOR_SNM,smu.CHARGEMAN,smu.MOBILE,smu.ADDRESS,smu.BELONG_SITE_NAME,smu.SERVICE_PHONE,
+    smu.VENDER_INTRO,smu.VENDER_EXPLAIN
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.GoodsPrefectureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods_prefecture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from goods_prefecture group by IDS
+  </select>
+  <select id="findGoodsById" resultMap="BaseResultMap1" parameterType="java.lang.String">
+  	select 
+	<include refid="Base_Column_List1" />
+  	from chn_goodsinfo cg,chn_goods_class cgs,sp_merchant_user smu,goods_prefecture gp 
+  	<where>  
+		cg.VENDORIDS=smu.VENDOR_ID AND cg.GOODS_CLASS_IDS=cgs.ids AND cg.IDS = gp.GOODSIDS AND gp.ids = #{ids}
+	</where>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_prefecture
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteGoods" parameterType="java.lang.String" >
+    delete from goods_prefecture
+    where GOODSIDS = #{goodsids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goods_prefecture
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.GoodsPrefectureExample" >
+    delete from goods_prefecture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinasofti.mall.common.entity.GoodsPrefecture" >
+    insert into goods_prefecture (IDS, GOODSIDS, STATES, 
+      NAME, COMMONS, CREATE_BY, 
+      CREATE_TIME, UPDATE_BY, UPDATE_TIME, 
+      IMG)
+    values (#{ids,jdbcType=VARCHAR}, #{goodsids,jdbcType=VARCHAR}, #{states,jdbcType=CHAR}, 
+      #{name,jdbcType=VARCHAR}, #{commons,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{updateBy,jdbcType=CHAR}, #{updateTime,jdbcType=CHAR}, 
+      #{img,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.GoodsPrefecture" >
+    insert into goods_prefecture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        IDS,
+      </if>
+      <if test="goodsids != null" >
+        GOODSIDS,
+      </if>
+      <if test="states != null" >
+        STATES,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="commons != null" >
+        COMMONS,
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="img != null" >
+        IMG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ids != null" >
+        #{ids,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsids != null" >
+        #{goodsids,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null" >
+        #{states,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="commons != null" >
+        #{commons,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinasofti.mall.common.entity.GoodsPrefectureExample" resultType="java.lang.Integer" >
+    select count(*) from goods_prefecture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goods_prefecture
+    <set >
+      <if test="record.ids != null" >
+        IDS = #{record.ids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsids != null" >
+        GOODSIDS = #{record.goodsids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.states != null" >
+        STATES = #{record.states,jdbcType=CHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commons != null" >
+        COMMONS = #{record.commons,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null" >
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateBy != null" >
+        UPDATE_BY = #{record.updateBy,jdbcType=CHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=CHAR},
+      </if>
+      <if test="record.img != null" >
+        IMG = #{record.img,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goods_prefecture
+    set IDS = #{record.ids,jdbcType=VARCHAR},
+      GOODSIDS = #{record.goodsids,jdbcType=VARCHAR},
+      STATES = #{record.states,jdbcType=CHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      COMMONS = #{record.commons,jdbcType=VARCHAR},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      UPDATE_BY = #{record.updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=CHAR},
+      IMG = #{record.img,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasofti.mall.common.entity.GoodsPrefecture" >
+    update goods_prefecture
+    <set >
+      <if test="goodsids != null" >
+        GOODSIDS = #{goodsids,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null" >
+        STATES = #{states,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="commons != null" >
+        COMMONS = #{commons,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=CHAR},
+      </if>
+      <if test="img != null" >
+        IMG = #{img,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasofti.mall.common.entity.GoodsPrefecture" >
+    update goods_prefecture
+    set GOODSIDS = #{goodsids,jdbcType=VARCHAR},
+      STATES = #{states,jdbcType=CHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      COMMONS = #{commons,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy,jdbcType=CHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=CHAR},
+      IMG = #{img,jdbcType=VARCHAR}
+    where IDS = #{ids,jdbcType=VARCHAR}
+  </update>
+</mapper>
