@@ -16,6 +16,8 @@ public class ParentParam extends PageBean{
     private String state;
     
     private Integer _parentId;
+    
+    private String val;
 
     public Integer getId() {
 		return id;
@@ -72,5 +74,13 @@ public class ParentParam extends PageBean{
 	public void set_parentId(Integer _parentId) {
 		this._parentId = _parentId;
 	}
-    
+
+	public String getVal() {
+		return val;
+	}
+
+	public void setVal(String val) {
+		this.val = val;
+	}
+	
 }

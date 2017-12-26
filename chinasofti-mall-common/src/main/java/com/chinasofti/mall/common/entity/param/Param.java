@@ -17,6 +17,8 @@ public class Param extends PageBean{
     
     private String state;
     
+    private String val;
+    
 	public Integer getId() {
 		return id;
 	}
@@ -71,6 +73,14 @@ public class Param extends PageBean{
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getVal() {
+		return val;
+	}
+
+	public void setVal(String val) {
+		this.val = val;
 	}
 
 }
