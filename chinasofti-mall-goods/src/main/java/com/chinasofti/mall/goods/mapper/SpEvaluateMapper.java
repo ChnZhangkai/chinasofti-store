@@ -33,4 +33,6 @@ public interface SpEvaluateMapper {
 
 	List<SpEvaluate> findByPage(Map<String, Object> map);
 
+	int batchDeletes(List<String> delList);
+
 }

@@ -1,4 +1,9 @@
 
+	$(function() {
+		var nodes = $('#spEvaluateinfo').tree('getChecked');
+		console.info(nodes);
+	});
+
 /*
 	 * 读取路径显示图片
 	 */
@@ -14,7 +19,7 @@
 	/*
 	 * 删除
 	 */
-	function removeComment(){
+	/*function removeComment(){
 		
 		var items = $('#spEvaluateinfo').datagrid('getSelections');
 		var ids = [];
@@ -45,8 +50,57 @@
 				});
 			}	
 		});
-	}
+	}*/
 	
+
+	/*
+	 * 批量删除
+	 */
+	function removeComment(){
+		//返回选中多行  
+        var selRow = $('#spEvaluateinfo').datagrid('getSelections');
+        //判断是否选中行  
+        if (selRow.length==0) {  
+            $.messager.alert("提示", "请选择要删除的行！", "info");  
+            return;  
+        }else{      
+            var temID="";  
+            //批量获取选中行的评估模板ID  
+            for (i = 0; i < selRow.length;i++) {  
+                if (temID =="") {  
+                    temID = selRow[i].ids;  
+                  console.info("true"+temID);
+                } else {  
+                    temID = selRow[i].ids + "," + temID; 
+                    console.info("false"+temID);
+                }                 
+            }  
+                        
+            $.messager.confirm('提示', '是否删除选中数据?', function (r) {  
+  
+                if (!r) {  
+                    return;  
+                }   //提交  
+                $.ajax({  
+                    type: "POST",  
+                    async: false,  
+                    url:'/comments/batchDeletes/' + temID,
+                    success: function (result) {  
+                        if (result) {  
+                            $('#spEvaluateinfo').datagrid('clearSelections');  
+                            $.messager.alert("提示", "恭喜您，信息删除成功！", "info");  
+                            $('#spEvaluateinfo').datagrid('reload');  
+                        } else {  
+                            $.messager.alert("提示", "删除失败，请重新操作！", "info");  
+                            return;  
+                        }  
+                    }  
+                });  
+            });  
+  
+        }  
+	}
+		
 
 	//条件查询
 	function spEvaluateDoSearch(){

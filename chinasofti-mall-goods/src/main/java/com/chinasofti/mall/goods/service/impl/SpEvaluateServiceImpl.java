@@ -52,4 +52,9 @@ public class SpEvaluateServiceImpl implements SpEvaluateService{
 		return spEvaluateMapper.selectByPrimaryKey(ids);
 	}
 
+	@Override
+	public int batchDeletes(List<String> delList) {
+		return  spEvaluateMapper.batchDeletes(delList);
+	}
+
 }

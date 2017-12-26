@@ -187,5 +187,14 @@ public interface ChnGoodsFeignClient {
 	@RequestMapping(value = "/comments/reqCommentsImgPath/{ids}" , method = RequestMethod.POST)
 	public SpEvaluate selectByCommentsIds(@PathVariable("ids") String ids);
 
+	/**
+	 * @Title: batchDeletes
+	 * @Description: 批量删除商品评论
+	 * @param delList
+	 * @return
+	 */
+	@RequestMapping(value = "/comments/batchDeletes")
+	public int batchDeletes(@RequestBody(required = false) List<String> delList);
+
 	
 }

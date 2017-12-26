@@ -3,6 +3,7 @@
  */
 package com.chinasofti.mall.goods.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.chinasofti.mall.common.entity.goods.SpEvaluate;
@@ -21,5 +22,7 @@ public interface SpEvaluateService {
 	int deleteById(String id);
 
 	SpEvaluate selectByCommentsIds(String ids);
+
+	int batchDeletes(List<String> delList);
 
 }
