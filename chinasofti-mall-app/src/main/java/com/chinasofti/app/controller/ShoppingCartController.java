@@ -42,6 +42,8 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private GoodsInfoFeignClient goodsInfoFeignClient;
+	@Autowired
+	private RequestParamService requestParamService;
 	/**
 	 * 删除购物车商品
 	 * @param id
@@ -55,7 +57,7 @@ public class ShoppingCartController {
 		for (PyShoppingCart goods : goodsList) {
 			// 空参校验
 			logger.info("deletePyShoppingCart《《《《《《《《《》》》》》》》》》》" + goods.getId());
-			responseInfo = RequestParamService.packageWithDelShoppingCartRequestParam(goods);
+			responseInfo = requestParamService.packageWithDelShoppingCartRequestParam(goods);
 			if (responseInfo.getRetCode() != null) {
 				return responseInfo;
 			}
@@ -73,7 +75,7 @@ public class ShoppingCartController {
 	public ResponseInfo addShoppingCartGoods(@RequestBody PyShoppingCart goodsInfo) {
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goodsInfo);
 		// 参数校验
-		 ResponseInfo responseInfo = RequestParamService.packageWithAddShoppingCartParam(goodsInfo);
+		 ResponseInfo responseInfo = requestParamService.packageWithAddShoppingCartParam(goodsInfo);
 		if (responseInfo.getRetCode() != null) {
 			return responseInfo;
 		}
@@ -98,7 +100,7 @@ public class ShoppingCartController {
 	public ResponseInfo updateShoppingCartGoods(@RequestBody PyShoppingCart goodsInfo) {
 		//参数校验
 		logger.info("updatePyShopping+++++++++++===========" + goodsInfo.getId());
-		ResponseInfo responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
+		ResponseInfo responseInfo = requestParamService.packageWithShoppingCartRequestParam(goodsInfo);
 		if(responseInfo.getRetCode() !=null){
 			return responseInfo;
 		}
@@ -140,7 +142,7 @@ public class ShoppingCartController {
 		String id = shoppingCart.getGoodsId();
 		ChnGoodsinfo storegoodsInfo = goodsInfoFeignClient.checkGoodsInfoById(id);
 		// 商品信息校验
-		response = RequestParamService.packageWithGoodsInfoRequest(shoppingCart, storegoodsInfo);
+		response = requestParamService.packageWithGoodsInfoRequest(shoppingCart, storegoodsInfo);
 		return response;
 
 	}
