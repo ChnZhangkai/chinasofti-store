@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.chinasofti.app.hystrix.GoodsFeignClientHystrix;
+import com.chinasofti.app.hystrix.PrefectureFeignClientHystrix;
 import com.chinasofti.mall.common.entity.GoodsPrefecture;
 import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
 
@@ -15,7 +16,7 @@ import com.chinasofti.mall.common.entity.goods.ChnGoodsOnline;
  * @author chen
  *
  */
-@FeignClient(name="Goods-Service",fallback = GoodsFeignClientHystrix.class)
+@FeignClient(name="Goods-Service",fallback = PrefectureFeignClientHystrix.class)
 public interface PrefectureFeignClient {
 
 	/**
