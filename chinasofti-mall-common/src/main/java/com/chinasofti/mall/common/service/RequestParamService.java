@@ -20,11 +20,13 @@ public class RequestParamService {
 
 	public  ResponseInfo packageWithDelShoppingCartRequestParam(PyShoppingCart goodsInfo){
 		ResponseInfo response = new ResponseInfo();
+		logger.info("验证参数1====="+goodsInfo.getUserId());
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("userId不能为空！");
 			return response;
 		}
+		logger.info("验证参数2====="+goodsInfo.getId());
 		if (StringUtils.isEmpty(goodsInfo.getId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("Id不能为空！");
@@ -36,21 +38,25 @@ public class RequestParamService {
 	
 	public  ResponseInfo packageWithShoppingCartRequestParam(PyShoppingCart goodsInfo){
 		ResponseInfo response = new ResponseInfo();
+		logger.info("验证参数1====="+goodsInfo.getUserId());
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("userId不能为空！");
 			return response;
 		}
+		logger.info("验证参数2====="+goodsInfo.getId());
 		if (StringUtils.isEmpty(goodsInfo.getId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("Id不能为空！");
 			return response;
 		}
-		if (StringUtils.isEmpty(goodsInfo.getGoodsNum().toString())) {
+		logger.info("验证参数3====="+goodsInfo.getGoodsNum());
+		if (StringUtils.isEmpty(String.valueOf(goodsInfo.getGoodsNum()))) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsNum不能为空！");
 			return response;
 		}
+		logger.info("验证参数4====="+goodsInfo.getGoodsId());
 		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsId不能为空！");
@@ -61,22 +67,26 @@ public class RequestParamService {
 	
 	public  ResponseInfo packageWithAddShoppingCartParam(PyShoppingCart goodsInfo){
 		ResponseInfo response = new ResponseInfo();
+		logger.info("验证参数1====="+goodsInfo.getUserId());
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("userId不能为空！");
 			logger.info("用户Id为空，请登录后再添加！userId:"+goodsInfo.getUserId());
 			return response;
 		}
+		logger.info("验证参数2====="+goodsInfo.getVendorId());
 		if (StringUtils.isEmpty(goodsInfo.getVendorId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("vendorId不能为空！");
 			return response;
 		}
-		if (StringUtils.isEmpty(goodsInfo.getGoodsNum().toString())) {
+		logger.info("验证参数3====="+goodsInfo.getGoodsNum());
+		if (StringUtils.isEmpty(String.valueOf(goodsInfo.getGoodsNum()))) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsNum不能为空！");
 			return response;
 		}
+		logger.info("验证参数4====="+goodsInfo.getGoodsId());
 		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("goodsId不能为空！");
