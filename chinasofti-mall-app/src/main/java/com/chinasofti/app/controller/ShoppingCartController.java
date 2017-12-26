@@ -55,7 +55,7 @@ public class ShoppingCartController {
 		for (PyShoppingCart goods : goodsList) {
 			// 空参校验
 			logger.info("deletePyShoppingCart《《《《《《《《《》》》》》》》》》》" + goods.getId());
-			responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goods);
+			responseInfo = RequestParamService.packageWithDelShoppingCartRequestParam(goods);
 			if (responseInfo.getRetCode() != null) {
 				return responseInfo;
 			}
