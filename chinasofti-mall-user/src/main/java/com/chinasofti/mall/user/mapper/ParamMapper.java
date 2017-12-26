@@ -15,6 +15,8 @@ public interface ParamMapper {
 
     List<Param> selectByExample(ParamExample example);
     
+    List<Param> selectByPid(Integer pid);
+    
     List<Param> findAll(Param param);
 
     int updateByExampleSelective(Param record);

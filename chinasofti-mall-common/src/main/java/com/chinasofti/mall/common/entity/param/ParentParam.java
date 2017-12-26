@@ -12,6 +12,10 @@ public class ParentParam extends PageBean{
     private String cearttime;
 
     private String status;
+    
+    private String state;
+    
+    private Integer _parentId;
 
     public Integer getId() {
 		return id;
@@ -52,4 +56,21 @@ public class ParentParam extends PageBean{
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public Integer get_parentId() {
+		return _parentId;
+	}
+
+	public void set_parentId(Integer _parentId) {
+		this._parentId = _parentId;
+	}
+    
 }

@@ -7,13 +7,15 @@ public class Param extends PageBean{
 
     private String text;
 
-    private Integer _parentId;
+    private Integer pid;
 
     private String description;
 
     private String cearttime;
 
     private String status;
+    
+    private String state;
     
 	public Integer getId() {
 		return id;
@@ -22,13 +24,13 @@ public class Param extends PageBean{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public Integer get_parentId() {
-		return _parentId;
+	
+	public Integer getPid() {
+		return pid;
 	}
 
-	public void set_parentId(Integer _parentId) {
-		this._parentId = _parentId;
+	public void setPid(Integer pid) {
+		this.pid = pid;
 	}
 
 	public String getText() {
@@ -62,4 +64,13 @@ public class Param extends PageBean{
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 }

@@ -41,7 +41,7 @@ public interface ChnGoodsOnlineMapper {
 	 * @param paramMap
 	 * @return
 	 */
-	List<AdvertiseContents> findByPage(Map<String, Object> paramMap);
+	List<ChnGoodsOnline> findByPage(Map<String, Object> paramMap);
 	
 	/**
 	 * 修改,过滤空字段

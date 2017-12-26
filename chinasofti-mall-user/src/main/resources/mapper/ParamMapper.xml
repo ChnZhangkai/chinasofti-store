@@ -4,10 +4,11 @@
   <resultMap id="BaseResultMap" type="com.chinasofti.mall.common.entity.param.Param" >
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="text" property="text" jdbcType="VARCHAR" />
-    <result column="_parentId" property="_parentId" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="cearttime" property="cearttime" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, text, _parentId, description, cearttime, status
+    id, text, pid, description, cearttime, status, state
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chinasofti.mall.common.entity.param.ParamExample" >
     select
@@ -92,8 +93,8 @@
     	<if test="id != null">
     		id = #{id,jdbcType=INTEGER}
     	</if>
-    	<if test="_parentId != null">
-    		_parentId = #{_parentId,jdbcType=INTEGER}
+    	<if test="pid != null">
+    		pid = #{pid,jdbcType=INTEGER}
     	</if>
     </where>
   </select>
@@ -104,11 +105,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.chinasofti.mall.common.entity.param.Param" >
-    insert into param (id, text, _parentId, 
-      description, cearttime, status
+    insert into param (id, text, pid, 
+      description, cearttime, status, state
       )
-    values (#{id,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{_parentId,jdbcType=INTEGER}, 
-      #{description,jdbcType=VARCHAR}, #{cearttime,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{cearttime,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.chinasofti.mall.common.entity.param.Param" >
@@ -120,8 +121,8 @@
       <if test="text != null" >
         text,
       </if>
-      <if test="_parentid != null" >
-        _parentId,
+      <if test="pid != null" >
+        pid,
       </if>
       <if test="description != null" >
         description,
@@ -132,6 +133,9 @@
       <if test="status != null" >
         status,
       </if>
+      <if test="state != null" >
+        state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -140,8 +144,8 @@
       <if test="text != null" >
         #{text,jdbcType=VARCHAR},
       </if>
-      <if test="_parentid != null" >
-        #{_parentId,jdbcType=INTEGER},
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
@@ -151,6 +155,9 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,8 +173,8 @@
       <if test="text != null" >
         text = #{text,jdbcType=VARCHAR},
       </if>
-      <if test="_parentid != null" >
-        _parentId = #{_parentId,jdbcType=INTEGER},
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
@@ -178,6 +185,9 @@
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR}
+      </if>
     </set>
     <where>
     	id = #{id,jdbcType=INTEGER}
@@ -187,9 +197,17 @@
     update param
     set id = #{id,jdbcType=INTEGER},
       text = #{text,jdbcType=VARCHAR},
-      _parentId = #{_parentId,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
       cearttime = #{cearttime,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR}
+      status = #{status,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR}
   </update>
+    <select id="selectByPid" resultMap="BaseResultMap" parameterType="Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from param
+	where
+	pid = #{pid,jdbcType=INTEGER}
+  </select>
 </mapper>

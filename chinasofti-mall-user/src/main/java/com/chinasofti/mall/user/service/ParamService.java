@@ -8,4 +8,6 @@ public interface ParamService {
 	
 	List<Param> findAll(Param param);
 	
+	List<Param> selectByPid(Integer pid);
+	
 }

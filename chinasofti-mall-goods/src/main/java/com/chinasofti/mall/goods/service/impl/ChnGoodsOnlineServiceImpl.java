@@ -73,10 +73,10 @@ public class ChnGoodsOnlineServiceImpl implements ChnGoodsOnlineService{
 	// 执行分页查询
 		PageHelper.startPage(Integer.parseInt(paramMap.get("page").toString()),
 				Integer.parseInt(paramMap.get("rows").toString()));
-		List<AdvertiseContents> list = chnGoodsOnlineMapper.findByPage(paramMap);
+		List<ChnGoodsOnline> list = chnGoodsOnlineMapper.findByPage(paramMap);
 		Map<String,Object> map = new HashMap<>();
 		map.put("rows", list);
-		map.put("total", ((Page<AdvertiseContents>) list).getTotal());
+		map.put("total", ((Page<ChnGoodsOnline>) list).getTotal());
 		return map;
 	}
 

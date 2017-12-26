@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.chinasofti.mall.common.entity.param.Param;
 import com.chinasofti.mall.user.mapper.ParamMapper;
 import com.chinasofti.mall.user.service.ParamService;
-import com.github.pagehelper.PageHelper;
 
 @Service
 public class ParamServiceImpl implements ParamService{
@@ -19,10 +18,14 @@ public class ParamServiceImpl implements ParamService{
 	@Override
 	public List<Param> findAll(Param param) {
 		
-		PageHelper.startPage(param.getPage(), param.getRows());
 		List<Param> list = paramMapper.findAll(param);
 		
 		return list;
+	}
+
+	@Override
+	public List<Param> selectByPid(Integer pid) {
+		return paramMapper.selectByPid(pid);
 	}
 
 }
