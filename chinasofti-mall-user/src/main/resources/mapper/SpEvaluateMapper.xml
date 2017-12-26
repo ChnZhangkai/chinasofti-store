@@ -24,10 +24,12 @@
     order by a.ORDER_DATE ${order} 
   </select>
   <select id="selectEvaluateList" resultMap="BaseEvaResultMap" parameterType="com.chinasofti.mall.common.entity.spuser.SpGoodsEvaluate" >
-    select a.GOODSIDS,a.GOODS_TITLE,a.IMAGEPATH,a.COUNT,a.CONTENT,a.CREATE_TIME,b.FILEPATH
-      from sp_evaluate a
+    select a.GOODSIDS,C.TITLE AS GOODS_TITLE,a.IMAGEPATH,a.COUNT,a.CONTENT,a.CREATE_TIME,b.FILEPATH
+      from sp_evaluate a 
       left join goods_file b
         on a.GOODSIDS=b.GOODSIDS
+      left join chn_goodsinfo c
+      	on  a.GOODSIDS=c.IDS
      where a.USERID = #{userid,jdbcType=VARCHAR}  
      order by a.CREATE_TIME ${order} 
   </select>

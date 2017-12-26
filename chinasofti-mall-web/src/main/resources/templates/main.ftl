@@ -7,6 +7,7 @@
 <script type="text/javascript" src="/js/jquery.cookie.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/themes/<%=easyuiThemeName%>/easyui.css" id="easyuiTheme"/>
 <link rel="stylesheet" type="text/css" href="/css/zk.css" />
+<link rel="stylesheet" type="text/css" href="/css/portal.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/css/themes/myicon.css" />
 <script type="text/javascript" src="/js/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
@@ -15,6 +16,7 @@
 <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" src="/js/change-theme.js"></script>
 <script type="text/javascript" src="/js/menu.js"></script>
+<script type="text/javascript" src="/js/jquery.portal.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
 </head>
 
@@ -85,7 +87,7 @@
 	<div class="zk-main" data-options="region:'center'">
 		<div id="zk-tabs" class="easyui-tabs"
 			data-options="border:false,fit:true">
-			<div title="首页" style="background-image: url(/images/shouye1.png)"
+			<div title="首页" style="background-image: url(/images/shouye3.jpg)"
 				data-options="closable:false,iconCls:'icon-tip',cls:'pd3'"></div>
 		</div>
 	</div>

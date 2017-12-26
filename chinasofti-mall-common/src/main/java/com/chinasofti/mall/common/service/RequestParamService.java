@@ -18,6 +18,22 @@ public class RequestParamService {
 
 	private static final Logger logger = LoggerFactory.getLogger(RequestParamService.class);
 
+	public static ResponseInfo packageWithDelShoppingCartRequestParam(PyShoppingCart goodsInfo){
+		ResponseInfo response = new ResponseInfo();
+		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("userId不能为空！");
+			return response;
+		}
+		if (StringUtils.isEmpty(goodsInfo.getId())) {
+			response.setRetCode(MsgEnum.ERROR.getCode());
+			response.setRetMsg("Id不能为空！");
+			return response;
+		}
+	
+		return response;
+	}
+	
 	public static ResponseInfo packageWithShoppingCartRequestParam(PyShoppingCart goodsInfo){
 		ResponseInfo response = new ResponseInfo();
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {

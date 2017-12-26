@@ -1,3 +1,24 @@
+//初始化页面
+$(document).ready(function(){
+	
+	//使用状态
+	var USESTATUS = "10101"
+	
+	$.ajax({
+		url:'/param/list/' + USESTATUS,
+		type:'GET',
+		success:function(data){
+			console.info(data.rows);
+			$('#status').combobox({
+				valueField:'val',
+				textField:'text',
+				data:data.rows
+			})
+		}
+	})
+	
+})
+
 
 	/*
 	 * 单独查询角色名称

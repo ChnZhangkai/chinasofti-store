@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinasofti.app.feign.SpEvaluateFeignClient;
@@ -25,7 +26,7 @@ public class SpEvaluateController {
 	/*
 	 * 评论列表(已评论，未评论)
 	 * */
-	@RequestMapping(value = "/evaList")
+	@RequestMapping(value = "/evaList" , method = RequestMethod.POST)
 	public ResponseInfo selectEvaluateList(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		JSONObject obj = spEvaluateFeignClient.selectEvaluateList(spGoodsEvaluate);
 		return DealParamFunctions.dealResponseData(obj);
@@ -33,7 +34,7 @@ public class SpEvaluateController {
 	/*
 	 * 评论列表(针对商品)
 	 * */
-	@RequestMapping(value = "/evaAllList")
+	@RequestMapping(value = "/evaAllList" , method = RequestMethod.POST)
 	public ResponseInfo selectEvaluateAllList(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		JSONObject obj = spEvaluateFeignClient.selectEvaluateAllList(spGoodsEvaluate);
 		return DealParamFunctions.dealResponseData(obj);
@@ -41,7 +42,7 @@ public class SpEvaluateController {
 	/*
 	 * 进行评论
 	 * */
-	@RequestMapping(value = "/evaAdd")
+	@RequestMapping(value = "/evaAdd" , method = RequestMethod.POST)
 	public ResponseInfo insertSelective(@RequestBody SpGoodsEvaluate spGoodsEvaluate,HttpServletResponse response){
 		ResponseInfo res = new ResponseInfo() ;
 		int result=spEvaluateFeignClient.insertSelective(spGoodsEvaluate); 

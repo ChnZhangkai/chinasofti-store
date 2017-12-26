@@ -10,11 +10,7 @@
 				<input type="text" id="username" name="username" class="easyui-textbox"/>
 				<label>姓名:</label>
 				<input type="text" id="usernames" name="usernames" class="easyui-textbox"/>
-				<label>状态</label> <select id="status" name="status" class="easyui-combobox" data-options="panelHeight:'auto'" style="width: 125px">
-										<option value=""  selected="selected">请选择</option>
-										<option value="0" >禁用</option>
-										<option value="1">启用</option>
-									</select>
+				<label>状态</label> <input id="status" name="status" data-options="panelHeight:'auto'" style="width: 125px"/>
 	          	<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doSearch()">开始检索</a>
 			    <a href="#" class="easyui-linkbutton" iconCls="icon-edit-clear" onclick="doClear()">清除</a>
 		    </form>

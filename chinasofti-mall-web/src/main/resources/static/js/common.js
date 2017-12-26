@@ -1,3 +1,45 @@
+//$(function(){
+//	
+//	$('#mainDiv').panel({
+//		 width:350,    
+//		 height:250,    
+//		 title: '日程安排',
+//		 content:'<div id="cc" class="easyui-calendar" style="width:280px;height:180px;"></div>',
+//		 tools: [{    
+//		    iconCls:'icon-add',    
+//		    handler:function(){alert('暂未实现')}    
+//		 }]
+//	});
+//
+//	
+//})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //搜索条件formid
 var seachId = "";
 //加载方法

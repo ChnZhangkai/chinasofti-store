@@ -29,7 +29,7 @@ $(document).ready(function(){
 			return true;
 		},
 		onExpand:function(row){ 
-            alert(row.id)
+            console.info(row.id);
          },
 		onLoadSuccess:function(){
 			 $(this).treegrid("options").url = '/param/list/' + 0;
