@@ -126,7 +126,7 @@ public class RequestParamService {
 		//空值不限购
 		if (limitOrderNum != null && userBuyNum.compareTo(limitOrderNum) == 1) {
 			response.setRetCode("700001");
-			response.setRetMsg("数量已超出单位限制！");
+			response.setRetMsg("数量已超出单笔限制！");
 			data.put("responseInfo", shoppingCart);
 			response.setData(data);
 			return response;
