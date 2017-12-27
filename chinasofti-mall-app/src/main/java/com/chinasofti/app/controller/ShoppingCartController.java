@@ -57,7 +57,7 @@ public class ShoppingCartController {
 			// 空参校验
 			logger.info("deletePyShoppingCart《《《《《《《《《》》》》》》》》》》" + goods.getId());
 			responseInfo = RequestParamService.packageWithDelShoppingCartRequestParam(goods);
-			if (responseInfo.getRetCode() != null) {
+			if (responseInfo.getRetCode() != "200") {
 				return responseInfo;
 			}
 		}	
@@ -75,7 +75,7 @@ public class ShoppingCartController {
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goodsInfo);
 		// 参数校验
 		 ResponseInfo responseInfo = RequestParamService.packageWithAddShoppingCartParam(goodsInfo);
-		if (responseInfo.getRetCode() != null) {
+		if (responseInfo.getRetCode() != "200") {
 			return responseInfo;
 		}
 		logger.info("空参校验结果《《《《《《《《《》》》》》》》》》》" + responseInfo.getRetMsg());
@@ -100,7 +100,7 @@ public class ShoppingCartController {
 		//参数校验
 		logger.info("updatePyShopping+++++++++++===========" + goodsInfo.getId());
 		ResponseInfo responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
-		if(responseInfo.getRetCode() !=null){
+		if(responseInfo.getRetCode() !="200"){
 			return responseInfo;
 		}
 		logger.info("空参校验结果+++++++++++===========" + responseInfo.getRetMsg());
