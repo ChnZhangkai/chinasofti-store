@@ -2,6 +2,8 @@ package com.chinasofti.mall.web.entrance.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chinasofti.mall.common.entity.PtMenu;
+import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.web.entrance.feign.MenuFeignClient;
 import com.chinasofti.mall.web.entrance.feign.PtRoleFeignClient;
@@ -77,8 +80,10 @@ public class MenuController {
 	 * @return 新增的菜单操作的ids，作为页面传参
 	 */
 	@PostMapping("/add")
-	public String add(PtMenu ptMenu) {
-		return menuFeignClient.add(ptMenu);
+	public String add(PtMenu ptMenu,HttpServletRequest request) {
+		PtUser user=(PtUser)request.getSession().getAttribute("user");	
+		ptMenu.setCreateby(user.getUsername());
+		return menuFeignClient.add(ptMenu);		  
 	}
 	
 	/**
@@ -87,7 +92,9 @@ public class MenuController {
 	 * @return 更新影响的条数
 	 */
 	@PostMapping("/update")
-	public int update(PtMenu ptMenu) {
+	public int update(PtMenu ptMenu,HttpServletRequest request) {
+		PtUser user=(PtUser)request.getSession().getAttribute("user");	
+		ptMenu.setUpdateby(user.getUsername());
 		return menuFeignClient.update(ptMenu);
 	}
 	

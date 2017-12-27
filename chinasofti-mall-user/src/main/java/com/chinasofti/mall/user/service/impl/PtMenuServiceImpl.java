@@ -3,13 +3,10 @@ package com.chinasofti.mall.user.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chinasofti.mall.common.entity.PtMenu;
-import com.chinasofti.mall.common.entity.PtUser;
 import com.chinasofti.mall.common.entity.Tree;
 import com.chinasofti.mall.common.utils.StringDateUtil;
 import com.chinasofti.mall.common.utils.UUIDUtils;
@@ -22,8 +19,6 @@ public class PtMenuServiceImpl implements PtMenuService {
 	@Autowired
 	private PtMenuMapper ptMenuMapper;
 
-	@Autowired
-	private HttpServletRequest request;
 	
 	@Override
 	public List<PtMenu> getMenu(String pids) {
@@ -32,11 +27,9 @@ public class PtMenuServiceImpl implements PtMenuService {
 
 	@Override
 	public String save(PtMenu ptMenu) {
-		PtUser user=(PtUser)request.getSession().getAttribute("user");
 		String str = UUIDUtils.getUuid();
-		ptMenu .setIds(str);
-		ptMenu .setCreateby(user.getUsername());
-		ptMenu .setCeratetime(StringDateUtil.convertToSqlFormat(StringDateUtil.getStringTime()));
+		ptMenu.setIds(str);
+		ptMenu.setCeratetime(StringDateUtil.convertToSqlFormat(StringDateUtil.getStringTime()));
 		ptMenuMapper.insertSelective(ptMenu);
 		return  str;
 	}
@@ -93,8 +86,6 @@ public class PtMenuServiceImpl implements PtMenuService {
 
 	@Override
 	public int update(PtMenu ptMenu) {
-		PtUser user=(PtUser)request.getSession().getAttribute("user");
-		ptMenu.setUpdateby(user.getUsername());
 		ptMenu.setUpdatetime(StringDateUtil.convertToSqlFormat(StringDateUtil.getStringTime()));
 		return ptMenuMapper.updateByPrimaryKeySelective(ptMenu);
 	}

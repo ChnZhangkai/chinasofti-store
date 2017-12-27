@@ -48,7 +48,8 @@ public class MenuController {
 	 */
 	@PostMapping("/add")
 	public String add(@RequestBody PtMenu ptMenu) {	
-		return menuServiceImpl.save(ptMenu);
+		String str = menuServiceImpl.save(ptMenu);
+		 return str;
 	}
 	
 	/**
@@ -58,7 +59,6 @@ public class MenuController {
 	 */
 	@PostMapping("/update")
 	public int update(@RequestBody PtMenu ptMenu) {
-		System.out.println("菜单:"+ptMenu);
 		return menuServiceImpl.update(ptMenu);
 	}
 	
