@@ -138,4 +138,12 @@ public class SpGoodsClassFeignClientHystrix implements ChnGoodsFeignClient{
 	}
 
 
+	@Override
+	public int batchDeletes(List<String> delList) {
+		return 0;
+	}
+
+
+
+
 }

@@ -3,6 +3,8 @@
  */
 package com.chinasofti.mall.web.entrance.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,23 @@ public class SpEvaluateController {
 	@RequestMapping(value = "delete/{ids}")
 	public int commentsDeleteById(@PathVariable String ids) {
 		return chnGoodsFeignClient.deleteById(ids);
+	}
+	
+	
+	/**
+	 * 通过批量删除评论
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "batchDeletes/{temID}")
+	public int batchDeletes(@PathVariable String temID){
+        List<String> delList = new ArrayList<String>();
+        String[] strs = temID.split(",");
+        for (String str : strs) {
+            delList.add(str);
+        }
+        System.out.println("数据:"+delList);
+       return chnGoodsFeignClient.batchDeletes(delList);	 
 	}
 	
 	/**

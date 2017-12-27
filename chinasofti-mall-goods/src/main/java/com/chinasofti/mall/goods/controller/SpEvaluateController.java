@@ -3,10 +3,12 @@
  */
 package com.chinasofti.mall.goods.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,15 +59,26 @@ public class SpEvaluateController {
 	}
 	
 	/**
+	 * 通过批量删除评论
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/batchDeletes")
+	public int batchDeletes(@RequestBody(required = false) List<String> delList){
+		System.out.println("List:"+delList);
+		return GoodsCommentsServiceImpl.batchDeletes(delList);
+		
+	}
+	
+	
+	/**
 	 * 查询评论图片
 	 * @return
 	 */
 	@RequestMapping("/reqCommentsImgPath/{ids}")
 	public SpEvaluate reqGoodsImgPath(@PathVariable String ids){
 		return  GoodsCommentsServiceImpl.selectByCommentsIds(ids);	
-		
-		
-		
+	
 	}
 
 }

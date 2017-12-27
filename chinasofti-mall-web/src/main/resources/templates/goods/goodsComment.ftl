@@ -18,7 +18,8 @@
 	</div>
 	<!-- 数据显示datagrid -->
 	<table id="spEvaluateinfo" class="easyui-datagrid"  style="height: 100%"
-	 toolbar="#spEvaluate-toolbar"	data-options="url:'/comments/findByPage',
+	 toolbar="#spEvaluate-toolbar"	data-options="rownumbers:true,
+	 					 url:'/comments/findByPage',
 						 fitColumns:false,
        					 pagination:true,
        					 sortName:'CREATE_TIME',
@@ -26,7 +27,7 @@
        					 title:'商品评论列表',
        				 	 iconCls:'icon-man',
 		   				 striped:true,
-		   				 singleSelect:true,
+		   				 singleSelect:false,
 						 collapsible:true,
 		   				 pageSize:20,
 		   				 pageList: [20, 40, 60, 100],
@@ -34,6 +35,7 @@
 		   				 
 	   <thead>
 			<tr>
+				<th field="ck" width="5%" align="center" data-options="checkbox:true"></th>
 				<th field="title" width="13%" align="center" data-options="sortable:true">商品名称</th>
 				<th field="count" width="15%" align="center" data-options="sortable:true">商品得分</th>
 				<th field="content" width="40%" align="center" data-options="sortable:true">评论内容</th>

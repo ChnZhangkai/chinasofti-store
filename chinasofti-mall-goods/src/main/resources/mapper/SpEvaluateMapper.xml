@@ -102,6 +102,15 @@
     delete from sp_evaluate
     where IDS = #{ids,jdbcType=VARCHAR}
   </delete>
+  
+    <delete id="batchDeletes" parameterType="java.util.List">
+          DELETE FROM sp_evaluate where IDS in
+      <foreach collection="list" index="index" item="item" open="(" separator="," close=")">   
+          #{item}   
+       </foreach>
+    </delete>
+  
+  
   <delete id="deleteByExample" parameterType="com.chinasofti.mall.common.entity.goods.SpEvaluateExample">
     delete from sp_evaluate
     <if test="_parameter != null">
