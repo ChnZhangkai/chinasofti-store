@@ -29,6 +29,8 @@
 	        },
 	        //编辑完成之后执行如下操作
 	        onAfterEdit : function(node){
+	        	debugger;
+	        	console.info(node.text);
 		        	//当前节点对象
 		        	var _tree = $(this);
 		        	var nodeTextLength = (node.text).length;
@@ -84,6 +86,9 @@
 		//获取树节点被选中的对象
 		var node = tree.tree("getSelected");
 		//当前点击的获取菜单的name属性，如果属性值=add，则执行如下代码
+		debugger;
+		var randomid = uuid(32,10);
+		console.info(randomid);
 		if(item.name === "add"){
 			//在树节点下增加一个树节点
 			tree.tree('append', {
@@ -121,4 +126,33 @@
 				}
 			});
 		}
+	}
+	
+	function uuid(len, radix) {
+	    var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+	    var uuid = [], i;
+	    radix = radix || chars.length;
+	 
+	    if (len) {
+	      // Compact form
+	      for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random()*radix];
+	    } else {
+	      // rfc4122, version 4 form
+	      var r;
+	 
+	      // rfc4122 requires these characters
+	      uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+	      uuid[14] = '4';
+	 
+	      // Fill in random data.  At i==19 set the high bits of clock sequence as
+	      // per rfc4122, sec. 4.1.5
+	      for (i = 0; i < 36; i++) {
+	        if (!uuid[i]) {
+	          r = 0 | Math.random()*16;
+	          uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+	        }
+	      }
+	    }
+	 
+	    return uuid.join('');
 	}

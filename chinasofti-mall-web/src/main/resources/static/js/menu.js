@@ -4,7 +4,7 @@
 /**
  * 主菜单ID 目前只支持二级菜单
  */
-var JCMENUPID="000";
+var JCMENUPID="999";
 var YYMENUPID="001";
 var WXMENUPID="002";
 $(function(){
