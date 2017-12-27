@@ -18,7 +18,7 @@ public class RequestParamService {
 
 	private static final Logger logger = LoggerFactory.getLogger(RequestParamService.class);
 
-	public  ResponseInfo packageWithDelShoppingCartRequestParam(PyShoppingCart goodsInfo){
+	public static  ResponseInfo packageWithDelShoppingCartRequestParam(PyShoppingCart goodsInfo){
 		ResponseInfo response = new ResponseInfo();
 		logger.info("验证参数1====="+goodsInfo.getUserId());
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
@@ -36,7 +36,7 @@ public class RequestParamService {
 		return response;
 	}
 	
-	public  ResponseInfo packageWithShoppingCartRequestParam(PyShoppingCart goodsInfo){
+	public static  ResponseInfo packageWithShoppingCartRequestParam(PyShoppingCart goodsInfo){
 		ResponseInfo response = new ResponseInfo();
 		logger.info("验证参数1====="+goodsInfo.getUserId());
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
@@ -65,7 +65,7 @@ public class RequestParamService {
 		return response;
 	}
 	
-	public  ResponseInfo packageWithAddShoppingCartParam(PyShoppingCart goodsInfo){
+	public static ResponseInfo packageWithAddShoppingCartParam(PyShoppingCart goodsInfo){
 		ResponseInfo response = new ResponseInfo();
 		logger.info("验证参数1====="+goodsInfo.getUserId());
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
@@ -102,7 +102,7 @@ public class RequestParamService {
 	 * @param storegoodsInfo
 	 * @return
 	 */
-	public  ResponseInfo packageWithGoodsInfoRequest(PyShoppingCart shoppingCart, ChnGoodsinfo storegoodsInfo) {
+	public static ResponseInfo packageWithGoodsInfoRequest(PyShoppingCart shoppingCart, ChnGoodsinfo storegoodsInfo) {
 		ResponseInfo response = new ResponseInfo();
 		String goodsStatus = storegoodsInfo.getStatus();
 		Map<String, Object> data = new HashMap<String, Object>();
