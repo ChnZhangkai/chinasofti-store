@@ -32,8 +32,9 @@ public class RequestParamService {
 			response.setRetMsg("Id不能为空！");
 			return response;
 		}
-	
+		logger.info("验证参数2====="+response);
 		return response;
+		
 	}
 	
 	public static  ResponseInfo packageWithShoppingCartRequestParam(PyShoppingCart goodsInfo){
@@ -62,6 +63,7 @@ public class RequestParamService {
 			response.setRetMsg("goodsId不能为空！");
 			return response;
 		}
+		logger.info("验证response====="+response);
 		return response;
 	}
 	
