@@ -3,7 +3,8 @@
 		$("#menuTree").tree({
 			//树节点内容远程调用地址
 			url : '/menu/menuTree',
-			animate: true,
+			lines:true, //连接虚线
+			animate:true, //展开折叠动画效果
 			//提交方式为get
 			method : "GET",
 			//鼠标右击事件,e为当前事件对象，node为当前点击事件所在的tree节点
@@ -27,6 +28,12 @@
 		            });
 				}
 	        },
+	        onDblClick:function(node){  //双击事件
+               	var id = node.id;  
+                var text = node.text;  
+                isChange = node.text;
+                $('#menuTree').tree('beginEdit', node.target);//开启编辑
+			},
 	        //编辑完成之后执行如下操作
 	        onAfterEdit : function(node){
 		        	//当前节点对象
@@ -47,7 +54,7 @@
 			        		data: {pids:node.parentId,menuname:node.text},
 			        		success: function(msg){
 					     	//刷新_tree(当前节点)节点
-					     	alert(msg);
+					     	//alert(msg);
 					        	_tree.tree("update",{
 							    //新增节点说明需要返回当前节点存储到数据库的id
 							    target : node.target,
@@ -84,6 +91,7 @@
 		//获取树节点被选中的对象
 		var node = tree.tree("getSelected");
 		//当前点击的获取菜单的name属性，如果属性值=add，则执行如下代码
+		console.info(node);
 		if(item.name === "add"){
 			//在树节点下增加一个树节点
 			tree.tree('append', {
@@ -91,12 +99,12 @@
 	            parent: (node?node.target:null),
 	            data: [{
 	                text: '新建操作',
-	                id : 0,
+	                id : 999,
 	                parentId : node.id
 	            }]
-	        }); 
+	        }).tree('beginEdit',node.target);; 
 			//找到树节点的id=0的节点，即刚才新增的树节点
-			var _node = tree.tree('find',0);
+			var _node = tree.tree('find',999);
 			//首先让上面新增的树节点选中,beginEdit:即开启它的编辑状态
 			tree.tree("select",_node.target).tree('beginEdit',_node.target);
 		}else if(item.name === "rename"){
