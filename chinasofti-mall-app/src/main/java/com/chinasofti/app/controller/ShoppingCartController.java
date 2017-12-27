@@ -56,16 +56,8 @@ public class ShoppingCartController {
 		for (PyShoppingCart goods : goodsList) {
 			// 空参校验
 			logger.info("deletePyShoppingCart《《《《《《《《《》》》》》》》》》》" + goods.getId());
-			logger.info("验证参数1====="+goods.getUserId());
-			if (StringUtils.isEmpty(goods.getUserId())) {
-				responseInfo.setRetCode(MsgEnum.ERROR.getCode());
-				responseInfo.setRetMsg("userId不能为空！");
-				return responseInfo;
-			}
-			logger.info("验证参数2====="+goods.getId());
-			if (StringUtils.isEmpty(goods.getId())) {
-				responseInfo.setRetCode(MsgEnum.ERROR.getCode());
-				responseInfo.setRetMsg("Id不能为空！");
+			responseInfo = RequestParamService.packageWithDelShoppingCartRequestParam(goods);
+			if (responseInfo.getRetCode() != "200") {
 				return responseInfo;
 			}
 		}	
@@ -83,8 +75,7 @@ public class ShoppingCartController {
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goodsInfo);
 		// 参数校验
 		 ResponseInfo responseInfo = RequestParamService.packageWithAddShoppingCartParam(goodsInfo);
-		 logger.info("RetCode+++++++++++===========" + responseInfo.getRetCode());
-		if (responseInfo.getRetCode() != null) {
+		if (responseInfo.getRetCode() != "200") {
 			return responseInfo;
 		}
 		logger.info("空参校验结果《《《《《《《《《》》》》》》》》》》" + responseInfo.getRetMsg());
@@ -109,11 +100,8 @@ public class ShoppingCartController {
 		//参数校验
 		logger.info("updatePyShopping+++++++++++===========" + goodsInfo.getId());
 		ResponseInfo responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
-		logger.info("RetCode+++++++++++===========" + responseInfo.getRetCode());
-		if(responseInfo.getRetCode() !=null){
-			
+		if(responseInfo.getRetCode() !="200"){
 			return responseInfo;
-			
 		}
 		logger.info("空参校验结果+++++++++++===========" + responseInfo.getRetMsg());
 		int re = shoppingCartFeignClient.updateShoppingCartGoods(goodsInfo);
