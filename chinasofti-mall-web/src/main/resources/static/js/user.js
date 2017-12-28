@@ -8,7 +8,6 @@ $(document).ready(function(){
 		url:'/param/list/' + USESTATUS,
 		type:'GET',
 		success:function(data){
-			console.info(data.rows);
 			$('#status').combobox({
 				valueField:'val',
 				textField:'text',

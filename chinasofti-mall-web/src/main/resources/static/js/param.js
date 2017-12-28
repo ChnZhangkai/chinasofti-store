@@ -20,8 +20,19 @@ $(document).ready(function(){
 					return '<span style="color:green">启用</span>';
 				}
 			}},
-			{field:'operator',title:'操作',width:'20%',align:'center',formatter:function(value){
-				
+			{field:'operator',title:'操作',width:'20%',align:'center',formatter:function(value,row,index){
+				if (row.status == 0) {
+					return '<button id="allow" style="background-color: #3DADD3" class="easyui-linkbutton" iconCls="icon-tick" onclick="changeStatus(this,'+index+')" plain="true">启用</button>';
+				} else {
+					return '<button id="forbid" class="easyui-linkbutton" iconCls="icon-stop" onclick="changeStatus(this,'+index+')" plain="true">禁用</button>';
+				}
+//				if(row.id > 1000000){
+//					return '<button id="edit" style="background-color: #3DADD3" class="easyui-linkbutton" iconCls="icon-edit" onclick="changeStatus(this,'+index+')" plain="true">修改</button>'+
+//						   '<button id="rm" style="background-color: #3DADD3" class="easyui-linkbutton" iconCls="icon-remove" onclick="changeStatus(this,'+index+')" plain="true">删除</button>';
+//				}else{
+//					return '<button id="edit" style="background-color: #3DADD3" class="easyui-linkbutton" iconCls="icon-edit" onclick="changeStatus(this,'+index+')" plain="true">修改</button>'
+//						   '<button id="add" style="background-color: #3DADD3" class="easyui-linkbutton" iconCls="icon-add" onclick="changeStatus(this,'+index+')" plain="true">添加</button>';
+//				}
 			}}
 		]],
 		onBeforeExpand:function(row){
@@ -29,10 +40,37 @@ $(document).ready(function(){
 			return true;
 		},
 		onExpand:function(row){ 
-            console.info(row.id);
+            
          },
 		onLoadSuccess:function(){
 			 $(this).treegrid("options").url = '/param/list/' + 0;
+			 $('#ParamTable').treegrid('expandAll');
         },
-	})
+	});
 });
+
+//树查询
+function doParamSearch(){
+	var parentNode = $('#ParamTable').treegrid('getRoots');//得到顶级Node
+	var paramTextSearch = $('#text').val();
+	var childrenNode;
+	
+	childrenNode = $('#ParamTable').treegrid('getChildren',parentNode[0].target);
+	
+	for(var i=0;i<childrenNode.length;i++){
+		if(childrenNode[i].text.indexOf(paramTextSearch) >= 0){
+			$('#ParamTable').treegrid('select',childrenNode[i].id);
+		}
+	}
+	
+	//$('#ParamTable').treegrid('expandAll');
+}
+
+
+
+
+
+
+
+
+
