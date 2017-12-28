@@ -9,6 +9,8 @@ public class Constant {
 	public static final Boolean CHECKED = false;
 	//商品表状态 0已删除，1 已上架 2 已下架
 	public static final String GOODS_STATUS ="1";
+	
+	public static final String RETCODE="200";
 	//商品图片URL
 	//public static final String HOST_URL ="http://192.168.1.238";
 	//status : 订单状态: 0 待付款  1 待发货 2 待收货 3 交易成功  4 交易关闭（已删除） 5 交易关闭（已取消） 6 交易关闭（退款成功）

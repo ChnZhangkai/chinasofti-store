@@ -20,6 +20,7 @@ import com.chinasofti.mall.common.entity.goods.ChnGoodsinfo;
 import com.chinasofti.mall.common.entity.order.PyShoppingCart;
 import com.chinasofti.mall.common.entity.order.VendorShoppingcartVO;
 import com.chinasofti.mall.common.service.RequestParamService;
+import com.chinasofti.mall.common.utils.Constant;
 import com.chinasofti.mall.common.utils.DealParamFunctions;
 import com.chinasofti.mall.common.utils.MsgEnum;
 import com.chinasofti.mall.common.utils.ResponseInfo;
@@ -56,8 +57,8 @@ public class ShoppingCartController {
 		for (PyShoppingCart goods : goodsList) {
 			// 空参校验
 			logger.info("deletePyShoppingCart《《《《《《《《《》》》》》》》》》》" + goods.getId());
-			responseInfo = RequestParamService.packageWithDelShoppingCartRequestParam(goods);
-			if (responseInfo.getRetCode() != "200") {
+			responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goods.getUserId(),goods.getId());
+			if (responseInfo.getRetCode() != Constant.RETCODE) {
 				return responseInfo;
 			}
 		}	
@@ -75,7 +76,7 @@ public class ShoppingCartController {
 		logger.info("请求参数《《《《《《《《《》》》》》》》》》》" + goodsInfo);
 		// 参数校验
 		 ResponseInfo responseInfo = RequestParamService.packageWithAddShoppingCartParam(goodsInfo);
-		if (responseInfo.getRetCode() != "200") {
+		if (responseInfo.getRetCode() != Constant.RETCODE) {
 			return responseInfo;
 		}
 		logger.info("空参校验结果《《《《《《《《《》》》》》》》》》》" + responseInfo.getRetMsg());
@@ -100,7 +101,7 @@ public class ShoppingCartController {
 		//参数校验
 		logger.info("updatePyShopping+++++++++++===========" + goodsInfo.getId());
 		ResponseInfo responseInfo = RequestParamService.packageWithShoppingCartRequestParam(goodsInfo);
-		if(responseInfo.getRetCode() !="200"){
+		if(responseInfo.getRetCode() != Constant.RETCODE){
 			return responseInfo;
 		}
 		logger.info("空参校验结果+++++++++++===========" + responseInfo.getRetMsg());
