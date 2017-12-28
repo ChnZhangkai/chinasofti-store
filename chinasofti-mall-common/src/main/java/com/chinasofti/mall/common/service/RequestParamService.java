@@ -17,17 +17,17 @@ import com.chinasofti.mall.common.utils.ResponseInfo;
 public class RequestParamService {
 
 	private static final Logger logger = LoggerFactory.getLogger(RequestParamService.class);
-
-	public static  ResponseInfo packageWithDelShoppingCartRequestParam(PyShoppingCart goodsInfo){
+    //购物车删除的空参验证
+	public static  ResponseInfo packageWithShoppingCartRequestParam(String userId,String id){
 		ResponseInfo response = new ResponseInfo();
-		logger.info("验证参数1====="+goodsInfo.getUserId());
-		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
+		logger.info("验证参数1====="+userId);
+		if (StringUtils.isEmpty(userId)) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("userId不能为空！");
 			return response;
 		}
-		logger.info("验证参数2====="+goodsInfo.getId());
-		if (StringUtils.isEmpty(goodsInfo.getId())) {
+		logger.info("验证参数2====="+id);
+		if (StringUtils.isEmpty(id)) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("Id不能为空！");
 			return response;
@@ -36,19 +36,18 @@ public class RequestParamService {
 		return response;
 		
 	}
-	
-	public static  ResponseInfo packageWithShoppingCartRequestParam(PyShoppingCart goodsInfo){
-		ResponseInfo response = new ResponseInfo();
+	public static ResponseInfo checkRequestParam(PyShoppingCart goodsInfo,ResponseInfo response){
+		
 		logger.info("验证参数1====="+goodsInfo.getUserId());
 		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("userId不能为空！");
 			return response;
 		}
-		logger.info("验证参数2====="+goodsInfo.getId());
-		if (StringUtils.isEmpty(goodsInfo.getId())) {
+		logger.info("验证参数2====="+goodsInfo.getGoodsId());
+		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("Id不能为空！");
+			response.setRetMsg("goodsId不能为空！");
 			return response;
 		}
 		logger.info("验证参数3====="+goodsInfo.getGoodsNum());
@@ -57,10 +56,15 @@ public class RequestParamService {
 			response.setRetMsg("goodsNum不能为空！");
 			return response;
 		}
-		logger.info("验证参数4====="+goodsInfo.getGoodsId());
-		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
+		return response;
+	}
+	public static  ResponseInfo packageWithShoppingCartRequestParam(PyShoppingCart goodsInfo){
+		ResponseInfo response = new ResponseInfo();
+		 response= checkRequestParam(goodsInfo,response);
+		logger.info("验证参数4====="+goodsInfo.getId());
+		if (StringUtils.isEmpty(goodsInfo.getId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("goodsId不能为空！");
+			response.setRetMsg("Id不能为空！");
 			return response;
 		}
 		logger.info("验证response====="+response);
@@ -69,31 +73,14 @@ public class RequestParamService {
 	
 	public static ResponseInfo packageWithAddShoppingCartParam(PyShoppingCart goodsInfo){
 		ResponseInfo response = new ResponseInfo();
-		logger.info("验证参数1====="+goodsInfo.getUserId());
-		if (StringUtils.isEmpty(goodsInfo.getUserId())) {
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("userId不能为空！");
-			logger.info("用户Id为空，请登录后再添加！userId:"+goodsInfo.getUserId());
-			return response;
-		}
-		logger.info("验证参数2====="+goodsInfo.getVendorId());
+		response= checkRequestParam(goodsInfo,response);	
+		logger.info("验证参数4====="+goodsInfo.getVendorId());
 		if (StringUtils.isEmpty(goodsInfo.getVendorId())) {
 			response.setRetCode(MsgEnum.ERROR.getCode());
 			response.setRetMsg("vendorId不能为空！");
 			return response;
 		}
-		logger.info("验证参数3====="+goodsInfo.getGoodsNum());
-		if (StringUtils.isEmpty(String.valueOf(goodsInfo.getGoodsNum()))) {
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("goodsNum不能为空！");
-			return response;
-		}
-		logger.info("验证参数4====="+goodsInfo.getGoodsId());
-		if (StringUtils.isEmpty(goodsInfo.getGoodsId())) {
-			response.setRetCode(MsgEnum.ERROR.getCode());
-			response.setRetMsg("goodsId不能为空！");
-			return response;
-		}
+		
 		return response;
 	}
 
